@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
@@ -92,69 +94,79 @@
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 <li class="nav-item">
                   <!-- parent pages--><a class="nav-link dropdown-indicator" href="#dashboard" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="dashboard">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">Dashboard123</span>
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">마이페이지</span>
                     </div>
                   </a>
                   <ul class="nav collapse show" id="dashboard">
+                  
                     <li class="nav-item"><a class="nav-link active" href="index.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Default</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">내정보 수정</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
+                    
                     <li class="nav-item"><a class="nav-link" href="dashboard/analytics.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Analytics</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">내가 쓴 글 관리</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
+                    
                     <li class="nav-item"><a class="nav-link" href="dashboard/crm.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">CRM</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">내 연차 관리</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard/e-commerce.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">E commerce</span>
+                 </ul> 
+                </li>
+
+                <li class="nav-item">
+                  <!-- label-->
+                  <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                    <div class="col-auto navbar-vertical-label">
+                    </div>
+
+                    <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider" />
+                    </div>
+                  </div>
+                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">근태관리</span>
+                    </div>
+                  </a>
+                  <ul class="nav collapse" id="email">
+                    <li class="nav-item"><a class="nav-link" href="app/email/inbox.jsp">
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">출/퇴근 현황</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard/lms.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">LMS</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span>
+                    <li class="nav-item"><a class="nav-link" href="app/email/email-detail.jsp">
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">연차/휴가 신청</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard/project-management.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Management</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard/saas.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">SaaS</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard/support-desk.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Support desk</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span>
+                    <li class="nav-item"><a class="nav-link" href="app/email/compose.jsp">
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">잔여 연차 현황</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
                   </ul>
-                </li>
-                <li class="nav-item">
-                  <!-- label-->
+                  
+                         <!-- label-->
                   <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                    <div class="col-auto navbar-vertical-label">App
+                    <div class="col-auto navbar-vertical-label">전자결재
                     </div>
-                    <div class="col ps-0">
+                  <div class="col ps-0">
                       <hr class="mb-0 navbar-vertical-divider" />
                     </div>
                   </div>
+                  
+                  
                   <!-- parent pages--><a class="nav-link" href="app/calendar.jsp" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">Calendar</span>
                     </div>
@@ -163,30 +175,6 @@
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments"></span></span><span class="nav-link-text ps-1">Chat</span>
                     </div>
                   </a>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">Email</span>
-                    </div>
-                  </a>
-                  <ul class="nav collapse" id="email">
-                    <li class="nav-item"><a class="nav-link" href="app/email/inbox.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Inbox</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="app/email/email-detail.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email detail</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="app/email/compose.jsp">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Compose</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
                   <!-- parent pages--><a class="nav-link dropdown-indicator" href="#events" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Events</span>
                     </div>
@@ -1655,6 +1643,8 @@
                   </a>
                 </li>
               </ul>
+              
+              
               <div class="settings mb-3">
                 <div class="card shadow-none">
                   <div class="card-body alert mb-0" role="alert">
@@ -1826,8 +1816,8 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world ð"</p>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¬</span>Just now</span>
 
                             </div>
                           </a>
@@ -1859,7 +1849,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¤ï¸</span>1d</span>
 
                             </div>
                           </a>
@@ -1875,7 +1865,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">âï¸</span>1w</span>
 
                             </div>
                           </a>
@@ -1891,7 +1881,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ðâ</span>2d</span>
 
                             </div>
                           </a>
