@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DocumentFormServiceImpl implements DocumentFormService {
-	private final DocumentFormService documentFormService;
+	private final DocumentFormDAO documentFormDao;
 	
 	
 }

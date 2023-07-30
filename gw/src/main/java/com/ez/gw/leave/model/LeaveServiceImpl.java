@@ -1,4 +1,4 @@
-package com.ez.gw.employee.model;
+package com.ez.gw.leave.model;
 
 import org.springframework.stereotype.Service;
 
@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeServiceImpl implements EmployeeService{
-	private final EmployeeDAO employeeDao;
+public class LeaveServiceImpl implements LeaveService{
+	private final LeaveDAO leaveDao;
 	
 	
 }
