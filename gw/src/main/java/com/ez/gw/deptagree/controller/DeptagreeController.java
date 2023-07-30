@@ -14,5 +14,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeptagreeController {
 	private static final Logger logger = LoggerFactory.getLogger(DeptagreeController.class);
-	private final DeptagreeService deptagreeService;
+	
 }
