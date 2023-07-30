@@ -10,7 +10,7 @@ import com.ez.gw.deptagree.model.DeptagreeService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping
+@RequestMapping()
 @RequiredArgsConstructor
 public class DeptagreeController {
 	private static final Logger logger = LoggerFactory.getLogger(DeptagreeController.class);
