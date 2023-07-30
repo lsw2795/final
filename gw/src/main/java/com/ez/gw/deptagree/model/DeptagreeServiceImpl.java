@@ -9,5 +9,5 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DeptagreeServiceImpl implements DeptService{
-	private final DeptagreeService deptagreeService;
+	private final DeptagreeDAO deptagreeDao;
 }
