@@ -332,14 +332,21 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">동호회 결제</span>
+                        				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
+                        				<span class="nav-link-text ps-1">동호회 게시판</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">동호회 결제</span>
                         			</div> 
                       			</a>
                     		</li>
