@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping()
+@RequestMapping("")
 public class AgreementController {
 	private static final Logger logger = LoggerFactory.getLogger(AgreementController.class);
 	private final AgreementService agreementService;
