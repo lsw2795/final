@@ -94,14 +94,7 @@
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-				<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-	                    <div class="col-auto navbar-vertical-label">
-	                    	내 상태
-	                    </div>
-	                    <div class="col ps-0">
-	                      <hr class="mb-0 navbar-vertical-divider" />
-	                    </div>
-                  	</div>
+				
 					<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#mypage" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
