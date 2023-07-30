@@ -8,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DeptagreeServiceImpl implements DeptService{
+public class DeptagreeServiceImpl implements DeptagreeService{
 	private final DeptagreeDAO deptagreeDao;
 }

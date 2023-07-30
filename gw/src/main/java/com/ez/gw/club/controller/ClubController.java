@@ -1,18 +1,20 @@
-package com.ez.gw.deptagree.controller;
+package com.ez.gw.club.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ez.gw.deptagree.model.DeptagreeService;
+import com.ez.gw.club.model.ClubService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping()
 @RequiredArgsConstructor
-public class DeptagreeController {
-	private static final Logger logger = LoggerFactory.getLogger(DeptagreeController.class);
+@RequestMapping
+public class ClubController {
+	private static final Logger logger = LoggerFactory.getLogger(ClubController.class);
+	private final ClubService clubService;
+	
 	
 }
