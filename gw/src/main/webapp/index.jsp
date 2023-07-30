@@ -1,5 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" lang="EUC-KR" dir="ltr">
 
   <head>
     <meta charset="utf-8">
@@ -91,7 +93,21 @@
             <div class="navbar-vertical-content scrollbar">
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 <li class="nav-item">
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#dashboard" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="dashboard">
+                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#d" role="button" data-bs-toggle="collapse">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">파이널</span>
+                    </div>
+                  </a>
+                  <ul class="nav collapse show" id="d">
+                    <li class="nav-item"><a class="nav-link " href="#">
+                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">파이널</span>
+                        </div> 
+                      </a>
+                      <!-- more inner pages-->
+                    </li>
+					</ul>					
+				</li>
+                <li class="nav-item">
+                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#dashboard" role="button" data-bs-toggle="collapse" >
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">Dashboard</span>
                     </div>
                   </a>
@@ -1826,8 +1842,8 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world ð"</p>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¬</span>Just now</span>
 
                             </div>
                           </a>
@@ -1859,7 +1875,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¤ï¸</span>1d</span>
 
                             </div>
                           </a>
@@ -1875,7 +1891,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">âï¸</span>1w</span>
 
                             </div>
                           </a>
@@ -1891,7 +1907,7 @@
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
+                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ðâ</span>2d</span>
 
                             </div>
                           </a>
