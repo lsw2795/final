@@ -13,6 +13,6 @@ public class IndexController {
 	public String index() {
 		logger.info("index 페이지 보여주기");
 		
-		return "/main/main";
+		return "index";
 	}
 }
