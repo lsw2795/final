@@ -185,7 +185,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#c" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-laptop-file"></span></span>
 	                    		<span class="nav-link-text ps-1">자원관리</span>
 	                    	</div>
 	                  	</a>
@@ -319,7 +319,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#g" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-parachute-box"></span></span>
 	                    		<span class="nav-link-text ps-1">동호회</span>
 	                    	</div>
 	                  	</a>
@@ -374,7 +374,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#i" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-share-alt"></span></span>
 	                    		<span class="nav-link-text ps-1">피드</span>
 	                    	</div>
 	                  	</a>
