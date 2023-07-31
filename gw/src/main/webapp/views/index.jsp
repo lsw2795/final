@@ -97,7 +97,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link active" href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내정보 수정</span>
                         			</div> 
