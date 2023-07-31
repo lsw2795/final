@@ -92,7 +92,7 @@
 					<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#mypage" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-address-card"></span></span>
 	                    		<span class="nav-link-text ps-1">마이페이지</span>
 	                    	</div>
 	                  	</a>
@@ -123,7 +123,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#a" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-user-check"></span></span>
 	                    		<span class="nav-link-text ps-1">근태관리</span>
 	                    	</div>
 	                  	</a>
@@ -154,7 +154,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#b" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-file-export"></span></span>
 	                    		<span class="nav-link-text ps-1">전자결재</span>
 	                    	</div>
 	                  	</a>
@@ -185,7 +185,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#c" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-plug"></span></span>
 	                    		<span class="nav-link-text ps-1">자원관리</span>
 	                    	</div>
 	                  	</a>
@@ -209,7 +209,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#d" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span>
 	                    		<span class="nav-link-text ps-1">캘린더</span>
 	                    	</div>
 	                  	</a>
@@ -226,7 +226,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#e" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span>
 	                    		<span class="nav-link-text ps-1">쪽지</span>
 	                    	</div>
 	                  	</a>
@@ -257,7 +257,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#f" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-download"></span></span>
 	                    		<span class="nav-link-text ps-1">자료실</span>
 	                    	</div>
 	                  	</a>
@@ -290,19 +290,19 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-thumbtack"></span></span>
 	                    		<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
 	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-question-circle"></span></span>
 	                    		<span class="nav-link-text ps-1">FAQ</span>
 	                    	</div>
 	                  	</a>
@@ -319,7 +319,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#g" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-parachute-box"></span></span>
 	                    		<span class="nav-link-text ps-1">동호회</span>
 	                    	</div>
 	                  	</a>
@@ -350,7 +350,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#h" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-carrot"></span></span>
 	                    		<span class="nav-link-text ps-1">중고거래</span>
 	                    	</div>
 	                  	</a>
@@ -374,7 +374,7 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#i" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span>
+	                    		<span class="nav-link-icon"><span class="fas fa-paper-plane"></span></span>
 	                    		<span class="nav-link-text ps-1">피드</span>
 	                    	</div>
 	                  	</a>
