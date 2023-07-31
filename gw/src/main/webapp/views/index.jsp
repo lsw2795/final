@@ -7,13 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
-
+    <title>망하면 김채영 매달아놓기</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -27,7 +24,6 @@
     <meta name="theme-color" content="#ffffff">
     <script src="assets/js/config.js"></script>
     <script src="vendors/simplebar/simplebar.min.js"></script>
-
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -55,8 +51,6 @@
       }
     </script>
   </head>
-
-
   <body>
 
     <!-- ===============================================-->
@@ -91,6 +85,7 @@
               </div>
             </a>
           </div>
+          <!-- side nav -->
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
@@ -405,6 +400,7 @@
 		  </div>
         </nav>
         <div class="content">
+        <!-- top nav -->
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
             <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
             <a class="navbar-brand me-1 me-sm-3" href="index.jsp">
@@ -436,16 +432,13 @@
                             <div class="notification-avatar">
                               <div class="avatar avatar-2xl me-3">
                                 <img class="rounded-circle" src="assets/img/team/1-thumb.png" alt="" />
-
                               </div>
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world ð"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¬</span>Just now</span>
-
                             </div>
                           </a>
-
                         </div>
                         <div class="list-group-item">
                           <a class="notification notification-flush notification-unread" href="#!">
@@ -457,10 +450,8 @@
                             <div class="notification-body">
                               <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
                               <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
-
                             </div>
                           </a>
-
                         </div>
                         <div class="list-group-title border-bottom">EARLIER</div>
                         <div class="list-group-item">
@@ -468,55 +459,45 @@
                             <div class="notification-avatar">
                               <div class="avatar avatar-2xl me-3">
                                 <img class="rounded-circle" src="assets/img/icons/weather-sm.jpg" alt="" />
-
                               </div>
                             </div>
                             <div class="notification-body">
                               <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¤ï¸</span>1d</span>
-
                             </div>
                           </a>
-
                         </div>
                         <div class="list-group-item">
                           <a class="border-bottom-0 notification-unread  notification notification-flush" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-xl me-3">
                                 <img class="rounded-circle" src="assets/img/logos/oxford.png" alt="" />
-
                               </div>
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">âï¸</span>1w</span>
-
                             </div>
                           </a>
-
                         </div>
                         <div class="list-group-item">
                           <a class="border-bottom-0 notification notification-flush" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-xl me-3">
                                 <img class="rounded-circle" src="assets/img/team/10.jpg" alt="" />
-
                               </div>
                             </div>
                             <div class="notification-body">
                               <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ðâ</span>2d</span>
-
                             </div>
                           </a>
-
                         </div>
                       </div>
                     </div>
                     <div class="card-footer text-center border-top"><a class="card-link d-block" href="app/social/notifications.jsp">View all</a></div>
                   </div>
                 </div>
-
               </li>
               <li class="nav-item dropdown px-1">
                 <a class="nav-link fa-icon-wait nine-dots p-1" id="navbarDropdownMenu" role="button" data-hide-on-body-scroll="data-hide-on-body-scroll" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -602,6 +583,26 @@
               </li>
             </ul>
           </nav>
+          <!-- top end -->
+          
+          <div class="row g-0">
+	          <div class="col-lg-6 pe-lg-2 mb-3">
+	          	<div class="card h-lg-100 overflow-hidden">
+	          		<div class="card-header bg-light">김채영</div>
+	          		<div class="card-body py-2 p-0"> 잘 하자</div>
+	          		<div class="card-footer py-2 bg-light p-0">알겠지?</div>
+	          	</div>
+	          </div>
+	          <div class="col-lg-6 pe-lg-2 mb-3">
+	          	<div class="card h-lg-100 overflow-hidden">
+	          		<div class="card-header bg-light">채영아</div>
+	          		<div class="card-body py-2 "> 수업 들어라</div>
+	          		<div class="card-footer py-2 bg-light ">공부 좀 해라</div>
+	          	</div>
+	          </div>
+          </div>
+          
+          <!-- bottom start -->
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -613,160 +614,8 @@
             </div>
           </footer>
         </div>
-        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
-            <div class="modal-content border-0">
-              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                <div class="position-relative z-1" data-bs-theme="light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                  <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                </div>
-                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body py-4 px-5">
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-name">Name</label>
-                    <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-email">Email address</label>
-                    <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                  </div>
-                  <div class="row gx-2">
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-password">Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                    </div>
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                    <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                  </div>
-                </form>
-                <div class="position-relative mt-5">
-                  <hr />
-                  <div class="divider-content-center">or register with</div>
-                </div>
-                <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
-    <!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
-
-
-    <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas">
-      <div class="offcanvas-header settings-panel-header bg-shape">
-        <div class="z-1 py-1" data-bs-theme="light">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <h5 class="text-white mb-0 me-2"><span class="fas fa-palette me-2 fs-0"></span>Settings</h5>
-            <button class="btn btn-primary btn-sm rounded-pill mt-0 mb-0" data-theme-control="reset" style="font-size:12px"> <span class="fas fa-redo-alt me-1" data-fa-transform="shrink-3"></span>Reset</button>
-          </div>
-          <p class="mb-0 fs--1 text-white opacity-75"> Set your own customized style</p>
-        </div>
-        <button class="btn-close btn-close-white z-1 mt-0" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body scrollbar-overlay px-x1 h-100" id="themeController">
-        <h5 class="fs-0">Color Scheme</h5>
-        <p class="fs--1">Choose the perfect color mode for your app.</p>
-        <div class="btn-group d-block w-100 btn-group-navbar-style">
-          <div class="row gx-2">
-            <div class="col-6">
-              <input class="btn-check" id="themeSwitcherLight" name="theme-color" type="radio" value="light" data-theme-control="theme" />
-              <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherLight"> <span class="hover-overlay mb-2 rounded d-block"><img class="img-fluid img-prototype mb-0" src="assets/img/generic/falcon-mode-default.jpg" alt=""/></span><span class="label-text">Light</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="themeSwitcherDark" name="theme-color" type="radio" value="dark" data-theme-control="theme" />
-              <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherDark"> <span class="hover-overlay mb-2 rounded d-block"><img class="img-fluid img-prototype mb-0" src="assets/img/generic/falcon-mode-dark.jpg" alt=""/></span><span class="label-text"> Dark</span></label>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-start"><img class="me-2" src="assets/img/icons/left-arrow-from-left.svg" width="20" alt="" />
-            <div class="flex-1">
-              <h5 class="fs-0">RTL Mode</h5>
-              <p class="fs--1 mb-0">Switch your language direction </p><a class="fs--1" href="documentation/customization/configuration.jsp">RTL Documentation</a>
-            </div>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input ms-0" id="mode-rtl" type="checkbox" data-theme-control="isRTL" />
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-start"><img class="me-2" src="assets/img/icons/arrows-h.svg" width="20" alt="" />
-            <div class="flex-1">
-              <h5 class="fs-0">Fluid Layout</h5>
-              <p class="fs--1 mb-0">Toggle container layout system </p><a class="fs--1" href="documentation/customization/configuration.jsp">Fluid Documentation</a>
-            </div>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input ms-0" id="mode-fluid" type="checkbox" data-theme-control="isFluid" />
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex align-items-start"><img class="me-2" src="assets/img/icons/paragraph.svg" width="20" alt="" />
-          <div class="flex-1">
-            <h5 class="fs-0 d-flex align-items-center">Navigation Position</h5>
-            <p class="fs--1 mb-2">Select a suitable navigation system for your web application </p>
-            <div>
-              <select class="form-select form-select-sm" aria-label="Navbar position" data-theme-control="navbarPosition">
-                <option value="vertical" data-page-url="modules/components/navs-and-tabs/vertical-navbar.jsp">Vertical</option>
-                <option value="top" data-page-url="modules/components/navs-and-tabs/top-navbar.jsp">Top</option>
-                <option value="combo" data-page-url="modules/components/navs-and-tabs/combo-navbar.jsp">Combo</option>
-                <option value="double-top" data-page-url="modules/components/navs-and-tabs/double-top-navbar.jsp">Double Top</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <h5 class="fs-0 d-flex align-items-center">Vertical Navbar Style</h5>
-        <p class="fs--1 mb-0">Switch between styles for your vertical navbar </p>
-        <p> <a class="fs--1" href="modules/components/navs-and-tabs/vertical-navbar.jsp#navbar-styles">See Documentation</a></p>
-        <div class="btn-group d-block w-100 btn-group-navbar-style">
-          <div class="row gx-2">
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-transparent" type="radio" name="navbarStyle" value="transparent" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-transparent"> <img class="img-fluid img-prototype" src="assets/img/generic/default.png" alt="" /><span class="label-text"> Transparent</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-inverted" type="radio" name="navbarStyle" value="inverted" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-inverted"> <img class="img-fluid img-prototype" src="assets/img/generic/inverted.png" alt="" /><span class="label-text"> Inverted</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-card" type="radio" name="navbarStyle" value="card" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-card"> <img class="img-fluid img-prototype" src="assets/img/generic/card.png" alt="" /><span class="label-text"> Card</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-vibrant" type="radio" name="navbarStyle" value="vibrant" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-vibrant"> <img class="img-fluid img-prototype" src="assets/img/generic/vibrant.png" alt="" /><span class="label-text"> Vibrant</span></label>
-            </div>
-          </div>
-        </div>
-        <div class="text-center mt-5"><img class="mb-4" src="assets/img/icons/spot-illustrations/47.png" alt="" width="120" />
-          <h5>Like What You See?</h5>
-          <p class="fs--1">Get Falcon now and create beautiful dashboards with hundreds of widgets.</p><a class="mb-3 btn btn-primary" href="https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/" target="_blank">Purchase</a>
-        </div>
-      </div>
-    </div>
-
-
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
@@ -780,7 +629,5 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="vendors/list.js/list.min.js"></script>
     <script src="assets/js/theme.js"></script>
-
   </body>
-
 </html>
