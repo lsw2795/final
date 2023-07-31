@@ -80,8 +80,7 @@
               </button>
             </div>
             <a class="navbar-brand" href="index.jsp">
-              <div class="d-flex align-items-center py-3"><img class="me-2" src="assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" />
-              	<span class="font-sans-serif">falcon</span>
+              <div class="d-flex align-items-center py-3"><img src="title.png" alt="" width="150" />
               </div>
             </a>
           </div>
