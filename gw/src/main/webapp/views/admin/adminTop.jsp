@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="dark" lang="en-US" dir="ltr">
 
   <head>
     <meta charset="utf-8">
@@ -11,13 +11,11 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>망하면 김채영 매달아놓기</title>
+    <title>관리자 페이지</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <!-- jquery  -->
-    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
@@ -97,28 +95,45 @@
 						<a class="nav-link dropdown-indicator" href="#mypage" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-address-card"></span></span>
-	                    		<span class="nav-link-text ps-1">마이페이지</span>
+	                    		<span class="nav-link-text ps-1">사원 관리</span>
 	                    	</div>
 	                  	</a>
 	                  	<ul class="nav collapse show" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link active" href="#">
+                    			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내정보 수정</span>
+                        				<span class="nav-link-text ps-1">사원 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내가 쓴 글 관리</span>
+                        				<span class="nav-link-text ps-1"></span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내 연차 관리</span>
+                        				<span class="nav-link-text ps-1">사원 목록</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+						</ul>
+                  	</li>
+                     <li class="nav-item"><!-- parent pages-->
+						<a class="nav-link dropdown-indicator" href="#a" role="button" data-bs-toggle="collapse">
+	                    	<div class="d-flex align-items-center">
+	                    		<span class="nav-link-icon"><span class="fas fa-user-check"></span></span>
+	                    		<span class="nav-link-text ps-1">조직도</span>
+	                    	</div>
+	                  	</a>
+	                  	<ul class="nav collapse show" id="a">
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">조직도 관리</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -131,25 +146,11 @@
 	                    		<span class="nav-link-text ps-1">근태관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="a">
+	                  	<ul class="nav collapse show" id="a">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">출/퇴근 현황</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">연차 휴가 신청</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">잔여 연차 현황</span>
+                        				<span class="nav-link-text ps-1">부서별 근태 통계</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -162,25 +163,18 @@
 	                    		<span class="nav-link-text ps-1">전자결재</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="b">
+	                  	<ul class="nav collapse show" id="b">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 문서 작성</span>
+                        				<span class="nav-link-text ps-1">결재 문서 관리</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 문서함</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 문서 참조함</span>
+                        				<span class="nav-link-text ps-1">결재 양식 관리</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -193,18 +187,18 @@
 	                    		<span class="nav-link-text ps-1">자원관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="c">
+	                  	<ul class="nav collapse show" id="c">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">자원 예약</span>
+                        				<span class="nav-link-text ps-1">자원 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">자원 예약 내역</span>
+                        				<span class="nav-link-text ps-1">자원 목록</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -217,11 +211,11 @@
 	                    		<span class="nav-link-text ps-1">캘린더</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="d">
+	                  	<ul class="nav collapse show" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내 일정 관리</span>
+                        				<span class="nav-link-text ps-1">일정 조회</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -234,7 +228,7 @@
 	                    		<span class="nav-link-text ps-1">쪽지</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="e">
+	                  	<ul class="nav collapse show" id="e">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
@@ -262,21 +256,21 @@
 						<a class="nav-link dropdown-indicator" href="#f" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-download"></span></span>
-	                    		<span class="nav-link-text ps-1">자료실</span>
+	                    		<span class="nav-link-text ps-1">자료실 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="f">
+	                  	<ul class="nav collapse show" id="f">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">파일 다운로드</span>
+                        				<span class="nav-link-text ps-1">파일 관리</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">다운로드 파일 관리</span>
+                        				<span class="nav-link-text ps-1">파일 목록</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -285,13 +279,19 @@
                   	<!-- label-->
                   	<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
 	                    <div class="col-auto navbar-vertical-label">
-	                    	사내게시판
+	                    	게시판
 	                    </div>
 	                    <div class="col ps-0">
 	                      <hr class="mb-0 navbar-vertical-divider" />
 	                    </div>
                   	</div>
                   	<li class="nav-item"><!-- parent pages-->
+                  		<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+	                    	<div class="d-flex align-items-center">
+	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
+	                    		<span class="nav-link-text ps-1">게시판 관리</span>
+	                    	</div>
+	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-thumbtack"></span></span>
@@ -324,28 +324,21 @@
 						<a class="nav-link dropdown-indicator" href="#g" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-parachute-box"></span></span>
-	                    		<span class="nav-link-text ps-1">동호회</span>
+	                    		<span class="nav-link-text ps-1">동호회 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="g">
+	                  	<ul class="nav collapse show" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">동호회 등록</span>
+                        				<span class="nav-link-text ps-1">사내 동호회 현황</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">동호회 게시판</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">동호회 결제</span>
+                        				<span class="nav-link-text ps-1">동호회 결제 관리</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -355,51 +348,10 @@
 						<a class="nav-link dropdown-indicator" href="#h" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-carrot"></span></span>
-	                    		<span class="nav-link-text ps-1">중고거래</span>
+	                    		<span class="nav-link-text ps-1">신고글 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="h">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">거래게시판</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
                   	</li>
-                  	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#i" role="button" data-bs-toggle="collapse">
-	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-paper-plane"></span></span>
-	                    		<span class="nav-link-text ps-1">피드</span>
-	                    	</div>
-	                  	</a>
-	                  	<ul class="nav collapse" id="i">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">익명게시판</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
-                  	</li>
-				</ul>
 			</div>
 		  </div>
         </nav>
