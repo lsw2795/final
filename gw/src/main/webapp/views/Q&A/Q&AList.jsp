@@ -3,18 +3,23 @@
 <%@ include file = "../inc/top.jsp" %>
 
  <div class="row gx-3">
+            <h2>Q&A 게시판</h2>
             <div class="col-xxl-10 col-xl-9">
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":11,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <h6 class="mb-0">Contacts</h6>
+                            <select class="form-select form-select-sm" aria-label="Bulk actions">
+	                            <option value="title">제목</option>
+	                            <option value="name">이름</option>
+	                            <option value="userid">아이디</option>
+                          </select>
                       </div>
                       <div class="col-auto">
                         <form>
                           <div class="input-group input-search-width">
-                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
+                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="검색어 입력" aria-label="search" />
                             <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                           </div>
                         </form>
@@ -26,13 +31,8 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-none" id="table-contact-actions">
                         <div class="d-flex">
-                          <select class="form-select form-select-sm" aria-label="Bulk actions">
-                            <option selected="">Bulk actions</option>
-                            <option value="Refund">Refund</option>
-                            <option value="Delete">Delete</option>
-                            <option value="Archive">Archive</option>
-                          </select>
-                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">수정</button>
+                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">삭제</button>
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
@@ -59,11 +59,11 @@
                               <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
                             </div>
                           </th>
-                          <th class="sort align-middle ps-2" data-sort="name">Name</th>
-                          <th class="sort align-middle pe-5" data-sort="phone-number">Phone Number</th>
-                          <th class="sort align-middle pe-5" data-sort="report">Name of the report</th>
-                          <th class="sort align-middle text-end" data-sort="subscription">Subscription</th>
-                          <th class="sort align-middle text-end" data-sort="social">Social</th>
+                          <th class="sort align-middle ps-2" data-sort="name">이름</th>
+                          <th class="sort align-middle pe-5" data-sort="userid">아이디</th>
+                          <th class="sort align-middle pe-5" data-sort="title">제목</th>
+                          <th class="sort align-middle text-end" data-sort="regdate">등록일</th>
+                          <th class="sort align-middle text-end" data-sort="level">직급</th>
                         </tr>
                       </thead>
                       <tbody class="list" id="table-contact-body">
@@ -795,106 +795,10 @@
                   <h6 class="fs-0 mb-0 fw-semi-bold">Filter</h6>
                   <button class="btn-close text-reset d-xl-none shadow-none" id="allContactOffcanvasLabel" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="card scrollbar shadow-none shadow-show-xl">
-                  <div class="card-header bg-light d-none d-xl-block">
-                    <h6 class="mb-0">Filter</h6>
-                  </div>
-                  <div class="card-body">
-                    <form>
-                      <div class="mb-2 mt-n2">
-                        <label class="mb-1">Contact Created</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Today</option>
-                          <option selected="selected">Last Day</option>
-                          <option>Last 7 days</option>
-                          <option>Last 30 days</option>
-                          <option>Choose a time period</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Zone of time</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Bangladesh Standard Time</option>
-                          <option>India Standard Time</option>
-                          <option>Pakistan Standard Time</option>
-                          <option>Central America Standard Time</option>
-                          <option>Nepal Standard Time</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Subscription</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Active</option>
-                          <option>Inactive</option>
-                          <option>Expired</option>
-                          <option>Pending</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Social</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Facebook</option>
-                          <option>Twitter</option>
-                          <option>LinkedIn</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Agents</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Emma</option>
-                          <option>Luke</option>
-                          <option selected="selected">Finley</option>
-                          <option>Peter Gill</option>
-                          <option>Sallie Reyes</option>
-                          <option>Freya</option>
-                          <option>Morrison</option>
-                          <option>Aar Kay</option>
-                          <option>Michele</option>
-                          <option>Banneker</option>
-                          <option>Romanin</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Group</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>My Group</option>
-                          <option>Billing</option>
-                          <option>Customer Support</option>
-                          <option>Enhancement</option>
-                          <option>Unassigned</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label class="mb-1 mt-2">Customer</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Emma</option>
-                          <option>Luke</option>
-                          <option>Finley</option>
-                          <option>Peter Gill</option>
-                          <option>Sallie Reyes</option>
-                          <option>Freya</option>
-                          <option>Morrison</option>
-                          <option>Aar Kay</option>
-                          <option>Michele</option>
-                          <option>Banneker</option>
-                          <option>Romanin</option>
-                        </select>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="card-footer border-top border-200 py-x1">
-                    <button class="btn btn-primary w-100">Update</button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
         
 <%@ include file = "../inc/bottom.jsp" %>
