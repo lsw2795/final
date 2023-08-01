@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "adminTop.jsp" %>
+<%@ include file = "../inc/adminTop.jsp" %>
 	
-<%@ include file = "adminBottom.jsp" %>
+<%@ include file = "../inc/adminBottom.jsp" %>
