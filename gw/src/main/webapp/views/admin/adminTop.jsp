@@ -82,7 +82,7 @@
             </div>
             <a class="navbar-brand" href="index.jsp">
               <div class="d-flex align-items-center py-3">
-              	<img src="title.png" alt="" width="150" />
+              	<img src="adminfinallogo.png" alt="" width="150" />
               </div>
             </a>
           </div>
