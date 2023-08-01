@@ -11,7 +11,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>망하면 김채영 매달아놓기</title>
+    <title>COSMOS</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -129,7 +129,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내 연차 관리</span>
+                        				<span class="nav-link-text ps-1" >주소록</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -164,6 +164,14 @@
                         			</div> 
                       			</a>
                     		</li>
+                    		<!-- 임원 -->
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1" >부서 근태 통계(임원)</span>
+                        			</div> 
+                      			</a>
+                    		</li>
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
@@ -181,10 +189,18 @@
                         			</div> 
                       			</a>
                     		</li>
+                    		<!-- 임원 -->
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 문서함</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">결재 대기함(임원)</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -236,6 +252,13 @@
                         			</div> 
                       			</a>
                     		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">부서 일정 관리(임원)</span>
+                        			</div> 
+                      			</a>
+                    		</li>
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
@@ -264,6 +287,13 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">받은 쪽지함</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">조직도</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -357,6 +387,13 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">결재 대기 동호회(임원)</span>
                         			</div> 
                       			</a>
                     		</li>
