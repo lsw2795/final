@@ -16,6 +16,8 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
+    <!-- jquery  -->
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
@@ -50,6 +52,17 @@
         linkRTL.setAttribute('disabled', true);
         userLinkRTL.setAttribute('disabled', true);
       }
+    </script>
+    <script type="text/javascript">
+    	$(function() {
+    		  $('.nav-link').on('click', function() {
+    		    // 해당 a 태그에 active 클래스 추가
+    		    $(this).addClass('active');
+    		    
+    		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
+    		    $('.nav-link').not(this).removeClass('active');
+    		  });
+		});
     </script>
   </head>
   <body>
@@ -100,7 +113,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link active" href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내정보 수정</span>
                         			</div> 
