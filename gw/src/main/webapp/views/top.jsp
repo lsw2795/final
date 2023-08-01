@@ -16,6 +16,8 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
+    <!-- jquery  -->
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
@@ -100,7 +102,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link active" href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내정보 수정</span>
                         			</div> 
