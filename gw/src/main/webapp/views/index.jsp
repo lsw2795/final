@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -373,7 +372,6 @@
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#i" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-share-alt"></span></span>
 	                    		<span class="nav-link-icon"><span class="fas fa-paper-plane"></span></span>
 	                    		<span class="nav-link-text ps-1">피드</span>
 	                    	</div>
