@@ -6,7 +6,7 @@
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
-				<h5 class="mb-0 admindefault"><span class="fas fa-user adminhyphen"></span>사원 등록</h5>
+				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>사원 등록</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
 				<form>
@@ -33,9 +33,9 @@
 							<label class="form-label">주민번호</label>
 						</div>	 
 						<div class="col-md-6 admindiv6 adminspan">							
-							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1">
+							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1" maxlength="6">
 							<span class="adminhyphen">-</span>
-							<input type="text" class="form-control admindefault" id="jumin2" name="jumin2">
+							<input type="password" class="form-control admindefault" id="jumin2" name="jumin2" maxlength="7">
 						</div>
 					</div>
 					<!--<div class="row col-md mb-3"> -->
@@ -98,9 +98,9 @@
 							<label class="form-label">내선번호</label> 
 						</div>	
 						<div class="col-md-6 admindiv6 adminspan">							
-							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1">
+							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
 							<span class="adminhyphen">-</span>
-							<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2">
+							<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2" maxlength="4">
 						</div>
 					</div>
 					<!--<div class="row col-md mb-3"> -->
@@ -109,11 +109,11 @@
 							<label class="form-label">전화번호</label>
 						</div> 
 						<div class="col-md-6 admindiv6 adminspan">
-					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" />
+					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
 					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" />
+					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" maxlength="4" />
 					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" />
+					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
 				    	</div>
 					</div>
 					<!--<div class="row col-md mb-3"> -->
