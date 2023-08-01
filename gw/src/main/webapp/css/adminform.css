@@ -12,34 +12,25 @@
 	text-align: center; 
 	margin: 0 5px;
 }
-.admindiv{
+.adminempdiv{
 	text-align: right;
 }
-.admindiv1{
+.adminempdiv1{
 	margin: 0 0 0 5px;
 }
-.admindiv2{
-	margin: 0 0 0 10px;
-}
-.admindiv3{
-	margin: 0 0 0 15px;
-}
-.admindiv4{
-	margin: 0 0 0 29px;
-}
-.admindiv5{
+.adminempdiv2{
 	margin: 0 0 0 25px;
 }
-.admindiv6{
+.adminempdiv3{
+	margin: 0 0 0 29px;
+}
+.adminempdiv4{
 	margin: 0 0 0 32px;
 }
-.admindiv7{
-	margin: 0 0 0 35px;
-}
-.admindiv8{
+.adminempdiv5{
 	margin: 0 0 0 47px;
 }
-.admindiv9{
+.adminempdiv6{
 	margin: 0 0 0 60px;
 }
 label.form-label {
