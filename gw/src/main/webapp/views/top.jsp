@@ -53,6 +53,17 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+    <script type="text/javascript">
+    	$(function() {
+    		  $('.nav-link').on('click', function() {
+    		    // 해당 a 태그에 active 클래스 추가
+    		    $(this).addClass('active');
+    		    
+    		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
+    		    $('.nav-link').not(this).removeClass('active');
+    		  });
+		});
+    </script>
   </head>
   <body>
 
