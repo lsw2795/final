@@ -36,3 +36,29 @@
 label.form-label {
     margin: 0px -20px 0px 20px;
 }
+.adminempborder{
+	border: 1px solid black;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.adminempsel{
+	height: 35px;
+	margin: 0px -8px 0px 8px;
+}
+.adminempdiv7{
+	margin: 13px 0px 0px -25px;
+}
+.adminemptr{
+	text-align: center; 
+	color: black;
+}
+.adminempthead{
+	background-color: #101726;
+}
+
+.adminempthead tr th{
+	color:white;
+}
+

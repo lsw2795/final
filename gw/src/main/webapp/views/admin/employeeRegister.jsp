@@ -117,8 +117,10 @@
 					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="ename">주소</label>
 						</div>
-						<div class="col-md-6 adminempdiv6">	 
-							<input type="text" class="form-control admindefault" id="address" placeholder="주소" />
+						<div class="col-md-8 adminempdiv6 adminspan">	 
+							<input type="text" class="form-control admindefault" id="address" placeholder="주소" style="width: 75%;"/>
+							<span class="adminhyphen"></span>
+							<input type="Button" value="주소검색" id="btnAddress" class="btn btn-primary" title="새창열림" style="width: 25%;">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -151,7 +153,8 @@
 					            <option value="gmail.com">gmail.com</option>
 					            <option value="etc">직접입력</option>
 					        </select>
-					         &nbsp;&nbsp;<input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
+					        <span class="adminhyphen"></span>
+					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
 					        	class="form-control admindefault" style="visibility:visibility; width: 33%">
 						</div>
 					</div>
