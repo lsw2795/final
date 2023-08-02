@@ -19,20 +19,15 @@
               </li>
             </ul>
           </nav>
-          <form class="card">
-            <div class="card-header bg-light">
-              <h5 class="mb-0">Q&A 등록</h5>
-            </div>
+          <form id="qnaForm" method="post" action='<c:url value='/qna/write'/>'>
+           	<h2 class="mb-0">Q&A 등록</h5>
             <div class="card-body p-0">
               <div class="border border-top-0 border-200">
-                <input class="form-control border-0 rounded-0 outline-none px-x1" id="email-to" type="email" aria-describedby="email-to" placeholder="제목" />
+                <input class="form-control border-1 rounded-1 outline-none px-x1" name="title" id="title" aria-describedby="email-to" placeholder="제목" />
               </div>
-              <div class="border border-y-0 border-200">
-                <input class="form-control border-0 rounded-0 outline-none px-x1" id="email-subject" type="text" aria-describedby="email-subject" placeholder="내용" />
-              </div>
-              <div class="min-vh-50">
-                <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="content"></textarea>
-              </div>
+			  <div class="mb-3">
+				  <textarea class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="20" placeholder="내용" form="qnaForm"></textarea>
+			  </div>
               <div class="bg-light px-x1 py-3">
                 <div class="d-inline-flex flex-column">
                   <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1"><span class="fs-1 far fa-image"></span><span class="ms-2">winter.jpg (873kb)</span><a class="text-300 p-1 ms-6" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach"><span class="fas fa-times"></span></a></div>

@@ -3,5 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.board.model.BoardDAO">
+	<insert id="insertQna" parameterType="boardVo">
+		insert into board(board_no, emp_no, boardList_no, title, content)
+		values(board_seq.nextval, 1, 1000, #{title}, #{content})
+	</insert>
 
 </mapper>

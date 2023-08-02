@@ -36,7 +36,7 @@
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href="Q&AWrite.jsp"><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
+                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
                         <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
                         <div class="dropdown font-sans-serif ms-2">
