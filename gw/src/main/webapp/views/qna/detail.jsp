@@ -31,7 +31,7 @@
               </div>
               <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h5><span class="fas fa-envelope me-2"></span><span>${vo.title}</span></h5>
+                  <h5><span class="fas fa-envelope me-2"></span><span>${map['TITLE']}</span></h5>
                 </div>
                 <div class="card-body">
                 
@@ -42,12 +42,17 @@
                           <img class="rounded-circle" src="../../assets/img/../../assets/img/team/1-thumb.png" alt="" />
                         </div>
                       </a>
-                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${vo.empNo}</a><span class="fs--2 text-800 fw-normal mx-2">via email</span><a class="mb-0 fs--1 d-block text-500" href="mailto:emma@watson.com">emma@watson.com</a></p>
+                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${map['NAME']}</a><a class="mb-0 fs--1 d-block text-500" href="mailto:emma@watson.com">${map['EMAIL']}</a></p>
                     </div>
-                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${vo.regdate}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
+                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
                   </div>
+                  
+                  <!-- 글 줄바꿈 처리  -->
+                  <% pageContext.setAttribute("newLine", "\r\n"); %>
+            	  <c:set var="content" value="${fn:replace(map['CONTENT'], newLine, '<br>')}" />
+                  
                   <div id="content">
-                  	 ${vo.content}
+                  	 ${content}
                   </div>
                   <!-- 질문 글 끝  -->
                   

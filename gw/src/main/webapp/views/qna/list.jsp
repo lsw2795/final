@@ -68,7 +68,7 @@
                       </thead>
                       <tbody class="list" id="table-contact-body">
                       <!-- 반복 시작  -->
-                      	<c:forEach var="vo" items="${list}">
+                      	<c:forEach var="map" items="${list}">
 	                        <tr>
 	                          <td class="align-middle fs-0 py-3">
 	                            <div class="form-check mb-0">
@@ -78,15 +78,15 @@
 	                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
 	                            <div class="d-flex align-items-center gap-2 position-relative">
 	                              <div class="avatar avatar-xl">
-	                                <div class="avatar-name rounded-circle"><span>EW</span></div>
+	                                <div class="avatar-name rounded-circle"><span>${map['ENAME']}</span></div>
 	                              </div>
-	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${vo.empNo}</a></h6>
+	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${map['NAME']}</a></h6>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700">사원</a></td>
-	                          <td class="align-middle report"><a href='<c:url value='/qna/detail?boardNo=${vo.boardNo}'/>'>${vo.title}</a></td>
-	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/></small></td>
-	                          <td class="align-middle social text-end ps-4">${vo.readcount}</td>
+	                          <td class="align-middle report"><a href="<c:url value='/qna/detail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a></td>
+	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small></td>
+	                          <td class="align-middle social text-end ps-4">${map['READCOUNT']}</td>
 	                        </tr>
 						</c:forEach>
 						<!-- 반복 끝 -->

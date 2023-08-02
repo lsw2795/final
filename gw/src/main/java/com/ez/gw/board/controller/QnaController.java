@@ -1,6 +1,7 @@
 package com.ez.gw.board.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.employee.model.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class QnaController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	private final BoardService boardService;
+	private final EmployeeService employeeService;
 	
 	@RequestMapping("/list")
 	public String qnaList(Model model) {
@@ -30,7 +33,7 @@ public class QnaController {
 		logger.info("qna 목록 페이지");
 		
 		//2
-		List<BoardVO> list = boardService.selectQnaAll();
+		List<Map<String, Object>> list = boardService.selectQnaAll();
 		logger.info("qna 전체 조회 결과, list.size={}", list.size());
 		
 		//3
@@ -84,11 +87,13 @@ public class QnaController {
 		}
 		
 		//2
-		BoardVO vo = boardService.selectQna(boardNo);
-		logger.info("qna 글 상세조회 결과, vo={}", vo);
+		boardService.updateReadcount(boardNo); //조회수 증가
+		
+		Map<String, Object> map = boardService.selectQna(boardNo);
+		logger.info("qna 글 상세조회 결과, map={}", map);
 		
 		//3
-		model.addAttribute("vo", vo);
+		model.addAttribute("map", map);
 		
 		//4
 		return "qna/detail";

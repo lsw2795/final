@@ -344,8 +344,9 @@
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
-	                    		<span class="nav-link-text ps-1">Q&A</span>
+	                    		<a style="text-decoration: none;" href='<c:url value='/qna/list'/>'><span class="nav-link-text ps-1">&nbsp; Q&A</span></a>
 	                    	</div>
+	                    	<a href='<c:url value='/qna/list'/>'>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">

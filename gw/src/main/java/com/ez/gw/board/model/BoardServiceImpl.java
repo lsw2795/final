@@ -1,6 +1,7 @@
 package com.ez.gw.board.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,22 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> selectQnaAll() {
+	public List<Map<String, Object>> selectQnaAll() {
 		return boardDao.selectQnaAll();
 	}
 
 	@Override
-	public BoardVO selectQna(int boardNo) {
+	public Map<String, Object> selectQna(int boardNo) {
 		return boardDao.selectQna(boardNo);
 	}
+
+	@Override
+	public int updateReadcount(int boardNo) {
+		return boardDao.updateReadcount(boardNo);
+	}
+
+
+
+
 
 }

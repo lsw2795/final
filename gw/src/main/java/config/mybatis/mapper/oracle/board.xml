@@ -8,14 +8,19 @@
 		values(board_seq.nextval, 1, 1000, #{title}, #{content})
 	</insert>
 
-	<select id="selectQnaAll" parameterType="boardVo">
-		select * from board
-		where boardList_no = 1000
+	<select id="selectQnaAll" parameterType="map">
+		select * from qnaListView
 		order by regdate desc
 	</select>
 	
-	<select id="selectQna" parameterType="int" resultType="boardVo">
-		select * from board
+	<select id="selectQna" parameterType="int" resultType="map">
+		select * from qnaListView
 		where board_no=#{boardNo} and boardList_no = 1000
 	</select>
+	
+	<update id="updateReadcount" parameterType="int">
+		update board
+		set readcount=readcount+1
+		where board_no=#{boardNo}
+	</update>
 </mapper>
