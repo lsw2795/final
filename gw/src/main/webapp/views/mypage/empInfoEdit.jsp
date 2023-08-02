@@ -18,11 +18,9 @@
 					        <p class="mypageempp">이름 고정</p>
 					    </div> 
 					</div>
-					<div class="mypageempdiv8">
-						<div class="col-md-auto mypageempdiv9">
+						<div class="col-md-auto mypageempdiv8">
 				        	<img src="<c:url value='/images/IMG_5487.jpg'/>" alt="사원 이미지" class="employeeimage">
 				    	</div>
-				    </div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto">
 					        <label class="form-label mypageemplabel" for="ename">사원 영어이름</label>
