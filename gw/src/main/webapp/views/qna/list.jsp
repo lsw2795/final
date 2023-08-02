@@ -36,7 +36,7 @@
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href="Q&AWrite.jsp"><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
+                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
                         <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
                         <div class="dropdown font-sans-serif ms-2">
@@ -59,36 +59,37 @@
                               <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
                             </div>
                           </th>
-                          <th class="sort align-middle ps-2" data-sort="name">이름</th>
-                          <th class="sort align-middle pe-5" data-sort="userid">아이디</th>
+                          <th class="sort align-middle ps-2" data-sort="name">작성자</th>
+                          <th class="sort align-middle pe-5" data-sort="userid">직급</th>
                           <th class="sort align-middle pe-5" data-sort="title">제목</th>
                           <th class="sort align-middle text-end" data-sort="regdate">등록일</th>
-                          <th class="sort align-middle text-end" data-sort="level">직급</th>
+                          <th class="sort align-middle text-end" data-sort="readcount">조회수</th>
                         </tr>
                       </thead>
                       <tbody class="list" id="table-contact-body">
-                        <tr>
-                          <td class="align-middle fs-0 py-3">
-                            <div class="form-check mb-0">
-                              <input class="form-check-input" type="checkbox" id="all-contact-0" data-bulk-select-row="data-bulk-select-row" />
-                            </div>
-                          </td>
-                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
-                            <div class="d-flex align-items-center gap-2 position-relative">
-                              <div class="avatar avatar-xl">
-                                <div class="avatar-name rounded-circle"><span>EW</span></div>
-                              </div>
-                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">Emma Watson</a></h6>
-                            </div>
-                          </td>
-                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700" href="tel:+611800861302">+61 1800 861 302</a></td>
-                          <td class="align-middle report"><a href="#!">Analysis of the Top Customers</a></td>
-                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success">Active</small>
-                          </td>
-                          <td class="align-middle social text-end ps-4"><a href="#!">Facebook</a>
-                          </td>
-                        </tr>
-
+                      <!-- 반복 시작  -->
+                      	<c:forEach var="vo" items="${list}">
+	                        <tr>
+	                          <td class="align-middle fs-0 py-3">
+	                            <div class="form-check mb-0">
+	                              <input class="form-check-input" type="checkbox" id="all-contact-0" data-bulk-select-row="data-bulk-select-row" />
+	                            </div>
+	                          </td>
+	                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
+	                            <div class="d-flex align-items-center gap-2 position-relative">
+	                              <div class="avatar avatar-xl">
+	                                <div class="avatar-name rounded-circle"><span>EW</span></div>
+	                              </div>
+	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${vo.empNo}</a></h6>
+	                            </div>
+	                          </td>
+	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700">사원</a></td>
+	                          <td class="align-middle report"><a href='<c:url value='/qna/detail?boardNo=${vo.boardNo}'/>'>${vo.title}</a></td>
+	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/></small></td>
+	                          <td class="align-middle social text-end ps-4">${vo.readcount}</td>
+	                        </tr>
+						</c:forEach>
+						<!-- 반복 끝 -->
                       </tbody>
                     </table>
                     <div class="text-center d-none" id="contact-table-fallback">
