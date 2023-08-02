@@ -18,7 +18,6 @@
 					        <input type="text" class="form-control admindefault" id="name" />
 					    </div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto">
 					        <label class="form-label" for="ename">사원 영어이름</label>
