@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
@@ -68,6 +69,29 @@ public class QnaController {
 		//4
 		return "common/message";
 		
+	}
+	
+	@RequestMapping("/detail")
+	public String qnaDetail(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+		//1
+		logger.info("qna 글 상세보기 페이지, 파라미터 boardNo={}", boardNo);
+		
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/qna/list");
+			
+			return "common/message";
+		}
+		
+		//2
+		BoardVO vo = boardService.selectQna(boardNo);
+		logger.info("qna 글 상세조회 결과, vo={}", vo);
+		
+		//3
+		model.addAttribute("vo", vo);
+		
+		//4
+		return "qna/detail";
 	}
 	
 }

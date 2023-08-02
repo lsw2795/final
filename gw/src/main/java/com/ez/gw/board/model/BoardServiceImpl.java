@@ -21,4 +21,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectQnaAll();
 	}
 
+	@Override
+	public BoardVO selectQna(int boardNo) {
+		return boardDao.selectQna(boardNo);
+	}
+
 }

@@ -13,4 +13,9 @@
 		where boardList_no = 1000
 		order by regdate desc
 	</select>
+	
+	<select id="selectQna" parameterType="int" resultType="boardVo">
+		select * from board
+		where board_no=#{boardNo} and boardList_no = 1000
+	</select>
 </mapper>

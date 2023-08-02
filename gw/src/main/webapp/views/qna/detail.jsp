@@ -31,33 +31,33 @@
               </div>
               <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h5><span class="fas fa-envelope me-2"></span><span>제목</span></h5>
+                  <h5><span class="fas fa-envelope me-2"></span><span>${vo.title}</span></h5>
                 </div>
                 <div class="card-body">
+                
+                  <!-- 질문 글  -->
                   <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
                     <div class="d-flex align-items-center gap-2"><a href="../../app/support-desk/contact-details.jsp">
                         <div class="avatar avatar-2xl">
                           <img class="rounded-circle" src="../../assets/img/../../assets/img/team/1-thumb.png" alt="" />
-
                         </div>
                       </a>
-                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">Emma Waston</a><span class="fs--2 text-800 fw-normal mx-2">via email</span><a class="mb-0 fs--1 d-block text-500" href="mailto:emma@watson.com">emma@watson.com</a></p>
+                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${vo.empNo}</a><span class="fs--2 text-800 fw-normal mx-2">via email</span><a class="mb-0 fs--1 d-block text-500" href="mailto:emma@watson.com">emma@watson.com</a></p>
                     </div>
-                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">yyyy-MM-dd<span class="mx-1">|</span><span class="fst-italic">8:40 AM (1 Day ago)</span><span class="fas fa-star ms-2 text-warning"></span></p>
+                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${vo.regdate}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
                   </div>
-                  <div>
-                    <h6 class="mb-3 fw-semi-bold text-1000">Improve in A purposed Manner</h6>
-                    <p>Hi</p>
-                    <p>The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.</p>
-                    <p>Here is the order number FD07062010</p>
-                    <p class="mb-0">Thanks</p>
-                    <p class="mb-0">Emma Watson</p>
-        
+                  <div id="content">
+                  	 ${vo.content}
                   </div>
+                  <!-- 질문 글 끝  -->
+                  
                   <div class="my-5 position-relative text-center">
                     <hr class="position-absolute top-50 border-300 w-100 my-0" /><span class="position-relative bg-white dark__bg-card-dark px-3 z-1">
                       <button class="btn btn-sm btn-outline-secondary rounded-pill border-300 px-lg-5">답변 내용</button></span>
                   </div>
+                  
+                  
+                  <!-- 답변 시작 -->
                   <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
                     <div class="d-flex align-items-center gap-2"><a href="../../app/support-desk/contact-details.jsp">
                         <div class="avatar avatar-2xl">

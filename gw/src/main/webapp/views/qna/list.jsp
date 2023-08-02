@@ -83,8 +83,8 @@
 	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${vo.empNo}</a></h6>
 	                            </div>
 	                          </td>
-	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700" href="tel:+611800861302">사원</a></td>
-	                          <td class="align-middle report"><a href="#!">${vo.title}</a></td>
+	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700">사원</a></td>
+	                          <td class="align-middle report"><a href='<c:url value='/qna/detail?boardNo=${vo.boardNo}'/>'>${vo.title}</a></td>
 	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/></small></td>
 	                          <td class="align-middle social text-end ps-4">${vo.readcount}</td>
 	                        </tr>
