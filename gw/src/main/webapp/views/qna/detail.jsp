@@ -15,7 +15,7 @@
             <div class="col-xxl-12 col-xl-8">
               <div class="card">
                 <div class="card-header d-flex flex-between-center">
-                  <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-arrow-left"></span></button>
+                  <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/qna/list'/>"><span class="fas fa-arrow-left"></span></a></button>
                   <div class="d-flex">
                   	<h2 class="title">Q&A 게시판</h2>
                     <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span><span class="d-none d-md-inline-block ms-1">질문 수정</span></button>

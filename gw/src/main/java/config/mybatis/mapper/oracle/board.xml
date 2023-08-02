@@ -8,4 +8,9 @@
 		values(board_seq.nextval, 1, 1000, #{title}, #{content})
 	</insert>
 
+	<select id="selectQnaAll" parameterType="boardVo">
+		select * from board
+		where boardList_no = 1000
+		order by regdate desc
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.ez.gw.board.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,16 @@ public class QnaController {
 	private final BoardService boardService;
 	
 	@RequestMapping("/list")
-	public String qnaList() {
+	public String qnaList(Model model) {
 		//1
 		logger.info("qna 목록 페이지");
+		
 		//2
+		List<BoardVO> list = boardService.selectQnaAll();
+		logger.info("qna 전체 조회 결과, list.size={}", list.size());
+		
 		//3
+		model.addAttribute("list", list);
 		//4
 		return "qna/list";
 	}
@@ -48,6 +55,7 @@ public class QnaController {
 		logger.info("qna 등록, 파라미터 vo={}", vo);
 		//2
 		int cnt = boardService.insertQna(vo);
+		logger.info("qna 등록 결과, cnt={}", cnt);
 		
 		String msg = "질문 등록에 실패하였습니다.", url = "/qna/list";
 		if(cnt>0) {
