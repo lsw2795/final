@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* mypageempform.css */
+.mypageemplabel{
+	float: left;
+}
 .mypagespan{
 	display: flex;
 	grid-template-columns: auto 20px auto;
@@ -51,7 +54,7 @@ label.form-label {
 	color: black;
 }
 .mypageempp{
-	margin: 5px 0px 1px 5px;
+	margin: 1px 0 0 0;
 }
 .employeeimage {
     width: 100%;
