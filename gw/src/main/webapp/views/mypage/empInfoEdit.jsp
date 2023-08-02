@@ -103,11 +103,11 @@
 							<label class="form-label mypageemplabel">전화번호</label>
 						</div> 
 						<div class="col-md-6 mypagespan">
-					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
+					        <input type="text" class="form-control" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
 					        <span class="mypagehyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" maxlength="4" />
+					        <input type="text" class="form-control" id="tel2" name="tel2" style="width: 33%;" maxlength="4" />
 					        <span class="mypagehyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
+					        <input type="text" class="form-control" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
 				    	</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -115,7 +115,7 @@
 							<label class="form-label mypageemplabel" for="ename">주소</label>
 						</div>
 						<div class="col-md-8 mypagespan">	 
-							<input type="text" class="form-control admindefault" id="address" placeholder="주소" style="width: 75%;"/>
+							<input type="text" class="form-control" id="address" placeholder="주소" style="width: 75%;"/>
 							<span class="mypagehyphen"></span>
 							<input type="Button" value="주소검색" id="btnAddress" class="btn btn-primary" title="새창열림" style="width: 25%;">
 						</div>
@@ -126,9 +126,9 @@
 							<label class="form-label mypageemplabel">이메일</label>
 						</div>	 
 						<div class="col-md-9 mypagespan">							
-							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 30%">
+							<input type="text" class="form-control" id="email1" name="email1" style="width: 30%">
 							<span class="mypagehyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
+							<select class="form-select" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
@@ -137,7 +137,7 @@
 					        </select>
 					        <span class="mypagehyphen"></span>
 					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control admindefault" style="visibility:visibility; width: 33%">
+					        	class="form-control" style="visibility:visibility; width: 33%">
 						</div>
 					</div>
 					
