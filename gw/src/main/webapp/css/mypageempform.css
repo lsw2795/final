@@ -1,10 +1,6 @@
 @charset "UTF-8";
-/* adminform.css */
-.admindefault {
-	color: black;
-    background-color: white;
-}
-.adminspan{
+/* mypageempform.css */
+.mypagespan{
 	display: flex;
 	grid-template-columns: auto 20px auto;
 }
@@ -12,53 +8,66 @@
 	text-align: center; 
 	margin: 0 5px;
 }
-.adminempdiv{
+.mypageempdiv{
 	text-align: right;
 }
-.adminempdiv1{
+.mypageempdiv1{
 	margin: 0 0 0 5px;
 }
-.adminempdiv2{
+.mypageempdiv2{
 	margin: 0 0 0 25px;
 }
-.adminempdiv3{
+.mypageempdiv3{
 	margin: 0 0 0 29px;
 }
-.adminempdiv4{
+.mypageempdiv4{
 	margin: 0 0 0 32px;
 }
-.adminempdiv5{
+.mypageempdiv5{
 	margin: 0 0 0 47px;
 }
-.adminempdiv6{
+.mypageempdiv6{
 	margin: 0 0 0 60px;
 }
 label.form-label {
     margin: 0px -20px 0px 20px;
 }
-.adminempborder{
-	border: 1px solid black;
+.mypageempborder{
+	border-color: #eee;
 	border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-.adminempsel{
+.mypageempsel{
 	height: 35px;
 	margin: 0px -8px 0px 8px;
 }
-.adminempdiv7{
+.mypageempdiv7{
 	margin: 13px 0px 0px -25px;
 }
-.adminemptr{
+.mypageemptr{
 	text-align: center; 
 	color: black;
 }
-.adminempthead{
-	background-color: #101726;
+.mypageempp{
+	margin: 5px 0px 1px 5px;
 }
-
-.adminempthead tr th{
-	color:white;
+.employeeimage {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
 }
-
+.mypageempdiv8{
+	position: absolute;
+	overflow: hidden;
+	right: 183px;
+	top: 70px;
+	width: 170px;
+	height: 200px;
+}
+.mypageempdiv9{
+	float: right;
+	width: 100%;
+	height: 100%;
+}

@@ -6,21 +6,21 @@
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
-				<h5 class="mb-0 admindefault"><span class="fas fa-user adminhyphen"></span>사원 등록</h5>
+				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>사원 등록</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
 				<form>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 					        <label class="form-label" for="name">사원 이름</label>
 					    </div>
-					    <div class="col-md-6 admindiv5">
+					    <div class="col-md-6 adminempdiv3">
 					        <input type="text" class="form-control admindefault" id="name" />
 					    </div>
 					</div>
 					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 					        <label class="form-label" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
@@ -29,30 +29,29 @@
 					</div>
 					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label">주민번호</label>
 						</div>	 
-						<div class="col-md-6 admindiv6 adminspan">							
-							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1">
+						<div class="col-md-6 adminempdiv4 adminspan">							
+							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1" maxlength="6">
 							<span class="adminhyphen">-</span>
-							<input type="text" class="form-control admindefault" id="jumin2" name="jumin2">
+							<input type="password" class="form-control admindefault" id="jumin2" name="jumin2" maxlength="7">
 						</div>
 					</div>
 					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="password">초기비밀번호</label>
 						</div>
-						<div class="col-md-6 admindiv1">
+						<div class="col-md-6 adminempdiv1">
 							<input type="password" class="form-control admindefault" id="password" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
 						</div>
 					</div>	
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="basic-form-gender">부서</label>
 						</div>
-						<div class="col-md-6 admindiv9 adminspan">
+						<div class="col-md-6 adminempdiv6 adminspan">
 							 <select class="form-select admindefault" id="dept">
 								<option selected="selected">선택하세요</option>
 								<option value="">영업팀</option>
@@ -62,12 +61,11 @@
 							</select>
 						</div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="basic-form-gender">직급</label>
 						</div>
-						<div class="col-md-6 admindiv9 adminspan">
+						<div class="col-md-6 adminempdiv6 adminspan">
 							 <select class="form-select admindefault" id="dept">
 								<option selected="selected">선택하세요</option>
 								<option value="">사원</option>
@@ -82,10 +80,10 @@
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="basic-form-gender">권한</label>
 						</div>
-						<div class="col-md-6 admindiv9 adminspan">
+						<div class="col-md-6 adminempdiv6 adminspan">
 							 <select class="form-select admindefault" id="dept">
 								<option selected="selected">임원 접근 권한 여부 선택란 입니다.</option>
 								<option value="">Y</option>
@@ -94,61 +92,58 @@
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label">내선번호</label> 
 						</div>	
-						<div class="col-md-6 admindiv6 adminspan">							
-							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1">
+						<div class="col-md-6 adminempdiv4 adminspan">							
+							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
 							<span class="adminhyphen">-</span>
-							<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2">
+							<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2" maxlength="4">
 						</div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label">전화번호</label>
 						</div> 
-						<div class="col-md-6 admindiv6 adminspan">
-					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" />
+						<div class="col-md-6 adminempdiv4 adminspan">
+					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
 					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" />
+					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" maxlength="4" />
 					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" />
+					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
 				    	</div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="ename">주소</label>
 						</div>
-						<div class="col-md-6 admindiv9">	 
-							<input type="text" class="form-control admindefault" id="address" placeholder="주소" />
+						<div class="col-md-8 adminempdiv6 adminspan">	 
+							<input type="text" class="form-control admindefault" id="address" placeholder="주소" style="width: 75%;"/>
+							<span class="adminhyphen"></span>
+							<input type="Button" value="주소검색" id="btnAddress" class="btn btn-primary" title="새창열림" style="width: 25%;">
 						</div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="hiredate">입사일</label>
 						</div>
-						<div class="col-md-6 admindiv8"> 
+						<div class="col-md-6 adminempdiv5"> 
 							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
 						</div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv">
 							<label class="form-label" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-6 admindiv9">  
+						<div class="col-md-6 adminempdiv6">  
 							<input type="text" class="form-control admindefault" id="annualSalary" placeholder="연봉을 입력하세요." />
 						</div>
 					</div>
-					<!--<div class="row col-md-12 mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto">
+						<div class="col-md-auto adminempdiv">
 							<label class="form-label">이메일</label>
 						</div>	 
-						<div class="col-md-9 adminspan admindiv8">							
+						<div class="col-md-9 adminspan adminempdiv5">							
 							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 30%">
 							<span class="adminhyphen">@</span>
 							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
@@ -158,15 +153,16 @@
 					            <option value="gmail.com">gmail.com</option>
 					            <option value="etc">직접입력</option>
 					        </select>
-					         &nbsp;&nbsp;<input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
+					        <span class="adminhyphen"></span>
+					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
 					        	class="form-control admindefault" style="visibility:visibility; width: 33%">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto">
+						<div class="col-md-auto adminempdiv">
 							<label class="form-label">사원 사진</label>
 						</div>
-						<div class="col-md-6 admindiv4">	 
+						<div class="col-md-6 adminempdiv3">	 
 							<input type="file" class="form-control admindefault"/>
 						</div>
 					</div>
