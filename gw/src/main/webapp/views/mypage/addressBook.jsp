@@ -12,23 +12,23 @@
               <div class="card" id="allContactTable">
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
+                  <form name="frmSearch" method="post" action="<c:url value=''/>">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
                         <span class="mb-0">검색</span>
-                        <select class="mypageempborder mypageempsel">
+                         <select class="mypageempborder mypageempsel">
 							<option value="">이름</option>
 							<option value="">회사</option>
 						</select>
                       </div>
                       <div class="col-auto">
-                        <form>
-                          <div class="input-group input-search-width">
-                            <input class="form-control form-control shadow-none search" type="search" placeholder="검색어 입력" aria-label="search" />
-                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
-                          </div>
-                        </form>
+                         <div class="input-group input-search-width">
+                           <input class="form-control shadow-none search" type="search" placeholder="검색어 입력" aria-label="search" />
+                           <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+                         </div>
                       </div>
                     </div>
+                  </form>
               	<div class="border-bottom border-200 my-3"></div>
                     <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
@@ -43,6 +43,7 @@
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               

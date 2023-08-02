@@ -26,7 +26,6 @@
 					        <input type="text" class="form-control admindefault" id="ename" />
 					    </div>
 					</div>
-					<!--<div class="row col-md mb-3"> -->
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
 							<label class="form-label">주민번호</label>
