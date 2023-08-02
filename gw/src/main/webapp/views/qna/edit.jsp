@@ -21,7 +21,7 @@
           </nav>
           <form class="card">
             <div class="card-header bg-light">
-              <h5 class="mb-0">Q&A 등록</h5>
+              <h5 class="mb-0">Q&A 수정</h5>
             </div>
             <div class="card-body p-0">
               <div class="border border-top-0 border-200">
@@ -42,7 +42,7 @@
             </div>
             <div class="card-footer border-top border-200 d-flex flex-between-center">
               <div class="d-flex align-items-center">
-                <button class="btn btn-primary btn-sm px-5 me-2" type="submit">등록</button>
+                <button class="btn btn-primary btn-sm px-5 me-2" type="submit">수정</button>
                 <input class="d-none" id="email-attachment" type="file" />
                 <label class="me-2 btn btn-light btn-sm mb-0 cursor-pointer" for="email-attachment" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach files"><span class="fas fa-paperclip fs-1" data-fa-transform="down-2"></span></label>
                 <input class="d-none" id="email-image" type="file" accept="image/*" />

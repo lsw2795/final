@@ -8,6 +8,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
 	private final EmployeeDAO employeeDao;
+
+	@Override
+	public EmployeeVO selectByEmpNo(int empNo) {
+		return selectByEmpNo(empNo);
+	}
 	
 	
 }
