@@ -7,7 +7,7 @@
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
 				<h5 class="mb-0 admindefault">
-					<span class="fas fa-user" style="margin: 0 10px;"></span>조직도 관리
+					<span class="fas fa-sitemap" style="margin: 0 10px;"></span>조직도 관리
 				</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
