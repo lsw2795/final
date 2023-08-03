@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file='../inc/adminTop.jsp'%>
-<link rel="stylesheet" href="<c:url value='/css/adminform.css'/>">    
+<%@ include file='../../inc/adminTop.jsp'%>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">    
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
        <div class="card h-lg-100 overflow-hidden">
@@ -12,40 +12,41 @@
               <div class="card admindefault" id="allContactTable">
                 <div class="card-header border-bottom border-200 px-0 admindefault">
                   <div class="d-lg-flex justify-content-between admindefault">
+                  <form name="frmSearch" method="post" action="<c:url value=''/>">
                     <div class="row flex-between-center gy-2 px-x1">
-                      <div class="col-auto pe-0 admindefault">
-                        <p class="mb-0 admindefault">검색</p>
+                      <div class="col-auto pe-0">
+                        <span class="mb-0 admindefault">검색</span>
+	                      <select class="admindefault adminempborder adminempsel">
+							<option value="">부서</option>
+							<option value="">이름</option>
+							<option value="">직급</option>
+							<option value="">재직여부</option>
+						 </select>
                       </div>
-                      <div class="col-md">
-                        <form>
-	                        <div class="row mb-3 d-flex align-items-center adminempdiv7">
-						    	<div class="col-md-4">
-			                       <select class="admindefault adminempborder adminempsel">
-										<option value="">부서</option>
-										<option value="">이름</option>
-										<option value="">직급</option>
-										<option value="">재직여부</option>
-									</select>
-	                        	</div>
-	                          	<div class="input-group input-search-width admindefault">
-	                            	<input class="form-control adminempborder shadow-none search admindefault" type="search" aria-label="search" />
-	                            	<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary admindefault">
-	                            		<span class="fa fa-search fs--1"></span>
-	                            	</button>
-	                          </div>
-                        	</div>
-                        </form>
+                    <div class="col-auto">
+                        <div class="input-group input-search-width admindefault">
+                          <input class="form-control shadow-none search admindefault" type="search" placeholder="검색어 입력" aria-label="search" />
+                          <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+                        </div>
                       </div>
                     </div>
-                    
-				      <div class="d-flex align-items-center admindefault" id="table-contact-replace-element">
-				        <button class="btn btn-falcon-default btn-sm admindefault" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span></button>
-				        <button class="btn btn-falcon-default btn-sm mx-2 admindefault" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
-				        <button class="btn btn-falcon-default btn-sm admindefault" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
-				      	<span class="adminhyphen"></span>
-				      </div>
-                	</div>
+                  </form> 
+              	<div class="border-bottom border-200 my-3"></div>
+                    <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
+                      <div class="d-flex align-items-center" id="table-contact-replace-element">
+                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">사원추가</span></button>
+                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
+                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
+                        <div class="dropdown font-sans-serif ms-2">
+                          <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
               
                 <div class="card-body p-0 admindefault">
                   <div class="table-responsive scrollbar admindefault">
@@ -121,4 +122,4 @@
        </div>
    </div>
 </div>
-<%@ include file='../inc/adminBottom.jsp'%>
+<%@ include file='../../inc/adminBottom.jsp'%>
