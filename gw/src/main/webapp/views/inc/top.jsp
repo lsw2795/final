@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
@@ -93,7 +95,7 @@
               	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
               </button>
             </div>
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="<c:url value='/index.jsp'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="../../title.png" alt="" width="150" />
               </div>
@@ -130,6 +132,13 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1" >주소록</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1" >조직도</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -342,8 +351,9 @@
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
-	                    		<span class="nav-link-text ps-1">Q&A</span>
+	                    		<a style="text-decoration: none;" href='<c:url value='/qna/list'/>'><span class="nav-link-text ps-1">&nbsp; Q&A</span></a>
 	                    	</div>
+	                    	<a href='<c:url value='/qna/list'/>'>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
@@ -370,21 +380,21 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/createClub.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/clubBoard.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/payClub.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
                         			</div> 
