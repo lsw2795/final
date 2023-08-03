@@ -43,11 +43,16 @@
 							</button>
 							<span>개발팀</span>
 							<div class="collapse" id="dev-employees">
-								<ul class="list-group list-group-flush">
+								<div class="list-group">
+								  <a href="#" class="list-group-item list-group-item-action">사원1</a>
+								  <a href="#" class="list-group-item list-group-item-action">사원2</a>
+								  <a href="#" class="list-group-item list-group-item-action">사원3</a>
+								</div>
+								<!-- <ul class="list-group list-group-flush">
 									<li class="list-group-item">사원1</li>
 									<li class="list-group-item">사원2</li>
 									<li class="list-group-item">사원3</li>
-								</ul>
+								</ul> -->
 							</div>
 						</div>
 

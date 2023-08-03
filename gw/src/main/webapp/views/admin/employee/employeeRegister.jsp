@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file='../inc/adminTop.jsp'%>
-<link rel="stylesheet" href="<c:url value='/css/adminform.css'/>">
+<%@ include file='../../inc/adminTop.jsp'%>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -172,4 +172,4 @@
 		</div>
 	</div>
 </div>
-<%@ include file='../inc/adminBottom.jsp'%>
+<%@ include file='../../inc/adminBottom.jsp'%>

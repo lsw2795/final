@@ -15,7 +15,7 @@
 					        <label class="form-label mypageemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
-					        <p class="mypageempp">이름 고정</p>
+					        <span class="mypageempspan">이름 고정</span>
 					    </div> 
 					</div>
 						<div class="col-md-auto mypageempdiv8">
@@ -26,7 +26,7 @@
 					        <label class="form-label mypageemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
-					       <p class="mypageempp">사원영어이름 고정</p>
+					       <span class="mypageempspan">사원영어이름 고정</span>
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -34,7 +34,7 @@
 							<label class="form-label mypageemplabel" for="basic-form-gender">부서</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							<p class="mypageempp">부서는 관리자만 수정가능</p>
+							<span class="mypageempspan">부서는 관리자만 수정가능</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -42,7 +42,7 @@
 							<label class="form-label mypageemplabel" for="basic-form-gender">직급</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							 <p class="mypageempp">직급은 관리자만 수정가능</p>
+							 <span class="mypageempspan">직급은 관리자만 수정가능</span>
 						</div>
 					</div>
 					
@@ -51,7 +51,7 @@
 							<label class="form-label mypageemplabel">내선번호</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<p class="mypageempp">내선번호는 관리자만 수정가능</p>
+							<span class="mypageempspan">내선번호는 관리자만 수정가능</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -59,7 +59,7 @@
 							<label class="form-label mypageemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
-							<p class="mypageempp">입사일 고정</p>
+							<span class="mypageempspan">입사일 고정</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -67,7 +67,7 @@
 							<label class="form-label mypageemplabel">근속연수</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<p class="mypageempp">근속연수 고정</p>
+							<span class="mypageempspan">근속연수 고정</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -75,7 +75,7 @@
 							<label class="form-label mypageemplabel" for="annualSalary">연봉</label>
 						</div>
 						<div class="col-md-6">  
-							<p class="mypageempp">연봉은 관리자만 수정가능</p>
+							<span class="mypageempspan">연봉은 관리자만 수정가능</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -162,7 +162,7 @@
 							<label class="form-label mypageemplabel" for="">동호회</label>
 						</div>
 						<div class="col-md-6"> 
-							<p class="mypageempp">동호회가 있으면 나타남</p>
+							<span class="mypageempspan">동호회가 있으면 나타남</span>
 						</div>
 					</div>
 					
