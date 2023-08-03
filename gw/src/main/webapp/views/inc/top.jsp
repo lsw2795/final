@@ -95,9 +95,9 @@
               	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
               </button>
             </div>
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="<c:url value='/index.jsp'/>">
               <div class="d-flex align-items-center py-3">
-              	<img src="title.png" alt="" width="150" />
+              	<img src="<c:url value='/title.png'/>" alt="" width="150" />
               </div>
             </a>
           </div>
@@ -380,21 +380,21 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/createClub.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/clubBoard.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/payClub.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
                         			</div> 
