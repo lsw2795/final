@@ -1,0 +1,64 @@
+@charset "UTF-8";
+/* adminform.css */
+.admindefault {
+	color: black;
+    background-color: white;
+}
+.adminspan{
+	display: flex;
+	grid-template-columns: auto 20px auto;
+}
+.mypagehyphen{
+	text-align: center; 
+	margin: 0 5px;
+}
+.adminempdiv{
+	text-align: right;
+}
+.adminempdiv1{
+	margin: 0 0 0 5px;
+}
+.adminempdiv2{
+	margin: 0 0 0 25px;
+}
+.adminempdiv3{
+	margin: 0 0 0 29px;
+}
+.adminempdiv4{
+	margin: 0 0 0 32px;
+}
+.adminempdiv5{
+	margin: 0 0 0 47px;
+}
+.adminempdiv6{
+	margin: 0 0 0 60px;
+}
+label.form-label {
+    margin: 0px -20px 0px 20px;
+}
+.adminempborder{
+	border: 1px solid black;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.adminempsel{
+	height: 35px;
+	margin: 0px -8px 0px 8px;
+}
+.adminempdiv7{
+	margin: 13px 0px 0px -25px;
+}
+.adminemptr{
+	text-align: center; 
+	color: black;
+}
+.adminempthead{
+	background-color: #101726;
+}
+
+.adminempthead tr th{
+	color:white;
+}
+
