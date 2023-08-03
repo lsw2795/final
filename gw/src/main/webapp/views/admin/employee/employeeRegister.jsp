@@ -81,11 +81,16 @@
 							<label class="form-label" for="basic-form-gender">권한</label>
 						</div>
 						<div class="col-md-6 adminspan">
-							 <select class="form-select admindefault" id="dept">
-								<option selected="selected">임원 접근 권한 여부 선택란 입니다.</option>
-								<option value="">Y</option>
-								<option value="">N</option>
-							</select>
+							<div class="form-check">
+		                        <label class="form-check-label mb-0" for="">Y</label>
+		                        <input type="radio" class="form-check-input" id=""  name="" />
+	                       </div>
+	                       <span class="adminhyphen"></span>
+	                       <div class="form-check">
+		                        <label class="form-check-label mb-0" for="">N</label>
+		                        <input type="radio" class="form-check-input" id=""  name="" checked="checked"/>
+	                      </div>
+						  <span class="adminhyphen"><small>(관리자 로그인 접근 권한 여부 선택란 입니다.)</small></span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
