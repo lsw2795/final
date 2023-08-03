@@ -137,8 +137,9 @@
 					    <div class="col-md-auto adminempdiv6">
 							<label class="form-label" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-6">  
-							<input type="text" class="form-control admindefault" id="annualSalary" placeholder="연봉을 입력하세요." />
+						<div class="col-md-7 adminspan">  
+							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
+							<span class="adminempspan"><small>만원</small></span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
