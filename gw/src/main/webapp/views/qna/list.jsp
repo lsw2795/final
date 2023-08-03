@@ -10,16 +10,29 @@
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                            <select class="form-select form-select-sm" aria-label="Bulk actions">
-	                            <option value="title">제목</option>
-	                            <option value="name">이름</option>
-	                            <option value="userid">아이디</option>
+                        <form action='<c:url value='/qna/list'/>'>
+                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+	                            <option value="title"
+	                            	<c:if test="${param.searchCondition=='title'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >제목</option>
+	                            <option value="name"
+                       		        <c:if test="${param.searchCondition=='name'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >이름</option>
+	                            <option value="content"
+	                            	<c:if test="${param.searchCondition=='content'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >내용</option>
                           </select>
                       </div>
                       <div class="col-auto">
-                        <form>
                           <div class="input-group input-search-width">
-                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="검색어 입력" aria-label="search" />
+                            <input name="searchKeyword" class="form-control form-control-sm shadow-none search" 
+                            	value='${param.searchKeyword}' type="search" placeholder="검색어 입력" aria-label="search" />
                             <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                           </div>
                         </form>
@@ -93,7 +106,7 @@
                       </tbody>
                     </table>
                     <div class="text-center d-none" id="contact-table-fallback">
-                      <p class="fw-bold fs-1 mt-3">No contact found</p>
+                      <p class="fw-bold fs-1 mt-3">검색결과가 없습니다.</p>
                     </div>
                   </div>
                 </div>

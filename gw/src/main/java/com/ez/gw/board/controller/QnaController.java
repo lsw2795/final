@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,12 @@ public class QnaController {
 	private final EmployeeService employeeService;
 	
 	@RequestMapping("/list")
-	public String qnaList(Model model) {
+	public String qnaList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("qna 목록 페이지");
 		
 		//2
-		List<Map<String, Object>> list = boardService.selectQnaAll();
+		List<Map<String, Object>> list = boardService.selectQnaAll(searchVo);
 		logger.info("qna 전체 조회 결과, list.size={}", list.size());
 		
 		//3

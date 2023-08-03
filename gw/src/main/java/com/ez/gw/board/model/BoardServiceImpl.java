@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,8 +20,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectQnaAll() {
-		return boardDao.selectQnaAll();
+	public List<Map<String, Object>> selectQnaAll(SearchVO searchVo) {
+		return boardDao.selectQnaAll(searchVo);
 	}
 
 	@Override
