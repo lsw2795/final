@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
     <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/assets/img/favicons/favicon.ico'/>">
     <link rel="manifest" href="<c:url value='/assets/img/favicons/manifest.json'/>">
-    <meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
+ 	<meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
     <meta name="theme-color" content="#ffffff">
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
@@ -586,24 +586,8 @@
           </nav>
           <!-- top end -->
           
-          <div class="row g-0">
-	          <div class="col-lg-6 pe-lg-2 mb-3">
-	          	<div class="card h-lg-100 overflow-hidden">
-	          		<div class="card-header bg-light">김채영</div>
-	          		<div class="card-body py-2 p-0"> 잘 하자</div>
-	          		<div class="card-footer py-2 bg-light p-0">알겠지?</div>
-	          	</div>
-	          </div>
-	          <div class="col-lg-6 pe-lg-2 mb-3">
-	          	<div class="card h-lg-100 overflow-hidden">
-	          		<div class="card-header bg-light">채영아</div>
-	          		<div class="card-body py-2 "> 수업 들어라</div>
-	          		<div class="card-footer py-2 bg-light ">공부 좀 해라</div>
-	          	</div>
-	          </div>
-          </div>
-          
-          <!-- bottom start -->
+       
+		 <!-- bottom start -->
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -630,6 +614,6 @@
     <script src="<c:url value='https://polyfill.io/v3/polyfill.min.js?features=window.scroll'/>"></script>
     <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
     <script src="<c:url value='/assets/js/theme.js'/>"></script>
-  </body>f
+  </body>
 
 </html> 

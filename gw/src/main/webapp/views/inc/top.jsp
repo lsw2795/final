@@ -13,7 +13,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>COSMOS</title>
+    <title>고치면 김채영 매달아놓기</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -97,7 +97,7 @@
             </div>
             <a class="navbar-brand" href="<c:url value='/index.jsp'/>">
               <div class="d-flex align-items-center py-3">
-              	<img src="<c:url value='/title.png'/>" alt="" width="150" />
+              	<img src="../../title.png" alt="" width="150" />
               </div>
             </a>
           </div>
