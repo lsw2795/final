@@ -7,7 +7,7 @@
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header">
 				<h5 class="mb-0">
-					<span class="fas fa-user" style="margin: 0 10px;"></span>조직도
+					<span class="fas fa-sitemap" style="margin: 0 10px;"></span>조직도
 				</h5>
 			</div>
 			<div class="card-body py-2">
@@ -16,15 +16,6 @@
                   <div class="d-lg-flex justify-content-between">
                   <form name="frmSearch" method="post" action="<c:url value=''/>">
                     <div class="row flex-between-center gy-2 px-x1">
-                      <div class="col-auto">
-                         <select class="mypageempborder mypageempsel">
-							<option value="">부서목록</option>
-							<option value="">개발팀</option>
-							<option value="">디자인팀</option>
-							<option value="">영업팀</option>
-							<option value="">회계팀</option>
-						</select>
-                      </div>
                       <div class="col-auto">
                          <div class="input-group">
                            <input class="form-control shadow-none search" type="search" placeholder="사원번호/이름/부서/직급 검색" aria-label="search" style="width: 280px;"/>
@@ -43,16 +34,11 @@
 							</button>
 							<span>개발팀</span>
 							<div class="collapse" id="dev-employees">
-								<div class="list-group">
-								  <a href="#" class="list-group-item list-group-item-action">사원1</a>
-								  <a href="#" class="list-group-item list-group-item-action">사원2</a>
-								  <a href="#" class="list-group-item list-group-item-action">사원3</a>
+								<div class="list-group mypageempdiv9">
+								  <a href="#" class="list-group-item-action">사원1</a>
+								  <a href="#" class="list-group-item-action">사원2</a>
+								  <a href="#" class="list-group-item-action">사원3</a>
 								</div>
-								<!-- <ul class="list-group list-group-flush">
-									<li class="list-group-item">사원1</li>
-									<li class="list-group-item">사원2</li>
-									<li class="list-group-item">사원3</li>
-								</ul> -->
 							</div>
 						</div>
 
@@ -63,10 +49,10 @@
 							</button>
 							<span>디자인팀</span>
 							<div class="collapse" id="design-employees">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">사원4</li>
-									<li class="list-group-item">사원5</li>
-								</ul>
+								<div class="list-group mypageempdiv9">
+								  <a href="#" class="list-group-item-action">사원4</a>
+								  <a href="#" class="list-group-item-action">사원5</a>
+								</div>
 							</div>
 						</div>
 						<div class="mb-3">
@@ -76,13 +62,14 @@
 							</button>
 							<span>영업팀</span>
 							<div class="collapse" id="sales-employees">
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">사원6</li>
-									<li class="list-group-item">사원7</li>
-									<li class="list-group-item">사원8</li>
-								</ul>
+								<div class="list-group mypageempdiv9">
+								  <a href="#" class="list-group-item-action">사원6</a>
+								  <a href="#" class="list-group-item-action">사원7</a>
+								  <a href="#" class="list-group-item-action">사원8</a>
+								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
