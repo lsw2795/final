@@ -32,7 +32,7 @@
           </div>
           <div class="row g-0">
             <div class="col-lg-8 pe-lg-2">
-              <div class="card mb-2">
+              <div class="card mb-3">
                 <div class="card-header">
                   <h5 class="mb-0">Club Details</h5>
                 </div>
