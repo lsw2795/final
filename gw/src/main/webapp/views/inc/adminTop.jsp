@@ -122,23 +122,6 @@
                     		</li>
 						</ul>
                   	</li>
-                     <li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#a" role="button" data-bs-toggle="collapse">
-	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-user-check"></span></span>
-	                    		<span class="nav-link-text ps-1">조직도</span>
-	                    	</div>
-	                  	</a>
-	                  	<ul class="nav collapse show" id="a">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">조직도 관리</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
-                  	</li>
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#a" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">

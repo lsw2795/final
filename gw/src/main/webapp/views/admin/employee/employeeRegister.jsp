@@ -147,9 +147,9 @@
 							<label class="form-label">이메일</label>
 						</div>	 
 						<div class="col-md-9 adminspan">							
-							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 30%">
+							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
 							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
+							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31.5%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
