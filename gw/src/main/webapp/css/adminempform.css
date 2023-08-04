@@ -61,6 +61,12 @@ label.form-label {
 .adminempthead tr th{
 	color:white;
 }
-.adminempspan{
-	margin: 5px 0 0 5px;
+.adminempdiv9 {
+    margin: 10px 0px 0 20px;
+}
+.adminempdiv9 a{
+    margin-top: 5px;
+}
+.adminempdiv10 {
+    margin: 15px 0 0 15px;
 }
