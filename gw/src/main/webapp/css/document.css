@@ -4,7 +4,7 @@ h2{
 }
 
 #document tr>td:first-child, #document tr>td:nth-child(3),
-#document tr:nth-child(6)>td:nth-child(2){
+#document tr:nth-child(6)>td:nth-child(2),#document tr:nth-child(6)>td:nth-child(5){
 	background-color: #D9E2F3;
 	text-align: center;
 }
@@ -26,7 +26,9 @@ div#mainTitle {
     padding-top: 20px;
 }
 
-#destination,#referName,#title{
+#referName,#title{
 	width: 100%;
-	
+}
+#tel1,#tel2,#tel3{
+	width: 100px;
 }
