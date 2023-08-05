@@ -3,7 +3,7 @@
 <%@ include file = "../inc/top.jsp" %>
  <div class="row gx-3">
             <h2>공지사항</h2>
-            <div class="col-xxl-10 col-xl-9">
+            <div class="col-lg-12 pe-lg-2 mb-3">
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":11,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
@@ -48,7 +48,6 @@
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
                         <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
                         <div class="dropdown font-sans-serif ms-2">
@@ -116,15 +115,5 @@
                 </div>
               </div>
             </div>
-            <div class="col-xxl-2 col-xl-3">
-              <div class="offcanvas offcanvas-end offcanvas-filter-sidebar border-0 dark__bg-card-dark h-auto rounded-xl-3" tabindex="-1" id="allContactOffcanvas" aria-labelledby="allContactOffcanvasLabel">
-                <div class="offcanvas-header d-flex flex-between-center d-xl-none bg-light">
-                  <h6 class="fs-0 mb-0 fw-semi-bold">Filter</h6>
-                  <button class="btn-close text-reset d-xl-none shadow-none" id="allContactOffcanvasLabel" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
 <%@ include file = "../inc/bottom.jsp" %>
