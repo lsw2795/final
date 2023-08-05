@@ -11,7 +11,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public EmployeeVO selectByEmpNo(int empNo) {
-		return selectByEmpNo(empNo);
+		return employeeDao.selectByEmpNo(empNo);
 	}
 	
 	
