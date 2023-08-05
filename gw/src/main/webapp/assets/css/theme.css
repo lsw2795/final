@@ -32386,4 +32386,8 @@ html[data-bs-theme=dark] .bg-priority-low:checked {
 .input-search-width {
   width: 13.75rem;
 }
+
+select#documentNo,#deptNo {
+    width: 150px;
+}
 /*# sourceMappingURL=theme.css.map */
