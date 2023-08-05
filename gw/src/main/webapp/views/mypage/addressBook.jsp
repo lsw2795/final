@@ -199,8 +199,8 @@
 					</div>
 				</div>
 				<div class="border-top border-200 py-x1">
+					<small>사원번호/이름/부서/직급 검색</small>
 					<div class="input-group">
-						<small>사원번호/이름/부서/직급 검색</small>
 						<input class="form-control shadow-none search"
 							type="search" placeholder="검색어 입력" aria-label="search"/>
 						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
