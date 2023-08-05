@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.comments.model.CommentsService;
+import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 
@@ -27,6 +29,7 @@ public class QnaController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	private final BoardService boardService;
 	private final EmployeeService employeeService;
+	private final CommentsService commentsService;
 	
 	@RequestMapping("/list")
 	public String qnaList(@ModelAttribute SearchVO searchVo, Model model) {
@@ -90,14 +93,33 @@ public class QnaController {
 		//2
 		boardService.updateReadcount(boardNo); //조회수 증가
 		
+		
 		Map<String, Object> map = boardService.selectQna(boardNo);
 		logger.info("qna 글 상세조회 결과, map={}", map);
 		
+		List<Map<String, Object>> replyList = commentsService.selectQnaReplys(boardNo);
+		logger.info("해당 게시글 답변 조회 목록, replyList={}", replyList);
+		
 		//3
 		model.addAttribute("map", map);
+		model.addAttribute("replyList", replyList);
 		
 		//4
 		return "qna/detail";
+	}
+	
+	@RequestMapping("/reply")
+	public String reply(@ModelAttribute CommentsVO vo) {
+		//1
+		logger.info("답변 등록 파라미터, vo={}", vo);
+		
+		//2
+		int cnt = commentsService.insertQnaReply(vo);
+		logger.info("답변 등록 결과, cnt={}", cnt);
+		
+		//3
+		//4
+		return "redirect:/qna/detail?boardNo=" + vo.getBoardNo();
 	}
 	
 }

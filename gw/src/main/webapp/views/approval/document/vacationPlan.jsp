@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="row g-0">
-				<table class="table-bordered" id="document" width="645" align="center" >
+				<table class="table-bordered" id="document" align="center" >
 					<tbody>
 						<tr>
 						    <td width="170" height="40" colspan="3" >문서번호</td>

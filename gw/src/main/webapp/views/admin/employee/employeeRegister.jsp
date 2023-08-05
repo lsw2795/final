@@ -81,11 +81,16 @@
 							<label class="form-label" for="basic-form-gender">권한</label>
 						</div>
 						<div class="col-md-6 adminspan">
-							 <select class="form-select admindefault" id="dept">
-								<option selected="selected">임원 접근 권한 여부 선택란 입니다.</option>
-								<option value="">Y</option>
-								<option value="">N</option>
-							</select>
+							<div class="form-check">
+		                        <label class="form-check-label mb-0" for="">Y</label>
+		                        <input type="radio" class="form-check-input" id=""  name="" />
+	                       </div>
+	                       <span class="adminhyphen"></span>
+	                       <div class="form-check">
+		                        <label class="form-check-label mb-0" for="">N</label>
+		                        <input type="radio" class="form-check-input" id=""  name="" checked="checked"/>
+	                      </div>
+						  <span class="adminhyphen"><small>(관리자 로그인 접근 권한 여부 선택란 입니다.)</small></span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -132,8 +137,9 @@
 					    <div class="col-md-auto adminempdiv6">
 							<label class="form-label" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-6">  
-							<input type="text" class="form-control admindefault" id="annualSalary" placeholder="연봉을 입력하세요." />
+						<div class="col-md-7 adminspan">  
+							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
+							<span class="adminempspan">만원</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -141,9 +147,9 @@
 							<label class="form-label">이메일</label>
 						</div>	 
 						<div class="col-md-9 adminspan">							
-							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 30%">
+							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
 							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
+							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31.5%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
