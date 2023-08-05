@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../inc/top.jsp"%>    
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">    
-<div class="row g-3">
-	<div class="col-xxl-10 col-xl-9">
-		<div class="card h-lg-100 overflow-hidden">
+<div class="row g-0">
+   <div class="col-lg-12 pe-lg-2 mb-3">
+       <div class="card h-lg-100 overflow-hidden">
 			<div class="card-header ">
 				<h5 class="mb-0 ">
 					<span class="fas fa-phone" style="margin: 0 10px;"></span>주소록
@@ -137,75 +137,6 @@
                   <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
                   <ul class="pagination mb-0"></ul>
                   <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-xxl-2 col-xl-3">
-		<div class="offcanvas offcanvas-end offcanvas-filter-sidebar h-auto"
-			aria-labelledby="allContactOffcanvasLabel">
-			<div class="card ">
-				<div class="card-header ">
-				<h5 class="mb-0 ">
-					<span class="fas fa-users" style="margin: 0 10px;"></span>조직도
-				</h5>
-			</div>
-				<div class="card-body">
-					<div id="organization-chart">
-						<div class="mb-3 mypageempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#dev-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>개발팀</span>
-							<div class="collapse" id="dev-employees">
-								<div class="list-group mypageempdiv9">
-									<a href="#" class="list-group-item-action">사원1</a> <a href="#"
-										class="list-group-item-action">사원2</a> <a href="#"
-										class="list-group-item-action">사원3</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="mb-3 mypageempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#design-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>디자인팀</span>
-							<div class="collapse" id="design-employees">
-								<div class="list-group mypageempdiv9">
-									<a href="#" class="list-group-item-action">사원4</a> <a href="#"
-										class="list-group-item-action">사원5</a>
-								</div>
-							</div>
-						</div>
-						<div class="mb-3 mypageempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#sales-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>영업팀</span>
-							<div class="collapse" id="sales-employees">
-								<div class="list-group mypageempdiv9">
-									<a href="#" class="list-group-item-action">사원6</a> <a href="#"
-										class="list-group-item-action">사원7</a> <a href="#"
-										class="list-group-item-action">사원8</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="border-top border-200 py-x1">
-					<small>사원번호/이름/부서/직급 검색</small>
-					<div class="input-group">
-						<input class="form-control shadow-none search"
-							type="search" placeholder="검색어 입력" aria-label="search"/>
-						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-							<span class="fa fa-search fs--1"></span>
-						</button>
 					</div>
 				</div>
 			</div>
