@@ -5,51 +5,54 @@
 <div class="row g-3 mb-3">
 	<div class="col-xxl-4">
 		<div class="card h-100 admindefault">
-			<div class="card-header d-flex flex-between-center py-2 admindefault">
-				<h6 class="mb-0 admindefault">게시판 목록</h6>
-				<div class="dropdown font-sans-serif btn-reveal-trigger">
-					<button
-						class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
-						type="button" id="dropdown-trending-keywords"
-						data-bs-toggle="dropdown" data-boundary="viewport"
-						aria-haspopup="true" aria-expanded="false">
-						<span class="fas fa-ellipsis-h fs--2"></span>
-					</button>
-					<div class="dropdown-menu dropdown-menu-end border py-2"
-						aria-labelledby="dropdown-trending-keywords">
-						<a class="dropdown-item" href="#!">View</a><a
-							class="dropdown-item" href="#!">Export</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item text-danger" href="#!">Remove</a>
-					</div>
-				</div>
+			<div class="card-header d-flex flex-between-center admindefault">
+				<h5 class="mb-0 admindefault">게시판 목록</h5>
 			</div>
-			<div class="card-body p-2 d-flex flex-center">
-				<div class="d3-trending-keywords position-relative w-100">
-					<svg class="d3-trending-keywords-svg h-100 w-100"></svg>
-					<div
-						class="d3-trending-keywords-tooltip pe-none position-fixed py-1 px-2 rounded">
-						<div class="d-flex align-items-center fs--1">
-							<span class="dot d3-tooltip-dot"></span><span
-								class="fw-semi-bold d3-tooltip-name pe-2"></span><span
-								class="fw-semi-bold d3-tooltip-value"></span>
+			<div class="card-body pt-3 admindefault">
+						<div class="table-responsive scrollbar admindefault">
+							<table class="table table-hover">
+								<colgroup>
+									<col style="width: 40%;" />
+									<col style="width: 40%;" />
+									<col style="width: 20%;" />
+								</colgroup>
+								<thead class="adminempthead">
+									<tr style="text-align: center;">
+										<th class="sort align-middle" scope="col">게시판 이름</th>
+										<th class="sort align-middle" scope="col">게시판 종류</th>
+										<th class="sort align-middle" scope="col">삭제</th>
+									</tr>
+								</thead>
+								<tbody id="table-contact-body">
+									<tr class="adminemptr">
+										<td class="align-middle"><a href="#">2</a></td>
+										<td class="align-middle">3</td>
+										<td class="align-middle">
+										<button type="button" class="btn btn-danger"><span class="fas fa-trash"></span></button>
+										</td>
+									</tr>
+
+									<tr class="adminemptr">
+										<td class="align-middle"><a href="#">2</a></td>
+										<td class="align-middle">3</td>
+										<td class="align-middle">
+										<button type="button" class="btn btn-danger"><span class="fas fa-trash"></span></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="card-footer py-2 admindefault">
-				<div class="row justify-content-between">
-					<div class="col-auto">
-						<select class="form-select form-select-sm admindefault">
-							<option value="week" selected="selected">Last 7 days</option>
-							<option value="month">Last month</option>
-							<option value="year">Last year</option>
-						</select>
-					</div>
-					<div class="col-auto">
-						<a class="btn btn-sm btn-falcon-default admindefault" href="#!">View All</a>
-					</div>
-				</div>
+			<div class="card-footer d-flex justify-content-center admindefault">
+				<button class="btn btn-sm btn-falcon-default me-1" type="button"
+					title="Previous" data-list-pagination="prev">
+					<span class="fas fa-chevron-left"></span>
+				</button>
+				<ul class="pagination mb-0"></ul>
+				<button class="btn btn-sm btn-falcon-default ms-1" type="button"
+					title="Next" data-list-pagination="next">
+					<span class="fas fa-chevron-right"></span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -58,74 +61,147 @@
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
 					<div class="card-header pb-0 admindefault">
-						<h6 class="mb-0 admindefault">게시판 추가</h6>
+						<h5 class="mb-0 admindefault">게시판 추가</h5>
 					</div>
-					<div class="card-body pt-0">
-						<div class="row align-items-end h-100 mb-n1">
-							<div class="col-5 pe-md-0 pe-lg-3">
-								<div class="row g-0">
-									<div class="col-7">
-										<h6 class="text-600">Target:</h6>
-									</div>
-									<div class="col-5">
-										<h6 class="text-800">$1.2M</h6>
-									</div>
-								</div>
-								<div class="row g-0">
-									<div class="col-7">
-										<h6 class="mb-0 text-600">Reached:</h6>
-									</div>
-									<div class="col-5">
-										<h6 class="mb-0 text-800">$823K</h6>
-									</div>
-								</div>
-							</div>
-							<div class="col-7">
-								<div class="lms-half-doughnut mt-n3 ms-auto">
-									<canvas class="pe-none"
-										data-half-doughnut='{"data":{"labels":["Target","Reached"],"datasets":[{"data":[1200000,823000],"backgroundColor":["primary","gray-300"]}]}}'></canvas>
-									<p class="mb-0 mt-n6 text-center fs-1 fw-medium"
-										data-countup='{"endValue":"69","suffix":"%"}'>0</p>
-								</div>
-							</div>
+					<div class="card-body pt-3 admindefault">
+						<div class="table-responsive scrollbar admindefault">
+							<table class="table table-bordered">
+								<colgroup>
+									<col style="width: 35%;" />
+									<col style="width: 65%;" />
+								</colgroup>
+								<tbody id="table-contact-body">
+									<tr class="adminemptr">
+										<td class="align-middle">게시판 이름</td>
+										<td class="align-middle">
+											<input type="text" class="form-control admindefault" id=""/>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">게시판 종류</td>
+										<td class="align-middle">
+											<input type="text" class="form-control admindefault" id=""/>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">좋아요<br>허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+											  <label class="form-check-label" for="flexSwitchCheckDefault">기본설정 : 비허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">댓글<br>허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+											  <label class="form-check-label" for="flexSwitchCheckDefault">기본설정 : 비허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">업로드<br>허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+  											  <label class="form-check-label" for="flexSwitchCheckChecked">기본설정 : 허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">사원<br>공개여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+  											  <label class="form-check-label" for="flexSwitchCheckChecked">기본설정 : 허용</label>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
+					</div>
+					<div class="card-footer d-flex justify-content-center admindefault">
+						<input type="submit" value="등록" class="btn btn-primary"/>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
 					<div class="card-header pb-0 admindefault">
-						<h6 class="mb-0 admindefault">게시판 권한 수정</h6>
+						<h5 class="mb-0 admindefault">게시판 권한 수정</h5>
 					</div>
-					<div class="card-body pt-0">
-						<div class="row align-items-end h-100 mb-n1">
-							<div class="col-5 pe-md-0 pe-lg-3">
-								<div class="row g-0">
-									<div class="col-7">
-										<h6 class="text-600">Target:</h6>
-									</div>
-									<div class="col-5">
-										<h6 class="text-800">$7.5M</h6>
-									</div>
-								</div>
-								<div class="row g-0">
-									<div class="col-7">
-										<h6 class="mb-0 text-600">Reached:</h6>
-									</div>
-									<div class="col-5">
-										<h6 class="mb-0 text-800">$4.8M</h6>
-									</div>
-								</div>
-							</div>
-							<div class="col-7">
-								<div class="lms-half-doughnut mt-n3 ms-auto">
-									<canvas class="pe-none"
-										data-half-doughnut='{"data":{"labels":["Target","Reached"],"datasets":[{"data":[7500000,4800000],"backgroundColor":["info","gray-300"]}]}}'></canvas>
-									<p class="mb-0 mt-n6 text-center fs-1 fw-medium"
-										data-countup='{"endValue":"64","suffix":"%"}'>0</p>
-								</div>
-							</div>
+					<div class="card-body pt-3 admindefault">
+						<div class="table-responsive scrollbar admindefault">
+							<table class="table table-bordered">
+								<colgroup>
+									<col style="width: 35%;" />
+									<col style="width: 65%;" />
+								</colgroup>
+								<tbody id="table-contact-body">
+									<tr class="adminemptr">
+										<td class="align-middle">게시판 이름</td>
+										<td class="align-middle">
+											<div class="adminempdiv11"> 
+											<select class="admindefault adminempborder adminempsel form-select">
+												<option value="">선택하세요</option>
+												<option value="">영업팀</option>
+												<option value="">마케팅팀</option>
+												<option value="">개발팀</option>
+											</select>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">게시판 종류</td>
+										<td class="align-middle">
+											<input type="text" class="form-control admindefault" id=""/>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">좋아요 허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+											  <label class="form-check-label" for="flexSwitchCheckDefault">기본설정 : 비허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">댓글 허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+											  <label class="form-check-label" for="flexSwitchCheckDefault">기본설정 : 비허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">업로드 허용여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+  											  <label class="form-check-label" for="flexSwitchCheckChecked">기본설정 : 허용</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="adminemptr">
+										<td class="align-middle">사원 공개여부</td>
+										<td class="align-middle">
+											<div class="form-check form-switch">
+											   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+  											  <label class="form-check-label" for="flexSwitchCheckChecked">기본설정 : 허용</label>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
+					</div>
+					<div class="card-footer d-flex justify-content-center admindefault">
+					<input type="submit" value="수정" class="btn btn-primary"/>
 					</div>
 				</div>
 			</div>
@@ -133,49 +209,73 @@
 				<div class="card h-100 admindefault">
 					<div class="card-header py-2 admindefault">
 						<div class="row flex-between-center g-0 admindefault">
-							<div class="col-auto">
-								<h6 class="mb-0 admindefault">최근 게시글 조회</h6>
-							</div>
-							<div class="col-12 col-md-auto order-3 order-md-2">
-								<div class="d-flex flex-wrap gap-md-2">
-									<button
-										class="btn btn-link text-decoration-none text-600 fs--2 px-0 me-2"
-										id="onSaleCourse">
-										<span class="fas fa-circle text-primary me-1"
-											data-fa-transform="shrink-3"></span>On Sale Course
-									</button>
-									<button
-										class="btn btn-link text-decoration-none text-600 fs--2 px-0"
-										id="regularPaidCourse">
-										<span class="fas fa-circle text-warning me-1"
-											data-fa-transform="shrink-3"></span>Regular Paid Course
-									</button>
-								</div>
-							</div>
-							<div class="col-auto order-2 order-md-3">
-								<div class="dropdown font-sans-serif btn-reveal-trigger">
-									<button
-										class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal"
-										type="button" id="dropdown-avg-enrollment-lms"
-										data-bs-toggle="dropdown" data-boundary="viewport"
-										aria-haspopup="true" aria-expanded="false">
-										<span class="fas fa-ellipsis-h fs--2"></span>
-									</button>
-									<div class="dropdown-menu dropdown-menu-end border py-2"
-										aria-labelledby="dropdown-avg-enrollment-lms">
-										<a class="dropdown-item" href="#!">View</a><a
-											class="dropdown-item" href="#!">Export</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item text-danger" href="#!">Remove</a>
-									</div>
-								</div>
+							<div class="card-header pb-0 admindefault">
+								<h5 class="mb-0 admindefault">최근 게시글 조회</h5>
 							</div>
 						</div>
 					</div>
-					<div class="card-body pb-0">
-						<div class="echart-avg-enrollment-rate"
-							data-echart-responsive="true"
-							data-options='{"optionOne":"onSaleCourse","optionTwo":"regularPaidCourse"}'></div>
+						<div class="card-body pb-0 admindefault">
+						<div class="table-responsive scrollbar admindefault">
+							<table class="table table-sm table-hover">
+								<colgroup>
+									<col style="width: 5%;" />
+									<col style="width: 20%;" />
+									<col style="width: 15%;" />
+									<col style="width: 15%;" />
+									<col style="width: 15%;" />
+									<col style="width: 17%;" />
+									<col style="width: 13%;" />
+								</colgroup>
+								<thead class="adminempthead">
+									<tr style="text-align: center;">
+										<th class="py-2 fs-0 pe-2" style="width: 28px;">
+											<div class="form-check d-flex align-items-center">
+												<input class="form-check-input"
+													id="checkbox-bulk-tickets-select" type="checkbox"
+													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+											</div>
+										</th>
+										<th class="sort align-middle" scope="col">게시판 이름</th>
+										<th class="sort align-middle" scope="col">게시판 종류</th>
+										<th class="sort align-middle" scope="col">사원번호</th>
+										<th class="sort align-middle" scope="col">사원이름</th>
+										<th class="sort align-middle" scope="col">제목</th>
+										<th class="sort align-middle" scope="col">내용</th>
+									</tr>
+								</thead>
+								<tbody id="table-contact-body">
+									<tr class="adminemptr">
+										<td class="align-middle fs-0 py-3 align-middle">
+											<div class="form-check mb-0">
+												<input class="form-check-input" type="checkbox"
+													data-bulk-select-row="data-bulk-select-row" />
+											</div>
+										</td>
+										<td class="align-middle"><a href="#">2</a></td>
+										<td class="align-middle">3</td>
+										<td class="align-middle">4</td>
+										<td class="align-middle">5</td>
+										<td class="align-middle">6</td>
+										<td class="align-middle">7</td>
+									</tr>
+
+									<tr class="adminemptr">
+										<td class="align-middle fs-0 py-3 align-middle">
+											<div class="form-check mb-0">
+												<input class="form-check-input" type="checkbox"
+													data-bulk-select-row="data-bulk-select-row" />
+											</div>
+										</td>
+										<td class="align-middle"><a href="#">2</a></td>
+										<td class="align-middle">3</td>
+										<td class="align-middle">4</td>
+										<td class="align-middle">5</td>
+										<td class="align-middle">6</td>
+										<td class="align-middle">7</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
