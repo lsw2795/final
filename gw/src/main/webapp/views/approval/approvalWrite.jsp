@@ -20,11 +20,11 @@
 							<label class="form-label" for="documentNo">
 			               		종류
 			                </label>
-				            <select class="form-select" id="documentNo" style="display: inline">
+				            <select class="form-select" name="documentNo" id="documentNo" style="display: inline">
 				                <option>결재종류</option>
-				                <option value="documentNo">휴가신청</option>
-				                <option>기안서</option>
-				                <option>보고서</option>
+				                <c:forEach var="documentFormVo" items="${formList }">
+					                <option value="${documentFormVo.documentNo }">${documentFormVo.formName }</option>
+				                </c:forEach>
 				            </select>
 						</div>
 					</div>
