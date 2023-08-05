@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
-
  <div class="row gx-3">
-            <h2>Q&A 게시판</h2>
-            <div class="col-xxl-10 col-xl-9">
+            <h2>공지사항</h2>
+            <div class="col-lg-12 pe-lg-2 mb-3">
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":11,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <form action='<c:url value='/qna/list'/>'>
+                        <form action='<c:url value=''/>'>
                           <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
 	                            <option value="title"
-	                            	<c:if test="${param.searchCondition=='title'}">
+	                            	<c:if test="">
 	                            		selected = "selected"
 	                            	</c:if>
 	                            >제목</option>
@@ -49,7 +48,6 @@
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
                         <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
                         <div class="dropdown font-sans-serif ms-2">
@@ -93,18 +91,11 @@
 	                              <div class="avatar avatar-xl">
 	                                <div class="avatar-name rounded-circle"><span>${map['ENAME']}</span></div>
 	                              </div>
-	                              <h6 class="mb-0"><span>${map['NAME']}</span></h6>
+	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${map['NAME']}</a></h6>
 	                            </div>
 	                          </td>
-	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><span>사원</span></td>
-	                          <td class="align-middle report">
-	                          		<a href="<c:url value='/qna/detail?boardNo=${map.BOARD_NO}'/>"><span style="color: black">${map['TITLE']}</span>
-	                          			<!-- 답변 갯수 표시  -->
-	                          			<c:if test="${map['countReply']>0}">
-	                          				<span style="color: red">[${map['countReply']}]</span>
-	                          			</c:if>
-	                          		</a>
-	                          </td>
+	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700">사원</a></td>
+	                          <td class="align-middle report"><a href="<c:url value='/qna/detail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a></td>
 	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small></td>
 	                          <td class="align-middle social text-end ps-4">${map['READCOUNT']}</td>
 	                        </tr>
@@ -124,16 +115,5 @@
                 </div>
               </div>
             </div>
-            <div class="col-xxl-2 col-xl-3">
-              <div class="offcanvas offcanvas-end offcanvas-filter-sidebar border-0 dark__bg-card-dark h-auto rounded-xl-3" tabindex="-1" id="allContactOffcanvas" aria-labelledby="allContactOffcanvasLabel">
-                <div class="offcanvas-header d-flex flex-between-center d-xl-none bg-light">
-                  <h6 class="fs-0 mb-0 fw-semi-bold">Filter</h6>
-                  <button class="btn-close text-reset d-xl-none shadow-none" id="allContactOffcanvasLabel" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-        
 <%@ include file = "../inc/bottom.jsp" %>

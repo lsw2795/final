@@ -19,26 +19,16 @@
               </li>
             </ul>
           </nav>
-          <form class="card">
-            <div class="card-header bg-light">
-              <h5 class="mb-0">Q&A 수정</h5>
-            </div>
+          <form id="qnaEditForm" method="post" action='<c:url value='/qna/edit'/>'>
+           	<h2 class="mb-0">Q&A 수정</h5>
             <div class="card-body p-0">
               <div class="border border-top-0 border-200">
-                <input class="form-control border-0 rounded-0 outline-none px-x1" id="email-to" type="email" aria-describedby="email-to" placeholder="제목" />
+              	<input type="hidden" name="boardNo" value="${map['BOARD_NO']}">
+                <input class="form-control border-1 rounded-1 outline-none px-x1" name="title" id="title" placeholder="제목" value="${map['TITLE']}" />
               </div>
-              <div class="border border-y-0 border-200">
-                <input class="form-control border-0 rounded-0 outline-none px-x1" id="email-subject" type="text" aria-describedby="email-subject" placeholder="내용" />
-              </div>
-              <div class="min-vh-50">
-                <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="content"></textarea>
-              </div>
-              <div class="bg-light px-x1 py-3">
-                <div class="d-inline-flex flex-column">
-                  <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1"><span class="fs-1 far fa-image"></span><span class="ms-2">winter.jpg (873kb)</span><a class="text-300 p-1 ms-6" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach"><span class="fas fa-times"></span></a></div>
-                  <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1"><span class="fs-1 far fa-file-archive"></span><span class="ms-2">coffee.zip (342kb)</span><a class="text-300 p-1 ms-6" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach"><span class="fas fa-times"></span></a></div>
-                </div>
-              </div>
+			  <div class="mb-3">
+				  <textarea class="form-control" name="content" cols="50" rows="20" placeholder="내용" form="qnaEditForm"/>${map['CONTENT']}</textarea>
+			  </div>
             </div>
             <div class="card-footer border-top border-200 d-flex flex-between-center">
               <div class="d-flex align-items-center">

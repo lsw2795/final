@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ez.gw.comments.model.CommentsDAO">
+	<insert id="insertQnaReply" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
+			select comments_seq.nextval from dual
+		</selectKey>
+		insert into comments(comment_no, content, emp_no, boardList_no, board_no)
+		values(#{commentNo}, #{content}, 2, 1000, #{boardNo})
+	</insert>
+	
+	<select id="selectQnaReplys" parameterType="int" resultType="map">
+		select * from qnaCommentsView
+		where board_No=#{boardNo}
+		order by regdate
+	</select>
+	
+	<select id="selectCountReply" parameterType="int" resultType="int">
+		select count(*) from qnaCommentsView
+		where board_no = #{boardNo}
+	</select>
+
+</mapper>

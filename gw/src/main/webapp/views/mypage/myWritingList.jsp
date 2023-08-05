@@ -8,14 +8,13 @@
           <div class="card-header">
 			<h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 관리</h5>
   		  </div>
-          <div class="card-body py-2">
+  		  <div class="card-body py-2">
               <div class="card" id="allContactTable">
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                   <form name="frmSearch" method="post" action="<c:url value=''/>">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <span class="mb-0">검색</span>
                          <select class="mypageempborder mypageempsel">
 							<option value="">게시판 목록</option>
 							<option value="">제목</option>
@@ -44,10 +43,8 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
-              
                 <div class="card-body p-0">
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm table-hover">
@@ -99,12 +96,8 @@
                           <td class="align-middle">추천안쓰는게시판은 추천수 디폴트0설정</td>
                           <td class="align-middle">6</td>
                         </tr>
-                         
                       </tbody>
                     </table>
-                    <div class="text-center d-none" id="contact-table-fallback">
-                      <p class="fw-bold fs-1 mt-3">No contact found</p>
-                    </div>
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
@@ -114,6 +107,10 @@
                 </div>
        		</div>
           </div>
+          
+          
+          
+          
        </div>
    </div>
 </div>
