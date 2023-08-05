@@ -113,7 +113,7 @@
 	                    		<span class="nav-link-text ps-1">마이페이지</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="mypage">
+	                  	<ul class="nav collapse" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link active" href="#">
                         			<div class="d-flex align-items-center">
@@ -132,13 +132,6 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1" >주소록</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1" >조직도</span>
                         			</div> 
                       			</a>
                     		</li>

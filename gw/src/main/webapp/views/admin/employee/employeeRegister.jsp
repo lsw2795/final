@@ -139,7 +139,7 @@
 						</div>
 						<div class="col-md-7 adminspan">  
 							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
-							<span class="adminempspan"><small>만원</small></span>
+							<span class="adminempspan">만원</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
