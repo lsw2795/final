@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
 <script type="text/javascript">
+	$(function(){
+		$('#confirmDocumentNo').val($('#cdNoDiv').html());
+	});
+	
 	function selectReper(){
 		window.open("a.jsp","_blank","width=500, height=500")
 	}
@@ -21,7 +25,7 @@
 			               		종류
 			                </label>
 				            <select class="form-select" name="documentNo" id="documentNo" style="display: inline">
-				                <option>결재종류</option>
+				                <option value="0">종류 선택</option>
 				                <c:forEach var="documentFormVo" items="${formList }">
 					                <option value="${documentFormVo.documentNo }">${documentFormVo.formName }</option>
 				                </c:forEach>
@@ -40,30 +44,26 @@
 				        	<label class="form-label">
 				               	수정일
 				            </label><br>
-				            2222-22-22
 		                </div>
 		                <div class="col-sm">
 				        	<label class="form-label">
 				               	검토일
 				            </label><br>
-				            2222-22-22
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
 				               	확인일
 				            </label><br>
-				            2222-22-22
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
-				               	수정일
+				               	결재일
 				            </label><br>
-				            2222-22-22
 		                </div>
 		            </div>
 	            </div>
-	                <div class="card-body">
-	                    <div class="row gx-2">
+	            <div class="card-body">
+	            	<div class="row gx-2">
 	                    <div class="col-12 mb-3">
 	                  		<label class="form-label" for="confirm_title">
 	               				제목
@@ -74,33 +74,38 @@
 	                    	<label class="form-label">
 	                        	기안자
 	                        </label><br>
-	                        	기안자
+	                        	${empVo.name }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="confirmDocumentNo">
 	                        	문서번호
 	                        </label><br>
-	                        	20230804-ㅁ
+	                        <div id="cdNoDiv">
+	                        	<fmt:formatDate value="${now}" pattern="yyMMdd" />-${empVo.empNo }
+	    					</div>
+	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" />	                
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="deptName">
 	                        	부서
 	                        </label><br>
-	                       		부서
+	                       		${deptVo.name }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="positionName">
 	                        	직책
 	                        </label><br>
-	                        	직책
+	                        	${positonVo.positionName }
 	                    </div>
 	                    <div class="col-sm-6">
 	                    	<label class="form-label" for="deptNo">
 	                        	합의부서
 	                        </label>
 	                        <select class="form-select" name="deptNo" id="deptNo">
-	                          	<option>GMT+14:00 Pacific/Kiritimati</option>
-	                          	<option>GMT+14:00 Pacific/Kiritimati</option>
+					            <option value="0">부서 선택</option>
+	                        	<c:forEach var="deptVo" items="${deptList }">
+					                <option value="${deptVo.deptNo}">${deptVo.name }</option>
+				                </c:forEach>
 	                        </select>
 	                    </div>
 	                    <div class="col-sm-6" >
@@ -113,8 +118,7 @@
 		                    <input name="reperEmpNo" id="reperEmpNo" type="hidden" />
 	                    </div>
 	                    <div class="col-12">
-	                       	<div class="border-bottom border-dashed my-3"></div>
-			                <div class="row gx-2">
+			                <div class="row gx-2 mt-3 mb-3">
 		                       	<div class="col-sm-6" >
 		                       		<input class="form-control" id="createLine" onclick="" type="button" value="결재라인 생성">
 		                       	</div>
