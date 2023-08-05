@@ -34,6 +34,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.updateReadcount(boardNo);
 	}
 
+	@Override
+	public int updateQna(BoardVO vo) {
+		return boardDao.updateQna(vo);
+	}
+
+	@Override
+	public int deleteQna(int boardNo) {
+		return boardDao.deleteQna(boardNo);
+	}
+
 
 
 

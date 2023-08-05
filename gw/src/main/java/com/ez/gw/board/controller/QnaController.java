@@ -114,6 +114,82 @@ public class QnaController {
 		return "qna/detail";
 	}
 	
+	@GetMapping("/edit")
+	public String qnaEdit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+		//1
+		logger.info("질문 수정 페이지, 파라미터 boardNo={}", boardNo);
+		
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/qna/list");
+			
+			return "common/message";
+		}
+		
+		//2
+		Map<String, Object> map = boardService.selectQna(boardNo);
+		logger.info("게시글 번호로 정보 조회 결과, map={}", map);
+		
+		//3
+		model.addAttribute("map", map);
+		
+		//4
+		return "qna/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String qnaEdit_post(@ModelAttribute BoardVO vo, Model model) {
+		//1
+		logger.info("qna 수정, 파라미터 vo={}", vo);
+		
+		//2
+		int cnt = boardService.updateQna(vo);
+		logger.info("qna 수정 결과, cnt={}", cnt);
+		
+		
+		String msg = "질문 수정에 실패하였습니다.", url = "/qna/edit?boardNo=" + vo.getBoardNo();
+		if(cnt>0) {
+			msg = "질문이 수정되었습니다.";
+			url = "/qna/list";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
+	
+	@RequestMapping("/delete")
+	public String qnaDelete(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+		//1
+		logger.info("질문 삭제 파라미터, boardNo={}", boardNo);
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/qna/list");
+			
+			return "common/message";
+		}
+		
+		//2
+		int cnt = boardService.deleteQna(boardNo);
+		
+		String msg = "질문 삭제에 실패하였습니다.", url = "/qna/edit?boardNo=" + boardNo;
+		if(cnt>0) {
+			msg = "질문이 삭제되었습니다.";
+			url = "/qna/list";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
+	
+	
 	@RequestMapping("/reply")
 	public String reply(@ModelAttribute CommentsVO vo) {
 		//1
