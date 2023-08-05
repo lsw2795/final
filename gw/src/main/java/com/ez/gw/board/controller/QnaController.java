@@ -40,6 +40,12 @@ public class QnaController {
 		List<Map<String, Object>> list = boardService.selectQnaAll(searchVo);
 		logger.info("qna 전체 조회 결과, list.size={}", list.size());
 		
+		for(Map<String, Object> map : list) {
+			int boardNo = Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
+			int countReply = commentsService.selectCountReply(boardNo);
+			map.put("countReply", countReply);
+		}
+		
 		//3
 		model.addAttribute("list", list);
 		//4

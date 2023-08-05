@@ -16,5 +16,10 @@
 		where board_No=#{boardNo}
 		order by regdate
 	</select>
+	
+	<select id="selectCountReply" parameterType="int" resultType="int">
+		select count(*) from qnaCommentsView
+		where board_no = #{boardNo}
+	</select>
 
 </mapper>

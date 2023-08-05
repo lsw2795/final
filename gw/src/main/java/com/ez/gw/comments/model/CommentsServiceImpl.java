@@ -22,5 +22,10 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsDao.selectQnaReplys(boardNo);
 	}
 
+	@Override
+	public int selectCountReply(int boardNo) {
+		return commentsDao.selectCountReply(boardNo);
+	}
+
 	
 }
