@@ -1444,12 +1444,8 @@ a.fc-event:hover {
 	border-bottom-width: 0
 }
 
-.fc-theme-bootstrap5-shaded {
-	background-color: var(--bs-gray-200)
+.btn.btn-primary.btn-sm a{
+	text-decoration: none;
+	color:white;
 }
 
-.button.btn.btn-primary.btn-sm{
-	text-decoration: none;
-	color:#f5f5f5;
-	
-}
