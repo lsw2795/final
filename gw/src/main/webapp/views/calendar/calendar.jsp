@@ -5,13 +5,13 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<!-- ===============================================-->
+	<!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link href="<c:url value='/vendors/fullcalendar/main.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/vendors/flatpickr/flatpickr.min.css'/>" rel="stylesheet">
-<!-- =============================================== -->
-    
+	<!-- =============================================== -->
+    <h2>캘린더</h2>
 	<div class="card overflow-hidden">
             <div class="card-header">
               <div class="row gx-0 align-items-center">
@@ -30,7 +30,9 @@
                 </div>
                 <div class="col-auto d-flex order-md-0">
                   <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#addEventModal"> 
+                  	<a href = "<c:url value='/calendar/addSchedule'/>">
                   	<span class="fas fa-plus me-2"></span>일정 등록
+                  	</a>
                   </button>
                 </div>
                 <div class="col d-flex justify-content-end order-md-2">
@@ -46,62 +48,6 @@
               <div class="calendar-outline" id="appCalendar" width = "800px"></div>
             </div>
           </div>
-          <div class="modal fade" id="addEventModal" tabindex="-1">
-          <div class="modal-dialog">
-            <div class="modal-content border">
-              <form id="addEventForm" autocomplete="off">
-                <div class="modal-header px-x1 bg-light border-bottom-0">
-                  <h5 class="modal-title">일정 등록</h5>
-                  <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-x1">
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventTitle">제목</label>
-                    <input class="form-control" id="eventTitle" type="text" name="title" required="required" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventStartDate">시작일</label>
-                    <input class="form-control datetimepicker" id="eventStartDate" type="text" required="required" name="startDate" placeholder="yyyy/mm/dd hh:mm" data-options='{"static":"true","enableTime":"true","dateFormat":"Y-m-d H:i"}' />
-                  </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventEndDate">종료일</label>
-                    <input class="form-control datetimepicker" id="eventEndDate" type="text" name="endDate" placeholder="yyyy/mm/dd hh:mm" data-options='{"static":"true","enableTime":"true","dateFormat":"Y-m-d H:i"}' />
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="eventAllDay" name="allDay" />
-                    <label class="form-check-label" for="eventAllDay">종일 여부
-                    </label>
-                  </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventTitle">참석자</label>
-                    <input class="form-control" id="eventTitle" type="text" name="title" required="required" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventTitle">회의장소</label>
-                    <input class="form-control" id="eventTitle" type="text" name="title" required="required" />
-                  </div>
-                   <div class="mb-3">
-                    <label class="fs-0" for="eventDescription">설명</label>
-                    <textarea class="form-control" rows="3" name="description" id="eventDescription"></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="eventLabel">구분</label>
-                    <select class="form-select" id="eventLabel" name="label">
-                      <option value="" selected="selected">선택</option>
-                      <option value="primary">회의</option>
-                      <option value="danger">출장</option>
-                      <option value="success">일정마감</option>
-                      <option value="warning">Must Attend</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-end align-items-center bg-light border-0">
-                  <button class="btn btn-primary px-4" type="submit">등록</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
 		  <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -113,7 +59,7 @@
             </div>
           </footer>
 <%@ include file="../inc/bottom.jsp"%>
-<!-- ===============================================-->
+	<!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
     <script src="<c:url value='/vendors/popper/popper.min.js'/>"></script>

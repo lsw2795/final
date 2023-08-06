@@ -9,4 +9,9 @@ import lombok.RequiredArgsConstructor;
 public class CalendarServiceImpl implements CalendarService {
 	private final CalendarDAO calendarDao;
 
+	@Override
+	public int insertCalendar(CalendarVO calVo) {
+		return calendarDao.insertCalendar(calVo);
+	}
+
 }
