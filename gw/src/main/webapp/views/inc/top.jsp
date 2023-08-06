@@ -463,6 +463,12 @@
               </div>
             </a>
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+              <li>
+				<button class="nav-link px-0 notification-indicator-warning notification-indicator-fill fa-icon-wait" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+				<span class="fas fa-users" data-fa-transform="shrink-7" style="font-size: 33px;"></span>
+				</button>
+              </li>
+              
               <li class="nav-item d-none d-sm-block">
                 <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
               </li>
@@ -638,5 +644,4 @@
             </ul>
           </nav>
           <!-- top end -->
-          
-       
+<%@ include file ="../mypage/organizationChart.jsp"%> 
