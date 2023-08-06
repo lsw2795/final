@@ -28,23 +28,13 @@
 		
 			<div class="d-flex justify-content-lg-end admindefault">
 				<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-					<input type="button" value="등록" class="btn btn-primary"/>
+					<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"/>
+					<span class="adminhyphen"></span>
+					<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"/>
 					<span class="adminhyphen"></span>
 					<input type="button" value="삭제" class="btn btn-primary"/>
-					<span class="adminhyphen"></span>
-					<input type="button" value="수정" class="btn btn-primary"/>
 				</div>
 			</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		    <div class="accordion-item border-0">
 		        <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading1">
@@ -117,13 +107,12 @@
         </div>
     </div>
 </div>	
-			
-			
-			
-			
-			
-			
+	
 		</div>
 	</div>
 </div>
+
+
+<%@ include file='faqWrite.jsp'%>
+
 <%@ include file='../../inc/adminBottom.jsp'%>
