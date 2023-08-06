@@ -10,7 +10,12 @@
               <div class="row">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                   <div class="product-slider" id="galleryTop">
-                    <div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+                    <div class="swiper-container theme-slider position-lg-absolute all-0" 
+                    	data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,
+                    	"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,
+                    	"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,
+                    	"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},
+                    	"slideToClickedSlide":true}'>
                       <div class="swiper-wrapper h-100">
                         <div class="swiper-slide h-100"><img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1.jpg'/>" alt="" /></div>
                         <div class="swiper-slide h-100"><img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-2.jpg'/>" alt="" /></div>
@@ -37,14 +42,7 @@
                   <p class="fs--1">Stock: <strong class="text-success">Available</strong></p>
                   <p class="fs--1 mb-3">Tags: <a class="ms-2" href="#!">Computer,</a><a class="ms-1" href="#!">Mac Book,</a><a class="ms-1" href="#!">Mac Book Pro,</a><a class="ms-1" href="#!">Laptop </a></p>
                   <div class="row">
-                    <div class="col-auto pe-0">
-                      <div class="input-group input-group-sm" data-quantity="data-quantity">
-                        <button class="btn btn-sm btn-outline-secondary border border-300" data-field="input-quantity" data-type="minus">-</button>
-                        <input class="form-control text-center input-quantity input-spin-none" type="number" min="0" value="0" aria-label="Amount (to the nearest dollar)" style="max-width: 50px" />
-                        <button class="btn btn-sm btn-outline-secondary border border-300" data-field="input-quantity" data-type="plus">+</button>
-                      </div>
-                    </div>
-                    <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-cart-plus me-sm-2"></span><span class="d-none d-sm-inline-block">Add To Cart</span></a></div>
+                    <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-envelope-open"></span><span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span></a></div>
                     <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border border-300" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart me-1"></span>282</a></div>
                   </div>
                 </div>
@@ -164,3 +162,18 @@
           </footer>
           </div>
 <%@ include file="../inc/bottom.jsp" %>
+
+<!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="<c:url value='/vendors/popper/popper.min.js'/>"></script>
+    <script src="<c:url value='/vendors/bootstrap/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/vendors/anchorjs/anchor.min.js'/>"></script>
+    <script src="<c:url value='/vendors/is/is.min.js'/>"></script>
+    <script src="<c:url value='/vendors/swiper/swiper-bundle.min.js'/>"></script>
+    <script src="<c:url value='/vendors/rater-js/index.js'/>"></script>
+    <script src="<c:url value='/vendors/fontawesome/all.min.js'/>"></script>
+    <script src="<c:url value='/vendors/lodash/lodash.min.js'/>"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
+    <script src="<c:url value='/assets/js/theme.js'/>"></script>
