@@ -7,7 +7,7 @@
 		<selectKey keyProperty="calendarNo" order="BEFORE" resultType="int">
 			select calendar_seq.nextval from dual
 		</selectKey>
-		insert into calendar(calendar_no, title, begindate, enddate, begintime, endtime, allday_flag, attendee, place, content, categoryno)
-		values(#{calendarNo}, #{title}, substr(#{begindate}, 1, 10)), substr(#{enddate},1,10), substr(#{begindate}, -1, 5), substr(#{enddate}, -1, 5), #{alldayFlag}, #{attendee}, #{place}, #{content}, #{categoryNo})
+		insert into calendar(calendar_no, title, begindate, enddate, begintime, endtime, allday_flag, attendee, place, content, category_no)
+		values(#{calendarNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{attendee}, #{place}, #{content}, #{categoryNo})
 	</insert>
 </mapper>
