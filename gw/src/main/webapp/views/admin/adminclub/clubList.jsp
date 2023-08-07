@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 
 		<div class="row gx-3">
-            <div class="col-xxl-10 col-xl-9">
               <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
                 <div class="card-header admindefault border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
@@ -63,11 +62,10 @@
                               <input class="form-check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions","replacedElement":"table-ticket-replace-element"}' />
                             </div>
                           </th>
-                          <th class="sort align-middle ps-2" data-sort="client">Client</th>
-                          <th class="sort align-middle" data-sort="subject" style="min-width:15.625rem">Subject</th>
+                          <th class="sort align-middle ps-2" data-sort="Name">Name</th>
+                          <th class="sort align-middle" data-sort="Club Title" style="min-width:15.625rem">Club Title</th>
                           <th class="sort align-middle" data-sort="status">Status</th>
-                          <th class="sort align-middle" data-sort="priority">Priority</th>
-                          <th class="sort align-middle text-end" data-sort="agent">Agent</th>
+                          <th class="sort align-middle" data-sort="Date">Date</th>
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">
@@ -80,32 +78,16 @@
                           <td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
                             <div class="d-flex align-items-center gap-2 position-relative">
                               <div class="avatar avatar-xl">
-                                <div class="avatar-name rounded-circle"><span>EW</span></div>
+                                <div class="avatar-name rounded-circle"><span>HG</span></div>
                               </div>
-                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">Emma Watson</a></h6>
+                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">홍길동</a></h6>
                             </div>
                           </td>
-                          <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Synapse Design #1125</a></td>
-                          <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
+                          <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">clu2</a></td>
+                          <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">신규</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:100">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Urgent</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                          <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -125,24 +107,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Change of refund my last buy | Order #125631</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-danger false">Overdue</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -163,25 +129,10 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-warning false">Remaining</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
-                          </td>
+                        </tr>
                         </tr>
                         <tr>
                           <td class="align-middle fs-0 py-3">
@@ -200,24 +151,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -238,24 +173,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Contact Froms #3264</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -275,24 +194,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -312,24 +215,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -350,24 +237,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Regarding Falcon Theme #3262</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -387,24 +258,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">i would like to buy theme #3261</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -425,24 +280,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Theme info (icons) #3260</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -462,24 +301,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Phishing link #3259</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -499,24 +322,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">i would like to buy theme #3261</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -537,24 +344,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Theme info (icons) #3260</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -574,24 +365,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Phishing link #3259</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                          <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -611,24 +386,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Synapse Design #1125</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:100">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Urgent</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -648,24 +407,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Change of refund my last buy | Order #125631</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-danger false">Overdue</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -686,24 +429,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-warning false">Remaining</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -723,24 +450,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -761,24 +472,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Contact Froms #3264</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:100">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Urgent</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -798,24 +493,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -835,24 +514,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -873,24 +536,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Regarding Falcon Theme #3262</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                          <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -910,24 +557,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Phishing link #3259</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -947,24 +578,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">i would like to buy theme #3261</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -985,24 +600,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Theme info (icons) #3260</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1022,24 +621,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Synapse Design #1125</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:100">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Urgent</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1059,24 +642,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Change of refund my last buy | Order #125631</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-danger false">Overdue</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option selected="selected">Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1097,24 +664,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Regarding Falcon Theme #3262</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-success false">Recent</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1134,24 +685,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1171,24 +706,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:75">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">High</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1209,24 +728,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-warning false">Remaining</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1246,24 +749,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-info false">Responded</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:25">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Low</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option selected="selected">Nowrin</option>
-                              <option>Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                         <tr>
@@ -1284,24 +771,8 @@
                           <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="../../app/support-desk/tickets-preview.jsp">Contact Froms #3264</a></td>
                           <td class="align-middle status fs-0 pe-4"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
                           </td>
-                          <td class="align-middle priority pe-4">
-                            <div class="d-flex align-items-center gap-2">
-                              <div style="--falcon-circle-progress-bar:50">
-                                <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                                  <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                                  <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
-                                </svg>
-                              </div>
-                              <h6 class="mb-0 text-700">Medium</h6>
-                            </div>
-                          </td>
-                          <td class="align-middle agent">
-                            <select class="form-select form-select-sm w-auto ms-auto" aria-label="agents actions">
-                              <option>Select Agent</option>
-                              <option>Anindya</option>
-                              <option>Nowrin</option>
-                              <option selected="selected">Khalid</option>
-                            </select>
+                           <td class="align-middle Date pe-4">
+                          	2023-08-03
                           </td>
                         </tr>
                       </tbody>
@@ -1319,7 +790,6 @@
                   </div>
                 </div>
               </div>
-            </div>
 		</div>
 
 <%@ include file='../../inc/adminBottom.jsp'%>

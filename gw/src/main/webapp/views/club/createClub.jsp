@@ -25,7 +25,6 @@
                 </div>
                 <div class="col-auto">
                   <button class="btn btn-falcon-default btn-sm me-2" role="button">저장</button>
-                  <button class="btn btn-falcon-primary btn-sm" role="button">Make your event live </button>
                 </div>
               </div>
             </div>
@@ -52,18 +51,6 @@
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>
-                      </div>
-                      <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="event-city">City</label>
-                        <input class="form-control" id="event-city" type="text" placeholder="City" />
-                      </div>
-                      <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="event-state">State</label>
-                        <input class="form-control" id="event-state" type="text" placeholder="State" />
-                      </div>
-                      <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="event-country">Country</label>
-                        <input class="form-control" id="event-country" type="text" placeholder="Country" />
                       </div>
                       <div class="col-12">
                         <label class="form-label" for="event-description">Description</label>
@@ -108,11 +95,10 @@
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-md">
-                  <h5 class="mb-2 mb-md-0">Nice Job! You're almost done</h5>
+                  <h5 class="mb-2 mb-md-0"></h5>
                 </div>
                 <div class="col-auto">
                   <button class="btn btn-falcon-default btn-sm me-2">Save</button>
-                  <button class="btn btn-falcon-primary btn-sm">Make your event live </button>
                 </div>
               </div>
             </div>
