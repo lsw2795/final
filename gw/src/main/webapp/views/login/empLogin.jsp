@@ -3,6 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
+<%
+	//쿠키 읽어오기(사원번호 저장하기 체크)
+	String ck_value="";
+	Cookie[] ckArr = request.getCookies();
+	if(ckArr!=null){
+		for(int i=0; i<ckArr.length; i++){
+			String ck_name=ckArr[i].getName();
+			if(ck_name.equals("ck_empNo")){
+				ck_value=ckArr[i].getValue();
+				break;
+			}
+		}//for
+	}
+%>
 <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
@@ -67,12 +81,12 @@
             container.classList.add('container-fluid');
           }
         </script>
+		<form name="loginform" method="post" action="<c:url value='/login/empLogin'/>">
         <div class="row min-vh-100 ">
           <div class="col-6 d-none d-lg-block position-relative">
-            <div class="bg-holder" style="background-image:url('../../assets/img/generic/14.jpg'); background-position: 50% 20%;">
+            <div class="bg-holder" style="background-image:url('../assets/img/generic/14.jpg'); background-position: 50% 20%;">
             </div>
             <!--/.bg-holder-->
-
           </div>
           <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
             <div class="row justify-content-center g-0">
@@ -87,18 +101,23 @@
                     </div>
                     <form>
                       <div class="mb-3">
-                        <input class="form-control" id="split-login-email" type="empNo" />
+                        <input class="form-control" id="empNo" name="empNo" type="text" value="${cookie.ck_empNo.value}"/>
                       </div>
                       <div class="mb-3">
                         <div class="d-flex justify-content-between">
                           <label class="form-label" for="split-login-password">Password</label>
                         </div>
-                        <input class="form-control" id="split-login-password" type="password" />
+                        <input class="form-control" name="pwd" id="split-login-password" type="password" />
                       </div>
                       <div class="row flex-between-center">
                         <div class="col-auto">
                           <div class="form-check mb-0">
-                            <input class="form-check-input" type="checkbox" id="split-checkbox" />
+                            <input class="form-check-input" type="checkbox" id="split-checkbox"
+                            name="split_checkbox" 
+                            	<c:if test="${!empty cookie.ck_empNo.value}"> 
+            						checked="checked"
+            					</c:if> 
+                            />
                             <label class="form-check-label mb-0" for="split-checkbox">사원번호 저장하기</label>
                           </div>
                         </div>
@@ -122,6 +141,7 @@
             </div>
           </div>
         </div>
+        </form>
       </div>
     </main>
     
