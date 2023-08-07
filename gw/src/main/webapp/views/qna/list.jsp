@@ -93,11 +93,18 @@
 	                              <div class="avatar avatar-xl">
 	                                <div class="avatar-name rounded-circle"><span>${map['ENAME']}</span></div>
 	                              </div>
-	                              <h6 class="mb-0"><a class="stretched-link text-900" href="../../app/support-desk/contact-details.jsp">${map['NAME']}</a></h6>
+	                              <h6 class="mb-0"><span>${map['NAME']}</span></h6>
 	                            </div>
 	                          </td>
-	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><a class="text-700">사원</a></td>
-	                          <td class="align-middle report"><a href="<c:url value='/qna/detail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a></td>
+	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><span>사원</span></td>
+	                          <td class="align-middle report">
+	                          		<a href="<c:url value='/qna/detail?boardNo=${map.BOARD_NO}'/>"><span style="color: black">${map['TITLE']}</span>
+	                          			<!-- 답변 갯수 표시  -->
+	                          			<c:if test="${map['countReply']>0}">
+	                          				<span style="color: red">[${map['countReply']}]</span>
+	                          			</c:if>
+	                          		</a>
+	                          </td>
 	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small></td>
 	                          <td class="align-middle social text-end ps-4">${map['READCOUNT']}</td>
 	                        </tr>
