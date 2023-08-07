@@ -37,8 +37,7 @@
 								</div>
 							</form>
 							<div class="border-bottom border-200 my-3"></div>
-							<div
-								class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
+							<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
 								<div class="d-flex align-items-center admindefault"
 									id="table-contact-replace-element">
 									<button class="btn btn-falcon-default btn-sm admindefault"
