@@ -312,7 +312,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/admin/adminclub/clubList.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">사내 동호회 현황</span>
                         			</div> 

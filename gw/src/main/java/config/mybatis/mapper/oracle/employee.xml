@@ -7,5 +7,15 @@
 		select * from employee
 		where emp_no=#{empNo}
 	</select>
-
+	
+	<select id="selectPwd" resultType="string" parameterType="int">
+		select pwd from employee 
+		where emp_no=#{empNo}
+	</select>
+	
+	<select id="selctAuthority" parameterType="int" resultType="string">
+		select authority from employee
+		where emp_no=#{empNo}
+	</select>
+	
 </mapper>

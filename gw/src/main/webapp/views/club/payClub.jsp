@@ -2,14 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
-
-
-
+	
+		<div class="card mb-3">
+            <div class="card-body">
+              <div class="row flex-between-center">
+                <div class="col-md">
+                  <h5 class="mb-2 mb-md-0">동호회비 결제</h5>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-falcon-default btn-sm me-2" role="button">저장</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row g-3 mb-3">
-            <div class="col-lg-8">
-              <div class="card h-100">
+              <div class="card ">
                 <div class="card-header">
-                  <h5 class="mb-0">동호회비 결제</h5>
+                  <h5 class="mb-0">카드 정보</h5>
                 </div>
                 <div class="card-body bg-light">
                   <div class="form-check mb-0">
@@ -289,7 +298,6 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
           
           
