@@ -98,20 +98,12 @@
                         <label class="form-check-label mb-0" for="basic-checkbox">사원번호 저장하기</label>
                       </div>
                     </div>
-                    <div class="col-auto"><a class="fs--1" href="../../../pages/authentication/simple/admin_forgot_password.jsp">Forgot Password?</a></div>
+                    <div class="col-auto"><a class="fs--1" href="<c:url value='/views/login/admin_forgot_password.jsp'/>">Forgot Password?</a></div>
                   </div>
                   <div class="mb-3">
                     <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in</button>
                   </div>
                 </form>
-                <div class="position-relative mt-4">
-                  <hr />
-                  <div class="divider-content-center">or log in with</div>
-                </div>
-                <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
               </div>
             </div>
           </div>
