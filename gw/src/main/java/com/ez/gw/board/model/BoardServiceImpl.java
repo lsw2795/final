@@ -44,6 +44,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteQna(boardNo);
 	}
 
+	@Override
+	public int insertNotice(BoardVO vo) {
+		return boardDao.insertNotice(vo);
+	}
+
 
 
 
