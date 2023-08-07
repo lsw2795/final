@@ -81,7 +81,7 @@
             container.classList.add('container-fluid');
           }
         </script>
-		<form name="loginform" method="post" action="<c:url value='/login/empLogin'/>">
+		
         <div class="row min-vh-100 ">
           <div class="col-6 d-none d-lg-block position-relative">
             <div class="bg-holder" style="background-image:url('../assets/img/generic/14.jpg'); background-position: 50% 20%;">
@@ -99,7 +99,7 @@
                         <h3>Login</h3>
                       </div>
                     </div>
-                    <form>
+                    <form name="loginform" method="post" action="<c:url value='/login/empLogin'/>">
                       <div class="mb-3">
                         <input class="form-control" id="empNo" name="empNo" type="text" value="${cookie.ck_empNo.value}"/>
                       </div>
@@ -141,7 +141,6 @@
             </div>
           </div>
         </div>
-        </form>
       </div>
     </main>
     
