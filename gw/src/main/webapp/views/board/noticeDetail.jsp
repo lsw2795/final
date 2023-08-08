@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="col-md d-flex">
                   <div class="avatar avatar-2xl">
-                    <img class="rounded-circle" src="../../assets/img/team/1.jpg" alt="" />
+                    <img class="rounded-circle" src="" alt="사원 이미지" />
                   </div>
                   <div class="flex-1 ms-2">
                     <h5 class="mb-0">${map['TITLE']}</h5><a class="text-800 fs--1" href="#!"><span class="fw-semi-bold">${map['NAME']}</span><span class="ms-1 text-500">&lt;${map['EMAIL']}&gt;</span></a>
@@ -27,7 +27,7 @@
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
-                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern=""/>
+                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
                     </div>
                   </div>
                   <div class="shadow-none mb-3">
-                      <p>다운로드파일이름</p>
+                      <p>다운로드파일이름 : 수정해야함</p>
                   </div>
                   <div class="text-center">
                      <a class="btn btn-falcon-default" href="<c:url value='/board/noticeList'/>">
