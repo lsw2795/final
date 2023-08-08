@@ -36,8 +36,7 @@
                   <div class="card shadow-none mb-3">
                     <div class="card-body">
                       <p>공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용
-                      공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용
-                      공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용
+                      공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 
                       </p>
                     </div>
                   </div>
@@ -45,7 +44,7 @@
                       <p>다운로드파일이름</p>
                   </div>
                   <div class="text-center">
-                     <a class="btn btn-falcon-default btn-sm" href="../../app/email/inbox.jsp" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to inbox">
+                     <a class="btn btn-falcon-default" href="../../app/email/inbox.jsp" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to inbox">
               	 	목록 가기
               	 	</a>
                   </div>
