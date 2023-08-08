@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
-<h2><a id="admina" class="admina" href="<c:url value='/board/noticeList'/>">공지사항</a></h2>
+<h2><a href="<c:url value='/board/noticeList'/>" style="text-decoration: none; color: #38404e;">공지사항</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
 		<div class="card-header border-bottom border-200 px-0 ">

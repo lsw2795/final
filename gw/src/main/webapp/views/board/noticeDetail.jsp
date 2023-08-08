@@ -5,7 +5,7 @@
  <div class="card mb-3">
             <div class="card-body d-flex justify-content-between">
                <div class="d-lg-flex">
-              	 <a class="btn btn-falcon-default btn-sm" href="../../app/email/inbox.jsp" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to inbox">
+              	 <a class="btn btn-falcon-default btn-sm" href="<c:url value='/board/noticeList'/>" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to inbox">
               	 	<span class="fas fa-arrow-left"></span>
               	 </a>
               	 <span class="mypagehyphen"></span>
@@ -25,9 +25,9 @@
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
-                	<small>조회수 : ${map['READCOUNT']}</small>
+                	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
-                	<small>등록일 : ${map['REGDATE']}</small>
+                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern=""/>
                 </div>
               </div>
             </div>
@@ -43,12 +43,14 @@
                       <p>다운로드파일이름</p>
                   </div>
                   <div class="text-center">
-                     <a class="btn btn-falcon-default" href="../../app/email/inbox.jsp" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to inbox">
+                     <a class="btn btn-falcon-default" href="<c:url value='/board/noticeList'/>">
               	 	목록 가기
               	 	</a>
                   </div>
-                 <a href="<c:url value=''/>">이전글</a>
-                 <a href="<c:url value=''/>">다음글</a>
+                  	<div>
+		                 <a href="<c:url value=''/>">이전글</a>
+		                 <a href="<c:url value=''/>">다음글</a>
+	                </div>
                 </div>
             </div>
           </div>
