@@ -44,14 +44,11 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-none" id="table-contact-actions">
                         <div class="d-flex">
-                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">수정</button>
-                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">삭제</button>
+                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">질문 삭제</button>
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
-                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
                         <div class="dropdown font-sans-serif ms-2">
                           <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
