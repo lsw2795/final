@@ -35,8 +35,7 @@
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3">
                     <div class="card-body">
-                      <p>${map['CONTENT']} 
-                      </p>
+                      <p>${map['CONTENT']}</p>
                     </div>
                   </div>
                   <div class="shadow-none mb-3">
