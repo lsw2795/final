@@ -335,20 +335,17 @@
 	                    </div>
                   	</div>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/board/noticeList'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-thumbtack"></span></span>
-	                    		<a style="text-decoration: none; color: #38404e;" href="<c:url value='/board/noticeList'/>">
-	                    			<span class="nav-link-text ps-1">&nbsp; 공지사항</span>
-	                    		</a>
+                    			<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href='<c:url value='/qna/list'/>' role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
-	                    		<a style="text-decoration: none; color: #38404e;" href='<c:url value='/qna/list'/>'><span class="nav-link-text ps-1">&nbsp; Q&A</span></a>
+	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
-	                    	<a href='<c:url value='/qna/list'/>'>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
