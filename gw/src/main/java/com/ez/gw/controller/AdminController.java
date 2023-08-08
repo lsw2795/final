@@ -57,8 +57,10 @@ public class AdminController {
 		//4.
 		return "common/message";
 		
-		
 	}
+	
+	
+	
 	
 	
 }
