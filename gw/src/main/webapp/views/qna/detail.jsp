@@ -31,17 +31,13 @@
                     </a>
                     <button onclick="deleteQna()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button"><span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span><span class="d-none d-md-inline-block ms-1">삭제</span></button>
                     <div class="dropdown font-sans-serif ms-2">
-                      <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-v fs--2"></span></button>
-                      <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a><a class="dropdown-item d-sm-none" href="#!">Delete</a>
-                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h5><span class="fas fa-envelope me-2"></span><span>${map['TITLE']}</span></h5>
+                  <h1><span class="fas  me-2"></span><span>${map['TITLE']}</span></h1>
                 </div>
                 <div class="card-body">
                 
@@ -114,20 +110,16 @@
 	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">
 	                    <div class="d-flex align-items-center">
 	                      <button class="btn btn-primary btn-sm px-4 me-2" type="submit">답변 등록</button>
-	                      <input class="d-none" id="email-attachment" type="file" />
-	                      <label class="me-2 btn btn-light btn-sm mb-0 cursor-pointer" for="email-attachment" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach files"><span class="fas fa-paperclip fs-1" data-fa-transform="down-2"></span></label>
-	                      <input class="d-none" id="email-image" type="file" accept="image/*" />
-	                      <label class="btn btn-light btn-sm mb-0 cursor-pointer" for="email-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach images"><span class="fas fa-image fs-1" data-fa-transform="down-2"></span></label>
+	                                <button class="btn btn-primary btn-sm px-4 me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
 	                    </div>
 	                    
 	                    <div class="d-flex align-items-center">
 	                      <div class="dropdown font-sans-serif me-2 btn-reveal-trigger">
-	                        <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" id="email-options" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span></button>
-	                        <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-options"><a class="dropdown-item" href="#!">Print</a><a class="dropdown-item" href="#!">Check spelling</a><a class="dropdown-item" href="#!">Plain text mode</a>
-	                          <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a>
+	                        <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-options">
+	                        <a class="dropdown-item" href="#!">Print</a><a class="dropdown-item" href="#!">Check spelling</a><a class="dropdown-item" href="#!">Plain text mode</a>
 	                        </div>
 	                      </div>
-	                      <button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-dismiss="collapse"><span class="fas fa-trash"></span></button>
+	            
 	                    </div>
 	                  </div>
 	                </div>
