@@ -21,13 +21,13 @@
                     <img class="rounded-circle" src="../../assets/img/team/1.jpg" alt="" />
                   </div>
                   <div class="flex-1 ms-2">
-                    <h5 class="mb-0">공지사항 제목</h5><a class="text-800 fs--1" href="#!"><span class="fw-semi-bold">관리자 이름</span><span class="ms-1 text-500">&lt;관리자이메일&gt;</span></a>
+                    <h5 class="mb-0">${map['TITLE']}</h5><a class="text-800 fs--1" href="#!"><span class="fw-semi-bold">${map['NAME']}</span><span class="ms-1 text-500">&lt;${map['EMAIL']}&gt;</span></a>
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
-                	<small>조회수</small>
+                	<small>조회수 : ${map['READCOUNT']}</small>
                 	<span class="mypagehyphen"></span>
-                	<small>등록일</small>
+                	<small>등록일 : ${map['REGDATE']}</small>
                 </div>
               </div>
             </div>
@@ -35,8 +35,7 @@
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3">
                     <div class="card-body">
-                      <p>공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용
-                      공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 공지사항 내용 
+                      <p>${map['CONTENT']} 
                       </p>
                     </div>
                   </div>
@@ -48,7 +47,8 @@
               	 	목록 가기
               	 	</a>
                   </div>
-                  <!-- 시간나면 이전글 다음글 a링크 구현해보기 -->
+                 <a href="<c:url value=''/>">이전글</a>
+                 <a href="<c:url value=''/>">다음글</a>
                 </div>
             </div>
           </div>
