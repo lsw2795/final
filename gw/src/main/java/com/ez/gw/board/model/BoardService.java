@@ -12,4 +12,5 @@ public interface BoardService {
 	int updateReadcount(int boardNo); //조회수 증가 메서드
 	int updateQna(BoardVO vo); //질문 수정 메서드
 	int deleteQna(int boardNo); //질문 삭제 메서드
+	int insertNotice(BoardVO vo); //관리자 공지사항 글등록 메서드
 }
