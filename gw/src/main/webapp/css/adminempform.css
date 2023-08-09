@@ -90,7 +90,14 @@
 }
 .adminempdiv14 {
     margin: 4px 0 0 120px;
-}    
+}
 .ck-editor__editable {
     height: 300px;
+}
+.adminempdiv15 {
+  overflow: hidden; 
+}
+.adminempdiv15 img{
+ max-width: 100%; 
+ height: auto;
 }
