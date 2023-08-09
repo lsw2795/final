@@ -75,6 +75,22 @@ public class ConfirmController {
     	return "approval/selectEmp/selectEmp";
     }
     
+    @GetMapping("/selectEmp/createConfirmLine")
+    public String createConfirmLine_get(Model model ) {
+    	//1
+    	logger.info("결재라인 생성 페이지");
+    	
+    	//2
+    	List<EmployeeVO> empList = employeeService.selectAllEmp();
+    	List<DeptVO> deptList = deptService.selectAllDept();
+    	
+    	//3
+    	model.addAttribute("empList",empList);
+    	model.addAttribute("deptList",deptList);
+    	
+    	return "approval/selectEmp/confirmLine";
+    }
+    
     @ResponseBody
     @RequestMapping("/selectEmpAjax")
     public EmployeeVO selectEmpAjax(@RequestParam (defaultValue = "0") int empNo) {

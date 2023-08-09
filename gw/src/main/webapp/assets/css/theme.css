@@ -32394,6 +32394,10 @@ select#documentNo,#deptNo {
 .selectDiv{
 	min-height: 300px;
 }
+
+.LineSelectDiv{
+	min-height: 365px;
+}
 .a-select{
 	color: #748194;
 }

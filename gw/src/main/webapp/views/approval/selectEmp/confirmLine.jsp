@@ -24,34 +24,13 @@
     	$(function() {
     		$('.a-select').click(function() {
     		    // 해당 a 태그에 active 클래스 추가
-    		    $(this).addClass('sel');
+    		    $(this).addClass('active');
     		    
     		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
-    		    $('.a-select').not(this).removeClass('sel');
+    		    $('.a-select').not(this).removeClass('active');
     		});
     		  
     		$('#insert').click(function(){
-    			if($('#select').find('.selectName').length>0){
-			    	$('#select>.selectName').each(function(index,item){
-			    		var result=$(item).html();
-			    		if(index==0){
-				    		opener.document.getElementById('reperEmpNameSpan').innerHTML=result;
-			    		}else{
-				    		opener.document.getElementById('reperEmpNameSpan').append(", "+result);
-			    		}
-			    	});
-			    	
-			    	$('#select>.selectNo').each(function(index,item){
-			    		var result=$(item).html();
-				    	$(opener.document).find('#reperEmpNo').append(
-				    			"<input type='hidden' name='reperEmpNo' value='"+result+"'>");
-			    	});
-    			}else{
-			    	$(opener.document).find('#reperEmpNameSpan').html("참조자를 선택하세요");
-				    $(opener.document).find('#reperEmpNo').html("");
-    				
-    			}
-		    	
 		    	self.close();
     		});
     		
@@ -60,41 +39,81 @@
     		});
 		});
     	
-    	function selectEmp() {
+    	function selectConfirm1(){
     		var selNo=$('.active>#empNo').val();
-    		var isDuplicate = false; 
-    		$('#select>.selectNo').each(function(){
-    			if(selNo==$(this).html()){
-    				alert("중복된 참조자입니다");
-    				isDuplicate = true;
-    				return false;
-    			}
-    		});
-    		if(!isDuplicate){
-		    	$.ajax({
-		    		url:"<c:url value='/approval/selectEmpAjax'/>",
-		    		type:"post",
-		    		dataType:"json",
-		    		data:"empNo="+$('.active>#empNo').val(),
-		    		success:function(res){
-		    			var output="<span class='selectName' style='display: block;'>"+res.name+"</span><span class='selectNo' style='display: none;'>"+res.empNo+"</span>";
-		    			$('#select').append(output);
-		    		},error:function(xhr, status, error){
-		    			alert(status+" : 참조자를 선택하세요");
-		    		}
-		    	});
+    		var selName=$('.active>#empNameDiv').html();
+    		
+    		if(selNo==null){
+    			alert("검토자를 선택하세요");
+    			return;
     		}
-    		$('.a-select').removeClass('active');
+    		
+    		var str="<span class='confirm1_Name' style='display: block;'>"+selName+"</span>"+
+    		"<input type='hidden' class='confirm1' name='confirm1' value=\""+selNo+"\">";
+			$('#confirm1Sel').html(str);
+			
+			$('.a-select').removeClass('active');
     	}
     	
-    	function deleteEmp() {
-    		var lastSelectName = $('#select>.selectName:last');
-    		var lastSelectNo = $('#select>.selectNo:last');
+    	function deleteConfirm1() {
+    		var lastSelectName = $('#confirm1Sel>.confirm1_Name');
+    		var lastSelectNo = $('#confirm1Sel>.confirm1');
     	    if (lastSelectName.length > 0) {
     	        lastSelectName.remove();
     	        lastSelectNo.remove();
     	    }
     	}
+    	
+    	function selectConfirm2(){
+    		var selNo=$('.active>#empNo').val();
+    		var selName=$('.active>#empNameDiv').html();
+    		
+    		if(selNo==null){
+    			alert("확인자를 선택하세요");
+    			return;
+    		}
+    		
+    		var str="<span class='confirm2_Name' style='display: block;'>"+selName+"</span>"+
+    		"<input type='hidden' class='confirm2' name='confirm2' value=\""+selNo+"\">";
+			$('#confirm2Sel').html(str);
+			
+			$('.a-select').removeClass('active');
+    	}
+    	
+    	function deleteConfirm2() {
+    		var lastSelectName = $('#confirm2Sel>.confirm2_Name');
+    		var lastSelectNo = $('#confirm2Sel>.confirm2');
+    	    if (lastSelectName.length > 0) {
+    	        lastSelectName.remove();
+    	        lastSelectNo.remove();
+    	    }
+    	}
+    	
+    	function selectConfirm3(){
+    		var selNo=$('.active>#empNo').val();
+    		var selName=$('.active>#empNameDiv').html();
+    		
+    		if(selNo==null){
+    			alert("검토자를 선택하세요");
+    			return;
+    		}
+    		
+    		var str="<span class='confirm3_Name' style='display: block;'>"+selName+"</span>"+
+    		"<input type='hidden' class='confirm3' name='confirm3' value=\""+selNo+"\">";
+			$('#confirm3Sel').html(str);
+			
+			$('.a-select').removeClass('active');
+    	}
+    	
+    	function deleteConfirm3() {
+    		var lastSelectName = $('#confirm3Sel>.confirm3_Name');
+    		var lastSelectNo = $('#confirm3Sel>.confirm3');
+    	    if (lastSelectName.length > 0) {
+    	        lastSelectName.remove();
+    	        lastSelectNo.remove();
+    	    }
+    	}
+    	
     	
     </script>
     <!-- ===============================================-->
@@ -113,7 +132,7 @@
 		<div class="col-sm-12 ">
 			<div class="row gx-2 mb-3" style="float: right;">
 				<div class="col-auto" align="center">
-					<button class="btn btn-primary" id="insert">확인</button>
+					<button class="btn btn-primary" id="insert">생성</button>
 				</div>
 				<div class="col-auto" align="center">
 					<button class="btn btn-primary" id="close">닫기</button>
@@ -126,7 +145,7 @@
 				<div class="card-header bg-light">
 					조직도
 				</div>
-				<div class="card-body selectDiv" >
+				<div class="card-body LineSelectDiv" >
 		        	<ul id="navbarVerticalNav">
 		        	<c:forEach var="deptVo" items="${deptList }">
 		        		<li class="nav-item">
@@ -148,22 +167,48 @@
 							</ul>
 		        		</li>
 		        	</c:forEach>
-					</ul>
+					</ul> 
 				</div>		
 			</div>		
 		</div>
 		<div class="col-sm-2" align="center">
-			<div class="mt-10 selectDiv">
-				<input class="mb-3" type="button" onclick="selectEmp()" value=">>"><br>
-				<input class="mt-3" type="button" onclick="deleteEmp()" value="<<">
+			<div class="row gx-2">
+				<div class="mb-7 mt-3">
+					<input class="mb-2" type="button" onclick="selectConfirm1()" value=">>"><br>
+					<input class="mt-2" type="button" onclick="deleteConfirm1()" value="<<">
+				</div>
+				<div class="mb-7 mt-1">
+					<input class="mb-2" type="button" onclick="selectConfirm2()" value=">>"><br>
+					<input class="mt-2" type="button" onclick="deleteConfirm2()" value="<<">
+				</div>
+				<div class="mb-7 mt-1">
+					<input class="mb-2" type="button" onclick="selectConfirm3()" value=">>"><br>
+					<input class="mt-2" type="button" onclick="deleteConfirm3()" value="<<">
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-5 ">
-			<div class="card h-lg-100 overflow-hidden">
-				<div class="card-header bg-light">
-					참조자
+			<div class="row gx-2">
+				<div class="card h-lg-100 mb-6 overflow-hidden">
+					<div class="card-header bg-light">
+						검토자
+					</div>
+					<div class="card-body " id="confirm1Sel">
+					</div>
 				</div>
-				<div class="card-body selectDiv" id="select">
+				<div class="card h-lg-100 mb-6 overflow-hidden">
+					<div class="card-header bg-light">
+						확인자
+					</div>
+					<div class="card-body " id="confirm2Sel">
+					</div>
+				</div>
+				<div class="card h-lg-100 mb-6 overflow-hidden">
+					<div class="card-header bg-light">
+						승인자
+					</div>
+					<div class="card-body " id="confirm3Sel">
+					</div>
 				</div>
 			</div>
 		</div>

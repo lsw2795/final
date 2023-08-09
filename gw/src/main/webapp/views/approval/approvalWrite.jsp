@@ -9,6 +9,10 @@
 	function selectReper(){
 		window.open("<c:url value='/approval/selectEmp/selectEmp'/>","_blank","width=800, height=500")
 	}
+	
+	function createLine(){
+		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=800, height=500")
+	}
 </script>
 <form name="documentFrm" method="get" enctype="multipart/form-data" action="aa.jsp">
 <div class="container p-0">
@@ -120,10 +124,10 @@
 	                    <div class="col-12">
 			                <div class="row gx-2 mt-3 mb-3">
 		                       	<div class="col-sm-6" >
-		                       		<input class="form-control" id="createLine" onclick="" type="button" value="결재라인 생성">
+		                       		<input class="form-control" onclick="createLine()" type="button" value="결재라인 생성">
 		                       	</div>
 		                       	<div class="col-sm-6" >
-		                       		<input class="form-control" id="importLine" onclick="" type="button" value="결재라인 가져오기">
+		                       		<input class="form-control" onclick="" type="button" value="결재라인 가져오기">
 		                       	</div>
 	                       	</div>
 	                    </div>
