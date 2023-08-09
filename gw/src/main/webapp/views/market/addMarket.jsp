@@ -10,37 +10,37 @@
 	$(function(){
 		$('#bt1').click(function(){
 			
-			if($('#title').val().length<1){
+			if($('#product-name').val().length<1){
 				alert("제목을 입력하세요.");
-				$('#title').focus();
+				$('#product-name').focus();
 				
 				return false;
 			}
 			
-			if($('#product').val().length<1){
+			if($('#identification-no').val().length<1){
 				alert("상품명을 입력하세요.");
-				$('#product').focus();
+				$('#identification-no').focus();
 				
 				return false;
 			}
 			
-			if($('#price').val().length<1){
+			if($('#product-summary').val().length<1){
 				alert("가격을 입력하세요.");
-				$('#price').focus();
+				$('#product-summary').focus();
 				
 				return false;
 			}
 			
-			if(!validate_price($("#price").val())){
+			if(!validate_price($("#product-summary").val())){
 				alert("가격은 숫자만 입력해주세요.");
-				$('#price').focus();
+				$('#product-summary').focus();
 				
 				return false;
 			}
 			
-			if($('#discription').val().length<50){
+			if($('#product-description').val().length<50){
 				alert("상품 상세 설명은 50자 이상 입력해주세요.");
-				$('#discription').focus();
+				$('#product-description').focus();
 				
 				return false;
 			}
@@ -65,22 +65,22 @@
                 <div class="card-body">
                   <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/addMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
-                      <div class="col-12 mb-3">
+                      <div class="col-12 mb-3"s>
                         <label class="form-label" for="product-name">제목</label>
-                        <input class="form-control" id="title" name="title" type="text" />
+                        <input class="form-control" id="product-name" name="title" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="identification-no">상품명</label>
-                        <input class="form-control" id="product" name = "product" type="text" />
+                        <input class="form-control" id="identification-no" name = "product" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">가격</label>
-                        <input class="form-control" id="price" name = "price" type="text" />
+                        <input class="form-control" id="product-summary" name = "price" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
-                      	<input class="form-control" id="discription" name="discription" type = "text"  style="height:150px"/>
+                      	<input class="form-control" id="product-description" name="discription" type = "text"  style="height:150px"/>
                         <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="product-description" id="product-description"></textarea>
                       </div>
                    	</div>
