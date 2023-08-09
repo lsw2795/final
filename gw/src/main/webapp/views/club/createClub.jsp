@@ -24,6 +24,10 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
+                   <input class="form-check-input" type="checkbox" id="basic-checkbox" checked="checked" />
+                   <label class="form-check-label mb-0" for="basic-checkbox">회원 수 제한</label>
+                </div>
+                <div class="col-auto">
                   <button class="btn btn-falcon-default btn-sm me-2" role="button">저장</button>
                 </div>
               </div>
@@ -35,11 +39,23 @@
                   <h5 class="mb-0">Club Details</h5>
                 </div>
                 <div class="card-body bg-light">
-                  <form>
+                  <form name="createFrm" action="<c:url value='/club/creteClub'/>" method="post">
                     <div class="row gx-2">
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label" for="managr">동호회장</label>
+                        <input class="form-control" id="managr" type="text" placeholder="Manager" />
+                      </div>
+                      <div class="col-sm-4 mb-3">
+                        <label class="form-label" for="member">모집 회원 수</label>
+                        <input class="form-control" id="member" type="text" />
+                      </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="event-name">동호희 이름</label>
                         <input class="form-control" id="event-name" type="text" placeholder="Club Title" />
+                      </div>
+                      <div class="col-12 mb-3">
+                        <label class="form-label" for="event-name">동호회 소개</label>
+                        <input class="form-control" id="introduce" type="text" placeholder="Introduce" />
                       </div>
                       <div class="col-sm-6 mb-3">
                         <label class="form-label" for="start-date">모집 시작</label>
@@ -53,11 +69,10 @@
                         <div class="border-bottom border-dashed my-3"></div>
                       </div>
                       <div class="col-12">
-                        <label class="form-label" for="event-description">Description</label>
-                        <textarea class="form-control" id="event-description" rows="6"></textarea>
+                        <label class="form-label" for="event-content">내용</label>
+                        <textarea class="form-control" id="event-content" rows="6"></textarea>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
               <div class="card mb-3">
@@ -89,6 +104,7 @@
                     </div>
                   </form>
                 </div>
+		       </form>
               </div>
           </div>
           <div class="card mt-3">
