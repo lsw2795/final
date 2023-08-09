@@ -1,5 +1,6 @@
 package com.ez.gw.board.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.SearchVO;
-import com.ez.gw.employee.model.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,6 +54,38 @@ public class NoticeController {
 		//4
 		return "common/message";
 	}
+	
+	
+	
+	/*
+	 * @PostMapping("/pds_upload") public ModelAndView
+	 * image(MultipartHttpServletRequest request) throws Exception {
+	 * 
+	 * ModelAndView mav = new ModelAndView("jsonView");
+	 * 
+	 * MultipartFile uploadFile = request.getFile("upload");
+	 * 
+	 * String originalFileName = uploadFile.getOriginalFilename();
+	 * 
+	 * String ext = originalFileName.substring(originalFileName.indexOf("."));
+	 * 
+	 * String newFileName = UUID.randomUUID() + ext;
+	 * 
+	 * String realPath = request.getServletContext().getRealPath("/");
+	 * 
+	 * String savePath = realPath + "upload/" + newFileName;
+	 * 
+	 * String uploadPath = "./upload/" + newFileName;
+	 * 
+	 * File file = new File(savePath);
+	 * 
+	 * uploadFile.transferTo(file);
+	 * 
+	 * mav.addObject("uploaded", true); mav.addObject("url", uploadPath);
+	 * 
+	 * return mav; }
+	 */
+	
 	
 	@RequestMapping("/admin/board/noticeList")
 	public String noticeList(@ModelAttribute SearchVO searchVo, Model model) {

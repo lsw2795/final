@@ -58,7 +58,7 @@
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="form-label" for="title">제목</label>
 					    </div>
-					    <div class="col-md-11">
+					    <div class="col-md-10">
 					        <input type="text" class="form-control admindefault boardbox" id="title" name="title" value="${map['TITLE']}"/>
 					    </div>
 					</div>
@@ -66,10 +66,8 @@
 					    <div class="col-md-auto adminempdiv3">
 							<label class="form-label" for="">내용</label>
 						</div>
-						<div class="col-md-auto col-md-11">
-							<div id="editor">
-							${map['CONTENT']}
-							</div>
+						<div class="col-md-auto col-md-10">
+							<textarea id="editor" name="content" value="${map['CONTENT']}"></textarea>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -88,18 +86,24 @@
 			</div>
 			
 <!-- CKEditor -->
-<script>		
-	ClassicEditor
-	.create(document.querySelector('#editor'), {
+<script type="text/javascript">
+var myEditor;
+ClassicEditor
+	.create( document.querySelector( '#editor' ), {
 		ckfinder: {
-			uploadUrl : '<c:url value='/images'/>'
-		}
-	})
-	.then(editor => {
-		console.log('Editor was initialized');
-	})
-	.catch(error => {
-		console.error(error);
-	});
+	        uploadUrl: '/pds_upload' // 내가 지정한 업로드 url (post로 요청감)
+		},
+		alignment: {
+            options: [ 'left', 'center', 'right' ]
+        }
+	} )
+	.then( editor => {
+        console.log( 'Editor was initialized', editor );
+        myEditor = editor;
+    } )
+	.catch( error => {
+	    console.error( error );
+	} );
 </script>
+
 <%@ include file='../../inc/adminBottom.jsp'%>
