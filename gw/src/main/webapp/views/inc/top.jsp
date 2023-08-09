@@ -90,12 +90,7 @@
             }
           </script>
           <div class="d-flex align-items-center">
-            <div class="toggle-icon-wrapper">
-              <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation">
-              	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="<c:url value='/index.jsp'/>">
+            <a class="navbar-brand" href="<c:url value='/'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/title.png'/>" alt="" width="150" />
               </div>
@@ -411,16 +406,16 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="h">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/market/marketList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">거래게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/market/addMarket'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
+                        				<span class="nav-link-text ps-1">거래 올리기</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -456,9 +451,9 @@
         </nav>
         <div class="content">
         <!-- top nav -->
-          <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
-            <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-            <a class="navbar-brand me-1 me-sm-3" href="index.jsp">
+          <nav class="navbar navbar-light navbar-glass navbar-top">
+            <div class = "container">
+            <a class="navbar-brand me-1 me-sm-3" href="<c:url value='/'/>">
               <div class="d-flex align-items-center"><img src="title.png" alt="" width="150" />
               </div>
             </a>
@@ -642,6 +637,7 @@
                 </div>
               </li>
             </ul>
+            </div>
           </nav>
           <!-- top end -->
 <%@ include file ="../mypage/organizationChart.jsp"%> 

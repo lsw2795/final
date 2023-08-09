@@ -5,13 +5,55 @@
 <link href="<c:url value='/vendors/choices/choices.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/flatpickr/flatpickr.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/dropzone/dropzone.min.c.css'/>" rel="stylesheet">
+<script type="text/javascript" src = "<c:url value='/js/market.js'/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#bt1').click(function(){
+			
+			if($('#title').val().length<1){
+				alert("제목을 입력하세요.");
+				$('#title').focus();
+				
+				return false;
+			}
+			
+			if($('#product').val().length<1){
+				alert("상품명을 입력하세요.");
+				$('#product').focus();
+				
+				return false;
+			}
+			
+			if($('#price').val().length<1){
+				alert("가격을 입력하세요.");
+				$('#price').focus();
+				
+				return false;
+			}
+			
+			if(!validate_price($("#price").val())){
+				alert("가격은 숫자만 입력해주세요.");
+				$('#price').focus();
+				
+				return false;
+			}
+			
+			if($('#discription').val().length<50){
+				alert("상품 상세 설명은 50자 이상 입력해주세요.");
+				$('#discription').focus();
+				
+				return false;
+			}
+		});
+	});
 
+</script>
  <div class="content">
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
                 <div class="col-md">
-                  <h5 class="mb-2 mb-md-0">물건 팔기</h5>
+                  <h5 class="mb-2 mb-md-0">중고거래 상품 등록</h5>
                 </div>
                 <div class="col-auto">
                 </div>
@@ -21,43 +63,45 @@
           <div class="row g-0">
               <div class="card mb-3">
                 <div class="card-body">
-                  <form>
+                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/addMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-name">제목</label>
-                        <input class="form-control" id="product-name" type="text" />
+                        <input class="form-control" id="title" name="title" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="identification-no">상품명</label>
-                        <input class="form-control" id="identification-no" type="text" />
+                        <input class="form-control" id="product" name = "product" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">가격</label>
-                        <input class="form-control" id="product-summary" type="text" />
+                        <input class="form-control" id="price" name = "price" type="text" />
                       </div>
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
-                      	<input class="form-control" id="product-summary" type = "text"  style="height:150px"/>
+                      	<input class="form-control" id="discription" name="discription" type = "text"  style="height:150px"/>
                         <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="product-description" id="product-description"></textarea>
                       </div>
+                   	</div>
                     </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+	                </div>
+	              </div>
               <div class="card mb-3">
                 <div class="card-header bg-light">
                   <h6 class="mb-0">이미지 추가</h6>
                 </div>
                 <div class="card-body">
-                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" action="#!" data-options='{"acceptedFiles":"image/*"}'>
+                  <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="file" type="file" multiple="multiple" />
+                      <input name="fileName" type="file" multiple="multiple" />
                     </div>
-                    <div class="dz-message" data-dz-message="data-dz-message"> <img class="me-2" src="../../../assets/img/icons/cloud-upload.svg" width="25" alt="" /><span class="d-none d-lg-inline">파일을 드래그하세요.<br/>or, </span><span class="btn btn-link p-0 fs--1">Browse</span></div>
+                    <div class="dz-message" data-dz-message="data-dz-message"> 
+	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
+	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
+                    </div>
                     <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
-                      <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger"><img class="dz-image" src="../../../assets/img/icons/cloud-upload.svg" alt="..." data-dz-thumbnail="data-dz-thumbnail" />
+                      <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger">
                         <div class="flex-1 d-flex flex-between-center">
                           <div>
                             <h6 data-dz-name="data-dz-name"></h6>
@@ -73,21 +117,21 @@
                         </div>
                       </div>
                     </div>
-                  </form>
-                </div>
-              </div>
-              
-          </div>
+                   </div>
+                 </div>
+               </div>
+          	</div>
           <div class="card mt-3">
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" role="button">등록 </button>
+                  <button class="btn btn-primary" id = "bt1" role="button">등록 </button>
                 </div>
               </div>
             </div>
           </div>
+          </form>
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
