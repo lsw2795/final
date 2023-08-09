@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html data-bs-theme="dark" lang="en-US" dir="ltr">
 
@@ -269,16 +271,16 @@
 	                    </div>
                   	</div>
                   	<li class="nav-item"><!-- parent pages-->
-                  		<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+                  		<a class="nav-link" href="#" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
 	                    		<span class="nav-link-text ps-1">게시판 관리</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+	                  	<a class="nav-link" href="<c:url value='/admin/board/noticeList'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-thumbtack"></span></span>
-	                    		<span class="nav-link-text ps-1">공지사항</span>
+	                   			<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">

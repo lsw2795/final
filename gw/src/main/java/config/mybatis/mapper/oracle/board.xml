@@ -48,8 +48,19 @@
 		</selectKey>
 		
 		insert into board(board_no, emp_no, boardList_no, title, content)
-		values(#{boardNo}, 7, 2000, #{title}, #{content})
+		values(#{boardNo}, 1, 2000, #{title}, #{content})
 	</insert>
+
+	<select id="selectNoticeAll" parameterType="searchVo">
+		select * from noticeListView
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
+		order by regdate desc
+	</select>
 	
-	
+	<select id="selectNotice" parameterType="int" resultType="map">
+		select * from noticeListView
+		where board_no=#{boardNo} and boardList_no = 2000
+	</select>
 </mapper>
