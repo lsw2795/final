@@ -41,4 +41,15 @@
 		delete from board
 		where boardList_no=1000 and board_no=#{boardNo}
 	</delete>
+	
+	<insert id="insertNotice" parameterType="boardVo">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			select board_seq.nextval from dual
+		</selectKey>
+		
+		insert into board(board_no, emp_no, boardList_no, title, content)
+		values(#{boardNo}, 7, 2000, #{title}, #{content})
+	</insert>
+	
+	
 </mapper>
