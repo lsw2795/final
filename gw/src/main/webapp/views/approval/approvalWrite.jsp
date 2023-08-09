@@ -7,7 +7,7 @@
 	});
 	
 	function selectReper(){
-		window.open("a.jsp","_blank","width=500, height=500")
+		window.open("<c:url value='/approval/selectEmp/selectEmp'/>","_blank","width=800, height=500")
 	}
 </script>
 <form name="documentFrm" method="get" enctype="multipart/form-data" action="aa.jsp">
@@ -113,9 +113,9 @@
 	                        	참조자
 	                        </label>
 	                        <div id="reperEmpName" onclick="selectReper()">
-	                        	참조자를 선택하세요
+	                       		<span id="reperEmpNameSpan">참조자를 선택하세요</span>
+	                       		<div id="reperEmpNo"></div>
 	                        </div>
-		                    <input name="reperEmpNo" id="reperEmpNo" type="hidden" />
 	                    </div>
 	                    <div class="col-12">
 			                <div class="row gx-2 mt-3 mb-3">

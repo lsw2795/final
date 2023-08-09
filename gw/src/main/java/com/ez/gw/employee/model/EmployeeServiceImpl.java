@@ -1,5 +1,8 @@
 package com.ez.gw.employee.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public EmployeeVO selectByEmpNo(int empNo) {
 		return employeeDao.selectByEmpNo(empNo);
 	}
+	
+	@Override
+	public List<EmployeeVO> selectAllEmp() {
+		return employeeDao.selectAllEmp();
+	}
+	
 	
 	
 }
