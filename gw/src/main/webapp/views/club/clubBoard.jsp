@@ -3,7 +3,6 @@
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <div class="row gx-3">
-            <div class="col-xxl-10 col-xl-9">
               <div class="card" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":7,"pagination":true,"fallback":"tickets-card-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
@@ -63,7 +62,7 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <div class="avatar-name rounded-circle"><span>이름</span></div>
+                            <div class="avatar-name rounded-circle"><span>jcm</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
@@ -89,7 +88,7 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">급구</h6>
+                          <h6 class="mb-0 text-700">마감임박</h6>
                         </div>
                       </div>
                     </div>
@@ -99,16 +98,16 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-1" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <div class="avatar-name rounded-circle"><span>L</span></div>
+                            <div class="avatar-name rounded-circle"><span>hgd</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">Change of refund my last buy | Order #125631</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club2</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Luke</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>홍길동</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-danger false">Overdue</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-danger false"></small>
                             </div>
                             <div class="col-auto">
                               <h6 class="mb-0 text-500">2d ago</h6>
@@ -125,14 +124,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#F68F57" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">High</h6>
+                          <h6 class="mb-0 text-700">모집 중</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option selected="selected">Anindya</option>
-                          <option>Nowrin</option>
-                          <option>Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -141,17 +134,16 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-2" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <img class="rounded-circle" src="../../assets/img/team/1-thumb.png" alt="" />
-
+                            <div class="avatar-name rounded-circle"><span>kim</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club3</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Finley</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>김길동</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-warning false">Remaining</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-warning false"></small>
                             </div>
                             <div class="col-auto">
                               <h6 class="mb-0 text-500">2d ago</h6>
@@ -168,14 +160,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">Medium</h6>
+                          <h6 class="mb-0 text-700">모집 중</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option>Anindya</option>
-                          <option selected="selected">Nowrin</option>
-                          <option>Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -184,16 +170,16 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-3" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <div class="avatar-name rounded-circle"><span>PG</span></div>
+                            <div class="avatar-name rounded-circle"><span>Pk</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club4</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Peter Gill</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>박길동</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-info false">Responded</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-info false"></small>
                             </div>
                             <div class="col-auto">
                               <h6 class="mb-0 text-500">2d ago</h6>
@@ -210,14 +196,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#00D27B" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">Low</h6>
+                          <h6 class="mb-0 text-700">신규</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option>Anindya</option>
-                          <option selected="selected">Nowrin</option>
-                          <option>Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -226,20 +206,19 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-4" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <img class="rounded-circle" src="../../assets/img/team/25-thumb.png" alt="" />
-
+                           <div class="avatar-name rounded-circle"><span>fu</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">Contact Froms #3264</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club5</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Freya</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>푸길동</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-secondary dark__bg-1000"></small>
                             </div>
                             <div class="col-auto">
-                              <h6 class="mb-0 text-500">2d ago</h6>
+                              <h6 class="mb-0 text-500">3d ago</h6>
                             </div>
                           </div>
                         </div>
@@ -253,14 +232,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">Medium</h6>
+                          <h6 class="mb-0 text-700">모집 중</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option>Anindya</option>
-                          <option>Nowrin</option>
-                          <option selected="selected">Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -269,19 +242,19 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-5" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <div class="avatar-name rounded-circle"><span>M</span></div>
+                            <div class="avatar-name rounded-circle"><span>hgd</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club6</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Morrison</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>황길동</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-info false">Responded</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-info false"></small>
                             </div>
                             <div class="col-auto">
-                              <h6 class="mb-0 text-500">2d ago</h6>
+                              <h6 class="mb-0 text-500">4d ago</h6>
                             </div>
                           </div>
                         </div>
@@ -295,14 +268,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">Medium</h6>
+                          <h6 class="mb-0 text-700">모집 중</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option>Anindya</option>
-                          <option>Nowrin</option>
-                          <option selected="selected">Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -311,19 +278,19 @@
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-6" data-bulk-select-row="data-bulk-select-row" />
                         </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
                           <div class="avatar avatar-xl avatar-3xl">
-                            <div class="avatar-name rounded-circle"><span>MB</span></div>
+                            <div class="avatar-name rounded-circle"><span>choi</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">I need your help #2256</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club7</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>Morrison Banneker</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>최정윤</span></a></h6>
                             </div>
-                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-secondary dark__bg-1000">Closed</small>
+                            <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-secondary dark__bg-1000"></small>
                             </div>
                             <div class="col-auto">
-                              <h6 class="mb-0 text-500">2d ago</h6>
+                              <h6 class="mb-0 text-500">3d ago</h6>
                             </div>
                           </div>
                         </div>
@@ -337,14 +304,8 @@
                               <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#2A7BE4" stroke-width="12"></circle>
                             </svg>
                           </div>
-                          <h6 class="mb-0 text-700">Medium</h6>
+                          <h6 class="mb-0 text-700">모집 중</h6>
                         </div>
-                        <select class="form-select form-select-sm" aria-label="agents actions" style="width:9.375rem;">
-                          <option>Select Agent</option>
-                          <option>Anindya</option>
-                          <option>Nowrin</option>
-                          <option selected="selected">Khalid</option>
-                        </select>
                       </div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
@@ -953,130 +914,5 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xxl-2 col-xl-3">
-              <div class="offcanvas offcanvas-end offcanvas-filter-sidebar border-0 bg-white dark__bg-card-dark h-auto rounded-xl-3" tabindex="-1" id="ticketOffcanvas" aria-labelledby="ticketOffcanvasLabelCard">
-                <div class="offcanvas-header d-flex flex-between-center d-xl-none bg-light">
-                  <h6 class="fs-0 mb-0 fw-semi-bold">Filter</h6>
-                  <button class="btn-close text-reset d-xl-none shadow-none" id="ticketOffcanvasLabelCard" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="card scrollbar shadow-none shadow-show-xl">
-                  <div class="card-header bg-light d-none d-xl-block">
-                    <h6 class="mb-0">Filter</h6>
-                  </div>
-                  <div class="card-body">
-                    <form>
-                      <div class="mb-2 mt-n2">
-                        <label class="mb-1">Priority</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Urgent</option>
-                          <option>High</option>
-                          <option>Medium</option>
-                          <option>Low</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Source</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Email</option>
-                          <option>Phone</option>
-                          <option>Forum</option>
-                          <option selected="selected">Facebook</option>
-                          <option>Twitter</option>
-                          <option>Chat</option>
-                          <option>Whatsapp</option>
-                          <option>Portal</option>
-                          <option>Bots</option>
-                          <option>External Email</option>
-                          <option>Ecommerce</option>
-                          <option>Feedback Widget</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Status</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Recent</option>
-                          <option>Overdue</option>
-                          <option>Closed</option>
-                          <option>Remaining</option>
-                          <option>Responded</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Group</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>My Group</option>
-                          <option>Billing</option>
-                          <option>Customer Support</option>
-                          <option>Enhancement</option>
-                          <option>Unassigned</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Agent</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Anindya</option>
-                          <option>Nowrin</option>
-                          <option>Khalid</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Type</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Question</option>
-                          <option>Incident</option>
-                          <option>Problem</option>
-                          <option>Feature Request</option>
-                          <option>Refund</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Category</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>General Issue</option>
-                          <option>Maintenance</option>
-                          <option>Engineering</option>
-                          <option>Accounts</option>
-                          <option>Feedback</option>
-                          <option selected="selected">Support</option>
-                          <option>Test Helpdesk</option>
-                        </select>
-                      </div>
-                      <div class="mb-2">
-                        <label class="mb-1 mt-2">Tags</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Sales</option>
-                          <option>Request</option>
-                          <option>Complaint</option>
-                          <option>Feedback</option>
-                          <option>Support</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label class="mb-1 mt-2">Subscription</label>
-                        <select class="form-select form-select-sm">
-                          <option>None</option>
-                          <option>Active</option>
-                          <option>Inactive</option>
-                          <option>Expired</option>
-                          <option>Pending</option>
-                        </select>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="card-footer border-top border-200 py-x1">
-                    <button class="btn btn-primary w-100">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 <%@ include file="../inc/bottom.jsp" %>

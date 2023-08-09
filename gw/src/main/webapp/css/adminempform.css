@@ -73,3 +73,24 @@ label.form-label {
 .adminempspan{
 	margin: 5px 0 0 15px;
 }
+.adminempdiv11 {
+    margin: 0 7px 0 -7px;
+}
+.adminempdiv12 {
+    margin: 0 0 0 15px;
+}
+.adminempdiv13 {
+    margin: 0 0 15px 0px;
+}
+#admina{
+	text-decoration: none;
+}
+.admina{
+	color: white;
+}
+.adminempdiv14 {
+    margin: 4px 0 0 120px;
+}    
+.ck-editor__editable {
+    height: 300px;
+}

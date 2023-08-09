@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
-    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/assets/img/favicons/favicon.ico'/>">
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/planet_icon.ico'/>">
     <link rel="manifest" href="<c:url value='/assets/img/favicons/manifest.json'/>">
  	<meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
     <meta name="theme-color" content="#ffffff">
@@ -90,12 +90,7 @@
             }
           </script>
           <div class="d-flex align-items-center">
-            <div class="toggle-icon-wrapper">
-              <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation">
-              	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="<c:url value='/index.jsp'/>">
+            <a class="navbar-brand" href="<c:url value='/'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/title.png'/>" alt="" width="150" />
               </div>
@@ -248,7 +243,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/calendar/viewMySchedule'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내 일정 관리</span>
                         			</div> 
@@ -335,18 +330,17 @@
 	                    </div>
                   	</div>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/board/noticeList'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-thumbtack"></span></span>
-	                    		<span class="nav-link-text ps-1">공지사항</span>
+                    			<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href='<c:url value='/qna/list'/>' role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
-	                    		<a style="text-decoration: none;" href='<c:url value='/qna/list'/>'><span class="nav-link-text ps-1">&nbsp; Q&A</span></a>
+	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
-	                    	<a href='<c:url value='/qna/list'/>'>
 	                  	</a>
 						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
@@ -390,11 +384,11 @@
                     			<a class="nav-link " href="<c:url value='/views/club/payClub.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
-                        			</div> 
+                       			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/views/club/clubStanby.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 대기 동호회(임원)</span>
                         			</div> 
@@ -411,16 +405,16 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="h">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/market/marketList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">거래게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/market/addMarket'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
+                        				<span class="nav-link-text ps-1">거래 올리기</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -456,13 +450,19 @@
         </nav>
         <div class="content">
         <!-- top nav -->
-          <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
-            <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-            <a class="navbar-brand me-1 me-sm-3" href="index.jsp">
+          <nav class="navbar navbar-light navbar-glass navbar-top">
+            <div class = "container">
+            <a class="navbar-brand me-1 me-sm-3" href="<c:url value='/'/>">
               <div class="d-flex align-items-center"><img src="title.png" alt="" width="150" />
               </div>
             </a>
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+              <li>
+				<button class="nav-link px-0 notification-indicator-warning notification-indicator-fill fa-icon-wait" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+				<span class="fas fa-users" data-fa-transform="shrink-7" style="font-size: 33px;"></span>
+				</button>
+              </li>
+              
               <li class="nav-item d-none d-sm-block">
                 <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
               </li>
@@ -636,7 +636,7 @@
                 </div>
               </li>
             </ul>
+            </div>
           </nav>
           <!-- top end -->
-          
-       
+<%@ include file ="../mypage/organizationChart.jsp"%> 

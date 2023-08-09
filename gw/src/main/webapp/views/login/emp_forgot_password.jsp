@@ -74,7 +74,7 @@
         </script>
         <div class="row min-vh-100 bg-100">
           <div class="col-6 d-none d-lg-block position-relative">
-            <div class="bg-holder overlay" style="background-image:url(../../../assets/img/generic/17.jpg);background-position: 50% 76%;">
+            <div class="bg-holder overlay" style="background-image:url(../../assets/img/generic/17.jpg);background-position: 50% 76%;">
             </div>
             <!--/.bg-holder-->
 

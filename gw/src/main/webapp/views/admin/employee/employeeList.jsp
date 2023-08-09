@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
-<div class="row g-3">
-	<div class="col-xxl-10 col-xl-9">
+<div class="row g-0">
+	<div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
 				<h5 class="mb-0 admindefault">
@@ -37,8 +37,7 @@
 								</div>
 							</form>
 							<div class="border-bottom border-200 my-3"></div>
-							<div
-								class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
+							<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
 								<div class="d-flex align-items-center admindefault"
 									id="table-contact-replace-element">
 									<button class="btn btn-falcon-default btn-sm admindefault"
@@ -86,8 +85,8 @@
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
-									<col style="width: 19%;" />
-									<col style="width: 11%;" />
+									<col style="width: 17%;" />
+									<col style="width: 13%;" />
 								</colgroup>
 								<thead class="adminempthead">
 									<tr style="text-align: center;">
@@ -156,15 +155,15 @@
 		</div>
 	</div>
 
-	<div class="col-xxl-2 col-xl-3">
+	<div class="col-lg-5 col-xl-4 ps-lg-2 mb-3">
 		<div class="offcanvas offcanvas-end offcanvas-filter-sidebar h-auto"
 			aria-labelledby="allContactOffcanvasLabel">
 			<div class="card admindefault">
 				<div class="card-header admindefault">
-				<h5 class="mb-0 admindefault">
-					<span class="fas fa-users" style="margin: 0 10px;"></span>조직도관리
-				</h5>
-			</div>
+					<h5 class="mb-0 admindefault">
+						<span class="fas fa-users" style="margin: 0 10px;"></span>조직도관리
+					</h5>
+				</div>
 				<div class="card-body">
 					<div id="organization-chart">
 						<div class="mb-3 adminempdiv10">
