@@ -55,7 +55,7 @@
 				<input type="hidden" name="olddFileName" value="">
 					
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv3">
+					    <div class="col-md-auto adminempdiv6">
 					        <label class="form-label" for="title">제목</label>
 					    </div>
 					    <div class="col-md-10">
@@ -63,7 +63,7 @@
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv3">
+					    <div class="col-md-auto adminempdiv6">
 							<label class="form-label" for="">내용</label>
 						</div>
 						<div class="col-md-auto col-md-10">
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto">
+						<div class="col-md-auto adminempdiv3">
 							<label class="form-label">첨부 파일</label>
 						</div>
 						<div class="col-md-4">	 
