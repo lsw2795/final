@@ -32386,4 +32386,20 @@ html[data-bs-theme=dark] .bg-priority-low:checked {
 .input-search-width {
   width: 13.75rem;
 }
+
+select#documentNo,#deptNo {
+    width: 150px;
+}
+
+.selectDiv{
+	min-height: 300px;
+}
+
+.LineSelectDiv{
+	min-height: 365px;
+}
+.a-select{
+	color: #748194;
+}
+
 /*# sourceMappingURL=theme.css.map */

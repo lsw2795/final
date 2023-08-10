@@ -29,16 +29,16 @@
                 	<span class="adminhyphen"></span>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
                		<span class="adminhyphen"></span>
-                	<input type="button" value="수정" class="btn btn-primary"/>
+                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-primary">수정</a>
                		<span class="adminhyphen"></span>
-                	<input type="button" value="삭제" class="btn btn-primary"/>
+                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-primary">삭제</a>
                 </div>
               </div>
             </div>
             <div class="card-body admindefault">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 bg-light">
-                    <div class="card-body admindefault">
+                    <div class="card-body adminempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>

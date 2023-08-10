@@ -180,7 +180,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="b">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/approval/approvalWrite'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 문서 작성</span>
                         			</div> 

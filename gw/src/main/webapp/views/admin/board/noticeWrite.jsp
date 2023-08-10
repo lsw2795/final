@@ -2,14 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
-<script src="<c:url value='/vendors/ckeditor5/ckeditor.js'/>"></script>
-<script src="<c:url value='/vendors/ckeditor5/translations/ko.js'/>"></script>	
-<c:if test="${!empty map['BOARD_NO']}">
+<script src="<c:url value='/vendors/ckeditor5/build/ckeditor.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor5/build/translations/ko.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor5/bulid/UploadAdapter.js'/>"></script>
+<c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
 	<c:set var="url" value="/admin/board/noticeEdit" />
-	<c:set var="no" value="${map['BOARD_NO']}" />	
+	<c:set var="no" value="${param.boardNo}" />	
 </c:if>
-<c:if test="${empty map['BOARD_NO'] }">
+<c:if test="${empty param.boardNo}">
 	<c:set var="btLabel" value="등록" />
 	<c:set var="url" value="/admin/board/noticeWrite" />
 	<c:set var="no" value="0" />	
@@ -51,29 +52,27 @@
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url}'/>">	
 				<!-- 수정 처리시 no,oldFileName가 필요하므로 hidden 필드에 넣어서 보내준다 -->
-				<input type="hidden" name="no" value="${no}">
+				<input type="hidden" name="no" value="${map['BOARD_NO']}">
 				<input type="hidden" name="olddFileName" value="">
 					
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv3">
+					    <div class="col-md-auto adminempdiv6">
 					        <label class="form-label" for="title">제목</label>
 					    </div>
-					    <div class="col-md-11">
+					    <div class="col-md-10">
 					        <input type="text" class="form-control admindefault boardbox" id="title" name="title" value="${map['TITLE']}"/>
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv3">
+					    <div class="col-md-auto adminempdiv6">
 							<label class="form-label" for="">내용</label>
 						</div>
-						<div class="col-md-auto col-md-11">
-							<div id="editor">
-							${map['CONTENT']}
-							</div>
+						<div class="col-md-auto col-md-10">
+							<textarea id="editor" name="content">${map['CONTENT']}</textarea>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto">
+						<div class="col-md-auto adminempdiv3">
 							<label class="form-label">첨부 파일</label>
 						</div>
 						<div class="col-md-4">	 
@@ -86,20 +85,17 @@
 					</div>
 				</form>
 			</div>
-			
-<!-- CKEditor -->
-<script>		
-	ClassicEditor
-	.create(document.querySelector('#editor'), {
-		ckfinder: {
-			uploadUrl : '<c:url value='/images'/>'
-		}
-	})
-	.then(editor => {
-		console.log('Editor was initialized');
-	})
-	.catch(error => {
-		console.error(error);
-	});
+<!-- CKEditor5 -->
+<!-- <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script> -->
+<script>
+     ClassicEditor
+     .create(document.querySelector('#editor'), {
+         simpleUpload: {
+             uploadUrl: '<c:url value='/pds_upload'/>', // 업로드 처리 컨트롤러 URL
+         },
+     })
+     .catch(error => {
+         console.error(error);
+     });
 </script>
 <%@ include file='../../inc/adminBottom.jsp'%>
