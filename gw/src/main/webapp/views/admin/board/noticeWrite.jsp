@@ -25,7 +25,7 @@
 		$('input[type=submit]').click(function(){
 		   $('.boardbox').each(function(idx, item){
 		      if($(this).val().length <1){
-		         alert($(this).prev().text() + '를 입력하세요');
+		         alert($(this).parent().parent().find('.form-label').text() + '를 입력하세요');
 		         $(this).focus();
 		         event.preventDefault();
 		         return false;
