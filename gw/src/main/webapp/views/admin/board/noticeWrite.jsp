@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
-<%-- <script src="<c:url value='/vendors/ckeditor5/build/ckeditor.js'/>"></script> --%>
 <script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
-<script src="<c:url value='/vendors/ckeditor5/build/translations/ko.js'/>"></script>
-<%-- <script src="<c:url value='/vendors/ckeditor5/bulid/UploadAdapter.js'/>"></script> --%>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
 	<c:set var="url" value="/admin/board/noticeEdit" />
@@ -86,19 +83,6 @@
 					</div>
 				</form>
 			</div>
-<!-- CKEditor5 -->
-<!-- <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script> -->
-<!-- <script>
-     ClassicEditor
-     .create(document.querySelector('#editor'), {
-         simpleUpload: {
-             uploadUrl: '<c:url value='/pds_upload'/>', // 업로드 처리 컨트롤러 URL
-         },
-     })
-     .catch(error => {
-         console.error(error);
-     });
-</script> -->
 <script>
 	CKEDITOR.replace('editor', {
 		filebrowserUploadUrl : '${pageContext.request.contextPath}/admin/board/fileupload'

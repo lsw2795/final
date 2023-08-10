@@ -37,7 +37,7 @@
             </div>
             <div class="card-body admindefault">
                 <div class="col-lg-12">
-                  <div class="card shadow-none mb-3 bg-light">
+                  <div class="card shadow-none mb-3 admindefault">
                     <div class="card-body adminempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
