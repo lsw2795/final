@@ -63,4 +63,18 @@
 		select * from noticeListView
 		where board_no=#{boardNo} and boardList_no = 2000
 	</select>
+	
+	<insert id="updateNotice" parameterType="boardVo">
+		update board
+		set title=#{title}, content=#{content}
+		where boardList_no=2000 and board_No=#{boardNo}
+	</insert>
+	
+	<delete id="deleteNotice" parameterType="int">
+		delete from board
+		where boardList_no=2000 and board_no=#{boardNo}
+	</delete>
+	
+	
+	
 </mapper>

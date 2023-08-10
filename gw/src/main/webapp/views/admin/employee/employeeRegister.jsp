@@ -70,7 +70,7 @@
 				<form>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
-					        <label class="form-label" for="name">사원 이름</label>
+					        <label class="form-label adminemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="name" />
@@ -78,7 +78,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto">
-					        <label class="form-label" for="ename">사원 영어이름</label>
+					        <label class="form-label adminemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="ename" />
@@ -86,7 +86,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">주민번호</label>
+							<label class="form-label adminemplabel">주민번호</label>
 						</div>	 
 						<div class="col-md-6 adminspan">							
 							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1" maxlength="6">
@@ -96,7 +96,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv1">
-							<label class="form-label" for="password">초기비밀번호</label>
+							<label class="form-label adminemplabel" for="password">초기비밀번호</label>
 						</div>
 						<div class="col-md-6">
 							<input type="password" class="form-control admindefault" id="password" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
@@ -104,7 +104,7 @@
 					</div>	
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">부서</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">부서</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							 <select class="form-select admindefault" id="dept">
@@ -118,7 +118,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">직급</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">직급</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							 <select class="form-select admindefault" id="dept">
@@ -136,7 +136,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">권한</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">권한</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							<div class="form-check">
@@ -153,7 +153,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">내선번호</label> 
+							<label class="form-label adminemplabel">내선번호</label> 
 						</div>	
 						<div class="col-md-6 adminspan">							
 							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
@@ -163,7 +163,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">전화번호</label>
+							<label class="form-label adminemplabel">전화번호</label>
 						</div> 
 						<div class="col-md-6 adminspan">
 					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
@@ -175,7 +175,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="ename">주소</label>
+							<label class="form-label adminemplabel" for="ename">주소</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							<input type="text" class="form-control admindefault" id="sample4_postcode" placeholder="우편번호" style="width: 70%;"/>
@@ -197,7 +197,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv5">
-							<label class="form-label" for="hiredate">입사일</label>
+							<label class="form-label adminemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
 							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
@@ -205,7 +205,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="annualSalary">연봉</label>
+							<label class="form-label adminemplabel" for="annualSalary">연봉</label>
 						</div>
 						<div class="col-md-7 adminspan">  
 							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
@@ -214,7 +214,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv5">
-							<label class="form-label">이메일</label>
+							<label class="form-label adminemplabel">이메일</label>
 						</div>	 
 						<div class="col-md-9 adminspan">							
 							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
@@ -233,7 +233,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv3">
-							<label class="form-label">사원 사진</label>
+							<label class="form-label adminemplabel">사원 사진</label>
 						</div>
 						<div class="col-md-6">	 
 							<input type="file" class="form-control admindefault"/>
