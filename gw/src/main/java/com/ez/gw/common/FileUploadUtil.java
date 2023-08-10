@@ -56,6 +56,8 @@ public class FileUploadUtil {
 				resultMap.put("fileSize", fileSize);
 
 				resultList.add(resultMap);
+				
+				
 			}//if			
 		}//while
 
