@@ -65,8 +65,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteNotice(int boardNo) {
-		return boardDao.deleteNotice(boardNo);
+	public int deleteNotice(BoardVO vo) {
+		return boardDao.deleteNotice(vo);
 	}
 
 
