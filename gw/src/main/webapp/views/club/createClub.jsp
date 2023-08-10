@@ -17,6 +17,7 @@
 
  
   	<body>
+		<form name="createFrm" action="<c:url value='/club/createClub'/>" method="post">
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
@@ -24,11 +25,14 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
-                   <input class="form-check-input" type="checkbox" id="basic-checkbox" checked="checked" />
                    <label class="form-check-label mb-0" for="basic-checkbox">회원 수 제한</label>
+                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
+                        <option value="Y">제한</option>
+                        <option value="N">비제한</option>
+                   </select>
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-falcon-default btn-sm me-2" role="button">저장</button>
+                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>
             </div>
@@ -39,72 +43,35 @@
                   <h5 class="mb-0">Club Details</h5>
                 </div>
                 <div class="card-body bg-light">
-                  <form name="createFrm" action="<c:url value='/club/creteClub'/>" method="post">
                     <div class="row gx-2">
                     <div class="col-sm-6 mb-3">
                         <label class="form-label" for="managr">동호회장</label>
-                        <input class="form-control" id="managr" type="text" placeholder="Manager" />
+                        <input class="form-control" id="manager" name="manager"  type="text" placeholder="Manager" />
                       </div>
                       <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="member">모집 회원 수</label>
-                        <input class="form-control" id="member" type="text" />
+                        <label class="form-label" for="memberCnt">모집 회원 수</label>
+                        <input class="form-control" id="memberCnt" name="memLimit" type="text" />
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="event-name">동호희 이름</label>
-                        <input class="form-control" id="event-name" type="text" placeholder="Club Title" />
+                        <label class="form-label" for="title">동호희 이름</label>
+                        <input class="form-control" id="title" name="title" type="text" placeholder="Club Title" />
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="event-name">동호회 소개</label>
-                        <input class="form-control" id="introduce" type="text" placeholder="Introduce" />
+                        <label class="form-label" for="introduce">동호회 소개</label>
+                        <input class="form-control" id="introduce" name="introduce" type="text" placeholder="Introduce" />
                       </div>
                       <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="start-date">모집 시작</label>
-                        <input class="form-control datetimepicker" id="start-date" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                      </div>
-                      <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="end-date">모집 마감</label>
-                        <input class="form-control datetimepicker" id="end-date" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
+                        <label class="form-label" for="secflag">공개 여부</label>
+                        <select class="form-select form-select-sm" name="secflag" id="secflag">
+                          <option value="Y">공개</option>
+                          <option value="N">비공개</option>
+                        </select>
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>
                       </div>
-                      <div class="col-12">
-                        <label class="form-label" for="event-content">내용</label>
-                        <textarea class="form-control" id="event-content" rows="6"></textarea>
-                      </div>
                     </div>
                 </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="mb-0">Upload Files</h5>
-                </div>
-                <div class="card-body bg-light">
-                  <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone" action="#!">
-                    <div class="fallback">
-                      <input name="file" type="file" multiple="multiple" />
-                    </div>
-                    <div class="dz-message" data-dz-message="data-dz-message"> <img class="me-2" src="../../assets/img/icons/cloud-upload.svg" width="25" alt="" />Drop your files here</div>
-                    <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
-                      <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger"><img class="dz-image" src="../../assets/img/generic/image-file-2.png" alt="..." data-dz-thumbnail="data-dz-thumbnail" />
-                        <div class="flex-1 d-flex flex-between-center">
-                          <div>
-                            <h6 data-dz-name="data-dz-name"></h6>
-                            <div class="d-flex align-items-center">
-                              <p class="mb-0 fs--1 text-400 lh-1" data-dz-size="data-dz-size"></p>
-                              <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
-                            </div>
-                          </div>
-                          <div class="dropdown font-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-		       </form>
               </div>
           </div>
           <div class="card mt-3">
@@ -113,12 +80,10 @@
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0"></h5>
                 </div>
-                <div class="col-auto">
-                  <button class="btn btn-falcon-default btn-sm me-2">Save</button>
-                </div>
               </div>
             </div>
           </div>
+	</form>
     
     </body>
     </html>

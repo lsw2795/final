@@ -372,14 +372,14 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/createClub.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/createClub'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/clubBoard.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/clubList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 게시판</span>
                         			</div> 

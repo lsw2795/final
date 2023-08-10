@@ -3,6 +3,21 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.club.model.ClubDAO">
-
-
+	
+	<insert id="insertClub" parameterType="clubVo">
+		<selectKey keyProperty="clubNo" order="BEFORE" resultType="int">
+			select CLUB_SEQ.NEXTVAL from dual
+		</selectKey>
+		insert into CLUB(CLUB_NO, MANAGER, MEM_LIMIT, TITLE, INTRODUCE, SECFLAG, MEM_LIMITFLAG)
+		values(#{clubNo},#{manager},#{memLimit} ,#{title},#{introduce},#{secflag},#{memLimitflag})
+	</insert>
+	
+	<select id="selectClub" parameterType="searchVo">
+		select * from club
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
+		order by regDate desc
+	</select>
+	
 </mapper>

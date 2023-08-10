@@ -16,13 +16,13 @@ public class ClubBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubBoardController.class);
 	private final ClubBoardService clubBoardService;
 	
-	@RequestMapping("/createClub")
-	public String clubWrite() {
-		logger.info("동호회 개설 페이지");
-		return "club/createClub";
+	
+	@RequestMapping("/clubBoard")
+	public String clubBoadList() {
+		//1.
+		logger.info("동호회 게시판 페이지");
+		return "/club/clubBoard";
 	}
-	
-	
 	
 	
 	
