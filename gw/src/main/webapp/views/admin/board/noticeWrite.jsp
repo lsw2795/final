@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script src="<c:url value='/vendors/ckeditor5/ckeditor.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor5/translations/ko.js'/>"></script>	
 <c:if test="${!empty map['BOARD_NO']}">
 	<c:set var="btLabel" value="수정" />
 	<c:set var="url" value="/admin/board/noticeEdit" />
@@ -12,7 +14,6 @@
 	<c:set var="url" value="/admin/board/noticeWrite" />
 	<c:set var="no" value="0" />	
 </c:if>
-<script src="<c:url value='/vendors/tinymce/tinymce.min.js'/>"></script>
 <script type="text/javascript">
 //에디터에 이미지 삽입 구현해야함
 //게시글 임시저장 기능
@@ -54,23 +55,23 @@
 				<input type="hidden" name="olddFileName" value="">
 					
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv3">
 					        <label class="form-label" for="title">제목</label>
 					    </div>
-					    <div class="col-md-11">
+					    <div class="col-md-10">
 					        <input type="text" class="form-control admindefault boardbox" id="title" name="title" value="${map['TITLE']}"/>
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto">
+					    <div class="col-md-auto adminempdiv3">
 							<label class="form-label" for="">내용</label>
 						</div>
-						<div class="col-md-11 min-vh-50 align-items-center">
-							 <textarea class="tinymce d-none boardbox" data-tinymce="data-tinymce" name="content" value="${map['CONTENT']}" style="color: black;"></textarea>
+						<div class="col-md-auto col-md-10">
+							<textarea id="editor" name="content" value="${map['CONTENT']}"></textarea>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto adminempdiv3">
+						<div class="col-md-auto">
 							<label class="form-label">첨부 파일</label>
 						</div>
 						<div class="col-md-4">	 
@@ -83,4 +84,26 @@
 					</div>
 				</form>
 			</div>
+			
+<!-- CKEditor -->
+<script type="text/javascript">
+var myEditor;
+ClassicEditor
+	.create( document.querySelector( '#editor' ), {
+		ckfinder: {
+	        uploadUrl: '/pds_upload' // 내가 지정한 업로드 url (post로 요청감)
+		},
+		alignment: {
+            options: [ 'left', 'center', 'right' ]
+        }
+	} )
+	.then( editor => {
+        console.log( 'Editor was initialized', editor );
+        myEditor = editor;
+    } )
+	.catch( error => {
+	    console.error( error );
+	} );
+</script>
+
 <%@ include file='../../inc/adminBottom.jsp'%>

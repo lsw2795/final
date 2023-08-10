@@ -3,7 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.secondhandTrade.model.SecondHandTradeDAO">
-
+	<insert id="insertMarket" parameterType="secondHandTradeVO">
+		<selectKey keyProperty="tradeNo" order="BEFORE" resultType="int">
+			select secondhand_trade_seq.nextval from dual
+		</selectKey>
+		insert into secondhand_trade(trade_no, title, product, price, discription, filename)
+		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, #{fileName})
+	</insert>
 
 
 </mapper>
