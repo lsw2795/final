@@ -91,6 +91,18 @@ public class ConfirmController {
     	return "approval/selectEmp/confirmLine";
     }
     
+    @GetMapping("/selectEmp/selectConfirmLine")
+    public String selectConfirmLine_get(Model model ) {
+    	//1
+    	logger.info("결재라인 선택 페이지");
+    	
+    	//2
+    	
+    	//3
+    	
+    	return "approval/selectEmp/selectConfirmLine";
+    }
+    
     @ResponseBody
     @RequestMapping("/selectEmpAjax")
     public EmployeeVO selectEmpAjax(@RequestParam (defaultValue = "0") int empNo) {
