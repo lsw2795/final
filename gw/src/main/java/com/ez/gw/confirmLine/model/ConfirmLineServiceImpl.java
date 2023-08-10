@@ -8,4 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ConfirmLineServiceImpl implements ConfirmLineService{
 	private final ConfirmLineDAO confirmLineDao;
+
+	@Override
+	public int insertConfirmLine(ConfirmLineVO vo) {
+		return confirmLineDao.insertConfirmLine(vo);
+	}
 }
