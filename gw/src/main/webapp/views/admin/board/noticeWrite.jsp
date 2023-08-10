@@ -14,7 +14,6 @@
 	<c:set var="no" value="0" />	
 </c:if>
 <script type="text/javascript">
-//에디터에 이미지 삽입 구현해야함
 //게시글 임시저장 기능
 	$(function(){
         $('#title').focus();
@@ -35,7 +34,6 @@
 		   
 		});		
 	});
-
 </script>
 <div class="card mb-3">
 	<div class="card-body position-relative admindefault">
@@ -63,7 +61,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="">내용</label>
+							<label class="form-label" for="content">내용</label>
 						</div>
 						<div class="col-md-auto col-md-10">
 							<textarea id="editor" name="content">${map['CONTENT']}</textarea>
@@ -85,7 +83,7 @@
 			</div>
 <script>
 	CKEDITOR.replace('editor', {
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/admin/board/fileupload'
+		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
 	});
 </script>
 <%@ include file='../../inc/adminBottom.jsp'%>
