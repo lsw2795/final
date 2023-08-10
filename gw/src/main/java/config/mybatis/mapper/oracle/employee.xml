@@ -8,6 +8,10 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<select id="selectAllEmp" resultType="employeeVo">
+		select * from employee
+	</select>
+	
 	<select id="selectPwd" resultType="string" parameterType="int">
 		select pwd from employee 
 		where emp_no=#{empNo}
