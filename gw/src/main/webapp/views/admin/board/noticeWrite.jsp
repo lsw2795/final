@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
-<script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
 	<c:set var="url" value="/admin/board/noticeEdit" />
