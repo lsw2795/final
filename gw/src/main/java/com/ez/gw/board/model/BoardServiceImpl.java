@@ -49,6 +49,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.insertNotice(vo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectNoticeAll(SearchVO searchVo) {
+		return boardDao.selectNoticeAll(searchVo);
+	}
+
+	@Override
+	public Map<String, Object> selectNotice(int boardNo) {
+		return boardDao.selectNotice(boardNo);
+	}
+
 
 
 
