@@ -18,8 +18,9 @@ import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 declare class Editor extends ClassicEditor {
-    static builtinPlugins: (typeof TextTransformation | typeof Autoformat | typeof Bold | typeof Italic | typeof BlockQuote | typeof CloudServices | typeof Essentials | typeof Paragraph | typeof Heading | typeof AutoImage | typeof Image | typeof ImageCaption | typeof ImageInsert | typeof ImageResize | typeof ImageStyle | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof Link | typeof LinkImage | typeof List | typeof MediaEmbed | typeof PasteFromOffice | typeof Table | typeof TableToolbar)[];
+    static builtinPlugins: (typeof TextTransformation | typeof Autoformat | typeof Bold | typeof Italic | typeof BlockQuote | typeof SimpleUploadAdapter | typeof CloudServices | typeof Essentials | typeof Paragraph | typeof Heading | typeof AutoImage | typeof Image | typeof ImageCaption | typeof ImageInsert | typeof ImageResize | typeof ImageStyle | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof Link | typeof LinkImage | typeof List | typeof MediaEmbed | typeof PasteFromOffice | typeof Table | typeof TableToolbar)[];
     static defaultConfig: {
         toolbar: {
             items: string[];

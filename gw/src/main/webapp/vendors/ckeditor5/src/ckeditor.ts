@@ -29,6 +29,7 @@ import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
@@ -57,6 +58,7 @@ class Editor extends ClassicEditor {
 		MediaEmbed,
 		Paragraph,
 		PasteFromOffice,
+		SimpleUploadAdapter,
 		Table,
 		TableToolbar,
 		TextTransformation
@@ -65,22 +67,23 @@ class Editor extends ClassicEditor {
 	public static override defaultConfig = {
 		toolbar: {
 			items: [
-				'blockQuote',
-				'bold',
-				'link',
-				'imageUpload',
 				'heading',
-				'indent',
-				'outdent',
+				'|',
+				'bold',
 				'italic',
-				'numberedList',
+				'link',
 				'bulletedList',
-				'mediaEmbed',
-				'insertTable',
+				'numberedList',
+				'|',
+				'outdent',
+				'indent',
+				'|',
+				'blockQuote',
 				'imageInsert',
+				'insertTable',
+				'mediaEmbed',
 				'undo',
-				'redo',
-				'|'
+				'redo'
 			]
 		},
 		language: 'ko',
