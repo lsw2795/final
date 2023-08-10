@@ -25,13 +25,6 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
-                   <label class="form-check-label mb-0" for="basic-checkbox">회원 수 제한</label>
-                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
-                        <option value="Y">제한</option>
-                        <option value="N">비제한</option>
-                   </select>
-                </div>
-                <div class="col-auto">
                   <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>
@@ -74,9 +67,22 @@
                 </div>
               </div>
           </div>
-          <div class="card mt-3">
+          <div class="card mb-3">
             <div class="card-body">
-              <div class="row justify-content-between align-items-center">
+              <div class="row row flex-between-center">
+              <div class="col-md">
+                  <h5 class="mb-2 mb-md-0"></h5>
+                </div>
+                <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
+              <div class="col-auto">
+                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
+                        <option value="Y">제한</option>
+                        <option value="N">제한없음</option>
+                   </select>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
+                </div>
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0"></h5>
                 </div>

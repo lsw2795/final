@@ -20,4 +20,19 @@
 		order by regDate desc
 	</select>
 	
+	<delete id="deleteClub" parameterType="int">
+		delete from club
+		where CLUB_NO=#{clubNo}
+	</delete>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+

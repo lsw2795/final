@@ -58,6 +58,28 @@ public class ClubController {
 		return "club/clubList";
 	}
 	
+	@RequestMapping("/deleteClub")
+	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
+		//1.
+		logger.info("동호회 삭제");
+		//2.
+		int cnt=clubService.deleteClub(clubNo);
+		logger.info("동호회 삭제 결과 cnt={}",cnt);
+		
+		String msg="삭제 실패했습니다.", url="/club/clubList";
+		if(cnt>0) {
+			msg="삭제완료 되었습니다.";
+			url="/club/clubList";
+		}
+		
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4.
+		return "club/clubList";
+	}
+		
 }
 
 
