@@ -27,7 +27,12 @@
                   <div class="d-flex">
                   	<h2 class="title">Q&A 게시판</h2>
                     <a href="<c:url value='/qna/edit?boardNo=${map.BOARD_NO}'/>">
-                    	<button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span><span class="d-none d-md-inline-block ms-1">질문 수정</span></button>
+                    <c:if >
+                    	<button class="btn btn-falcon-default btn-sm" type="button">
+                    		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
+                    		<span class="d-none d-md-inline-block ms-1">질문 수정</span>
+                    	</button>
+                    </c:if>	
                     </a>
                     <button onclick="deleteQna()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button"><span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span><span class="d-none d-md-inline-block ms-1">삭제</span></button>
                     <div class="dropdown font-sans-serif ms-2">
