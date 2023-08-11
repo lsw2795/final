@@ -7,11 +7,9 @@
 </style>
     <script src='<c:url value='/vendors/ckeditor/ckeditor.js'/>'></script>
 <script>
-	$(function () {
-		CKEDITOR.replace('contents', {
-			filebrowserUploadUrl : '${pageContext.request.contextPath}/adm/fileupload.do'
-		});
-	});
+	window.onload = function(){
+	    ck = CKEDITOR.replace("editor");
+	 };
 </script>
 
 <form class="card">
@@ -34,7 +32,7 @@
 
 	</div>
 	
-    <textarea name="text" id="editor"></textarea>
+   <textarea name="content" id="editor"></textarea>
 
 	
 	<div class="input-group mb-3">
