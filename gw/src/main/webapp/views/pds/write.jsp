@@ -5,12 +5,14 @@
   .ck-editor__editable { height: 400px; }
   .ck-content { font-size: 12px; }
 </style>
-    <script src='<c:url value='/vendors/ckeditor5/ckeditor.js'/>'></script>
-    <script>
-    	window.onload = function() {
-    		ClassicEditor.create( document.querySelector( '#editor' ) );
-		};
-    </script>
+    <script src='<c:url value='/vendors/ckeditor/ckeditor.js'/>'></script>
+<script>
+	$(function () {
+		CKEDITOR.replace('contents', {
+			filebrowserUploadUrl : '${pageContext.request.contextPath}/adm/fileupload.do'
+		});
+	});
+</script>
 
 <form class="card">
 	<div class="card-header bg-light">
