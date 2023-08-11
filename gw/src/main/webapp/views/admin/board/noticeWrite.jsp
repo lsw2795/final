@@ -49,8 +49,8 @@
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url}'/>">	
 				<!-- 수정 처리시 no,oldFileName가 필요하므로 hidden 필드에 넣어서 보내준다 -->
-				<input type="hidden" name="no" value="${map['BOARD_NO']}">
-				<input type="hidden" name="olddFileName" value="">
+				<input type="hidden" name="boardNo" value="${map['BOARD_NO']}">
+				<input type="hidden" name="oldFileName" value="">
 					
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
