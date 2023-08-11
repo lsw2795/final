@@ -6,9 +6,12 @@
   .ck-content { font-size: 12px; }
 </style>
     <script src='<c:url value='/vendors/ckeditor/ckeditor.js'/>'></script>
+    <script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <script>
 	window.onload = function(){
-	    ck = CKEDITOR.replace("editor");
+		CKEDITOR.replace('editor', {
+			filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
+		});
 	 };
 </script>
 
