@@ -5,8 +5,8 @@
 
  <div class="board_wrap">
         <div class="board_title">
-            <strong>공지사항</strong>
-            <p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+            <strong>자료실</strong>
+            <p>사내 자료실입니다.</p>
         </div>
         <div class="board_view_wrap">
             <div class="board_view">
