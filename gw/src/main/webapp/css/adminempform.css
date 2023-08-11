@@ -101,3 +101,9 @@
  max-width: 100%; 
  height: auto;
 }
+.adminempdiv16{
+	margin: 0 0 0 119px;
+}
+#sample4_roadAddress, #sample4_detailAddress{
+	margin: 5px 0 0 0;
+}

@@ -31,11 +31,11 @@
 		where board_no=#{boardNo}
 	</update>
 	
-	<insert id="updateQna" parameterType="boardVo">
+	<update id="updateQna" parameterType="boardVo">
 		update board
 		set title=#{title}, content=#{content}
 		where boardList_no=1000 and board_No=#{boardNo}
-	</insert>
+	</update>
 	
 	<delete id="deleteQna" parameterType="int">
 		delete from board
@@ -60,7 +60,7 @@
 		<if test="searchKeyword==null or searchKeyword==''">
 			where delflag='N'
 		</if>
-		order by regdate desc
+		order by board_no desc
 	</select>
 	
 	<select id="selectNotice" parameterType="int" resultType="map">
@@ -68,11 +68,11 @@
 		where board_no=#{boardNo} and boardList_no = 2000
 	</select>
 	
-	<insert id="updateNotice" parameterType="boardVo">
+	<update id="updateNotice" parameterType="boardVo">
 		update board
-		set title=#{title}, content=#{content}
+		set title=#{title}, content=#{content}, regdate=sysdate
 		where boardList_no=2000 and board_No=#{boardNo}
-	</insert>
+	</update>
 	
 	<delete id="deleteNotice" parameterType="boardVo">
 		update board
