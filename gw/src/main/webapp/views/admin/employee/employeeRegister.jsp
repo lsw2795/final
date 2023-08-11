@@ -202,9 +202,6 @@
 							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
 						</div>
 					</div>
-					
-					
-					
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
 							<label class="col-form-label adminemplabel" for="annualSalary">연봉</label>
