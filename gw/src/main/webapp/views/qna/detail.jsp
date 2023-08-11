@@ -37,7 +37,7 @@
               </div>
               <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h1><span class="fas  me-2"></span><span>${map['TITLE']}</span></h1>
+                  <h1><span class="fas me-2 fa-question-circle"></span><span>${map['TITLE']}</span></h1>
                 </div>
                 <div class="card-body">
                 
