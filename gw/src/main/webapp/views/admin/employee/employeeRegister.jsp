@@ -174,7 +174,7 @@
 					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
 				    	</div>
 					</div>
-					<div class="row mb-3 d-flex align-items-center">
+					<div class="row d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
 							<label class="col-form-label adminemplabel" for="address">주소</label>
 						</div>
@@ -183,14 +183,17 @@
 							<span class="adminhyphen"></span>
 							<input type="Button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn btn-primary" style="width: 35%;">
 						</div>
-						<div class="col-md-6 offset-md-2 adminempdiv16">
-						<input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
-						<input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
-						</div>
-							<!-- <input type="text" class="form-control admindefault" id="sample4_jibunAddress" placeholder="지번주소" style="width: 80%;"> -->
-							<!-- <input type="text" class="form-control admindefault" id="sample4_extraAddress" placeholder="참고항목" style="width: 20%;"> -->
-							<!-- <span id="guide" style="color:#999;display:none"></span> -->
 					</div>
+				    <div class="row mb-3 d-flex align-items-center">
+				    	<div class="col-md-auto adminempdiv16"></div>
+					    <div class="col-md-6">
+					        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
+					        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+						<!-- <input type="text" class="form-control admindefault" id="sample4_jibunAddress" placeholder="지번주소" style="width: 80%;"> -->
+						<!-- <input type="text" class="form-control admindefault" id="sample4_extraAddress" placeholder="참고항목" style="width: 20%;"> -->
+						<!-- <span id="guide" style="color:#999;display:none"></span> -->
+					    </div>
+				    </div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv5">
 							<label class="col-form-label adminemplabel" for="hiredate">입사일</label>
@@ -199,6 +202,9 @@
 							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
 						</div>
 					</div>
+					
+					
+					
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
 							<label class="col-form-label adminemplabel" for="annualSalary">연봉</label>
@@ -213,9 +219,9 @@
 							<label class="col-form-label adminemplabel">이메일</label>
 						</div>	 
 						<div class="col-md-9 adminspan">							
-							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 30%">
+							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
 							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 31%">
+							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
@@ -224,7 +230,7 @@
 					        </select>
 					        <span class="adminhyphen"></span>
 					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control admindefault" style="visibility:visibility; width: 33%">
+					        	class="form-control admindefault" style="visibility:visibility; width: 35%">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
