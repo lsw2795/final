@@ -9,7 +9,7 @@
 		</selectKey>
 		
 		insert into board(board_no, emp_no, boardList_no, title, content)
-		values(#{boardNo}, 2, 1000, #{title}, #{content})
+		values(#{boardNo}, #{empNo}, 1000, #{title}, #{content})
 	</insert>
 
 	<select id="selectQnaAll" parameterType="searchVo">
