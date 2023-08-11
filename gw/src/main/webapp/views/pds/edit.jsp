@@ -1,31 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<!-- pds css  -->
 <link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
-<!-- ck 에디터  -->
-<script src='<c:url value='/vendors/ckeditor/ckeditor.js'/>'></script>
-<script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <style>
   .ck-editor__editable { height: 400px; }
   .ck-content { font-size: 12px; }
 </style>
+    <script src='<c:url value='/vendors/ckeditor/ckeditor.js'/>'></script>
+    <script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <script>
 	$(function() {
 		CKEDITOR.replace('editor', {
 			filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
 		});
 		
-		$('#writeCancle').click(function() {
-			if(confirm("글 작성을 취소하시겠습니까?")){
+		$('#editCancle').click(function() {
+			if(confirm("글 수정을 취소하시겠습니까?")){
 				location.href = "<c:url value='/pds/list'/>"
 			}
-		});	
+		});
 		
-	});
-
+	 });
 </script>
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="css/css.css">
+</head>
+<body>
     <div class="board_wrap">
         <div class="board_title">
             <strong>자료실</strong>
@@ -54,10 +60,11 @@
                 </div>
             </div>
             <div class="bt_wrap">
-                <a href="view.html" class="on">등록</a>
-                <a href="#" id="writeCancle">취소</a>
+                <a href="view.html" class="on">수정</a>
+                <a href="#" id="editCancle">취소</a>
             </div>
         </div>
     </div>
-    
+</body>
+</html>
 <%@ include file="../inc/bottom.jsp"%>
