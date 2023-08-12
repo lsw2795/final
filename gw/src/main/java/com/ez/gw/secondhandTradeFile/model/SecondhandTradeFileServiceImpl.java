@@ -8,9 +8,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class SecondhandTradeFileServiceImpl {
-	private static final Logger logger = LoggerFactory.getLogger(SecondhandTradeFileServiceImpl.class);
+public class SecondhandTradeFileServiceImpl implements SecondhandTradeFileService{
 	private final SecondhandTradeFileDAO secondhandTradeFileDao;
+	
+	@Override
+	public int insertFile(SecondhandTradeFileVO secondFileVo) {
+		return secondhandTradeFileDao.insertFile(secondFileVo);
+	}
 	
 	
 }
