@@ -76,4 +76,11 @@
 }
 .mypageempdiv10 {
     margin: 4px 0 0 120px;
+}
+.mypageempdiv11 {
+  overflow: hidden; 
+}
+.mypageempdiv11 img{
+ max-width: 100%; 
+ height: auto;
 }    

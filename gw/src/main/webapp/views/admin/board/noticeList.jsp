@@ -3,6 +3,15 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script type="text/javascript">
+	$(function(){
+		$('#btnDel').click(function(){
+			if(confirm('정말 삭제하시겠습니까?'){
+				location.href="<c:url value=''/>";
+			}
+		});
+	});
+</script>	
 <h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">공지사항</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
@@ -94,7 +103,8 @@
 									<div class="form-check mb-0">
 										<input class="form-check-input" type="checkbox"
 											id="all-contact-0"
-											data-bulk-select-row="data-bulk-select-row" />
+											data-bulk-select-row="data-bulk-select-row"
+											value="${map['boardNo']}"/>
 									</div>
 								</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">

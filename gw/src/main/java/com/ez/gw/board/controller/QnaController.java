@@ -20,6 +20,7 @@ import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -64,9 +65,12 @@ public class QnaController {
 	}
 	
 	@PostMapping("/write")
-	public String qnaWrite_post(@ModelAttribute BoardVO vo, Model model) {
+	public String qnaWrite_post(@ModelAttribute BoardVO vo, HttpSession session, Model model) {
 		//1
-		logger.info("qna 등록, 파라미터 vo={}", vo);
+		int empNo = (int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("qna 등록, 파라미터 vo={}, empNo={}", vo, empNo);
+		
 		//2
 		int cnt = boardService.insertQna(vo);
 		logger.info("qna 등록 결과, cnt={}", cnt);

@@ -1,6 +1,5 @@
 package com.ez.gw.board.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -176,20 +175,14 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/admin/board/noticeDelete")
-	public String noticeDelete(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+	public String noticeDelete(@ModelAttribute BoardVO vo, Model model) {
 		//1
-		logger.info("관리자 - 공지사항 삭제 파라미터, boardNo={}", boardNo);
-		if(boardNo==0) {
-			model.addAttribute("msg", "잘못된 경로입니다.");
-			model.addAttribute("url", "/admin/board/noticeList");
-			
-			return "common/message";
-		}
+		logger.info("관리자 - 공지사항 삭제 파라미터, vo={}", vo);
 		
 		//2
-		int cnt = boardService.deleteNotice(boardNo);
+		int cnt = boardService.deleteNotice(vo);
 		
-		String msg = "공지사항 삭제에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + boardNo;
+		String msg = "공지사항 삭제에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + vo.getBoardNo();
 		if(cnt>0) {
 			msg = "공지사항 삭제가 완료되었습니다.";
 			url = "/admin/board/noticeList";
