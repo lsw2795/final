@@ -9,18 +9,6 @@
  	$(function() {
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
-			if ($('#name').val().length < 1) {
-				alert("사원이름을 입력하세요");
-				$('#name').focus();				
-				return false;
-			}
-			
-			if ($('#pwd').val().length < 1) {
-				alert("비밀번호를 입력하세요");
-				$('#pwd').focus();
-				return false;
-			}
-			
 			var jumin1=$('#jumin1').val();
 			var jumin2=$('#jumin2').val();
 			
@@ -64,14 +52,64 @@
 			
 			var email="";
 			if(email1!==""){
-				if(email2!==""){
-					email=email1+"@"+email2;
-				}else if(email3!==""){
+				if(email2==="etc"){
+					if(email3!==""){
 					email=email1+"@"+email3;
-				}
+					}
+				}else{
+					email=email1+"@"+email2;
+				}	
 			}
 			$('#email').attr('value',email);
 			
+			if ($('#name').val().length < 1) {
+				alert("사원이름을 입력하세요");
+				$('#name').focus();				
+				return false;
+			}
+			
+			if ($('#ename').val().length < 1) {
+				alert("사원영문이름을 입력하세요");
+				$('#ename').focus();				
+				return false;
+			}
+			
+			if ($('#jumin').val().length < 1) {
+				alert("주민번호를 입력하세요");
+				$('#jumin1').focus();				
+				return false;
+			}
+			
+			if ($('#pwd').val().length < 1) {
+				alert("비밀번호를 입력하세요");
+				$('#pwd').focus();
+				return false;
+			}
+			
+			if ($('#extensionNo').val().length < 1) {
+				alert("내선번호를 입력하세요");
+				$('#extensionNo1').focus();
+				return false;
+			}
+			
+			if ($('#tel').val().length < 1) {
+				alert("전화번호를 입력하세요");
+				$('#tel1').focus();
+				return false;
+			}
+			
+			if ($('#email').val().length < 1) {
+				alert("이메일은 필수 입력 사항입니다.");
+				$('#email1').focus();
+				return false;
+			}
+			
+			if ($('#address').val().length < 1) {
+				alert("주소는 필수 입력사항입니다.");
+				$('#btnsearchAddress').focus();
+				return false;
+			}
+		
 			if (!validate_num($("#extensionNo1").val())
 					|| !validate_num($("#extensionNo2").val())) {
 				alert("내선번호는 숫자만 가능합니다");

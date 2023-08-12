@@ -148,7 +148,7 @@
 						<div class="col-md-6 adminspan">
 							<input type="text" class="form-control admindefault" id="sample4_postcode" placeholder="우편번호" style="width: 65%;"/>
 							<span class="adminhyphen"></span>
-							<input type="Button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn btn-primary" style="width: 35%;">
+							<input type="Button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" id="btnsearchAddress" class="btn btn-primary" style="width: 35%;">
 						</div>
 					</div>
 				    <div class="row mb-3 d-flex align-items-center">
@@ -163,8 +163,7 @@
 							<label class="col-form-label adminemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
-							<!-- <input type="date" class="form-control admindefault" id="hiredate" name="hiredate" placeholder="달력을 눌러주세요."/> -->
-							<input type="text" class="form-control admindefault" id="hiredate" name="hiredate"/>
+							<input type="date" class="form-control admindefault" id="hiredate" name="hiredate" placeholder="달력을 눌러주세요."/>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -201,7 +200,7 @@
 							<label class="col-form-label adminemplabel">사원 사진</label>
 						</div>
 						<div class="col-md-6">	 
-						<!-- 	<input type="file" class="form-control admindefault" name="image"/> -->
+							<!-- <input type="file" class="form-control admindefault" name="image"/> -->
 							<input type="text" class="form-control admindefault" name="image"/>
 						</div>
 					</div>
