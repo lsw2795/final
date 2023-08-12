@@ -197,11 +197,10 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv3">
-							<label class="col-form-label adminemplabel">사원 사진</label>
+							<label class="col-form-label adminemplabel" for="imageUpload">사원 사진</label>
 						</div>
 						<div class="col-md-6">	 
-							<!-- <input type="file" class="form-control admindefault" name="image"/> -->
-							<input type="text" class="form-control admindefault" name="image"/>
+							<input type="file" class="form-control admindefault" name="imageUpload"/>
 						</div>
 					</div>
 					<div style="text-align: center;">
