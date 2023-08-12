@@ -20,6 +20,58 @@
 				$('#pwd').focus();
 				return false;
 			}
+			
+			var jumin1=$('#jumin1').val();
+			var jumin2=$('#jumin2').val();
+			
+			var jumin="";
+			if(jumin1!=="" && jumin2!==""){
+				jumin= jumin1 + "-" +jumin2;
+			}
+			$('#jumin').attr('value', jumin);
+			
+			var extensionNo1 = $('#extensionNo1').val();
+	        var extensionNo2 = $('#extensionNo2').val();
+	         
+	        var extensionNo="";
+	        if (extensionNo1 !=="" && extensionNo2 !== "") {
+	            extensionNo= extensionNo1 + "-" + extensionNo2;
+	        }
+	        $('#extensionNo').attr('value', extensionNo);
+			
+			var tel1=$('#tel1').val();
+			var tel2=$('#tel2').val();
+			var tel3=$('#tel3').val();
+			
+			var tel="";
+			if(tel1!=="" && tel2!=="" && tel3!==""){
+				tel=tel1+"-"+tel2+"-"+tel3;
+			}
+			$('#tel').attr('value',tel);
+			
+			var roadAddress=$('#sample4_roadAddress').val();
+			var detailAddress=$('#sample4_detailAddress').val();
+			
+			var address="";
+			if(roadAddress!=="" && detailAddress!==""){
+				address=roadAddress+" "+detailAddress;
+			}
+			$('#address').attr('value',address);
+			
+			var email1=$('#email1').val();
+			var email2=$('#email2').val();
+			var email3=$('#email3').val();
+			
+			var email="";
+			if(email1!==""){
+				if(email2!==""){
+					email=email1+"@"+email2;
+				}else if(email3!==""){
+					email=email1+"@"+email3;
+				}
+			}
+			$('#email').attr('value',email);
+			
 			if (!validate_num($("#extensionNo1").val())
 					|| !validate_num($("#extensionNo2").val())) {
 				alert("내선번호는 숫자만 가능합니다");
@@ -57,28 +109,8 @@
 				$("#email3").css("visibility", "hidden");
 			}
 		});
-
-		//아이디 중복확인
-		$('#btnChkId').click(function(){
-	    	var id=$('#userid').val();
-	        open(contextPath+'/member/checkId?userid='+id,'dup',
-	        	'width=590,height=300,location=yes,resizable=yes,left=0,top=0');
-	    });
-	    
-	    //관리자아이디 중복확인
-	    $('#btAdminChkId').click(function(){
-	    	var id=$('#userid').val();
-	        open(contextPath+'/admin/manager/adminCheckId?userid='+id,'dup',
-	        	'width=590,height=300,location=yes,resizable=yes,left=0,top=0');
-	    });
-		
-		//우편번호 찾기
-		$('#btnZipcode').click(function(){            
-			window.open(contextPath+'/zipcode/zipcode','zipcode',
-				'width=350,height=400,location=yes,resizable=yes,left=0,top=0');
-	    });
 	});
-
+	
 	function validate_num(num) {
 		var pattern = new RegExp(/^[0-9]*$/g);
 		return pattern.test(num); //정규식과 일치하면 true
