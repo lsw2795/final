@@ -63,18 +63,20 @@ public class SecondHandTradeController {
 			//파일 업로드 처리
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 			
-			List<MultipartFile> files = multiRequest.getFiles("imageURL");
+			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
 			
 			for(MultipartFile f : files) {
-				fileName = f.getName();
 				originalFileName = f.getOriginalFilename();
+				fileName = System.currentTimeMillis() + "_" + originalFileName;
 				fileSize = (long)f.getSize();
 				
 				String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				//String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
 				
 				File file = new File(filePath);
 				f.transferTo(file);
 						
+				logger.info("파일명:{}", fileName);
 				secondFileVo.setImageURL(fileName);
 				secondFileVo.setTradeNo(secondVo.getTradeNo());
 				int result = secondHandTradeFileService.insertFile(secondFileVo);
