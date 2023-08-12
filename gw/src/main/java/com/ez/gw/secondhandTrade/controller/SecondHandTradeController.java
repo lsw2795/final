@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,6 +44,56 @@ public class SecondHandTradeController {
 	public String addMarket() {
 		logger.info("중고거래 등록 화면 보여주기");
 		return "market/addMarket";
+	}
+	
+	@PostMapping("/addMarket")
+	public String post_addMarket(@ModelAttribute SecondHandTradeVO secondVo, HttpServletRequest request, Model model) {
+		//1
+		logger.info("중고거래 상품 등록, 파라미터 secondVo = {}", secondVo);
+		
+		//2
+		//파일 업로드 처리
+		String fileName = "", originalFileName = "";
+		long fileSize = 0;
+		try {
+			//파일 업로드 처리
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+			
+			List<MultipartFile> files = multiRequest.getFiles("mainIMGURL");
+			
+			for(MultipartFile f : files) {
+				fileName = f.getName();
+				originalFileName = f.getOriginalFilename();
+				fileSize = (long)f.getSize();
+				
+				String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				
+				File file = new File(filePath);
+				f.transferTo(file);
+						
+			}
+		}catch(IllegalStateException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		secondVo.setMainImgURL(fileName);
+		
+		int cnt = secondHandTradeService.insertMarket(secondVo);
+		logger.info("중고거래 상품 등록 처리 결과 cnt = {}", cnt);
+		
+		//3
+		String msg = "", url = "";
+		if(cnt>0) {
+			msg = "상품이 성공적으로 등록되었습니다.";
+			url = "redirect:/market/marketList";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4.
+		return "common/message";
 	}
 	
 	/*

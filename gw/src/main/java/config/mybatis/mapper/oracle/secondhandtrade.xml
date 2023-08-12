@@ -7,16 +7,10 @@
 		<selectKey keyProperty="tradeNo" order="BEFORE" resultType="int">
 			select secondhand_trade_seq.nextval from dual
 		</selectKey>
-		insert into secondhand_trade(trade_no, title, product, price, discription, mainImgURL)
-		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, #{mainImgURL})
+		insert into secondhand_trade(trade_no, title, product, price, discription, mainIMGURL)
+		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, #{mainIMGURL})
 	</insert>
 	
-	<insert id="insertFile" parameterType="secondHandTradeFileVo" >
-		<selectKey keyProperty="fileNo" order="BEFORE" resultType="int">
-			select secondhand_trade_file_seq.nextval from dual
-		</selectKey>
-		insert into secondhand_trade_file(fileNo, originalFilename)
-		values(#{fileNo}, #{originalFileName})
-	</insert>
+	
 
 </mapper>
