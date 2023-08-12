@@ -96,7 +96,7 @@ a {
 }
 
 .board_list .title {
-    width: 60%;
+    width: 50%;
     text-align: left;
 }
 
@@ -114,6 +114,14 @@ a {
 
 .board_list .count {
     width: 10%;
+}
+
+.board_list .file {
+    width: 10%;
+}
+
+.board_list .file>img {
+    width: 1.0em;
 }
 
 .board_page {
@@ -284,4 +292,21 @@ a {
     box-sizing: border-box;
     border: 0;
     resize: vertical;
+}
+
+.form-select{
+	display: inline;
+	width: 7%;
+}
+.form-control{
+	display: inline;
+	width: 20%;
+}
+.search{
+	margin-bottom: 15px;
+}
+
+#searchSubmit{
+	color: gray;
+	font-weight: bold;
 }
