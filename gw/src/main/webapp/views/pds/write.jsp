@@ -22,6 +22,12 @@
 			}
 		});	
 		
+		$('#pdsWrite').click(function() {
+			if(confirm("자료를 등록하시겠습니까?")){
+				$('#pdsForm').submit();
+			}
+		});	
+		
 	});
 	
     // 파일 추가
@@ -62,7 +68,7 @@
             return false;
         }
 
-        // 2. 파일 크기가 10MB를 초과하는 경우
+        // 2. 파일 크기가 100MB를 초과하는 경우
         const fileSize = Math.floor(file.size / 1024 / 1024);
         if (fileSize > 100) {
             alert('100MB 이하의 파일로 업로드해 주세요.');
@@ -83,19 +89,19 @@
             <p>사내 자료실</p>
 
         </div>
-    <form id="saveForm" action="<c:url value='/pds/write'/>" method="post" enctype="multipart/form-data">
+    <form id="pdsForm" action="<c:url value='/pds/write'/>" method="post" enctype="multipart/form-data">
         <div class="board_write_wrap">
 	            <div class="board_write">
 	                <div class="title">
 	                    <dl>
 	                        <dt>제목</dt>
-	                        <dd><input type="text" placeholder="제목 입력"></dd>
+	                        <dd><input type="text" name="title" placeholder="제목 입력"></dd>
 	                    </dl>
 	                </div>
 	                <div class="info">
 	                    <dl>
 	                        <dt>작성자</dt>
-	                        <dd><input type="text" placeholder="작성자 입력"></dd>
+	                        <dd><input type="text" name="title" value="${sessionScope.empNo}" readonly="readonly"></dd>
 	                    </dl>
 	                    <dl>
 	                        <dt>비밀번호</dt>
@@ -119,7 +125,7 @@
                     </div>
                 </div>
 	            <div class="bt_wrap">
-	                <a href="view.html" class="on">등록</a>
+	                <a href="#" class="on" id="pdsWrite">등록</a>
 	                <a href="#" id="writeCancle">취소</a>
 	            </div>
 	        </div>

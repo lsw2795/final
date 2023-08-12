@@ -11,40 +11,33 @@
         <div class="board_view_wrap">
             <div class="board_view">
                 <div class="title">
-                    글 제목이 들어갑니다.
+                    ${map['TITLE']}
                 </div>
                 <div class="info">
                     <dl>
                         <dt>번호</dt>
-                        <dd>1</dd>
+                        <dd>${map['BOARD_NO']}</dd>
                     </dl>
                     <dl>
-                        <dt>글쓴이</dt>
-                        <dd>김이름</dd>
+                        <dt>작성자</dt>
+                        <dd>${map['NAME']}</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>
-                        <dd>2021.1.16</dd>
+                        <dd><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss"/></dd>
                     </dl>
                     <dl>
                         <dt>조회</dt>
-                        <dd>33</dd>
+                        <dd>${map['READCOUNT']}</dd>
                     </dl>
                 </div>
                 <div class="cont">
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다
+       				${map['CONTENT']}
                 </div>
             </div>
             <div class="bt_wrap">
                 <a href="<c:url value='/pds/list'/>" class="on">목록</a>
-                <a href="<c:url value='/pds/edit?boardNo=1'/>">수정</a>
+                <a href="<c:url value='/pds/edit?boardNo=${map["BOARD_NO"] }'/>">수정</a>
             </div>
         </div>
     </div>
