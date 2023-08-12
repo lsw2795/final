@@ -76,8 +76,8 @@ public class SecondHandTradeController {
 				fileName = System.currentTimeMillis() + "_" + originalFileName;
 				fileSize = (long)f.getSize();
 				
-				//String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
-				String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				//String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
 				
 				File file = new File(filePath);
 				f.transferTo(file);
