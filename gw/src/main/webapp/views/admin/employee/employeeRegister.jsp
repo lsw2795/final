@@ -24,6 +24,7 @@
            }
         }).open();
     }
+    
 </script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
@@ -120,7 +121,7 @@
 						</div>	
 						<div class="col-md-6 adminspan">
 							<c:choose>
-				            <c:when test="${!empty extensionNo1 and !empty extensionNo2}">
+				            <c:when test="${!empty extensionNo1 && !empty extensionNo2}">
 				                <input type="text" class="form-control admindefault" id="extensionNo" name="extensionNo"
 				                       value="${extensionNo1}-${extensionNo2}"/>
 				            </c:when>
@@ -138,7 +139,7 @@
 						</div> 
 						<div class="col-md-6 adminspan">
 				         <c:choose>
-				            <c:when test="${!empty tel1 and !empty tel2 and !empty tel3}">
+				            <c:when test="${!empty tel1 && !empty tel2 && !empty tel3}">
 				                <input type="text" class="form-control admindefault" id="tel" name="tel"
 				                       value="${tel1}-${tel2}-${tel3}"/>
 				            </c:when>
@@ -169,7 +170,7 @@
 				    	<div class="col-md-auto adminempdiv16"></div>
 					    <div class="col-md-6">
 					    	<c:choose>
-				            <c:when test="${!empty sample4_roadAddress and !empty sample4_detailAddress}">
+				            <c:when test="${!empty sample4_roadAddress && !empty sample4_detailAddress}">
 				                <input type="text" class="form-control admindefault" id="tel" name="tel"
 				                       value="${sample4_roadAddress} ${sample4_detailAddress}"/>
 				            </c:when>
@@ -203,11 +204,11 @@
 						</div>	 
 						<div class="col-md-9 adminspan">
 							 <c:choose>
-					            <c:when test="${not empty email1 and not empty email2}">
+					            <c:when test="${!empty email1 && !empty email2}">
 					                <input type="text" class="form-control admindefault" id="email" name="email"
 					                       value="${email1}@${email2}" style="width: 60%;" />
 					            </c:when>
-					            <c:when test="${not empty email1 and not empty email3}">
+					            <c:when test="${!empty email1 && !empty email3}">
 					                <input type="text" class="form-control admindefault" id="email" name="email"
 					                       value="${email1}@${email3}" style="width: 60%;" />
 					            </c:when>
@@ -216,35 +217,17 @@
 					                       value="${email1}" />
 					                <span class="adminhyphen">@</span>
 					                <select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%;">
-					                    <option value="naver.com" ${email2 eq 'naver.com' ? 'selected' : ''}>naver.com</option>
-					                    <option value="hanmail.net" ${email2 eq 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
-					                    <option value="nate.com" ${email2 eq 'nate.com' ? 'selected' : ''}>nate.com</option>
-					                    <option value="gmail.com" ${email2 eq 'gmail.com' ? 'selected' : ''}>gmail.com</option>
-					                    <option value="etc" ${email2 eq 'etc' ? 'selected' : ''}>직접입력</option>
+					                    <option value="naver.com">naver.com</option>
+					                    <option value="hanmail.net">hanmail.net</option>
+					                    <option value="nate.com">nate.com</option>
+					                    <option value="gmail.com">gmail.com</option>
+					                    <option value="etc">직접입력</option>
 					                </select>
 					                <span class="adminhyphen"></span>
 					                <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
 					                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
 					            </c:otherwise>
 					        </c:choose>
-						
-						
-						
-						
-						
-													
-							<!-- <input type="text" class="form-control admindefault" id="email1" style="width: 31%">
-							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" id="email2" title="이메일주소 뒷자리" style="width: 34%">
-					            <option value="naver.com">naver.com</option>
-					            <option value="hanmail.net">hanmail.net</option>
-					            <option value="nate.com">nate.com</option>
-					            <option value="gmail.com">gmail.com</option>
-					            <option value="etc">직접입력</option>
-					        </select>
-					        <span class="adminhyphen"></span>
-					        <input type="text" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control admindefault" style="visibility:hidden; width: 35%"> -->
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -260,9 +243,6 @@
 					<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
 					 <input type ="text" name="chkPwd" id="chkPwd">
-					 <input type ="text" name="tel" id="tel">
-					 <input type ="text" name="email" id="email">
-					 <input type ="text" name="address" id="address">
 				</form>
 			</div>
 		</div>
