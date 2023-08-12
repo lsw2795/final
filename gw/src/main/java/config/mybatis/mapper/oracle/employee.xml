@@ -26,8 +26,7 @@
 		<selectKey keyProperty="empNo" order="BEFORE" resultType="int">
 			select EMPLOYEE_SEQ.nextval from dual
 		</selectKey>
-		insert into employee(emp_no, name, ename, jumin, 
-		email, pwd, extension_no, tel,
+		insert into employee(emp_no, name, ename, jumin, email, pwd, extension_no, tel,
 			address, hiredate, authority, annual_salary, image, position_no, dept_no)
 		values(#{empNo},#{name},#{ename},#{jumin,jdbcType=VARCHAR},
 		#{email},#{pwd},#{extensionNo},#{tel},
