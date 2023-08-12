@@ -2,63 +2,65 @@
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+<script type="text/javascript">
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+           var roadAddr = data.roadAddress; // 도로명 주소 변수
+           var extraRoadAddr = ''; // 참고 항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-              /*   if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                } */
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                //document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-             /*    // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                } */
-
-               /*  var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                } */
-            }
+           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+               extraRoadAddr += data.bname;
+           }
+           if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+           }
+         
+           document.getElementById('sample4_postcode').value = data.zonecode;
+           document.getElementById("sample4_roadAddress").value = roadAddr;
+           }
         }).open();
     }
+    
+    $(function(){
+   		/* $("#empWrite").click(function() {
+			if($('#chkPwd').val()!='Y'){
+		        alert('패스워드 확인을 해주세요.');
+		        $('#pwd').focus();
+		        return false;
+		   }
+   		}); */
+   		
+			var tel="";
+			var tel1=$('#tel1').val();
+			var tel2=$('#tel2').val();
+			var tel3=$('#tel3').val();
+			
+			if(tel1!=null && tel1.isEmpty() && tel2!=null && !tel2.isEmpty() && tel3!=null && !tel3.isEmpty()){
+			      tel=tel1+"-"+tel2+"-"+tel3;
+			}
+			$('#tel').val(tel);
+			
+			var email ="";
+			var email1=$('#email1').val();
+			var email2=$('#email2').val();
+			var email3=$('#email3').val();
+			
+			if(email1!=null && !email1.isEmpty()){
+			   if(email2.equals("etc")){
+				  if(email3!=null && !email3.isEmpty()){
+			      	email=email1+"@"+email3;
+				  }
+			   }else{
+			      email = email1+"@"+email2;
+			   }
+			   $('#email').val(email);
+			}	
+		
+    });
 </script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
@@ -67,13 +69,14 @@
 				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>사원 등록</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
-				<form>
+				<form name="frmWrite" method="post" enctype="multipart/form-data"
+				action="<c:url value='/admin/employee/employeeRegister'/>">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="col-form-label adminemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control admindefault" id="name" />
+					        <input type="text" class="form-control admindefault" id="name" name="name"/>
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -81,7 +84,7 @@
 					        <label class="col-form-label adminemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control admindefault" id="ename" />
+					        <input type="text" class="form-control admindefault" id="ename" name="ename"/>
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -96,10 +99,10 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv1">
-							<label class="col-form-label adminemplabel" for="password">초기비밀번호</label>
+							<label class="col-form-label adminemplabel" for="pwd">초기비밀번호</label>
 						</div>
 						<div class="col-md-6">
-							<input type="password" class="form-control admindefault" id="password" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
+							<input type="password" class="form-control admindefault" id="pwd" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
 						</div>
 					</div>	
 					<div class="row mb-3 d-flex align-items-center">
@@ -108,30 +111,26 @@
 						</div>
 						<div class="col-md-6 adminspan">
 							 <select class="form-select admindefault" id="dept">
-								<option selected="selected">선택하세요</option>
-								<option value="">영업팀</option>
-								<option value="">인사팀</option>
-								<option value="">경리팀</option>
-								<option value="">디자인팀</option>
-							</select>
+									<option value="">선택하세요</option>
+									<!-- 반복 -->
+						            <c:forEach var="deptVo" items="${deptList }">
+						            	<option value="${deptVo.deptNo}">${deptVo.name}</option>
+						            </c:forEach>
+					            </select>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="col-form-label adminemplabel" for="basic-form-gender">직급</label>
+							<label class="col-form-label adminemplabel" for="basic-form-gender">직위</label>
 						</div>
 						<div class="col-md-6 adminspan">
-							 <select class="form-select admindefault" id="dept">
-								<option selected="selected">선택하세요</option>
-								<option value="">사원</option>
-								<option value="">대리</option>
-								<option value="">차장</option>
-								<option value="">과장</option>
-								<option value="">팀장</option>
-								<option value="">부장</option>
-								<option value="">임원</option>
-								<option value="">사장</option>
-							</select>
+							 <select class="form-select admindefault" id="position">
+								<option value="">선택하세요</option>
+									<!-- 반복 -->
+						            <c:forEach var="positionVo" items="${positionList }">
+						            	<option value="${positionVo.positionNo}">${positionVo.positionName}</option>
+						            </c:forEach>
+					            </select>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -189,9 +188,6 @@
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
 					        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
-						<!-- <input type="text" class="form-control admindefault" id="sample4_jibunAddress" placeholder="지번주소" style="width: 80%;"> -->
-						<!-- <input type="text" class="form-control admindefault" id="sample4_extraAddress" placeholder="참고항목" style="width: 20%;"> -->
-						<!-- <span id="guide" style="color:#999;display:none"></span> -->
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -218,7 +214,7 @@
 						<div class="col-md-9 adminspan">							
 							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
 							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%">
+							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 34%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
@@ -227,7 +223,7 @@
 					        </select>
 					        <span class="adminhyphen"></span>
 					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control admindefault" style="visibility:visibility; width: 35%">
+					        	class="form-control admindefault" style="visibility:hidden; width: 35%">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -239,9 +235,12 @@
 						</div>
 					</div>
 					<div style="text-align: center;">
-					<input type="submit" value="등록" class="btn btn-primary"/>
+					<input type="submit" value="등록" id="empWrite" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
+					 <input type ="text" name="chkPwd" id="chkPwd">
+					 <input type ="text" name="tel" id="tel">
+					 <input type ="text" name="email" id="email">
 				</form>
 			</div>
 		</div>

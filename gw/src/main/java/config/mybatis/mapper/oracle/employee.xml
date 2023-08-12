@@ -22,4 +22,14 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<insert id="insertEmp" parameterType="employeeVo">
+		<selectKey keyProperty="empNo" order="BEFORE" resultType="int">
+			select EMPLOYEE_SEQ.nextval from dual
+		</selectKey>
+		insert into employee(empNo, name, ename, jumin, email, pwd, extensionNo, tel,
+			address, hiredate, authority, annualSalary, image, positionNo, deptNo)
+		values(#{empNo},#{name},#{ename},#{jumin},#{email},#{pwd},#{extensionNo},#{tel},
+			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
+	</insert>
+		
 </mapper>
