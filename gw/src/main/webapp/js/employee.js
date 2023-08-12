@@ -115,7 +115,6 @@
 				alert("내선번호는 숫자만 가능합니다");
 				$("#extensionNo1").focus();
 				return false;
-				//event.preventDefault();
 			}
 			
 			if (!validate_num($("#tel1").val())
@@ -124,7 +123,6 @@
 				alert("전화번호는 숫자만 가능합니다");
 				$("#tel1").focus();
 				return false;
-				//event.preventDefault();
 			}
 			
 			if (!validate_num($("#jumin1").val())
@@ -132,7 +130,6 @@
 				alert("주민번호는 숫자만 가능합니다");
 				$("#jumin1").focus();
 				return false;
-				//event.preventDefault();
 			}
 			
 		});
@@ -154,5 +151,5 @@
 		return pattern.test(num); //정규식과 일치하면 true
 		/* 정규식 /^[0-9]*$/g
 		0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)
-		닫기 대괄호(]) 뒤의 * 기호는 0번 이상 반복		 */
+		닫기 대괄호(]) 뒤의 * 기호는 0번 이상 반복 */
 	}
