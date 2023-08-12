@@ -59,19 +59,25 @@ public class SecondHandTradeController {
 		//파일 업로드 처리
 		String fileName = "", originalFileName = "";
 		long fileSize = 0;
+		
+		int cnt = secondHandTradeService.insertMarket(secondVo);
+		logger.info("중고거래 상품 등록 처리 결과 cnt = {}", cnt);
+		
 		try {
+			
 			//파일 업로드 처리
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 			
 			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
+			
 			
 			for(MultipartFile f : files) {
 				originalFileName = f.getOriginalFilename();
 				fileName = System.currentTimeMillis() + "_" + originalFileName;
 				fileSize = (long)f.getSize();
 				
-				String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
-				//String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				//String filePath = "C:\\Users\\Desktop\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
+				String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload" + originalFileName;
 				
 				File file = new File(filePath);
 				f.transferTo(file);
@@ -87,10 +93,6 @@ public class SecondHandTradeController {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		int cnt = secondHandTradeService.insertMarket(secondVo);
-		logger.info("중고거래 상품 등록 처리 결과 cnt = {}", cnt);
 		
 		//3
 		String msg = "", url = "";
