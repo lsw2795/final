@@ -20,6 +20,12 @@
 			}
 		});
 		
+		$('#pdsEdit').click(function() {
+			if(confirm("자료를 수정하시겠습니까?")){
+				$('#pdsForm').submit();
+			}
+		});	
+		
 	 });
 </script>
 
@@ -37,34 +43,38 @@
             <strong>자료실</strong>
             <p>사내 자료실</p>
         </div>
-        <div class="board_write_wrap">
-            <div class="board_write">
-                <div class="title">
-                    <dl>
-                        <dt>제목</dt>
-                        <dd><input type="text" placeholder="제목 입력"></dd>
-                    </dl>
-                </div>
-                <div class="info">
-                    <dl>
-                        <dt>작성자</dt>
-                        <dd><input type="text" placeholder="작성자 입력"></dd>
-                    </dl>
-                    <dl>
-                        <dt>비밀번호</dt>
-                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
-                    </dl>
-                </div>
-                <div class="cont">
-                    <textarea id="editor" name="content">${map['CONTENT']}</textarea>
-                </div>
-            </div>
-            <div class="bt_wrap">
-                <a href="view.html" class="on">수정</a>
-                <a href="#" id="editCancle">취소</a>
-            </div>
-        </div>
-    </div>
+    <form id="pdsForm" action="<c:url value='/pds/edit'/>" method="post" enctype="multipart/form-data">
+	      <div class="board_write_wrap">
+	          <div class="board_write">
+	              <div class="title">
+	                  <dl>
+	                      <dt>제목</dt>
+	                      <dd><input type="text" name="title" placeholder="제목 입력" value="${map['TITLE']}"></dd>
+	                  </dl>
+	              </div>
+	              <div class="info">
+	                  <dl>
+	                      <dt>작성자</dt>
+	                      <dd><input type="text" name="name" readonly="readonly" value="${map['NAME']}" ></dd>
+	                  </dl>
+	                  <dl>
+	                      <dt>비밀번호</dt>
+	                      <dd><input type="password" placeholder="비밀번호 입력"></dd>
+	                      <input type="hidden" name="boardNo" value="${map['BOARD_NO']}"/>
+	                  </dl>
+	                  
+	              </div>
+	              <div class="cont">
+	                  <textarea id="editor" name="content">${map['CONTENT']}</textarea>
+	              </div>
+	          </div>
+	          <div class="bt_wrap">
+	              <a href="#" class="on" id="pdsEdit">수정</a>
+	              <a href="#" id="editCancle">취소</a>
+	          </div>
+	      </div>
+	    </div>
+	</form>
 </body>
 </html>
 <%@ include file="../inc/bottom.jsp"%>
