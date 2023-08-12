@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class ConfirmVO {	//전자결재
-	private int confirmDocumentNo; // 결재문서번호 NOT NULL(PK)         
+	private String confirmDocumentNo; // 결재문서번호 NOT NULL(PK)         
 	private String confirmTitle;// 제목 NOT NULL  
 	private String confirmContent; // 내용 NOT NULL 
-	private String credateDate; // 상신일   
+	private String createDate; // 상신일   
 	private String updateDate; // 수정일   
 	private String reviewDate; // 검토일   
 	private String confirmDate; // 확인일   
