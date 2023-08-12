@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
+<script type="text/javascript">
+	$(function() {
+		$('#deletePds').click(function() {
+			if(confirm("자료를 삭제하시겠습니까?")){
+				location.href = "<c:url value="/pds/delete?boardNo=${map['BOARD_NO']}"/>"
+			}
+		});
+		
+	});
+
+</script>
+
 
  <div class="board_wrap">
         <div class="board_title">
@@ -37,7 +49,12 @@
             </div>
             <div class="bt_wrap">
                 <a href="<c:url value='/pds/list'/>" class="on">목록</a>
-                <a href="<c:url value='/pds/edit?boardNo=${map["BOARD_NO"] }'/>">수정</a>
+                <c:if test="${sessionScope.empNo==map['EMP_NO']}">
+                	<a href="<c:url value='/pds/edit?boardNo=${map["BOARD_NO"] }'/>">수정</a>
+                </c:if>	
+                <c:if test="${sessionScope.empNo==map['EMP_NO']}">
+                	<a href="#" id="deletePds">삭제</a>
+                </c:if>	
             </div>
         </div>
     </div>

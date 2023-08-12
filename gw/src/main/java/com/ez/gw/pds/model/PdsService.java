@@ -10,5 +10,6 @@ public interface PdsService {
 	List<Map<String, Object>> selectPdsAll();
 	Map<String, Object> selectPds(int boardNo);
 	int updatePds(BoardVO vo);
+	int deletePds(int boardNo);
 	
 }

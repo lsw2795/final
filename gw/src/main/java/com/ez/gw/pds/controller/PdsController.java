@@ -106,10 +106,10 @@ public class PdsController {
 		logger.info("자료 수정 결과, cnt={}", cnt);
 		
 		//3
-		String msg = "자료 수정 실패", url = "/pds/edit?board_no=" + vo.getBoardNo();
+		String msg = "자료 수정 실패", url = "/pds/edit?boardNo=" + vo.getBoardNo();
 		if(cnt>0) {
 			msg = "자료가 수정되었습니다.";
-			url = "/pds/detail?board_no=" + vo.getBoardNo();
+			url = "/pds/detail?boardNo=" + vo.getBoardNo();
 		}
 		
 		model.addAttribute("msg", msg);
@@ -144,4 +144,33 @@ public class PdsController {
 		//4
 		return "pds/detail";
 	}
+	
+	@RequestMapping("/delete")
+	public String delete(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+		//1
+		logger.info("자료 삭제 파라미터, boardNo={}", boardNo);
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/pds/list");
+			
+			return "common/message";
+		}
+		//2
+		String msg = "자료 삭제 실패하였습니다.", url = "/pds/detail?boardNo=" + boardNo;
+		int cnt = pdsService.deletePds(boardNo);
+		if(cnt>0) {
+			msg = "자료가 삭제 되었습니다.";
+			url = "/pds/list";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+		
+	}
+	
+	
 }

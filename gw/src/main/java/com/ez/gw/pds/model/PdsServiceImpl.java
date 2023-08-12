@@ -33,6 +33,11 @@ public class PdsServiceImpl implements PdsService {
 	public int updatePds(BoardVO vo) {
 		return pdsDao.updatePds(vo);
 	}
+
+	@Override
+	public int deletePds(int boardNo) {
+		return pdsDao.deletePds(boardNo);
+	}
 	
 	
 }

@@ -27,7 +27,10 @@
 		set title=#{title}, content=#{content}
 		where boardList_no=3000 and board_No=#{boardNo}
 	</update>
-
-
+	
+	<delete id="deletePds" parameterType="int">
+		delete from board
+		where board_No=#{boardNo}
+	</delete>
 
 </mapper>
