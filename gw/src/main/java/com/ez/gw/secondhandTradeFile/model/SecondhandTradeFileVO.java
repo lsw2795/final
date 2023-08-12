@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SecondhandTradeFileVO {
 	 private int fileNo;
-	 private MultipartFile fileName; //업로드파일명 jsp-> Controller 파일 담는 용도
+	 private String fileName; //업로드파일명 jsp-> Controller 파일 담는 용도
 	 private String originalFileName;
 	 private long fileSize;
 	 private int tradeNo;

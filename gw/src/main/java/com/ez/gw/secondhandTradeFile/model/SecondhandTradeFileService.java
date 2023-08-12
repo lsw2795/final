@@ -1,5 +1,7 @@
 package com.ez.gw.secondhandTradeFile.model;
 
-public interface SecondhandTradeFileService {
+import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 
+public interface SecondhandTradeFileService {
+	int insertFile(SecondhandTradeFileVO secondFileVo);
 }

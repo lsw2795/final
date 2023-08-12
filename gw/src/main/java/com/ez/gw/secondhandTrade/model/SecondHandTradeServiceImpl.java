@@ -26,8 +26,13 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	private final SecondHandTradeDAO secondHandTradeDao;
 	
 	@Override
+	public int insertMarket(SecondHandTradeVO secondVo) {
+		return secondHandTradeDao.insertMarket(secondVo);
+	}
+	/*
+	@Override
 	public void insertMarket(SecondHandTradeVO secondVo, SecondhandTradeFileVO fileVo) throws IOException {
-		/*
+		
 		1. VO에 담긴 파일을 꺼냄
 		2. 파일의 이름 가져옴
 		3. 서버 저장용 이름을 만든다.
@@ -35,7 +40,7 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 		5. 해당 경로에 파일 저장
 		6. 중고거래 테이블에 해당 데이터 저장처리
 		7. 중고거래 파일 테이블에 해당 데이터 저장 처리
-		*/ 
+		
 		fileVo.setTradeNo(secondVo.getTradeNo());
 		
 		MultipartFile fileName = fileVo.getFileName(); //1
@@ -84,7 +89,10 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 		}
 		return resultList;
 	}
-
+	*/
+	
+	
+	
 	/**
 	 * 업로드 경로 구하기
 	 * @param request
@@ -114,6 +122,10 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 		
 		return result;
 	}
+
+
+
+
 
 
 }
