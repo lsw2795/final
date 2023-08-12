@@ -27,12 +27,14 @@ import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/market")
+@RequiredArgsConstructor
 public class SecondHandTradeController {
 	private static final Logger logger = LoggerFactory.getLogger(SecondHandTradeController.class);
-	private SecondHandTradeService secondHandTradeService;
+	private final SecondHandTradeService secondHandTradeService;
 	
 	@RequestMapping("/marketList")
 	public String marketList() {
