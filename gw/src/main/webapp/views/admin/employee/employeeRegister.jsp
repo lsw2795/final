@@ -25,23 +25,23 @@
                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
+              /*   if(extraRoadAddr !== ''){
                     extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+                } */
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample4_postcode').value = data.zonecode;
                 document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                //document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                 
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+             /*    // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                 if(roadAddr !== ''){
                     document.getElementById("sample4_extraAddress").value = extraRoadAddr;
                 } else {
                     document.getElementById("sample4_extraAddress").value = '';
-                }
+                } */
 
-                var guideTextBox = document.getElementById("guide");
+               /*  var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -55,7 +55,7 @@
                 } else {
                     guideTextBox.innerHTML = '';
                     guideTextBox.style.display = 'none';
-                }
+                } */
             }
         }).open();
     }
@@ -70,7 +70,7 @@
 				<form>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
-					        <label class="form-label" for="name">사원 이름</label>
+					        <label class="form-label adminemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="name" />
@@ -78,7 +78,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto">
-					        <label class="form-label" for="ename">사원 영어이름</label>
+					        <label class="form-label adminemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="ename" />
@@ -86,7 +86,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">주민번호</label>
+							<label class="form-label adminemplabel">주민번호</label>
 						</div>	 
 						<div class="col-md-6 adminspan">							
 							<input type="text" class="form-control admindefault" id="jumin1" name="jumin1" maxlength="6">
@@ -96,7 +96,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv1">
-							<label class="form-label" for="password">초기비밀번호</label>
+							<label class="form-label adminemplabel" for="password">초기비밀번호</label>
 						</div>
 						<div class="col-md-6">
 							<input type="password" class="form-control admindefault" id="password" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
@@ -104,7 +104,7 @@
 					</div>	
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">부서</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">부서</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							 <select class="form-select admindefault" id="dept">
@@ -118,7 +118,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">직급</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">직급</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							 <select class="form-select admindefault" id="dept">
@@ -136,24 +136,25 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="basic-form-gender">권한</label>
+							<label class="form-label adminemplabel" for="basic-form-gender">권한</label>
 						</div>
+						
 						<div class="col-md-6 adminspan">
 							<div class="form-check">
-		                        <label class="form-check-label mb-0" for="">Y</label>
-		                        <input type="radio" class="form-check-input" id=""  name="" />
+		                        <label class="form-check-label mb-0" for="authorityFlagY">Y</label>
+		                        <input type="radio" class="form-check-input" id="authorityFlagY"  name="authority" />
 	                       </div>
 	                       <span class="adminhyphen"></span>
 	                       <div class="form-check">
-		                        <label class="form-check-label mb-0" for="">N</label>
-		                        <input type="radio" class="form-check-input" id=""  name="" checked="checked"/>
+		                        <label class="form-check-label mb-0" for="authorityFlagN">N</label>
+		                        <input type="radio" class="form-check-input" id="authorityFlagN"  name="authority" checked="checked"/>
 	                      </div>
 						  <span class="adminhyphen"><small>(관리자 로그인 접근 권한 여부 선택란 입니다.)</small></span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">내선번호</label> 
+							<label class="form-label adminemplabel">내선번호</label> 
 						</div>	
 						<div class="col-md-6 adminspan">							
 							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
@@ -163,7 +164,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv4">
-							<label class="form-label">전화번호</label>
+							<label class="form-label adminemplabel">전화번호</label>
 						</div> 
 						<div class="col-md-6 adminspan">
 					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
@@ -175,29 +176,26 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="ename">주소</label>
+							<label class="form-label adminemplabel" for="address">주소</label>
 						</div>
 						<div class="col-md-6 adminspan">
 							<input type="text" class="form-control admindefault" id="sample4_postcode" placeholder="우편번호" style="width: 70%;"/>
 							<span class="adminhyphen"></span>
 							<input type="Button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="btn btn-primary" style="width: 30%;">
 						</div>
-						<div class="col-md-6 adminempdiv14">
-							<input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소" style="width: 100%;">
-						</div>
-						<div class="col-md-6 adminspan adminempdiv14">	
-							<input type="text" class="form-control admindefault" id="sample4_jibunAddress" placeholder="지번주소" style="width: 80%;">
-							<span class="adminhyphen"></span>
-							<input type="text" class="form-control admindefault" id="sample4_extraAddress" placeholder="참고항목" style="width: 20%;">
-						</div>
-						<div class="col-md-6 adminempdiv14">	
-							<span id="guide" style="color:#999;display:none"></span>
-							<input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+					    <div class="adminempdiv16 adminspan">
+							<div class="col-md-6">	
+								<input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소" style="width: 97%;">
+								<input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소" style="width: 97%;">
+							<!-- <input type="text" class="form-control admindefault" id="sample4_jibunAddress" placeholder="지번주소" style="width: 80%;"> -->
+							<!-- <input type="text" class="form-control admindefault" id="sample4_extraAddress" placeholder="참고항목" style="width: 20%;"> -->
+							<!-- <span id="guide" style="color:#999;display:none"></span> -->
+							</div>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv5">
-							<label class="form-label" for="hiredate">입사일</label>
+							<label class="form-label adminemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
 							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
@@ -205,16 +203,16 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
-							<label class="form-label" for="annualSalary">연봉</label>
+							<label class="form-label adminemplabel" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-7 adminspan">  
+						<div class="col-md-6 adminspan">  
 							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
 							<span class="adminempspan">만원</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv5">
-							<label class="form-label">이메일</label>
+							<label class="form-label adminemplabel">이메일</label>
 						</div>	 
 						<div class="col-md-9 adminspan">							
 							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
@@ -233,7 +231,7 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv3">
-							<label class="form-label">사원 사진</label>
+							<label class="form-label adminemplabel">사원 사진</label>
 						</div>
 						<div class="col-md-6">	 
 							<input type="file" class="form-control admindefault"/>

@@ -2,6 +2,7 @@
 /* mypageempform.css */
 .mypageemplabel{
 	float: left;
+	margin: 0px -20px 0px 20px;
 }
 .mypagespan{
 	display: flex;
@@ -31,9 +32,6 @@
 }
 .mypageempdiv6{
 	margin: 0 0 0 60px;
-}
-label.form-label {
-    margin: 0px -20px 0px 20px;
 }
 .mypageempborder{
 	border-color: #eee;
@@ -78,4 +76,11 @@ label.form-label {
 }
 .mypageempdiv10 {
     margin: 4px 0 0 120px;
+}
+.mypageempdiv11 {
+  overflow: hidden; 
+}
+.mypageempdiv11 img{
+ max-width: 100%; 
+ height: auto;
 }    

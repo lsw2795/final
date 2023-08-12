@@ -1,5 +1,7 @@
 package com.ez.gw.documentform.model;
 
-public interface DocumentFormService {
+import java.util.List;
 
+public interface DocumentFormService {
+	List<DocumentFormVO> selectAllForm();
 }

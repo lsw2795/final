@@ -3,4 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.dept.model.DeptDAO">
+	<select id="deptByNo" parameterType="int" resultType="deptVo">
+		select * from dept
+		where dept_no=#{deptNo}
+	</select>
+	<select id="selectAllDept" resultType="deptVo">
+		select * from dept
+	</select>
 </mapper>

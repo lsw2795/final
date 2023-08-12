@@ -38,12 +38,12 @@
 				return false;
 			}
 			
-			if($('#product-description').val().length<50){
+			/* if($('#product-description').val().length<50){
 				alert("상품 상세 설명은 50자 이상 입력해주세요.");
 				$('#product-description').focus();
 				
 				return false;
-			}
+			} */
 		});
 	});
 
@@ -94,7 +94,7 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="fileName" type="file" multiple="multiple" />
+                      <input name="mainIMGURL" type="file" multiple="multiple" />
                     </div>
                     <div class="dz-message" data-dz-message="data-dz-message"> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />

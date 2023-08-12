@@ -33,7 +33,7 @@
 .adminempdiv6{
 	margin: 0 0 0 60px;
 }
-label.form-label {
+.adminemplabel {
     margin: 0px -20px 0px 20px;
 }
 .adminempborder{
@@ -90,7 +90,20 @@ label.form-label {
 }
 .adminempdiv14 {
     margin: 4px 0 0 120px;
-}    
+}
 .ck-editor__editable {
     height: 300px;
+}
+.adminempdiv15 {
+  overflow: hidden; 
+}
+.adminempdiv15 img{
+ max-width: 100%; 
+ height: auto;
+}
+.adminempdiv16{
+	margin: 0 0 0 119px;
+}
+#sample4_roadAddress, #sample4_detailAddress{
+	margin: 5px 0 0 0;
 }

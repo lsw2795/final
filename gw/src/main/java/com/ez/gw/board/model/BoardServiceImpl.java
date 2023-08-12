@@ -59,6 +59,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectNotice(boardNo);
 	}
 
+	@Override
+	public int updateNotice(BoardVO vo) {
+		return boardDao.updateNotice(vo);
+	}
+
+	@Override
+	public int deleteNotice(BoardVO vo) {
+		return boardDao.deleteNotice(vo);
+	}
+
 
 
 

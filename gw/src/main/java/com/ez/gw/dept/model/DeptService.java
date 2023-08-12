@@ -1,5 +1,8 @@
 package com.ez.gw.dept.model;
 
-public interface DeptService {
+import java.util.List;
 
+public interface DeptService {
+	DeptVO deptByNo(int empNo);
+	List<DeptVO> selectAllDept();
 }

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.documentform.model.DocumentFormDAO">
-
-
-
+	<select id="selectAllForm" resultType="documentFormVo">
+		select * from document_form
+	</select>
 </mapper>
