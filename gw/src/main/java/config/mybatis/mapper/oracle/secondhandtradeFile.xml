@@ -7,7 +7,7 @@
 		<selectKey keyProperty="fileNo" order="BEFORE" resultType="int">
 			select secondhand_trade_file_seq.nextval from dual
 		</selectKey>
-		insert into secondhand_trade_file(fileNo, fileName)
-		values(#{fileNo}, #{fileName})
+		insert into secondhand_trade_file(fileNo, imageURL)
+		values(#{fileNo}, #{imageURL})
 	</insert>
 </mapper>

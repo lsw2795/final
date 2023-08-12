@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 public class SecondHandTradeController {
 	private static final Logger logger = LoggerFactory.getLogger(SecondHandTradeController.class);
 	private final SecondHandTradeService secondHandTradeService;
+	private final SecondhandTradeFileService secondHandTradeFileService;
 	
 	@RequestMapping("/marketList")
 	public String marketList() {
@@ -49,7 +51,7 @@ public class SecondHandTradeController {
 	}
 	
 	@PostMapping("/addMarket")
-	public String post_addMarket(@ModelAttribute SecondHandTradeVO secondVo, HttpServletRequest request, Model model) {
+	public String post_addMarket(@ModelAttribute SecondHandTradeVO secondVo, @ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, Model model) {
 		//1
 		logger.info("중고거래 상품 등록, 파라미터 secondVo = {}", secondVo);
 		
@@ -61,7 +63,7 @@ public class SecondHandTradeController {
 			//파일 업로드 처리
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 			
-			List<MultipartFile> files = multiRequest.getFiles("mainIMGURL");
+			List<MultipartFile> files = multiRequest.getFiles("imageURL");
 			
 			for(MultipartFile f : files) {
 				fileName = f.getName();
@@ -73,6 +75,10 @@ public class SecondHandTradeController {
 				File file = new File(filePath);
 				f.transferTo(file);
 						
+				secondFileVo.setImageURL(fileName);
+				secondFileVo.setTradeNo(secondVo.getTradeNo());
+				int result = secondHandTradeFileService.insertFile(secondFileVo);
+				logger.info("이미지 멀티 파일 등록 결과 result = {}", result);
 			}
 		}catch(IllegalStateException e) {
 			e.printStackTrace();
@@ -80,7 +86,6 @@ public class SecondHandTradeController {
 			e.printStackTrace();
 		}
 		
-		secondVo.setMainImgURL(fileName);
 		
 		int cnt = secondHandTradeService.insertMarket(secondVo);
 		logger.info("중고거래 상품 등록 처리 결과 cnt = {}", cnt);
@@ -95,7 +100,7 @@ public class SecondHandTradeController {
 		model.addAttribute("url", url);
 		
 		//4.
-		return "common/message";
+		return "/common/message";
 	}
 	
 	/*
