@@ -2,9 +2,11 @@ package com.ez.gw.secondhandTrade.model;
 
 import java.security.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
-@Data
+@Data 
 public class SecondHandTradeVO { //사내중고거래
 	private int tradeNo; //중고거래번호
 	private int empNo; //사원번호
@@ -14,8 +16,6 @@ public class SecondHandTradeVO { //사내중고거래
 	private String discription; //상품설명
 	private Timestamp regdate; //등록일
 	private int readCount; //조회수
-	private String fileName; //업로드파일명
-	private long fileSize; //파일사이즈
-	private String originalFileName; //원본파일명
+	private String mainImgURL; //대표이미지
 	private int boardListNo; //게시판번호
 }

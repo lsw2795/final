@@ -9,7 +9,7 @@
 		</selectKey>
 		
 		insert into board(board_no, emp_no, boardList_no, title, content)
-		values(#{boardNo}, 2, 1000, #{title}, #{content})
+		values(#{boardNo}, #{empNo}, 1000, #{title}, #{content})
 	</insert>
 
 	<select id="selectQnaAll" parameterType="searchVo">
@@ -31,11 +31,11 @@
 		where board_no=#{boardNo}
 	</update>
 	
-	<insert id="updateQna" parameterType="boardVo">
+	<update id="updateQna" parameterType="boardVo">
 		update board
 		set title=#{title}, content=#{content}
 		where boardList_no=1000 and board_No=#{boardNo}
-	</insert>
+	</update>
 	
 	<delete id="deleteQna" parameterType="int">
 		delete from board
@@ -55,8 +55,12 @@
 		select * from noticeListView
 		<if test="searchKeyword!=null and searchKeyword!=''">
 			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+			and delflag='N'
 		</if>
-		order by regdate desc
+		<if test="searchKeyword==null or searchKeyword==''">
+			where delflag='N'
+		</if>
+		order by board_no desc
 	</select>
 	
 	<select id="selectNotice" parameterType="int" resultType="map">
@@ -64,14 +68,15 @@
 		where board_no=#{boardNo} and boardList_no = 2000
 	</select>
 	
-	<insert id="updateNotice" parameterType="boardVo">
+	<update id="updateNotice" parameterType="boardVo">
 		update board
-		set title=#{title}, content=#{content}
+		set title=#{title}, content=#{content}, regdate=sysdate
 		where boardList_no=2000 and board_No=#{boardNo}
-	</insert>
+	</update>
 	
-	<delete id="deleteNotice" parameterType="int">
-		delete from board
+	<delete id="deleteNotice" parameterType="boardVo">
+		update board
+		set delflag='Y'
 		where boardList_no=2000 and board_no=#{boardNo}
 	</delete>
 	

@@ -7,9 +7,7 @@
 		<selectKey keyProperty="tradeNo" order="BEFORE" resultType="int">
 			select secondhand_trade_seq.nextval from dual
 		</selectKey>
-		insert into secondhand_trade(trade_no, title, product, price, discription, filename)
-		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, #{fileName})
+		insert into secondhand_trade(trade_no, title, product, price, discription)
+		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription})
 	</insert>
-
-
 </mapper>

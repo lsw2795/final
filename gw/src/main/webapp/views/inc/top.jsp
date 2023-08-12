@@ -305,7 +305,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="f">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/pds/list'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">파일 다운로드</span>
                         			</div> 
