@@ -24,43 +24,6 @@
            }
         }).open();
     }
-    
-    $(function(){
-   		/* $("#empWrite").click(function() {
-			if($('#chkPwd').val()!='Y'){
-		        alert('패스워드 확인을 해주세요.');
-		        $('#pwd').focus();
-		        return false;
-		   }
-   		}); */
-   		
-			var tel="";
-			var tel1=$('#tel1').val();
-			var tel2=$('#tel2').val();
-			var tel3=$('#tel3').val();
-			
-			if(tel1!=null && tel1.isEmpty() && tel2!=null && !tel2.isEmpty() && tel3!=null && !tel3.isEmpty()){
-			      tel=tel1+"-"+tel2+"-"+tel3;
-			}
-			$('#tel').val(tel);
-			
-			var email ="";
-			var email1=$('#email1').val();
-			var email2=$('#email2').val();
-			var email3=$('#email3').val();
-			
-			if(email1!=null && !email1.isEmpty()){
-			   if(email2.equals("etc")){
-				  if(email3!=null && !email3.isEmpty()){
-			      	email=email1+"@"+email3;
-				  }
-			   }else{
-			      email = email1+"@"+email2;
-			   }
-			   $('#email').val(email);
-			}	
-		
-    });
 </script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
@@ -155,10 +118,18 @@
 					    <div class="col-md-auto adminempdiv4">
 							<label class="col-form-label adminemplabel">내선번호</label> 
 						</div>	
-						<div class="col-md-6 adminspan">							
-							<input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
-							<span class="adminhyphen">-</span>
-							<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2" maxlength="4">
+						<div class="col-md-6 adminspan">
+							<c:choose>
+				            <c:when test="${!empty extensionNo1 and !empty extensionNo2}">
+				                <input type="text" class="form-control admindefault" id="extensionNo" name="extensionNo"
+				                       value="${extensionNo1}-${extensionNo2}"/>
+				            </c:when>
+				            <c:otherwise>
+				                <input type="text" class="form-control admindefault" id="extensionNo1" name="extensionNo1" maxlength="4">
+								<span class="adminhyphen">-</span>
+								<input type="text" class="form-control admindefault" id="extensionNo2" name="extensionNo2" maxlength="4">       
+				            </c:otherwise>
+			        	</c:choose>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -166,11 +137,22 @@
 							<label class="col-form-label adminemplabel">전화번호</label>
 						</div> 
 						<div class="col-md-6 adminspan">
-					        <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"/>
-					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" maxlength="4" />
-					        <span class="adminhyphen">-</span>
-					        <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4" />
+				         <c:choose>
+				            <c:when test="${!empty tel1 and !empty tel2 and !empty tel3}">
+				                <input type="text" class="form-control admindefault" id="tel" name="tel"
+				                       value="${tel1}-${tel2}-${tel3}"/>
+				            </c:when>
+				            <c:otherwise>
+				                <input type="text" class="form-control admindefault" id="tel1" name="tel1" style="width: 33%;" maxlength="3"
+				                       value="${tel1}"/>
+				                <span class="adminhyphen">-</span>
+				                <input type="text" class="form-control admindefault" id="tel2" name="tel2" style="width: 33%;" maxlength="4"
+				                       value="${tel2}"/>
+				                <span class="adminhyphen">-</span>
+				                <input type="text" class="form-control admindefault" id="tel3" name="tel3" style="width: 33%;" maxlength="4"
+				                       value="${tel3}"/>
+				            </c:otherwise>
+			        	</c:choose>
 				    	</div>
 					</div>
 					<div class="row d-flex align-items-center">
@@ -186,8 +168,16 @@
 				    <div class="row mb-3 d-flex align-items-center">
 				    	<div class="col-md-auto adminempdiv16"></div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
-					        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+					    	<c:choose>
+				            <c:when test="${!empty sample4_roadAddress and !empty sample4_detailAddress}">
+				                <input type="text" class="form-control admindefault" id="tel" name="tel"
+				                       value="${sample4_roadAddress} ${sample4_detailAddress}"/>
+				            </c:when>
+				            <c:otherwise>
+						        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
+						        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+				            </c:otherwise>
+			        	</c:choose>
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -195,7 +185,7 @@
 							<label class="col-form-label adminemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
-							<input type="date" class="form-control admindefault" id="hiredate" placeholder="달력을 눌러주세요."/>
+							<input type="date" class="form-control admindefault" id="hiredate" name="hiredate" placeholder="달력을 눌러주세요."/>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -203,7 +193,7 @@
 							<label class="col-form-label adminemplabel" for="annualSalary">연봉</label>
 						</div>
 						<div class="col-md-6 adminspan">  
-							<input type="text" class="form-control admindefault" id="annualSalary" style="width: 85%"/>
+							<input type="text" class="form-control admindefault" id="annualSalary" name="annualSalary" style="width: 85%"/>
 							<span class="adminempspan">만원</span>
 						</div>
 					</div>
@@ -211,10 +201,41 @@
 						<div class="col-md-auto adminempdiv5">
 							<label class="col-form-label adminemplabel">이메일</label>
 						</div>	 
-						<div class="col-md-9 adminspan">							
-							<input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%">
+						<div class="col-md-9 adminspan">
+							 <c:choose>
+					            <c:when test="${not empty email1 and not empty email2}">
+					                <input type="text" class="form-control admindefault" id="email" name="email"
+					                       value="${email1}@${email2}" style="width: 60%;" />
+					            </c:when>
+					            <c:when test="${not empty email1 and not empty email3}">
+					                <input type="text" class="form-control admindefault" id="email" name="email"
+					                       value="${email1}@${email3}" style="width: 60%;" />
+					            </c:when>
+					            <c:otherwise>
+					                <input type="text" class="form-control admindefault" id="email1" name="email1" style="width: 31%;"
+					                       value="${email1}" />
+					                <span class="adminhyphen">@</span>
+					                <select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%;">
+					                    <option value="naver.com" ${email2 eq 'naver.com' ? 'selected' : ''}>naver.com</option>
+					                    <option value="hanmail.net" ${email2 eq 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
+					                    <option value="nate.com" ${email2 eq 'nate.com' ? 'selected' : ''}>nate.com</option>
+					                    <option value="gmail.com" ${email2 eq 'gmail.com' ? 'selected' : ''}>gmail.com</option>
+					                    <option value="etc" ${email2 eq 'etc' ? 'selected' : ''}>직접입력</option>
+					                </select>
+					                <span class="adminhyphen"></span>
+					                <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
+					                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
+					            </c:otherwise>
+					        </c:choose>
+						
+						
+						
+						
+						
+													
+							<!-- <input type="text" class="form-control admindefault" id="email1" style="width: 31%">
 							<span class="adminhyphen">@</span>
-							<select class="form-select admindefault" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 34%">
+							<select class="form-select admindefault" id="email2" title="이메일주소 뒷자리" style="width: 34%">
 					            <option value="naver.com">naver.com</option>
 					            <option value="hanmail.net">hanmail.net</option>
 					            <option value="nate.com">nate.com</option>
@@ -222,8 +243,8 @@
 					            <option value="etc">직접입력</option>
 					        </select>
 					        <span class="adminhyphen"></span>
-					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control admindefault" style="visibility:hidden; width: 35%">
+					        <input type="text" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
+					        	class="form-control admindefault" style="visibility:hidden; width: 35%"> -->
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -231,7 +252,7 @@
 							<label class="col-form-label adminemplabel">사원 사진</label>
 						</div>
 						<div class="col-md-6">	 
-							<input type="file" class="form-control admindefault"/>
+							<input type="file" class="form-control admindefault" name="image"/>
 						</div>
 					</div>
 					<div style="text-align: center;">
@@ -241,6 +262,7 @@
 					 <input type ="text" name="chkPwd" id="chkPwd">
 					 <input type ="text" name="tel" id="tel">
 					 <input type ="text" name="email" id="email">
+					 <input type ="text" name="address" id="address">
 				</form>
 			</div>
 		</div>

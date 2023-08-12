@@ -29,7 +29,7 @@
 		insert into employee(empNo, name, ename, jumin, email, pwd, extensionNo, tel,
 			address, hiredate, authority, annualSalary, image, positionNo, deptNo)
 		values(#{empNo},#{name},#{ename},#{jumin},#{email},#{pwd},#{extensionNo},#{tel},
-			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
+			#{address},sysdate,#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
 		
 </mapper>
