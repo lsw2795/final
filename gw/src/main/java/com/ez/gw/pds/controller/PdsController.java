@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ez.gw.pds.model.PdsService;
@@ -28,6 +29,14 @@ public class PdsController {
 	
 	@GetMapping("/write")
 	public String write() {
+		//1
+		logger.info("자료실 등록 페이지");
+		//4
+		return "pds/write";
+	}
+	
+	@PostMapping("/write")
+	public String write_post() {
 		//1
 		logger.info("자료실 등록 페이지");
 		//4
