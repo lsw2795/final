@@ -24,6 +24,7 @@ public class FileUploadUtil {
 
 	public List<Map<String, Object>> fileupload(HttpServletRequest request,
 			int pathFlag) throws IllegalStateException, IOException {
+		int count = 0;
 		//파일 업로드 처리
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 
@@ -35,9 +36,10 @@ public class FileUploadUtil {
 
 		Iterator<String> iter = fileMap.keySet().iterator();
 		while(iter.hasNext()) {
+			count++;
 			String key=iter.next();
 			MultipartFile tempFile = fileMap.get(key);//업로드된 파일을 임시파일 형태로 제공
-			if(!tempFile.isEmpty()) { //파일이 업로드된 경우
+			//if(!tempFile.isEmpty()) { //파일이 업로드된 경우
 				long fileSize=tempFile.getSize(); //파일 크기
 				String originName=tempFile.getOriginalFilename(); //변경전 파일명
 
@@ -59,9 +61,10 @@ public class FileUploadUtil {
 					
 					resultList.add(resultMap);
 				
-			}//if			
+			//}//if			
 		}//while
-
+		
+		logger.info("파일 몇개 돌렸냐 2 {}", count);
 		return resultList;
 	}
 
