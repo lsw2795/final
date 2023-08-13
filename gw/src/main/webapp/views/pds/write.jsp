@@ -48,20 +48,23 @@
 		
 	});
 	
-    // 파일 추가
-    function addFile() {
-        const fileDiv = document.createElement('div');
-        fileDiv.innerHTML =`
-            <div class="file_input">
-                <input type="text" readonly />
-                <label> 첨부파일
-                    <input type="file" name="files" onchange="selectFile(this);" />
-                </label>
-            </div>
-            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-        `;
-        document.querySelector('.file_list').appendChild(fileDiv);
-    }
+	// 파일 추가
+	let fileIndex = 1; //파일 name 인덱스
+	
+	function addFile() {
+	    const fileDiv = document.createElement('div');
+	    fileDiv.innerHTML = `
+	        <div class="file_input">
+	            <input type="text" readonly />
+	            <label> 첨부파일
+	                <input type="file" name="files[${fileIndex}]" onchange="selectFile(this);" />
+	            </label>
+	        </div>
+	        <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+	    `;
+	    document.querySelector('.file_list').appendChild(fileDiv);
+	    fileIndex++;
+	}
     
     // 파일 삭제
     function removeFile(element) {
@@ -87,13 +90,18 @@
         }
 
         // 2. 파일 크기가 100MB를 초과하는 경우
-        const fileSize = Math.floor(file.size / 1024 / 1024);
-        if (fileSize > 100) {
-            alert('100MB 이하의 파일로 업로드해 주세요.');
-            filename.value = '';
-            element.value = '';
-            return false;
-        }
+	   const fileSize = Math.floor(file.size / 1024 / 1024);
+	    if (file.size === 0) { //0byte
+	        alert('파일 크기가 0인 파일은 업로드할 수 없습니다.');
+	        filename.value = '';
+	        element.value = '';
+	        return false;
+	    } else if (fileSize > 100) {
+	        alert('100MB 이하의 파일로 업로드해 주세요.');
+	        filename.value = '';
+	        element.value = '';
+	        return false;
+	    }
 
         // 3. 파일명 지정
         filename.value = file.name;
@@ -147,7 +155,7 @@
                         <div class="file_input">
                             <input type="text" readonly />
                             <label> 첨부파일
-                                <input type="file" name="files" onchange="selectFile(this);" />
+                                <input type="file" name="files[0]" onchange="selectFile(this);" />
                             </label>
                         </div>
                         <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>

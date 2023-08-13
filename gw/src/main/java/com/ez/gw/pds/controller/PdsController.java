@@ -1,6 +1,5 @@
 package com.ez.gw.pds.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -14,15 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
-import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
-import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +32,7 @@ public class PdsController {
 	private static final Logger logger=LoggerFactory.getLogger(PdsController.class);
 	private final PdsService pdsService;
 	private final BoardService boardService;
+	private final FileUploadUtil fileUploadUtil;
 
 	@RequestMapping("/list")
 	public String list(Model model) {
@@ -191,29 +189,21 @@ public class PdsController {
 
 		//2
 		//파일 업로드 처리
-		String fileName = "", originalFileName = "";
+		String fileName="", originalFileName="", filePath = "";
 		long fileSize = 0;
 
 		int cnt = pdsService.insertPds(boardVo);
 		logger.info("자료실-게시글 등록 결과, cnt={}", cnt);
 
+
+		List<Map<String, Object>> fileList;
 		try {
-
-			//파일 업로드 처리
-			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-
-			List<MultipartFile> files = multiRequest.getFiles("files");
-			logger.info("파일 갯수, files.size={}", files.size());
-
-			for(MultipartFile f : files) {
-				originalFileName = f.getOriginalFilename();
-				fileName = System.currentTimeMillis() + "_" + originalFileName;
-				fileSize = (long)f.getSize();
-
-				String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload\\" + fileName;
-
-				File file = new File(filePath);
-				f.transferTo(file);
+			fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
+			for(Map<String, Object> map : fileList) {
+				fileName = (String) map.get("fileName");
+				originalFileName = (String) map.get("originalFileName");
+				fileSize = (long) map.get("fileSize");
+				filePath = (String) map.get("uploadPath") + "/" + fileName;
 
 				logger.info("파일명:{}", fileName);
 				pdsVo.setBoardListNo(3000); //게시판 번호
@@ -228,13 +218,13 @@ public class PdsController {
 					int result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
 					logger.info("다중 파일 등록 결과 result = {}", result);
 				}
-				
-			}
-		}catch(IllegalStateException e) {
+			}//for
+		} catch (IllegalStateException e) {
 			e.printStackTrace();
-		}catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 
 		String msg = "자료 등록 실패", url ="/pds/write";
 		if(cnt>0) {
@@ -249,5 +239,7 @@ public class PdsController {
 		return "common/message";
 	}
 
-
 }
+
+
+

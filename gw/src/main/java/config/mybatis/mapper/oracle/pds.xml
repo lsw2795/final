@@ -13,7 +13,7 @@
 	</insert>
 	
 	<select id="selectPdsAll" resultType="map">
-		select * from pdsListView
+		select * from pdsView
 		where boardList_no=3000
 		order by board_no desc
 	</select>

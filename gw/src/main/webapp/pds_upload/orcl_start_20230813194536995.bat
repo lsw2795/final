@@ -1,0 +1,4 @@
+net start OracleOraDB18Home1MTSRecoveryService
+net start OracleOraDB18Home1TNSListener
+net start OracleServiceXE
+isqlplusctl stop
