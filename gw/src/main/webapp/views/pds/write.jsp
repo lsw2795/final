@@ -139,7 +139,7 @@
 	                <div class="info">
 	                    <dl>
 	                        <dt>작성자</dt>
-	                        <dd><input type="text" name="writer" value="${sessionScope.empNo}" readonly="readonly"></dd>
+	                        <dd><input type="text" name="writer" value="${vo.name}" readonly="readonly"></dd>
 	                    </dl>
 	                    <dl>
 	                        <dt>비밀번호</dt>

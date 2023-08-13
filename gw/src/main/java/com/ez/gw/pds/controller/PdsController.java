@@ -21,6 +21,8 @@ import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
+import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
 
@@ -36,6 +38,8 @@ public class PdsController {
 	private final PdsService pdsService;
 	private final BoardService boardService;
 	private final FileUploadUtil fileUploadUtil;
+	private final EmployeeService employeeService;
+	
 
 	@RequestMapping("/list")
 	public String list(Model model) {
@@ -54,9 +58,17 @@ public class PdsController {
 	}
 
 	@GetMapping("/write")
-	public String write() {
+	public String write(HttpSession session, Model model) {
+		int empNo = (int)session.getAttribute("empNo");
 		//1
 		logger.info("자료실 등록 페이지");
+		
+		//2
+		EmployeeVO vo = employeeService.selectByEmpNo(empNo);
+		
+		//3
+		model.addAttribute("vo", vo);
+		
 		//4
 		return "pds/write";
 	}
