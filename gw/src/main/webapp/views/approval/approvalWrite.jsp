@@ -3,7 +3,6 @@
 <%@ include file = "../inc/top.jsp" %>
 <script type="text/javascript">
 	$(function(){
-		$('#confirmDocumentNo').val($('#cdNoDiv').html());
 	});
 	
 	function selectReper(){
@@ -34,9 +33,11 @@
 			                </label>
 				            <select class="form-select" name="documentNo" id="documentNo" style="display: inline">
 				                <option value="0">종류 선택</option>
+				                <c:if test="${!empty formList}">
 				                <c:forEach var="documentFormVo" items="${formList }">
 					                <option value="${documentFormVo.documentNo }">${documentFormVo.formName }</option>
 				                </c:forEach>
+				                </c:if>
 				            </select>
 						</div>
 					</div>
@@ -91,7 +92,7 @@
 	                        <div id="cdNoDiv">
 	                        	<fmt:formatDate value="${now}" pattern="yyMMdd" />-${empVo.empNo }
 	    					</div>
-	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" />	                
+	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" value="<fmt:formatDate value='${now}' pattern='yyMMdd' />-${empVo.empNo }" />	                
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="deptName">
@@ -111,9 +112,11 @@
 	                        </label>
 	                        <select class="form-select" name="deptNo" id="deptNo">
 					            <option value="0">부서 선택</option>
+					            <c:if test="${!empty deptList }">
 	                        	<c:forEach var="deptVo" items="${deptList }">
 					                <option value="${deptVo.deptNo}">${deptVo.name }</option>
 				                </c:forEach>
+				                </c:if>
 	                        </select>
 	                    </div>
 	                    <div class="col-sm-6" >

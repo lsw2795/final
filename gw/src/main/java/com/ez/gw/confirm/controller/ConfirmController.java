@@ -75,7 +75,7 @@ public class ConfirmController {
     	//2
     	confirmVo.setEmpNo(empNo);
     	int cnt=confirmService.insertConfirm(confirmVo);
-    	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWite";
+    	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWrite";
     	if(cnt>0) {
     		msg="결재가 작성되었습니다.";
     	}

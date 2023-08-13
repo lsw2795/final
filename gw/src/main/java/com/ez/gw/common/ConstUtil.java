@@ -1,5 +1,7 @@
 package com.ez.gw.common;
 
+import java.util.Date;
+
 public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
 	public static final int RECORD_COUNT=5;
@@ -20,5 +22,9 @@ public interface ConstUtil {
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드
 	int UPLOAD_IMAGE_FLAG = 2; //상품 등록시 이미지 업로드
+	
+	//전자결재
+	Date date = new Date();
+	int CONFIRM_NO=1;
 	
 }
