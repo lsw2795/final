@@ -13,7 +13,6 @@
 <script>
 	
 	$(function() {
-		
 		CKEDITOR.replace('editor', {
 			filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
 		});
@@ -50,12 +49,10 @@
 	// 파일 추가
 	var fileIndex = 1; // 파일 name 인덱스
 	
-	
 	function addFile() {
 		console.log(fileIndex); //인덱스 증가 로그
 		
 	    const fileDiv = document.createElement('div');
-	    const inputName = `files[${fileIndex}]`; // name 속성값을 직접 생성
 	    fileDiv.innerHTML = `
 	        <div class="file_input">
 	            <input type="text" readonly />
