@@ -3,8 +3,46 @@
 <%@ include file = "../inc/top.jsp" %>
 <script type="text/javascript">
 	$(function(){
+		$('form[name=documentFrm]').submit(function(){
+			if($('#documentNo').val()==0){
+				alert('결재 종류를 선택하세요');
+				$('#documentNo').focus();
+				return false;
+			}
+			
+			if($('#confirmTitle').val().length==0){
+				alert('제목을 입력하세요');
+				$('#confirmTitle').focus();
+				return false;
+			}
+
+			if($('#confirmLineNo').val().length==0){
+				alert('결재선을 선택하세요');
+				$('#select').focus();
+				return false;
+			}
+			
+			if($('#confirmContent').val().length==0){
+				alert('내용을 입력하세요');
+				$('#confirmContent').focus();
+				return false;
+			}
+
+		})
+		
+		$('#btFilePlus').click(function(){
+			$('#btFilePlus').parent().before("<div class='col-12 mt-1 file'>"+
+					"<label class='form-label mb-0'>첨부파일</label>"+
+					"<input class='form-control' name='confirmFile' type='file'/></div>");	
+		});
+		
+		$('#btFileDel').click(function(){
+			$('.file:last').remove();
+		});
+		
+		
 	});
-	
+
 	function selectReper(){
 		window.open("<c:url value='/approval/selectEmp/selectEmp'/>","_blank","width=800, height=500")
 	}
@@ -131,10 +169,10 @@
 	                    <div class="col-12">
 			                <div class="row gx-2 mt-3 mb-3">
 		                       	<div class="col-sm-6" >
-		                       		<input class="form-control" onclick="createLine()" type="button" value="결재라인 생성">
+		                       		<input class="form-control" id="create" onclick="createLine()" type="button" value="결재라인 생성">
 		                       	</div>
 		                       	<div class="col-sm-6" >
-		                       		<input class="form-control" onclick="selectLine()" type="button" value="결재라인 선택">
+		                       		<input class="form-control" id="select" onclick="selectLine()" type="button" value="결재라인 선택">
 		                       	</div>
 	                       	</div>
 	                    </div>
@@ -158,21 +196,16 @@
 	                    </div>
 	                    <div class="col-12">
 	                        <label class="form-label" for="confirmContent">내용</label>
-	                        <textarea class="form-control" name="confirmContent" 
-	                        	id="confirmContent" rows="6" placeholder="내용을 입력하세요" >
-	                        </textarea>
+	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요"></textarea>
 	                    </div>
-	                    <div class="col-12 mt-1">
-	                        <label class="form-label mb-0" for="confirmFile">첨부파일</label>
-	                        <input class="form-control" name="confirmFile" id="confirmFile" type="file"/>
+	                    <div class="col-12 mt-1 file">
+	                        <label class="form-label mb-0">첨부파일</label>
+	                        <input class="form-control" name="confirmFile" type="file"/>
 	                    </div>
-	                    <div class="col-12 mt-1">
-	                        <label class="form-label mb-0"  for="confirmFile2">첨부파일</label>
-	                        <input class="form-control" name="confirmFile2" id="confirmFile2" type="file"/>
-	                    </div>
-	                    <div class="col-12 mt-1">
-	                        <label class="form-label mb-0" for="confirmFile3">첨부파일</label>
-	                        <input class="form-control" name="confirmFile3" id="confirmFile3" type="file"/>
+	                    <div class="col-12 mt-2">
+	                        <label class="form-label mb-0">첨부파일 추가/삭제</label><br>
+		                    <button type="button" class="btn btn-outline-secondary" id="btFilePlus" style="width: 50px">+</button>
+		                    <button type="button" class="btn btn-outline-secondary" id="btFileDel" style="width: 50px">-</button>
 	                    </div>
 	                    <div class="col-sm-2 m-auto mt-3">
 	                        <input class="form-control btn btn-primary" type="submit" value="작성"/>

@@ -8,4 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReferServiceImpl implements ReferService {
 	private final ReferDAO referDao;
+
+	@Override
+	public int insertRefer(ReferVO referVo) {
+		return referDao.insertRefer(referVo);
+	}
 }

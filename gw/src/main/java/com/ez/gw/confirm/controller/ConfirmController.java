@@ -20,12 +20,16 @@ import com.ez.gw.confirmLine.model.ConfirmLineService;
 import com.ez.gw.confirmLine.model.ConfirmLineVO;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
+import com.ez.gw.deptagree.model.DeptagreeService;
+import com.ez.gw.deptagree.model.DeptagreeVO;
 import com.ez.gw.documentform.model.DocumentFormService;
 import com.ez.gw.documentform.model.DocumentFormVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
+import com.ez.gw.refer.model.ReferService;
+import com.ez.gw.refer.model.ReferVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +41,9 @@ public class ConfirmController {
 	private static final Logger logger = LoggerFactory.getLogger(ConfirmController.class);
     private final ConfirmService confirmService; 
     private final DocumentFormService documentFormService; 
-    private final DeptService deptService; 
+    private final DeptService deptService;
+    private final ReferService referService;
+    private final DeptagreeService deptAgreeService; 
     private final PositionService positionService; 
     private final EmployeeService employeeService; 
     private final ConfirmLineService confirmLineService; 
@@ -67,16 +73,35 @@ public class ConfirmController {
     }
     
     @PostMapping("/approvalWrite")
-    public String approvalWrite_post(HttpSession session, @ModelAttribute ConfirmVO confirmVo,Model model) {
+    public String approvalWrite_post(HttpSession session, @ModelAttribute ConfirmVO confirmVo,
+    		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] reperEmpNo, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("결재 작성 처리 파라미터 empNo={},confirmVo={}",empNo,confirmVo);
+    	logger.info("결재 작성 처리 파라미터 empNo={},confirmVo={},deptAgreeVo={}",empNo,confirmVo,deptAgreeVo);
     	
     	//2
     	confirmVo.setEmpNo(empNo);
-    	int cnt=confirmService.insertConfirm(confirmVo);
+    	int confirmCnt=confirmService.insertConfirm(confirmVo);
+    	logger.info("결재 처리 결과 confirmCnt={}",confirmCnt);
+    	
+    	if(deptAgreeVo.getDeptNo()!=0) {
+    		deptAgreeVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
+    		int deptCnt=deptAgreeService.insertDeptAgree(deptAgreeVo);
+    		logger.info("합의부서 처리 결과 deptCnt={}",deptCnt);
+    	}
+    	
+    	if(reperEmpNo!=null && reperEmpNo.length>=0) {
+	    	ReferVO referVo = new ReferVO();
+	    	referVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
+	    	for(int i=0;i<reperEmpNo.length;i++) {
+	    		referVo.setEmpNo(reperEmpNo[i]);
+	    		int referCnt=referService.insertRefer(referVo);
+	    		logger.info("참조자 처리 결과 referCnt={}",referCnt);
+	    	}
+    	}
+    	
     	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWrite";
-    	if(cnt>0) {
+    	if(confirmCnt>0) {
     		msg="결재가 작성되었습니다.";
     	}
     	
