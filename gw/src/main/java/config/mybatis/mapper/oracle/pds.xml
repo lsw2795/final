@@ -41,7 +41,7 @@
 		
 		insert into pds(pds_no, path, fileName, fileSize, originalfileName, file_extension,
 			 boardList_no, board_no)
-		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalfilename}, #{fileExtension},
+		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalFileName}, #{fileExtension},
 			#{boardListNo}, #{boardNo})
 	</insert>
 	
@@ -49,5 +49,12 @@
 		select * from pds
 		where boardList_no=3000 and board_no=#{boardNo}
 	</select>
+	
+	<update id="updateDownloadCount" parameterType="int">
+		update pds
+		set downloadCount = downloadCount + 1
+		where board_no=#{boardNo}
+	
+	</update>
 
 </mapper>

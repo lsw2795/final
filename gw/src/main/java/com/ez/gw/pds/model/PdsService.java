@@ -13,5 +13,5 @@ public interface PdsService {
 	int deletePds(int boardNo);
 	int insertFiles(PdsVO vo); //파일 업로드 
 	List<PdsVO> selectFilesByBoardNo(int boardNo); // 게시글 번호로 파일 리스트 조회
-	
+	int updateDownloadCount(int boardNo);
 }

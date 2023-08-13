@@ -51,6 +51,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.selectFilesByBoardNo(boardNo);
 	}
 
+	@Override
+	public int updateDownloadCount(int boardNo) {
+		return pdsDao.updateDownloadCount(boardNo);
+	}
+
 
 
 
