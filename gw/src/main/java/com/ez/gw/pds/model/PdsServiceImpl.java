@@ -27,10 +27,10 @@ public class PdsServiceImpl implements PdsService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectPds(int boardNo) {
+	public Map<String, Object> selectPds(int boardNo) {
 		return pdsDao.selectPds(boardNo);
 	}
-
+	
 	@Override
 	public int updatePds(BoardVO vo) {
 		return pdsDao.updatePds(vo);
@@ -45,6 +45,14 @@ public class PdsServiceImpl implements PdsService {
 	public int insertFiles(PdsVO vo) {
 		return pdsDao.insertFiles(vo);
 	}
+
+	@Override
+	public List<PdsVO> selectFilesByBoardNo(int boardNo) {
+		return pdsDao.selectFilesByBoardNo(boardNo);
+	}
+
+
+
 
 
 	

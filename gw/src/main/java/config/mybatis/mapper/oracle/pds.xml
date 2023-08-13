@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectPds" parameterType="int" resultType="map">
-		select * from pdsView
+		select * from pdsListView
 		where board_no=#{boardNo} and boardList_no = 3000
 	</select>
 	
@@ -44,5 +44,10 @@
 		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalfilename}, #{fileExtension},
 			#{boardListNo}, #{boardNo})
 	</insert>
+	
+	<select id="selectFilesByBoardNo" parameterType="int" resultType="pdsVo">
+		select * from pds
+		where boardList_no=3000 and board_no=#{boardNo}
+	</select>
 
 </mapper>

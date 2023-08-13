@@ -46,20 +46,18 @@ public class FileUploadUtil {
 
 				//파일 업로드 처리
 				String uploadPath = getUploadPath(request, pathFlag);
-				logger.info("파일 업로드 경로 uploadPath={}", uploadPath);
 				
 				File file = new File(uploadPath, fileName);
 				tempFile.transferTo(file);
 
 				//업로드 파일 정보 저장
-				Map<String, Object> resultMap = new HashMap<>();
-				resultMap.put("fileName", fileName);
-				resultMap.put("originalFileName", originName);
-				resultMap.put("fileSize", fileSize);
-				resultMap.put("uploadPath", uploadPath);
-
-				resultList.add(resultMap);
-				
+					Map<String, Object> resultMap = new HashMap<>();
+					resultMap.put("fileName", fileName);
+					resultMap.put("originalFileName", originName);
+					resultMap.put("fileSize", fileSize);
+					resultMap.put("uploadPath", uploadPath);
+					
+					resultList.add(resultMap);
 				
 			}//if			
 		}//while

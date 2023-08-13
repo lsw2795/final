@@ -96,10 +96,10 @@ public class PdsController {
 		}
 
 		//2
-		List<Map<String, Object>> list = pdsService.selectPds(boardNo);
-		logger.info("자료실 자료 상세조회, list={}", list);
+		Map<String, Object> map = pdsService.selectPds(boardNo);
+		logger.info("자료실 자료 상세조회, map={}", map);
 		//3
-		model.addAttribute("list", list);
+		model.addAttribute("map", map);
 		//4
 		return "pds/edit";
 	}
@@ -143,11 +143,15 @@ public class PdsController {
 		int cnt = boardService.updateReadcount(boardNo);
 		logger.info("조회수 증가 결과, cnt={}", cnt);
 
-		List<Map<String, Object>> list = pdsService.selectPds(boardNo);
-		logger.info("자료실 자료 상세조회, list={}", list);
+		Map<String, Object> map = pdsService.selectPds(boardNo);
+		logger.info("자료실 자료 상세조회, map={}", map);
+		
+		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
+		logger.info("자료실 자료 상세조회 - 파일 조회 fileList.size={}", fileList.size());
 
 		//3
-		model.addAttribute("list", list);
+		model.addAttribute("map", map);
+		model.addAttribute("fileList", fileList);
 
 		//4
 		return "pds/detail";
@@ -196,7 +200,6 @@ public class PdsController {
 		int cnt = pdsService.insertPds(boardVo);
 		logger.info("자료실-게시글 등록 결과, cnt={}", cnt);
 
-
 		List<Map<String, Object>> fileList;
 		try {
 			fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
@@ -212,7 +215,7 @@ public class PdsController {
 				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
 				pdsVo.setFileName(fileName); //서버저장 파일명
 				pdsVo.setFileSize(fileSize); //파일크기
-				pdsVo.setOriginalfilename(originalFileName); //원본 파일명
+				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
 				pdsVo.setPath(filePath); //파일 경로
 
 				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장

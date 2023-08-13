@@ -11,7 +11,7 @@ public class PdsVO {
 	private Timestamp regdate; /* 자료등록일 */
 	private String fileName; /* 업로드파일명 */
 	private long fileSize; /* 파일사이즈 */
-	private String originalfilename; /* 원본파일명 */
+	private String originalFileName; /* 원본파일명 */
 	private String fileExtension; /* 파일확장자 */
 	private int downloadCount; /* 다운로드수 */
 	private String titleImage; /* 대표 이미지 */
