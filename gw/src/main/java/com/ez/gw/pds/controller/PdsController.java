@@ -1,5 +1,7 @@
 package com.ez.gw.pds.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +14,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.pds.model.PdsService;
+import com.ez.gw.pds.model.PdsVO;
+import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -52,6 +60,7 @@ public class PdsController {
 		return "pds/write";
 	}
 	
+	/*
 	@PostMapping("/write")
 	public String write_post(@ModelAttribute BoardVO vo, HttpSession session, Model model) {
 		//1
@@ -74,7 +83,7 @@ public class PdsController {
 		
 		//4
 		return "common/message";
-	}
+	}*/
 	
 	@GetMapping("/edit")
 	public String edit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
@@ -172,5 +181,71 @@ public class PdsController {
 		
 	}
 	
+	@PostMapping("/write")
+	public String write_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
+				HttpSession session,HttpServletRequest request, Model model) {
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		boardVo.setEmpNo(empNo);
+		logger.info("자료실 등록, 파라미터 vo={}", boardVo);
+		
+		//2
+		//파일 업로드 처리
+		String fileName = "", originalFileName = "";
+		long fileSize = 0;
+		
+		int cnt = pdsService.insertPds(boardVo);
+		logger.info("자료실-게시글 등록 결과, cnt={}", cnt);
+		
+		try {
+			
+			//파일 업로드 처리
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+			
+			List<MultipartFile> files = multiRequest.getFiles("files");
+			logger.info("파일 갯수, files.size={}", files.size());
+			
+			
+			for(MultipartFile f : files) {
+				originalFileName = f.getOriginalFilename();
+				fileName = System.currentTimeMillis() + "_" + originalFileName;
+				fileSize = (long)f.getSize();
+				
+				String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload\\" + fileName;
+				
+				File file = new File(filePath);
+				f.transferTo(file);
+						
+				logger.info("파일명:{}", fileName);
+				pdsVo.setBoardListNo(3000); //게시판 번호
+				pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
+				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+				pdsVo.setFileName(fileName); //서버저장 파일명
+				pdsVo.setFileSize(fileSize); //파일크기
+				pdsVo.setOriginalfilename(originalFileName); //원본 파일명
+				pdsVo.setPath(filePath); //파일 경로
+				
+				int result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+				logger.info("다중 파일 등록 결과 result = {}", result);
+			}
+		}catch(IllegalStateException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		String msg = "자료 등록 실패", url ="/pds/write";
+		if(cnt>0) {
+			msg = "자료 등록 성공";
+			url = "/pds/list";
+		}
+		//3
+		model.addAttribute("url", url);
+		model.addAttribute("msg", msg);
+		
+		//4
+		return "common/message";
+	}
+		
 	
 }

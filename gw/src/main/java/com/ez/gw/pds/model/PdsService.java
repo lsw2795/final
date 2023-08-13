@@ -11,5 +11,6 @@ public interface PdsService {
 	Map<String, Object> selectPds(int boardNo);
 	int updatePds(BoardVO vo);
 	int deletePds(int boardNo);
+	int insertFiles(PdsVO vo); //파일 업로드 
 	
 }

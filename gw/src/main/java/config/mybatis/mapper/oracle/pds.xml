@@ -13,12 +13,13 @@
 	</insert>
 	
 	<select id="selectPdsAll" resultType="map">
-		select * from pdsView
+		select * from pdsListView
 		where boardList_no=3000
+		order by board_no desc
 	</select>
 	
 	<select id="selectPds" parameterType="int" resultType="map">
-		select * from pdsView
+		select * from pdsListView
 		where board_no=#{boardNo} and boardList_no = 3000
 	</select>
 	
@@ -32,5 +33,16 @@
 		delete from board
 		where board_No=#{boardNo}
 	</delete>
+	
+	<insert id="insertFiles" parameterType="pdsVo">
+		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
+			select pds_seq.nextval from dual
+		</selectKey>
+		
+		insert into pds(pds_no, path, fileName, fileSize, originalfileName, file_extension,
+			 boardList_no, board_no)
+		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalfilename}, #{fileExtension},
+			#{boardListNo}, #{boardNo})
+	</insert>
 
 </mapper>

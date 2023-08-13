@@ -23,10 +23,28 @@
 		});	
 		
 		$('#pdsWrite').click(function() {
+			//유효성 검사
+			if($('input[name=title]').val().trim().length<1){
+				alert("제목을 입력하세요.");
+				$('input[name=title]').focus();
+				return false;
+			}
+			
+			// 입력 내용 받기 = CKEDITOR.instances.textarea태그의id.getData();
+			if(CKEDITOR.instances.editor.getData() =='' 
+			        || CKEDITOR.instances.editor.getData().length ==0){
+			    alert("내용을 입력해주세요.");
+			    $("#editor").focus();
+			    return false;
+			}
+			
 			if(confirm("자료를 등록하시겠습니까?")){
 				$('#pdsForm').submit();
 			}
 		});	
+		
+		
+		
 		
 	});
 	

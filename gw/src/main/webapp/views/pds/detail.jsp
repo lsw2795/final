@@ -47,6 +47,24 @@
        				${map['CONTENT']}
                 </div>
             </div>
+            
+            <div class="file_list">
+                <div>
+                    <div class="file_input">
+						<c:if test="${!empty map['FILENAME']}">
+							<span>
+					               <img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
+					               <a href
+					               ="<c:url value='/pds/download?boardNo=${map["BOARD_NO"]}&fileName=${map["FILENAME"]}'/>">
+					               		${fileInfo}
+					               </a>
+							</span>
+							<span>다운 : ${map['DOWNCOUNT']}</span>
+			            </c:if>			
+                    </div>
+                </div>
+             </div>
+            
             <div class="bt_wrap">
                 <a href="<c:url value='/pds/list'/>" class="on">목록</a>
                 <c:if test="${sessionScope.empNo==map['EMP_NO']}">
