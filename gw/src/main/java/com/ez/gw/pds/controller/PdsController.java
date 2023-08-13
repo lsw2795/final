@@ -73,17 +73,51 @@ public class PdsController {
 		return "pds/write";
 	}
 
-	/*
 	@PostMapping("/write")
-	public String write_post(@ModelAttribute BoardVO vo, HttpSession session, Model model) {
+	public String write_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
+			HttpSession session,HttpServletRequest request, Model model) {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
-		vo.setEmpNo(empNo);
-		logger.info("자료실 등록, 파라미터 vo={}", vo);
+		boardVo.setEmpNo(empNo);
+		logger.info("자료실 등록, 파라미터 vo={}", boardVo);
 
 		//2
-		int cnt = pdsService.insertPds(vo);
-		logger.info("자료 등록 결과, cnt={}", cnt);
+		//파일 업로드 처리
+		String fileName="", originalFileName="", filePath = "";
+		long fileSize = 0;
+
+		int cnt = pdsService.insertPds(boardVo);
+		logger.info("자료실-게시글 등록 결과, cnt={}", cnt);
+
+		List<Map<String, Object>> fileList;
+		try {
+			fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
+			for(Map<String, Object> map : fileList) {
+				fileName = (String) map.get("fileName");
+				originalFileName = (String) map.get("originalFileName");
+				fileSize = (long) map.get("fileSize");
+				filePath = (String) map.get("uploadPath") + File.separator + fileName;
+
+				logger.info("파일명:{}", fileName);
+				pdsVo.setBoardListNo(3000); //게시판 번호
+				pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
+				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+				pdsVo.setFileName(fileName); //서버저장 파일명
+				pdsVo.setFileSize(fileSize); //파일크기
+				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+				pdsVo.setPath(filePath); //파일 경로
+
+				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
+					int result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+					logger.info("다중 파일 등록 결과 result = {}", result);
+				}
+			}//for
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 		String msg = "자료 등록 실패", url ="/pds/write";
 		if(cnt>0) {
@@ -96,7 +130,7 @@ public class PdsController {
 
 		//4
 		return "common/message";
-	}*/
+	}
 
 	@GetMapping("/edit")
 	public String edit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
@@ -198,64 +232,7 @@ public class PdsController {
 
 	}
 
-	@PostMapping("/write")
-	public String write_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
-			HttpSession session,HttpServletRequest request, Model model) {
-		//1
-		int empNo = (int)session.getAttribute("empNo");
-		boardVo.setEmpNo(empNo);
-		logger.info("자료실 등록, 파라미터 vo={}", boardVo);
 
-		//2
-		//파일 업로드 처리
-		String fileName="", originalFileName="", filePath = "";
-		long fileSize = 0;
-
-		int cnt = pdsService.insertPds(boardVo);
-		logger.info("자료실-게시글 등록 결과, cnt={}", cnt);
-
-		List<Map<String, Object>> fileList;
-		try {
-			fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
-			for(Map<String, Object> map : fileList) {
-				fileName = (String) map.get("fileName");
-				originalFileName = (String) map.get("originalFileName");
-				fileSize = (long) map.get("fileSize");
-				filePath = (String) map.get("uploadPath") + File.separator + fileName;
-
-				logger.info("파일명:{}", fileName);
-				pdsVo.setBoardListNo(3000); //게시판 번호
-				pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
-				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
-				pdsVo.setFileName(fileName); //서버저장 파일명
-				pdsVo.setFileSize(fileSize); //파일크기
-				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
-				pdsVo.setPath(filePath); //파일 경로
-
-				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
-					int result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
-					logger.info("다중 파일 등록 결과 result = {}", result);
-				}
-			}//for
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-
-		String msg = "자료 등록 실패", url ="/pds/write";
-		if(cnt>0) {
-			msg = "자료 등록 성공";
-			url = "/pds/list";
-		}
-		//3
-		model.addAttribute("url", url);
-		model.addAttribute("msg", msg);
-
-		//4
-		return "common/message";
-	}
 	
 	@RequestMapping("/download")
 	public ModelAndView download(@RequestParam(defaultValue = "0") int boardNo,
