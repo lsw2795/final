@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.gw.board.model.BoardVO;
 
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PdsServiceImpl implements PdsService {
 	private final PdsDAO pdsDao;
 
@@ -28,7 +30,7 @@ public class PdsServiceImpl implements PdsService {
 	public Map<String, Object> selectPds(int boardNo) {
 		return pdsDao.selectPds(boardNo);
 	}
-
+	
 	@Override
 	public int updatePds(BoardVO vo) {
 		return pdsDao.updatePds(vo);
@@ -38,6 +40,26 @@ public class PdsServiceImpl implements PdsService {
 	public int deletePds(int boardNo) {
 		return pdsDao.deletePds(boardNo);
 	}
+
+	@Override
+	public int insertFiles(PdsVO vo) {
+		return pdsDao.insertFiles(vo);
+	}
+
+	@Override
+	public List<PdsVO> selectFilesByBoardNo(int boardNo) {
+		return pdsDao.selectFilesByBoardNo(boardNo);
+	}
+
+	@Override
+	public int updateDownloadCount(int boardNo) {
+		return pdsDao.updateDownloadCount(boardNo);
+	}
+
+
+
+
+
 	
 	
 }

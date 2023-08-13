@@ -1,4 +1,0 @@
-net stop OracleOraDB18Home1MTSRecoveryService
-net stop OracleOraDB18Home1TNSListener
-net stop OracleServiceXE
-isqlplusctl stop
