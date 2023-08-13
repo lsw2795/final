@@ -97,6 +97,18 @@
 
         // 3. 파일명 지정
         filename.value = file.name;
+        
+        // 4. 파일 첨부 여부 확인
+        const fileAddBtn = filename.parentElement.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = filename.parentElement.querySelectorAll('input[type="file"]');
+            const isFileAttached = Array.from(inputs).some(input => input.files.length > 0);
+            if (!isFileAttached) {
+                filename.value = '';
+            }
+        }
+        
+        
     }
 
 </script>
@@ -119,7 +131,7 @@
 	                <div class="info">
 	                    <dl>
 	                        <dt>작성자</dt>
-	                        <dd><input type="text" name="title" value="${sessionScope.empNo}" readonly="readonly"></dd>
+	                        <dd><input type="text" name="writer" value="${sessionScope.empNo}" readonly="readonly"></dd>
 	                    </dl>
 	                    <dl>
 	                        <dt>비밀번호</dt>
