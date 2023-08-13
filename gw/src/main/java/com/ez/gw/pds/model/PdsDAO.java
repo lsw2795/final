@@ -11,7 +11,7 @@ import com.ez.gw.board.model.BoardVO;
 public interface PdsDAO {
 	int insertPds(BoardVO vo);
 	List<Map<String, Object>> selectPdsAll();
-	Map<String, Object> selectPds(int boardNo);
+	List<Map<String, Object>> selectPds(int boardNo);
 	int updatePds(BoardVO vo);
 	int deletePds(int boardNo);
 	int insertFiles(PdsVO vo); //파일 업로드 

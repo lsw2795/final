@@ -13,13 +13,13 @@
 	</insert>
 	
 	<select id="selectPdsAll" resultType="map">
-		select * from pdsView
+		select * from pdsListView
 		where boardList_no=3000
 		order by board_no desc
 	</select>
 	
 	<select id="selectPds" parameterType="int" resultType="map">
-		select * from pdsListView
+		select * from pdsView
 		where board_no=#{boardNo} and boardList_no = 3000
 	</select>
 	

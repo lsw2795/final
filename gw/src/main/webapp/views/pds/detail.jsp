@@ -23,39 +23,39 @@
         <div class="board_view_wrap">
             <div class="board_view">
                 <div class="title">
-                    ${map['TITLE']}
+                    ${list[0]['TITLE']}
                 </div>
                 <div class="info">
                     <dl>
                         <dt>번호</dt>
-                        <dd>${map['BOARD_NO']}</dd>
+                        <dd>${list[0]['BOARD_NO']}</dd>
                     </dl>
                     <dl>
                         <dt>작성자</dt>
-                        <dd>${map['NAME']}</dd>
+                        <dd>${list[0]['NAME']}</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>
-                        <dd><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss"/></dd>
+                        <dd><fmt:formatDate value="${list[0]['REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss"/></dd>
                     </dl>
                     <dl>
                         <dt>조회</dt>
-                        <dd>${map['READCOUNT']}</dd>
+                        <dd>${list[0]['READCOUNT']}</dd>
                     </dl>
                 </div>
                 <div class="cont">
-       				${map['CONTENT']}
+       				${list[0]['CONTENT']}
                 </div>
             </div>
             
             <div class="file_list">
                 <div>
                     <div class="file_input">
-						<c:if test="${!empty map['FILENAME']}">
+						<c:if test="${!empty list[0]['FILENAME']}">
 							<span>
 					               <img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
 					               <a href
-					               ="<c:url value='/pds/download?boardNo=${map["BOARD_NO"]}&fileName=${map["FILENAME"]}'/>">
+					               ="<c:url value='/pds/download?boardNo=${list[0]["BOARD_NO"]}&fileName=${map["FILENAME"]}'/>">
 					               		${fileInfo}
 					               </a>
 							</span>

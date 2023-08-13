@@ -1,5 +1,6 @@
 package com.ez.gw.pds.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -95,10 +96,10 @@ public class PdsController {
 		}
 
 		//2
-		Map<String, Object> map = pdsService.selectPds(boardNo);
-		logger.info("자료실 자료 상세조회, map={}", map);
+		List<Map<String, Object>> list = pdsService.selectPds(boardNo);
+		logger.info("자료실 자료 상세조회, list={}", list);
 		//3
-		model.addAttribute("map", map);
+		model.addAttribute("list", list);
 		//4
 		return "pds/edit";
 	}
@@ -142,11 +143,11 @@ public class PdsController {
 		int cnt = boardService.updateReadcount(boardNo);
 		logger.info("조회수 증가 결과, cnt={}", cnt);
 
-		Map<String, Object> map = pdsService.selectPds(boardNo);
-		logger.info("자료실 자료 상세조회, map={}", map);
+		List<Map<String, Object>> list = pdsService.selectPds(boardNo);
+		logger.info("자료실 자료 상세조회, list={}", list);
 
 		//3
-		model.addAttribute("map", map);
+		model.addAttribute("list", list);
 
 		//4
 		return "pds/detail";
@@ -203,7 +204,7 @@ public class PdsController {
 				fileName = (String) map.get("fileName");
 				originalFileName = (String) map.get("originalFileName");
 				fileSize = (long) map.get("fileSize");
-				filePath = (String) map.get("uploadPath") + "/" + fileName;
+				filePath = (String) map.get("uploadPath") + File.separator + fileName;
 
 				logger.info("파일명:{}", fileName);
 				pdsVo.setBoardListNo(3000); //게시판 번호
