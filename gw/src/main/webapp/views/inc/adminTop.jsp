@@ -103,21 +103,14 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/admin/employee/employeeRegister'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">사원 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1"></span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/admin/employee/employeeList'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">사원 목록</span>
                         			</div> 
@@ -272,7 +265,7 @@
 	                    </div>
                   	</div>
                   	<li class="nav-item"><!-- parent pages-->
-                  		<a class="nav-link" href="#" role="button" data-toggle="collapse">
+                  		<a class="nav-link" href="<c:url value='/admin/board/manageBoards'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
 	                    		<span class="nav-link-text ps-1">게시판 관리</span>

@@ -13,12 +13,13 @@ public interface ConstUtil {
 	String FILE_UPLOAD_PATH = "pds_upload";
 	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp";
 	
-	//관리자 페이지 - 상품 등록시 상품 이미지 저장 경로
-	String IMAGE_FILE_UPLOAD_PATH = "pd_images";
-	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_ws\\spherb\\src\\main\\webapp\\pd_images";
+	//관리자 페이지 - 사원 이미지 저장 경로
+	String IMAGE_FILE_UPLOAD_PATH = "images";
+	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드
-	int UPLOAD_IMAGE_FLAG = 2; //상품 등록시 이미지 업로드
+	int UPLOAD_IMAGE_FLAG = 2; //사원 등록시 이미지 업로드
+	
 	
 }
