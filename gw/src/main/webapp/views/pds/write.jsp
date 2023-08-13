@@ -48,20 +48,18 @@
 	
 	// 파일 추가
 	var fileIndex = 1; // 파일 name 인덱스
-	
+
 	function addFile() {
-		console.log(fileIndex); //인덱스 증가 로그
-		
+	    console.log(fileIndex); //인덱스 증가 로그
+	    
 	    const fileDiv = document.createElement('div');
-	    fileDiv.innerHTML = `
-	        <div class="file_input">
-	            <input type="text" readonly />
-	            <label> 첨부파일
-	                <input name="files[${fileIndex}]" type="file"  onchange="selectFile(this);" />
-	            </label>
-	        </div>
-	        <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-	    `;
+	    fileDiv.innerHTML = '<div class="file_input">' +
+	                        '<input type="text" readonly />' +
+	                        '<label> 첨부파일' +
+	                        '<input name="files[' + fileIndex + ']" type="file"  onchange="selectFile(this);" />' +
+	                        '</label>' +
+	                        '</div>' +
+	                        '<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>';
 	    document.querySelector('.file_list').appendChild(fileDiv);
 	    fileIndex++;
 	}
@@ -115,8 +113,6 @@
                 filename.value = '';
             }
         }
-        
-        
     }
 
 </script>
