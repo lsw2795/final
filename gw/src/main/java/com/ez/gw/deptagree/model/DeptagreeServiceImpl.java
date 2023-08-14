@@ -9,9 +9,4 @@ import lombok.RequiredArgsConstructor;
 public class DeptagreeServiceImpl implements DeptagreeService{
 	private final DeptagreeDAO deptagreeDao;
 
-	@Override
-	public int insertDeptAgree(DeptagreeVO depAgreeVo) {
-		return deptagreeDao.insertDeptAgree(depAgreeVo);
-	}
-	
 }

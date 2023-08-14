@@ -8,5 +8,5 @@ public class ConfirmFileVO { //결재파일
 	private String fileName; //업로드파일명                     
 	private long fileSize; //파일 사이즈        
 	private String originalFileName; //원본파일명  
-	private int confirmDocumentNo; //결재문서번호(CONFIRM FK)  
+	private String confirmDocumentNo; //결재문서번호(CONFIRM FK)  
 }

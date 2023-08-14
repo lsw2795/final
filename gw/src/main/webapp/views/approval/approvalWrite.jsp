@@ -31,9 +31,10 @@
 		})
 		
 		$('#btFilePlus').click(function(){
+			var num = $('input[type=file]').length+1;
 			$('#btFilePlus').parent().before("<div class='col-12 mt-1 file'>"+
 					"<label class='form-label mb-0'>첨부파일</label>"+
-					"<input class='form-control' name='confirmFile' type='file'/></div>");	
+					"<input class='form-control' name='confirmFile"+num+"' type='file'/></div>");	
 		});
 		
 		$('#btFileDel').click(function(){
@@ -43,8 +44,12 @@
 		
 	});
 
-	function selectReper(){
-		window.open("<c:url value='/approval/selectEmp/selectEmp'/>","_blank","width=800, height=500")
+	function selectRefer(){
+		var referEmpNo=[];
+		$('input[name=referEmpNo]').each(function(){
+			referEmpNo.push($(this).val());
+		});
+		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=500")
 	}
 	
 	function createLine(){
@@ -158,12 +163,17 @@
 	                        </select>
 	                    </div>
 	                    <div class="col-sm-6" >
-	                        <label class="form-label" for="reperEmpName">
+	                        <label class="form-label" for="referEmpName">
 	                        	참조자
 	                        </label>
-	                        <div id="reperEmpName" onclick="selectReper()">
-	                       		<span id="reperEmpNameSpan">참조자를 선택하세요</span>
-	                       		<div id="reperEmpNo"></div>
+	                        <a href="#" onclick="selectRefer()">
+	                        	<span class="badge rounded-pill text-bg-primary" >
+	                        		선택
+	                        	</span>
+	                        </a>
+	                        <div id="referEmpName" >
+	                       		<span id="referEmpNameSpan">참조자를 선택하세요</span>
+	                       		<div id="referEmpNo"></div>
 	                        </div>
 	                    </div>
 	                    <div class="col-12">
