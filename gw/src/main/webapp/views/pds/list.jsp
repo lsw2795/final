@@ -16,12 +16,28 @@
         <form action="<c:url value='/pds/list'/>" method="post">	
 	        <div class="search" >
 	            <select id="search1" name="searchCondition" class="form-select">
-	            	<option value="title">제목</option>
-	            	<option value="name">작성자</option>
-	            	<option value="content">내용</option>
-	            	<option value="total">제목+내용</option>
+	            	<option value="title"
+	            		<c:if test="${param.searchCondition=='title'}">
+	            			selected = "selected"
+	            		</c:if>
+	            		>제목</option>
+	            	<option value="name"
+    			        <c:if test="${param.searchCondition=='name'}">
+	            			selected = "selected"
+	            		</c:if>
+	            	>작성자</option>
+	            	<option value="content"
+        		    	<c:if test="${param.searchCondition=='content'}">
+	            			selected = "selected"
+	            		</c:if>
+	            	>내용</option>
+	            	<option value="total"
+        		    	<c:if test="${param.searchCondition=='total'}">
+	            			selected = "selected"
+	            		</c:if>
+	            	>제목+내용</option>
 		        </select>
-		        <input id="search2" name="searchKeyword" class="form-control" value="" type="text" placeholder="검색어를 입력하세요">
+		        <input id="search2" name="searchKeyword" class="form-control" value="${param.searchKeyword}" type="text" placeholder="검색어를 입력하세요">
 		        <input id="search3" type="submit" class="btn btn-outline-dark" value="검색" id="searchSubmit">
 	        </div>
 	    </form>    
