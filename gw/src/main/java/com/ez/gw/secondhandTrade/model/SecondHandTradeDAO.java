@@ -10,4 +10,5 @@ import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 @Mapper
 public interface SecondHandTradeDAO {
 	int insertMarket(SecondHandTradeVO secondVo);
+	List<SecondHandTradeVO> selectAllMarket();
 }
