@@ -28,6 +28,7 @@ public class FileUploadUtil {
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 
 		Map<String, MultipartFile> fileMap=multiRequest.getFileMap();
+		logger.info("파일 몇개? ={}", fileMap.size());
 		//List<MultipartFile> files =multiRequest.getFiles("upfile");
 
 		//여러개 업로드된 파일의 정보를 저장할 리스트
@@ -37,7 +38,7 @@ public class FileUploadUtil {
 		while(iter.hasNext()) {
 			String key=iter.next();
 			MultipartFile tempFile = fileMap.get(key);//업로드된 파일을 임시파일 형태로 제공
-			//if(!tempFile.isEmpty()) { //파일이 업로드된 경우
+			if(!tempFile.isEmpty()) { //파일이 업로드된 경우
 				long fileSize=tempFile.getSize(); //파일 크기
 				String originName=tempFile.getOriginalFilename(); //변경전 파일명
 
@@ -59,7 +60,7 @@ public class FileUploadUtil {
 					
 					resultList.add(resultMap);
 				
-			//}//if			
+			}//if			
 		}//while
 		
 		return resultList;
@@ -91,6 +92,7 @@ public class FileUploadUtil {
 		return path;
 	}
 
+	
 	public String getDateTimeStamp() {
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -100,6 +102,7 @@ public class FileUploadUtil {
 		return result;
 	}
 
+	
 	public String getUniqueFileName(String originName) {
 		//ab.txt => ab_밀리초.txt
 		int idx = originName.lastIndexOf(".");
@@ -111,6 +114,8 @@ public class FileUploadUtil {
 		
 		return result;
 	}
+	
+	
 }
 
 
