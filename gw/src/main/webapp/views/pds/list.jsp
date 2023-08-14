@@ -3,26 +3,28 @@
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
 <style>
-
+	ul#navbarVerticalNav {
+   		font-size: 17px;
+	}	
 </style>
 
-<body>
     <div class="board_wrap">
         <div class="board_title">
             <strong>자료실</strong>
             <p>사내 자료실입니다.</p>
         </div>
-        <div class="search" >
-     	            <select id="search1" name="searchCondition" class="form-select">
-            	<option value="title">제목</option>
-            	<option value="name">작성자</option>
-            	<option value="content">내용</option>
-            	<option value="total">제목+내용</option>
-	        </select>
-	        <input id="search2" name="searchKeyword" class="form-control" value="" type="text" placeholder="검색어를 입력하세요">
-	        <input id="search3" type="submit" class="btn btn-outline-dark" value="검색" id="searchSubmit">
-        
-        </div>
+        <form action="<c:url value='/pds/list'/>" method="post">	
+	        <div class="search" >
+	            <select id="search1" name="searchCondition" class="form-select">
+	            	<option value="title">제목</option>
+	            	<option value="name">작성자</option>
+	            	<option value="content">내용</option>
+	            	<option value="total">제목+내용</option>
+		        </select>
+		        <input id="search2" name="searchKeyword" class="form-control" value="" type="text" placeholder="검색어를 입력하세요">
+		        <input id="search3" type="submit" class="btn btn-outline-dark" value="검색" id="searchSubmit">
+	        </div>
+	    </form>    
         <div class="board_list_wrap">
             <div class="board_list">
                 <div class="top">
@@ -65,5 +67,5 @@
             </div>
         </div>
     </div>
-
+    
 <%@ include file="../inc/bottom.jsp"%>
