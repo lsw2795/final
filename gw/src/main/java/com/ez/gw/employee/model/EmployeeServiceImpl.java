@@ -48,5 +48,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int insertEmp(EmployeeVO vo) {
 		return employeeDao.insertEmp(vo);
 	}
+
+	@Override
+	public List<EmployeeVO> selectEmpByDeptNo(int deptNo) {
+		return employeeDao.selectEmpByDeptNo(deptNo);
+	}
 	
 }

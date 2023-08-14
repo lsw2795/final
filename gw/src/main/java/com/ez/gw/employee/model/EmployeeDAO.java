@@ -12,4 +12,5 @@ public interface EmployeeDAO {
 	String selectPwd(int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); //관리자 로그인여부
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
+	List<EmployeeVO> selectEmpByDeptNo(int deptNo); //조직도 - 부서별 사원 조회
 }
