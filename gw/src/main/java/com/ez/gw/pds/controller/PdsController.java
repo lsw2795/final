@@ -110,7 +110,6 @@ public class PdsController {
 		List<Map<String, Object>> fileList;
 		try {
 			fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
-			logger.info("파일 몇개? ={}", fileList.size());
 			for(Map<String, Object> map : fileList) {
 				fileName = (String) map.get("fileName");
 				originalFileName = (String) map.get("originalFileName");
