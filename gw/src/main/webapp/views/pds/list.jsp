@@ -18,9 +18,9 @@
 
 <form action="<c:url value='/pds/list'/>" 
 	name="frmPage" method="post">
-	<input type="text" name="currentPage">
-	<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-	<input type="text" name="searchCondition" value="${param.searchCondition}">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 </form>
 
     <div class="board_wrap">

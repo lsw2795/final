@@ -2,7 +2,7 @@ package com.ez.gw.common;
 
 public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
-	public static final int RECORD_COUNT=5;
+	public static final int RECORD_COUNT=10;
 	int BLOCK_SIZE=10;
 	
 	//파일 업로드 처리 관련 상수
