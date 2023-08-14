@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
+<script type="text/javascript">
+	$(function() {
+		$("#memLimitflag").val('Y').prop("selected", true); 
+		$("#memLimitflag").val('N').prop("selected", false);
+	});
+</script>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 
   <head>
@@ -33,9 +39,10 @@
           <div class="row g-0">
               <div class="card mb-3">
                 <div class="card-header">
-                  <h5 class="mb-0">Club Details</h5>
+                  <h5 class="mb-0">Create Club</h5>
                 </div>
                 <div class="card-body bg-light">
+                	<input type="hidden" name="clubNo" id="clubNo" value="${vo.clubNo}">
                     <div class="row gx-2">
                     <div class="col-sm-6 mb-3">
                         <label class="form-label" for="managr">동호회장</label>

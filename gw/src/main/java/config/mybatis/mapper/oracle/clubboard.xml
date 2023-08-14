@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.clubboard.model.ClubBoardDAO">
+
 	<select id="selectClubBoard" resultType="clubboardVo" parameterType="int">
 		select * from clubBoard
 		where CLUB_NO=#{clubNo}

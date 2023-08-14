@@ -25,6 +25,13 @@
 		where CLUB_NO=#{clubNo}
 	</delete>
 	
+	<update id="updateClub" parameterType="int">
+		update club
+		set  MEM_LIMIT=#{memLimit}, TITLE=#{title}, INTRODUCE=#{introduce}, SECFLAG=#{secflag},
+			MEM_LIMITFLAG=#{memLimitflag}
+		where CLUB_NO=#{clubNo}
+	</update>
+	
 </mapper>
 
 

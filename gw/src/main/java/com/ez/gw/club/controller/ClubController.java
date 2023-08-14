@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +58,35 @@ public class ClubController {
 		//4.
 		return "club/clubList";
 	}
+	
+	@GetMapping("/editClub")
+	public String editClub() {
+		logger.info("동호회 개설 수정 페이지");
+		return "club/editClub";
+	}
+	
+	@RequestMapping("/editClub")
+	public String editClub_post(@RequestParam(defaultValue = "0")int clubNo,Model model) {
+		//1.
+		logger.info("수정 처리 페이지, clubNo={}",clubNo);
+		
+		//2.
+		int cnt=clubService.updateClub(clubNo);
+		logger.info("수정 처리 결과 cnt={}",cnt);
+		
+		String msg="수정 실패하였습니다.", url="/club/editClub";
+		if(cnt>0) {
+			msg="수정 완료되었습니다.";
+		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4.
+		return "common/message";
+		
+	}
+	
+	
 	
 	@RequestMapping("/deleteClub")
 	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {

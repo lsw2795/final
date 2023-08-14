@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
-
+<script type="text/javascript">
+	$('input:checkbox').each(function (index) {
+		if($(this).is(":checked")==true){
+	    	console.log($(this).val());
+	    }
+	}
+</script>
 		<div class="row gx-3">
               <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
                 <div class="card-header admindefault border-bottom border-200 px-0">
