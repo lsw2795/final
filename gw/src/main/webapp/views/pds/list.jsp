@@ -8,11 +8,26 @@
 	}	
 </style>
 
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+
+</script>
+
+<form action="<c:url value='/pds/list'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+</form>
+
     <div class="board_wrap">
         <div class="board_title">
             <strong>자료실</strong>
             <p>사내 자료실입니다.</p>
-        </div>
+    </div>
         <form action="<c:url value='/pds/list'/>" method="post">	
 	        <div class="search" >
 	            <select id="search1" name="searchCondition" class="form-select">
@@ -66,17 +81,36 @@
 	                </c:forEach>    
                 </div>
             </div>
-            <div class="board_page">
-                <a href="#" class="bt first"><<</a>
-                <a href="#" class="bt prev"><</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="num">4</a>
-                <a href="#" class="num">5</a>
-                <a href="#" class="bt next">></a>
-                <a href="#" class="bt last">>></a>
-            </div>
+            
+            <!-- 페이징 처리  -->
+       <div class="board_page">
+	<!-- 페이지 번호 추가 -->		
+		<!-- 이전 블럭으로 이동 -->
+		<c:if test="${pagingInfo.firstPage>1}">
+			<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+				<a href="#" class="bt prev"><</a>
+			</a>
+		</c:if>	
+						
+		<!-- [1][2][3][4][5][6][7][8][9][10] -->
+		<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">		
+			<c:if test="${i == pagingInfo.currentPage }">		
+				<a href="#" class="num on">${i}</a>
+        	</c:if>
+			<c:if test="${i != pagingInfo.currentPage }">		
+		         <a href="#" class="num" onclick="pageFunc(${i})">${i}</a>
+		    </c:if>   		
+		</c:forEach>
+		
+		<!-- 다음 블럭으로 이동 -->
+		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+	         <a href="#" class="bt next" onclick="pageFunc(${pagingInfo.lastPage+1})">
+				<img src="<c:url value='/images/last.JPG'/>">
+			</a>
+		</c:if>
+		<!--  페이지 번호 끝 -->
+	</div>
+            
             <div class="bt_wrap">
                 <a href="<c:url value='/pds/write'/>" class="on">등록</a>
                 <!--<a href="#">수정</a>-->

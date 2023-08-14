@@ -92,6 +92,7 @@ public class FileUploadUtil {
 		return path;
 	}
 
+	
 	public String getDateTimeStamp() {
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -101,6 +102,7 @@ public class FileUploadUtil {
 		return result;
 	}
 
+	
 	public String getUniqueFileName(String originName) {
 		//ab.txt => ab_밀리초.txt
 		int idx = originName.lastIndexOf(".");
@@ -112,6 +114,8 @@ public class FileUploadUtil {
 		
 		return result;
 	}
+	
+	
 }
 
 
