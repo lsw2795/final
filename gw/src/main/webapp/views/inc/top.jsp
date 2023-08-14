@@ -667,4 +667,4 @@
             </div>
           </nav>
           <!-- top end -->
-<%@ include file ="../mypage/organizationChart.jsp"%> 
+<c:import url="/mypage/organizationChart"></c:import>

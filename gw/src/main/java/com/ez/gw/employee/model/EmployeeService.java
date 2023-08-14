@@ -1,7 +1,6 @@
 package com.ez.gw.employee.model;
 
 import java.util.List;
-import java.util.Map;
 
 public interface EmployeeService {
 	//로그인 처리 관련 상수
