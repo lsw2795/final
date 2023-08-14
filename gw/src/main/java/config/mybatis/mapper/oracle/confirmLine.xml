@@ -10,4 +10,14 @@
 		insert into confirmline
 		values(#{confirmLineNo},#{confirm1},#{confirm2},#{confirm3},#{constructor})
 	</insert>
+	
+	<select id="selectByEmpNo" parameterType="int" resultType="map">
+		select * from confirmlineview
+		where constructor=#{constructor}
+	</select>
+	
+	<delete id="deleteLine" parameterType="int">
+		delete from confirmline
+		where confirm_line_no=#{confirmLineNo}
+	</delete>
 </mapper>

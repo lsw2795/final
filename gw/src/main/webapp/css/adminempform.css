@@ -16,22 +16,22 @@
 	text-align: right;
 }
 .adminempdiv1{
-	margin: 0 0 0 5px;
+	margin: 0 5px 0 5px;
 }
 .adminempdiv2{
 	margin: 0 0 0 25px;
 }
 .adminempdiv3{
-	margin: 0 0 0 29px;
+	margin: 0 5px 0 33px;
 }
 .adminempdiv4{
-	margin: 0 0 0 32px;
+	margin: 0 5px 0 38px;
 }
 .adminempdiv5{
-	margin: 0 0 0 47px;
+	margin: 0 5px 0 54px;
 }
 .adminempdiv6{
-	margin: 0 0 0 60px;
+	margin: 0 5px 0 71px;
 }
 .adminemplabel {
     margin: 0px -20px 0px 20px;
@@ -102,8 +102,11 @@
  height: auto;
 }
 .adminempdiv16{
-	margin: 0 0 0 119px;
+	margin:0 0 0 108px;
 }
 #sample4_roadAddress, #sample4_detailAddress{
 	margin: 5px 0 0 0;
+}
+.adminempdiv17 {
+    margin: 0 5px 0 0px;
 }

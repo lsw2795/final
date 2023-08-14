@@ -33,7 +33,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		multipartResolver.setMaxUploadSizePerFile(2 * 1024 * 1024); // 파일당 업로드 크기 제한 (2MB)
 		return multipartResolver;
 	}
-*/
+
 	
 
 	/*
