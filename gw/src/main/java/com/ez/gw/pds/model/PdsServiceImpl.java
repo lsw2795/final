@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +23,8 @@ public class PdsServiceImpl implements PdsService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectPdsAll() {
-		return pdsDao.selectPdsAll();
+	public List<Map<String, Object>> selectPdsAll(SearchVO vo) {
+		return pdsDao.selectPdsAll(vo);
 	}
 
 	@Override
@@ -54,6 +55,11 @@ public class PdsServiceImpl implements PdsService {
 	@Override
 	public int updateDownloadCount(int boardNo) {
 		return pdsDao.updateDownloadCount(boardNo);
+	}
+
+	@Override
+	public int getTotalRecord(SearchVO vo) {
+		return pdsDao.getTotalRecord(vo);
 	}
 
 
