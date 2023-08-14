@@ -1,7 +1,6 @@
 package com.ez.gw.employee.model;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -49,9 +48,4 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.insertEmp(vo);
 	}
 
-	@Override
-	public List<EmployeeVO> selectEmpByDeptNo(int deptNo) {
-		return employeeDao.selectEmpByDeptNo(deptNo);
-	}
-	
 }

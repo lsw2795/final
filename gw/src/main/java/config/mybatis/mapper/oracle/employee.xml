@@ -12,10 +12,6 @@
 		select * from employee
 	</select>
 	
-	<select id="selectEmpByDeptNo" parameterType="int" resultType="employeeVo">
-		select * from employee where deptno=#{deptNo}
-	</select>
-	
 	<select id="selectPwd" resultType="string" parameterType="int">
 		select pwd from employee 
 		where emp_no=#{empNo}
@@ -36,5 +32,9 @@
 		#{email},#{pwd},#{extensionNo},#{tel},
 			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
+	
+	
+	
+	
 		
 </mapper>

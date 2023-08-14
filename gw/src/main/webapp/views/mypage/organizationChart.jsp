@@ -13,9 +13,10 @@
 		  </c:if>
 		  <c:if test="${!empty deptList }">
 		  <c:forEach var="deptVo" items="${deptList }">
-		  <p><a class="btn btn-primary" data-bs-toggle="collapse" href="#dept-${deptVo.name }" role="button" aria-expanded="false" aria-controls="dept-${deptVo.name }">
-		  <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-		  </a>&nbsp;&nbsp;${deptVo.name }</p>
+		  <p><button class="btn btn-primary" type="button"
+			data-bs-toggle="collapse" data-bs-target="#dept-${deptVo.name }">
+			<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
+		</button><span>${deptVo.name }</span></p>
 		<div class="row">
 		  <div class="col">
 		    <div class="collapse" id="dept-${deptVo.name }">
@@ -31,6 +32,7 @@
 		</div>
 		</c:forEach>		
 		</c:if>		
+
 
 				<div class="border-top border-200 py-x1">
 					<small>사원번호/이름/부서/직급 검색</small>
