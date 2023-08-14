@@ -18,9 +18,9 @@
 
 <form action="<c:url value='/pds/list'/>" 
 	name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+	<input type="text" name="currentPage">
+	<input type="text" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="text" name="searchCondition" value="${param.searchCondition}">
 </form>
 
     <div class="board_wrap">
@@ -87,11 +87,14 @@
 	<!-- 페이지 번호 추가 -->		
 		<!-- 이전 블럭으로 이동 -->
 		<c:if test="${pagingInfo.firstPage>1}">
-			<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-				<a href="#" class="bt prev"><</a>
-			</a>
-		</c:if>	
-						
+			<a href="#" class="bt first" onclick="pageFunc(${pagingInfo.firstPage-1})"><<</a>
+		</c:if>
+		
+		<!-- 이전 페이지로 이동  -->
+		<c:if test="${pagingInfo.currentPage>1}">
+			<a href="#" class="bt prev" onclick="pageFunc(${pagingInfo.currentPage-1})"><</a>
+		</c:if>				
+		
 		<!-- [1][2][3][4][5][6][7][8][9][10] -->
 		<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">		
 			<c:if test="${i == pagingInfo.currentPage }">		
@@ -102,11 +105,14 @@
 		    </c:if>   		
 		</c:forEach>
 		
+		<!-- 다음 페이지로 이동 -->
+		<c:if test="${pagingInfo.lastPage>1}">
+        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+		</c:if>
+		
 		<!-- 다음 블럭으로 이동 -->
 		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-	         <a href="#" class="bt next" onclick="pageFunc(${pagingInfo.lastPage+1})">
-				<img src="<c:url value='/images/last.JPG'/>">
-			</a>
+	         <a href="#" class="bt last" onclick="pageFunc(${pagingInfo.lastPage+1})">>></a>
 		</c:if>
 		<!--  페이지 번호 끝 -->
 	</div>
