@@ -19,6 +19,7 @@ public interface PdsDAO {
 	List<PdsVO> selectFilesByBoardNo(int boardNo); // 게시글 번호로 파일 리스트 조회
 	int updateDownloadCount(int boardNo);
 	int getTotalRecord(SearchVO vo);
+	int selectIsFile(int boardNo);
 	
 	
 }

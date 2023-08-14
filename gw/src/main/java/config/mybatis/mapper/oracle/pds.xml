@@ -96,7 +96,11 @@
 		update pds
 		set downloadCount = downloadCount + 1
 		where board_no=#{boardNo}
-	
 	</update>
+	
+	<select id="selectIsFile" parameterType="int" resultType="int">
+		select count(*) from pds
+		where board_no = #{boardNo}
+	</select>
 
 </mapper>

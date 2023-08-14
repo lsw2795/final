@@ -62,6 +62,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.getTotalRecord(vo);
 	}
 
+	@Override
+	public int selectIsFile(int boardNo) {
+		return pdsDao.selectIsFile(boardNo);
+	}
+
 
 
 

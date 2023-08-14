@@ -2,6 +2,7 @@ package com.ez.gw.pds.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,13 @@ public class PdsController {
 		
 		List<Map<String, Object>> list = pdsService.selectPdsAll(searchVo);
 		logger.info("자료실 전체조회, list.size={}", list.size());
+		
+		for (Map<String, Object> map : list) {
+		    BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
+		    int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
+		    int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
+		    map.put("fileCount", fileCount);
+		}
 		
 		int totalRecord = pdsService.getTotalRecord(searchVo);
 		logger.info("글 목록 전체 조회 - totalRecord={}", totalRecord);

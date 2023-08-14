@@ -74,9 +74,9 @@
 	                    <div class="date"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></div>
 	                    <div class="count">${map['READCOUNT']}</div>
 	                    <div class="file">
-	                    	<c:if test="${!empty map['FILENAME']}">
+ 	                    	<c:if test="${map['fileCount']>0}">
 	                    		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지">
-	                    	</c:if>
+	                    	</c:if> 
 	                    </div>
 	                </c:forEach>    
                 </div>
