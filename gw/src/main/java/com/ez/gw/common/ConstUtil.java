@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
-	public static final int RECORD_COUNT=5;
+	public static final int RECORD_COUNT=10;
 	int BLOCK_SIZE=10;
 	
 	//파일 업로드 처리 관련 상수
@@ -17,7 +17,12 @@ public interface ConstUtil {
 	
 	//자료실 파일 저장 경로
 	String FILE_UPLOAD_PATH = "pds_upload";
-	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
+	
+	//집
+	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
+	//학원
+	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
+	
 	
 	//관리자 페이지 - 사원 이미지 저장 경로
 	String IMAGE_FILE_UPLOAD_PATH = "images";

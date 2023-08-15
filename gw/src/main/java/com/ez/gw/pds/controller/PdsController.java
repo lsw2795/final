@@ -2,6 +2,7 @@ package com.ez.gw.pds.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
+import com.ez.gw.common.PaginationInfo;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.pds.model.PdsService;
@@ -42,19 +45,42 @@ public class PdsController {
 	
 
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1
-		logger.info("자료실 메인페이지");
+		logger.info("자료실 메인페이지 파라미터 searchVo={}", searchVo);
+		
 		//2
-		List<Map<String, Object>> list = pdsService.selectPdsAll();
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+
+		//[2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		List<Map<String, Object>> list = pdsService.selectPdsAll(searchVo);
 		logger.info("자료실 전체조회, list.size={}", list.size());
+		
+		for (Map<String, Object> map : list) {
+		    BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
+		    int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
+		    int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
+		    map.put("fileCount", fileCount);
+		}
+		
+		int totalRecord = pdsService.getTotalRecord(searchVo);
+		logger.info("글 목록 전체 조회 - totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
 
 		//3
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 
 		//4
 		return "pds/list";
 
+		
 	}
 
 	@GetMapping("/write")

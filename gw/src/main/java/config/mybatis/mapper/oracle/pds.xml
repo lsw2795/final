@@ -12,11 +12,53 @@
 		values(#{boardNo}, #{empNo}, 3000, #{title}, #{content})
 	</insert>
 	
-	<select id="selectPdsAll" resultType="map">
-		select * from pdsListView
-		where boardList_no=3000
-		order by board_no desc
-	</select>
+<select id="selectPdsAll" resultType="map" parameterType="searchVo">
+    select *
+    from
+    (
+        select rownum as RNUM, A.* from
+        (
+            select 
+            boardList_no, board_no, emp_no, name, title, content, readcount, regdate
+            from pdsListview
+            where boardList_no=3000
+            <if test="searchKeyword!=null and searchKeyword!=''">
+                <choose>
+                    <when test="searchCondition == 'total'">
+                        and (title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%')
+                    </when>
+                    <otherwise>
+                        and ${searchCondition} like '%' || #{searchKeyword} || '%'
+                    </otherwise>
+                </choose>
+            </if>
+            order by board_no desc
+        ) A
+    )
+    <![CDATA[
+    where RNUM > #{firstRecordIndex} 
+    and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+    ]]>
+</select>
+	
+<select id="getTotalRecord" parameterType="searchVo" resultType="int">
+    select count(*)
+    from pdsListview
+    where boardList_no=3000
+    <where>
+        <if test="searchKeyword!=null and searchKeyword!=''">
+            <choose>
+                <when test="searchCondition == 'total'">
+                    title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%'
+                </when>
+                <otherwise>
+                    ${searchCondition} like '%' || #{searchKeyword} || '%'
+                </otherwise>
+            </choose>
+        </if>
+    </where>
+</select>
+	
 	
 	<select id="selectPds" parameterType="int" resultType="map">
 		select * from pdsListView
@@ -54,7 +96,11 @@
 		update pds
 		set downloadCount = downloadCount + 1
 		where board_no=#{boardNo}
-	
 	</update>
+	
+	<select id="selectIsFile" parameterType="int" resultType="int">
+		select count(*) from pds
+		where board_no = #{boardNo}
+	</select>
 
 </mapper>
