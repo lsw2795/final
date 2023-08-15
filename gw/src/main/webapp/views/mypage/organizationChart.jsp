@@ -16,12 +16,11 @@ $(function(){
             type: "get",
             data: { deptNo: deptNo },
             success: function (res) {
-            	console.log(res); //콘솔에 결과내용 안찍힘ㅜㅜ
                 if (res.length > 0) {
                     $('#empList').empty();
                     $.each(res, function (index, item) {
                         var result = "<a href='#' class='list-group-item-action'>" +
-                                     item.empNo + " " + item.name + " " + item.positionName +
+                                     item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
                                      "</a>";
                         $('#empList').append(result);
                     });
