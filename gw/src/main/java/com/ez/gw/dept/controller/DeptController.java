@@ -40,7 +40,7 @@ public class DeptController {
     	logger.info("ajax 이용 - 부서에 해당하는 직원 조회하기, 파라미터 deptNo={}", deptNo);
     	
     	List<Map<String, Object>> empList=deptService.selectEmpByDeptNo(deptNo);
-    	logger.info("해당 직원 조회 결과, empList={}", empList);
+    	logger.info("해당 직원 조회 결과, empList.size()={}, empList={}", empList.size(),empList);
     	
         return empList;
     }
