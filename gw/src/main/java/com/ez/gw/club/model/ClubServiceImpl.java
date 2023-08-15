@@ -24,14 +24,23 @@ public class ClubServiceImpl implements ClubService{
 	}
 	
 	@Override
-	public int updateClub(int clubNo) {
-		return clubDao.updateClub(clubNo);
+	public ClubVO selectByClubNo(int clubNo) {
+		return clubDao.selectByClubNo(clubNo);
+	}
+	
+	@Override
+	public int updateClub(ClubVO vo) {
+		return clubDao.updateClub(vo);
 	}
 	
 	@Override
 	public int deleteClub(int clubNo) {
 		return clubDao.deleteClub(clubNo);
 	}
+
+	
+
+	
 
 	
 	

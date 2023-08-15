@@ -84,13 +84,7 @@ public class AdminController {
 				msg="해당 사원번호는 존재하지 않습니다.";
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
+
 		//3.
 		/*
 		 * model.addAttribute("msg", msg); model.addAttribute("url", url);
@@ -99,6 +93,7 @@ public class AdminController {
 		return "common/message";
 		
 	}
+	
 	
 	
 	

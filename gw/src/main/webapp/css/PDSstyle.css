@@ -310,3 +310,17 @@ a {
 	color: gray;
 	font-weight: bold;
 }
+
+select#search1 {
+    display: inline;
+    width: 7%;
+}
+
+input#search2 {
+    width: 20%;
+    display: inline;
+}
+input#search3 {
+    width: 6%;
+    height: 36px;
+}

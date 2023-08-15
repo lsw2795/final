@@ -13,11 +13,12 @@
 	function createLine(){
 		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=800, height=500")
 	}
+	
 	function selectLine(){
-		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=580, height=500")
+		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=520")
 	}
 </script>
-<form name="documentFrm" method="get" enctype="multipart/form-data" action="aa.jsp">
+<form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg pe-lg-2 mb-3">
@@ -75,7 +76,7 @@
 	                  		<label class="form-label" for="confirm_title">
 	               				제목
 	                    	</label>
-	                    	<input class="form-control" name="confirm_title" id="confirm_title" type="text" placeholder="제목을 입력하세요" />
+	                    	<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" placeholder="제목을 입력하세요" />
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                    	<label class="form-label">
@@ -139,21 +140,18 @@
 	                        <div id="confirm1_Name">
 	                        	검토자를 선택하세요
 	                        </div>
-		                    <input name="confirm1" id="confirm1" type="hidden" />
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm2">확인자</label>
 	                        <div id="confirm2_Name">
 	                        	확인자를 선택하세요
 	                        </div>
-	                        <input name="confirm2" id="confirm2" type="hidden"/>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm3">승인자</label>
 	                        <div id="confirm3_Name">
 	                        	승인자를 선택하세요
 	                        </div>
-	                        <input name="confirm3" id="confirm3" type="hidden"/>
 	                    </div>
 	                    <div class="col-12">
 	                        <label class="form-label" for="confirmContent">내용</label>
@@ -182,5 +180,6 @@
 		</div>
 	</div>
 </div>
+<input name="confirmLineNo" id="confirmLineNo" type="hidden"/>
 </form>
 <%@ include file = "../inc/bottom.jsp" %>

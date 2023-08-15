@@ -43,5 +43,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<EmployeeVO> selectAllEmp() {
 		return employeeDao.selectAllEmp();
 	}
+
+	@Override
+	public int insertEmp(EmployeeVO vo) {
+		return employeeDao.insertEmp(vo);
+	}
 	
 }

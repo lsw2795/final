@@ -10,6 +10,7 @@ import com.ez.gw.common.SearchVO;
 public interface ClubDAO {
 	int insertClub(ClubVO vo);
 	List<ClubVO> selectClub(SearchVO searchVo);
-	int updateClub(int clubNo);
+	ClubVO selectByClubNo(int clubNo);
+	int updateClub(ClubVO vo);
 	int deleteClub(int clubNo);
 }

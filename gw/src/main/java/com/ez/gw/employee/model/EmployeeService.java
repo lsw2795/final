@@ -18,4 +18,5 @@ public interface EmployeeService {
 	List<EmployeeVO> selectAllEmp();
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); 
+	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 }

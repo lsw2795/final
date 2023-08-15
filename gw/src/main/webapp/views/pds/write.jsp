@@ -11,6 +11,7 @@
   .ck-content { font-size: 12px; }
 </style>
 <script>
+	
 	$(function() {
 		CKEDITOR.replace('editor', {
 			filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
@@ -22,22 +23,46 @@
 			}
 		});	
 		
-	});
+		$('#pdsWrite').click(function() {
+			//유효성 검사
+			if($('input[name=title]').val().trim().length<1){
+				alert("제목을 입력하세요.");
+				$('input[name=title]').focus();
+				return false;
+			}
+			
+			// 입력 내용 받기 = CKEDITOR.instances.textarea태그의id.getData();
+			if(CKEDITOR.instances.editor.getData() =='' 
+			        || CKEDITOR.instances.editor.getData().length ==0){
+			    alert("내용을 입력해주세요.");
+			    $("#editor").focus();
+			    return false;
+			}
+			
+			if(confirm("자료를 등록하시겠습니까?")){
+				$('#pdsForm').submit();
+			}
+		});	
+		
+	}); //jquery
 	
-    // 파일 추가
-    function addFile() {
-        const fileDiv = document.createElement('div');
-        fileDiv.innerHTML =`
-            <div class="file_input">
-                <input type="text" readonly />
-                <label> 첨부파일
-                    <input type="file" name="files" onchange="selectFile(this);" />
-                </label>
-            </div>
-            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-        `;
-        document.querySelector('.file_list').appendChild(fileDiv);
-    }
+	// 파일 추가
+	var fileIndex = 1; // 파일 name 인덱스
+
+	function addFile() {
+	    console.log(fileIndex); //인덱스 증가 로그
+	    
+	    const fileDiv = document.createElement('div');
+	    fileDiv.innerHTML = '<div class="file_input">' +
+	                        '<input type="text" readonly />' +
+	                        '<label> 첨부파일' +
+	                        '<input name="files[' + fileIndex + ']" type="file"  onchange="selectFile(this);" />' +
+	                        '</label>' +
+	                        '</div>' +
+	                        '<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>';
+	    document.querySelector('.file_list').appendChild(fileDiv);
+	    fileIndex++;
+	}
     
     // 파일 삭제
     function removeFile(element) {
@@ -62,17 +87,32 @@
             return false;
         }
 
-        // 2. 파일 크기가 10MB를 초과하는 경우
-        const fileSize = Math.floor(file.size / 1024 / 1024);
-        if (fileSize > 100) {
-            alert('100MB 이하의 파일로 업로드해 주세요.');
-            filename.value = '';
-            element.value = '';
-            return false;
-        }
+        // 2. 파일 크기가 100MB를 초과하는 경우
+	   const fileSize = Math.floor(file.size / 1024 / 1024);
+	    if (file.size === 0) { //0byte
+	        alert('파일 크기가 0인 파일은 업로드할 수 없습니다.');
+	        filename.value = '';
+	        element.value = '';
+	        return false;
+	    } else if (fileSize > 100) {
+	        alert('100MB 이하의 파일로 업로드해 주세요.');
+	        filename.value = '';
+	        element.value = '';
+	        return false;
+	    }
 
         // 3. 파일명 지정
         filename.value = file.name;
+        
+        // 4. 파일 첨부 여부 확인
+        const fileAddBtn = filename.parentElement.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = filename.parentElement.querySelectorAll('input[type="file"]');
+            const isFileAttached = Array.from(inputs).some(input => input.files.length > 0);
+            if (!isFileAttached) {
+                filename.value = '';
+            }
+        }
     }
 
 </script>
@@ -83,19 +123,19 @@
             <p>사내 자료실</p>
 
         </div>
-    <form id="saveForm" action="<c:url value='/pds/write'/>" method="post" enctype="multipart/form-data">
+    <form id="pdsForm" action="<c:url value='/pds/write'/>" method="post" enctype="multipart/form-data">
         <div class="board_write_wrap">
 	            <div class="board_write">
 	                <div class="title">
 	                    <dl>
 	                        <dt>제목</dt>
-	                        <dd><input type="text" placeholder="제목 입력"></dd>
+	                        <dd><input type="text" name="title" placeholder="제목 입력"></dd>
 	                    </dl>
 	                </div>
 	                <div class="info">
 	                    <dl>
 	                        <dt>작성자</dt>
-	                        <dd><input type="text" placeholder="작성자 입력"></dd>
+	                        <dd><input type="text" name="writer" value="${vo.name}" readonly="readonly"></dd>
 	                    </dl>
 	                    <dl>
 	                        <dt>비밀번호</dt>
@@ -111,7 +151,7 @@
                         <div class="file_input">
                             <input type="text" readonly />
                             <label> 첨부파일
-                                <input type="file" name="files" onchange="selectFile(this);" />
+                                <input type="file" name="files[0]" onchange="selectFile(this);" />
                             </label>
                         </div>
                         <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
@@ -119,7 +159,7 @@
                     </div>
                 </div>
 	            <div class="bt_wrap">
-	                <a href="view.html" class="on">등록</a>
+	                <a href="#" class="on" id="pdsWrite">등록</a>
 	                <a href="#" id="writeCancle">취소</a>
 	            </div>
 	        </div>

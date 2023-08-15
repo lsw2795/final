@@ -1,6 +1,7 @@
 package com.ez.gw.club.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,21 +61,35 @@ public class ClubController {
 	}
 	
 	@GetMapping("/editClub")
-	public String editClub() {
-		logger.info("동호회 개설 수정 페이지");
+	public String editClub(@RequestParam(defaultValue = "0")int clubNo ,Model model) {
+		//1.
+		logger.info("동호회 개설 수정 페이지, clubNo={}",clubNo);
+		//2.
+		ClubVO vo = clubService.selectByClubNo(clubNo);
+		logger.info("수정 페이지 vo={}",vo);
+
+		if(clubNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/club/clubList");
+			
+			return "common/message";
+		}
+		
+		model.addAttribute("vo", vo);
+		
 		return "club/editClub";
 	}
 	
 	@RequestMapping("/editClub")
-	public String editClub_post(@RequestParam(defaultValue = "0")int clubNo,Model model) {
+	public String editClub_post(@ModelAttribute ClubVO vo,Model model) {
 		//1.
-		logger.info("수정 처리 페이지, clubNo={}",clubNo);
+		logger.info("수정 처리 페이지, vo={}",vo);
 		
 		//2.
-		int cnt=clubService.updateClub(clubNo);
+		int cnt=clubService.updateClub(vo);
 		logger.info("수정 처리 결과 cnt={}",cnt);
 		
-		String msg="수정 실패하였습니다.", url="/club/editClub";
+		String msg="수정 실패하였습니다.", url="/club/editClub?clubNo="+vo.getClubNo();
 		if(cnt>0) {
 			msg="수정 완료되었습니다.";
 		}

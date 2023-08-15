@@ -8,5 +8,8 @@
 		where position_no=#{positionNo}
 	</select>
 
+	<select id="selectAllPosition" resultType="positionVo">
+		select * from position
+	</select>
 
 </mapper>

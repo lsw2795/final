@@ -22,16 +22,16 @@
 	margin: 0 0 0 25px;
 }
 .mypageempdiv3{
-	margin: 0 0 0 29px;
+	margin: 0 5px 0 33px;
 }
 .mypageempdiv4{
-	margin: 0 0 0 32px;
+	margin: 0 5px 0 38px;
 }
 .mypageempdiv5{
-	margin: 0 0 0 47px;
+	margin: 0 5px 0 54px;
 }
 .mypageempdiv6{
-	margin: 0 0 0 60px;
+	margin: 0 5px 0 71px;
 }
 .mypageempborder{
 	border-color: #eee;
@@ -74,8 +74,8 @@
 .mypageempdiv9 a{
     margin: 5px 0 0 0;
 }
-.mypageempdiv10 {
-    margin: 4px 0 0 120px;
+.mypageempdiv10{
+	margin:0 0 0 108px;
 }
 .mypageempdiv11 {
   overflow: hidden; 
@@ -83,4 +83,7 @@
 .mypageempdiv11 img{
  max-width: 100%; 
  height: auto;
+}
+.mypageempdiv12 {
+    margin: 0 5px 0 0px;
 }    

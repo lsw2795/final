@@ -20,12 +20,17 @@
 		order by regDate desc
 	</select>
 	
+	<select id="selectByClubNo" parameterType="int" resultType="clubVo">
+		select * from club
+		where CLUB_NO=#{clubNo}
+	</select>
+	
 	<delete id="deleteClub" parameterType="int">
 		delete from club
 		where CLUB_NO=#{clubNo}
 	</delete>
 	
-	<update id="updateClub" parameterType="int">
+	<update id="updateClub" parameterType="clubVo">
 		update club
 		set  MEM_LIMIT=#{memLimit}, TITLE=#{title}, INTRODUCE=#{introduce}, SECFLAG=#{secflag},
 			MEM_LIMITFLAG=#{memLimitflag}

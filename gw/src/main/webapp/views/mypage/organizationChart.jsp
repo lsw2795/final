@@ -9,7 +9,7 @@
 		  <div class="offcanvas-body">
 		   <div class="card-body">
 					<div id="organization-chart">
-						<div class="mb-3 mypageempdiv10">
+						<div class="mb-3">
 							<button class="btn btn-primary" type="button"
 								data-bs-toggle="collapse" data-bs-target="#dev-employees">
 								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
@@ -23,7 +23,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="mb-3 mypageempdiv10">
+						<div class="mb-3">
 							<button class="btn btn-primary" type="button"
 								data-bs-toggle="collapse" data-bs-target="#design-employees">
 								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
@@ -36,7 +36,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="mb-3 mypageempdiv10">
+						<div class="mb-3">
 							<button class="btn btn-primary" type="button"
 								data-bs-toggle="collapse" data-bs-target="#sales-employees">
 								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
@@ -50,9 +50,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="mb-3 mypageempdiv10">
+						<div class="mb-3">
 							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#sales-employees">
+								data-bs-toggle="collapse" data-bs-target="#personnel-employees">
 								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
 							</button>
 							<span>인사팀</span>

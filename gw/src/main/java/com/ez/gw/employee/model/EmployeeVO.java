@@ -16,7 +16,7 @@ public class EmployeeVO {
 	private String tel; /* 전화번호 */
 	private String address; /* 주소 */
 	private String married; /* 결혼여부 */
-	private Timestamp hiredate; /* 입사일 */
+	private String hiredate; /* 입사일 */
 	private Timestamp retiredate; /* 퇴사일 */
 	private String authority; /* 권한 */
 	private int annualSalary; /* 연봉 */

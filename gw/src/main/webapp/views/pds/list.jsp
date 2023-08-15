@@ -11,17 +11,16 @@
         <div class="board_title">
             <strong>자료실</strong>
             <p>사내 자료실입니다.</p>
-
         </div>
-        <div class="search">
-     	            <select name="searchCondition" class="form-select">
+        <div class="search" >
+     	            <select id="search1" name="searchCondition" class="form-select">
             	<option value="title">제목</option>
             	<option value="name">작성자</option>
             	<option value="content">내용</option>
             	<option value="total">제목+내용</option>
 	        </select>
-	        <input name="searchKeyword" class="form-control" value="" type="text" placeholder="검색어를 입력하세요">
-	        <input type="submit" class="btn btn-outline-dark" value="검색" id="searchSubmit">
+	        <input id="search2" name="searchKeyword" class="form-control" value="" type="text" placeholder="검색어를 입력하세요">
+	        <input id="search3" type="submit" class="btn btn-outline-dark" value="검색" id="searchSubmit">
         
         </div>
         <div class="board_list_wrap">
@@ -35,14 +34,18 @@
                     <div class="file">첨부파일</div>
                 </div>
                 <div>
-                    <div class="num">글번호</div>
-                    <div class="title"><a href="<c:url value='/pds/detail?boardNo=1'/>">제목</a></div>
-                    <div class="writer">이름</div>
-                    <div class="date">2023-0811</div>
-                    <div class="count">33</div>
-                    <div class="file">
-                    	<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지">
-                    </div>
+                	<c:forEach var="map" items="${list}">
+	                    <div class="num">${map['BOARD_NO']}</div>
+	                    <div class="title"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></div>
+	                    <div class="writer">${map['NAME']}</div>
+	                    <div class="date"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></div>
+	                    <div class="count">${map['READCOUNT']}</div>
+	                    <div class="file">
+	                    	<c:if test="${!empty map['FILENAME']}">
+	                    		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지">
+	                    	</c:if>
+	                    </div>
+	                </c:forEach>    
                 </div>
             </div>
             <div class="board_page">
