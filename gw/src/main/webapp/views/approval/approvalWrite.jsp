@@ -208,10 +208,6 @@
 	                        <label class="form-label" for="confirmContent">내용</label>
 	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요"></textarea>
 	                    </div>
-	                    <div class="col-12 mt-1 file">
-	                        <label class="form-label mb-0">첨부파일</label>
-	                        <input class="form-control" name="confirmFile" type="file"/>
-	                    </div>
 	                    <div class="col-12 mt-2">
 	                        <label class="form-label mb-0">첨부파일 추가/삭제</label><br>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFilePlus" style="width: 50px">+</button>

@@ -1,5 +1,6 @@
 package com.ez.gw.confirm.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
@@ -61,8 +64,11 @@ public class ConfirmServiceImpl implements ConfirmService{
 		
 		//첨부파일 처리
     	try {
+    		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+    		Map<String, MultipartFile> fileMap=multiRequest.getFileMap();
+    		logger.info("첨부파일 fileMap={}",fileMap);
+    		if(fileMap!=null && !fileMap.isEmpty()) {
     		List<Map<String, Object>> fileList = fileUploadUtil.fileupload(request,ConstUtil.CONFIRMFILE_FLAG);
-			if(fileList.size()>0) {
 				String fileName="", originalFileName="";
 				long fileSize=0;
 				
