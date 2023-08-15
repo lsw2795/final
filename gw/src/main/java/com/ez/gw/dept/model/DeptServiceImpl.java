@@ -20,4 +20,5 @@ public class DeptServiceImpl implements DeptService{
 	public List<DeptVO> selectAllDept() {
 		return deptDao.selectAllDept();
 	}
+
 }

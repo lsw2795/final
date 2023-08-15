@@ -10,4 +10,10 @@
 	<select id="selectAllDept" resultType="deptVo">
 		select * from dept
 	</select>
+	
+	<select id="selectOC" parameterType="int" resultType="map">
+		select * from organizationChartView
+		where dept_no=#{deptNo}
+	</select>
+	
 </mapper>
