@@ -9,7 +9,12 @@
 $(function(){
     $('.btnDept').click(function () {
     	var deptNo = $(this).data('dept-no');
-      	/* alert("부서번호 : " + deptNo); */
+      	alert("부서번호 : " + deptNo);
+    	
+   	    var target = $(this).data('bs-target');
+        var $targetElement = $(target);
+        $('.collapse.show').not($targetElement).collapse('hide');
+        $targetElement.collapse('toggle');
 
         $.ajax({
             url: "<c:url value='/mypage/ajaxOrganizationChart'/>",
