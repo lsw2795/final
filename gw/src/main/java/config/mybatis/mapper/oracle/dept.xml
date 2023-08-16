@@ -11,9 +11,25 @@
 		select * from dept
 	</select>
 	
-	<select id="selectOC" parameterType="int" resultType="map">
-		select * from organizationChartView
-		where dept_no=#{deptNo}
+	<select id="selectAllDept2" parameterType="deptVo" resultMap="empListResultMap">
+		select * from dept order by dept_level desc
 	</select>
+	
+	<select id="selectEmpByDeptNo" parameterType="int" resultType="map">
+        select * from organizationChartView
+        where dept_no = #{deptNo}
+    </select>
+	
+	<resultMap type="deptAllVo" id="empListResultMap">
+		<association property="deptVo" column="dept_No" javaType="deptVo">
+			<id property="deptNo" column="dept_no" jdbcType="BIGINT"/>
+			<result property="name" column="name" jdbcType="VARCHAR"/>
+			<result property="manager" column="manager" jdbcType="BIGINT"/>
+			<result property="upperDept" column="upper_dept" jdbcType="BIGINT"/>
+			<result property="deptLevel" column="dept_level" jdbcType="BIGINT"/>
+		</association>
+		<collection property="empList" javaType="ArrayList" ofType="map" column="dept_No" select="selectEmpByDeptNo">
+		</collection>
+	</resultMap>
 	
 </mapper>

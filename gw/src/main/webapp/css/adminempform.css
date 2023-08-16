@@ -57,7 +57,17 @@
 .adminempthead{
 	background-color: #101726;
 }
-
+.adminempdiv8{
+	position: absolute;
+	right: 60px;
+	top: 60px;
+	width: 170px;
+	height: 200px;
+}
+.empimage {
+	width: 100%;
+	height: 100%;
+}
 .adminempthead tr th{
 	color:white;
 }

@@ -3,6 +3,8 @@ package com.ez.gw.pds.model;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class PdsServiceImpl implements PdsService {
+	private static final Logger logger = LoggerFactory.getLogger(PdsServiceImpl.class);
 	private final PdsDAO pdsDao;
 
 	@Override
@@ -39,7 +42,11 @@ public class PdsServiceImpl implements PdsService {
 
 	@Override
 	public int deletePds(int boardNo) {
-		return pdsDao.deletePds(boardNo);
+		int cnt = pdsDao.deletePdsFile(boardNo);
+		logger.info("deletePdsFile 파일 매핑 삭제 여부 cnt={}", cnt);
+		cnt = pdsDao.deletePds(boardNo);
+		logger.info("deletePds 글 매핑 삭제 여부 cnt={}", cnt);
+		return cnt;
 	}
 
 	@Override

@@ -232,7 +232,8 @@ public class PdsController {
 	}
 
 	@RequestMapping("/delete")
-	public String delete(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+	public String delete(@RequestParam(defaultValue = "0") int boardNo,
+			HttpServletRequest request, Model model) {
 		//1
 		logger.info("자료 삭제 파라미터, boardNo={}", boardNo);
 		if(boardNo==0) {
@@ -242,11 +243,34 @@ public class PdsController {
 			return "common/message";
 		}
 		//2
+		
+		
+		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
+		logger.info("게시글 삭제 - 파일 삭제 전 파일 갯수 조회 fileList.size={}", fileList.size());
+		
 		String msg = "자료 삭제 실패하였습니다.", url = "/pds/detail?boardNo=" + boardNo;
-		int cnt = pdsService.deletePds(boardNo);
-		if(cnt>0) {
-			msg = "자료가 삭제 되었습니다.";
-			url = "/pds/list";
+		
+		if(fileList.size()>0) {
+			for(PdsVO vo : fileList) {
+				String fileName = vo.getFileName();
+				if(fileName!=null && !fileName.isEmpty()) { //파일 삭제
+					File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), fileName);
+					logger.info("컨트롤러 파일 f={}", f);
+					if(f.exists()) {
+						boolean result = f.delete();
+						logger.info("글 삭제 - 파일 삭제 여부 : {}", result);
+					}
+				}//if
+			}//for
+			
+			int cnt = pdsService.deletePds(boardNo);
+			logger.info("게시글 삭제 결과 cnt={}", cnt);
+			
+			if(cnt>0) {
+				msg = "자료가 삭제 되었습니다.";
+				url = "/pds/list";
+				
+			}
 		}
 
 		//3
