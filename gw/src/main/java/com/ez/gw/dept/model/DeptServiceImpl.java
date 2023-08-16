@@ -1,8 +1,11 @@
 package com.ez.gw.dept.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.ez.gw.employee.model.EmployeeDAO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +22,11 @@ public class DeptServiceImpl implements DeptService{
 	@Override
 	public List<DeptVO> selectAllDept() {
 		return deptDao.selectAllDept();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectEmpByDeptNo(int deptVo) {
+		return deptDao.selectEmpByDeptNo(deptVo);
 	}
 
 }
