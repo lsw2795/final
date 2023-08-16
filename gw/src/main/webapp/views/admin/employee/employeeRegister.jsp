@@ -42,6 +42,9 @@
 					        <input type="text" class="form-control admindefault" id="name" name="name"/>
 					    </div>
 					</div>
+					<div class="col-md-auto adminempdiv8">
+			        	<span class="fas fa-user" class="empimage">
+			    	</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv17">
 					        <label class="col-form-label adminemplabel" for="ename">사원 영어이름</label>
