@@ -32,5 +32,9 @@
 		#{email},#{pwd},#{extensionNo},#{tel},
 			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
+	
+	
+	
+	
 		
 </mapper>

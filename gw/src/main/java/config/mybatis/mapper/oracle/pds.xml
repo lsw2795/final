@@ -44,6 +44,7 @@
 <select id="getTotalRecord" parameterType="searchVo" resultType="int">
     select count(*)
     from pdsListview
+    where boardList_no=3000
     <where>
         <if test="searchKeyword!=null and searchKeyword!=''">
             <choose>
@@ -75,6 +76,11 @@
 		where board_No=#{boardNo}
 	</delete>
 	
+	<delete id="deletePdsFile" parameterType="int">
+		delete pds
+		where boardList_no=3000 and board_no=#{boardNo}
+	</delete>
+	
 	<insert id="insertFiles" parameterType="pdsVo">
 		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
 			select pds_seq.nextval from dual
@@ -95,7 +101,11 @@
 		update pds
 		set downloadCount = downloadCount + 1
 		where board_no=#{boardNo}
-	
 	</update>
+	
+	<select id="selectIsFile" parameterType="int" resultType="int">
+		select count(*) from pds
+		where board_no = #{boardNo}
+	</select>
 
 </mapper>

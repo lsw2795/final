@@ -18,9 +18,9 @@
 
 <form action="<c:url value='/pds/list'/>" 
 	name="frmPage" method="post">
-	<input type="text" name="currentPage">
-	<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-	<input type="text" name="searchCondition" value="${param.searchCondition}">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 </form>
 
     <div class="board_wrap">
@@ -74,9 +74,9 @@
 	                    <div class="date"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></div>
 	                    <div class="count">${map['READCOUNT']}</div>
 	                    <div class="file">
-	                    	<c:if test="${!empty map['FILENAME']}">
+ 	                    	<c:if test="${map['fileCount']>0}">
 	                    		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지">
-	                    	</c:if>
+	                    	</c:if> 
 	                    </div>
 	                </c:forEach>    
                 </div>
@@ -106,8 +106,10 @@
 		</c:forEach>
 		
 		<!-- 다음 페이지로 이동 -->
-		<c:if test="${pagingInfo.lastPage>1}">
-        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+		<c:if test="${pagingInfo.totalRecord>0}">
+			<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
+	        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+			</c:if>
 		</c:if>
 		
 		<!-- 다음 블럭으로 이동 -->
@@ -123,5 +125,6 @@
             </div>
         </div>
     </div>
+    
     
 <%@ include file="../inc/bottom.jsp"%>
