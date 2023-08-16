@@ -3,7 +3,6 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <div class="card mb-3">
-	
 	<div class="card-body admindefault position-relative">
 		<div class="row">
 			<div class="col-lg-8">
@@ -28,9 +27,9 @@
 		
 			<div class="d-flex justify-content-lg-end admindefault">
 				<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-					<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"/>
+					<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
 					<span class="adminhyphen"></span>
-					<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"/>
+					<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
 					<span class="adminhyphen"></span>
 					<input type="button" value="삭제" class="btn btn-primary"/>
 				</div>
