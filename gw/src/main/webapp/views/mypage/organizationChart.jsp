@@ -40,7 +40,8 @@ $(function(){
                             <div class="card card-body">
                                 <div class="list-group" id="empList">
                                 	<c:forEach var="map" items="${deptAllVo.empList }">
-                                   		<a href="#" class="list-group-item-action">
+                                   		<a href="#" class="list-group-item-action" 
+                                   		data-bs-toggle="modal" data-bs-target="#exampleModal">
                                    			${map['EMP_NO']} ${map['NAME']} ${map['POSITION_NAME']}
                                    		</a>
                                    		<!--<a href="#" class="list-group-item-action">사원1</a> -->
