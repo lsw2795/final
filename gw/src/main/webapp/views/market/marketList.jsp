@@ -54,8 +54,7 @@
 					           <div class="col-sm-5 col-md-4">
 					             <div class="position-relative h-sm-100">
 					             	<a class="d-block h-100" href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo }'/>">
-					             		<img class="<c:url value='/market/upload'/>" 
-					             			src="<c:url value='/img/products/2.jpg'/>" alt="" />
+					             		<img class="rounded-1 h-100 w-100 object-fit-cover" src="<c:url value='/market/upload/${vo.tradeNo}_0${sub}'/>" alt="" />
 					           		</a>
 					               <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
 					               	New
@@ -68,12 +67,16 @@
 					                 <h5 class="mt-3 mt-sm-0">
 					                 	<a class="text-dark fs-0 fs-lg-1" href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo} }'/>">
 					                 		${vo.title }
-					                 	</a></h5>
+					                 	</a>
+					                 </h5>
+					                 <p class="fs--1 mb-2 mb-md-3">
+			                          	<h6 class="text-500">${vo.regdate }</h6>
+			                          </p>
 					               </div>
 					               <div class="col-lg-4 d-flex justify-content-between flex-column">
 					                 <div>
-					                   <h4 class="fs-1 fs-md-2 text-warning mb-0">
-					                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"></fmt:formatNumber>
+					                   <h4 class="fs-1 fs-md-2 mb-0">
+					                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원
 					                   </h4>
 					                   <h5 class="fs--1 text-500 mb-0 mt-1">
 					                   </h5>
@@ -99,7 +102,11 @@
 				             <div class="position-relative h-sm-100">
 				               <div class="swiper-container theme-slider h-100" data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
 				                 <div class="swiper-wrapper h-100">
-				                   <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="<c:url value='/assets/img/products/1.jpg'/>" alt="" /></a></div>
+				                   <div class="swiper-slide h-100">
+				                   	<a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp">
+				                   		<img class="rounded-1 h-100 w-100 object-fit-cover" src="<c:url value='/market/upload/${vo.tradeNo}_0${sub}'/>" alt="" />
+				                   	</a>
+				                   </div>
 				                   <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="<c:url value='/assets/img/products/1-2.jpg'/>" alt="" /></a></div>
 				                   <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="<c:url value='/assets/img/products/1-3.jpg'/>" alt="" /></a></div>
 				                 </div>
@@ -119,11 +126,14 @@
 				                 		${vo.title }
 				                 	</a>
 			                 	</h5>
+			                 	<p class="fs--1 mb-2 mb-md-3">
+			                        <h6 class="text-500">${vo.regdate }</h6>
+			                    </p>
 				               </div>
 				               <div class="col-lg-4 d-flex justify-content-between flex-column">
 				                 <div>
-				                   <h4 class="fs-1 fs-md-2 text-warning mb-0">
-				                   <fmt:formatNumber value="${vo.price }" pattern="#,###"></fmt:formatNumber>
+				                   <h4 class="fs-1 fs-md-2 mb-0">
+				                   <fmt:formatNumber value="${vo.price }" pattern="#,###"/>원
 			                   	   </h4>
 				                   <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
 				                   </div>

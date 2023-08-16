@@ -1,6 +1,6 @@
 package com.ez.gw.secondhandTrade.model;
 
-import java.security.Timestamp;
+import java.sql.*;
 
 import org.springframework.web.multipart.MultipartFile;
 

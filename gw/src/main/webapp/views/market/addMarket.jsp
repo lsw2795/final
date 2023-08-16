@@ -69,49 +69,6 @@
 		  
 	});
 		
-		/*$('#fileBtn').click(function(){
-			var formData = new FormData();
-			
-			var inputFile = $('input[type="file"]');
-			
-			var files = inputFile[0].files;
-			
-			for(var i=0; i<files.length; i++){
-				console.log(files[i]);
-				formData.append("imageURL2", files[i]);
-			}
-			
-			//실제 업로드 부분
-			$.ajax({
-				url:"<c:url value='/market/addMarket'/>",
-				processData:false,
-				contentType:false,
-				data:formData,
-				dataType:'json',
-				success:function(res){
-					console.log(res);
-					//나중에 화면 처리
-					//추가
-					showUploadImages(res);
-				},
-				error:function(xhr, status, error){
-					alert(error);
-				}
-			});//$.ajax
-		});//end click
-		
-	});
-		//추가
-		//Ajax 업로드 이후 이미지들을 호출하는 함수
-		function showUploadImages(arr){
-			consloe.log(arr);
-			
-			var divArea = $(".dz-message");
-			
-			for(var i=0; i<arr.length; i++){
-			//	divArea.append("<img src ='/market/upload?fileName"+arr[i].imageURL+"'>");
-			}
-		}*/
 </script>
  <div class="content">
           <div class="card mb-3">
@@ -145,8 +102,8 @@
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
-                      	<input class="form-control" id="product-description" name="discription" type = "text" value="${secondVo.discription }" style="height:150px"/>
-                        <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="product-description" id="product-description">${secondVo.discription }</textarea>
+                        <textarea class="form-control" data-tinymce="data-tinymce" name="discription" id="product-description"
+                        	style="height:300px">${secondVo.discription }</textarea>
                       </div>
                    	</div>
                     </div>

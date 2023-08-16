@@ -100,10 +100,15 @@ public class SecondHandTradeController {
 			
 			cnt = secondHandTradeService.insertMarket(secondVo);
 			logger.info("중고거래 상품 등록 처리 결과 cnt = {}", cnt);
-			
+			int i=0;
 			for(MultipartFile f : files) {
 				originalFileName = f.getOriginalFilename();
-				fileName = System.currentTimeMillis() + "_" + originalFileName;
+				int cut = originalFileName.indexOf(".");
+				logger.info("cut={}", cut);
+				String cutFileName = originalFileName.substring(cut);
+				logger.info("cutFileName={}", cutFileName);
+				
+				fileName = secondVo.getTradeNo() +"_" + i++ + cutFileName;
 				fileSize = (long)f.getSize();
 				
 				String path = "C:\\Users\\Desktop\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
@@ -145,11 +150,23 @@ public class SecondHandTradeController {
 		
 		//2
 		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket();
-		logger.info("리스트 결과, list.size = {}", list.size());
+		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
+		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		
+		String sub = "";
+		for(SecondhandTradeFileVO f : fileList) {
+			String fileName = f.getImageURL();
+			int idx = fileName.indexOf(".");
+			sub = fileName.substring(idx);
+		}
+		
+		for(SecondHandTradeVO fg : list) {
+			logger.info("title={}", fg.getTitle());
+			logger.info("regdate={}", fg.getRegdate());
+		}
 		//3
 		model.addAttribute("list", list);
-		
+		model.addAttribute("sub", sub);
 		//4
 		return "market/marketList";
 	}
