@@ -8,7 +8,11 @@
 			if($(this).is(":checked")==true){
 		    	$(this).val();
 		    }
-		}		
+		}
+		
+		$('#edit').click(function() {
+			
+		});
 	});
 </script>
 		<div class="row gx-3">
@@ -53,6 +57,7 @@
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
+                        <a href="<c:url value='/club/editClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
                       </div>
                   </div>
                 </div>
