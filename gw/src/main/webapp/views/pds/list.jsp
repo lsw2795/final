@@ -106,8 +106,10 @@
 		</c:forEach>
 		
 		<!-- 다음 페이지로 이동 -->
-		<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
-        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+		<c:if test="${pagingInfo.totalRecord>0}">
+			<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
+	        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+			</c:if>
 		</c:if>
 		
 		<!-- 다음 블럭으로 이동 -->
