@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.employee.model.EmployeeService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class NoticeController {
 	private static final Logger logger=LoggerFactory.getLogger(NoticeController.class);
-	
 	private final BoardService boardService;
 	
 	@GetMapping("/admin/board/noticeWrite")
@@ -34,9 +35,12 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/admin/board/noticeWrite")
-	public String noticeWrite_post(@ModelAttribute BoardVO vo, Model model) {
+	public String noticeWrite_post(@ModelAttribute BoardVO vo, 
+			HttpSession session, Model model) {
 		//1
-		logger.info("관리자 - 공지사항 글쓰기 페이지, 파라미터 vo={}", vo);
+		int empNo = (int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("관리자 - 공지사항 글쓰기 페이지, 파라미터 vo={}, empNo={}", vo, empNo);
 		
 		//2
 		int cnt=boardService.insertNotice(vo);
