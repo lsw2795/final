@@ -107,7 +107,7 @@
 						    <c:forEach var="map" items="${lineList }">
 							    <tr>
 							    	<td>
-								       	<input type="checkbox" name="chkLine" value="${map['CONFIRM_LINE_NO']}">
+								       	<input class="form-check-input" type="checkbox" name="chkLine" value="${map['CONFIRM_LINE_NO']}">
 							        </td>
 							        <td>${map['CONFIRM1NAME']}</td>
 							        <td>${map['CONFIRM2NAME']}</td>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>참조자 선택</title>
 <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
@@ -35,21 +35,25 @@
 			    	$('#select>.selectName').each(function(index,item){
 			    		var result=$(item).html();
 			    		if(index==0){
-				    		opener.document.getElementById('reperEmpNameSpan').innerHTML=result;
+			    			$(opener.document).find('#referEmpNameSpan').html(result);
 			    		}else{
-				    		opener.document.getElementById('reperEmpNameSpan').append(", "+result);
+			    			$(opener.document).find('#referEmpNameSpan').append(", "+result);
 			    		}
 			    	});
 			    	
 			    	$('#select>.selectNo').each(function(index,item){
 			    		var result=$(item).html();
-				    	$(opener.document).find('#reperEmpNo').append(
-				    			"<input type='hidden' name='reperEmpNo' value='"+result+"'>");
+			    		if(index==0){
+				    		$(opener.document).find('#referEmpNo').html(
+				    			"<input type='hidden' name='referEmpNo' value='"+result+"'>");
+			    		}else{
+				    		$(opener.document).find('#referEmpNo').append(
+				    			"<input type='hidden' name='referEmpNo' value='"+result+"'>");
+			    		}
 			    	});
     			}else{
-			    	$(opener.document).find('#reperEmpNameSpan').html("참조자를 선택하세요");
-				    $(opener.document).find('#reperEmpNo').html("");
-    				
+			    	$(opener.document).find('#referEmpNameSpan').html("참조자를 선택하세요");
+				    $(opener.document).find('#referEmpNo').html("");
     			}
 		    	
 		    	self.close();
@@ -61,8 +65,15 @@
 		});
     	
     	function selectEmp() {
-    		var selNo=$('.active>#empNo').val();
     		var isDuplicate = false; 
+    		var selNo=$('.active>#empNo').val();
+    		var selName=$('.active>#empNameDiv').text();
+    		
+    		if(selNo==null){
+    			alert("참조자를 선택하세요");
+    			return;
+    		}
+    		
     		$('#select>.selectNo').each(function(){
     			if(selNo==$(this).html()){
     				alert("중복된 참조자입니다");
@@ -72,19 +83,12 @@
     		});
     		
     		if(!isDuplicate){
-		    	$.ajax({
-		    		url:"<c:url value='/approval/selectEmpAjax'/>",
-		   			type:"post",
-		   			dataType:"json",
-		   			data:"empNo="+$('.active>#empNo').val(),
-		   			success:function(res){
-		    			var output="<span class='selectName' style='display: block;'>"+res.name+"</span><span class='selectNo' style='display: none;'>"+res.empNo+"</span>";
-		    			$('#select').append(output);
-		    		},error:function(xhr, status, error){
-		    			alert(status+" : 참조자를 선택하세요");
-		   			}
-		   		});
+		    	var output="<span class='selectName' style='display: block;'>"+selName+
+		    		"</span><span class='selectNo' style='display: none;'>"+selNo+"</span>";
+		    	$('#select').append(output);
     		}
+    		
+		    $('.a-select').removeClass('active');
     	}
     	
     	function deleteEmp() {
@@ -128,11 +132,10 @@
 		</div>	
 		<div class="col-sm-5">
 			<div class="card h-lg-100 overflow-hidden">
-			<span style="display: none;"></span>
 				<div class="card-header bg-light">
 					조직도
 				</div>
-				<div class="card-body selectDiv" >
+				<div class="card-body selectDiv scrollbar"  >
 		        	<ul id="navbarVerticalNav">
 		        	<c:forEach var="deptVo" items="${deptList }">
 		        		<li class="nav-item">
@@ -169,7 +172,13 @@
 				<div class="card-header bg-light">
 					참조자
 				</div>
-				<div class="card-body selectDiv" id="select">
+				<div class="card-body selectDiv scrollbar" id="select">
+					<c:if test="${!empty referEmpList }">
+						<c:forEach var="vo" items="${referEmpList }"> 
+							<span class='selectName' style='display: block;'>${vo.name }</span>
+		    				<span class='selectNo' style='display: none;'>${vo.empNo }</span>
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
 		</div>

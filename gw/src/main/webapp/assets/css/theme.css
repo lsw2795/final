@@ -32391,14 +32391,10 @@ select#documentNo,#deptNo {
     width: 150px;
 }
 
-.selectDiv{
-	min-height: 300px;
+.selectDiv,.LineSelectDiv{
+	height: 400px;
 }
 
-.LineSelectDiv{
-	min-height: 365px;
-	max-height: 400px;
-}
 .a-select{
 	color: #748194;
 }
