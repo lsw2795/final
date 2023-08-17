@@ -4,4 +4,13 @@
 
 <mapper namespace="com.ez.gw.clubboard.model.ClubBoardDAO">
 
+	<select id="selectClubBoard" resultType="clubboardVo" parameterType="int">
+		select * from clubBoard
+		where CLUB_NO=#{clubNo}
+	</select>
+	
+	<insert id="insertClubBoard">
+		
+	</insert>
+	
 </mapper>

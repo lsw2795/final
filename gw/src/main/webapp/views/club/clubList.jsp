@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file='../../inc/adminTop.jsp'%>
+<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <script type="text/javascript">
 	$(function () {
@@ -8,7 +8,11 @@
 			if($(this).is(":checked")==true){
 		    	$(this).val();
 		    }
-		}		
+		}
+		
+		$('#edit').click(function() {
+			
+		});
 	});
 </script>
 		<div class="row gx-3">
@@ -20,7 +24,7 @@
                         <h6 class="mb-0">Club List</h6>
                       </div>
                         <div class="col-auto pe-0">
-                  <form action='<c:url value='/admin/adminclub/clubList'/>'>
+                  <form action='<c:url value='/club/clubList'/>'>
                           <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
 	                            <option value="title"
 	                            	<c:if test="${param.searchCondition=='title'}">
@@ -53,14 +57,7 @@
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
-                       <a href="<c:url value='/club/deleteClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-trash" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button></a>
-                        <a href="<c:url value='/club/editClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-pen" ></span></button></a>
-                        <div class="dropdown font-sans-serif ms-2">
-                          <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="<c:url value='/club/deleteClub?clubNo=${param.clubNo }'/>">Remove</a>
-                          </div>
-                        </div>
+                        <a href="<c:url value='/club/editClub?clubNo=${vo.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
                       </div>
                   </div>
                 </div>
@@ -95,7 +92,7 @@
 			                             <h6 class="mb-0">${vo.manager }</h6>
 			                           </div>
 			                        </td>
-			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubBoard'/>">${vo.title }</a></td>
+			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${vo.clubNo }'/>">${vo.title }</a></td>
 			                        <td class="align-middle memberCnt pe-4">
 			                          	${vo.memLimit }
 			                        </td>
@@ -122,4 +119,4 @@
               </div>
 		</div>
 
-<%@ include file='../../inc/adminBottom.jsp'%>
+<%@ include file="../inc/bottom.jsp" %>

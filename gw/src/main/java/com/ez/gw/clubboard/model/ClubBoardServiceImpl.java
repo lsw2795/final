@@ -8,4 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ClubBoardServiceImpl implements ClubBoardService{
 	private final ClubBoardDAO clubboardDao;
+
+	@Override
+	public ClubBoardVO selectClubBoard(int clubNo) {
+		return clubboardDao.selectClubBoard(clubNo);
+	}
 }
