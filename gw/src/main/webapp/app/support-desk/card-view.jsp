@@ -2101,7 +2101,8 @@
                           <div style="--falcon-circle-progress-bar:100">
                             <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
                               <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                              <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
+                              <circle
+                              4 class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
                             </svg>
                           </div>
                           <h6 class="mb-0 text-700">Urgent</h6>

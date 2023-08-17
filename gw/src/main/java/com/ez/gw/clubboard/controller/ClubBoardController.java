@@ -11,9 +11,45 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/club")
 public class ClubBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubBoardController.class);
 	private final ClubBoardService clubBoardService;
 	
+	
+	@RequestMapping("/clubBoard")
+	public String clubBoadList() {
+		//1.
+		logger.info("동호회 게시판 페이지");
+		return "/club/clubBoard";
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

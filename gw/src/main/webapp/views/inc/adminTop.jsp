@@ -85,7 +85,7 @@
             </div>
             <a class="navbar-brand" href="index.jsp">
               <div class="d-flex align-items-center py-3">
-              	<img src="adminfinallogo.png" alt="" width="150" />
+              	<img src="<c:url value='/adminfinallogo.png'/>" alt="" width="150" />
               </div>
             </a>
           </div>
@@ -308,7 +308,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/admin/adminclub/clubList.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/admin/adminclub/clubList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">사내 동호회 현황</span>
                         			</div> 
