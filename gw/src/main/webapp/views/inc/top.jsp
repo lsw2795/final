@@ -34,6 +34,7 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="<c:url value='/vendors/simplebar/simplebar.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/theme-rtl.css'/>" rel="stylesheet" id="style-rtl">
@@ -54,6 +55,7 @@
         linkRTL.setAttribute('disabled', true);
         userLinkRTL.setAttribute('disabled', true);
       }
+      
     </script>
     <script type="text/javascript">
     	$(function() {
@@ -395,21 +397,21 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/createClub.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/createClub'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/clubBoard.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/clubList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/payClub.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/payClub'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
                        			</div> 

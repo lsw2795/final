@@ -8,7 +8,7 @@
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <h6 class="mb-0">All Club</h6>
+                        <h6 class="mb-0">Club Board</h6>
                       </div>
                       <div class="col-auto">
                         <form>
@@ -23,17 +23,6 @@
                     <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      <div class="d-none" id="table-ticket-actions">
-                        <div class="d-flex">
-                          <select class="form-select form-select-sm" aria-label="Bulk actions">
-                            <option selected="">Bulk actions</option>
-                            <option value="Refund">Refund</option>
-                            <option value="Delete">Delete</option>
-                            <option value="Archive">Archive</option>
-                          </select>
-                          <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
-                        </div>
-                      </div>
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <div class="dropdown">
                           <button class="btn btn-sm btn-falcon-default dropdown-toggle dropdown-caret-none" type="button" id="ticket-layout" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block me-1">Card View</span><span class="fas fa-chevron-down" data-fa-transform="shrink-3 down-1"></span></button>
@@ -53,23 +42,23 @@
                 </div>
                 <div class="card-body p-0">
                   <div class="form-check d-none">
-                    <input class="form-check-input" id="checkbox-bulk-card-tickets-select" type="checkbox" data-bulk-select='{"body":"card-ticket-body","actions":"table-ticket-actions","replacedElement":"table-ticket-replace-element"}' />
+                    <input class="form-check-input" id="checkbox-bulk-card-tickets-select" type="checkbox" data-bulk-select='{"body":"card-ticket-body","actions":"table-ticket-actions"}' />
                   </div>
                   <div class="list bg-light p-x1 d-flex flex-column gap-3" id="card-ticket-body">
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
                       <div class="d-flex align-items-start align-items-sm-center">
                         <div class="form-check me-2 me-xxl-3 mb-0">
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
-                        </div><a class="d-none d-sm-block" href="../../app/support-desk/contact-details.jsp">
+                        </div><a class="d-none d-sm-block" href="<c:url value='/club/clubBoardDetail'/>">
                           <div class="avatar avatar-xl avatar-3xl">
                             <div class="avatar-name rounded-circle"><span>jcm</span></div>
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="../../app/support-desk/tickets-preview.jsp">club1</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="<c:url value='/club/clubBoardDetail?clubNo=${clubNo }'/>">club1</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
-                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="../../app/support-desk/contact-details.jsp"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>정창모</span></a></h6>
+                              <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="#"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>정창모</span></a></h6>
                             </div>
                             <div class="col-auto lh-1 me-3"><small class="badge rounded badge-subtle-success false">최근</small>
                             </div>
@@ -79,18 +68,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="border-bottom mt-4 mb-x1"></div>
-                      <div class="d-flex justify-content-between ms-auto">
-                        <div class="d-flex align-items-center gap-2 ms-md-4 ms-xl-0" style="width:7.5rem;">
-                          <div style="--falcon-circle-progress-bar:100">
-                            <svg class="circle-progress-svg" width="26" height="26" viewBox="0 0 120 120">
-                              <circle class="progress-bar-rail" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke-width="12"></circle>
-                              <circle class="progress-bar-top" cx="60" cy="60" r="54" fill="none" stroke-linecap="round" stroke="#e63757" stroke-width="12"></circle>
-                            </svg>
-                          </div>
-                          <h6 class="mb-0 text-700">마감임박</h6>
-                        </div>
-                      </div>
+                      <div class="border-bottom mt-4 mb-x1"><span class="align-right social text-end ps-4">readcount</span></div>
                     </div>
                     <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
                       <div class="d-flex align-items-start align-items-sm-center">

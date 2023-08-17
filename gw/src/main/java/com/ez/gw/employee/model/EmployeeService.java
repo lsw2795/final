@@ -8,6 +8,11 @@ public interface EmployeeService {
 	int PWD_DISAGREE=2; //비밀번호 불일치
 	int	EMPNO_NONE=3; //존재하지 않는 사원번호
 	
+	//관리자 권한 여부 상수
+	int IS_ADMIN=1; //관리자 권한 있음
+	int NOT_ADMIN=2; //관리자 권한 없음
+	int	ADMIN_NONE=3; //해당 관리자 없음
+	
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
 	List<EmployeeVO> selectAllEmp();
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
