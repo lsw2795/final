@@ -15,40 +15,51 @@ $(function(){
     });   
     
     $('#btnSearch').click(function(){
-    	var searchKeyword= $('input[type=search]').val();
-    	//alert(searchKeyword);
-    	$.ajax({
-        url: "<c:url value='/mypage/ajaxSearchEmp'/>",
-        type: "get",
-        data: { searchKeyword: searchKeyword },
-        success: function (res) {
-            $('#searchemp').empty();
-            if (res.length > 0) {
-                var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
-                var results = "";
-                $.each(res, function (index, item) {
-                    results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
-                        "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
-                        "</a><br>";
-                });
-                $('#searchEmp').empty();
-                $('#searchEmp').append(searchrs + results);
-            } else {
-                var result = "검색결과가 없습니다.";
-                $('#searchEmp').empty(); // 이전 검색 결과를 비움
-                $('#searchEmp').append(result); // 검색 결과가 없을 경우 출력
-            }
-        },
-        error: function(xhr, status, error) {
-            alert(status + " : " + error);
-        } 
-        });
+    	performSearch();
+    });
+    
+    $('input[type=search]').keyup(function(event) {
+        if (event.keyCode === 13 || event.key === 'Enter') {
+            performSearch();
+        }
     });
     
 });
 
 function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=280,height=360,top=300,left=700,location=yes,resizable=yes');
+}
+
+function performSearch(){
+	var searchKeyword= $('input[type=search]').val();
+	//alert(searchKeyword);
+	
+	$.ajax({
+    url: "<c:url value='/mypage/ajaxSearchEmp'/>",
+    type: "get",
+    data: { searchKeyword: searchKeyword },
+    success: function (res) {
+        $('#searchemp').empty();
+        if (res.length > 0) {
+            var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
+            var results = "";
+            $.each(res, function (index, item) {
+                results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                    "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
+                    "</a><br>";
+            });
+            $('#searchEmp').empty();
+            $('#searchEmp').append(searchrs + results);
+        } else {
+            var result = "검색결과가 없습니다.";
+            $('#searchEmp').empty();
+            $('#searchEmp').append(result);
+        }
+    },
+    error: function(xhr, status, error) {
+        alert(status + " : " + error);
+    } 
+    });
 }
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
