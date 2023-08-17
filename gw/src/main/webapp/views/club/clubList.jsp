@@ -57,7 +57,7 @@
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
-                        <a href="<c:url value='/club/editClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
+                        <a href="<c:url value='/club/editClub?clubNo=${vo.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
                       </div>
                   </div>
                 </div>
@@ -92,7 +92,7 @@
 			                             <h6 class="mb-0">${vo.manager }</h6>
 			                           </div>
 			                        </td>
-			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubBoard'/>">${vo.title }</a></td>
+			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${vo.clubNo }'/>">${vo.title }</a></td>
 			                        <td class="align-middle memberCnt pe-4">
 			                          	${vo.memLimit }
 			                        </td>

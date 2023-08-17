@@ -124,7 +124,46 @@ public class ClubController {
 		//4.
 		return "club/clubList";
 	}
+
+	@RequestMapping("/clubDetail")
+	public String clubDetail(@ModelAttribute ClubVO clubVo,@RequestParam(defaultValue = "0")int clubNo,
+			Model model) {
+		//1.
+		logger.info("동호회 상세보기, clubNo={}",clubNo);
 		
+		if(clubNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/club/clubList");
+			
+			return "common/message";
+		}
+		
+		//2.
+		clubVo=clubService.selectByClubNo(clubNo);
+		logger.info("동호회 상세보기 clubvo={}",clubVo);
+		//3.
+		model.addAttribute("clubVo", clubVo);
+		//4.
+		return "club/clubDetail";
+	}
+	
+	@RequestMapping("/payClub")
+	public String payClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
+		//1.
+		logger.info("해당 동호회 결제 clubNo={}",clubNo);
+		
+		if(clubNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/club/clubDetail?clubNo="+clubNo);
+			
+			return "common/message";
+		}
+		
+		//2.
+		return "club/clubDetail?clubNo="+clubNo;
+		
+	}
+	
 }
 
 
