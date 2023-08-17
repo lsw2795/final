@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,14 +32,17 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public List<SecondHandTradeVO> selectAllMarket() {
-		return secondHandTradeDao.selectAllMarket();
+	public List<SecondHandTradeVO> selectAllMarket(SearchVO searchVo) {
+		return secondHandTradeDao.selectAllMarket(searchVo);
 	}
-	
 
+	@Override
+	public SecondHandTradeVO selectMarketByNo(int tradeNo) {
+		return secondHandTradeDao.selectMarketByNo(tradeNo);
+	}
 
-
-
-
-
+	@Override
+	public int updateReadCount(int tradeNo) {
+		return secondHandTradeDao.updateReadCount(tradeNo);
+	}
 }

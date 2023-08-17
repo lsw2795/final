@@ -16,4 +16,8 @@
 		where imageurl like '%_0%'
 		order by trade_no desc
 	</select>
+	
+	<select id="selectDetailFileByNo" resultType="secondhandtradeFileVo">
+		select * from secondhand_trade_file where trade_no=#{tradeNo}
+	</select>
 </mapper>

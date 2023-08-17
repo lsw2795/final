@@ -12,6 +12,20 @@
 	</insert>
 	
 	<select id="selectAllMarket" resultType="secondHandTradeVo">
-	 select * from secondhand_trade order by trade_no desc
+	 select * from secondhand_trade 
+	 <if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+	</if>
+	 order by regdate desc
 	</select>
+	
+	<select id="selectMarketByNo" parameterType="int" resultType="secondHandTradeVo">
+		select * from secondhand_trade 
+		where trade_no = #{tradeNo}
+	</select>
+	
+	<update id="updateReadCount" parameterType="int" >
+		update secondhand_trade set readcount = readCount + 1
+		where trade_no = #{tradeNo}
+	</update>
 </mapper>

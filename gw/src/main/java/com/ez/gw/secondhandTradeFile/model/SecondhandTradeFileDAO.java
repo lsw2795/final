@@ -10,4 +10,5 @@ import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 public interface SecondhandTradeFileDAO {
 	int insertFile(SecondhandTradeFileVO secondFileVo);
 	List<SecondhandTradeFileVO> showThumbnail();
+	List<SecondhandTradeFileVO> selectDetailFileByNo(int tradeNo);
 }

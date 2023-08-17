@@ -17,11 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ez.gw.common.SearchVO;
+import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
@@ -40,6 +45,7 @@ public class SecondHandTradeController {
 	private static final Logger logger = LoggerFactory.getLogger(SecondHandTradeController.class);
 	private final SecondHandTradeService secondHandTradeService;
 	private final SecondhandTradeFileService secondHandTradeFileService;
+	private final EmployeeService employeeService;
 	
 	
 	@GetMapping("/addMarket")
@@ -144,13 +150,17 @@ public class SecondHandTradeController {
 	}
 	
 	@RequestMapping("/marketList")
-	public String marketList(Model model) {
+	public String marketList(Model model, HttpSession session, @ModelAttribute SearchVO searchVo) {
 		//1
-		logger.info("중고마켓 화면 보여주기");
+		int empNo = (int)session.getAttribute("empNo");
+		
+		logger.info("중고마켓 화면 보여주기, 사원번호 ={}", empNo);
 		
 		//2
-		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket();
+		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket(searchVo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
+		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		
 		String sub = "";
@@ -161,14 +171,43 @@ public class SecondHandTradeController {
 		}
 		
 		for(SecondHandTradeVO fg : list) {
+			fg.setEmpNo(empNo);
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
 		}
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("sub", sub);
+		
 		//4
 		return "market/marketList";
+	}
+	
+	@RequestMapping("/marketDetail")
+	public String detail(@RequestParam(defaultValue = "0")int tradeNo, HttpSession session, Model model) {
+		
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("중고거래 상세보기 페이지, 파라미터={}", tradeNo);
+		
+		//2
+		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
+		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		
+		logger.info("중고거래 상세보기 페이지 결과, secondVo={}, fileList.size={}", secondVo, fileList.size());
+		
+		
+		int cnt = secondHandTradeService.updateReadCount(tradeNo);
+		logger.info("조회수 증가 결과, cnt ={}", cnt);
+		
+		//3
+		model.addAttribute("vo", secondVo);
+		model.addAttribute("file", fileList);
+		model.addAttribute("emp", emp);
+		
+		//4
+		return "market/marketDetail";
 	}
 	
 }

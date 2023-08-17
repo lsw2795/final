@@ -49,6 +49,7 @@ public class QnaController {
 		
 		//3
 		model.addAttribute("list", list);
+		
 		//4
 		return "qna/list";
 	}

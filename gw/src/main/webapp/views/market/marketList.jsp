@@ -9,19 +9,32 @@
 <div class="card-body">
    <div class="row flex-between-center">
      <div class="col-sm-auto mb-2 mb-sm-0">
-       <h6 class="mb-0">검색 결과 갯수 뿌리기</h6>
      </div>
-     <div class="col-sm-auto">
-       <div class="row gx-2 align-items-center">
-         <div class="col-auto">
-           <form class="row gx-2">
-             <div class="col-auto"><small>Sort by: </small></div>
-             <div class="col-auto">
-               <select class="form-select form-select-sm" aria-label="Bulk actions">
-                 <option selected="">제목</option>
-                 <option value="Refund">판매자</option>
-                 <option value="Delete">Price</option>
+     <div class="d-lg-flex justify-content-between">
+       <div class="row flex-between-center gy-2 px-x1">
+         <div class="col-auto pe-0">
+           <form class="row gx-2" action="<c:url value='/market/marketList'/>">
+             <div class="col-auto pe-0">
+               <select name = "searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+                 <option value = "title" 
+                 	<c:if test="${param.searchCondition=='title' }"> 
+                 		selected="selected"
+               		</c:if>
+               			>제목</option>
+                 <option value="name" 
+                 	<c:if test="${param.searchCondition=='name' }">
+                 		selected="selected"
+                 	</c:if>
+                 		>이름</option>
+                 <option value="content"
+                 	<c:if test="${param.searchCondition=='content' }">
+ 						selected="selected"                		
+                 	</c:if>
+                 		>내용</option>
                </select>
+               <input name="searchKeyword" class="form-control form-control-sm shadow-none search"
+               	value='${param.searchKeyword}' type="search" placeholder="검색어 입력" aria-label="search" />
+             	<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
              </div>
            </form>
          </div>
@@ -65,12 +78,14 @@
 					             <div class="row">
 					               <div class="col-lg-8">
 					                 <h5 class="mt-3 mt-sm-0">
-					                 	<a class="text-dark fs-0 fs-lg-1" href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo} }'/>">
+					                 	<a class="text-dark fs-0 fs-lg-1" href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
 					                 		${vo.title }
 					                 	</a>
 					                 </h5>
 					                 <p class="fs--1 mb-2 mb-md-3">
-			                          	<h6 class="text-500">${vo.regdate }</h6>
+			                          	<h6 class="text-500">
+			                          		<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+		                          		</h6>
 			                          </p>
 					               </div>
 					               <div class="col-lg-4 d-flex justify-content-between flex-column">
@@ -83,8 +98,15 @@
 					                   <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
 					                   </div>
 					                   <div class="d-none d-lg-block">
-					                     <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
-					                     <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+					                     <p class="fs--1 mb-1"> 조회수 : <strong>${vo.readCount }</strong></p>
+					                     <p class="fs--1 mb-1"> 작성자 : <strong>${emp.name }</strong></p>
+					                     <p class="fs--1 mb-1">Stock: 
+						                     <c:if test="${vo.selFlag==0 }">
+						                     	<strong class="text-success">거래가능</strong>
+						                     </c:if>
+						                     <c:if test="${vo.selFlag==1 }">
+						                     	<strong class="text-danger">판매완료</strong>
+						                     </c:if>
 					                     </p>
 					                   </div>
 					                 </div>
@@ -122,12 +144,14 @@
 				             <div class="row">
 				               <div class="col-lg-8">
 				                 <h5 class="mt-3 mt-sm-0">
-				                 	<a class="text-dark fs-0 fs-lg-1" href="<c:url value='../../app/e-commerce/product/product-details.jsp'/>">
+				                 	<a class="text-dark fs-0 fs-lg-1" href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
 				                 		${vo.title }
 				                 	</a>
 			                 	</h5>
 			                 	<p class="fs--1 mb-2 mb-md-3">
-			                        <h6 class="text-500">${vo.regdate }</h6>
+			                        <h6 class="text-500">
+			                        	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+		                        	</h6>
 			                    </p>
 				               </div>
 				               <div class="col-lg-4 d-flex justify-content-between flex-column">
@@ -138,9 +162,17 @@
 				                   <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
 				                   </div>
 				                   <div class="d-none d-lg-block">
-				                     <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong>
-				                     </p>
-				                   </div>
+					                     <p class="fs--1 mb-1"> 조회수 : <strong>${vo.readCount }</strong></p>
+					                     <p class="fs--1 mb-1"> 작성자 : <strong>${emp.name }</strong></p>
+					                     <p class="fs--1 mb-1">Stock: 
+						                     <c:if test="${vo.selFlag==0 }">
+						                     	<strong class="text-success">거래가능</strong>
+						                     </c:if>
+						                     <c:if test="${vo.selFlag==1 }">
+						                     	<strong class="text-danger">판매완료</strong>
+						                     </c:if>
+					                     </p>
+					                   </div>
 				                 </div>
 				                 <div class="mt-2"><a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0" href="#!"><span class="far fa-heart"></span><span class="ms-2 d-none d-md-inline-block">Favourite</span></a><a class="btn btn-sm btn-primary d-lg-block mt-lg-2" href="#!"><span class="fas fa-envelope-open"> </span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a></div>
 				               </div>
