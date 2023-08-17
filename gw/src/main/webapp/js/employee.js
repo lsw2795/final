@@ -7,26 +7,6 @@
 	var contextPath = "/gw";
 
  	$(function() {
-		 function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-
-           var roadAddr = data.roadAddress; // 도로명 주소 변수
-           var extraRoadAddr = ''; // 참고 항목 변수
-
-           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-               extraRoadAddr += data.bname;
-           }
-           if(data.buildingName !== '' && data.apartment === 'Y'){
-              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-           }
-         
-           document.getElementById('sample4_postcode').value = data.zonecode;
-           document.getElementById("sample4_roadAddress").value = roadAddr;
-           }
-        }).open();
-    }
-		 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
 			var jumin1=$('#jumin1').val();

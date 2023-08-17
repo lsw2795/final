@@ -1,5 +1,7 @@
 package com.ez.gw.confirm.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.confirm.model.ConfirmService;
 import com.ez.gw.confirm.model.ConfirmVO;
+import com.ez.gw.confirmFile.model.ConfirmFileService;
+import com.ez.gw.confirmFile.model.ConfirmFileVO;
 import com.ez.gw.confirmLine.model.ConfirmLineService;
-import com.ez.gw.confirmLine.model.ConfirmLineVO;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
+import com.ez.gw.deptagree.model.DeptagreeVO;
 import com.ez.gw.documentform.model.DocumentFormService;
 import com.ez.gw.documentform.model.DocumentFormVO;
 import com.ez.gw.employee.model.EmployeeService;
@@ -27,6 +33,7 @@ import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -36,11 +43,14 @@ import lombok.RequiredArgsConstructor;
 public class ConfirmController {
 	private static final Logger logger = LoggerFactory.getLogger(ConfirmController.class);
     private final ConfirmService confirmService; 
+    private final ConfirmFileService confirmFileService; 
     private final DocumentFormService documentFormService; 
-    private final DeptService deptService; 
+    private final DeptService deptService;
     private final PositionService positionService; 
     private final EmployeeService employeeService; 
-    private final ConfirmLineService confirmLineService; 
+    private final ConfirmLineService confirmLineService;
+    private final FileUploadUtil fileUploadUtil;
+    
     
     @GetMapping("/approvalWrite")
     public String approvalWrite_get(Model model,HttpSession session ) {
@@ -67,17 +77,33 @@ public class ConfirmController {
     }
     
     @PostMapping("/approvalWrite")
-    public String approvalWrite_post(HttpSession session, @ModelAttribute ConfirmVO confirmVo,Model model) {
+    public String approvalWrite_post(HttpSession session,HttpServletRequest request, @ModelAttribute ConfirmVO confirmVo,
+    		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] referEmpNo, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
     	logger.info("결재 작성 처리 파라미터 empNo={},confirmVo={}",empNo,confirmVo);
+    	logger.info("결재 작성 처리 파라미터 합의부서 deptAgreeVo={}",deptAgreeVo);
+    	logger.info("결재 작성 처리 파라미터 참조자 reperEmpNo={}",referEmpNo);
     	
     	//2
+    	//첨부파일 처리
+    	List<Map<String, Object>> fileList = new ArrayList<>();
+    	try {
+    		fileList = fileUploadUtil.fileupload(request,ConstUtil.CONFIRMFILE_FLAG);
+    	} catch (IllegalStateException e) {
+    		e.printStackTrace();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
     	confirmVo.setEmpNo(empNo);
-    	int cnt=confirmService.insertConfirm(confirmVo);
-    	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWite";
+    	int cnt=confirmService.insertConfirm(confirmVo,deptAgreeVo,referEmpNo,fileList);
+    	logger.info("결재 처리 결과 cnt={}",cnt);
+    	
+    	
+    	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWrite";
     	if(cnt>0) {
-    		msg="결재가 작성되었습니다.";
+    		msg="결재 작성 처리가 완료되었습니다.";
     	}
     	
     	//3
@@ -88,17 +114,25 @@ public class ConfirmController {
     }
     
     @GetMapping("/selectEmp/selectEmp")
-    public String selecEmp_get(Model model ) {
+    public String selecEmp_get(Model model,@RequestParam(required = false) int[] referEmpNo ) {
     	//1
-    	logger.info("참조자 선택 페이지");
+    	logger.info("참조자 선택 페이지 파라미터 referEmpNo={}",referEmpNo);
     	
     	//2
     	List<EmployeeVO> empList = employeeService.selectAllEmp();
     	List<DeptVO> deptList = deptService.selectAllDept();
+    	List<EmployeeVO> referEmpList = new ArrayList<>();
+    	if(referEmpNo!=null) {
+	    	for(int i=0;i<referEmpNo.length;i++) {
+	    		EmployeeVO vo = employeeService.selectByEmpNo(referEmpNo[i]);
+	    		referEmpList.add(vo);
+	    	}
+    	}
     	
     	//3
     	model.addAttribute("empList",empList);
     	model.addAttribute("deptList",deptList);
+    	model.addAttribute("referEmpList",referEmpList);
     	
     	return "approval/selectEmp/selectEmp";
     }
@@ -136,15 +170,19 @@ public class ConfirmController {
     	return "approval/selectEmp/selectConfirmLine";
     }
     
-    @ResponseBody
-    @RequestMapping("/selectEmpAjax")
-    public EmployeeVO selectEmpAjax(@RequestParam (defaultValue = "0") int empNo) {
+    @GetMapping("confirmList")
+    public String confirmList_get(HttpSession session, Model model) {
     	//1
-    	logger.info("참조자 선택 empNo={}",empNo);
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
-    	EmployeeVO empVo = employeeService.selectByEmpNo(empNo);
-    	logger.info("사원 조회 결과, empVo={}",empVo);
+    	//2
+    	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(empNo);
     	
-    	return empVo;
+    	//3
+    	model.addAttribute("list",list);
+
+    	//4
+    	return "approval/confirmList";
     }
 }

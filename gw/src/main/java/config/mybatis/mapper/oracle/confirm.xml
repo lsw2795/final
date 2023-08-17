@@ -3,12 +3,23 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.confirm.model.ConfirmDAO">
+	<select id="selectCountByDate" resultType="int">
+		select count(*) from confirm
+		where trunc(create_date) = trunc(sysdate)
+	</select>
+	
 	<insert id="insertConfirm" parameterType="confirmVo">
-		<selectKey keyProperty="cnt" resultType="int" order="BEFORE">
-			select count(*)+1 from confirm
-			where create_date=sysdate
-		</selectKey>
-		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm_line_no,document_no)
-		values(#{cnt},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo})
+		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm_line_no,document_no,start_date,end_date)
+		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo},#{startDate},#{endDate})
 	</insert>
+	
+	<select id="selectAllByEmpNo" parameterType="int" resultType="map">
+		select c.*,e.name,e.image,d.form_name,d.security_level,d.deadline from
+		confirm c join employee e
+		on c.emp_no = e.emp_no
+		join document_form d
+		on c.document_no=d.document_no
+		where c.emp_no=#{empNo}
+		order by confirm_document_no desc
+	</select>
 </mapper>

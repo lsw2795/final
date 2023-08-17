@@ -3,4 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.deptagree.model.DeptagreeDAO">
+	<insert id="insertDeptAgree" parameterType="deptAgreeVo">
+		<selectKey keyProperty="agreementNo" resultType="int" order="BEFORE">
+			select deptagree_seq.nextval from dual
+		</selectKey>
+		insert into deptagree(agreement_no,confirm_document_no,dept_no)
+		values(#{agreementNo},#{confirmDocumentNo},#{deptNo})
+	</insert>
 </mapper>

@@ -48,7 +48,7 @@
 		</selectKey>
 		
 		insert into board(board_no, emp_no, boardList_no, title, content)
-		values(#{boardNo}, 1, 2000, #{title}, #{content})
+		values(#{boardNo}, #{empNo}, 2000, #{title}, #{content})
 	</insert>
 
 	<select id="selectNoticeAll" parameterType="searchVo">
