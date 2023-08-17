@@ -33,8 +33,13 @@
 			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
 	
-	
-	
-	
-		
+	<select id="selectSearchEmp" parameterType="searchVo" resultType="map">
+			select * from organizationChartView
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where name like '%'|| #{searchKeyword} ||'%'
+			or emp_no like '%'|| #{searchKeyword} ||'%'
+			or dept_name like '%'|| #{searchKeyword} ||'%'
+			or position_name like '%'|| #{searchKeyword} ||'%'
+		</if>
+	</select>
 </mapper>

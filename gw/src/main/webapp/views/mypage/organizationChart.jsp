@@ -13,6 +13,35 @@ $(function(){
         $('.collapse.show').not($targetElement).collapse('hide');
         $targetElement.collapse('toggle');
     });   
+    
+    $('#btnSearch').click(function(){
+    	var searchKeyword= $('input[type=search]').val();
+    	//alert(searchKeyword);
+    	$.ajax({
+            url: "<c:url value='/mypage/ajaxSearchEmp'/>",
+            type: "get",
+            data: { searchKeyword : searchKeyword },
+            success: function (res) {
+            	if (res.length > 0) {                	
+                    $('#searchemp').empty();
+                    $.each(res, function (index, item) {
+                        var result = "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                                     item.EMP_NO + " " + item.NAME + " " + item.DEPT_NAME +" "+ item.POSITION_NAME +
+                                     "</a><br>";
+                        $('#searchemp').append(result);
+                    });
+                }else{
+                	$('#searchemp').empty();
+                	var result="<b>검색결과가 없습니다.</b>";
+                	$('#searchemp').append(result);
+                }
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });
+    });
+    
 });
 
 function empDetail(empNo) {
@@ -57,15 +86,17 @@ function empDetail(empNo) {
             </c:forEach>
         </c:if>
  
-				<div class="border-top border-200 py-x1">
-					<small>사원번호/이름/부서/직급 검색</small>
-					<div class="input-group">
-						<input class="form-control shadow-none search"
-							type="search" placeholder="검색어 입력" aria-label="search"/>
-						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-							<span class="fa fa-search fs--1"></span>
-						</button>
-					</div>
-				</div>
+		<div class="border-top border-200 py-x1">
+			사원번호/이름/부서/직위 검색
+			<div class="input-group">
+				<input class="form-control shadow-none search"
+					type="search" placeholder="검색어 입력" aria-label="search"/>
+				<button id="btnSearch" class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+					<span class="fa fa-search fs--1"></span>
+				</button>
+			</div>
+		</div>
+		
+		<div id="searchemp"></div>
 		  </div>
 		</div>

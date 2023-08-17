@@ -1,8 +1,11 @@
 package com.ez.gw.employee.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,5 +50,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int insertEmp(EmployeeVO vo) {
 		return employeeDao.insertEmp(vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectSearchEmp(SearchVO searchVo) {
+		return employeeDao.selectSearchEmp(searchVo);
+	}
+
 
 }
