@@ -13,10 +13,53 @@ $(function(){
         $('.collapse.show').not($targetElement).collapse('hide');
         $targetElement.collapse('toggle');
     });   
+    
+    $('#btnSearch').click(function(){
+    	performSearch();
+    });
+    
+    $('input[type=search]').keyup(function(event) {
+        if (event.keyCode === 13 || event.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
 });
 
 function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=280,height=360,top=300,left=700,location=yes,resizable=yes');
+}
+
+function performSearch(){
+	var searchKeyword= $('input[type=search]').val();
+	//alert(searchKeyword);
+	
+	$.ajax({
+    url: "<c:url value='/mypage/ajaxSearchEmp'/>",
+    type: "get",
+    data: { searchKeyword: searchKeyword },
+    success: function (res) {
+        $('#searchemp').empty();
+        if (res.length > 0) {
+            var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
+            var results = "";
+            $.each(res, function (index, item) {
+                results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                    "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
+                    "</a><br>";
+            });
+            $('#searchEmp').empty();
+            $('#searchEmp').append(searchrs + results);
+        } else {
+            var result = "검색결과가 없습니다.";
+            $('#searchEmp').empty();
+            $('#searchEmp').append(result);
+        }
+    },
+    error: function(xhr, status, error) {
+        alert(status + " : " + error);
+    } 
+    });
 }
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -57,15 +100,16 @@ function empDetail(empNo) {
             </c:forEach>
         </c:if>
  
-				<div class="border-top border-200 py-x1">
-					<small>사원번호/이름/부서/직급 검색</small>
-					<div class="input-group">
-						<input class="form-control shadow-none search"
-							type="search" placeholder="검색어 입력" aria-label="search"/>
-						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-							<span class="fa fa-search fs--1"></span>
-						</button>
-					</div>
-				</div>
+		<div class="border-top border-200 py-x1">
+			사원번호/이름/부서/직위 검색
+			<div class="input-group">
+				<input class="form-control shadow-none search"
+					type="search" placeholder="검색어 입력" aria-label="search"/>
+				<button id="btnSearch" class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+					<span class="fa fa-search fs--1"></span>
+				</button>
+			</div>
+		</div>
+		<div id="searchEmp"></div>
 		  </div>
 		</div>
