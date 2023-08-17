@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.confirm.model.ConfirmService;
 import com.ez.gw.confirm.model.ConfirmVO;
 import com.ez.gw.confirmFile.model.ConfirmFileService;
-import com.ez.gw.confirmFile.model.ConfirmFileVO;
 import com.ez.gw.confirmLine.model.ConfirmLineService;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
@@ -170,17 +169,32 @@ public class ConfirmController {
     	return "approval/selectEmp/selectConfirmLine";
     }
     
-    @GetMapping("confirmList")
-    public String confirmList_get(HttpSession session, Model model) {
+    @RequestMapping("confirmList")
+    public String confirmList_get(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
     	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
-    	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(empNo);
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+   		pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    			
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalRecord(vo);
+		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
     	
     	//3
     	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
 
     	//4
     	return "approval/confirmList";

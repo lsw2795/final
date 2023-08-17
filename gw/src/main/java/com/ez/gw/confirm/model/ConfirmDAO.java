@@ -9,5 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ConfirmDAO {
 	int insertConfirm(ConfirmVO vo);
 	int selectCountByDate();
-	List<Map<String, Object>> selectAllByEmpNo(int empNo);
+	List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo);
+	int getTotalRecord(ConfirmVO vo);
 }

@@ -87,7 +87,12 @@ public class ConfirmServiceImpl implements ConfirmService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllByEmpNo(int empNo) {
-		return confirmDao.selectAllByEmpNo(empNo);
+	public List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo) {
+		return confirmDao.selectAllByEmpNo(vo);
+	}
+
+	@Override
+	public int getTotalRecord(ConfirmVO vo) {
+		return confirmDao.getTotalRecord(vo);
 	}
 }

@@ -3,6 +3,32 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.confirm.model.ConfirmDAO">
+	<sql id="searchWhere">
+		<where>
+			emp_no=#{empNo}
+			<if test="confirmDocumentNo!=null and confirmDocumentNo!=''">
+				and confirm_document_no like '%' || #{confirmDocumentNo} || '%'
+			</if>
+			<if test="confirmTitle!=null and confirmTitle!=''">
+				and confirm_title like '%' || #{confirmTitle} || '%'
+			</if>
+			<if test="documentNo!=null and documentNo!=''">
+				and document_no = #{documentNo}
+			</if>
+			<if test="confirmState!=null and confirmState!=''">
+				and confirm_state = #{confirmState}
+			</if>
+			<if test="createDate!=null and createDate!=''">
+				and trunc(create_date) = #{createDate}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and trunc(start_date) = #{startDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and trunc(end_date) = #{endDate}
+			</if>
+		</where>	
+	</sql>
 	<select id="selectCountByDate" resultType="int">
 		select count(*) from confirm
 		where trunc(create_date) = trunc(sysdate)
@@ -13,13 +39,22 @@
 		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo},#{startDate},#{endDate})
 	</insert>
 	
-	<select id="selectAllByEmpNo" parameterType="int" resultType="map">
-		select c.*,e.name,e.image,d.form_name,d.security_level,d.deadline from
-		confirm c join employee e
-		on c.emp_no = e.emp_no
-		join document_form d
-		on c.document_no=d.document_no
-		where c.emp_no=#{empNo}
-		order by confirm_document_no desc
+	<select id="selectAllByEmpNo" parameterType="confirmVo" resultType="map">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from confirmsview
+					<include refid="searchWhere"></include>
+				)A
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="confirmVo" resultType="int">
+		select count(*) from confirmsview 
+		<include refid="searchWhere"></include>
 	</select>
 </mapper>

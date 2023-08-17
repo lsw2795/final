@@ -2,14 +2,18 @@ package com.ez.gw.confirm.model;
 
 import java.sql.Timestamp;
 
-import lombok.Data;
+import com.ez.gw.common.SearchVO;
 
-@Data
-public class ConfirmVO {	//전자결재
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ConfirmVO extends SearchVO {	//전자결재
 	private String confirmDocumentNo; // 결재문서번호 NOT NULL(PK)         
 	private String confirmTitle;// 제목 NOT NULL  
 	private String confirmContent; // 내용 NOT NULL 
-	private Timestamp createDate; // 상신일   
+	private String createDate; // 상신일   
 	private Timestamp updateDate; // 수정일   
 	private Timestamp reviewDate; // 검토일   
 	private Timestamp confirmDate; // 확인일   
