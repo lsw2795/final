@@ -161,8 +161,10 @@ public class ClubController {
 		
 		//2.
 		return "club/clubDetail?clubNo="+clubNo;
-		
 	}
+	
+	
+	
 	
 }
 

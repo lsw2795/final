@@ -59,7 +59,7 @@ public class AdminController {
 			String msg="로그인 처리 실패", url="/login/adminLogin"; 
 			if(cnt==EmployeeService.LOGIN_OK) {
 				msg=empNo+"님이 로그인 하셨습니다";
-				url="/";
+				url="/admin";
 				
 				//session
 				HttpSession session=request.getSession();
@@ -83,12 +83,11 @@ public class AdminController {
 			}else if(cnt==EmployeeService.EMPNO_NONE){
 				msg="해당 사원번호는 존재하지 않습니다.";
 			}
+			model.addAttribute("msg", msg); 
+			model.addAttribute("url", url);
 		}
 
 		//3.
-		/*
-		 * model.addAttribute("msg", msg); model.addAttribute("url", url);
-		 */
 		//4.
 		return "common/message";
 		
