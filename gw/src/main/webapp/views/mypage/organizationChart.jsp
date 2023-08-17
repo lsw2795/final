@@ -18,27 +18,30 @@ $(function(){
     	var searchKeyword= $('input[type=search]').val();
     	//alert(searchKeyword);
     	$.ajax({
-            url: "<c:url value='/mypage/ajaxSearchEmp'/>",
-            type: "get",
-            data: { searchKeyword : searchKeyword },
-            success: function (res) {
-            	if (res.length > 0) {                	
-                    $('#searchemp').empty();
-                    $.each(res, function (index, item) {
-                        var result = "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
-                                     item.EMP_NO + " " + item.NAME + " " + item.DEPT_NAME +" "+ item.POSITION_NAME +
-                                     "</a><br>";
-                        $('#searchemp').append(result);
-                    });
-                }else{
-                	$('#searchemp').empty();
-                	var result="<b>검색결과가 없습니다.</b>";
-                	$('#searchemp').append(result);
-                }
-            },
-            error:function(xhr,status,error){
-                alert(status+" : "+error);
-            } 
+        url: "<c:url value='/mypage/ajaxSearchEmp'/>",
+        type: "get",
+        data: { searchKeyword: searchKeyword },
+        success: function (res) {
+            $('#searchemp').empty();
+            if (res.length > 0) {
+                var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
+                var results = "";
+                $.each(res, function (index, item) {
+                    results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                        "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
+                        "</a><br>";
+                });
+                $('#searchEmp').empty();
+                $('#searchEmp').append(searchrs + results);
+            } else {
+                var result = "검색결과가 없습니다.";
+                $('#searchEmp').empty(); // 이전 검색 결과를 비움
+                $('#searchEmp').append(result); // 검색 결과가 없을 경우 출력
+            }
+        },
+        error: function(xhr, status, error) {
+            alert(status + " : " + error);
+        } 
         });
     });
     
@@ -96,7 +99,6 @@ function empDetail(empNo) {
 				</button>
 			</div>
 		</div>
-		
-		<div id="searchemp"></div>
+		<div id="searchEmp"></div>
 		  </div>
 		</div>

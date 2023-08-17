@@ -41,5 +41,6 @@
 			or dept_name like '%'|| #{searchKeyword} ||'%'
 			or position_name like '%'|| #{searchKeyword} ||'%'
 		</if>
+			order by dept_name asc, position_name desc
 	</select>
 </mapper>
