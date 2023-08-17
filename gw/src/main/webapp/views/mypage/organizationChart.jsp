@@ -14,6 +14,10 @@ $(function(){
         $targetElement.collapse('toggle');
     });   
 });
+
+function empDetail(empNo) {
+    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=280,height=360,top=300,left=700,location=yes,resizable=yes');
+}
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
@@ -40,10 +44,9 @@ $(function(){
                             <div class="card card-body">
                                 <div class="list-group" id="empList">
                                 	<c:forEach var="map" items="${deptAllVo.empList }">
-                                   		<a href="#" class="list-group-item-action" 
-                                   		data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                   		<button class="list-group-item-action mypageempbtncss" onclick="empDetail(${map.EMP_NO});">
                                    			${map['EMP_NO']} ${map['NAME']} ${map['POSITION_NAME']}
-                                   		</a>
+                                   		</button>
                                    		<!--<a href="#" class="list-group-item-action">사원1</a> -->
                                 	</c:forEach>
                                 </div>

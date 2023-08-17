@@ -4,27 +4,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
-<script type="text/javascript"
-	src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
-<script type="text/javascript">
-$(function(){
-   
-});
-</script>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<style>
+	body{
+		background: #eff2f8;
+	}
+</style>
+<div>
+  <div>
+    <div>
+    	<div class="mypageempdiv13">
+      	 <h2>사원정보</h2>
+       </div>
+    </div>
+      <div class="card-body" style="text-align: center; font-size: 20px;">
+      	<img src="<c:url value='/images/${empVo.image }'/>" alt="사원 이미지" style="width:200px; height:250px;">
+      	<br><br>
+        사원 번호 : ${empVo.empNo }<br>
+		사원 이름 : ${empVo.name }<br>
+		내선 번호 : ${empVo.extensionNo}<br>
+		연락처 : ${empVo.tel }<br>
+		이메일 : ${empVo.email }<br>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="card-footer" style="text-align: center;"><br>
+        <input type="button" value="쪽지 보내기" class="mypageempbtncss2"/>
       </div>
     </div>
   </div>
-</div>

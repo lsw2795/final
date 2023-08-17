@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
@@ -80,6 +82,18 @@ public class EmployeeController {
         model.addAttribute("url", url);
 
         return "common/message";
+	}
+	
+	@RequestMapping("/mypage/empDetail")
+	public String empDetail(@RequestParam (defaultValue = "0") int empNo, Model model) {
+		logger.info("조직도- 사원 디테일 페이지 보기 파라미터 empNo={}", empNo);
+		
+		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
+		logger.info("사원 디테일 조회 결과, empVo={}", empVo);
+		
+		model.addAttribute("empVo", empVo);
+		
+		return "mypage/empDetail";
 	}
 	
 }

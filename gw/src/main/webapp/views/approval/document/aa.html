@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>휴가신청서</title>
+<!-- CSS only -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+var element=document.getElementById("pdf");
+html2pdf(element)
+	
+}) 
+</script>
+</head>
+<body>
+	<div class="container" id="pdf">
+		<h2>휴 가 신 청 서</h2>
+		<table id="check" width="200" class="table" align="right">
+			<tbody>
+				<tr>
+					<td>기안</td>
+					<td>검토</td>
+			    	<td>확인</td>
+					<td>승인</td>
+				</tr>
+				<tr>
+					<td height="50">&nbsp;</td>
+					<td height="50">&nbsp;</td>
+			    	<td height="50">&nbsp;</td>
+					<td height="50">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table" width="200px" border="5" align="center" >
+			<tbody>
+				<tr>
+					<td width="30%" height="40">문서번호</td>
+					<td width="20%" align="center"></td>
+					<td width="30%">작성일자</td>
+					<td width="20%" align="center"></td>
+				</tr>
+			  	<tr>
+				    <td height="40">이 름</td>
+				    <td align="center" name="userName"></td>
+					<td>수정일자</td>
+					<td align="center"></td>
+				</tr>
+				<tr>
+					<td height="40">부서(팀)</td>
+					<td align="center"></td>
+					<td>검토일자</td>
+					<td align="center"></td>
+				</tr>
+				<tr>
+					<td height="40">직 책</td>
+				    <td align="center"></td>
+					<td>확인일자</td>
+				    <td align="center"></td>
+				</tr>
+				<tr>
+					<td height="40">제 목</td>
+					<td colspan="3" align="left" style="padding:3px;"></td>
+				</tr>
+				<tr>
+					<td height="200">내용</td>
+					<td colspan="3" align="left" valign="top"></td>
+				</tr>
+				<tr>
+					<td height="40">합의부서</td>
+					<td align="center"></td>
+				    <td>합의일자</td>
+				    <td align="center"></td>
+				</tr>
+				<tr>
+					<td height="40">참조자</td>
+					<td colspan="3" align="left"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
