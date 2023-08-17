@@ -4,13 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
-<script type="text/javascript"
-	src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
-<script type="text/javascript">
-$(function(){
-   
-});
-</script>
+<style>
+	body{
+		background: #eff2f8;
+	}
+</style>
 <div>
   <div>
     <div>
