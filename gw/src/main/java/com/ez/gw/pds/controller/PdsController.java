@@ -262,15 +262,15 @@ public class PdsController {
 					}
 				}//if
 			}//for
+		}
+		
+		int cnt = pdsService.deletePds(boardNo);
+		logger.info("게시글 삭제 결과 cnt={}", cnt);
+		
+		if(cnt>0) {
+			msg = "자료가 삭제 되었습니다.";
+			url = "/pds/list";
 			
-			int cnt = pdsService.deletePds(boardNo);
-			logger.info("게시글 삭제 결과 cnt={}", cnt);
-			
-			if(cnt>0) {
-				msg = "자료가 삭제 되었습니다.";
-				url = "/pds/list";
-				
-			}
 		}
 
 		//3
