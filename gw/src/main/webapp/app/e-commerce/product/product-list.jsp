@@ -2057,8 +2057,13 @@
                     <div class="col-sm-7 col-md-8">
                       <div class="row">
                         <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)</a></h5>
-                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
+                          <h5 class="mt-3 mt-sm-0">
+	                          <a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)
+	                          </a>
+                          </h5>
+                          	<p class="fs--1 mb-2 mb-md-3">
+                          		<a class="text-500" href="#!">Computer &amp; Accessories</a>
+                          	</p>
                           <ul class="list-unstyled d-none d-lg-block">
                             <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>16GB RAM</span></li>
                             <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>1TB SSD Hard Drive</span></li>

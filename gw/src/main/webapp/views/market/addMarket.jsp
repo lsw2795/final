@@ -45,8 +45,30 @@
 				return false;
 			} */
 		});
+		
+		  $("#fileInput").on("change", function() {
+			  var imagePreview = $(".dz-message");
+			  imagePreview.empty();
+			  
+			  var files = $(this)[0].files;
+              for (var i = 0; i < files.length; i++) {
+                  var file = files[i];
+                  var reader = new FileReader();
+                  
+                  reader.onload = function(e) {
+                      var img = $("<img>").attr("src", e.target.result).css({
+                          width: "150px", // 이미지 크기 조절
+                          margin: "10px" // 이미지 간격 조절
+                      });
+                      imagePreview.append(img);
+                  };
+                  
+                  reader.readAsDataURL(file);
+		  }
+	  });
+		  
 	});
-
+		
 </script>
  <div class="content">
           <div class="card mb-3">
@@ -67,21 +89,21 @@
                     <div class="row gx-2">
                       <div class="col-12 mb-3"s>
                         <label class="form-label" for="product-name">제목</label>
-                        <input class="form-control" id="product-name" name="title" type="text" />
+                        <input class="form-control" id="product-name" name="title" type="text" value="${secondVo.title }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="identification-no">상품명</label>
-                        <input class="form-control" id="identification-no" name = "product" type="text" />
+                        <input class="form-control" id="identification-no" name = "product" type="text" value="${secondVo.product }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">가격</label>
-                        <input class="form-control" id="product-summary" name = "price" type="text" />
+                        <input class="form-control" id="product-summary" name = "price" type="text" value="${secondVo.price }"/>
                       </div>
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
-                      	<input class="form-control" id="product-description" name="discription" type = "text"  style="height:150px"/>
-                        <textarea class="tinymce d-none" data-tinymce="data-tinymce" name="product-description" id="product-description"></textarea>
+                        <textarea class="form-control" data-tinymce="data-tinymce" name="discription" id="product-description"
+                        	style="height:300px">${secondVo.discription }</textarea>
                       </div>
                    	</div>
                     </div>
@@ -94,7 +116,7 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="imageURL2" type="file" multiple="multiple" />
+                      <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
                     </div>
                     <div class="dz-message" data-dz-message="data-dz-message"> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />

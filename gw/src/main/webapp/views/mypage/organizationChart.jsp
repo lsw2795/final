@@ -8,34 +8,11 @@
 <script type="text/javascript">
 $(function(){
     $('.btnDept').click(function () {
-    	var deptNo = $(this).data('dept-no');
-      	alert("부서번호 : " + deptNo);
-    	
    	    var target = $(this).data('bs-target');
         var $targetElement = $(target);
         $('.collapse.show').not($targetElement).collapse('hide');
         $targetElement.collapse('toggle');
-
-        $.ajax({
-            url: "<c:url value='/mypage/ajaxOrganizationChart'/>",
-            type: "get",
-            data: { deptNo: deptNo },
-            success: function (res) {
-                if (res.length > 0) {
-                    $('#empList').empty();
-                    $.each(res, function (index, item) {
-                        var result = "<a href='#' class='list-group-item-action'>" +
-                                     item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
-                                     "</a>";
-                        $('#empList').append(result);
-                    });
-                }
-            },
-            error:function(xhr,status,error){
-                alert(status+" : "+error);
-            } 
-        });
-    });
+    });   
 });
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -44,25 +21,31 @@ $(function(){
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <c:if test="${empty deptList}">
+        <c:if test="${empty list}">
             비어있음
         </c:if>
-        <c:if test="${!empty deptList}">
-            <c:forEach var="deptVo" items="${deptList}">
+        <c:if test="${!empty list}">
+            <c:forEach var="deptAllVo" items="${list}">
                 <p>
                     <button class="btn btn-primary btnDept" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#dept-${deptVo.deptNo }"
-                            data-dept-no="${deptVo.deptNo}">
+                            data-bs-toggle="collapse" data-bs-target="#dept-${deptAllVo.deptVo.deptNo }"
+                            data-dept-no="${deptAllVo.deptVo.deptNo}">
                         <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
                     </button>
-                    <span>${deptVo.name }</span>
+                    <span>${deptAllVo.deptVo.name }</span>
                 </p>
                 <div class="row">
                     <div class="col">
-                        <div class="collapse" id="dept-${deptVo.deptNo }">
+                        <div class="collapse" id="dept-${deptAllVo.deptVo.deptNo }">
                             <div class="card card-body">
                                 <div class="list-group" id="empList">
-                                   <!--  <a href="#" class="list-group-item-action">사원1</a> -->
+                                	<c:forEach var="map" items="${deptAllVo.empList }">
+                                   		<a href="#" class="list-group-item-action" 
+                                   		data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                   			${map['EMP_NO']} ${map['NAME']} ${map['POSITION_NAME']}
+                                   		</a>
+                                   		<!--<a href="#" class="list-group-item-action">사원1</a> -->
+                                	</c:forEach>
                                 </div>
                             </div>
                         </div>

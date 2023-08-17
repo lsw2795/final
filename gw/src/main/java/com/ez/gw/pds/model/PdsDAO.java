@@ -15,6 +15,7 @@ public interface PdsDAO {
 	Map<String, Object> selectPds(int boardNo);
 	int updatePds(BoardVO vo);
 	int deletePds(int boardNo);
+	int deletePdsFile(int boardNo); 
 	int insertFiles(PdsVO vo); //파일 업로드 
 	List<PdsVO> selectFilesByBoardNo(int boardNo); // 게시글 번호로 파일 리스트 조회
 	int updateDownloadCount(int boardNo);

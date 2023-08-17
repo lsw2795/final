@@ -1,6 +1,6 @@
 package com.ez.gw.secondhandTrade.model;
 
-import java.security.Timestamp;
+import java.sql.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +16,5 @@ public class SecondHandTradeVO { //사내중고거래
 	private String discription; //상품설명
 	private Timestamp regdate; //등록일
 	private int readCount; //조회수
-	private String mainImgURL; //대표이미지
 	private int boardListNo; //게시판번호
 }

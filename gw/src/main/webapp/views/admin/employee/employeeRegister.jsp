@@ -5,25 +5,9 @@
 <script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-
-           var roadAddr = data.roadAddress; // 도로명 주소 변수
-           var extraRoadAddr = ''; // 참고 항목 변수
-
-           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-               extraRoadAddr += data.bname;
-           }
-           if(data.buildingName !== '' && data.apartment === 'Y'){
-              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-           }
-         
-           document.getElementById('sample4_postcode').value = data.zonecode;
-           document.getElementById("sample4_roadAddress").value = roadAddr;
-           }
-        }).open();
-    }
+    $(function(){
+    	
+    });
 </script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
@@ -42,6 +26,9 @@
 					        <input type="text" class="form-control admindefault" id="name" name="name"/>
 					    </div>
 					</div>
+					<div class="col-md-auto adminempdiv8 col-md-6 d-flex justify-content-end">
+					 <img src="<c:url value='/images/IMG_5487.jpg'/>" alt="이미지" class="img-fluid">
+			    	</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv17">
 					        <label class="col-form-label adminemplabel" for="ename">사원 영어이름</label>

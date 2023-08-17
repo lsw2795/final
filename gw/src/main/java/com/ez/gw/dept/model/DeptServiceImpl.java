@@ -29,4 +29,9 @@ public class DeptServiceImpl implements DeptService{
 		return deptDao.selectEmpByDeptNo(deptVo);
 	}
 
+	@Override
+	public List<DeptAllVO> selectAllDept2(DeptVO deptVo) {
+		return deptDao.selectAllDept2(deptVo);
+	}
+
 }

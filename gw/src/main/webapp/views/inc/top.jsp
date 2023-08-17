@@ -108,17 +108,17 @@
             <div class="col-md-12">
                   <div class="card font-sans-serif">
                     <div class="card-body d-flex flex-sm-row">
-                    <img class="rounded-3" src="<c:url value='/images/IMG_5487.jpg'/>" alt="" width="100" />
+                    <img class="rounded-3" src="<c:url value='/images/차은우.png'/>" alt="" width="100" />
                       <table class="table table-borderless fs--1 fw-medium mb-0">
                         <tbody>
                           <tr>
-                            <td class="p-1">홍길동</td>
+                            <td class="p-1">차은우</td>
                           </tr>
                           <tr>
                             <td class="p-1">대리</td>
                           </tr>
                           <tr>
-                            <td class="p-1">영업팀</td>
+                            <td class="p-1">정윤팀</td>
                             </td>
                           </tr>
                         </tbody>

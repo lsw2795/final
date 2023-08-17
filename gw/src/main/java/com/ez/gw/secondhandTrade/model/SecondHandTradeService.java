@@ -12,4 +12,5 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface SecondHandTradeService {
 	int insertMarket(SecondHandTradeVO secondVo);
+	List<SecondHandTradeVO> selectAllMarket();
 }

@@ -10,4 +10,8 @@
 		insert into secondhand_trade(trade_no, title, product, price, discription)
 		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription})
 	</insert>
+	
+	<select id="selectAllMarket" resultType="secondHandTradeVo">
+	 select * from secondhand_trade order by trade_no desc
+	</select>
 </mapper>

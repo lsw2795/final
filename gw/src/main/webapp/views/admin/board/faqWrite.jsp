@@ -2,14 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>"> 
-  <div class="offcanvas offcanvas-center admindefault" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title admindefault" id="offcanvasRightLabel">FAQ 등록</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="card-body">
-		<div class="table-responsive scrollbar admindefault">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content admindefault">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 admindefault" id="exampleModalLabel">FAQ 등록</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       	<div class="table-responsive scrollbar admindefault">
 			<table class="table table-bordered">
 				<colgroup>
 					<col style="width: 35%;" />
@@ -25,17 +26,17 @@
 					<tr class="adminemptr">
 						<td class="align-middle">FAQ 내용</td>
 						<td class="align-middle">
-							<textarea class="admindefault" rows="20" cols="50"></textarea>
+							<textarea class="admindefault" rows="20" cols="35"></textarea>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-      
       </div>
-      <div style="text-align: center;">
+      <div class="modal-footer" style="text-align: center;">
         <input type="submit" value="등록" class="btn btn-primary">
-        <input type="button" value="취소" class="btn btn-primary">
+        <input type="button" value="취소" class="btn btn-primary" data-bs-dismiss="modal">
       </div>
     </div>
   </div>
+</div> 
