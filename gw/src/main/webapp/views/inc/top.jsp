@@ -73,7 +73,7 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-      <div class="container" data-layout="container">
+      <div class="container-lg" data-layout="container">
         <script>
           var isFluid = JSON.parse(localStorage.getItem('isFluid'));
           if (isFluid) {
@@ -82,7 +82,7 @@
             container.classList.add('container-fluid');
           }
         </script>
-        <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+        <nav class="navbar navbar-light navbar-vertical navbar-expand-lg">
           <script>
             var navbarStyle = localStorage.getItem("navbarStyle");
             if (navbarStyle && navbarStyle !== 'transparent') {
@@ -216,7 +216,7 @@
                     		</li>
                     		<!-- 임원 -->
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/approval/confirmList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 문서함</span>
                         			</div> 

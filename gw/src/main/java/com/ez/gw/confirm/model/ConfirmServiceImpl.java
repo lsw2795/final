@@ -32,12 +32,11 @@ public class ConfirmServiceImpl implements ConfirmService{
 	private final DeptagreeDAO deptAgreeDao;
 	private final ReferDAO reperDao;
 	private final ConfirmFileDAO confirmFileDao;
-	private final FileUploadUtil fileUploadUtil;
 	
 	@Transactional
 	@Override
 	public int insertConfirm(ConfirmVO confirmVo, DeptagreeVO deptAgreeVo,
-			int[] referEmpNo,HttpServletRequest request) {
+			int[] referEmpNo,List<Map<String, Object>> fileList) {
 		int cnt=confirmDao.selectCountByDate();
 		String cdNo=confirmVo.getConfirmDocumentNo();
 		cdNo+="-"+(cnt+1);
@@ -63,37 +62,32 @@ public class ConfirmServiceImpl implements ConfirmService{
 		}
 		
 		//첨부파일 처리
-    	try {
-    		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-    		Map<String, MultipartFile> fileMap=multiRequest.getFileMap();
-    		logger.info("첨부파일 fileMap={}",fileMap);
-    		if(fileMap!=null && !fileMap.isEmpty()) {
-    		List<Map<String, Object>> fileList = fileUploadUtil.fileupload(request,ConstUtil.CONFIRMFILE_FLAG);
-				String fileName="", originalFileName="";
-				long fileSize=0;
+		if(fileList.size()!=0) {
+			String fileName="", originalFileName="";
+			long fileSize=0;
 				
-				ConfirmFileVO confirmFileVo = new ConfirmFileVO();
-				confirmFileVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
+			ConfirmFileVO confirmFileVo = new ConfirmFileVO();
+			confirmFileVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
 				
-				for(Map<String, Object> map : fileList) {
-					fileName=(String)map.get("fileName");
-					originalFileName=(String)map.get("originalFileName");
-					fileSize=(long)map.get("fileSize");
+			for(Map<String, Object> map : fileList) {
+				fileName=(String)map.get("fileName");
+				originalFileName=(String)map.get("originalFileName");
+				fileSize=(long)map.get("fileSize");
 					
-					confirmFileVo.setFileName(fileName);
-					confirmFileVo.setOriginalFileName(originalFileName);
-					confirmFileVo.setFileSize(fileSize);
+				confirmFileVo.setFileName(fileName);
+				confirmFileVo.setOriginalFileName(originalFileName);
+				confirmFileVo.setFileSize(fileSize);
 				
-					cnt=confirmFileDao.insertConfirmFile(confirmFileVo);
-					logger.info("파일 저장 결과 cnt={}",cnt);
-				}//for
-			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+				cnt=confirmFileDao.insertConfirmFile(confirmFileVo);
+				logger.info("파일 저장 결과 cnt={}",cnt);
+			}//for
 		}
 		
 		return cnt;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllByEmpNo(int empNo) {
+		return confirmDao.selectAllByEmpNo(empNo);
 	}
 }

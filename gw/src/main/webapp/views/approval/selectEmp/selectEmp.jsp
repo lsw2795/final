@@ -132,11 +132,10 @@
 		</div>	
 		<div class="col-sm-5">
 			<div class="card h-lg-100 overflow-hidden">
-			<span style="display: none;"></span>
 				<div class="card-header bg-light">
 					조직도
 				</div>
-				<div class="card-body selectDiv" >
+				<div class="card-body selectDiv scrollbar"  >
 		        	<ul id="navbarVerticalNav">
 		        	<c:forEach var="deptVo" items="${deptList }">
 		        		<li class="nav-item">
@@ -173,7 +172,7 @@
 				<div class="card-header bg-light">
 					참조자
 				</div>
-				<div class="card-body selectDiv" id="select">
+				<div class="card-body selectDiv scrollbar" id="select">
 					<c:if test="${!empty referEmpList }">
 						<c:forEach var="vo" items="${referEmpList }"> 
 							<span class='selectName' style='display: block;'>${vo.name }</span>

@@ -9,7 +9,17 @@
 	</select>
 	
 	<insert id="insertConfirm" parameterType="confirmVo">
-		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm_line_no,document_no)
-		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo})
+		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm_line_no,document_no,start_date,end_date)
+		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo},#{startDate},#{endDate})
 	</insert>
+	
+	<select id="selectAllByEmpNo" parameterType="int" resultType="map">
+		select c.*,e.name,e.image,d.form_name,d.security_level,d.deadline from
+		confirm c join employee e
+		on c.emp_no = e.emp_no
+		join document_form d
+		on c.document_no=d.document_no
+		where c.emp_no=#{empNo}
+		order by confirm_document_no desc
+	</select>
 </mapper>

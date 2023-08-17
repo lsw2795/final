@@ -37,5 +37,12 @@ public interface ConstUtil {
 	//전자결재
 	Date date = new Date();
 	int CONFIRM_NO=1;
+	int RETURN = -1; 
+	int WAIT = 0; 
+	int CONFIRM1=1;
+	int CONFIRM2=2;
+	int DEPTAGREE=3;
+	int CONFIRM3=4;
+	int COMPLETE=5;
 	
 }

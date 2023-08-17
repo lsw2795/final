@@ -49,6 +49,7 @@ public class ConfirmController {
     private final PositionService positionService; 
     private final EmployeeService employeeService; 
     private final ConfirmLineService confirmLineService;
+    private final FileUploadUtil fileUploadUtil;
     
     
     @GetMapping("/approvalWrite")
@@ -85,9 +86,20 @@ public class ConfirmController {
     	logger.info("결재 작성 처리 파라미터 참조자 reperEmpNo={}",referEmpNo);
     	
     	//2
+    	//첨부파일 처리
+    	List<Map<String, Object>> fileList = new ArrayList<>();
+    	try {
+    		fileList = fileUploadUtil.fileupload(request,ConstUtil.CONFIRMFILE_FLAG);
+    	} catch (IllegalStateException e) {
+    		e.printStackTrace();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
     	confirmVo.setEmpNo(empNo);
-    	int cnt=confirmService.insertConfirm(confirmVo,deptAgreeVo,referEmpNo,request);
+    	int cnt=confirmService.insertConfirm(confirmVo,deptAgreeVo,referEmpNo,fileList);
     	logger.info("결재 처리 결과 cnt={}",cnt);
+    	
     	
     	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWrite";
     	if(cnt>0) {
@@ -158,15 +170,19 @@ public class ConfirmController {
     	return "approval/selectEmp/selectConfirmLine";
     }
     
-    @ResponseBody
-    @RequestMapping("/selectEmpAjax")
-    public EmployeeVO selectEmpAjax(@RequestParam (defaultValue = "0") int empNo) {
+    @GetMapping("confirmList")
+    public String confirmList_get(HttpSession session, Model model) {
     	//1
-    	logger.info("참조자 선택 empNo={}",empNo);
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
-    	EmployeeVO empVo = employeeService.selectByEmpNo(empNo);
-    	logger.info("사원 조회 결과, empVo={}",empVo);
+    	//2
+    	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(empNo);
     	
-    	return empVo;
+    	//3
+    	model.addAttribute("list",list);
+
+    	//4
+    	return "approval/confirmList";
     }
 }

@@ -152,11 +152,10 @@
 		</div>	
 		<div class="col-sm-5">
 			<div class="card h-lg-100 overflow-hidden">
-			<span style="display: none;"></span>
 				<div class="card-header bg-light">
 					조직도
 				</div>
-				<div class="card-body LineSelectDiv" >
+				<div class="card-body LineSelectDiv scrollbar" >
 		        	<ul id="navbarVerticalNav">
 		        	<c:forEach var="deptVo" items="${deptList }">
 		        		<li class="nav-item">

@@ -145,7 +145,7 @@
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="positionName">
-	                        	직책
+	                        	직위
 	                        </label><br>
 	                        	${positonVo.positionName }
 	                    </div>
@@ -175,6 +175,18 @@
 	                       		<span id="referEmpNameSpan">참조자를 선택하세요</span>
 	                       		<div id="referEmpNo"></div>
 	                        </div>
+	                    </div>
+	                    <div class="col-sm-6 mt-2">
+	                        <label class="form-label" for="startDate">시작일</label>
+	                        <div>
+	                    		<input type="date" name="startDate">
+	                    	</div>
+	                    </div>
+	                    <div class="col-sm-6 mt-2">
+	                        <label class="form-label" for="endDate">종료일</label>
+	                        <div>
+	                    		<input type="date" name="endDate">
+	                    	</div>
 	                    </div>
 	                    <div class="col-12">
 			                <div class="row gx-2 mt-3 mb-3">

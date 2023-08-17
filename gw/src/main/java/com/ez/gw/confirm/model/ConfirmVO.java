@@ -14,9 +14,9 @@ public class ConfirmVO {	//전자결재
 	private Timestamp reviewDate; // 검토일   
 	private Timestamp confirmDate; // 확인일   
 	private Timestamp completeDate; //결재일    
-	private Timestamp startDate; //시행일    
+	private String startDate; //시행일    
 	private int confirmState; //결재상태(0:예정 1:대기 2:승인 3:반려)          
-	private Timestamp endDate; //종료일 
+	private String endDate; //종료일 
 	private char delflag; //삭제여부         
 	private int empNo; //기안자(EMPLOYEE FK) 
 	private int confirmLineNo; //결재라인번호 

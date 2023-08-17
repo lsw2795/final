@@ -7,16 +7,26 @@
 <meta charset="UTF-8">
 <title>휴가신청서</title>
 <!-- CSS only -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="<c:url value='/css/document.css'/>" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+var element=document.getElementById("pdf");
+html2pdf(element)
+	
+}) 
+</script>
 </head>
 <body>
-		<div class="container p-0">
+		<div class="container p-0" id="pdf">
 			<div class="row g-0" id="header">
 				<div class="col-6" id="mainTitle">
 					<h2>휴 가 신 청 서</h2>
 				</div>
 				<div class="col-6" id="check-div">
-					<table id="check" width="270" class="table-bordered" align="right">
+					<table id="check" width="220" class="table-bordered" align="right">
 						<tbody>
 							<tr>
 						    	<td>기안</td>
@@ -35,7 +45,7 @@
 				</div>
 			</div>
 			<div class="row g-0">
-				<table class="table-bordered" id="document" align="center" >
+				<table class="table-bordered" id="document" border="2" style="border-color: black;" align="center" >
 					<tbody>
 						<tr>
 						    <td width="170" height="40" colspan="3" >문서번호</td>
@@ -201,5 +211,6 @@
 				</table>
 			</div>
 		</div>
+	
 </body>
 </html>
