@@ -22,6 +22,11 @@ public class SecondhandTradeFileServiceImpl implements SecondhandTradeFileServic
 	public List<SecondhandTradeFileVO> showThumbnail() {
 		return secondhandTradeFileDao.showThumbnail();
 	}
+
+	@Override
+	public List<SecondhandTradeFileVO> selectDetailFileByNo(int tradeNo) {
+		return secondhandTradeFileDao.selectDetailFileByNo(tradeNo);
+	}
 	
 	
 }
