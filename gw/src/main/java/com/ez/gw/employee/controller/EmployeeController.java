@@ -101,10 +101,10 @@ public class EmployeeController {
 	@RequestMapping("/mypage/ajaxSearchEmp")
 	@ResponseBody
 	public List<Map<String, Object>> searchEmpList(@ModelAttribute SearchVO searchVo){
-		logger.info("조직도 사원 검색- 파라미터 searchVo={}", searchVo);
+		logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
 		
 		List<Map<String, Object>> searchList=employeeService.selectSearchEmp(searchVo);
-		logger.info("조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
+		logger.info("ajax 이용, 조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
 		return searchList;
 	}
 	
