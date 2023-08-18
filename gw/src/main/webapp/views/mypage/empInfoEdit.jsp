@@ -4,6 +4,23 @@
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	$(function(){
+		var tel=$('#tel').val();
+		var email=$('#email').val();
+		
+		var str=tel.split("-");
+		var tel1=tel[0];
+		var tel2=tel[1];
+		var tel3=tel[2];
+		$('#tel1').val(tel1);
+		$('#tel2').val(tel2);
+		$('#tel3').val(tel3);
+		
+		var str2=email.split("@");
+		var email1=email[0];
+		var email2=email[1];
+	});
+
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -49,7 +66,7 @@
 					    </div> 
 					</div>
 					<div class="col-md-auto mypageempdiv8">
-			        	<img src="<c:url value='/images/IMG_5487.jpg'/>" alt="사원 이미지" class="employeeimage">
+			        	<img src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지" class="employeeimage">
 			    	</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv12">
@@ -115,8 +132,17 @@
 					    <div class="col-md-auto mypageempdiv6">
 							<label class="col-form-label mypageemplabel" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-6">  
-							<span class="mypageempspan">${map['ANNUAL_SALARY']}</span>
+						<div class="col-md-6">
+							<c:if test="${empty map['ANNUAL_SALARY']}">
+								<span class="mypageempspan">
+								연봉협상 예정
+								</span>
+							</c:if>	  
+							<c:if test="${!empty map['ANNUAL_SALARY']}">
+								<span class="mypageempspan">
+									<fmt:formatNumber value="${map['ANNUAL_SALARY']}" pattern="#,###"/> 만
+								</span>
+							</c:if>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -165,9 +191,9 @@
 				    <div class="row mb-3 d-flex align-items-center">
 				    	<div class="col-md-auto mypageempdiv10"></div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+					        <input type="text" class="form-control" id="sample4_roadAddress" value="${map['ADDRESS']}" placeholder="도로명주소">
 					        <div class="mb-1"></div>
-					        <input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소">
+					        <input type="text" class="form-control" id="sample4_detailAddress" value="${map['ADDRESSDETAIL']}" placeholder="상세주소">
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -220,7 +246,6 @@
 					</div>
 					<!-- hidden 처리 인풋태그들 -->
 					 <input type="text" id="tel" name="tel" value="${map['TEL']}"/>
-					 <input type="text" id="address" name="address" value="${map['ADDRESS']}"/>
 					 <input type="text" id="email" name="email" value="${map['EMAIL']}"/>
 				</form>
 			</div>
