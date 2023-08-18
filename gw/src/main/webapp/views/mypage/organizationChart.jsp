@@ -27,7 +27,7 @@ $(function(){
 });
 
 function empDetail(empNo) {
-    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=280,height=360,top=300,left=700,location=yes,resizable=yes');
+    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
 
 function performSearch(){
