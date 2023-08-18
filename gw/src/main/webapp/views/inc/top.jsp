@@ -140,9 +140,9 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link active" href="#">
+                    			<a class="nav-link " href="<c:url value='/mypage/empInfoEdit?empNo=${sessionScope.empNo}'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내정보 수정</span>
+                        				<span class="nav-link-text ps-1">내 정보 수정</span>
                         			</div> 
                       			</a>
                     		</li>

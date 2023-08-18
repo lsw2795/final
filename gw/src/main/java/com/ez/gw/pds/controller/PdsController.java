@@ -3,6 +3,7 @@ package com.ez.gw.pds.controller;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.pds.model.PdsService;
@@ -172,8 +174,13 @@ public class PdsController {
 		//2
 		Map<String, Object> map = pdsService.selectPds(boardNo);
 		logger.info("자료실 자료 상세조회, map={}", map);
+		
+		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
+		logger.info("자료실 자료 상세조회 - 파일 조회 fileList.size={}", fileList.size());
+		
 		//3
 		model.addAttribute("map", map);
+		model.addAttribute("fileList", fileList);
 		//4
 		return "pds/edit";
 	}
@@ -186,6 +193,7 @@ public class PdsController {
 		//2
 		int cnt = pdsService.updatePds(vo);
 		logger.info("자료 수정 결과, cnt={}", cnt);
+		
 
 		//3
 		String msg = "자료 수정 실패", url = "/pds/edit?boardNo=" + vo.getBoardNo();
@@ -222,10 +230,18 @@ public class PdsController {
 		
 		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
 		logger.info("자료실 자료 상세조회 - 파일 조회 fileList.size={}", fileList.size());
+		
+		List<String> fileInfoArr = new ArrayList<>(); 
+		for(PdsVO vo : fileList) {
+			long fileSize = vo.getFileSize();
+			String fileName = vo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
 
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("fileList", fileList);
+		model.addAttribute("fileInfoArr", fileInfoArr);
 
 		//4
 		return "pds/detail";

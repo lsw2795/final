@@ -24,8 +24,10 @@ import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
+import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -101,12 +103,25 @@ public class EmployeeController {
 	@RequestMapping("/mypage/ajaxSearchEmp")
 	@ResponseBody
 	public List<Map<String, Object>> searchEmpList(@ModelAttribute SearchVO searchVo){
-		logger.info("조직도 사원 검색- 파라미터 searchVo={}", searchVo);
+		logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
 		
 		List<Map<String, Object>> searchList=employeeService.selectSearchEmp(searchVo);
-		logger.info("조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
+		logger.info("ajax 이용, 조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
 		return searchList;
 	}
+	
+	@GetMapping("/mypage/empInfoEdit")
+	public String empEdit(HttpSession session,Model model) {
+		//1
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("사원 정보 수정 페이지, 파라미터 empNo={}", empNo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원 정보 수정 페이지 결과 map={}", map);
+		model.addAttribute("map", map);
+		return "mypage/empInfoEdit";
+	}
+	
+	
 	
 }
 
