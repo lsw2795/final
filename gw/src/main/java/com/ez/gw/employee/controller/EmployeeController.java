@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
 import com.ez.gw.employee.model.EmployeeService;
@@ -94,6 +96,16 @@ public class EmployeeController {
 		model.addAttribute("empVo", empVo);
 		
 		return "mypage/empDetail";
+	}
+	
+	@RequestMapping("/mypage/ajaxSearchEmp")
+	@ResponseBody
+	public List<Map<String, Object>> searchEmpList(@ModelAttribute SearchVO searchVo){
+		logger.info("조직도 사원 검색- 파라미터 searchVo={}", searchVo);
+		
+		List<Map<String, Object>> searchList=employeeService.selectSearchEmp(searchVo);
+		logger.info("조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
+		return searchList;
 	}
 	
 }
