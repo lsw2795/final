@@ -6,11 +6,15 @@
 
 <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>"
 	rel="stylesheet">
+<link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
 <style type="text/css">
 .image-container {
 	width: 240px;
 	height: 200px;
 	overflow: hidden;
+}
+.col-lg-8 h5{
+	font-weight:bold;
 }
 
 .image-container img {
@@ -78,25 +82,6 @@ ul#navbarVerticalNav {
 					</div>
 					<div class="border-bottom border-200 my-3"></div>
 				</div>
-					<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
-						<div class="bg-300 mx-3 d-none d-lg-block d-xl-none"
-							style="width: 1px; height: 29px"></div>
-						<div class="d-none" id="table-contact-actions">
-							<div class="d-flex">
-								<button class="btn btn-falcon-default btn-sm ms-2" type="button">질문
-									삭제</button>
-							</div>
-						</div>
-						<div class="d-flex align-items-center"
-							id="table-contact-replace-element">
-							<button class="btn btn-falcon-default btn-sm" type="button">
-								<span class="" data-fa-transform="shrink-3"></span> <a
-									href='<c:url value='/market/addMarket'/>'> <span
-									class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">거래
-										올리기 </a> </span>
-							</button>
-						</div>
-					</div>
 				</div>
 			
 		<br>

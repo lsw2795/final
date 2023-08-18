@@ -4,7 +4,7 @@
 }
 
 html {
-    font-size: 10px;
+    font-size: 17px;
 }
 
 ul, li {
@@ -296,7 +296,7 @@ a {
 
 .form-select{
 	display: inline;
-	width: 7%;
+	width: 15%;
 }
 .form-control{
 	display: inline;

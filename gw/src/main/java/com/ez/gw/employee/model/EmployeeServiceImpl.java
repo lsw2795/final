@@ -60,11 +60,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Map<String, Object> selectEmpByEmpNo(int empNo) {
-		return employeeDao.selectEmpByEmpNo(empNo);
-	}
-
-
 	public void sendEmail(EmployeeVO empVo, String div) {
 		
 	}
