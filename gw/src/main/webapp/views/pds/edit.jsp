@@ -164,6 +164,7 @@
 		        		</span>
 		        	</c:forEach>	
 	        	</c:if>
+	        	<br>
         	 </div>
                 <div class="file_list">
                     <div>

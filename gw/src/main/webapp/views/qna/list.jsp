@@ -4,7 +4,7 @@
 
  <div class="row gx-3">
             <h2>Q&A 게시판</h2>
-            <div class="col-xxl-10 col-xl-9">
+            <div >
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":11,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
