@@ -28,4 +28,21 @@
 		update secondhand_trade set readcount = readCount + 1
 		where trade_no = #{tradeNo}
 	</update>
+	
+	<select id="getTotalRecord" parameterType="secondHandTradeVo" resultType="int">
+		 select count(*)
+    	from secondhand_trade
+    <where>
+        <if test="searchKeyword!=null and searchKeyword!=''">
+            <choose>
+                <when test="searchCondition == 'total'">
+                    title like '%' || #{searchKeyword} || '%' or discription like '%' || #{searchKeyword} || '%'
+                </when>
+                <otherwise>
+                    ${searchCondition} like '%' || #{searchKeyword} || '%'
+                </otherwise>
+            </choose>
+        </if>
+    </where>
+	</select>
 </mapper>

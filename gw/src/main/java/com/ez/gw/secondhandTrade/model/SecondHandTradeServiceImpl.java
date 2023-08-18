@@ -45,4 +45,9 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	public int updateReadCount(int tradeNo) {
 		return secondHandTradeDao.updateReadCount(tradeNo);
 	}
+
+	@Override
+	public int getTotalRecord(SearchVO searchVo) {
+		return secondHandTradeDao.getTotalRecord(searchVo);
+	}
 }

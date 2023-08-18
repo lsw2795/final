@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
@@ -48,6 +50,7 @@ public class SecondHandTradeController {
 	private final SecondHandTradeService secondHandTradeService;
 	private final SecondhandTradeFileService secondHandTradeFileService;
 	private final EmployeeService employeeService;
+	
 	
 	
 	
@@ -156,11 +159,23 @@ public class SecondHandTradeController {
 		logger.info("중고마켓 화면 보여주기, 사원번호 ={}", empNo);
 		
 		//2
+		//페이징
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
+		//[2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
 		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket(searchVo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
 		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
 		
+		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
+		pagingInfo.setTotalRecord(totalRecord);
 		
 		String sub = "";
 		int time=0;
@@ -183,7 +198,9 @@ public class SecondHandTradeController {
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("sub", sub);
+		model.addAttribute("emp", emp);
 		model.addAttribute("time", time);
+		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "market/marketList";
 	}

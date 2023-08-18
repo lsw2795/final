@@ -16,4 +16,5 @@ public interface SecondHandTradeService {
 	List<SecondHandTradeVO> selectAllMarket(SearchVO searchVo);
 	SecondHandTradeVO selectMarketByNo(int tradeNo);
 	int updateReadCount(int tradeNo);
+	int getTotalRecord(SearchVO searchVo);
 }

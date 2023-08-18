@@ -18,9 +18,25 @@
 	height: 100%;
 	object-fit: cover;
 }
-</style>
 
+ul#navbarVerticalNav {
+   		font-size: 17px;
+	}	
+</style>
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+
+</script>
 <div class="card-body">
+<form action="<c:url value='/market/marketList'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+</form>
  <div class="row gx-3">
 	<h2>중고거래 게시판</h2>
 	  <div class="row flex-between-center">
@@ -291,7 +307,43 @@
 					</c:choose>
 				</div>
 			</div>
-		<div class="card-footer d-flex justify-content-center">
+			<!-- 페이징 처리  -->
+       <div class="board_page">
+	<!-- 페이지 번호 추가 -->		
+		<!-- 이전 블럭으로 이동 -->
+		<c:if test="${pagingInfo.firstPage>1}">
+			<a href="#" class="bt first" onclick="pageFunc(${pagingInfo.firstPage-1})"><<</a>
+		</c:if>
+		
+		<!-- 이전 페이지로 이동  -->
+		<c:if test="${pagingInfo.currentPage>1}">
+			<a href="#" class="bt prev" onclick="pageFunc(${pagingInfo.currentPage-1})"><</a>
+		</c:if>				
+		
+		<!-- [1][2][3][4][5][6][7][8][9][10] -->
+		<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">		
+			<c:if test="${i == pagingInfo.currentPage }">		
+				<a href="#" class="num on">${i}</a>
+        	</c:if>
+			<c:if test="${i != pagingInfo.currentPage }">		
+		         <a href="#" class="num" onclick="pageFunc(${i})">${i}</a>
+		    </c:if>   		
+		</c:forEach>
+		
+		<!-- 다음 페이지로 이동 -->
+		<c:if test="${pagingInfo.totalRecord>0}">
+			<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
+	        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+			</c:if>
+		</c:if>
+		
+		<!-- 다음 블럭으로 이동 -->
+		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+	         <a href="#" class="bt last" onclick="pageFunc(${pagingInfo.lastPage+1})">>></a>
+		</c:if>
+		<!--  페이지 번호 끝 -->
+	</div>
+		<!-- <div class="card-footer d-flex justify-content-center">
 			<button class="btn btn-sm btn-falcon-default me-1" type="button"
 				title="Previous" data-list-pagination="prev">
 				<span class="fas fa-chevron-left"></span>
@@ -302,7 +354,7 @@
 				title="Next" data-list-pagination="next">
 				<span class="fas fa-chevron-right"></span>
 			</button>
-		  </div>
+		  </div> -->
 		</div>
 	  </div>
 	</div>
