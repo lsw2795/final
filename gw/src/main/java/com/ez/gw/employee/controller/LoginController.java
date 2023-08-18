@@ -29,13 +29,6 @@ public class LoginController {
 		logger.info("사원 로그인 페이지");
 		return "/login/empLogin";
 	}
-
-	@RequestMapping("/empForgotPwd")
-	public String pwdForgot() {
-		//1.
-		logger.info("사원 비밀번호 찾기 페이지");
-		return "/login/empForgotPwd";
-	}
 	
 	@PostMapping("/empLogin")
 	public String logiEmp_post(@RequestParam int empNo, @RequestParam String pwd, 
