@@ -1,6 +1,9 @@
 package com.ez.gw.employee.model;
 
 import java.util.List;
+import java.util.Map;
+
+import com.ez.gw.common.SearchVO;
 
 public interface EmployeeService {
 	//로그인 처리 관련 상수
@@ -18,4 +21,5 @@ public interface EmployeeService {
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); 
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
+	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 }
