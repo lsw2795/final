@@ -78,8 +78,8 @@
 						</div>
 					</div>
 					<div style="text-align: center;">
-					<input type="submit" value="${btLabel}" class="btn btn-primary"/>
-					<input type="button" value="취소" class="btn btn-primary"/>
+						<input type="submit" value="${btLabel}" class="btn btn-primary"/>
+						<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
 				</form>
 			</div>

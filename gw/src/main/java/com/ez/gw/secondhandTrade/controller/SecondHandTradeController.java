@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.controller.PositionController;
@@ -33,6 +34,7 @@ import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
+import ch.qos.logback.classic.pattern.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -48,19 +50,14 @@ public class SecondHandTradeController {
 	private final EmployeeService employeeService;
 	
 	
-	@GetMapping("/addMarket")
-	public String addMarket() {
-		logger.info("중고거래 등록 화면 보여주기");
-		
-		return "market/addMarket";
-	}
 	
-	@GetMapping("/getMarket")
+	@GetMapping("/addMarket")
 	public String get_addMarket(Model model, HttpSession session) {
 		//세션에서 저장한 폼 데이터 불러오기
 		SecondHandTradeVO secondVo = (SecondHandTradeVO)session.getAttribute("secondVo");
 		SecondhandTradeFileVO secondFileVo = (SecondhandTradeFileVO)session.getAttribute("secondFileVo");
 		
+		logger.info("중고거래 등록 화면 보여주기");
 		//세션에서 데이터를 불러왔으면 해당 데이터를 모델에 추가하여 폼에 미리 채워진 상태로 보여줌
 		if(secondVo!=null && secondFileVo!=null) {
 			model.addAttribute("secondVo", secondVo);
@@ -72,7 +69,9 @@ public class SecondHandTradeController {
 	@PostMapping("/addMarket")
 	public String post_addMarket(@ModelAttribute SecondHandTradeVO secondVo, @ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) {
 		//1
-		logger.info("중고거래 상품 등록, 파라미터 secondVo = {}", secondVo);
+		int empNo = (int)session.getAttribute("empNo");
+		secondVo.setEmpNo(empNo);
+		logger.info("중고거래 상품 등록, 파라미터 secondVo = {}, empNo={}", secondVo, empNo);
 		String msg = "", url = "";
 		int cnt=0;
 		
@@ -164,6 +163,7 @@ public class SecondHandTradeController {
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		
 		String sub = "";
+		int time=0;
 		for(SecondhandTradeFileVO f : fileList) {
 			String fileName = f.getImageURL();
 			int idx = fileName.indexOf(".");
@@ -172,13 +172,18 @@ public class SecondHandTradeController {
 		
 		for(SecondHandTradeVO fg : list) {
 			fg.setEmpNo(empNo);
+			time=Utility.displayNew(fg.getRegdate());
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
+			logger.info("time={}", time);
+					
 		}
+		
+		
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("sub", sub);
-		
+		model.addAttribute("time", time);
 		//4
 		return "market/marketList";
 	}

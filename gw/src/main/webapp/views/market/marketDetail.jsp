@@ -40,7 +40,7 @@
                     	"slideToClickedSlide":true}'>
                       <div class="swiper-wrapper">
                       	<c:forEach var="file" items="${file }">
-	                        <div class="swiper-slide h-100">
+	                        <div class="swiper-slide">
 	                        	<img class="rounded-1 object-fit-cover w-100" src="<c:url value='/market/upload/${file.imageURL }'/>" alt="" />
 	                        </div>
                       	</c:forEach>
