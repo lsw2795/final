@@ -18,7 +18,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .file_list > div > button.del_btn {right:95px;}
 .file_list > div > button.del_btn span::before {background-position:0 -27px;}
 .file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}
-.file_list .file_input {display:inline-block; width:350px; margin-top:0;}
+.file_list .file_input {display:inline-block; width:450px; margin-top:0;}
 
 /* 버튼 기본 스타일 ------------------------------- */
 .btns {display:inline-block; padding:0 10px; height:28px; line-height:26px; text-align:center; vertical-align:middle; border-radius:3px; border:1px solid transparent; /* white-space:nowrap; */ font-weight:500; font-family:'Noto Sans KR', Dotum, Arial, tahoma, Helvetica, sans-serif;}
