@@ -22,4 +22,5 @@ public interface EmployeeService {
 	String selctAuthority(int empNo); 
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
+	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
 }

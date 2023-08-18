@@ -44,4 +44,10 @@
 			order by dept_name asc, position_name desc
 	</select>
 	
+	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
+		select * from organizationChartView
+		where emp_no=#{empNo}
+	</select>
+	
+	
 </mapper>

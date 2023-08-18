@@ -56,6 +56,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectSearchEmp(searchVo);
 	}
 
+	@Override
+	public Map<String, Object> selectEmpByEmpNo(int empNo) {
+		return employeeDao.selectEmpByEmpNo(empNo);
+	}
+
 
 
 }

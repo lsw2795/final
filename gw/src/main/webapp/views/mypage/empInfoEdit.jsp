@@ -30,13 +30,22 @@
 				<h5 class="mb-0"><span class="fas fa-user" style="margin: 0 10px;"></span>내 정보 수정</h5>
 			</div>
 			<div class="card-body py-2">
-				<form>
+				<form name="frmWrite" method="post" enctype="multipart/form-data"
+				action="<c:url value='/mypage/empInfoEdit'/>">	
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto mypageempdiv3">
+					        <label class="col-form-label mypageemplabel" for="name">사원 번호</label>
+					    </div>
+					    <div class="col-md-6">
+					        <span class="mypageempspan">${map['EMP_NO']}</span>
+					    </div> 
+					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv3">
 					        <label class="col-form-label mypageemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
-					        <span class="mypageempspan">이름 고정</span>
+					        <span class="mypageempspan">${map['NAME']}</span>
 					    </div> 
 					</div>
 					<div class="col-md-auto mypageempdiv8">
@@ -47,15 +56,24 @@
 					        <label class="col-form-label mypageemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
-					       <span class="mypageempspan">사원영어이름 고정</span>
+					       <span class="mypageempspan">${map['ENAME']}</span>
 					    </div>
 					</div>
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto mypageempdiv4">
+							<label class="col-form-label mypageemplabel">주민번호</label>
+						</div>
+						<div class="col-md-6">
+					       <span class="mypageempspan">${map['JUMIN']}</span>
+					    </div>
+					</div>
+						 
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv6">
 							<label class="col-form-label mypageemplabel" for="basic-form-gender">부서</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							<span class="mypageempspan">부서는 관리자만 수정가능</span>
+							<span class="mypageempspan">${map['DEPT_NAME']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -63,7 +81,7 @@
 							<label class="col-form-label mypageemplabel" for="basic-form-gender">직급</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							 <span class="mypageempspan">직급은 관리자만 수정가능</span>
+							 <span class="mypageempspan">${map['POSITION_NAME']}</span>
 						</div>
 					</div>
 					
@@ -72,7 +90,7 @@
 							<label class="col-form-label mypageemplabel">내선번호</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<span class="mypageempspan">내선번호는 관리자만 수정가능</span>
+							<span class="mypageempspan">${map['EXTENSION_NO']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -80,7 +98,9 @@
 							<label class="col-form-label mypageemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
-							<span class="mypageempspan">입사일 고정</span>
+							<span class="mypageempspan">
+								<fmt:formatDate value="${map['HIREDATE']}" pattern="yyyy년 MM 월 dd 일"/>
+							</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -88,7 +108,7 @@
 							<label class="col-form-label mypageemplabel">근속연수</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<span class="mypageempspan">근속연수 고정</span>
+							<span class="mypageempspan">${map['ANNUAL_YEAR']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -96,7 +116,7 @@
 							<label class="col-form-label mypageemplabel" for="annualSalary">연봉</label>
 						</div>
 						<div class="col-md-6">  
-							<span class="mypageempspan">연봉은 관리자만 수정가능</span>
+							<span class="mypageempspan">${map['ANNUAL_SALARY']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -194,11 +214,14 @@
 							<span class="mypageempspan">동호회가 있으면 나타남</span>
 						</div>
 					</div>
-					
 					<div style="text-align: center;">
 					<input type="submit" value="수정" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
+					<!-- hidden 처리 인풋태그들 -->
+					 <input type="text" id="tel" name="tel" value="${map['TEL']}"/>
+					 <input type="text" id="address" name="address" value="${map['ADDRESS']}"/>
+					 <input type="text" id="email" name="email" value="${map['EMAIL']}"/>
 				</form>
 			</div>
 		</div>
