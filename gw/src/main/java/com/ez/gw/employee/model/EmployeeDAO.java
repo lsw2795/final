@@ -15,5 +15,6 @@ public interface EmployeeDAO {
 	String selctAuthority(int empNo); //관리자 로그인여부
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
-	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
+	int updateFindPwd(EmployeeVO empVo) throws Exception; //사원 비번 찾기
+	
 }

@@ -115,9 +115,9 @@ public class EmployeeController {
 		//1
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("사원 정보 수정 페이지, 파라미터 empNo={}", empNo);
-		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
-		logger.info("사원 정보 수정 페이지 결과 map={}", map);
-		model.addAttribute("map", map);
+		//Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		//logger.info("사원 정보 수정 페이지 결과 map={}", map);
+		//model.addAttribute("map", map);
 		return "mypage/empInfoEdit";
 	}
 	

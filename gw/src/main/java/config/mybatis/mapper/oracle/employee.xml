@@ -22,6 +22,12 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<update id="updateFindPwd" parameterType="employeeVo">
+		update employee
+		set pwd=#{pwd} 
+		where emp_no=#{empNo}
+	</update>
+	
 	<insert id="insertEmp" parameterType="employeeVo">
 		<selectKey keyProperty="empNo" order="BEFORE" resultType="int">
 			select EMPLOYEE_SEQ.nextval from dual
@@ -43,11 +49,4 @@
 		</if>
 			order by dept_name asc, position_name desc
 	</select>
-	
-	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
-		select * from organizationChartView
-		where emp_no=#{empNo}
-	</select>
-	
-	
 </mapper>
