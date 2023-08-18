@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.ez.gw.common.SearchVO;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 public interface EmployeeService {
 	//로그인 처리 관련 상수
 	int LOGIN_OK=1; //로그인 성공
@@ -22,4 +24,6 @@ public interface EmployeeService {
 	String selctAuthority(int empNo); 
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
+	void sendEmail(EmployeeVO empVo, String div); //비번찾기 메일 보내기
+	void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception; //비번찾기	
 }
