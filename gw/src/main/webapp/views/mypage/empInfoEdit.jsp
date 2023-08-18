@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
+<script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
@@ -9,16 +10,16 @@
 		var email=$('#email').val();
 		
 		var str=tel.split("-");
-		var tel1=tel[0];
-		var tel2=tel[1];
-		var tel3=tel[2];
+		var tel1=str[0];
+		var tel2=str[1];
+		var tel3=str[2];
 		$('#tel1').val(tel1);
 		$('#tel2').val(tel2);
 		$('#tel3').val(tel3);
 		
 		var str2=email.split("@");
-		var email1=email[0];
-		var email2=email[1];
+		var email1=str2[0];
+		$('#email1').val(email1);
 	});
 
     function sample4_execDaumPostcode() {

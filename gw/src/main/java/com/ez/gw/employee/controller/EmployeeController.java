@@ -121,7 +121,16 @@ public class EmployeeController {
 		return "mypage/empInfoEdit";
 	}
 	
-	
+	@GetMapping("/inc/empMain")
+	public String empMain(HttpSession session,Model model) {
+		//1
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원메인 정보 페이지 결과 map={}", map);
+		model.addAttribute("map", map);
+		return "inc/empMain";
+	}
 	
 }
 
