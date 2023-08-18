@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="selectAllPosition" resultType="positionVo">
-		select * from position
+		select * from position order by position_rank asc
 	</select>
 
 </mapper>
