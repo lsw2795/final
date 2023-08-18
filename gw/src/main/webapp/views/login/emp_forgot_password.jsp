@@ -71,27 +71,7 @@
             container.classList.remove('container');
             container.classList.add('container-fluid');
           }
-          
-          /* 임시 비밀번호 메일로 보내기 */
-          $(function(){
-			$("#btnSend").click(function(){
-				$.ajax({
-					url : "/employee/",
-					type : "POST",
-					data : {
-						empNo : $("#empNo").val(),
-						email : $("#email").val()
-					},
-					success : function(result) {
-						alert(result);
-					},
-				})
-			});
-		});
-          
-          
         </script>
-        
         <div class="row min-vh-100 bg-100">
           <div class="col-6 d-none d-lg-block position-relative">
             <div class="bg-holder overlay" style="background-image:url(../../assets/img/generic/17.jpg);background-position: 50% 76%;">
@@ -103,15 +83,14 @@
             <div class="row justify-content-center g-0">
               <div class="col-lg-9 col-xl-8 col-xxl-6">
                 <div class="card">
-                  <div class="card-header text-center p-2"><a class="font-sans-serif fw-bolder fs-4 z-1 position-relative link-light" href="<c:url value='/login/empForgotPwd'/>" data-bs-theme="light"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
+                  <div class="card-header bg-circle-shape bg-shape text-center p-2"><a class="font-sans-serif fw-bolder fs-4 z-1 position-relative link-light" href="../../../index.jsp" data-bs-theme="light">falcon</a></div>
                   <div class="card-body p-4">
                     <div class="text-center">
                       <h4 class="mb-0"> Forgot your password?</h4><small>Enter your email and we'll send you email.</small>
-                      <form name="frmPwd" method="post" action="<c:url value='/login/empLogin'/>" class="mb-3 mt-4">
-                        <input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
-                        <input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
+                      <form class="mb-3 mt-4">
+                        <input class="form-control" type="email" placeholder="Email address" />
                         <div class="mb-3"></div>
-                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" id="btnSend" name="submit">Send email</button>
+                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Send email</button>
                     </div>
                   </div>
                 </div>

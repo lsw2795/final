@@ -92,7 +92,7 @@
             <div class="row justify-content-center g-0">
               <div class="col-lg-9 col-xl-8 col-xxl-6">
                 <div class="card">
-                  <div class="card-header text-center p-2"><a class="d-flex flex-center mb-4" href="<c:url value='/login/empLogin'/>"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
+                  <div class="card-header text-center p-2"><a class="d-flex flex-center mb-4" href="<c:url value='/view/login/empLogin.jsp'/>"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
                   <div class="card-body p-4">
                     <div class="row flex-between-center">
                       <div class="col-auto">
@@ -121,7 +121,7 @@
                             <label class="form-check-label mb-0" for="split-checkbox">사원번호 저장하기</label>
                           </div>
                         </div>
-                        <div class="col-auto"><a class="fs--1" href="<c:url value='/login/empForgotPwd'/>">Forgot Password?</a></div>
+                        <div class="col-auto"><a class="fs--1" href="<c:url value='/views/login/emp_forgot_password.jsp'/>">Forgot Password?</a></div>
                       </div>
                       <div class="mb-3">
                         <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in</button>
