@@ -44,7 +44,7 @@ public class LoginController {
 		String msg="로그인 처리 실패", url="/login/empLogin"; 
 		if(result==EmployeeService.LOGIN_OK) {
 			msg=empNo+"님이 로그인 하셨습니다";
-			url="/";
+			url="/main";
 			
 			//session
 			HttpSession session=request.getSession();
