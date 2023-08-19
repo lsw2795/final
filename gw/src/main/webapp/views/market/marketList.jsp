@@ -109,7 +109,7 @@ ul#navbarVerticalNav {
 															src="<c:url value='/market/upload/${vo.tradeNo}_0${sub}'/>"
 															alt="" />
 														</a>
-														<c:if test="${vo.timeNew==1 }">
+														<c:if test="${vo.timeNew==1}">
 															<div
 																class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
 																New</div>
@@ -216,7 +216,7 @@ ul#navbarVerticalNav {
 																<div class="swiper-button-prev swiper-button-white"></div>
 															</div>
 														</div>
-														<c:if test="${time == 1 }">
+														<c:if test="${vo.timeNew == 1 }">
 															<div
 																class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
 																New</div>

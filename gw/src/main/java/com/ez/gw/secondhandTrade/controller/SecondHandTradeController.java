@@ -185,13 +185,11 @@ public class SecondHandTradeController {
 		}
 		
 		for(SecondHandTradeVO fg : list) {
-			int time=0;
 			fg.setEmpNo(empNo);
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
-			logger.info("time={}", time);
-					
+			//logger.info("time={}", time);
 		}
 		
 		
