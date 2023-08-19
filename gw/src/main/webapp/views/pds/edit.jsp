@@ -164,11 +164,11 @@
 	          <div>
                 <!-- 글수정, 파일 첨부된 경우 -->
           	  	<c:if test="${!empty fileList}">	
-		          	<c:forEach var="vo" items="${fileList}">
+		          	<c:forEach var="vo" items="${fileList}" varStatus="idx">
 					    <div class="file-input">
 					    	<img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
 					        <span>${vo.originalFileName}</span>
-					        <input type="hidden" name="FILE_" value="true">|
+					        <input type="hidden" name="oldFileNames" value="${vo.fileName}">|
 					        <a href='#' class='file-delete'>삭제</a>
 					    </div>
 					</c:forEach>
