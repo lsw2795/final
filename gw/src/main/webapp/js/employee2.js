@@ -1,18 +1,31 @@
 
 /**
- * employee.js (관리자 사원 등록)
+ * employee2.js
  */
 
 	//전역변수 선언
 	var contextPath = "/gw";
 
  	$(function() {
-		 $('#imageUpload').change(function(){
-			 file = $('#imageUpload').prop("files")[0];
-	            imageURL = URL.createObjectURL(file);
-	            $('#imagePriview img').attr('src', imageURL);
-	            $('#imagePriview').slideDown(); 
-		});
+		 var tel=$('#tel').val();
+		var email=$('#email').val();
+		
+		var str=tel.split("-");
+		var tel1=str[0];
+		var tel2=str[1];
+		var tel3=str[2];
+		$('#tel1').val(tel1);
+		$('#tel2').val(tel2);
+		$('#tel3').val(tel3);
+		
+		var str2=email.split("@");
+		var email1=str2[0];
+		$('#email1').val(email1);
+		
+		var jumin=$('#jumin').text();
+		var str=jumin.substr(0,8)+"******";
+		$('#jumin').text(str);
+		 
 		 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
@@ -60,50 +73,26 @@
 			}
 			$('#email').attr('value',email);
 			
-			if ($('#name').val().length < 1) {
-				alert("사원이름을 입력하세요");
-				$('#name').focus();				
-				return false;
-			}
-			
-			if ($('#ename').val().length < 1) {
-				alert("사원영문이름을 입력하세요");
-				$('#ename').focus();				
-				return false;
-			}
-			
-			if ($('#jumin').val().length < 1) {
-				alert("주민번호를 입력하세요");
-				$('#jumin1').focus();				
-				return false;
-			}
-			
 			if ($('#pwd').val().length < 1) {
 				alert("비밀번호를 입력하세요");
 				$('#pwd').focus();
 				return false;
 			}
 			
-			if ($('#extensionNo').val().length < 1) {
-				alert("내선번호를 입력하세요");
-				$('#extensionNo1').focus();
-				return false;
-			}
-			
 			if ($('#tel').val().length < 1) {
-				alert("전화번호를 입력하세요");
+				alert("전화번호를 입력하세요.");
 				$('#tel1').focus();
 				return false;
 			}
 			
 			if ($('#email').val().length < 1) {
-				alert("이메일은 필수 입력 사항입니다.");
+				alert("이메일을 입력하세요.");
 				$('#email1').focus();
 				return false;
 			}
 			
 			if ($('#sample4_roadAddress').val().length < 1) {
-				alert("주소는 필수 입력사항입니다.");
+				alert("주소를 입력하세요.");
 				$('#btnsearchAddress').focus();
 				return false;
 			}
@@ -128,19 +117,7 @@
 				$("#tel1").focus();
 				return false;
 			}
-			
-			if (!validate_num($("#jumin1").val())
-					|| !validate_num($("#jumin2").val())) {
-				alert("주민번호는 숫자만 가능합니다");
-				$("#jumin1").focus();
-				return false;
-			}
-			if ($("#jumin1").val().length!=6
-				|| $("#jumin2").val().length!=7) {
-				alert("주민번호의 형식이 올바르지 않습니다.");
-				$("#jumin1").focus();
-				return false;
-			}
+		
 		});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -156,24 +133,23 @@
 	});
 	
 	function sample4_execDaumPostcode() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	
-	       var roadAddr = data.roadAddress; // 도로명 주소 변수
-	       var extraRoadAddr = ''; // 참고 항목 변수
-	
-	       if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	           extraRoadAddr += data.bname;
-	       }
-	       if(data.buildingName !== '' && data.apartment === 'Y'){
-	          extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	       }
-	     
-	       document.getElementById('sample4_postcode').value = data.zonecode;
-	       document.getElementById("sample4_roadAddress").value = roadAddr;
-	       }
-	    }).open();
-	}
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+             
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+            }
+        }).open();
+    }
 	
 	function validate_num(num) {
 		var pattern = new RegExp(/^[0-9]*$/g);
