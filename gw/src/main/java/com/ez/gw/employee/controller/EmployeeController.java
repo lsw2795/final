@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -116,8 +117,34 @@ public class EmployeeController {
 		logger.info("사원 정보 수정 페이지, 파라미터 empNo={}", empNo);
 		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
 		logger.info("사원 정보 수정 페이지 결과 map={}", map);
-		model.addAttribute("map", map);
+	    model.addAttribute("map", map);
 		return "mypage/empInfoEdit";
+	}
+	
+	@PostMapping("/mypage/empInfoEdit")
+	public String empEdit_post(@ModelAttribute EmployeeVO empVo,
+			HttpSession session, Model model) {
+		int empNo=(int)session.getAttribute("empNo");
+		empVo.setEmpNo(empNo);
+		logger.info("사원 - 사원정보 수정처리 파라미터 empVo={}", empVo);
+		
+		int result=employeeService.loginCheck(empVo.getPwd(),empVo.getEmpNo());
+		logger.info("비밀번호 체크 결과 result={}",result);
+		
+		String msg="정보 수정에 실패했습니다.", url="/mypage/empInfoEdit";
+		if(result==employeeService.LOGIN_OK) {
+			int cnt=employeeService.updateEmpInfo(empVo);
+			logger.info("사원정보 수정결과 cnt={}", cnt);
+			if(cnt>0) {
+				msg="정보 수정이 완료되었습니다.";
+			}
+		}else if(result==employeeService.PWD_DISAGREE) {
+			msg="비밀번호가 일치하지 않습니다.";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 	
 	@GetMapping("/inc/empMain")
@@ -128,6 +155,34 @@ public class EmployeeController {
 		logger.info("사원메인 정보 페이지 결과 map={}", map);
 		model.addAttribute("map", map);
 		return "inc/empMain";
+	}
+	
+	@GetMapping("/mypage/pwdEdit")
+	public String pwdEdit(@RequestParam(defaultValue = "0") int empNo, Model model){
+		logger.info("사원 비밀번호 변경 페이지 파라미터 empNo={}", empNo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원 비밀번호 변경 페이지 결과 map={}", map);
+	    model.addAttribute("map", map);
+		return "mypage/pwdEdit";
+	}
+	
+	@PostMapping("/mypage/pwdEdit")
+	public String pwdEdit_post(@ModelAttribute EmployeeVO empVo,
+			HttpSession session, Model model) {
+		int empNo=(int)session.getAttribute("empNo");
+		empVo.setEmpNo(empNo);
+		logger.info("사원 - 비밀번호 수정처리 파라미터 empVo={}", empVo);
+		
+		int cnt=employeeService.updateEmpPwd(empVo);
+		logger.info("사원 - 비밀번호 수정결과 cnt={}", cnt);
+		String msg="비밀번호 수정에 실패했습니다.", url="/mypage/pwdEdit";
+		if(cnt>0) {
+				msg="비밀번호 수정이 완료되었습니다.";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 	
 }

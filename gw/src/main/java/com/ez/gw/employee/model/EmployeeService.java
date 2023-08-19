@@ -24,5 +24,7 @@ public interface EmployeeService {
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	void sendEmail(EmployeeVO empVo, String div); //비번찾기 메일 보내기
 	//void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception; //비번찾기
-	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
+	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 상세보기 메서드
+	int updateEmpInfo(EmployeeVO empVo); //사원 - 사원정보 수정하기
+	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 }
