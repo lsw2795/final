@@ -92,7 +92,7 @@
             }
           </script>
           <div class="d-flex align-items-center">
-            <a class="navbar-brand" href="<c:url value='/'/>">
+            <a class="navbar-brand" href="<c:url value='/main'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/title.png'/>" alt="" width="150" />
               </div>
