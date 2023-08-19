@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
@@ -158,12 +159,26 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/mypage/pwdEdit")
-	public String pwdEdit(@RequestParam(defaultValue = "0") int empNo, Model model){
-		logger.info("사원 비밀번호 변경 페이지 파라미터 empNo={}", empNo);
-		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
-		logger.info("사원 비밀번호 변경 페이지 결과 map={}", map);
-	    model.addAttribute("map", map);
+	public String pwdEdit(){
+		logger.info("사원 비밀번호 변경 페이지");
 		return "mypage/pwdEdit";
+	}
+
+	@RequestMapping("/ajaxPwdCheck")
+	@ResponseBody
+	public int pwdCheck(HttpSession session,
+			@RequestParam (required = false)String pwd) {
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("ajax이용 - 비밀번호 일치 파라미터 pwd={}, empNo={}", pwd, empNo);
+		
+		int result=employeeService.loginCheck(pwd,empNo);
+		int res=0;
+		if(result==employeeService.LOGIN_OK){
+			res=1;
+		}else if(result==employeeService.PWD_DISAGREE){
+			res=0;
+		}
+		return res;
 	}
 	
 	@PostMapping("/mypage/pwdEdit")
