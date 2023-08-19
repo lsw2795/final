@@ -45,13 +45,13 @@ public class PdsController {
 	private final BoardService boardService;
 	private final FileUploadUtil fileUploadUtil;
 	private final EmployeeService employeeService;
-	
+
 
 	@RequestMapping("/list")
 	public String list(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1
 		logger.info("자료실 메인페이지 파라미터 searchVo={}", searchVo);
-		
+
 		//2
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
@@ -61,19 +61,19 @@ public class PdsController {
 		//[2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		
+
 		List<Map<String, Object>> list = pdsService.selectPdsAll(searchVo);
 		logger.info("자료실 전체조회, list.size={}", list.size());
-		
+
 		for (Map<String, Object> map : list) {
-		    BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
-		    int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
-		    int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
-		    map.put("fileCount", fileCount);
-		    map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
-		    
+			BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
+			int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
+			int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
+			map.put("fileCount", fileCount);
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+
 		}
-		
+
 		int totalRecord = pdsService.getTotalRecord(searchVo);
 		logger.info("글 목록 전체 조회 - totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
@@ -85,7 +85,7 @@ public class PdsController {
 		//4
 		return "pds/list";
 
-		
+
 	}
 
 	@GetMapping("/write")
@@ -93,13 +93,13 @@ public class PdsController {
 		int empNo = (int)session.getAttribute("empNo");
 		//1
 		logger.info("자료실 등록 페이지");
-		
+
 		//2
 		EmployeeVO vo = employeeService.selectByEmpNo(empNo);
-		
+
 		//3
 		model.addAttribute("vo", vo);
-		
+
 		//4
 		return "pds/write";
 	}
@@ -177,10 +177,10 @@ public class PdsController {
 		//2
 		Map<String, Object> map = pdsService.selectPds(boardNo);
 		logger.info("자료실 자료 상세조회, map={}", map);
-		
+
 		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
 		logger.info("자료실 자료 상세조회 - 파일 조회 fileList.size={}", fileList.size());
-		
+
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("fileList", fileList);
@@ -189,20 +189,104 @@ public class PdsController {
 	}
 
 	@PostMapping("/edit")
-	public String edit_post(BoardVO vo, Model model) {
+	public String edit_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
+			@RequestParam(name = "oldFileNames", required = false) String[] oldFileNames,
+			HttpServletRequest request, Model model) {
 		//1
-		logger.info("자료실 수정 파라미터, vo={}", vo);
+		logger.info("자료실 수정 파라미터, boardVo={}, oldFileNames={}", boardVo, oldFileNames);
 
 		//2
-		int cnt = pdsService.updatePds(vo);
+		int cnt = pdsService.updatePds(boardVo);
 		logger.info("자료 수정 결과, cnt={}", cnt);
-		
+
 
 		//3
-		String msg = "자료 수정 실패", url = "/pds/edit?boardNo=" + vo.getBoardNo();
+		String msg = "자료 수정 실패", url = "/pds/edit?boardNo=" + boardVo.getBoardNo();
 		if(cnt>0) {
+			if(oldFileNames!=null) { //기존 파일이 있을때만 
+				List<String> delFileList =  new ArrayList<>();
+
+				//3.1 게시글 번호로 업로드되어 있는 파일들 조회
+				List<PdsVO> list = pdsService.selectFilesByBoardNo(boardVo.getBoardNo());
+				logger.info("게시글 번호로 업로드되어있는 파일 갯수 조회 list.size={}", list.size());
+
+				for(PdsVO dbFile : list) {
+					boolean shouldDelete = true; // 삭제 여부를 나타내는 변수를 초기화
+
+					for (String oldFileName : oldFileNames) {
+						if (dbFile.getFileName().equals(oldFileName)) {
+							shouldDelete = false; // oldFileNames에 포함된 파일은 삭제하지 않음
+							break; // 이미 포함된 경우 추가 확인은 불필요
+						}
+					}//for
+
+					if (shouldDelete) {
+						// 파일 삭제 로직 및 DB에서 데이터 삭제 로직 추가
+						if (dbFile.getFileName() != null && !dbFile.getFileName().isEmpty()) {
+							File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), dbFile.getFileName());
+							if (f.exists()) {
+								boolean result = f.delete();
+							}
+							pdsService.editPdsFile(boardVo.getBoardNo(), dbFile.getFileName()); // db에서도 해당 파일 데이터 삭제
+						}
+					}
+				}//바깥 for
+
+				//3.2 삭제해야할 파일들 선별해서 pds_upload에서 파일먼저 삭제
+			}else { //넘어온 기존파일명이 하나도 없을때 새 파일 업로드전 해당 게시글에 모든 파일과 파일 db삭제
+				List<PdsVO> oldlist = pdsService.selectFilesByBoardNo(boardVo.getBoardNo());
+				logger.info("게시글 번호로 업로드되어있는 파일 갯수 조회 list.size={}", oldlist.size());
+
+				for(PdsVO pdsVo2 : oldlist) {
+					if(pdsVo2!=null) {
+						File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), pdsVo2.getFileName());
+						logger.info("컨트롤러 파일 f={}", f);
+						if(f.exists()) {
+							boolean result = f.delete();
+							logger.info("게시글 수정 - 기존 파일 전부 삭제 여부 : {}", result);
+						}
+					}
+				}
+
+				int delFile = pdsService.editPdsFile(boardVo.getBoardNo(), null); 
+				logger.info("넘어온 파일명 없을 경우 기존 파일 db 삭제 여부 delFile={}", delFile);
+			}
+
+			//3.3 기존 파일들중 삭제 작업 완료 후 새로운 파일들 업로드
+			String fileName="", originalFileName="", filePath = "";
+			long fileSize = 0;	
+
+			List<Map<String, Object>> fileList;
+			try {
+				fileList = fileUploadUtil.fileupload(request, ConstUtil.UPLOAD_FILE_FLAG);
+				for(Map<String, Object> map : fileList) {
+					fileName = (String) map.get("fileName");
+					originalFileName = (String) map.get("originalFileName");
+					fileSize = (long) map.get("fileSize");
+					filePath = (String) map.get("uploadPath") + File.separator + fileName;
+
+					logger.info("파일명:{}", fileName);
+					pdsVo.setBoardListNo(3000); //게시판 번호
+					pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
+					pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+					pdsVo.setFileName(fileName); //서버저장 파일명
+					pdsVo.setFileSize(fileSize); //파일크기
+					pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+					pdsVo.setPath(filePath); //파일 경로
+
+					if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
+						int result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+						logger.info("다중 파일 등록 결과 result = {}", result);
+					}
+				}//for
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			msg = "자료가 수정되었습니다.";
-			url = "/pds/detail?boardNo=" + vo.getBoardNo();
+			url = "/pds/detail?boardNo=" + boardVo.getBoardNo();
 		}
 
 		model.addAttribute("msg", msg);
@@ -230,10 +314,10 @@ public class PdsController {
 
 		Map<String, Object> map = pdsService.selectPds(boardNo);
 		logger.info("자료실 자료 상세조회, map={}", map);
-		
+
 		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
 		logger.info("자료실 자료 상세조회 - 파일 조회 fileList.size={}", fileList.size());
-		
+
 		List<String> fileInfoArr = new ArrayList<>(); 
 		for(PdsVO vo : fileList) {
 			long fileSize = vo.getFileSize();
@@ -262,13 +346,11 @@ public class PdsController {
 			return "common/message";
 		}
 		//2
-		
-		
 		List<PdsVO> fileList = pdsService.selectFilesByBoardNo(boardNo);
 		logger.info("게시글 삭제 - 파일 삭제 전 파일 갯수 조회 fileList.size={}", fileList.size());
-		
+
 		String msg = "자료 삭제 실패하였습니다.", url = "/pds/detail?boardNo=" + boardNo;
-		
+
 		if(fileList.size()>0) {
 			for(PdsVO vo : fileList) {
 				String fileName = vo.getFileName();
@@ -282,14 +364,14 @@ public class PdsController {
 				}//if
 			}//for
 		}
-		
+
 		int cnt = pdsService.deletePds(boardNo);
 		logger.info("게시글 삭제 결과 cnt={}", cnt);
-		
+
 		if(cnt>0) {
 			msg = "자료가 삭제 되었습니다.";
 			url = "/pds/list";
-			
+
 		}
 
 		//3
@@ -302,7 +384,7 @@ public class PdsController {
 	}
 
 
-	
+
 	@RequestMapping("/download")
 	public ModelAndView download(@RequestParam(defaultValue = "0") int boardNo,
 			@RequestParam String fileName, HttpServletRequest request) {
