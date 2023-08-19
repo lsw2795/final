@@ -5,8 +5,6 @@ import java.util.Map;
 
 import com.ez.gw.common.SearchVO;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 public interface EmployeeService {
 	//로그인 처리 관련 상수
 	int LOGIN_OK=1; //로그인 성공
