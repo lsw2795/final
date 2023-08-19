@@ -68,6 +68,22 @@
 	  });
 		  
 	});
+	
+	function isSame(){
+		$.ajax({
+			url:"",
+			type:"POST",
+			dataType:"JSON",
+			data:{"pwd":pwd},
+			success:function(res){
+				
+			},
+			error:function(xhr, status, error){
+				alert("status :" + error);
+			}
+		});
+		
+	}
 		
 </script>
  <div class="content">
@@ -85,25 +101,29 @@
           <div class="row g-0">
               <div class="card mb-3">
                 <div class="card-body">
-                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/addMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
+                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/editMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                       <div class="col-12 mb-3"s>
                         <label class="form-label" for="product-name">제목</label>
-                        <input class="form-control" id="product-name" name="title" type="text" value="${secondVo.title }"/>
+                        <input class="form-control" id="product-name" name="title" type="text" value="${vo.title }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="identification-no">상품명</label>
-                        <input class="form-control" id="identification-no" name = "product" type="text" value="${secondVo.product }"/>
+                        <input class="form-control" id="identification-no" name = "product" type="text" value="${vo.product }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">가격</label>
-                        <input class="form-control" id="product-summary" name = "price" type="text" value="${secondVo.price }"/>
+                        <input class="form-control" id="product-summary" name = "price" type="text" value="${vo.price }"/>
+                      </div>
+                      <div class="col-12 mb-3">
+                        <label class="form-label" for="product-summary">비밀번호</label>
+                        <input class="form-control" id="product-summary" name = "pwd" type="password" onchange="isSame()"/>
                       </div>
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
                         <textarea class="form-control" data-tinymce="data-tinymce" name="discription" id="product-description"
-                        	style="height:300px">${secondVo.discription }</textarea>
+                        	style="height:300px">${vo.discription }</textarea>
                       </div>
                    	</div>
                     </div>
@@ -116,9 +136,11 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
+                      <input name="imageURL2" type="file" multiple="multiple" id=""/>
+                      <span class="mb-0"></span>
                     </div>
                     <div class="dz-message" data-dz-message="data-dz-message"> 
+		                <c:if test="${!empty fileList }">
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
 	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
                     </div>
@@ -136,6 +158,7 @@
                             <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
                             <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
                           </div>
+		                </c:if>
                         </div>
                       </div>
                     </div>
@@ -148,7 +171,7 @@
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" id = "bt1" role="button">등록 </button>
+                  <button class="btn btn-primary" id = "bt1" role="button">수정 </button>
                 </div>
               </div>
             </div>

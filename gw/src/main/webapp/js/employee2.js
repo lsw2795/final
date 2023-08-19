@@ -7,9 +7,7 @@
 	var contextPath = "/gw";
 
  	$(function() {
-		 var tel=$('#tel').val();
-		var email=$('#email').val();
-		
+		var tel=$('#tel').val();
 		var str=tel.split("-");
 		var tel1=str[0];
 		var tel2=str[1];
@@ -18,15 +16,19 @@
 		$('#tel2').val(tel2);
 		$('#tel3').val(tel3);
 		
-		var str2=email.split("@");
-		var email1=str2[0];
-		$('#email1').val(email1);
+		
+	
 		
 		var jumin=$('#jumin').text();
 		var str=jumin.substr(0,8)+"******";
 		$('#jumin').text(str);
 		 
-		 
+		var address=$('#address').val();
+		var postcode=address.substring(1,6);
+		var roadaddress=address.substring(7);
+		$('#sample4_postcode').val(postcode);
+		$('#sample4_roadAddress').val(roadaddress);
+				 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
 			var jumin1=$('#jumin1').val();
@@ -73,9 +75,25 @@
 			}
 			$('#email').attr('value',email);
 			
+			var postcode=$('#sample4_postcode').val();
+			var roadaddress=$('#sample4_roadAddress').val();
+			
+			var address="";
+			if(postcode!=="" && roadaddress!==""){
+				address="("+postcode+")"+roadaddress;
+			}
+			$('#address').attr('value',address);
+			
+			
 			if ($('#pwd').val().length < 1) {
 				alert("비밀번호를 입력하세요");
 				$('#pwd').focus();
+				return false;
+			}
+			
+			if ($('#pwd').val() != $('#pwd2').val()) {
+				alert("비밀번호가 일치하지 않습니다.확인하세요");
+				$("#pwd2").focus();
 				return false;
 			}
 			

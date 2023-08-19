@@ -16,4 +16,6 @@ public interface SecondHandTradeDAO {
 	SecondHandTradeVO selectMarketByNo(int tradeNo);
 	int updateReadCount(int tradeNo);
 	int getTotalRecord(SearchVO searchVo);
+	int updateMarket(SecondHandTradeVO secondVo);
+	int deleteMarket(int tradeNo);
 }

@@ -50,4 +50,16 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	public int getTotalRecord(SearchVO searchVo) {
 		return secondHandTradeDao.getTotalRecord(searchVo);
 	}
+
+	@Override
+	public int deleteMarket(int tradeNo) {
+		return secondHandTradeDao.deleteMarket(tradeNo);
+	}
+
+	@Override
+	public int updateMarket(SecondHandTradeVO secondVo) {
+		return secondHandTradeDao.updateMarket(secondVo);
+	}
+
+	
 }

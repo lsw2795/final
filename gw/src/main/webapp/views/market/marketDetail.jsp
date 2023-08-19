@@ -5,9 +5,9 @@
 
  <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
  <script type="text/javascript">
-	function delMarket(int tradeNo){
+	function delMarket(){
 		if(confirm("삭제하시겠습니까?")){
-			location.href="<c:url value='/market/delMarket?tradeNo=${tradeNo}'/>"
+			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
 		
 	}
@@ -16,13 +16,13 @@
 		<h2>상세보기</h2>
 		
 		<c:if test="${sessionScope.empNo==emp.empNo }">
-			<a href="<c:url value='/market/addMarket?tradeNo=${vo.tradeNo}'/>">
+			<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
               	<button class="btn btn-falcon-default btn-sm" type="button">
             		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
    	        		<span class="d-none d-md-inline-block ms-1">수정</span>
          	    </button>
             </a>
-            <button onclick="delMarket(tradeNo)" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+            <button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
                  <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
                  <span class="d-none d-md-inline-block ms-1">삭제</span>
 	        </button>
@@ -68,10 +68,10 @@
                 
                   <p class="fs--1 mb-1"> <span>조회수 : ${vo.readCount } </span></p>
                   <p class="fs--1">Stock: 
-                  	<c:if test="${vo.selFlag==0 }">
+                  	<c:if test="${vo.selFlag=='N' }">
                     	<strong class="text-success">거래가능</strong>
                     </c:if>
-                    <c:if test="${vo.selFlag==1 }">
+                    <c:if test="${vo.selFlag=='Y' }">
                     	<strong class="text-danger">판매완료</strong>
                     </c:if>
                   </p>
