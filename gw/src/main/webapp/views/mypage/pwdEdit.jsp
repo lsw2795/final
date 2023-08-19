@@ -8,9 +8,9 @@
 	$(function(){
 		$('#newPwd2').keyup(function(){
 		    if($('#newPwd').val() == $('#newPwd2').val()){
-		        $('#pwdConfirm').text('새 비밀번호가 일치합니다.').css('color', 'green');
+		        $('#pwdConfirm').text('새 비밀번호 확인이 일치합니다.').css('color', 'green');
 		    }else{
-		        $('#pwdConfirm').text('새 비밀번호가 일치하지 않습니다.').css('color', 'red');
+		        $('#pwdConfirm').text('새 비밀번호와 확인이 일치하지 않습니다.').css('color', 'red');
 		    }
 		});
 		
@@ -33,11 +33,6 @@
 				return false;
 			}
 			
-	 		if($('#hiddenPwd').val()!==$('#pwd').val()){
-	 			alert("현재 비밀번호가 맞지 않습니다.");
-	 			return false;
-	 		}
-	 		
 			if($('#newPwd').val() != $('#newPwd2').val()){
 				alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 확인바랍니다.");
 				$('#newPwd').focus();
@@ -50,6 +45,29 @@
 				$('#newPwd').focus();
 				return false;
 			}
+			
+			$.ajax({
+				url : "<c:url value='/ajaxPwdCheck'/>",
+				type:"get",
+				dataType : "text",
+				data:"pwd="+$('#pwd').val(),
+				success: function(res){
+					$('#pwdChkFlag').val(res);
+				},
+				error:function(xhr, status, error){
+					alert(status+" : "+error);
+				}
+			});//ajax
+			
+			if($('#pwdChkFlag').val()>0){
+				if(confirm('변경하시겠습니까?')){
+					 $("#pwdEditfrm").submit();
+				}
+			}else{
+				alert('현재 비밀번호가 일치하지 않습니다.');
+				return false;
+			}
+			
 		});
 		
 		$('input[type=button]').click(function(){
@@ -82,7 +100,7 @@
        </div>
     </div>
       <div class="card-body" style="text-align: center; font-size: 20px;">
-      	<form name="pwdEdit" method="post" action="<c:url value='/mypage/pwdEdit'/>">	
+      	<form name="pwdEditfrm" id="pwdEditfrm" method="post" action="<c:url value='/mypage/pwdEdit'/>">	
 				 <div class="mb-3">
                     <label class="form-label" for="pwd">현재 비밀번호</label>
                     <input class="form-control form-control-lg" type="password" id="pwd" placeholder="현재 비밀번호"/>
@@ -100,8 +118,8 @@
 					<input type="submit" value="수정" id="btnEditPwd" class="btn btn-primary" />
 					<input type="button" value="취소" class="btn btn-secondary"/>
 				</div>
-			<!-- hidden -->	
-				<input type="hidden" id="hiddenPwd" value="${map['PWD']}"/>
+				<!-- hidden -->
+				<input type="hidden" id="pwdChkFlag" />
 			</form>	
     </div>
   </div>
