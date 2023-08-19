@@ -18,3 +18,4 @@ public interface EmployeeDAO {
 	int updateFindPwd(EmployeeVO empVo) throws Exception; //사원 비번 찾기
 	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
 }
+

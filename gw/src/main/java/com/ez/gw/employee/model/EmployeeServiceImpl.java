@@ -3,19 +3,16 @@ package com.ez.gw.employee.model;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.ez.gw.common.SearchVO;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
 	private final EmployeeDAO employeeDao;
-	private final JavaMailSender mailSender;
 
 	@Override
 	public EmployeeVO selectByEmpNo(int empNo) {
@@ -60,19 +57,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	public Map<String, Object> selectEmpByEmpNo(int empNo) {
+		return employeeDao.selectEmpByEmpNo(empNo);
+	}
+
+	@Override
 	public void sendEmail(EmployeeVO empVo, String div) {
 		
 	}
-	
 
-	@Override
-	public void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception {
-		
-	}
 
-	@Override
-	public Map<String, Object> selectEmpByEmpNo(int empNo) {
-			return employeeDao.selectEmpByEmpNo(empNo);
-	}
 
 }
