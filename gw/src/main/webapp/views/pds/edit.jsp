@@ -41,6 +41,13 @@
 			}
 		});
 		
+		// 기존 업로드 되있는 파일중에 삭제버튼 누르면 해당 파일 div 삭제
+        $(".file-delete").on("click", function(event) {
+        	event.preventDefault();
+        	
+            $(this).closest(".file-input").remove();
+        });
+		
 	});	//jquery
 		
 		// 파일 추가
@@ -156,16 +163,18 @@
 	          </div>
 	          <div>
                 <!-- 글수정, 파일 첨부된 경우 -->
-	        	<c:if test="${!empty fileList}">
-	        		<c:forEach var="vo" items="${fileList}">
-			        	<br>
-		        		<span style="color: darkgreen;font-weight: bold">
-		        			첨부파일을 새로 지정할 경우 기존파일 <span style="color: red">${vo.originalFileName}</span> 은(는) 삭제됩니다.
-		        		</span>
-		        	</c:forEach>	
-	        	</c:if>
-	        	<br>
+          	  	<c:if test="${!empty fileList}">	
+		          	<c:forEach var="vo" items="${fileList}">
+					    <div class="file-input">
+					    	<img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
+					        <span>${vo.originalFileName}</span>
+					        <input type="hidden" name="FILE_" value="true">|
+					        <a href='#' class='file-delete'>삭제</a>
+					    </div>
+					</c:forEach>
+		        </c:if> 	
         	 </div>
+ 
                 <div class="file_list">
                     <div>
                         <div class="file_input">
