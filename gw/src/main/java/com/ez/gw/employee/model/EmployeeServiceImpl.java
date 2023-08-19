@@ -3,7 +3,6 @@ package com.ez.gw.employee.model;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.stereotype.Service;
 
 import com.ez.gw.common.SearchVO;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
 	private final EmployeeDAO employeeDao;
-	private final JavaMailSender mailSender;
 
 	@Override
 	public EmployeeVO selectByEmpNo(int empNo) {
@@ -61,6 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Map<String, Object> selectEmpByEmpNo(int empNo) {
 		return employeeDao.selectEmpByEmpNo(empNo);
+	}
+
+	@Override
+	public void sendEmail(EmployeeVO empVo, String div) {
+		
 	}
 
 

@@ -23,6 +23,6 @@ public interface EmployeeService {
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	void sendEmail(EmployeeVO empVo, String div); //비번찾기 메일 보내기
-	void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception; //비번찾기
+	//void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception; //비번찾기
 	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
 }
