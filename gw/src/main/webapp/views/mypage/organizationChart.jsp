@@ -74,7 +74,7 @@ function performSearch(){
         <c:if test="${!empty list}">
             <c:forEach var="deptAllVo" items="${list}">
                 <p>
-                    <button class="btn btn-primary btnDept" type="button"
+                    <button class="btn btn-sm btn-primary btnDept" type="button"
                             data-bs-toggle="collapse" data-bs-target="#dept-${deptAllVo.deptVo.deptNo }"
                             data-dept-no="${deptAllVo.deptVo.deptNo}">
                         <span class="fas fa-plus" data-fa-transform="shrink-3"></span>

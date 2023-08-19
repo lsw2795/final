@@ -4,6 +4,18 @@
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script type="text/javascript" src="<c:url value='/js/employee2.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var email=$('#email').val();
+		var str2=email.split("@");
+		var email1=str2[0];
+		$('#email1').val(email1);
+		
+		var email2=str2[1];
+		$('#hiddenEmail2').val(email2);
+		
+	});
+</script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -113,21 +125,21 @@
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv4">
-							<label class="col-form-label mypageemplabel" for="password">비밀번호</label>
+							<label class="col-form-label mypageemplabel" for="pwd">비밀번호</label>
 						</div>
 						
 						<div class="col-md-8 mypagespan">	 
-							<input type="text" class="form-control" id="password" style="width: 75%;"/>
+							<input type="text" class="form-control" id="pwd" name="pwd" style="width: 75%;"/>
 							<span class="mypagehyphen"></span>
 							<input type="Button" value="비밀번호 변경" id="btnpwdEdit" class="btn btn-primary" title="새창열림" style="width: 25%;">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv12">
-							<label class="col-form-label mypageemplabel" for="password1">비밀번호 확인</label>
+							<label class="col-form-label mypageemplabel" for="pwd2">비밀번호 확인</label>
 						</div>
 						<div class="col-md-6">
-							<input type="password" class="form-control" id="password1" />
+							<input type="password" class="form-control" id="pwd2" />
 						</div>
 					</div>
 					
@@ -157,7 +169,7 @@
 				    <div class="row mb-3 d-flex align-items-center">
 				    	<div class="col-md-auto mypageempdiv10"></div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control" id="sample4_roadAddress" value="${map['ADDRESS']}" placeholder="도로명주소">
+					        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
 					        <div class="mb-1"></div>
 					        <input type="text" class="form-control" id="sample4_detailAddress" value="${map['ADDRESSDETAIL']}" placeholder="상세주소">
 					    </div>
@@ -166,21 +178,58 @@
 						<div class="col-md-auto mypageempdiv5">
 							<label class="col-form-label mypageemplabel">이메일</label>
 						</div>	 
-						<div class="col-md-9 mypagespan">							
-							<input type="text" class="form-control" id="email1" name="email1" style="width: 31%">
-							<span class="mypagehyphen">@</span>
-							<select class="form-select" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%">
-					            <option value="naver.com">naver.com</option>
-					            <option value="hanmail.net">hanmail.net</option>
-					            <option value="nate.com">nate.com</option>
-					            <option value="gmail.com">gmail.com</option>
-					            <option value="etc">직접입력</option>
-					        </select>
-					        <span class="mypagehyphen"></span>
-					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control" style="visibility:visibility; width: 35%">
-						</div>
-					</div>
+						<div class="col-md-9 mypagespan">
+						<c:set var="etcYn" value="" />
+						<c:choose>
+							<c:when test="${hiddenEmail2=='naver.com' || hiddenEmail2=='hanmail.net'
+								|| hiddenEmail2=='nate.com' || hiddenEmail2=='gmail.com' || empty hiddenEmail2}">
+								<c:set var="etcYn" value="N" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="etcYn" value="Y" />
+							</c:otherwise>
+						</c:choose>
+						<input type="text" class="form-control" id="email1" name="email1" style="width: 31%">
+						<span class="mypagehyphen">@</span>
+						<select class="form-select" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 34%">
+				             <option value="naver.com"
+				              <c:if test="${hiddenEmail2=='naver.com'}">
+				           		 selected="selected"	
+				              </c:if>
+				            >naver.com</option>
+				            <option value="hanmail.net"
+				            <c:if test="${hiddenEmail2=='hanmail.net'}">
+				           		 selected="selected"	
+				             </c:if>
+				            >hanmail.net</option>
+				            <option value="nate.com"
+				        	 <c:if test="${hiddenEmail2=='nate.com'}">
+				           		 selected="selected"	
+				              </c:if>
+				            >nate.com</option>
+				            <option value="gmail.com"
+				             <c:if test="${hiddenEmail2=='gmail.com'}">
+				           		 selected="selected"	
+				             </c:if>
+				            >gmail.com</option>
+				            <option value="etc"
+				            <c:if test="${etcYn=='Y'}">
+				           		 selected="selected"	
+				             </c:if>
+				            >직접입력</option>
+				        </select>
+				        <span class="mypagehyphen"></span>
+				       <input type="text" name="email3" id="email3" class="form-control" title="직접입력인 경우 이메일주소 뒷자리"
+				       	 <c:if test="${etcYn=='Y'}">
+				       	 	style="visibility:visible; width:35%;"
+				       	 	value="${hiddenEmail2}"
+						</c:if>               
+						<c:if test="${etcYn=='N'}">
+				       		style="visibility:hidden; width:35%;"
+				      		</c:if>
+				       		>
+	</div>
+</div>
 					
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv4">
@@ -215,7 +264,9 @@
 					<!-- hidden 처리 인풋태그들 -->
 					 <input type="text" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="text" id="email" name="email" value="${map['EMAIL']}"/>
-				</form>
+					 <input type="text" id="address" name="address" value="${map['ADDRESS']}"/>
+					 <input type="text" id="hiddenEmail2"/>
+ 				</form>
 			</div>
 		</div>
 	</div>

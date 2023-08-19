@@ -34,6 +34,15 @@
 	        }
 	        $('#extensionNo').attr('value', extensionNo);
 			
+			var postcode=$('#sample4_postcode').val();
+			var roadaddress=$('#sample4_roadAddress').val();
+			
+			var address="";
+			if(postcode!=="" && roadaddress!==""){
+				address="("+postcode+")"+roadaddress;
+			}
+			$('#address').attr('value',address);
+			
 			var tel1=$('#tel1').val();
 			var tel2=$('#tel2').val();
 			var tel3=$('#tel3').val();
