@@ -19,10 +19,22 @@ public class ConfirmVO extends SearchVO {	//전자결재
 	private Timestamp confirmDate; // 확인일   
 	private Timestamp completeDate; //결재일    
 	private String startDate; //시행일    
-	private int confirmState; //결재상태(0:예정 1:대기 2:승인 3:반려)          
 	private String endDate; //종료일 
 	private char delflag; //삭제여부         
+	private int confirmState; //결재상태(0:예정 1:대기 2:승인 3:반려)          
 	private int empNo; //기안자(EMPLOYEE FK) 
 	private int confirmLineNo; //결재라인번호 
-	private int documentNo; // 문서양식번호(DOCUMENT FK)       
+	private int documentNo; // 문서양식번호(DOCUMENT FK)  
+	
+	@Override
+	public String toString() {
+		return "ConfirmVO [confirmDocumentNo=" + confirmDocumentNo + ", confirmTitle=" + confirmTitle
+				+ ", confirmContent=" + confirmContent + ", createDate=" + createDate + ", updateDate=" + updateDate
+				+ ", reviewDate=" + reviewDate + ", confirmDate=" + confirmDate + ", completeDate=" + completeDate
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", delflag=" + delflag + ", confirmState="
+				+ confirmState + ", empNo=" + empNo + ", confirmLineNo=" + confirmLineNo + ", documentNo=" + documentNo
+				+ "]";
+	}
+
+	
 }

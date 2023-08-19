@@ -65,6 +65,7 @@
     		    $('.nav-link').not(this).removeClass('active');
     		  });
 		});
+    	
     </script>
   </head>
   <body>
@@ -223,7 +224,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/confirm/confirmList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 대기함(임원)</span>
                         			</div> 

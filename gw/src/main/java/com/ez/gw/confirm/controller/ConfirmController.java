@@ -1,12 +1,14 @@
 package com.ez.gw.confirm.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
@@ -31,6 +34,9 @@ import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
+import com.ez.gw.refer.model.ReferService;
+import com.ez.gw.state.model.StateService;
+import com.ez.gw.state.model.StateVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,8 +53,12 @@ public class ConfirmController {
     private final DeptService deptService;
     private final PositionService positionService; 
     private final EmployeeService employeeService; 
+    private final ReferService referService; 
     private final ConfirmLineService confirmLineService;
     private final FileUploadUtil fileUploadUtil;
+    private final StateService StateService;
+    
+    
     
     
     @GetMapping("/approvalWrite")
@@ -169,13 +179,16 @@ public class ConfirmController {
     	return "approval/selectEmp/selectConfirmLine";
     }
     
-    @RequestMapping("confirmList")
-    public String confirmList_get(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    @RequestMapping("/confirmList")
+    public String confirmList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
     	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
     	PaginationInfo pagingInfo=new PaginationInfo();
     	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
    		pagingInfo.setCurrentPage(vo.getCurrentPage());
@@ -193,10 +206,115 @@ public class ConfirmController {
 		pagingInfo.setTotalRecord(totalRecord);
     	
     	//3
+		model.addAttribute("formList",formList);
+		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","0");
 
     	//4
     	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/confirm/confirmList")
+    public String confirmList_confirm(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+   		pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    			
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllConfirmDocument(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalConfirmRecord(vo);
+		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+		model.addAttribute("formList",formList);
+		model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","1");
+
+    	//4
+    	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/approvalDetail")
+    public String approvalDetail(@RequestParam(required = true) String confirmDocumentNo,Model model) {
+    	//1
+    	logger.info("문서 상세정보 파라미터 confirmDocumentNo={}",confirmDocumentNo);
+    	
+    	//2
+    	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(confirmDocumentNo);
+    	logger.info("문서 상세정보 선택 결과 confirmMap={}",confirmMap);
+    	
+    	Object obj=confirmMap.get("EMP_NO");
+    	int empNo = ((BigDecimal) obj).intValue();
+    	Map<String, Object> empMap=employeeService.organiationChartViewByEmpNo(empNo);
+    	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
+    	
+    	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
+    	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
+    	
+    	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
+    	logger.info("참조자 조회 결과 deptAgreeMap={}",deptAgreeMap);
+    	
+
+    	//3
+    	model.addAttribute("confirmMap",confirmMap);
+    	model.addAttribute("empMap",empMap);
+    	model.addAttribute("referEmpList",referEmpList);
+    	model.addAttribute("deptAgreeMap",deptAgreeMap);
+    	
+    	//4
+    	return "approval/approvalView";
+    }
+    
+    @ResponseBody
+    @RequestMapping("/updateStateAjax")
+    public Object updateStateAjax(@ModelAttribute ConfirmVO vo,HttpSession session) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재상태 업데이트 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	vo.setEmpNo(empNo);
+    	int cnt = confirmService.updateConfirmState(vo);
+    	logger.info("결재상태 업데이트 결과 cnt={}",cnt);
+    	
+    	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(vo.getConfirmDocumentNo());
+    	
+    	//3
+    	return confirmMap.get("STATE");
+    }
+    
+    @ResponseBody
+    @RequestMapping("/updateConfirmAjax")
+    public Map updateConfirmAjax(@ModelAttribute ConfirmVO vo) {
+    	//1
+    	logger.info("결재상태 업데이트 파라미터 vo={}",vo);
+    	
+    	//2
+    	int cnt = confirmService.updateConfirmStateByClick(vo);
+    	logger.info("클릭 결재상태 업데이트 결과 cnt={}",cnt);
+    	
+    	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(vo.getConfirmDocumentNo());
+    	
+    	//3
+    	return confirmMap;
     }
 }

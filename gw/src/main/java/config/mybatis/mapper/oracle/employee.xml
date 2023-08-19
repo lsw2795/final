@@ -33,6 +33,10 @@
 			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
 	
+	<select id="organiationChartViewByEmpNo" parameterType="int" resultType="map">
+		select * from organizationchartview
+		where emp_no=#{empNo}
+	</select>
 	
 	
 	

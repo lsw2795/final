@@ -1,41 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
-<script>
-
+<script type="text/javascript">
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmSearch"]').submit();
 	}
 	
-	function search(){
+	function search(num){
 		$('input[name="currentPage"]').val('1');
+		if(num==1){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/confirm/confirmList'/>");
+		}
 		$('form[name="frmSearch"]').submit();
 	}
 	
-	/* $.ajax({
-		url:"<c:url value='/approval/confirmSearchAjax'/>",
-		type:"post",
-		dataType:"json",
-		data:$('form[name=frmSearch]').serializeArray(),
-		success:function(res){
-				alert(res);
-				window.close();
-		},error:function(xhr, status, error){
-			alert(status+" : "+error);
-		}
-	}); */
+	function approvalDetail(no,state,a){
+		$.ajax({
+	    	url:"<c:url value='/approval/updateStateAjax'/>",
+	   		type:"post",
+	   		dataType:"text",
+	   		data:{
+	   			confirmDocumentNo:no,
+	   			confirmState:state
+	   		},
+	   		success:function(res){
+	   			$(a).parent().parent().find('.state').text(res);
+	    	},error:function(xhr, status, error){
+	    		alert(status+" : "+error);
+	   		}
+	   	});
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=780, height=660");
+	}
+	
 </script>
 <div class="container p-0">
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header bg-light">
 				<div class="row g-3">
-					<div class="col-md-10">
+					<div class="col-md-10 listTitle">
+					<c:if test="${title==0 }">
 						결재 문서함
+					</c:if>
+					<c:if test="${title==1 }">
+						결재 대기함
+					</c:if>
 					</div>
 					<div class="col-md-2" align="right">
-						<button class="form-control btn btn-primary" onclick="search()">검색</button>
+						<button class="form-control btn btn-primary" onclick="search(${title})">검색</button>
 					</div>
 				</div>
 			</div>
@@ -65,15 +78,31 @@
 					<div class="col-md-3">
 					    <label class="form-label" for="documentNo">문서종류</label>
 					    <select class="form-select" name="documentNo" >
-					    	<option value="0" selected="selected">Choose...</option>
-						    <option>...</option>
+							<option value="0">선택하세요</option>
+					    	<c:if test="${!empty formList }">
+					    		<c:forEach var="formVo" items="${formList }">
+							    	<option value="${formVo.documentNo }" 
+							    		<c:if test="${formVo.documentNo==confirmVO.documentNo }">
+							    		selected="selected"
+							    		</c:if>
+							    	>${formVo.formName }</option>
+					    		</c:forEach>
+					    	</c:if>
 						</select>
 					</div>
 					<div class="col-md-3">
-					    <label class="form-label" for="state">결재상태</label>
-					    <select class="form-select" name="state" id="state">
-						    <option value="0" selected="selected">Choose...</option>
-						    <option>...</option>
+					    <label class="form-label" for="confirmState">결재상태</label>
+					    <select class="form-select" name="confirmState" id="confirmState">
+							<option value="0">선택하세요</option>
+						    <c:if test="${!empty stateList }">
+					    		<c:forEach var="stateVo" items="${stateList }">
+							    	<option value="${stateVo.stateNo}" 
+							    		<c:if test="${stateVo.stateNo==confirmVO.confirmState }">
+							    		selected="selected"
+							    		</c:if>
+							    	>${stateVo.state }</option>
+					    		</c:forEach>
+					    	</c:if>
 						</select>
 					</div>
 				</form>
@@ -105,7 +134,9 @@
 					   	<c:forEach var="map" items="${list }">
 							<tr class="align-middle" align="center" >
 								<td class="text-nowrap">
+								<a style="color: black;" onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',this)" href="#">
 							        ${map['CONFIRM_DOCUMENT_NO']}
+								</a>
 							    </td>
 							    <td class="text-nowrap">
 							        ${map['FORM_NAME']}
@@ -116,42 +147,27 @@
 							    <td class="text-nowrap">
 							    	<div class="d-flex align-items-center ms-4">
 							            <div class="avatar avatar-xl">
-							            	<img class="rounded-circle" src="<c:url value='../images/IMG_5487.jpg'/>" alt="" />
+							            	<img class="rounded-circle" src="<c:url value='/images/IMG_5487.jpg'/>" alt="" />
 							            </div>
 							            <div class="ms-2">${map['NAME']}</div>
 							        </div>
 							    </td>
 							    <td class="text-nowrap" align="left">${map['CONFIRM_TITLE']}</td>
 							    <td>
-							    	<c:if test="${map['CONFIRM_STATE']==0 }">
-							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
-							        		검토대기<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        	</span>
-							        </c:if>
-							        <c:if test="${map['CONFIRM_STATE']==1 }">
-							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
-							        		확인대기<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        	</span>
-							        </c:if>
-							        <c:if test="${map['CONFIRM_STATE']==2 }">
-							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
-							        		합의대기<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        	</span>
-							        </c:if>
-							        <c:if test="${map['CONFIRM_STATE']==3 }">
-							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
-							        		승인대기<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        	</span>
-							        </c:if>
-							        <c:if test="${map['CONFIRM_STATE']==4 }">
+							    	<c:if test="${map['STATE']=='반려' }">
 							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
-							        		반려<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
+							        		<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
 							        	</span>
-							        </c:if>
-							        <c:if test="${map['CONFIRM_STATE']==5 }">
+							        </c:if> 
+							        <c:if test="${map['STATE']=='완료' }">
 							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
-								        	완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+								        	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
 									    </span>
+							        </c:if>
+							        <c:if test="${map['STATE']!='완료' and map['STATE']!='반려' }">
+							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
+							        		<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
+							        	</span>
 							        </c:if>
 							    </td>
 						    </tr>

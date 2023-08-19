@@ -11,4 +11,10 @@ public interface ConfirmDAO {
 	int selectCountByDate();
 	List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo);
 	int getTotalRecord(ConfirmVO vo);
+	List<Map<String, Object>> selectAllConfirmDocument(ConfirmVO vo);
+	int getTotalConfirmRecord(ConfirmVO vo);
+	Map<String, Object> selectConfirmDocument(String confirmDocumentNo);
+	Map<String, Object> selectDeptAgree(String confirmDocumentNo);
+	int updateConfirmState(ConfirmVO vo);
+	int updateConfirmStateByClick(ConfirmVO vo);
 }
