@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,8 @@ public class PdsController {
 		    int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
 		    int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
 		    map.put("fileCount", fileCount);
+		    map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		    
 		}
 		
 		int totalRecord = pdsService.getTotalRecord(searchVo);
