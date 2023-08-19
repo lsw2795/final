@@ -172,13 +172,12 @@ public class EmployeeController {
 		logger.info("ajax이용 - 비밀번호 일치 파라미터 pwd={}, empNo={}", pwd, empNo);
 		
 		int result=employeeService.loginCheck(pwd,empNo);
-		int res=0;
 		if(result==employeeService.LOGIN_OK){
-			res=1;
+			result=1;
 		}else if(result==employeeService.PWD_DISAGREE){
-			res=0;
+			result=0;
 		}
-		return res;
+		return result;
 	}
 	
 	@PostMapping("/mypage/pwdEdit")

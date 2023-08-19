@@ -8,66 +8,71 @@
 	$(function(){
 		$('#newPwd2').keyup(function(){
 		    if($('#newPwd').val() == $('#newPwd2').val()){
-		        $('#pwdConfirm').text('새 비밀번호 확인이 일치합니다.').css('color', 'green');
+		        $('#pwdConfirm').text('새 비밀번호와 확인이 일치합니다.').css('color', 'green');
 		    }else{
 		        $('#pwdConfirm').text('새 비밀번호와 확인이 일치하지 않습니다.').css('color', 'red');
 		    }
 		});
 		
-	 	$('#btnEditPwd').click(function(){
-			if($('#pwd').val().length<1){
-				alert("비밀번호를 입력하세요.");
-				$('#pwd').focus();
-				return false;
-			}
-			
-			if($('#newPwd').val().length<1){
-				alert("새 비밀번호를 입력하세요.");
-				$('#newPwd').focus();
-				return false;
-			}
-			
-			if($('#newPwd2').val().length<1){
-				alert("새 비밀번호 확인이 필요합니다. 입력바랍니다.");
-				$('#newPwd2').focus();
-				return false;
-			}
-			
-			if($('#newPwd').val() != $('#newPwd2').val()){
-				alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 확인바랍니다.");
-				$('#newPwd').focus();
-				return false;  
-			}
-			
-			if (!validate_hp($('#newPwd').val())
-					|| !validate_hp($('#newPwd2').val())) {
-				alert("비밀번호 변경은 숫자만 가능합니다.");
-				$('#newPwd').focus();
-				return false;
-			}
-			
-			$.ajax({
-				url : "<c:url value='/ajaxPwdCheck'/>",
-				type:"get",
-				dataType : "text",
-				data:"pwd="+$('#pwd').val(),
-				success: function(res){
-					$('#pwdChkFlag').val(res);
-				},
-				error:function(xhr, status, error){
-					alert(status+" : "+error);
-				}
-			});//ajax
-			
-			if($('#pwdChkFlag').val()>0){
-				if(confirm('변경하시겠습니까?')){
-					 $("#pwdEditfrm").submit();
-				}
-			}else{
-				alert('현재 비밀번호가 일치하지 않습니다.');
-				return false;
-			}
-			
+		$('#btnEditPwd').click(function(){
+	          $(this).prop('disabled', true);
+	          
+	         if($('#pwd').val().length<1){
+	            alert("비밀번호를 입력하세요.");
+	            $('#pwd').focus();
+	            return false;
+	         }
+	         
+	         if($('#newPwd').val().length<1){
+	            alert("새 비밀번호를 입력하세요.");
+	            $('#newPwd').focus();
+	            return false;
+	         }
+	         
+	         if($('#newPwd2').val().length<1){
+	            alert("새 비밀번호 확인이 필요합니다. 입력바랍니다.");
+	            $('#newPwd2').focus();
+	            return false;
+	         }
+	         
+	         if($('#newPwd').val() != $('#newPwd2').val()){
+	            alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 확인바랍니다.");
+	            $('#newPwd').focus();
+	            return false;  
+	         }
+	         
+	         if (!validate_hp($('#newPwd').val())
+	               || !validate_hp($('#newPwd2').val())) {
+	            alert("비밀번호 변경은 숫자만 가능합니다.");
+	            $('#newPwd').focus();
+	            return false;
+	         }
+	         
+	         $.ajax({
+	            url : "<c:url value='/ajaxPwdCheck'/>",
+	            type:"get",
+	            dataType : "text",
+	            data:"pwd="+$('#pwd').val(),
+	            success: function(res){
+	               $('#pwdChkFlag').val(res);
+	               
+	               if($('#pwdChkFlag').val()>0){
+	                  if(confirm('변경하시겠습니까?')){
+	                      $("#pwdEditfrm").submit();
+	                  }
+	               }else{
+	                  alert('현재 비밀번호가 일치하지 않습니다.');
+	                  return false;
+	               }
+	            },
+	            complete: function() {
+	                  // 비동기 요청 완료 후 이벤트 활성화
+	                  $('#btnEditPwd').prop('disabled', false);
+	              },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax
 		});
 		
 		$('input[type=button]').click(function(){
