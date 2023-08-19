@@ -8,4 +8,5 @@ public interface SecondhandTradeFileService {
 	int insertFile(SecondhandTradeFileVO secondFileVo);
 	List<SecondhandTradeFileVO> showThumbnail();
 	List<SecondhandTradeFileVO> selectDetailFileByNo(int tradeNo);
+	int updateFile(SecondhandTradeFileVO secondFileVo);
 }

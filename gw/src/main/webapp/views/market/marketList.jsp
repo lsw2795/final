@@ -155,10 +155,10 @@ ul#navbarVerticalNav {
 																	</p>
 																	<p class="fs--1 mb-1">
 																		Stock:
-																		<c:if test="${vo.selFlag==0 }">
+																		<c:if test="${vo.selFlag=='N' }">
 																			<strong class="text-success">거래가능</strong>
 																		</c:if>
-																		<c:if test="${vo.selFlag==1 }">
+																		<c:if test="${vo.selFlag=='Y' }">
 																			<strong class="text-danger">판매완료</strong>
 																		</c:if>
 																	</p>
@@ -262,10 +262,10 @@ ul#navbarVerticalNav {
 																	</p>
 																	<p class="fs--1 mb-1">
 																		Stock:
-																		<c:if test="${vo.selFlag==0 }">
+																		<c:if test="${vo.selFlag=='N' }">
 																			<strong class="text-success">거래가능</strong>
 																		</c:if>
-																		<c:if test="${vo.selFlag==1 }">
+																		<c:if test="${vo.selFlag=='Y'}">
 																			<strong class="text-danger">판매완료</strong>
 																		</c:if>
 																	</p>
@@ -292,9 +292,11 @@ ul#navbarVerticalNav {
 					</c:choose>
 				</div>
 			</div>
-			<!-- 페이징 처리  -->
-       <div class="board_page">
-	<!-- 페이지 번호 추가 -->		
+		</div>
+	  </div>
+		<!-- 페이징 처리  -->
+      	<div class="board_page">
+		<!-- 페이지 번호 추가 -->		
 		<!-- 이전 블럭으로 이동 -->
 		<c:if test="${pagingInfo.firstPage>1}">
 			<a href="#" class="bt first" onclick="pageFunc(${pagingInfo.firstPage-1})"><<</a>
@@ -328,20 +330,6 @@ ul#navbarVerticalNav {
 		</c:if>
 		<!--  페이지 번호 끝 -->
 	</div>
-		<!-- <div class="card-footer d-flex justify-content-center">
-			<button class="btn btn-sm btn-falcon-default me-1" type="button"
-				title="Previous" data-list-pagination="prev">
-				<span class="fas fa-chevron-left"></span>
-			</button>
-			<ul class="pagination mb-0">
-			</ul>
-			<button class="btn btn-sm btn-falcon-default ms-1" type="button"
-				title="Next" data-list-pagination="next">
-				<span class="fas fa-chevron-right"></span>
-			</button>
-		  </div> -->
-		</div>
-	  </div>
 	</div>
 </div>
 	<%@ include file="../inc/bottom.jsp"%>

@@ -7,16 +7,35 @@
 		<selectKey keyProperty="tradeNo" order="BEFORE" resultType="int">
 			select secondhand_trade_seq.nextval from dual
 		</selectKey>
-		insert into secondhand_trade(trade_no, title, product, price, discription)
-		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription})
+		insert into secondhand_trade(trade_no, title, product, price, discription, boardlist_no)
+		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, 100)
 	</insert>
 	
 	<select id="selectAllMarket" resultType="secondHandTradeVo">
-	 select * from secondhand_trade 
-	 <if test="searchKeyword!=null and searchKeyword!=''">
-			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
-	</if>
-	 order by regdate desc
+	 select *
+	    from
+	    (
+	        select rownum as RNUM, A.* from
+	        (
+	            select *
+	            from secondhand_trade
+	            <if test="searchKeyword!=null and searchKeyword!=''">
+	                <choose>
+	                    <when test="searchCondition == 'total'">
+	                        and (title like '%' || #{searchKeyword} || '%' or discription like '%' || #{searchKeyword} || '%')
+	                    </when>
+	                    <otherwise>
+	                        and ${searchCondition} like '%' || #{searchKeyword} || '%'
+	                    </otherwise>
+	                </choose>
+	            </if>
+	            order by trade_no desc
+	        ) A
+	    )
+	    <![CDATA[
+	    where RNUM > #{firstRecordIndex} 
+	    and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+	    ]]>
 	</select>
 	
 	<select id="selectMarketByNo" parameterType="int" resultType="secondHandTradeVo">
@@ -45,4 +64,16 @@
         </if>
     </where>
 	</select>
+	
+	<update id="updateMarket" parameterType="secondHandTradeVo" >
+		update secondhand_trade
+		set title = #{title}, product = #{product}, price= #{price}, discription=#{discription}
+		where trade_no=#{tradeNo}
+	</update>
+	
+	<delete id="deleteMarket">
+		delete from secondhand_trade
+		where trade_no =#{tradeNo}
+	</delete>
+	
 </mapper>

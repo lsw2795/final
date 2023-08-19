@@ -232,4 +232,34 @@ public class SecondHandTradeController {
 		return "market/marketDetail";
 	}
 	
+	@GetMapping("/editMarket")
+	public String get_editMarket(@RequestParam(defaultValue = "0")int tradeNo, Model model, HttpSession session) {
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("중고거래 수정 페이지, 파라미터, tradeNo={}, empNo={}", tradeNo, empNo);
+		if(tradeNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/market/marketList");
+			
+			return "common/message";
+		}
+		//2
+		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
+		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		logger.info("조회 결과, secondVo={}", secondVo);
+		logger.info("조회 결과, fileList={}", fileList);
+		logger.info("조회 결과, emp={}", emp);
+		
+		//3
+		model.addAttribute("vo", secondVo);
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("emp", emp);
+		
+		//4
+		return "/market/editMarket";
+	}
+	
+	
+	
 }
