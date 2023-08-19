@@ -40,6 +40,10 @@
 			or emp_no like '%'|| #{searchKeyword} ||'%'
 			or dept_name like '%'|| #{searchKeyword} ||'%'
 			or position_name like '%'|| #{searchKeyword} ||'%'
+			and retiredate is null
+		</if>
+		<if test="searchKeyword==null or searchKeyword==''">
+			where retiredate is null
 		</if>
 			order by dept_name asc, position_name desc
 	</select>
@@ -50,9 +54,16 @@
 	</select>
 	
 	<update id="updateEmpInfo" parameterType="employeeVo">
-		update employee
-		set address=#{address}, addressdetail=#{addressdetail}	
-		where emp_no=#{empNo}
+    update employee
+    set address=#{address}, addressdetail=#{addressdetail},
+        tel=#{tel}, email=#{email}, married=#{married}
+    where emp_no=#{empNo}
+	</update>
+	
+	<update id="updateEmpPwd" parameterType="employeeVo">
+	    update employee
+	    set pwd=#{pwd}
+	    where emp_no=#{empNo}
 	</update>
 	
 </mapper>

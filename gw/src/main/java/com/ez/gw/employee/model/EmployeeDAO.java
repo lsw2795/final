@@ -16,6 +16,8 @@ public interface EmployeeDAO {
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	int updateFindPwd(EmployeeVO empVo) throws Exception; //사원 비번 찾기
-	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 수정 메서드
+	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 상세보기 메서드
+	int updateEmpInfo(EmployeeVO empVo); //사원 - 사원정보 수정하기
+	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 }
 

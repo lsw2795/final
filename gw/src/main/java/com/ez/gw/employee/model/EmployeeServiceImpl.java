@@ -66,6 +66,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 	}
 
+	@Override
+	public int updateEmpInfo(EmployeeVO empVo) {
+		return employeeDao.updateEmpInfo(empVo);
+	}
+
+	@Override
+	public int updateEmpPwd(EmployeeVO empVo) {
+		return employeeDao.updateEmpPwd(empVo);
+	}
+
 
 
 }
