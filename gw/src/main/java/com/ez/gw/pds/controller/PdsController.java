@@ -204,13 +204,13 @@ public class PdsController {
 		String msg = "자료 수정 실패", url = "/pds/edit?boardNo=" + boardVo.getBoardNo();
 		if(cnt>0) {
 			if(oldFileNames!=null) { //기존 파일이 있을때만 
-				List<String> delFileList =  new ArrayList<>();
-
 				//3.1 게시글 번호로 업로드되어 있는 파일들 조회
 				List<PdsVO> list = pdsService.selectFilesByBoardNo(boardVo.getBoardNo());
 				logger.info("게시글 번호로 업로드되어있는 파일 갯수 조회 list.size={}", list.size());
 
-				for(PdsVO dbFile : list) {
+				//3.2 db에 해당 게시글 번호로 저장되어있는 파일들 전부 조회
+				for(PdsVO dbFile : list) { //db 파일 하나하나씩 반복
+
 					boolean shouldDelete = true; // 삭제 여부를 나타내는 변수를 초기화
 
 					for (String oldFileName : oldFileNames) {
@@ -220,20 +220,23 @@ public class PdsController {
 						}
 					}//for
 
-					if (shouldDelete) {
+					if (shouldDelete) { //해당 파일이 db파일과 oldFileName과 일치하지 않으면 파일 삭제 대상
 						// 파일 삭제 로직 및 DB에서 데이터 삭제 로직 추가
 						if (dbFile.getFileName() != null && !dbFile.getFileName().isEmpty()) {
 							File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), dbFile.getFileName());
 							if (f.exists()) {
+								//업로드 폴더에서 해당 파일 삭제
 								boolean result = f.delete();
 							}
-							pdsService.editPdsFile(boardVo.getBoardNo(), dbFile.getFileName()); // db에서도 해당 파일 데이터 삭제
+							// db에서도 해당 파일 데이터 삭제
+							pdsService.editPdsFile(boardVo.getBoardNo(), dbFile.getFileName()); 
 						}
 					}
 				}//바깥 for
 
-				//3.2 삭제해야할 파일들 선별해서 pds_upload에서 파일먼저 삭제
-			}else { //넘어온 기존파일명이 하나도 없을때 새 파일 업로드전 해당 게시글에 모든 파일과 파일 db삭제
+			//3.2 삭제해야할 파일들 선별해서 pds_upload에서 파일먼저 삭제
+			//넘어온 기존파일명이 하나도 없을때 새 파일 업로드전 해당 게시글에 모든 파일과 파일 db삭제
+			}else { 
 				List<PdsVO> oldlist = pdsService.selectFilesByBoardNo(boardVo.getBoardNo());
 				logger.info("게시글 번호로 업로드되어있는 파일 갯수 조회 list.size={}", oldlist.size());
 
