@@ -70,4 +70,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 	}
 
+	@Override
+	public Map<String, Object> selectEmpByEmpNo(int empNo) {
+			return employeeDao.selectEmpByEmpNo(empNo);
+	}
+
 }

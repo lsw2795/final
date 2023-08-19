@@ -103,32 +103,8 @@
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
 		
-		<li class="nav-item">
-            <div class="row mb-3">
-            <div class="col-md-12">
-                  <div class="card font-sans-serif">
-                    <div class="card-body d-flex flex-sm-row">
-                    <img class="rounded-3" src="<c:url value='/images/차은우.png'/>" alt="" width="100" />
-                      <table class="table table-borderless fs--1 fw-medium mb-0">
-                        <tbody>
-                          <tr>
-                            <td class="p-1">차은우</td>
-                          </tr>
-                          <tr>
-                            <td class="p-1">대리</td>
-                          </tr>
-                          <tr>
-                            <td class="p-1">정윤팀</td>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </div>
-                      <div class="mb-2" style="text-align: center;">
-                      <input type="button" class="btn btn-primary" value="버튼1">
-                      <input type="button" class="btn btn-primary" value="버튼2">
-                      </div>
-                </div>
+				<li class="nav-item">
+            		<c:import url="/inc/empMain"></c:import>
 				</li>
 					
 					<li class="nav-item"><!-- parent pages-->

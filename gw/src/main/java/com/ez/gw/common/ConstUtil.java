@@ -26,7 +26,7 @@ public interface ConstUtil {
 	
 	//관리자 페이지 - 사원 이미지 저장 경로
 	String IMAGE_FILE_UPLOAD_PATH = "images";
-	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp";
+	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\images";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드

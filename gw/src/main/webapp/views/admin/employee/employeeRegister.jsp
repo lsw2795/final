@@ -174,8 +174,8 @@
 				    <div class="row mb-3 d-flex align-items-center">
 				    	<div class="col-md-auto adminempdiv16"></div>
 					    <div class="col-md-6">
-					        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
-					        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+					        <input type="text" class="form-control admindefault" name="address" id="sample4_roadAddress" placeholder="도로명주소">
+					        <input type="text" class="form-control admindefault" name="addressdetail" id="sample4_detailAddress" placeholder="상세주소">
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -223,7 +223,6 @@
 					 <input type="hidden" id="jumin" name="jumin" value=""/>
 					 <input type="hidden" id="extensionNo" name="extensionNo" value=""/>
 					 <input type="hidden" id="tel" name="tel" value=""/>
-					 <input type="hidden" id="address" name="address" value=""/>
 					 <input type="hidden" id="email" name="email" value=""/>
 				</form>
 			</div>

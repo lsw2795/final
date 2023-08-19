@@ -37,15 +37,6 @@
 			}
 			$('#tel').attr('value',tel);
 			
-			var roadAddress=$('#sample4_roadAddress').val();
-			var detailAddress=$('#sample4_detailAddress').val();
-			
-			var address="";
-			if(roadAddress!=="" && detailAddress!==""){
-				address=roadAddress+" "+detailAddress;
-			}
-			$('#address').attr('value',address);
-			
 			var email1=$('#email1').val();
 			var email2=$('#email2').val();
 			var email3=$('#email3').val();
@@ -104,8 +95,14 @@
 				return false;
 			}
 			
-			if ($('#address').val().length < 1) {
+			if ($('#sample4_roadAddress').val().length < 1) {
 				alert("주소는 필수 입력사항입니다.");
+				$('#btnsearchAddress').focus();
+				return false;
+			}
+			
+			if ($('#sample4_detailAddress').val().length < 1) {
+				alert("상세주소는 필수 입력사항입니다.");
 				$('#btnsearchAddress').focus();
 				return false;
 			}
