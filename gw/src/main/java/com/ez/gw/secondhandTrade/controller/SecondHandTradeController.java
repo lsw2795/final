@@ -119,7 +119,7 @@ public class SecondHandTradeController {
 				fileName = secondVo.getTradeNo() +"_" + i++ + cutFileName;
 				fileSize = (long)f.getSize();
 				
-				String path = "C:\\Users\\Desktop\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
+				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
 				//String filePath = request.getSession().getServletContext().getRealPath(path);
 				//String filePath = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
 				
@@ -152,12 +152,10 @@ public class SecondHandTradeController {
 	}
 	
 	@RequestMapping("/marketList")
-	public String marketList(Model model, HttpSession session, @ModelAttribute SearchVO searchVo) {
+	public String marketList(Model model, @ModelAttribute SearchVO searchVo) {
 		//1
-		int empNo = (int)session.getAttribute("empNo");
-		
-		logger.info("중고마켓 화면 보여주기, 사원번호 ={}", empNo);
-		
+		logger.info("중고마켓 화면 보여주기 searchVo={}", searchVo);
+		EmployeeVO emp = null;
 		//2
 		//페이징
 		PaginationInfo pagingInfo = new PaginationInfo();
@@ -171,7 +169,6 @@ public class SecondHandTradeController {
 		
 		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket(searchVo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
-		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
 		
 		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
@@ -185,11 +182,12 @@ public class SecondHandTradeController {
 		}
 		
 		for(SecondHandTradeVO fg : list) {
-			fg.setEmpNo(empNo);
+			int empNo = fg.getEmpNo();
+			emp = employeeService.selectByEmpNo(empNo);
+			
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
-			//logger.info("time={}", time);
 		}
 		
 		
@@ -197,23 +195,21 @@ public class SecondHandTradeController {
 		model.addAttribute("list", list);
 		model.addAttribute("sub", sub);
 		model.addAttribute("emp", emp);
-		//model.addAttribute("time", time);
 		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "market/marketList";
 	}
 	
 	@RequestMapping("/marketDetail")
-	public String detail(@RequestParam(defaultValue = "0")int tradeNo, HttpSession session, Model model) {
+	public String detail(@RequestParam(defaultValue = "0")int tradeNo, Model model) {
 		
 		//1
-		int empNo = (int)session.getAttribute("empNo");
 		logger.info("중고거래 상세보기 페이지, 파라미터={}", tradeNo);
 		
 		//2
 		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		EmployeeVO emp = employeeService.selectByEmpNo(secondVo.getEmpNo());
 		
 		logger.info("중고거래 상세보기 페이지 결과, secondVo={}, fileList.size={}", secondVo, fileList.size());
 		
@@ -258,6 +254,70 @@ public class SecondHandTradeController {
 		return "/market/editMarket";
 	}
 	
+	/*
+	 * @PostMapping("/editMarket") public String post_editMarket() { //1
+	 * 
+	 * //2
+	 * 
+	 * //3
+	 * 
+	 * //4 }
+	 */
 	
+	@RequestMapping("/delMarket")
+	public String delete(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
+		//1
+		logger.info("중고거래 삭제하기, 파라미터 tradeNo={}", tradeNo);
+		
+		
+		if(tradeNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/market/marketList");
+			
+			return "common/message";
+		}
+		//2
+		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+		logger.info("중고거래 이미지 파일 갯수, fileList={}", fileList);
+		if(fileList.size()>0) {
+			for(SecondhandTradeFileVO f : fileList) {
+				String fileName = f.getImageURL();
+				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+				File file = new File(path, fileName);
+				if(file.exists()) {
+					boolean result = file.delete();
+					logger.info("이미지 삭제 여부 : {}", result);
+				}
+			}//for
+		}//if
+		
+		int cnt = secondHandTradeService.deleteMarket(tradeNo);
+		logger.info("중고거래 게시글 삭제 결과, cnt = {}", cnt);
+		
+		String msg="삭제 실패!", url="/market/marketList";
+		if(cnt>0) {
+			msg = "자료 삭제가 완료되었습니다.";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
 	
+	@RequestMapping("/like")
+	public String like(@RequestParam(defaultValue = "0")int tradeNo) {
+		//1
+		logger.info("좋아요 누르기!, 파라미터 ={}", tradeNo );
+		
+		//2
+		int cnt = secondHandTradeService.updateLike(tradeNo);
+		logger.info("좋아요 결과 cnt={}", cnt);
+		
+		//3
+		//4
+		return "redirect:/market/marketList";
+	}
 }

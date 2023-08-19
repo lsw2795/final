@@ -9,4 +9,5 @@ public interface SecondhandTradeFileService {
 	List<SecondhandTradeFileVO> showThumbnail();
 	List<SecondhandTradeFileVO> selectDetailFileByNo(int tradeNo);
 	int updateFile(SecondhandTradeFileVO secondFileVo);
+	int deleteMarketFile(int tradeNo);
 }

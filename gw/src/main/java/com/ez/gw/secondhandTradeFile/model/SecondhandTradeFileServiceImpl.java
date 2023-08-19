@@ -32,6 +32,11 @@ public class SecondhandTradeFileServiceImpl implements SecondhandTradeFileServic
 	public int updateFile(SecondhandTradeFileVO secondFileVo) {
 		return secondhandTradeFileDao.updateFile(secondFileVo);
 	}
+
+	@Override
+	public int deleteMarketFile(int tradeNo) {
+		return secondhandTradeFileDao.deleteMarketFile(tradeNo);
+	}
 	
 	
 }

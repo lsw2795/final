@@ -8,6 +8,27 @@
 <script type="text/javascript" src = "<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		$("#fileInput").on("change", function() {
+			  var imagePreview[] = ${fileList.imageURL};
+			  
+			  var files = $(this)[0].files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var img = $("<img>").attr("src", e.target.result).css({
+                        width: "150px", // 이미지 크기 조절
+                        margin: "10px" // 이미지 간격 조절
+                    });
+                    imagePreview.append(img);
+                };
+                
+                reader.readAsDataURL(file);
+		  }
+	  });
+		
 		$('#bt1').click(function(){
 			
 			if($('#product-name').val().length<1){
@@ -46,26 +67,7 @@
 			} */
 		});
 		
-		  $("#fileInput").on("change", function() {
-			  var imagePreview = $(".dz-message");
-			  imagePreview.empty();
-			  
-			  var files = $(this)[0].files;
-              for (var i = 0; i < files.length; i++) {
-                  var file = files[i];
-                  var reader = new FileReader();
-                  
-                  reader.onload = function(e) {
-                      var img = $("<img>").attr("src", e.target.result).css({
-                          width: "150px", // 이미지 크기 조절
-                          margin: "10px" // 이미지 간격 조절
-                      });
-                      imagePreview.append(img);
-                  };
-                  
-                  reader.readAsDataURL(file);
-		  }
-	  });
+		  
 		  
 	});
 	
@@ -119,6 +121,18 @@
                         <label class="form-label" for="product-summary">비밀번호</label>
                         <input class="form-control" id="product-summary" name = "pwd" type="password" onchange="isSame()"/>
                       </div>
+                      <div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto mypageempdiv4">
+							<label class="form-label">거래 완료 여부</label>
+						</div> 
+						<div class="col-md-6 mypagespan">
+					        <div class="form-check">
+		                        <label class="form-check-label mb-0" for="marriedFlagY">거래완료</label>
+		                        <input type="radio" class="form-check-input" id="marriedFlagY"  name="married" />
+	                       </div>
+	                       <span class="mypagehyphen"></span>
+				    	</div>
+					</div>
                       <div class="col-12 mb-3">
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
@@ -139,11 +153,12 @@
                       <input name="imageURL2" type="file" multiple="multiple" id=""/>
                       <span class="mb-0"></span>
                     </div>
+	                <c:if test="${!empty fileList }">
                     <div class="dz-message" data-dz-message="data-dz-message"> 
-		                <c:if test="${!empty fileList }">
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
 	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
                     </div>
+	                </c:if>
                     <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
                       <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger">
                         <div class="flex-1 d-flex flex-between-center">
@@ -151,14 +166,14 @@
                             <h6 data-dz-name="data-dz-name"></h6>
                             <div class="d-flex align-items-center">
                               <p class="mb-0 fs--1 text-400 lh-1" data-dz-size="data-dz-size"></p>
-                              <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                              <div class="dz-progress"
+                              	><span class="dz-upload" data-dz-uploadprogress=""></span></div>
                             </div>
                           </div>
                           <div class="dropdown font-sans-serif">
                             <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
                             <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
                           </div>
-		                </c:if>
                         </div>
                       </div>
                     </div>

@@ -167,8 +167,10 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="#!"><span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">Favourite</span></a><a
+																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	<span class="far fa-heart"></span><span
+																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
+																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="#!"><span class="fas fa-envelope-open">
 																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>
@@ -274,8 +276,10 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="#!"><span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">Favourite</span></a><a
+																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	<span class="far fa-heart"></span><span
+																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
+																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="#!"><span class="fas fa-envelope-open">
 																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>

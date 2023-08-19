@@ -29,6 +29,6 @@
 	
 	<delete id="deleteMarketFile">
 		delete from secondhand_trade_file
-		where trad_no = #{tradeNo}
+		where trade_no = #{tradeNo}
 	</delete>
 </mapper>
