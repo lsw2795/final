@@ -44,19 +44,17 @@
 <select id="getTotalRecord" parameterType="searchVo" resultType="int">
     select count(*)
     from pdsListview
-    where boardList_no=3000
-    <where>
-        <if test="searchKeyword!=null and searchKeyword!=''">
-            <choose>
-                <when test="searchCondition == 'total'">
-                    title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%'
-                </when>
-                <otherwise>
-                    ${searchCondition} like '%' || #{searchKeyword} || '%'
-                </otherwise>
-            </choose>
-        </if>
-    </where>
+    where boardList_no = 3000
+    <if test="searchKeyword!=null and searchKeyword!=''">
+        <choose>
+            <when test="searchCondition == 'total'">
+                and (title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%')
+            </when>
+            <otherwise>
+                and ${searchCondition} like '%' || #{searchKeyword} || '%'
+            </otherwise>
+        </choose>
+    </if>
 </select>
 	
 	
