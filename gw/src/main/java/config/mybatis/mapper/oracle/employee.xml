@@ -49,4 +49,10 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<update id="updateEmpInfo" parameterType="employeeVo">
+		update employee
+		set address=#{address}, addressdetail=#{addressdetail}	
+		where emp_no=#{empNo}
+	</update>
+	
 </mapper>

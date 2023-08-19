@@ -2,45 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
-<script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/employee2.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-	$(function(){
-		var tel=$('#tel').val();
-		var email=$('#email').val();
-		
-		var str=tel.split("-");
-		var tel1=str[0];
-		var tel2=str[1];
-		var tel3=str[2];
-		$('#tel1').val(tel1);
-		$('#tel2').val(tel2);
-		$('#tel3').val(tel3);
-		
-		var str2=email.split("@");
-		var email1=str2[0];
-		$('#email1').val(email1);
-	});
-
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-             
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-            }
-        }).open();
-    }
-</script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -82,7 +45,7 @@
 							<label class="col-form-label mypageemplabel">주민번호</label>
 						</div>
 						<div class="col-md-6">
-					       <span class="mypageempspan">${map['JUMIN']}</span>
+					       <span class="mypageempspan" id="jumin">${map['JUMIN']}</span>
 					    </div>
 					</div>
 						 
@@ -121,6 +84,7 @@
 							</span>
 						</div>
 					</div>
+					<c:if test="${!empty map['ANNUAL_YEAR']}">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv4">
 							<label class="col-form-label mypageemplabel">근속연수</label> 
@@ -129,6 +93,7 @@
 							<span class="mypageempspan">${map['ANNUAL_YEAR']}</span>
 						</div>
 					</div>
+					</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv6">
 							<label class="col-form-label mypageemplabel" for="annualSalary">연봉</label>
@@ -233,14 +198,16 @@
 	                      </div>
 				    	</div>
 					</div>
-					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto mypageempdiv5">
-							<label class="col-form-label mypageemplabel" for="">동호회</label>
+					<c:if test="${!empty map['CLUB_NO']}">
+						<div class="row mb-3 d-flex align-items-center">
+						    <div class="col-md-auto mypageempdiv5">
+								<label class="col-form-label mypageemplabel" for="">동호회</label>
+							</div>
+							<div class="col-md-6"> 
+								<span class="mypageempspan">${map['CLUB_NO']}</span>
+							</div>
 						</div>
-						<div class="col-md-6"> 
-							<span class="mypageempspan">동호회가 있으면 나타남</span>
-						</div>
-					</div>
+					</c:if>
 					<div style="text-align: center;">
 					<input type="submit" value="수정" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-primary"/>

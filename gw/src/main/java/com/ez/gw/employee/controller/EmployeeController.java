@@ -80,7 +80,7 @@ public class EmployeeController {
 		
 	    String msg = "사원 등록에 실패했습니다.", url = "/admin/employee/employeeRegister";
         if (cnt > 0) {
-            msg = "사원 등록을 완료했습니다.";
+            msg = "사원번호 생성이 완료되었습니다.";
         }
         model.addAttribute("msg", msg);
         model.addAttribute("url", url);
@@ -112,7 +112,6 @@ public class EmployeeController {
 	
 	@GetMapping("/mypage/empInfoEdit")
 	public String empEdit(HttpSession session,Model model) {
-		//1
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("사원 정보 수정 페이지, 파라미터 empNo={}", empNo);
 		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
@@ -123,7 +122,6 @@ public class EmployeeController {
 	
 	@GetMapping("/inc/empMain")
 	public String empMain(HttpSession session,Model model) {
-		//1
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
 		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
