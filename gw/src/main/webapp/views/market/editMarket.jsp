@@ -9,23 +9,48 @@
 <script type="text/javascript">
 	$(function(){
 		
-		$("#fileInput").on("change", function() {
-			  var imagePreview = [];
+		$('#bt1').click(function() {
+	        // 파일이 선택되었는지 확인
+	        if ($('#uploadfile')[0].files.length === 0) {
+	            alert("이미지 파일을 선택해주세요.");
+	            return false;
+	        }
+
+	        // 선택된 파일의 확장자 확인
+	        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // 허용할 확장자 목록
+	        var fileInput = $('#uploadfile');
+	        if (!allowedExtensions.exec(fileInput.val())) {
+	            alert('이미지 파일(.jpg, .jpeg, .png, .gif)만 업로드 가능합니다.');
+	            fileInput.val(''); // 파일 선택 창 비우기
+	            return false;
+	        }
+
+	        // 여기에서 다른 유효성 검사 로직을 추가할 수 있습니다.
+	    });
+		
+		$('#uploadfile').click(function(){
+			$('.dz-message').empty();
+		});
+
+		 $("#uploadfile").on("change", function() {
+			  var imagePreview = $(".dz-message");
+			  imagePreview.empty();
 			  
 			  var files = $(this)[0].files;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    var img = $("<img>").attr("src", e.target.result).css({
-                        width: "150px", // 이미지 크기 조절
-                        margin: "10px" // 이미지 간격 조절
-                    });
-                    imagePreview.push(img);
-                };
-                
-                reader.readAsDataURL(file);
+             for (var i = 0; i < files.length; i++) {
+                 var file = files[i];
+                 var reader = new FileReader();
+                 
+                 reader.onload = function(e) {
+                     var img = $("<img>").attr("src", e.target.result).css({
+                         width: "150px", // 이미지 크기 조절
+                         margin: "10px" // 이미지 간격 조절
+                     });
+                     imagePreview.append(img);
+                 };
+                 
+                 reader.readAsDataURL(file);
+                 $('input[type="file"]').addClass('default-style');                 
 		  }
 	  });
 		
@@ -69,7 +94,7 @@
 		
 		$('#password').keyup(function(){
 			$.ajax({
-				url:"/market/ajaxCheckPwd",  
+				url:"<c:url value='/market/ajaxCheckPwd'/>",  
 				type:"get",
 				dataType:"JSON",
 				data:{pwd : $('#password').val()},
@@ -104,29 +129,30 @@
     justify-content: flex-start;
 }
 
-.filebutton{
-	padding:0;
-	margin:0;
-	background: #e0e0e0;
-	border:1px solid black;
-	justify-content: center;
-    align-items: center;
-	
+
+
+input[type="file"] {
+    color: transparent; 
+    background-color: transparent; 
+    border: none; 
+    outline: none; 
 }
 
-#checkFile{
-	font-size:1rem;
-	color:black;
-	padding:2px;
-	margin:0px;
+input[type="file"].default-style {
+    color: initial;
+    background-color: initial;
+    border: initial;
+    outline: initial;
 }
 </style>
  <div class="content">
+       <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/editMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">중고거래 상품 수정</h5>
+                  <input type="text" name= "tradeNo" value="${vo.tradeNo }"/>
                 </div>
                 <div class="col-auto">
                 </div>
@@ -136,7 +162,6 @@
           <div class="row g-0">
               <div class="card mb-3">
                 <div class="card-body">
-                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/editMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                       <div class="col-12 mb-3"s>
                         <label class="form-label" for="product-name">제목</label>
@@ -185,17 +210,15 @@
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
 	                <c:if test="${!empty fileList }">
                     <div class="fallback">
-                    	<div class="filebutton">
-                      		<label for="uploadfile" id="checkFile">파일선택</label>
-                      	</div>
-                      <input name="imageURL2" type="file" multiple="multiple" id="uploadfile" style="display:none"/>
-                      <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
+                      <input name="imageURL2" type="file" multiple="multiple" id="uploadfile" />
                     </div>
                     <div class="dz-message" data-dz-message="data-dz-message"> 
 	                <c:forEach var="file" items="${fileList }">
-	                <img src = "<c:url value='/market/upload?${file.imageURL }'/>">
+	               	 <img src = "<c:url value='/market/upload/${file.imageURL }'/>"
+	               	 	style="max-width:240px; max-height:200px">
                     </c:forEach>
                     </div>
+                    <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
 	                </c:if>
                     <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
                       <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger">

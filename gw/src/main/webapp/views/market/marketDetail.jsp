@@ -40,8 +40,8 @@
                     	"slideToClickedSlide":true}'>
                       <div class="swiper-wrapper">
                       	<c:forEach var="file" items="${file }">
-	                        <div class="swiper-slide">
-	                        	<img class="rounded-1 object-fit-cover w-100" src="<c:url value='/market/upload/${file.imageURL }'/>" alt="" />
+	                        <div class="swiper-slide swiper-slide-duplicate swiper-slide-visible swiper-slide-prev" data-swiper-slide-index="5" role="group" aria-label="6 / 6" style="width: 70.2px; margin-right: 5px;"">
+	                        	<img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/market/upload/${file.imageURL }'/>" alt="" />
 	                        </div>
                       	</c:forEach>
                       </div>
