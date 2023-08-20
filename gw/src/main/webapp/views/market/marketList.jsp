@@ -51,7 +51,7 @@ ul#navbarVerticalNav {
 						<div class="col-auto pe-0">
 							<form action='<c:url value='/market/marketList'/>'>
 								<select name="searchCondition"
-									class="form-select form-select-sm" aria-label="Bulk actions">
+									class="form-select"  aria-label="Bulk actions">
 									<option value="title"
 										<c:if test="${param.searchCondition=='title'}">
 	                            		selected = "selected"

@@ -251,9 +251,10 @@ public class PdsController {
 					}
 				}
 
-				int delFile = pdsService.editPdsFile(boardVo.getBoardNo(), null); 
+				int delFile = pdsService.editPdsFile(boardVo.getBoardNo(), null);
 				logger.info("넘어온 파일명 없을 경우 기존 파일 db 삭제 여부 delFile={}", delFile);
-			}
+				
+			}//if
 
 			//3.3 기존 파일들중 삭제 작업 완료 후 새로운 파일들 업로드
 			String fileName="", originalFileName="", filePath = "";

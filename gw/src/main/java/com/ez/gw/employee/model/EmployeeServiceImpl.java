@@ -67,8 +67,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public String selectPwd(int empNo) {
 		return employeeDao.selectPwd(empNo);
+=======
+	public int updateEmpInfo(EmployeeVO empVo) {
+		return employeeDao.updateEmpInfo(empVo);
+	}
+
+	@Override
+	public int updateEmpPwd(EmployeeVO empVo) {
+		return employeeDao.updateEmpPwd(empVo);
+>>>>>>> branch 'main' of https://github.com/lsw2795/final.git
 	}
 
 

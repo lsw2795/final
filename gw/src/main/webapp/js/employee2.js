@@ -16,8 +16,24 @@
 		$('#tel2').val(tel2);
 		$('#tel3').val(tel3);
 		
-		
-	
+		var email=$('#email').val();
+		var str2=email.split("@");
+		var email1=str2[0];
+		$('#email1').val(email1);
+		var email2=str2[1];
+		if(email2=='naver.com'){
+			$('#email2').val('naver.com');
+		}else if(email2=='hanmail.net'){
+			$('#email2').val('hanmail.net');
+		}else if(email2=='nate.com'){
+			$('#email2').val('nate.com');
+		}else if(email2=='gmail.com'){
+			$('#email2').val('gmail.com');
+		}else{
+			$('#email2').val('etc');
+			$("#email3").css('visibility', 'visible');
+			$('#email3').val(email2);
+		}	
 		
 		var jumin=$('#jumin').text();
 		var str=jumin.substr(0,8)+"******";
@@ -31,24 +47,6 @@
 				 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
-			var jumin1=$('#jumin1').val();
-			var jumin2=$('#jumin2').val();
-			
-			var jumin="";
-			if(jumin1!=="" && jumin2!==""){
-				jumin= jumin1 + "-" +jumin2;
-			}
-			$('#jumin').attr('value', jumin);
-			
-			var extensionNo1 = $('#extensionNo1').val();
-	        var extensionNo2 = $('#extensionNo2').val();
-	         
-	        var extensionNo="";
-	        if (extensionNo1 !=="" && extensionNo2 !== "") {
-	            extensionNo= extensionNo1 + "-" + extensionNo2;
-	        }
-	        $('#extensionNo').attr('value', extensionNo);
-			
 			var tel1=$('#tel1').val();
 			var tel2=$('#tel2').val();
 			var tel3=$('#tel3').val();
@@ -84,7 +82,6 @@
 			}
 			$('#address').attr('value',address);
 			
-			
 			if ($('#pwd').val().length < 1) {
 				alert("비밀번호를 입력하세요");
 				$('#pwd').focus();
@@ -92,7 +89,7 @@
 			}
 			
 			if ($('#pwd').val() != $('#pwd2').val()) {
-				alert("비밀번호가 일치하지 않습니다.확인하세요");
+				alert("비밀번호가 일치하지 않습니다. 확인 바랍니다.");
 				$("#pwd2").focus();
 				return false;
 			}
@@ -121,13 +118,6 @@
 				return false;
 			}
 		
-			if (!validate_num($("#extensionNo1").val())
-					|| !validate_num($("#extensionNo2").val())) {
-				alert("내선번호는 숫자만 가능합니다");
-				$("#extensionNo1").focus();
-				return false;
-			}
-			
 			if (!validate_num($("#tel1").val())
 					||!validate_num($("#tel2").val())
 					|| !validate_num($("#tel3").val())) {
