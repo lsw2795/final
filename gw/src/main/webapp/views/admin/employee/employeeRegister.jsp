@@ -6,8 +6,28 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
-		
+		 $("#empWrite").hide();
+		 $.ajax({
+	            url : "<c:url value='/ajaxPwdCheck'/>",
+	            type:"get",
+	            dataType : "text",
+	            data:"pwd="+$('#pwd').val(),
+	            success: function(res){
+	               $('#adminPwdChkFlag').val(res);
+	               
+	               if($('#adminPwdChkFlag').val()>0){
+	                  	  alert("관리자 확인이 완료되었습니다.");
+	                  	 $('#staticBackdrop').modal('hide'); 
+	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
+	                     $('#empWrite').show();    // empWrite 버튼 보이기
+	               }else{
+	                  alert('관리자 비밀번호가 일치하지 않습니다.');
+	               }
+	            },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax
 	});
 </script>
 <c:if test="${!empty param.empNo}">
