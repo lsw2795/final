@@ -3,6 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.employee.model.EmployeeDAO">
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword!=null and searchKeyword!=''">
+	   	 		${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+	      	</if>
+	    </where>
+	</sql>
+	
 	<select id="selectByEmpNo" parameterType="int" resultType="employeeVo">
 		select * from employee
 		where emp_no=#{empNo}
@@ -42,10 +50,30 @@
 			or position_name like '%'|| #{searchKeyword} ||'%'
 			and retiredate is null
 		</if>
-		<if test="searchKeyword==null or searchKeyword==''">
-			where retiredate is null
-		</if>
 			order by dept_name asc, position_name desc
+	</select>
+	
+	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from organizationChartView
+				<include refid="searchWhere"/>
+				order by dept_name desc		
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
+		select count(*) from organizationChartView
+        <include refid="searchWhere"></include>
 	</select>
 	
 	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">

@@ -15,7 +15,8 @@
 		});
 		
 		$('#btnEditPwd').click(function(){
-	          $(this).prop('disabled', true);
+	        //submit실행 막고 유효성 검사로 내려감  
+			event.preventDefault();
 	          
 	         if($('#pwd').val().length<1){
 	            alert("비밀번호를 입력하세요.");
@@ -62,13 +63,8 @@
 	                  }
 	               }else{
 	                  alert('현재 비밀번호가 일치하지 않습니다.');
-	                  return false;
 	               }
 	            },
-	            complete: function() {
-	                  // 비동기 요청 완료 후 이벤트 활성화
-	                  $('#btnEditPwd').prop('disabled', false);
-	              },
 	            error:function(xhr, status, error){
 	               alert(status+" : "+error);
 	            }

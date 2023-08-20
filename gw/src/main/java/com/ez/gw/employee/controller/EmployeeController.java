@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.RequestScope;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.dept.model.DeptAllVO;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
-import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -177,6 +176,7 @@ public class EmployeeController {
 		}else if(result==employeeService.PWD_DISAGREE){
 			result=0;
 		}
+		logger.info("ajax이용 - 비밀번호 일치 결과 result={}", result);
 		return result;
 	}
 	
@@ -197,6 +197,40 @@ public class EmployeeController {
 		model.addAttribute("url", url);
 		
 		return "common/message";
+	}
+	
+	@RequestMapping("/admin/employee/employeeList")
+	public String empList(@ModelAttribute SearchVO searchVo,
+			@ModelAttribute DeptVO deptVo, Model model){
+		logger.info("관리자 - 전체 임직원 목록,조직도 조회 파라미터 searchVo={}", searchVo);
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	
+		List<Map<String, Object>> list=employeeService.selectSearchEmp(searchVo);
+		logger.info("한 페이지당 임직원 목록 조회결과, list.size={}",list.size());
+	
+		int totalRecord=employeeService.getTotalRecord(searchVo);
+		logger.info("임직원 목록 전체 조회, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<DeptAllVO> deptList = deptService.selectAllDept2(deptVo);
+        logger.info("부서 조회 결과 deptList.size()={}", deptList.size());
+	
+		//3
+		model.addAttribute("list", list);
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		
+		//4
+		return "admin/employee/employeeList";	
 	}
 	
 }
