@@ -94,10 +94,6 @@
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
 				
-					<li class="nav-item">
-	            		<c:import url="/inc/empMain"></c:import>
-					</li>
-					
 					<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#mypage" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">

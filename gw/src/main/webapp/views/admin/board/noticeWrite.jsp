@@ -15,7 +15,6 @@
 	<c:set var="no" value="0" />	
 </c:if>
 <script type="text/javascript">
-//게시글 임시저장 기능
 	$(function(){
         $('#title').focus();
 		

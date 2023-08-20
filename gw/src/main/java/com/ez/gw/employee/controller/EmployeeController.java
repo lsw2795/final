@@ -233,6 +233,17 @@ public class EmployeeController {
 		return "admin/employee/employeeList";	
 	}
 	
+	@GetMapping("/admin/employee/employeeEdit")
+	public String adminEmpEdit(@RequestParam (defaultValue = "0")int empNo, Model model) {
+		logger.info("관리자 - 사원 정보 수정 페이지 보여주기, 파라미터 empNo={}", empNo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		model.addAttribute("map", map);
+		return "admin/employee/employeeRegister";
+	}
+	
+	
+	
+	
 }
 
 

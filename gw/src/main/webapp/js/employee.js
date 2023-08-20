@@ -7,6 +7,74 @@
 	var contextPath = "/gw";
 
  	$(function() {
+		 if($('#tel').val().length>0){
+			 var tel=$('#tel').val();
+			 var str=tel.split("-");
+			 var tel1=str[0];
+			 var tel2=str[1];
+			 var tel3=str[2];
+			$('#tel1').val(tel1);
+			$('#tel2').val(tel2);
+			$('#tel3').val(tel3);
+		 }
+		 
+		 
+		  if($('#email').val().length>0){
+		 	var email=$('#email').val();
+			var str2=email.split("@");
+			var email1=str2[0];
+			$('#email1').val(email1);
+			var email2=str2[1];
+			if(email2=='naver.com'){
+				$('#email2').val('naver.com');
+			}else if(email2=='hanmail.net'){
+				$('#email2').val('hanmail.net');
+			}else if(email2=='nate.com'){
+				$('#email2').val('nate.com');
+			}else if(email2=='gmail.com'){
+				$('#email2').val('gmail.com');
+			}else{
+				$('#email2').val('etc');
+				$("#email3").css('visibility', 'visible');
+				$('#email3').val(email2);
+			}	
+		 }
+		 
+		 if($('#jumin').val().length>0){
+			 var jumin=$('#jumin').val();
+			 var str3=jumin.split("-");
+			 var jumin1=str3[0];
+			 var jumin2=str3[1];
+		     $('#jumin1').val(jumin1);
+			 $('#jumin2').val(jumin2);
+		 }
+		 
+		 if($('#address').val().length>0){
+		 	var address=$('#address').val();
+			var postcode=address.substring(1,6);
+			var roadaddress=address.substring(7);
+			$('#sample4_postcode').val(postcode);
+			$('#sample4_roadAddress').val(roadaddress);
+		 }
+		 
+		  if($('#extensionNo').val().length>0){
+			  var extensionNo=$('#extensionNo').val();
+			  var str4=extensionNo.split("-");
+			  var extensionNo1=str4[0];
+			  var extensionNo2=str4[1];
+		     $('#extensionNo1').val(extensionNo1);
+			 $('#extensionNo2').val(extensionNo2);
+		  }
+		 	
+		if($('#authority').val().length>0){ 	
+			var authorityStatus = $('#authority').val();
+		    if (authorityStatus === "Y") {
+		        $("#authorityFlagY").prop("checked", true);
+		    } else if (authorityStatus === "N" || authorityStatus==null) {
+		        $("#authorityFlagN").prop("checked", true);
+		    }
+		 }
+		 
 		 $('#imageUpload').change(function(){
 			 file = $('#imageUpload').prop("files")[0];
 	            imageURL = URL.createObjectURL(file);
