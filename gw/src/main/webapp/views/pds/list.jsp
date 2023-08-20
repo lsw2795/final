@@ -69,7 +69,14 @@
                 <div>
                 	<c:forEach var="map" items="${list}">
 	                    <div class="num">${map['BOARD_NO']}</div>
-	                    <div class="title"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></div>
+	                    <div class="title">
+	                    	<a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">
+	                    		${map['TITLE']} 
+	                    		<c:if test="${map['timeNew']==1}">
+	                    			<img alt="new이미지" src="<c:url value='/images/new.jpg'/>">
+	                    		</c:if>
+	                    	</a>
+                    	</div>
 	                    <div class="writer">${map['NAME']}</div>
 	                    <div class="date"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></div>
 	                    <div class="count">${map['READCOUNT']}</div>

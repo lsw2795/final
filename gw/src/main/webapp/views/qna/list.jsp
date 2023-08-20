@@ -100,6 +100,9 @@
 	                          			<c:if test="${map['countReply']>0}">
 	                          				<span style="color: red">[${map['countReply']}]</span>
 	                          			</c:if>
+          				                <c:if test="${map['timeNew']==1}">
+	                    					<img alt="new이미지" src="<c:url value='/images/new.jpg'/>">
+	                    				</c:if>
 	                          		</a>
 	                          </td>
 	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small></td>

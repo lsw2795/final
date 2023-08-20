@@ -178,7 +178,6 @@ public class SecondHandTradeController {
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		String sub = "";
-		int time=0;
 		for(SecondhandTradeFileVO f : fileList) {
 			String fileName = f.getImageURL();
 			int idx = fileName.indexOf(".");
@@ -187,11 +186,10 @@ public class SecondHandTradeController {
 		
 		for(SecondHandTradeVO fg : list) {
 			fg.setEmpNo(empNo);
-			time=Utility.displayNew(fg.getRegdate());
+			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
-			logger.info("time={}", time);
-					
+			//logger.info("time={}", time);
 		}
 		
 		
@@ -199,7 +197,7 @@ public class SecondHandTradeController {
 		model.addAttribute("list", list);
 		model.addAttribute("sub", sub);
 		model.addAttribute("emp", emp);
-		model.addAttribute("time", time);
+		//model.addAttribute("time", time);
 		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "market/marketList";

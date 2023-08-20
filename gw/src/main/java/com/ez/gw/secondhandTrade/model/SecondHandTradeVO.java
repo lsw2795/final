@@ -20,4 +20,8 @@ public class SecondHandTradeVO { //사내중고거래
 	private String delFlag;	//삭제 여부
 	private int likeCount;	//좋아요 수
 	private String selFlag;	//판매여부 
+	
+	
+	//24시간 이내 글 여부
+	private int timeNew;
 }

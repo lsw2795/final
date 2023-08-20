@@ -1,5 +1,6 @@
 package com.ez.gw.board.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.comments.model.CommentsService;
 import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 
 import jakarta.servlet.http.HttpSession;
@@ -45,6 +47,7 @@ public class QnaController {
 			int boardNo = Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
 			int countReply = commentsService.selectCountReply(boardNo);
 			map.put("countReply", countReply);
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
 		}
 		
 		//3
