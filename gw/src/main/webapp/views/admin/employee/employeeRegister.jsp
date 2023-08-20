@@ -33,13 +33,13 @@
 	});
 </script>
 <c:if test="${!empty param.empNo}">
-	<c:set var="pageTitle" value="수정"/>
+	<c:set var="pageTitle" value="사원 정보 수정"/>
 	<c:set var="btLabel" value="수정"/>
 	<c:set var="url" value="/admin/employee/employeeEdit"/>
 	<c:set var="empNo" value="${param.empNo}"/>	
 </c:if>
 <c:if test="${empty param.empNo}">
-	<c:set var="pageTitle" value="등록"/>
+	<c:set var="pageTitle" value="사원 등록"/>
 	<c:set var="btLabel" value="등록"/>
 	<c:set var="url" value="/admin/employee/employeeRegister"/>
 	<c:set var="empNo" value="0" />	
@@ -49,7 +49,7 @@
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
-				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>사원 정보 ${pageTitle }</h5>
+				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>${pageTitle }</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
