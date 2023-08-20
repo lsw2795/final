@@ -153,13 +153,13 @@
 			$('#jumin1').focus();				
 			return false;
 		}
-		/*
+/*		
 		if ($('#pwd').val().length < 1) {
 			alert("비밀번호를 입력하세요");
 			$('#pwd').focus();
 			return false;
-		}*/
-		
+		}
+		*/
 		if ($('#extensionNo').val().length < 1) {
 			alert("내선번호를 입력하세요");
 			$('#extensionNo1').focus();
@@ -217,7 +217,6 @@
 			$("#jumin1").focus();
 			return false;
 		}
-		
 	});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -230,7 +229,6 @@
 				$("#email3").css("visibility", "hidden");
 			}
 		});
-		
 	});
 	
 	function sample4_execDaumPostcode() {
