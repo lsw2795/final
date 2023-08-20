@@ -12,17 +12,12 @@
 	    document.getElementById('frmSearch').submit();
 	}
 </script>
-
-
-
-
 <!-- 페이징 처리 관련 form -->
-<!-- ?currentPage=2&searchKeyword=gil&searchCondition=name -->
 <form action="<c:url value='/admin/employee/employeeList'/>" 
 	name="frmPage" method="post">
-	<input type="text" name="currentPage">
-	<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-	<input type="text" name="searchCondition" value="${param.searchCondition}">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 </form>
 <div class="row g-0">
 	<div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
@@ -179,33 +174,33 @@
 						</div>
 					</div>
 					<div class="card-footer d-flex justify-content-center admindefault">
-						<div class="divPage">
-						<!-- 페이지 번호 추가 -->		
-						<!-- 이전 블럭으로 이동 -->
-						<c:if test="${pagingInfo.firstPage>1 }">
-							<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-								<img src="<c:url value='/images/first.JPG'/>">
-							</a>
-						</c:if>	
-										
-						<!-- [1][2][3][4][5][6][7][8][9][10] -->
-						<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
-							<c:if test="${i == pagingInfo.currentPage }">		
-								<span style="color: blue;font-weight: bold;font-size: 1em">${i}</span>
-					        	</c:if>
-							<c:if test="${i != pagingInfo.currentPage }">		
-						         <a href="#" onclick="pageFunc(${i})">[${i }]</a>
-						    </c:if>   		
-						</c:forEach>
-						
-						<!-- 다음 블럭으로 이동 -->
-						<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-					         <a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-								<img src="<c:url value='/images/last.JPG'/>">
-							</a>
-						</c:if>
-						<!--  페이지 번호 끝 -->
-					</div>
+						<div class="divPage" id="divPage">
+							<!-- 페이지 번호 추가 -->		
+							<!-- 이전 블럭으로 이동 -->
+							<c:if test="${pagingInfo.firstPage>1 }">
+								<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								&lt;
+								</a>
+							</c:if>	
+											
+							<!-- [1][2][3][4][5][6][7][8][9][10] -->
+							<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+								<c:if test="${i == pagingInfo.currentPage }">		
+									<span id="curPage">${i}</span>
+						        	</c:if>
+								<c:if test="${i != pagingInfo.currentPage }">		
+							         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+							    </c:if>   		
+							</c:forEach>
+							
+							<!-- 다음 블럭으로 이동 -->
+							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								&gt;
+								</a>
+							</c:if>
+							<!--  페이지 번호 끝 -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -247,13 +242,6 @@
 								</div>
 							</c:forEach>
 							</c:if>
-					
-						
-						
-						
-						
-						
-						
 					</div>
 				</div>
 				<div class="border-top border-200 py-x1">

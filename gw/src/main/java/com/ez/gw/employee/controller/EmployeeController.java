@@ -213,7 +213,7 @@ public class EmployeeController {
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 	
-		List<Map<String, Object>> list=employeeService.selectSearchEmp(searchVo);
+		List<Map<String, Object>> list=employeeService.selectSerachEmp2(searchVo);
 		logger.info("한 페이지당 임직원 목록 조회결과, list.size={}",list.size());
 	
 		int totalRecord=employeeService.getTotalRecord(searchVo);

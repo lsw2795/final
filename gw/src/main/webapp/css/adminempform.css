@@ -127,3 +127,26 @@
 	border: none;
 	background-color: white;
 }
+#prevPage, #curPage, #otherPage, #nextPage{
+    padding: 5px 5px 5px 5px;
+    font-size: 20px;
+}
+#prevPage, #nextPage{
+	border: 1px solid#101726;
+	border-radius: 5px;
+}
+#curPage, #otherPage {
+    border: 1px solid #101726;
+    border-radius: 5px;
+    margin: 2px;
+}
+#otherPage {
+    padding: 5px 10px 5px 13px;
+    color: black;
+}
+#curPage {
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+    color: dodgerblue;
+    background-color: whitesmoke;
+}
