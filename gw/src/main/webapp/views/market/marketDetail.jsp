@@ -30,28 +30,29 @@
           <div class="card mb-3">
             <div class="card-body">
               <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                  <div class="product-slider" id="galleryTop">
-                    <div class="swiper-container theme-slider position-lg-absolute all-0" 
-                    	data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,
-                    	"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,
-                    	"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,
-                    	"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},
-                    	"slideToClickedSlide":true}'>
-                      <div class="swiper-wrapper">
-                      	<c:forEach var="file" items="${file }">
-	                        <div class="swiper-slide">
-	                        	<img class="rounded-1 object-fit-cover w-100" src="<c:url value='/market/upload/${file.imageURL }'/>" alt="" />
-	                        </div>
-                      	</c:forEach>
-                      </div>
-                      <div class="swiper-nav">
-                        <div class="swiper-button-next swiper-button-white"></div>
-                        <div class="swiper-button-prev swiper-button-white"></div>
-                      </div>
+              
+              
+              
+<div class="col-lg-6 mb-4 mb-lg-0">
+    <div class="product-slider" id="galleryTop">
+        <div class="swiper-container theme-slider position-lg-absolute all-0 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-autoheight" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+            <div class="swiper-wrapper h-100">
+                <c:forEach var="file" items="${file}" varStatus="loopStatus">
+                    <div class="swiper-slide h-100" data-swiper-slide-index="${loopStatus.index}">
+                        <img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/market/upload/${file.imageURL}'/>" alt="">
                     </div>
-                  </div>
-                </div>
+                </c:forEach>
+            </div>
+            <div class="swiper-nav">
+                <div class="swiper-button-next swiper-button-white" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-10d9bcee3454143f0"></div>
+                <div class="swiper-button-prev swiper-button-white" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-10d9bcee3454143f0"></div>
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+    </div>
+</div>
+                
+          
                 <div class="col-lg-6">
                   <h4><strong>${vo.title }</strong></h4>
                   <h6 class="fs--1 mb-2 d-block" href="#!">
