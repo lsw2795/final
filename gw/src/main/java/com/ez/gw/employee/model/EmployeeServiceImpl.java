@@ -112,7 +112,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return list;
 	}
 
+	@Override
+	public String selectPwd(int empNo) {
+		return employeeDao.selectPwd(empNo);
+	}
 
 }
+	
 
 

@@ -7,8 +7,8 @@
 		<selectKey keyProperty="tradeNo" order="BEFORE" resultType="int">
 			select secondhand_trade_seq.nextval from dual
 		</selectKey>
-		insert into secondhand_trade(trade_no, title, product, price, discription, boardlist_no)
-		values(#{tradeNo}, #{title}, #{product}, #{price}, #{discription}, 100)
+		insert into secondhand_trade(trade_no, emp_no, title, product, price, discription, boardlist_no)
+		values(#{tradeNo}, #{empNo}, #{title}, #{product}, #{price}, #{discription}, 100)
 	</insert>
 	
 	<select id="selectAllMarket" resultType="secondHandTradeVo">
@@ -75,5 +75,11 @@
 		delete from secondhand_trade
 		where trade_no =#{tradeNo}
 	</delete>
+	
+	<update id="updateLike">
+		update secondhand_trade
+		set likecount = likecount + 1
+		where trade_no = #{tradeNo}
+	</update>
 	
 </mapper>

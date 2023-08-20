@@ -17,7 +17,6 @@ public class SecondHandTradeVO { //사내중고거래
 	private Timestamp regdate; //등록일
 	private int readCount; //조회수
 	private int boardListNo; //게시판번호
-	private String delFlag;	//삭제 여부
 	private int likeCount;	//좋아요 수
 	private String selFlag;	//판매여부 
 	
