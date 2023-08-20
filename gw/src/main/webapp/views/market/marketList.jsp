@@ -140,11 +140,7 @@ ul#navbarVerticalNav {
 																</h4>
 																<h5 class="fs--1 text-500 mb-0 mt-1"></h5>
 																<div class="mb-2 mt-3">
-																	<span class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+																	
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
@@ -167,8 +163,10 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="#!"><span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">Favourite</span></a><a
+																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	<span class="far fa-heart"></span><span
+																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
+																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="#!"><span class="fas fa-envelope-open">
 																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>
@@ -246,14 +244,12 @@ ul#navbarVerticalNav {
 																	원
 																</h4>
 																<div class="mb-2 mt-3">
-																	<span class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star-half-alt text-warning star-icon"></span><span
-																		class="ms-1">(20)</span>
+																	
 																</div>
 																<div class="d-none d-lg-block">
+																	<p class="fs--1 mb-1">
+																		좋아요 : <strong>${vo.likeCount }</strong>
+																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${vo.readCount }</strong>
 																	</p>
@@ -274,8 +270,10 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="#!"><span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">Favourite</span></a><a
+																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	<span class="far fa-heart"></span><span
+																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
+																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="#!"><span class="fas fa-envelope-open">
 																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>

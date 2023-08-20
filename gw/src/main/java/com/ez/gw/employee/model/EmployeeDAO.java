@@ -21,5 +21,6 @@ public interface EmployeeDAO {
 	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 	int getTotalRecord(SearchVO searchVo); //사원, 관리자 전체 레코드 조회 (organizationChartView 이용)
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
+
 }
 

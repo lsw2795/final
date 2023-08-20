@@ -29,4 +29,7 @@ public interface EmployeeService {
 	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 	int getTotalRecord(SearchVO searchVo); //관리자, 사원 - 전체 목록 건수 (organizationChartView 이용)
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
+	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); 
+	String selectPwd(int empNo); //비밀번호 확인 메서드
+
 }

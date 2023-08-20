@@ -10,4 +10,9 @@
 		insert into refer(refer_no,confirm_document_no,emp_no)
 		values(#{referNo},#{confirmDocumentNo},#{empNo})
 	</insert>
+	
+	<select id="selectEmpNoByConfirmNo" parameterType="string" resultType="int">
+		select emp_no from refer
+		where confirm_document_no=#{confirmDocumentNo}
+	</select>
 </mapper>

@@ -51,7 +51,7 @@
 			and retiredate is null
 		</if>
 			order by dept_name asc, position_name desc
-	</select>
+	</select>		
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
 		select *

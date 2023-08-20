@@ -77,7 +77,11 @@
                   </p>
                   <div class="row">
                     <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-envelope-open"></span><span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span></a></div>
-                    <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border border-300" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart me-1"></span>282</a></div>
+                    <div class="col-auto px-0">
+                    	<a class="btn btn-sm btn-outline-danger border border-300" href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>" data-bs-toggle="tooltip" data-bs-placement="top" >
+                    		<span class="far fa-heart me-1"></span>${vo.likeCount}
+                    	</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,7 +89,7 @@
                 <div class="col-12">
                   <div class="overflow-hidden mt-4">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item"><a class="nav-link active ps-0" id="description-tab" data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description" aria-selected="true">상품 설명</a></li>
+                      <li class="nav-item"><span class="nav-link active ps-0" id="description-tab" data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description" aria-selected="true">상품 설명</span></li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="tab-description" role="tabpanel" aria-labelledby="description-tab">
@@ -141,16 +145,6 @@
               </div>
             </div>
           </div>
-          <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
-              </div>
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">v3.17.0</p>
-              </div>
-            </div>
-          </footer>
         </div>
 <%@ include file="../inc/bottom.jsp" %>
 
