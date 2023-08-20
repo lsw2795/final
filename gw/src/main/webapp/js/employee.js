@@ -7,6 +7,7 @@
 	var contextPath = "/gw";
 
  	$(function() {
+		 $("#empWrite").hide();
 		 if($('#tel').val().length>0){
 			 var tel=$('#tel').val();
 			 var str=tel.split("-");
@@ -17,7 +18,6 @@
 			$('#tel2').val(tel2);
 			$('#tel3').val(tel3);
 		 }
-		 
 		 
 		  if($('#email').val().length>0){
 		 	var email=$('#email').val();
@@ -82,143 +82,166 @@
 	            $('#imagePriview').slideDown(); 
 		});
 		 
-		//등록(또는 수정) 버튼 클릭시 유효성검사
-		$("#empWrite").click(function() {
-			var jumin1=$('#jumin1').val();
-			var jumin2=$('#jumin2').val();
-			
-			var jumin="";
-			if(jumin1!=="" && jumin2!==""){
-				jumin= jumin1 + "-" +jumin2;
-			}
-			$('#jumin').attr('value', jumin);
-			
-			var extensionNo1 = $('#extensionNo1').val();
-	        var extensionNo2 = $('#extensionNo2').val();
-	         
-	        var extensionNo="";
-	        if (extensionNo1 !=="" && extensionNo2 !== "") {
-	            extensionNo= extensionNo1 + "-" + extensionNo2;
-	        }
-	        $('#extensionNo').attr('value', extensionNo);
-			
-			var postcode=$('#sample4_postcode').val();
-			var roadaddress=$('#sample4_roadAddress').val();
-			
-			var address="";
-			if(postcode!=="" && roadaddress!==""){
-				address="("+postcode+")"+roadaddress;
-			}
-			$('#address').attr('value',address);
-			
-			var tel1=$('#tel1').val();
-			var tel2=$('#tel2').val();
-			var tel3=$('#tel3').val();
-			
-			var tel="";
-			if(tel1!=="" && tel2!=="" && tel3!==""){
-				tel=tel1+"-"+tel2+"-"+tel3;
-			}
-			$('#tel').attr('value',tel);
-			
-			var email1=$('#email1').val();
-			var email2=$('#email2').val();
-			var email3=$('#email3').val();
-			
-			var email="";
-			if(email1!==""){
-				if(email2==="etc"){
-					if(email3!==""){
-					email=email1+"@"+email3;
-					}
-				}else{
-					email=email1+"@"+email2;
-				}	
-			}
-			$('#email').attr('value',email);
-			
-			if ($('#name').val().length < 1) {
-				alert("사원이름을 입력하세요");
-				$('#name').focus();				
-				return false;
-			}
-			
-			if ($('#ename').val().length < 1) {
-				alert("사원영문이름을 입력하세요");
-				$('#ename').focus();				
-				return false;
-			}
-			
-			if ($('#jumin').val().length < 1) {
-				alert("주민번호를 입력하세요");
-				$('#jumin1').focus();				
-				return false;
-			}
-			
-			if ($('#pwd').val().length < 1) {
-				alert("비밀번호를 입력하세요");
-				$('#pwd').focus();
-				return false;
-			}
-			
-			if ($('#extensionNo').val().length < 1) {
-				alert("내선번호를 입력하세요");
-				$('#extensionNo1').focus();
-				return false;
-			}
-			
-			if ($('#tel').val().length < 1) {
-				alert("전화번호를 입력하세요");
-				$('#tel1').focus();
-				return false;
-			}
-			
-			if ($('#email').val().length < 1) {
-				alert("이메일은 필수 입력 사항입니다.");
-				$('#email1').focus();
-				return false;
-			}
-			
-			if ($('#sample4_roadAddress').val().length < 1) {
-				alert("주소는 필수 입력사항입니다.");
-				$('#btnsearchAddress').focus();
-				return false;
-			}
-			
-			if ($('#sample4_detailAddress').val().length < 1) {
-				alert("상세주소는 필수 입력사항입니다.");
-				$('#btnsearchAddress').focus();
-				return false;
-			}
+	 //등록(또는 수정) 버튼 클릭시 유효성검사
+	$("#confirmForm").click(function() {
+		var jumin1=$('#jumin1').val();
+		var jumin2=$('#jumin2').val();
 		
-			if (!validate_num($("#extensionNo1").val())
-					|| !validate_num($("#extensionNo2").val())) {
-				alert("내선번호는 숫자만 가능합니다");
-				$("#extensionNo1").focus();
-				return false;
-			}
-			
-			if (!validate_num($("#tel1").val())
-					||!validate_num($("#tel2").val())
-					|| !validate_num($("#tel3").val())) {
-				alert("전화번호는 숫자만 가능합니다");
-				$("#tel1").focus();
-				return false;
-			}
-			
-			if (!validate_num($("#jumin1").val())
-					|| !validate_num($("#jumin2").val())) {
-				alert("주민번호는 숫자만 가능합니다");
-				$("#jumin1").focus();
-				return false;
-			}
-			if ($("#jumin1").val().length!=6
-				|| $("#jumin2").val().length!=7) {
-				alert("주민번호의 형식이 올바르지 않습니다.");
-				$("#jumin1").focus();
-				return false;
-			}
-		});
+		var jumin="";
+		if(jumin1!=="" && jumin2!==""){
+			jumin= jumin1 + "-" +jumin2;
+		}
+		$('#jumin').attr('value', jumin);
+		
+		var extensionNo1 = $('#extensionNo1').val();
+        var extensionNo2 = $('#extensionNo2').val();
+         
+        var extensionNo="";
+        if (extensionNo1 !=="" && extensionNo2 !== "") {
+            extensionNo= extensionNo1 + "-" + extensionNo2;
+        }
+        $('#extensionNo').attr('value', extensionNo);
+		
+		var postcode=$('#sample4_postcode').val();
+		var roadaddress=$('#sample4_roadAddress').val();
+		
+		var address="";
+		if(postcode!=="" && roadaddress!==""){
+			address="("+postcode+")"+roadaddress;
+		}
+		$('#address').attr('value',address);
+		
+		var tel1=$('#tel1').val();
+		var tel2=$('#tel2').val();
+		var tel3=$('#tel3').val();
+		
+		var tel="";
+		if(tel1!=="" && tel2!=="" && tel3!==""){
+			tel=tel1+"-"+tel2+"-"+tel3;
+		}
+		$('#tel').attr('value',tel);
+		
+		var email1=$('#email1').val();
+		var email2=$('#email2').val();
+		var email3=$('#email3').val();
+		
+		var email="";
+		if(email1!==""){
+			if(email2==="etc"){
+				if(email3!==""){
+				email=email1+"@"+email3;
+				}
+			}else{
+				email=email1+"@"+email2;
+			}	
+		}
+		$('#email').attr('value',email);
+		
+		if ($('#name').val().length < 1) {
+			alert("사원이름을 입력하세요");
+			$('#name').focus();				
+			return false;
+		}
+		
+		if ($('#ename').val().length < 1) {
+			alert("사원영문이름을 입력하세요");
+			$('#ename').focus();				
+			return false;
+		}
+		
+		if ($('#jumin').val().length < 1) {
+			alert("주민번호를 입력하세요");
+			$('#jumin1').focus();				
+			return false;
+		}
+		/*
+		if ($('#pwd').val().length < 1) {
+			alert("비밀번호를 입력하세요");
+			$('#pwd').focus();
+			return false;
+		}*/
+		
+		if ($('#extensionNo').val().length < 1) {
+			alert("내선번호를 입력하세요");
+			$('#extensionNo1').focus();
+			return false;
+		}
+		
+		if ($('#tel').val().length < 1) {
+			alert("전화번호를 입력하세요");
+			$('#tel1').focus();
+			return false;
+		}
+		
+		if ($('#email').val().length < 1) {
+			alert("이메일은 필수 입력 사항입니다.");
+			$('#email1').focus();
+			return false;
+		}
+		
+		if ($('#sample4_roadAddress').val().length < 1) {
+			alert("주소는 필수 입력사항입니다.");
+			$('#btnsearchAddress').focus();
+			return false;
+		}
+		
+		if ($('#sample4_detailAddress').val().length < 1) {
+			alert("상세주소는 필수 입력사항입니다.");
+			$('#btnsearchAddress').focus();
+			return false;
+		}
+	
+		if (!validate_num($("#extensionNo1").val())
+				|| !validate_num($("#extensionNo2").val())) {
+			alert("내선번호는 숫자만 가능합니다");
+			$("#extensionNo1").focus();
+			return false;
+		}
+		
+		if (!validate_num($("#tel1").val())
+				||!validate_num($("#tel2").val())
+				|| !validate_num($("#tel3").val())) {
+			alert("전화번호는 숫자만 가능합니다");
+			$("#tel1").focus();
+			return false;
+		}
+		
+		if (!validate_num($("#jumin1").val())
+				|| !validate_num($("#jumin2").val())) {
+			alert("주민번호는 숫자만 가능합니다");
+			$("#jumin1").focus();
+			return false;
+		}
+		if ($("#jumin1").val().length!=6
+			|| $("#jumin2").val().length!=7) {
+			alert("주민번호의 형식이 올바르지 않습니다.");
+			$("#jumin1").focus();
+			return false;
+		}
+		
+		 $.ajax({
+	            url : "<c:url value='/ajaxPwdCheck'/>",
+	            type:"get",
+	            dataType : "text",
+	            data:"pwd="+$('#pwd').val(),
+	            success: function(res){
+	               $('#adminPwdChkFlag').val(res);
+	               
+	               if($('#adminPwdChkFlag').val()>0){
+	                  	  alert("관리자 확인이 완료되었습니다.");
+	                  	 $('#staticBackdrop').modal('hide'); 
+	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
+	                     $('#empWrite').show();    // empWrite 버튼 보이기
+	               }else{
+	                  alert('관리자 비밀번호가 일치하지 않습니다.');
+	               }
+	            },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax
+		
+	});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
 		$("#email2").change(function() {
@@ -230,6 +253,7 @@
 				$("#email3").css("visibility", "hidden");
 			}
 		});
+		
 	});
 	
 	function sample4_execDaumPostcode() {

@@ -5,9 +5,10 @@
 <script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-
-
-
+	$(function(){
+		
+		
+	});
 </script>
 <c:if test="${!empty param.empNo}">
 	<c:set var="pageTitle" value="사원 정보 수정" />
@@ -31,19 +32,16 @@
 			<div class="card-body py-2 admindefault">
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url }'/>">
+					<c:if test="${!empty param.empNo}">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="col-form-label adminemplabel" for="name">사원 번호</label>
 					    </div>
 					    <div class="col-md-6">
-					    <c:if test="${empty param.empNo}">
-					        <input type="text" value="${map['EMP_NO']}" class="form-control admindefault" id="empNo" name="empNo"/>
-					    </c:if>
-					    <c:if test="${!empty param.empNo}">
 					    	<span class="adminempspan">${map['EMP_NO']}</span>
-					    </c:if>
 					    </div>
-					</div>				
+					</div>
+					</c:if>				
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="col-form-label adminemplabel" for="name">사원 이름</label>
@@ -109,7 +107,11 @@
 									<option value="">선택하세요</option>
 									<!-- 반복 -->
 						            <c:forEach var="deptVo" items="${deptList }">
-						            	<option value="${deptVo.deptNo}">${deptVo.name}</option>
+						            	<option value="${deptVo.deptNo}"
+						            		<c:if test="${deptVo.deptNo == map['DEPT_NO']}">
+						            			selected="selected"
+					            			</c:if>
+						            	>${deptVo.name}</option>
 						            </c:forEach>
 					            </select>
 						</div>
@@ -123,7 +125,11 @@
 								<option value="">선택하세요</option>
 									<!-- 반복 -->
 						            <c:forEach var="positionVo" items="${positionList }">
-						            	<option value="${positionVo.positionNo}">${positionVo.positionName}</option>
+						            	<option value="${positionVo.positionNo}"
+						            		<c:if test="${positionVo.positionNo == map['POSITION_NO']}">
+						            			selected="selected"
+						            		</c:if>
+						            	>${positionVo.positionName}</option>
 						            </c:forEach>
 					            </select>
 						</div>
@@ -234,12 +240,15 @@
 						</div>
 					</div>
 					<div style="text-align: center;">
-					<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
-					<input type="button" value="취소" class="btn btn-primary"/>
+						<input type="button" id="confirmForm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="${btLabel}" class="btn btn-primary"/>
+						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
+						<input type="button" value="취소" class="btn btn-secondary"/>
 					</div>
+					
 					<!-- hidden 처리 인풋태그들 -->
 					<c:if test="${!empty param.empNo}">
-						<input type="hidden" name="image" value="${map['IMAGE']}">
+						<input type="hidden" name="oldFileName" value="${map['IMAGE']}">
+						<input type="hidden" name="empNo" value="${empNo}" />
 					</c:if>
 					 <input type="hidden" id="jumin" name="jumin" value="${map['JUMIN']}"/>
 					 <input type="hidden" id="extensionNo" name="extensionNo" value="${map['EXTENSION_NO']}"/>
@@ -247,12 +256,11 @@
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
 					 <input type="hidden" id="authority" value="${map['AUTHORITY']}"/>	
-					 <input type="hidden" id="positionNo" value="${map['POSITION_NO']}"/>
-					 <input type="hidden" id="deptName" value="${map['DEPT_NAME']}"/>
-				
+					 <input type="text" id="adminPwdChkFlag"/>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<%@ include file='adminPwdConfirm.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
