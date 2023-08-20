@@ -156,7 +156,7 @@
 													</div>
 												</td>
 												<td class="align-middle">${map['EMP_NO']}</td>
-												<td class="align-middle"><a href="#">${map['NAME']}</a></td>
+												<td class="align-middle"><a href="<c:url value='/admin/employee/employeeEdit?empNo=${map["EMP_NO"]}'/>">${map['NAME']}</a></td>
 												<td class="align-middle">${map['DEPT_NAME']}</td>
 												<td class="align-middle">${map['POSITION_NAME']}</td>
 												<td class="align-middle">${map['EXTENSION_NO']}</td>
