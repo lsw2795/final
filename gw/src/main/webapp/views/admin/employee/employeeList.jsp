@@ -11,6 +11,10 @@
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
+	
+	function empDetail(empNo) {
+	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+	}
 </script>
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/admin/employee/employeeList'/>" 
@@ -233,7 +237,7 @@
 									<div class="collapse" id="dept-${deptAllVo.deptVo.deptNo }">
 										<div class="list-group adminempdiv9">
 											<c:forEach var="empMap" items="${deptAllVo.empList }">
-		                                   		<button class="list-group-item-action adminempbtncss admindefault" onclick="empDetail(${map.EMP_NO});">
+		                                   		<button class="list-group-item-action adminempbtncss admindefault" onclick="empDetail(${empMap['EMP_NO']});">
 		                                   			${empMap['EMP_NO']} ${empMap['NAME']} ${empMap['POSITION_NAME']}
 		                                   		</button>
 		                                	</c:forEach>

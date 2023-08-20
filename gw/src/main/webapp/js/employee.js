@@ -7,7 +7,7 @@
 	var contextPath = "/gw";
 
  	$(function() {
-		 if($('#tel').val().length>0){
+		 if($('#confirmForm').val()==='수정'){
 			 var tel=$('#tel').val();
 			 var str=tel.split("-");
 			 var tel1=str[0];
@@ -16,10 +16,8 @@
 			$('#tel1').val(tel1);
 			$('#tel2').val(tel2);
 			$('#tel3').val(tel3);
-		 }
-		 
-		  if($('#email').val().length>0){
-		 	var email=$('#email').val();
+			
+			var email=$('#email').val();
 			var str2=email.split("@");
 			var email1=str2[0];
 			$('#email1').val(email1);
@@ -37,43 +35,35 @@
 				$("#email3").css('visibility', 'visible');
 				$('#email3').val(email2);
 			}	
-		 }
-		 
-		 if($('#jumin').val().length>0){
+			
 			 var jumin=$('#jumin').val();
 			 var str3=jumin.split("-");
 			 var jumin1=str3[0];
 			 var jumin2=str3[1];
 		     $('#jumin1').val(jumin1);
 			 $('#jumin2').val(jumin2);
-		 }
-		 
-		 if($('#address').val().length>0){
-		 	var address=$('#address').val();
+			 
+			var address=$('#address').val();
 			var postcode=address.substring(1,6);
 			var roadaddress=address.substring(7);
 			$('#sample4_postcode').val(postcode);
 			$('#sample4_roadAddress').val(roadaddress);
-		 }
-		 
-		  if($('#extensionNo').val().length>0){
-			  var extensionNo=$('#extensionNo').val();
+			
+			 var extensionNo=$('#extensionNo').val();
 			  var str4=extensionNo.split("-");
 			  var extensionNo1=str4[0];
 			  var extensionNo2=str4[1];
 		     $('#extensionNo1').val(extensionNo1);
 			 $('#extensionNo2').val(extensionNo2);
-		  }
-		 	
-		if($('#authority').val().length>0){ 	
-			var authorityStatus = $('#authority').val();
-		    if (authorityStatus === "Y") {
-		        $("#authorityFlagY").prop("checked", true);
-		    } else if (authorityStatus === "N" || authorityStatus==null) {
-		        $("#authorityFlagN").prop("checked", true);
-		    }
-		 }
-		 
+			 
+			 var authorityStatus = $('#authority').val();
+			    if (authorityStatus === "Y") {
+			        $("#authorityFlagY").prop("checked", true);
+			    } else if (authorityStatus === "N" || authorityStatus==null) {
+			        $("#authorityFlagN").prop("checked", true);
+			    }
+			}//if
+
 		 $('#imageUpload').change(function(){
 			 file = $('#imageUpload').prop("files")[0];
 	            imageURL = URL.createObjectURL(file);
@@ -148,18 +138,26 @@
 			return false;
 		}
 		
+		if($('#confirmForm').val()==='등록'){
+			if ($('#pwd').val().length < 1) {
+				alert("비밀번호를 입력하세요");
+				$('#pwd').focus();
+				return false;
+			}
+		}
+		
 		if ($('#jumin').val().length < 1) {
 			alert("주민번호를 입력하세요");
 			$('#jumin1').focus();				
 			return false;
 		}
-/*		
-		if ($('#pwd').val().length < 1) {
-			alert("비밀번호를 입력하세요");
-			$('#pwd').focus();
+		
+		if ($('#annualSalary').val().length < 1) {
+			alert("연봉을 입력하세요");
+			$('#annualSalary').focus();				
 			return false;
 		}
-		*/
+
 		if ($('#extensionNo').val().length < 1) {
 			alert("내선번호를 입력하세요");
 			$('#extensionNo1').focus();
@@ -217,6 +215,7 @@
 			$("#jumin1").focus();
 			return false;
 		}
+		
 	});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -225,7 +224,7 @@
 				$("#email3").val("");
 				$("#email3").css("visibility", "visible");
 				$("#email3").focus();
-			} else {
+			}else {
 				$("#email3").css("visibility", "hidden");
 			}
 		});
