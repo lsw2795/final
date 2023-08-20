@@ -6,7 +6,6 @@
 
 <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>"
 	rel="stylesheet">
-<link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
 <style type="text/css">
 .image-container {
 	width: 240px;
@@ -45,12 +44,12 @@ ul#navbarVerticalNav {
 	<h2>중고거래 게시판</h2>
 	  <div class="row flex-between-center">
 		<div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":10,"pagination":true,"fallback":"contact-table-fallback"}'>
-			  <div class="card-header border-bottom border-200 px-0">
-				<div class="d-lg-flex justify-content-between">
+		  <div class="card-header border-bottom border-200 px-0">
+			<div class="d-lg-flex justify-content-between">
+				<form name = "frmSearch" action='<c:url value='/market/marketList'/>'>
 					<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
-							<form action='<c:url value='/market/marketList'/>'>
-								<select name="searchCondition"
+							<select name="searchCondition"
 									class="form-select"  aria-label="Bulk actions">
 									<option value="title"
 										<c:if test="${param.searchCondition=='title'}">
@@ -106,7 +105,7 @@ ul#navbarVerticalNav {
 															href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo }'/>">
 															<img class="rounded-1"
 															style="max-height: 200px; max-weight: 240px"
-															src="<c:url value='/market/upload/${vo.tradeNo}_0${sub}'/>"
+															src="<c:url value='/market/upload/${vo.thumbnail}'/>"
 															alt="" />
 														</a>
 														<c:if test="${vo.timeNew==1}">
@@ -143,6 +142,9 @@ ul#navbarVerticalNav {
 																	
 																</div>
 																<div class="d-none d-lg-block">
+																	<p class="fs--1 mb-1">
+																		좋아요 : <strong>${vo.likeCount }</strong>
+																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${vo.readCount }</strong>
 																	</p>
@@ -190,7 +192,7 @@ ul#navbarVerticalNav {
 																		href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
 																		<img class="rounded-1 h-100 w-100 object-fit-cover"
 																		style="max-height: 200px; max-weight: 240px"
-																		src="<c:url value='/market/upload/${vo.tradeNo}_0${sub}'/>"
+																		src="<c:url value='/market/upload/${vo.thumbnail}'/>"
 																		alt="" />
 																	</a>
 																</div>
