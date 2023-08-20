@@ -3,6 +3,104 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.confirm.model.ConfirmDAO">
+	<sql id="search">
+		<trim prefix="and" prefixOverrides="AND|OR">
+			<if test="confirmDocumentNo!=null and confirmDocumentNo!=''">
+				and confirm_document_no like '%' || #{confirmDocumentNo} || '%'
+			</if>
+			<if test="confirmTitle!=null and confirmTitle!=''">
+				and confirm_title like '%' || #{confirmTitle} || '%'
+			</if>
+			<if test="documentNo!=null and documentNo!=''">
+				and document_no = #{documentNo}
+			</if>
+			<if test="confirmState!=null and confirmState!=''">
+				and confirm_state = #{confirmState}
+			</if>
+			<if test="createDate!=null and createDate!=''">
+				and trunc(create_date) = #{createDate}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and trunc(start_date) = #{startDate}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and trunc(end_date) = #{endDate}
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="stateSet">
+		<if test="confirmState==1">
+			<set>
+				confirm_state=2
+			</set>
+			<where>
+				(select confirm1 from confirmline
+				where confirm_line_no in (select confirm_line_no from confirm
+                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+            	and confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState==3">
+			<set>
+				confirm_state=4
+			</set>
+			<where>
+				(select confirm2 from confirmline
+			where confirm_line_no in (select confirm_line_no from confirm
+                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+            	and confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState==5">
+			<set>
+				confirm_state=6
+			</set>
+			<where>
+				(select confirm3 from confirmline
+			where confirm_line_no in (select confirm_line_no from confirm
+                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+            	and confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState!=1 and confirmState!=3 and confirmState!=5">
+			<set>
+				confirm_state=#{confirmState}
+			</set>
+			<where>
+            	confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+	</sql>
+	
+	<sql id="stateSetByClick">
+		<if test="confirmState==1 or confirmState==2">
+			<set>
+				confirm_state=3, review_date=sysdate
+			</set>
+			<where>
+	            confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState==3 or confirmState==4">
+			<set>
+				confirm_state=5, confirm_date=sysdate
+			</set>
+			<where>
+	            confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState==5 or confirmState==6">
+			<set>
+				confirm_state=7, complete_date=sysdate
+			</set>
+			<where>
+	            confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+	</sql>
+	
+	
 	<select id="selectCountByDate" resultType="int">
 		select count(*) from confirm
 		where trunc(create_date) = trunc(sysdate)
@@ -13,13 +111,72 @@
 		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo},#{startDate},#{endDate})
 	</insert>
 	
-	<select id="selectAllByEmpNo" parameterType="int" resultType="map">
-		select c.*,e.name,e.image,d.form_name,d.security_level,d.deadline from
-		confirm c join employee e
-		on c.emp_no = e.emp_no
-		join document_form d
-		on c.document_no=d.document_no
-		where c.emp_no=#{empNo}
-		order by confirm_document_no desc
+	<select id="selectAllByEmpNo" parameterType="confirmVo" resultType="map">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from confirmsview
+					where emp_no=#{empNo}
+					<include refid="search"></include>
+				)A
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
 	</select>
+	
+	<select id="selectAllConfirmDocument" parameterType="confirmVo" resultType="map">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from confirmsview
+					where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
+					or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
+					or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
+					or confirm_state = 10
+				)A
+				<trim prefix="where" prefixOverrides="AND|OR">
+					<include refid="search"></include>
+				</trim>
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="confirmVo" resultType="int">
+		select count(*) from confirmsview 
+		where emp_no=#{empNo}
+		<include refid="search"></include>
+	</select>
+
+	<select id="getTotalConfirmRecord" parameterType="confirmVo" resultType="int">
+		select count(*) from confirmsview 
+		where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2 or confirm_state = 10)) 
+		or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4 or confirm_state = 10))
+		or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6 or confirm_state = 10))
+		<include refid="search"></include>
+	</select>
+	
+	<select id="selectConfirmDocument" parameterType="string" resultType="map">
+		select * from confirmsview
+		where confirm_document_no=#{confirmDocumentNo}
+	</select>
+	
+	<select id="selectDeptAgree" parameterType="string" resultType="map">
+		select * from confirmagreeview
+		where confirm_document_no = #{confirmDocumentNo}
+	</select>
+	
+	<update id="updateConfirmState" parameterType="confirmVo">
+		update confirm
+		<include refid="stateSet"></include>
+	</update>
+	
+	<update id="updateConfirmStateByClick" parameterType="confirmVo">
+		update confirm
+		<include refid="stateSetByClick"></include>
+	</update>
 </mapper>

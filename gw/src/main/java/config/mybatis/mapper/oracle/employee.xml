@@ -51,6 +51,9 @@
 			and retiredate is null
 		</if>
 			order by dept_name asc, position_name desc
+	<select id="organiationChartViewByEmpNo" parameterType="int" resultType="map">
+		select * from organizationchartview
+		where emp_no=#{empNo}
 	</select>
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
