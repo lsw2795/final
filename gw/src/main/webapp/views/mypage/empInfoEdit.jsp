@@ -200,7 +200,7 @@ function btnpwdEdit(empNo){
 	                       <span class="mypagehyphen"></span>
 	                       <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagN">N</label>
-		                        <input type="radio" class="form-check-input" id="marriedFlagN" value="N" name="married" checked="checked"/>
+		                        <input type="radio" class="form-check-input" id="marriedFlagN" value="N" name="married"/>
 	                      </div>
 				    	</div>
 					</div>
@@ -222,6 +222,7 @@ function btnpwdEdit(empNo){
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
 					 <input type="hidden" id="address" name="address" value="${map['ADDRESS']}"/>
+					 <input type="hidden" id="married" value="${map['MARRIED']}"/>
  				</form>
 			</div>
 		</div>

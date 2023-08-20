@@ -2,6 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script type="text/javascript">	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/admin/employee/employeeList'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+</form>
 <div class="row g-0">
 	<div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -14,21 +31,32 @@
 				<div class="card" id="allContactTable">
 					<div class="card-header border-bottom border-200 px-0 admindefault">
 						<div class="d-lg-flex justify-content-between">
-							<form name="frmSearch" method="post" action="<c:url value=''/>">
+							<form name="frmSearch" method="post" action="<c:url value='/admin/employee/employeeList'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 admindefault">
-										<select class="admindefault adminempborder adminempsel">
-											<option value="">부서</option>
-											<option value="">이름</option>
-											<option value="">직급</option>
-											<option value="">재직여부</option>
+										<select name="searchCondition" class="admindefault adminempborder adminempsel">
+											<option value="dept_name"
+												<c:if test="${param.searchCondition=='dept_name'}">
+								            		selected="selected"
+								            	</c:if> 
+											>부서</option>
+											<option value="name"
+												<c:if test="${param.searchCondition=='name'}">
+								            		selected="selected"
+								            	</c:if> 
+											>이름</option>
+											<option value="position_name"
+												<c:if test="${param.searchCondition=='position_name'}">
+								            		selected="selected"
+								            	</c:if> 
+											>직급</option>
 										</select>
 									</div>
 									<div class="col-auto">
 										<div class="input-group input-search-width admindefault">
-											<input class="form-control shadow-none search admindefault"
+											<input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search admindefault"
 												type="search" placeholder="검색어 입력" aria-label="search" />
-											<button
+											<button onclick="submitForm()"
 												class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
 												<span class="fa fa-search fs--1"></span>
 											</button>
@@ -76,6 +104,11 @@
 							</div>
 						</div>
 					</div>
+						<div class="admindefault searchEmpResult" style="padding: 10px 0 0 25px;">
+							<c:if test="${!empty param.searchKeyword }">
+							   <p>검색어 :${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+							</c:if>   
+						</div>
 					<div class="card-body p-0 admindefault">
 						<div class="table-responsive scrollbar admindefault">
 							<table class="table table-sm table-hover">
@@ -100,55 +133,74 @@
 										<th class="sort align-middle" scope="col">사원번호</th>
 										<th class="sort align-middle" scope="col">사원이름</th>
 										<th class="sort align-middle" scope="col">부서</th>
-										<th class="sort align-middle" scope="col">직급</th>
-										<th class="sort align-middle" scope="col">전화번호</th>
+										<th class="sort align-middle" scope="col">직위</th>
+										<th class="sort align-middle" scope="col">내선번호</th>
 										<th class="sort align-middle" scope="col">재직여부</th>
 									</tr>
 								</thead>
 								<tbody id="table-contact-body">
-									<tr class="adminemptr">
-										<td class="align-middle fs-0 py-3 align-middle">
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="checkbox"
-													data-bulk-select-row="data-bulk-select-row" />
-											</div>
-										</td>
-										<td class="align-middle"><a href="#">2</a></td>
-										<td class="align-middle">3</td>
-										<td class="align-middle">4</td>
-										<td class="align-middle">5</td>
-										<td class="align-middle">6</td>
-										<td class="align-middle">7</td>
-									</tr>
-
-									<tr class="adminemptr">
-										<td class="align-middle fs-0 py-3 align-middle">
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="checkbox"
-													data-bulk-select-row="data-bulk-select-row" />
-											</div>
-										</td>
-										<td class="align-middle"><a href="#">2</a></td>
-										<td class="align-middle">3</td>
-										<td class="align-middle">4</td>
-										<td class="align-middle">5</td>
-										<td class="align-middle">6</td>
-										<td class="align-middle">7</td>
-									</tr>
+									<c:if test="${empty list }">
+										<tr class="adminemptr">
+											<td colspan="7" style="text-align: center">
+											해당 임직원 목록이 없습니다.
+											</td>
+										</tr>
+									</c:if>
+									<c:if test="${!empty list }">
+										<c:forEach var="map" items="${list }">
+											<tr class="adminemptr">
+												<td class="align-middle fs-0 py-3 align-middle">
+													<div class="form-check mb-0">
+														<input class="form-check-input" type="checkbox"
+															data-bulk-select-row="data-bulk-select-row" value=${map['EMP_NO']} />
+													</div>
+												</td>
+												<td class="align-middle">${map['EMP_NO']}</td>
+												<td class="align-middle"><a href="#">${map['NAME']}</a></td>
+												<td class="align-middle">${map['DEPT_NAME']}</td>
+												<td class="align-middle">${map['POSITION_NAME']}</td>
+												<td class="align-middle">${map['EXTENSION_NO']}</td>
+												<c:if test="${empty map['RETIREDATE']}">
+													<td class="align-middle">Y</td>
+												</c:if>
+												<c:if test="${!empty map['RETIREDATE']}">
+													<td class="align-middle">N</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div class="card-footer d-flex justify-content-center admindefault">
-						<button class="btn btn-sm btn-falcon-default me-1" type="button"
-							title="Previous" data-list-pagination="prev">
-							<span class="fas fa-chevron-left"></span>
-						</button>
-						<ul class="pagination mb-0"></ul>
-						<button class="btn btn-sm btn-falcon-default ms-1" type="button"
-							title="Next" data-list-pagination="next">
-							<span class="fas fa-chevron-right"></span>
-						</button>
+						<div class="divPage" id="divPage">
+							<!-- 페이지 번호 추가 -->		
+							<!-- 이전 블럭으로 이동 -->
+							<c:if test="${pagingInfo.firstPage>1 }">
+								<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								&lt;
+								</a>
+							</c:if>	
+											
+							<!-- [1][2][3][4][5][6][7][8][9][10] -->
+							<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+								<c:if test="${i == pagingInfo.currentPage }">		
+									<span id="curPage">${i}</span>
+						        	</c:if>
+								<c:if test="${i != pagingInfo.currentPage }">		
+							         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+							    </c:if>   		
+							</c:forEach>
+							
+							<!-- 다음 블럭으로 이동 -->
+							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								&gt;
+								</a>
+							</c:if>
+							<!--  페이지 번호 끝 -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -166,48 +218,30 @@
 				</div>
 				<div class="card-body">
 					<div id="organization-chart">
-						<div class="mb-3 adminempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#dev-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>개발팀</span>
-							<div class="collapse" id="dev-employees">
-								<div class="list-group adminempdiv9">
-									<a href="#" class="list-group-item-action">사원1</a> <a href="#"
-										class="list-group-item-action">사원2</a> <a href="#"
-										class="list-group-item-action">사원3</a>
+						<c:if test="${empty deptList}">
+				            비어있음
+				        </c:if>
+						<c:if test="${!empty deptList}">
+							<c:forEach var="deptAllVo" items="${deptList}">
+								<div class="mb-3 adminempdiv10">
+									<button class="btn btn-sm btn-primary btnDept" type="button"
+			                            data-bs-toggle="collapse" data-bs-target="#dept-${deptAllVo.deptVo.deptNo }"
+			                            data-dept-no="${deptAllVo.deptVo.deptNo}">
+			                        <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
+			                    </button>
+			                    <span>${deptAllVo.deptVo.name }</span>
+									<div class="collapse" id="dept-${deptAllVo.deptVo.deptNo }">
+										<div class="list-group adminempdiv9">
+											<c:forEach var="empMap" items="${deptAllVo.empList }">
+		                                   		<button class="list-group-item-action adminempbtncss admindefault" onclick="empDetail(${map.EMP_NO});">
+		                                   			${empMap['EMP_NO']} ${empMap['NAME']} ${empMap['POSITION_NAME']}
+		                                   		</button>
+		                                	</c:forEach>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-
-						<div class="mb-3 adminempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#design-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>디자인팀</span>
-							<div class="collapse" id="design-employees">
-								<div class="list-group adminempdiv9">
-									<a href="#" class="list-group-item-action">사원4</a> <a href="#"
-										class="list-group-item-action">사원5</a>
-								</div>
-							</div>
-						</div>
-						<div class="mb-3 adminempdiv10">
-							<button class="btn btn-primary" type="button"
-								data-bs-toggle="collapse" data-bs-target="#sales-employees">
-								<span class="fas fa-plus" data-fa-transform="shrink-3"></span>
-							</button>
-							<span>영업팀</span>
-							<div class="collapse" id="sales-employees">
-								<div class="list-group adminempdiv9">
-									<a href="#" class="list-group-item-action">사원6</a> <a href="#"
-										class="list-group-item-action">사원7</a> <a href="#"
-										class="list-group-item-action">사원8</a>
-								</div>
-							</div>
-						</div>
+							</c:forEach>
+							</c:if>
 					</div>
 				</div>
 				<div class="border-top border-200 py-x1">

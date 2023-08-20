@@ -87,7 +87,42 @@ public class ConfirmServiceImpl implements ConfirmService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllByEmpNo(int empNo) {
-		return confirmDao.selectAllByEmpNo(empNo);
+	public List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo) {
+		return confirmDao.selectAllByEmpNo(vo);
+	}
+
+	@Override
+	public int getTotalRecord(ConfirmVO vo) {
+		return confirmDao.getTotalRecord(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllConfirmDocument(ConfirmVO vo) {
+		return confirmDao.selectAllConfirmDocument(vo);
+	}
+
+	@Override
+	public int getTotalConfirmRecord(ConfirmVO vo) {
+		return confirmDao.getTotalConfirmRecord(vo);
+	}
+
+	@Override
+	public Map<String, Object> selectConfirmDocument(String confirmDocumentNo) {
+		return confirmDao.selectConfirmDocument(confirmDocumentNo);
+	}
+
+	@Override
+	public Map<String, Object> selectDeptAgree(String confirmDocumentNo) {
+		return confirmDao.selectDeptAgree(confirmDocumentNo);
+	}
+
+	@Override
+	public int updateConfirmState(ConfirmVO vo) {
+		return confirmDao.updateConfirmState(vo);
+	}
+
+	@Override
+	public int updateConfirmStateByClick(ConfirmVO vo) {
+		return confirmDao.updateConfirmStateByClick(vo);
 	}
 }

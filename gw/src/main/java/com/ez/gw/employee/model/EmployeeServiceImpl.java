@@ -1,18 +1,24 @@
 package com.ez.gw.employee.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.refer.model.ReferDAO;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	private final EmployeeDAO employeeDao;
+	private final ReferDAO referDao;
 
 	@Override
 	public EmployeeVO selectByEmpNo(int empNo) {
@@ -67,10 +73,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-<<<<<<< HEAD
-	public String selectPwd(int empNo) {
-		return employeeDao.selectPwd(empNo);
-=======
 	public int updateEmpInfo(EmployeeVO empVo) {
 		return employeeDao.updateEmpInfo(empVo);
 	}
@@ -78,9 +80,40 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int updateEmpPwd(EmployeeVO empVo) {
 		return employeeDao.updateEmpPwd(empVo);
->>>>>>> branch 'main' of https://github.com/lsw2795/final.git
 	}
 
 
+	@Override
+	public int getTotalRecord(SearchVO searchVo) {
+		return employeeDao.getTotalRecord(searchVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo) {
+		return employeeDao.selectSerachEmp2(searchVo);
+	}
+
+
+	@Override
+	public List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo) {
+		List<Integer> referList = referDao.selectEmpNoByConfirmNo(confirmDocumentNo);
+		logger.info("결재문서에 대한 참조자 referList={}",referList);
+		
+		List<EmployeeVO> list = new ArrayList<>();
+		for(int i=0; i<referList.size(); i++) {
+			EmployeeVO vo = employeeDao.selectByEmpNo(referList.get(i));
+			logger.info("참조자에 대한 조회 vo={}",vo);
+			list.add(vo);
+		}
+		return list;
+	}
+
+	@Override
+	public String selectPwd(int empNo) {
+		return employeeDao.selectPwd(empNo);
+	}
 
 }
+
+
+
