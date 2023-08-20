@@ -90,10 +90,11 @@ public class SecondHandTradeController {
 			for (MultipartFile f : files) {
 				logger.info("컨텐트 타입, contentType={}, png={}, jpg={}", f.getContentType(),
 						f.getContentType().toLowerCase().endsWith("png"),
-						f.getContentType().toLowerCase().endsWith("jpg"));
+						f.getContentType().toLowerCase().endsWith("jpg"),
+						f.getContentType().toLowerCase().endsWith("jpeg"));
 				// 이미지 파일만 업로드 가능
 				if (!f.getContentType().toLowerCase().endsWith("png")
-						&& !f.getContentType().toLowerCase().endsWith("jpg")&& !f.getContentType().toLowerCase().endsWith("jpeg")) {
+						&& !f.getContentType().toLowerCase().endsWith("jpg")) {
 					msg = "이미지 파일만 등록해주세요.";
 					url = "/market/addMarket";
 
@@ -115,10 +116,10 @@ public class SecondHandTradeController {
 				originalFileName = f.getOriginalFilename();
 				int cut = originalFileName.indexOf(".");
 				logger.info("cut={}", cut);
-				String cutFileName = originalFileName.substring(cut);
-				logger.info("cutFileName={}", cutFileName);
+				String cutfile = originalFileName.substring(cut);
+				logger.info("cutFileName={}", cutfile);
 
-				fileName = secondVo.getTradeNo() + "_" + i++ + cutFileName;
+				fileName = secondVo.getTradeNo() + "_" + i++ + cutfile;
 				fileSize = (long) f.getSize();
 
 				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
@@ -132,6 +133,7 @@ public class SecondHandTradeController {
 				logger.info("파일명:{}", fileName);
 				secondFileVo.setImageURL(fileName);
 				secondFileVo.setTradeNo(secondVo.getTradeNo());
+				
 				result = secondHandTradeFileService.insertFile(secondFileVo);
 				logger.info("이미지 멀티 파일 등록 결과 result = {}", result);
 			}
@@ -176,18 +178,28 @@ public class SecondHandTradeController {
 		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		pagingInfo.setTotalRecord(totalRecord);
-
-		String sub = "";
+		String cutfile="";
+		String thumbnail = "";
+		
 		for (SecondhandTradeFileVO f : fileList) {
 			String fileName = f.getImageURL();
 			int idx = fileName.indexOf(".");
-			sub = fileName.substring(idx);
+			
+			if(fileName.endsWith("_0.jpg")||fileName.endsWith("_0.png")
+					||fileName.endsWith("_0.jpeg")) {
+			//	f.setThumbnail(fileName);
+				logger.info("썸네일={}", thumbnail);
+			}
+			
+			//f.setCutfile(f.getCutfile());
+		//	logger.info("fileName={}, cutfile={}", fileName, f.getCutfile());
 		}
 
 		for (SecondHandTradeVO fg : list) {
+			
+			
 			int empNo = fg.getEmpNo();
 			emp = employeeService.selectByEmpNo(empNo);
-
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
@@ -195,7 +207,7 @@ public class SecondHandTradeController {
 
 		// 3
 		model.addAttribute("list", list);
-		model.addAttribute("sub", sub);
+		//model.addAttribute("fileList", fileList);
 		model.addAttribute("emp", emp);
 		model.addAttribute("pagingInfo", pagingInfo);
 		// 4
