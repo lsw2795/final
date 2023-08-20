@@ -10,4 +10,10 @@
 		insert into deptagree(agreement_no,confirm_document_no,dept_no)
 		values(#{agreementNo},#{confirmDocumentNo},#{deptNo})
 	</insert>
+	
+	<update id="updateDeptAgree" parameterType="string">
+		update deptagree
+		set deptagree_date=sysdate,agreement_state=10
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
 </mapper>

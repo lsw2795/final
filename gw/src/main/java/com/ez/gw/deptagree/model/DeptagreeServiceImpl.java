@@ -9,4 +9,9 @@ import lombok.RequiredArgsConstructor;
 public class DeptagreeServiceImpl implements DeptagreeService{
 	private final DeptagreeDAO deptagreeDao;
 
+	@Override
+	public int updateDeptAgree(String confirmDocumentNo) {
+		return deptagreeDao.updateDeptAgree(confirmDocumentNo);
+	}
+
 }

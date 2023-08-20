@@ -27,26 +27,29 @@
 			window.close();
 		});
 		
-		$('#review').click(function(){
+	});
+		function clickUpdate(){
 			var confirmDocumentNo=$('#confirmDocumentNo').val();
 			var confirmState=$('#confirmState').val();
+			var searchKeyword=$('#searchKeyword').val();
 			$.ajax({
 		    	url:"<c:url value='/approval/updateConfirmAjax'/>",
 		   		type:"post",
-		   		dataType:"json",
+		   		dataType:"text",
 		   		data:{
 		   			confirmDocumentNo:confirmDocumentNo,
-		   			confirmState:confirmState
+		   			confirmState:confirmState,
+		   			searchKeyword:searchKeyword
 		   		},
 		   		success:function(res){
-		   			var str=res.REVIEW_DATE;
-		   			alert(str);
+		   			alert(res);
+		   			window.close();
+		   			window.opener.location.reload();
 		    	},error:function(xhr, status, error){
 		    		alert(status+" : "+error);
 		   		}
 		   	});
-		});
-	});
+		}
 </script>
 <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -62,6 +65,7 @@
 <body>
 <input type="hidden" name="confirmState" id="confirmState" value="${confirmMap['CONFIRM_STATE'] }">
 <input type="hidden" name="confirmDocumentNo" id="confirmDocumentNo" value="${confirmMap['CONFIRM_DOCUMENT_NO'] }">
+<input type="hidden" name="searchKeyword" id="searchKeyword" value="${deptAgreeMap['DEPTNAME']}">
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg pe-lg-2 mb-3">
@@ -73,15 +77,19 @@
 						</div>
 						<div class="col-sm-10 pt-1" align="right">
 							<c:if test="${confirmMap['CONFIRM1']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==1 or confirmMap['CONFIRM_STATE']==2)}">
-			                    <button class="form-control btn btn-primary" id="review" style="width: 100px">검토</button>
+			                    <button class="form-control btn btn-primary" id="review" onclick="clickUpdate()" style="width: 100px">검토</button>
 			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
 		                    </c:if>
 		                    <c:if test="${confirmMap['CONFIRM2']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==3 or confirmMap['CONFIRM_STATE']==4)}">
-			                    <button class="form-control btn btn-primary" id="confirm" style="width: 100px">확인</button>
+			                    <button class="form-control btn btn-primary" id="confirm" onclick="clickUpdate()" style="width: 100px">확인</button>
 			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
 		                    </c:if>
 		                    <c:if test="${confirmMap['CONFIRM3']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==5 or confirmMap['CONFIRM_STATE']==6)}">
-			                    <button class="form-control btn btn-primary" id="complete" style="width: 100px">승인</button>
+			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">승인</button>
+			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
+		                    </c:if>
+		                    <c:if test="${deptAgreeMap['MANAGER']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==7 or confirmMap['CONFIRM_STATE']==8)}">
+			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">합의</button>
 			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
 		                    </c:if>
 						</div>
