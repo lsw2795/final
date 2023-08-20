@@ -40,7 +40,6 @@ public interface ConstUtil {
 	int UPLOAD_IMAGE_FLAG = 2; //사원 등록시 이미지 업로드
 	int CONFIRMFILE_FLAG = 3;  //자료실 업로드
 	
-	
 	//전자결재
 	Date date = new Date();
 	int CONFIRM_NO=1;
