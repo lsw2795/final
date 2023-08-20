@@ -168,7 +168,7 @@
 					    <div class="file-input">
 					    	<img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
 					        <span>${vo.originalFileName}</span>
-					        <input type="text" name="oldFileNames" value="${vo.fileName}">|
+					        <input type="hidden" name="oldFileNames" value="${vo.fileName}">|
 					        <a href='#' class='file-delete'>삭제</a>
 					    </div>
 					</c:forEach>
