@@ -19,4 +19,11 @@ public interface ConfirmDAO {
 	int updateConfirmStateByClick(ConfirmVO vo);
 	List<Map<String, Object>> selectAllDeptAgree(ConfirmVO vo);
 	int getTotalAgreeRecord (ConfirmVO vo);
+	List<Map<String, Object>> selectAllCompleteDocument(ConfirmVO vo);
+	int getTotalComplteRecord (ConfirmVO vo);
+	List<Map<String, Object>> selectAllRefer (ConfirmVO vo);
+	int getTotalReferRecord (ConfirmVO vo);
+	List<Map<String, Object>> selectAllReturn (ConfirmVO vo);
+	int getTotalReturnRecord (ConfirmVO vo);
+	int getTotalAgreeRecordMain (ConfirmVO vo);
 }

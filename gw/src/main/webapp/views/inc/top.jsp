@@ -66,6 +66,20 @@
     		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
     		    $('.nav-link').not(this).removeClass('active');
     		  });
+    		  
+    		  $.ajax({
+    		    	url:"<c:url value='/approval/recordAjax'/>",
+    		   		type:"post",
+    		   		dataType:"json",
+    		   		success:function(res){
+    		   			$('#confirm').text(res[0]);
+    		   			$('#turn').text(res[1]);
+    		   			$('#agree').text(res[2]);
+    		   			$('#approval').text(res[0]+res[1]+res[2]);
+    		    	},error:function(xhr, status, error){
+    		    		alert(status+" : "+error);
+    		   		}
+    		   	});
 		});
     	
     </script>
@@ -182,7 +196,10 @@
 						<a class="nav-link dropdown-indicator" href="#b" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-file-export"></span></span>
-	                    		<span class="nav-link-text ps-1">전자결재</span>
+	                    		<span class="nav-link-text ps-1">
+	                    			전자결재
+	                    			<span class="badge rounded-pill text-bg-primary" id="approval" ></span>
+	                    		</span>
 	                    	</div>
 	                  	</a>
 	                  	<ul class="nav collapse" id="b">
@@ -202,21 +219,44 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/confirm/confirmList'/>">
+                    			<a class="nav-link " href="<c:url value='/approval/returnList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 대기함(임원)</span>
+                        				<span class="nav-link-text ps-1">
+	                        				반려함
+	                        				<span class="badge rounded-pill text-bg-primary" id="turn"></span>
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/deptAgreeList'/>">
+                    			<a class="nav-link " href="<c:url value='/approval/confirm/confirmList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">합의 문서함(임원)</span>
+                        				<span class="nav-link-text ps-1">
+                        					결재 대기함(임원)
+                        					<span class="badge rounded-pill text-bg-primary" id="confirm" ></span>
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/approval/completeList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">결재 완료함(임원)</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/approval/deptAgreeList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">
+	                        				합의 문서함(임원)
+	                        				<span class="badge rounded-pill text-bg-primary" id="agree" ></span>
+                        				</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/approval/referList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 문서 참조함</span>
                         			</div> 
