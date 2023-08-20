@@ -23,7 +23,8 @@ public interface ConstUtil {
 	String MARKET_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\market\\upload";
 	
 	//집
-	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
+	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
+	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
 	//학원
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
 	

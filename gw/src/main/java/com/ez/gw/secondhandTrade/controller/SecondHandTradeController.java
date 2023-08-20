@@ -75,7 +75,7 @@ public class SecondHandTradeController {
 		secondVo.setEmpNo(empNo);
 		logger.info("중고거래 상품 등록, 파라미터 secondVo = {}, empNo={}", secondVo, empNo);
 		String msg = "", url = "";
-		int cnt = 0;
+		int cnt = 0, result=0;
 
 		// 2
 		// 파일 업로드 처리
@@ -93,9 +93,9 @@ public class SecondHandTradeController {
 						f.getContentType().toLowerCase().endsWith("jpg"));
 				// 이미지 파일만 업로드 가능
 				if (!f.getContentType().toLowerCase().endsWith("png")
-						&& !f.getContentType().toLowerCase().endsWith("jpg")) {
+						&& !f.getContentType().toLowerCase().endsWith("jpg")&& !f.getContentType().toLowerCase().endsWith("jpeg")) {
 					msg = "이미지 파일만 등록해주세요.";
-					url = "/market/getMarket";
+					url = "/market/addMarket";
 
 					// 이전에 입력한 폼 데이터 세션에 저장
 					session.setAttribute("secondVo", secondVo);
@@ -132,7 +132,7 @@ public class SecondHandTradeController {
 				logger.info("파일명:{}", fileName);
 				secondFileVo.setImageURL(fileName);
 				secondFileVo.setTradeNo(secondVo.getTradeNo());
-				int result = secondHandTradeFileService.insertFile(secondFileVo);
+				result = secondHandTradeFileService.insertFile(secondFileVo);
 				logger.info("이미지 멀티 파일 등록 결과 result = {}", result);
 			}
 		} catch (IllegalStateException e) {
@@ -143,7 +143,7 @@ public class SecondHandTradeController {
 
 		// 3
 
-		if (cnt > 0) {
+		if (cnt > 0 && result>0) {
 			msg = "상품이 성공적으로 등록되었습니다.";
 			url = "/market/marketList";
 		}
@@ -228,10 +228,9 @@ public class SecondHandTradeController {
 	}
 
 	@GetMapping("/editMarket")
-	public String get_editMarket(@RequestParam(defaultValue = "0") int tradeNo, Model model, HttpSession session) {
+	public String get_editMarket(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
 		// 1
-		int empNo = (int) session.getAttribute("empNo");
-		logger.info("중고거래 수정 페이지, 파라미터, tradeNo={}, empNo={}", tradeNo, empNo);
+		logger.info("중고거래 수정 페이지, 파라미터, tradeNo={}", tradeNo);
 		if (tradeNo == 0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
 			model.addAttribute("url", "/market/marketList");
@@ -241,29 +240,97 @@ public class SecondHandTradeController {
 		// 2
 		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
 		logger.info("조회 결과, secondVo={}", secondVo);
 		logger.info("조회 결과, fileList={}", fileList);
-		logger.info("조회 결과, emp={}", emp);
 
 		// 3
 		model.addAttribute("vo", secondVo);
 		model.addAttribute("fileList", fileList);
-		model.addAttribute("emp", emp);
 
 		// 4
 		return "/market/editMarket";
 	}
 
-	/*
-	 * @PostMapping("/editMarket") public String post_editMarket() { //1
-	 * 
-	 * //2
-	 * 
-	 * //3
-	 * 
-	 * //4 }
-	 */
+	
+	 @PostMapping("/editMarket") 
+	 public String post_editMarket(@RequestParam(defaultValue = "0")int tradeNo, @ModelAttribute SecondHandTradeVO secondVo, 
+			 	@ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) { 
+	  //1
+		 int empNo = (int)session.getAttribute("empNo");
+		 logger.info("수정 게시판, 파라미터 tradeNo={}", tradeNo);
+		 logger.info("secondVo={}", secondVo);
+		 logger.info("secondFileVo={}", secondFileVo);
+	  
+	  //2
+		 String msg="", url="";
+		 int cnt = 0, result = 0;
+		 String fileName="", originalFileName="";
+		 long fileSize=0;
+		 try {
+			 MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+			 
+			 List<MultipartFile> file = multiRequest.getFiles("imageURL2");
+			 for(MultipartFile f :file) {
+				// 이미지 파일만 업로드 가능
+				if (!f.getContentType().toLowerCase().endsWith("png")
+						&& !f.getContentType().toLowerCase().endsWith("jpg")&&!f.getContentType().toLowerCase().endsWith("jpeg")) {
+					msg = "이미지 파일만 등록해주세요.";
+					url = "/market/editMarket";
+					
+					// 이전에 입력한 폼 데이터 세션에 저장
+					session.setAttribute("secondVo", secondVo);
+					session.setAttribute("secondFileVo", secondFileVo);
+
+					model.addAttribute("msg", msg);
+					model.addAttribute("url", url);
+
+					return "common/message";
+				}
+			 } //for
+			 
+			 cnt = secondHandTradeService.updateMarket(secondVo);
+			 logger.info("중고거래 수정 완료, cnt={}", cnt);
+			 
+			 int i=0;
+			 for(MultipartFile f:file) {
+				 originalFileName=f.getOriginalFilename();
+				 int cut = originalFileName.indexOf(".");
+				 String cutFileName = originalFileName.substring(cut);
+				 
+				 fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
+				 fileSize = (long)f.getSize();
+				 
+				 String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+				 File files = new File(path, fileName);
+				 f.transferTo(files);
+				 
+				 logger.info("파일명 fileName={}", fileName);
+				 secondFileVo.setImageURL(fileName);
+				 result = secondHandTradeFileService.updateFile(secondFileVo);
+				 logger.info("파일 등록 결과, result={}", result);
+			 }
+				 
+		 }catch(IllegalStateException e) {
+			 e.printStackTrace();
+		 }catch(IOException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 
+		 if(cnt>0 && result>0) {
+			 msg="중고거래 수정이 완료되었습니다.";
+			 url="/market/marketList";
+		 }
+	  
+	  //3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+	  //4 
+	  return"common/message";
+	
+	 }
+	
 
 	@RequestMapping("/delMarket")
 	public String delete(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
@@ -319,5 +386,21 @@ public class SecondHandTradeController {
 		// 3
 		// 4
 		return "redirect:/market/marketList";
+	}
+	
+	@RequestMapping("/ajaxCheckPwd")
+	@ResponseBody
+	public int checkPwd(@RequestParam(required = false)String pwd, HttpSession session) {
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("비밀번호 확인 ajax - pwd={}", pwd);
+		
+		String checkPwd = employeeService.selectPwd(empNo);
+		int result = 0;
+		if(checkPwd.equals(pwd)) {
+			result=EmployeeService.LOGIN_OK;	//비밀번호 일치
+		}else {
+			result=EmployeeService.PWD_DISAGREE;	//비밀번호 불일치
+		}
+		return result;
 	}
 }

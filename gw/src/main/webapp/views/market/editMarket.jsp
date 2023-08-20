@@ -10,7 +10,7 @@
 	$(function(){
 		
 		$("#fileInput").on("change", function() {
-			  var imagePreview[] = ${fileList.imageURL};
+			  var imagePreview = [];
 			  
 			  var files = $(this)[0].files;
             for (var i = 0; i < files.length; i++) {
@@ -22,7 +22,7 @@
                         width: "150px", // 이미지 크기 조절
                         margin: "10px" // 이미지 간격 조절
                     });
-                    imagePreview.append(img);
+                    imagePreview.push(img);
                 };
                 
                 reader.readAsDataURL(file);
@@ -67,27 +67,60 @@
 			} */
 		});
 		
-		  
+		$('#password').keyup(function(){
+			$.ajax({
+				url:"/market/ajaxCheckPwd",  
+				type:"get",
+				dataType:"JSON",
+				data:{pwd : $('#password').val()},
+				success:function(res){
+					$('#check').empty();
+					var str = "";
+					if(res!=1){
+						str+= "<span style='font-weight : bold; color :red'>비밀번호가 일치하지 않습니다.</span>"
+						event.preventDefault;
+					}
+					$('#check').append(str);
+				},
+				error:function(xhr, status, error){
+					alert(status + ":" + error);
+				}
+			});
+		});  
 		  
 	});
 	
-	function isSame(){
-		$.ajax({
-			url:"",
-			type:"POST",
-			dataType:"JSON",
-			data:{"pwd":pwd},
-			success:function(res){
-				
-			},
-			error:function(xhr, status, error){
-				alert("status :" + error);
-			}
-		});
 		
-	}
+	
 		
 </script>
+<style type="text/css">
+.mypageempdiv4 {
+	margin : 0px;
+}
+
+.fallback {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.filebutton{
+	padding:0;
+	margin:0;
+	background: #e0e0e0;
+	border:1px solid black;
+	justify-content: center;
+    align-items: center;
+	
+}
+
+#checkFile{
+	font-size:1rem;
+	color:black;
+	padding:2px;
+	margin:0px;
+}
+</style>
  <div class="content">
           <div class="card mb-3">
             <div class="card-body">
@@ -119,16 +152,17 @@
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">비밀번호</label>
-                        <input class="form-control" id="product-summary" name = "pwd" type="password" onchange="isSame()"/>
+                        <input class="form-control" id="password" name = "pwd" type="password"/>
+                        <label id="check"></label>
                       </div>
-                      <div class="row mb-3 d-flex align-items-center">
+                      <div class="col-12 mb-3">
 					    <div class="col-md-auto mypageempdiv4">
 							<label class="form-label">거래 완료 여부</label>
 						</div> 
 						<div class="col-md-6 mypagespan">
 					        <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagY">거래완료</label>
-		                        <input type="radio" class="form-check-input" id="marriedFlagY"  name="married" />
+		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selflag" />
 	                       </div>
 	                       <span class="mypagehyphen"></span>
 				    	</div>
@@ -149,14 +183,18 @@
                 </div>
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
-                    <div class="fallback">
-                      <input name="imageURL2" type="file" multiple="multiple" id=""/>
-                      <span class="mb-0"></span>
-                    </div>
 	                <c:if test="${!empty fileList }">
+                    <div class="fallback">
+                    	<div class="filebutton">
+                      		<label for="uploadfile" id="checkFile">파일선택</label>
+                      	</div>
+                      <input name="imageURL2" type="file" multiple="multiple" id="uploadfile" style="display:none"/>
+                      <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
+                    </div>
                     <div class="dz-message" data-dz-message="data-dz-message"> 
-	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
-	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
+	                <c:forEach var="file" items="${fileList }">
+	                <img src = "<c:url value='/market/upload?${file.imageURL }'/>">
+                    </c:forEach>
                     </div>
 	                </c:if>
                     <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">

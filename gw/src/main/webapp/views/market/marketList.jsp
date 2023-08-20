@@ -140,11 +140,7 @@ ul#navbarVerticalNav {
 																</h4>
 																<h5 class="fs--1 text-500 mb-0 mt-1"></h5>
 																<div class="mb-2 mt-3">
-																	<span class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+																	
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
@@ -248,14 +244,12 @@ ul#navbarVerticalNav {
 																	원
 																</h4>
 																<div class="mb-2 mt-3">
-																	<span class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star text-warning"></span><span
-																		class="fa fa-star-half-alt text-warning star-icon"></span><span
-																		class="ms-1">(20)</span>
+																	
 																</div>
 																<div class="d-none d-lg-block">
+																	<p class="fs--1 mb-1">
+																		좋아요 : <strong>${vo.likeCount }</strong>
+																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${vo.readCount }</strong>
 																	</p>
