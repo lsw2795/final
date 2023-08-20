@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="row mb-3">
 	<div class="col-md-12">
-		<div class="card">
+		<div class="card" style="background-color: white;">
 			<div class="d-flex mb-2 ms-3 mt-3">
 				<img class="rounded-3"
 					src="<c:url value='/images/${map["IMAGE"]}'/>" 
