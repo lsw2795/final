@@ -6,8 +6,9 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
-		 $("#empWrite").hide();
-		 $.ajax({
+		$("#empWrite").hide();
+		$('#btnadminPwd').click(function(){
+			 $.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
 	            dataType : "text",
@@ -28,6 +29,7 @@
 	               alert(status+" : "+error);
 	            }
 	         });//ajax
+		});
 	});
 </script>
 <c:if test="${!empty param.empNo}">
@@ -282,5 +284,6 @@
 		</div>
 	</div>
 </div>
+
 <%@ include file='adminPwdConfirm.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
