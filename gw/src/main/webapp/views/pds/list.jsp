@@ -69,7 +69,14 @@
                 <div>
                 	<c:forEach var="map" items="${list}">
 	                    <div class="num">${map['BOARD_NO']}</div>
-	                    <div class="title"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></div>
+	                    <div class="title">
+	                    	<a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">
+	                    		${map['TITLE']} 
+	                    		<c:if test="${map['timeNew']==1}">
+	                    			<img alt="new이미지" src="<c:url value='/images/new.jpg'/>">
+	                    		</c:if>
+	                    	</a>
+                    	</div>
 	                    <div class="writer">${map['NAME']}</div>
 	                    <div class="date"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></div>
 	                    <div class="count">${map['READCOUNT']}</div>
@@ -106,8 +113,10 @@
 		</c:forEach>
 		
 		<!-- 다음 페이지로 이동 -->
-		<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
-        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+		<c:if test="${pagingInfo.totalRecord>0}">
+			<c:if test="${pagingInfo.lastPage!=pagingInfo.currentPage}">
+	        	<a href="#" class="bt next" onclick="pageFunc(${pagingInfo.currentPage+1})">></a>
+			</c:if>
 		</c:if>
 		
 		<!-- 다음 블럭으로 이동 -->
@@ -123,5 +132,6 @@
             </div>
         </div>
     </div>
+    
     
 <%@ include file="../inc/bottom.jsp"%>

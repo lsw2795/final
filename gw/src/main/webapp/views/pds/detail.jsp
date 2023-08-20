@@ -52,16 +52,16 @@
                 <div>
                     <div class="file_input">
 						<c:if test="${!empty fileList}">
-							<c:forEach var="vo" items="${fileList}">
+							<c:forEach var="vo" items="${fileList}" varStatus="status">
 								<div>
 									<span>
 							               <img src="<c:url value='/images/file.gif'/>" alt="파일 이미지" >
 							               <a href
 							               ="<c:url value='/pds/download?boardNo=${vo.boardNo}&fileName=${vo.fileName}'/>">
-							               		${vo.originalFileName}
+							               		${fileInfoArr[status.index]}
 							               </a>
 									</span>
-									| <span>다운 : ${vo.downloadCount}</span>
+									| <span>다운:${vo.downloadCount}</span>
 								</div>
 							</c:forEach>
 			            </c:if>			

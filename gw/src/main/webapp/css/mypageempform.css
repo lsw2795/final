@@ -60,10 +60,13 @@
 	top: 60px;
 	width: 170px;
 	height: 200px;
+	border: 1px solid #eee;
+    border-radius: 8px;
 }
-.employeeimage {
+.mypageempdiv8 img {
 	width: 100%;
 	height: 100%;
+	padding: 0.25rem;
 }
 #organization-chart{
 	margin: 15px 0 0 15px;
@@ -80,4 +83,20 @@
 }
 .mypageempdiv12 {
     margin: 0 5px 0 0px;
+}
+.mypageempbtncss{
+	border: none;
+	background-color: white;
+}
+.mypageempdiv13{
+    margin: 15px 0 15px 15px;
+}
+.mypageempbtncss2{
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #c1c1c1;
+}
+.mypageempbtncss2:hover {
+    background-color: #e9e9e9; /* 호버 시 배경색 변경 */
 }    

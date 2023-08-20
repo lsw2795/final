@@ -26,19 +26,44 @@
 		<selectKey keyProperty="empNo" order="BEFORE" resultType="int">
 			select EMPLOYEE_SEQ.nextval from dual
 		</selectKey>
-		insert into employee(emp_no, name, ename, jumin, email, pwd, extension_no, tel,
-			address, hiredate, authority, annual_salary, image, position_no, dept_no)
+		insert into employee(emp_no, name, ename, jumin, email, pwd, extension_no, tel, address, 
+			addressdetail, hiredate, authority, annual_salary, image, position_no, dept_no)
 		values(#{empNo},#{name},#{ename},#{jumin,jdbcType=VARCHAR},
-		#{email},#{pwd},#{extensionNo},#{tel},
-			#{address},#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
+			#{email},#{pwd},#{extensionNo},#{tel},#{address},#{addressdetail},
+			#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
 	
-	<select id="organiationChartViewByEmpNo" parameterType="int" resultType="map">
-		select * from organizationchartview
+	<select id="selectSearchEmp" parameterType="searchVo" resultType="map">
+			select * from organizationChartView
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where name like '%'|| #{searchKeyword} ||'%'
+			or emp_no like '%'|| #{searchKeyword} ||'%'
+			or dept_name like '%'|| #{searchKeyword} ||'%'
+			or position_name like '%'|| #{searchKeyword} ||'%'
+			and retiredate is null
+		</if>
+		<if test="searchKeyword==null or searchKeyword==''">
+			where retiredate is null
+		</if>
+			order by dept_name asc, position_name desc
+	</select>
+	
+	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
+		select * from organizationChartView
 		where emp_no=#{empNo}
 	</select>
 	
+	<update id="updateEmpInfo" parameterType="employeeVo">
+    update employee
+    set address=#{address}, addressdetail=#{addressdetail},
+        tel=#{tel}, email=#{email}, married=#{married}
+    where emp_no=#{empNo}
+	</update>
 	
+	<update id="updateEmpPwd" parameterType="employeeVo">
+	    update employee
+	    set pwd=#{pwd}
+	    where emp_no=#{empNo}
+	</update>
 	
-		
 </mapper>

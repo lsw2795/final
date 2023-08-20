@@ -1,10 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
 
  <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
+ <script type="text/javascript">
+	function delMarket(){
+		if(confirm("삭제하시겠습니까?")){
+			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
+		}
+		
+	}
+</script>
 <div class="content">
+		<h2>상세보기</h2>
+		
+		<c:if test="${sessionScope.empNo==emp.empNo }">
+			<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
+              	<button class="btn btn-falcon-default btn-sm" type="button">
+            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
+   	        		<span class="d-none d-md-inline-block ms-1">수정</span>
+         	    </button>
+            </a>
+            <button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+                 <span class="d-none d-md-inline-block ms-1">삭제</span>
+	        </button>
+		</c:if>
           <div class="card mb-3">
             <div class="card-body">
               <div class="row">
@@ -16,13 +38,12 @@
                     	"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,
                     	"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},
                     	"slideToClickedSlide":true}'>
-                      <div class="swiper-wrapper h-100">
-                        <div class="swiper-slide h-100"><img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1.jpg'/>" alt="" /></div>
-                        <div class="swiper-slide h-100"><img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-2.jpg'/>" alt="" /></div>
-                        <div class="swiper-slide h-100"> <img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-3.jpg'/>" alt="" /></div>
-                        <div class="swiper-slide h-100"> <img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-4.jpg'/>" alt="" /></div>
-                        <div class="swiper-slide h-100"> <img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-5.jpg'/>" alt="" /></div>
-                        <div class="swiper-slide h-100"> <img class="rounded-1 object-fit-cover h-100 w-100" src="<c:url value='/assets/img/products/1-6.jpg'/>" alt="" /></div>
+                      <div class="swiper-wrapper">
+                      	<c:forEach var="file" items="${file }">
+	                        <div class="swiper-slide">
+	                        	<img class="rounded-1 object-fit-cover w-100" src="<c:url value='/market/upload/${file.imageURL }'/>" alt="" />
+	                        </div>
+                      	</c:forEach>
                       </div>
                       <div class="swiper-nav">
                         <div class="swiper-button-next swiper-button-white"></div>
@@ -32,15 +53,28 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <h5>Apple MacBook Pro (15" Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</h5><a class="fs--1 mb-2 d-block" href="#!">Computer &amp; Accessories</a>
+                  <h4><strong>${vo.title }</strong></h4>
+                  <h6 class="fs--1 mb-2 d-block" href="#!">
+                  	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+                 	</h6>
+                 	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
+                  <hr>
                   <div class="fs--2 mb-3 d-inline-block text-decoration-none"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1 text-600">(8)</span>
                   </div>
-                  <p class="fs--1">Testing conducted by Apple in October 2018 using pre-production 2.9GHz 6âcore Intel Core i9âbased 15-inch MacBook Pro systems with Radeon Pro Vega 20 graphics, and shipping 2.9GHz 6âcore Intel Core i9âbased 15âinch MacBook Pro systems with Radeon Pro 560X graphics, both configured with 32GB of RAM and 4TB SSD.</p>
-                  <h4 class="d-flex align-items-center"><span class="text-warning me-2">$1200</span><span class="me-1 fs--1 text-500">
-                      <del class="me-1">$2400</del><strong>-50%</strong></span></h4>
-                  <p class="fs--1 mb-1"> <span>Shipping Cost: </span><strong>$50</strong></p>
-                  <p class="fs--1">Stock: <strong class="text-success">Available</strong></p>
-                  <p class="fs--1 mb-3">Tags: <a class="ms-2" href="#!">Computer,</a><a class="ms-1" href="#!">Mac Book,</a><a class="ms-1" href="#!">Mac Book Pro,</a><a class="ms-1" href="#!">Laptop </a></p>
+                  <h4 class="d-flex align-items-center"><span class="me-2">
+                  	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
+                  	</span><span class="me-1 fs--1 text-500">
+                      </span></h4>
+                
+                  <p class="fs--1 mb-1"> <span>조회수 : ${vo.readCount } </span></p>
+                  <p class="fs--1">Stock: 
+                  	<c:if test="${vo.selFlag=='N' }">
+                    	<strong class="text-success">거래가능</strong>
+                    </c:if>
+                    <c:if test="${vo.selFlag=='Y' }">
+                    	<strong class="text-danger">판매완료</strong>
+                    </c:if>
+                  </p>
                   <div class="row">
                     <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-envelope-open"></span><span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span></a></div>
                     <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border border-300" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart me-1"></span>282</a></div>
@@ -51,61 +85,18 @@
                 <div class="col-12">
                   <div class="overflow-hidden mt-4">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item"><a class="nav-link active ps-0" id="description-tab" data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description" aria-selected="true">Description</a></li>
-                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="specifications-tab" data-bs-toggle="tab" href="#tab-specifications" role="tab" aria-controls="tab-specifications" aria-selected="false">Specifications</a></li>
-                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="reviews-tab" data-bs-toggle="tab" href="#tab-reviews" role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews</a></li>
+                      <li class="nav-item"><a class="nav-link active ps-0" id="description-tab" data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description" aria-selected="true">상품 설명</a></li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="tab-description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="mt-3">
-                          <p>Over the years, Apple has built a reputation for releasing its products with a lot of fanfare â but that didnât exactly happen for the MacBook Pro 2018. Rather, Appleâs latest pro laptop experienced a subdued launch, in spite of it offering a notable spec upgrade over the 2017 model â along with an improved keyboard. And, as with previous generations the 15-inch MacBook Pro arrives alongside a 13-inch model.</p>
-                          <p>Apple still loves the MacBook Pro though, despite the quiet release. This is because, while the iPhone XS and iPad, along with the 12-inch MacBook, are aimed at everyday consumers, the MacBook Pro has always aimed at the creative and professional audience. This new MacBook Pro brings a level of performance (and price) unlike its more consumer-oriented devices. </p>
-                          <p>Still, Apple wants mainstream users to buy the MacBook Pro, too. So, if youâre just looking for the most powerful MacBook on the market, youâll love this new MacBook Pro. Just keep in mind that, while the keyboard has been updated, there are still some issues with it.</p>
-                          <p>Thereâs enough of a difference between the two sizes when it comes to performance to warrant two separate reviews, and here weâll be looking at how the flagship 15-inch MacBook Pro performs in 2019.</p>
-                          <p>It's build quality and design is batter than elit. Numquam excepturi a debitis, sint voluptates, nam odit vel delectus id repellendus vero reprehenderit quidem totam praesentium vitae nesciunt deserunt. Sint, veniam?</p>
+                        
+                        <!-- 글 줄바꿈 처리  -->
+		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
+		            	  <c:set var="content" value="${fn:replace(vo.discription, newLine, '<br>')}" />
+                  	 		${content}
+                  	 		
                         </div>
-                      </div>
-                      <div class="tab-pane fade" id="tab-specifications" role="tabpanel" aria-labelledby="specifications-tab">
-                        <table class="table fs--1 mt-3">
-                          <tbody>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Processor</td>
-                              <td>2.3GHz quad-core Intel Core i5,</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Memory</td>
-                              <td>8GB of 2133MHz LPDDR3 onboard memory</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Brand Name</td>
-                              <td>Apple</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Model</td>
-                              <td>Mac Book Pro</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Display</td>
-                              <td>13.3-inch (diagonal) LED-backlit display with IPS technology</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Storage</td>
-                              <td>512GB SSD</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Graphics</td>
-                              <td>Intel Iris Plus Graphics 655</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Weight</td>
-                              <td>7.15 pounds</td>
-                            </tr>
-                            <tr>
-                              <td class="bg-100" style="width: 30%;">Finish</td>
-                              <td>Silver, Space Gray</td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                       <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="reviews-tab">
                         <div class="row mt-3">
@@ -160,7 +151,7 @@
               </div>
             </div>
           </footer>
-          </div>
+        </div>
 <%@ include file="../inc/bottom.jsp" %>
 
 <!-- ===============================================-->

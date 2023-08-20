@@ -13,7 +13,54 @@ $(function(){
         $('.collapse.show').not($targetElement).collapse('hide');
         $targetElement.collapse('toggle');
     });   
+    
+    $('#btnSearch').click(function(){
+    	performSearch();
+    });
+    
+    $('input[type=search]').keyup(function(event) {
+        if (event.keyCode === 13 || event.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
 });
+
+function empDetail(empNo) {
+    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+}
+
+function performSearch(){
+	var searchKeyword= $('input[type=search]').val();
+	//alert(searchKeyword);
+	
+	$.ajax({
+    url: "<c:url value='/mypage/ajaxSearchEmp'/>",
+    type: "get",
+    data: { searchKeyword: searchKeyword },
+    success: function (res) {
+        $('#searchemp').empty();
+        if (res.length > 0) {
+            var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
+            var results = "";
+            $.each(res, function (index, item) {
+                results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                    "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
+                    "</a><br>";
+            });
+            $('#searchEmp').empty();
+            $('#searchEmp').append(searchrs + results);
+        } else {
+            var result = "검색결과가 없습니다.";
+            $('#searchEmp').empty();
+            $('#searchEmp').append(result);
+        }
+    },
+    error: function(xhr, status, error) {
+        alert(status + " : " + error);
+    } 
+    });
+}
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
@@ -27,7 +74,7 @@ $(function(){
         <c:if test="${!empty list}">
             <c:forEach var="deptAllVo" items="${list}">
                 <p>
-                    <button class="btn btn-primary btnDept" type="button"
+                    <button class="btn btn-sm btn-primary btnDept" type="button"
                             data-bs-toggle="collapse" data-bs-target="#dept-${deptAllVo.deptVo.deptNo }"
                             data-dept-no="${deptAllVo.deptVo.deptNo}">
                         <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
@@ -40,9 +87,9 @@ $(function(){
                             <div class="card card-body">
                                 <div class="list-group" id="empList">
                                 	<c:forEach var="map" items="${deptAllVo.empList }">
-                                   		<a href="#" class="list-group-item-action">
+                                   		<button class="list-group-item-action mypageempbtncss" onclick="empDetail(${map.EMP_NO});">
                                    			${map['EMP_NO']} ${map['NAME']} ${map['POSITION_NAME']}
-                                   		</a>
+                                   		</button>
                                    		<!--<a href="#" class="list-group-item-action">사원1</a> -->
                                 	</c:forEach>
                                 </div>
@@ -53,15 +100,16 @@ $(function(){
             </c:forEach>
         </c:if>
  
-				<div class="border-top border-200 py-x1">
-					<small>사원번호/이름/부서/직급 검색</small>
-					<div class="input-group">
-						<input class="form-control shadow-none search"
-							type="search" placeholder="검색어 입력" aria-label="search"/>
-						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-							<span class="fa fa-search fs--1"></span>
-						</button>
-					</div>
-				</div>
+		<div class="border-top border-200 py-x1">
+			사원번호/이름/부서/직위 검색
+			<div class="input-group">
+				<input class="form-control shadow-none search"
+					type="search" placeholder="검색어 입력" aria-label="search"/>
+				<button id="btnSearch" class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+					<span class="fa fa-search fs--1"></span>
+				</button>
+			</div>
+		</div>
+		<div id="searchEmp"></div>
 		  </div>
 		</div>

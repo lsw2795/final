@@ -1,5 +1,7 @@
 package com.ez.gw.secondhandTradeFile.model;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,21 @@ public class SecondhandTradeFileServiceImpl implements SecondhandTradeFileServic
 	@Override
 	public int insertFile(SecondhandTradeFileVO secondFileVo) {
 		return secondhandTradeFileDao.insertFile(secondFileVo);
+	}
+
+	@Override
+	public List<SecondhandTradeFileVO> showThumbnail() {
+		return secondhandTradeFileDao.showThumbnail();
+	}
+
+	@Override
+	public List<SecondhandTradeFileVO> selectDetailFileByNo(int tradeNo) {
+		return secondhandTradeFileDao.selectDetailFileByNo(tradeNo);
+	}
+
+	@Override
+	public int updateFile(SecondhandTradeFileVO secondFileVo) {
+		return secondhandTradeFileDao.updateFile(secondFileVo);
 	}
 	
 	

@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ez.gw.confirm.controller.ConfirmController;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.refer.model.ReferDAO;
+
+//github.com/lsw2795/final.git
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,11 +60,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public Map<String, Object> organiationChartViewByEmpNo(int empNo) {
-		return employeeDao.organiationChartViewByEmpNo(empNo);
-	}
-
-	@Override
 	public List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo) {
 		List<Integer> referList = referDao.selectEmpNoByConfirmNo(confirmDocumentNo);
 		logger.info("결재문서에 대한 참조자 referList={}",referList);
@@ -75,5 +72,31 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 		return list;
 	}
+
+	public List<Map<String, Object>> selectSearchEmp(SearchVO searchVo) {
+		return employeeDao.selectSearchEmp(searchVo);
+	}
+
+	@Override
+	public Map<String, Object> selectEmpByEmpNo(int empNo) {
+		return employeeDao.selectEmpByEmpNo(empNo);
+	}
+
+	@Override
+	public void sendEmail(EmployeeVO empVo, String div) {
+		
+	}
+
+	@Override
+	public int updateEmpInfo(EmployeeVO empVo) {
+		return employeeDao.updateEmpInfo(empVo);
+	}
+
+	@Override
+	public int updateEmpPwd(EmployeeVO empVo) {
+		return employeeDao.updateEmpPwd(empVo);
+	}
+
+
 
 }

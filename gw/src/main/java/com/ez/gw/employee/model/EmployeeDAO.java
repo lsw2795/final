@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.gw.common.SearchVO;
+
 @Mapper
 public interface EmployeeDAO {
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
@@ -12,5 +14,10 @@ public interface EmployeeDAO {
 	String selectPwd(int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); //관리자 로그인여부
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
-	Map<String, Object> organiationChartViewByEmpNo(int empNo); //사원정보 조회(부서) 
+	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
+	int updateFindPwd(EmployeeVO empVo) throws Exception; //사원 비번 찾기
+	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 상세보기 메서드
+	int updateEmpInfo(EmployeeVO empVo); //사원 - 사원정보 수정하기
+	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 }
+

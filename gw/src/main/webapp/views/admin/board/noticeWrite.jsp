@@ -49,9 +49,10 @@
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url}'/>">	
 				<!-- 수정 처리시 no,oldFileName가 필요하므로 hidden 필드에 넣어서 보내준다 -->
+				<c:if test="${!empty param.boardNo}">
 				<input type="hidden" name="boardNo" value="${map['BOARD_NO']}">
 				<input type="hidden" name="oldFileName" value="">
-					
+				</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
 					        <label class="form-label" for="title">제목</label>
@@ -77,8 +78,8 @@
 						</div>
 					</div>
 					<div style="text-align: center;">
-					<input type="submit" value="${btLabel}" class="btn btn-primary"/>
-					<input type="button" value="취소" class="btn btn-primary"/>
+						<input type="submit" value="${btLabel}" class="btn btn-primary"/>
+						<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
 				</form>
 			</div>

@@ -34,6 +34,7 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="<c:url value='/vendors/simplebar/simplebar.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/theme-rtl.css'/>" rel="stylesheet" id="style-rtl">
@@ -54,6 +55,7 @@
         linkRTL.setAttribute('disabled', true);
         userLinkRTL.setAttribute('disabled', true);
       }
+      
     </script>
     <script type="text/javascript">
     	$(function() {
@@ -91,7 +93,7 @@
             }
           </script>
           <div class="d-flex align-items-center">
-            <a class="navbar-brand" href="<c:url value='/'/>">
+            <a class="navbar-brand" href="<c:url value='/main'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/title.png'/>" alt="" width="150" />
               </div>
@@ -102,32 +104,8 @@
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
 		
-		<li class="nav-item">
-            <div class="row mb-3">
-            <div class="col-md-12">
-                  <div class="card font-sans-serif">
-                    <div class="card-body d-flex flex-sm-row">
-                    <img class="rounded-3" src="<c:url value='/images/IMG_5487.jpg'/>" alt="" width="100" />
-                      <table class="table table-borderless fs--1 fw-medium mb-0">
-                        <tbody>
-                          <tr>
-                            <td class="p-1">홍길동</td>
-                          </tr>
-                          <tr>
-                            <td class="p-1">대리</td>
-                          </tr>
-                          <tr>
-                            <td class="p-1">영업팀</td>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </div>
-                      <div class="mb-2" style="text-align: center;">
-                      <input type="button" class="btn btn-primary" value="버튼1">
-                      <input type="button" class="btn btn-primary" value="버튼2">
-                      </div>
-                </div>
+				<li class="nav-item">
+            		<c:import url="/inc/empMain"></c:import>
 				</li>
 					
 					<li class="nav-item"><!-- parent pages-->
@@ -139,9 +117,9 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link active" href="#">
+                    			<a class="nav-link " href="<c:url value='/mypage/empInfoEdit?empNo=${sessionScope.empNo}'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내정보 수정</span>
+                        				<span class="nav-link-text ps-1">내 정보 수정</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -219,7 +197,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/approval/confirmList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 문서함</span>
+                        				<span class="nav-link-text ps-1">나의 문서함</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -227,6 +205,13 @@
                     			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/confirm/confirmList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 대기함(임원)</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/deptAgreeList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">합의 문서함(임원)</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -396,21 +381,21 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/createClub.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/createClub'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/clubBoard.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/clubList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 게시판</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/views/club/payClub.jsp'/>">
+                    			<a class="nav-link " href="<c:url value='/club/payClub'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제</span>
                        			</div> 

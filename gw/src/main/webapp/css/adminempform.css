@@ -63,10 +63,13 @@
 	top: 60px;
 	width: 170px;
 	height: 200px;
+	border: 1px solid#101726;
+    border-radius: 8px;
 }
-.empimage {
+.adminempdiv8 img{
 	width: 100%;
 	height: 100%;
+	padding: 0.25rem;
 }
 .adminempthead tr th{
 	color:white;

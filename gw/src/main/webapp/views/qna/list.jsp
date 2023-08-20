@@ -4,7 +4,7 @@
 
  <div class="row gx-3">
             <h2>Q&A 게시판</h2>
-            <div class="col-xxl-10 col-xl-9">
+            <div >
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":11,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
@@ -48,7 +48,7 @@
                         </div>
                       </div>
                       <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><a href='<c:url value='/qna/write'/>'><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</a></span></button>
+                        <a href='<c:url value='/qna/write'/>'><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">질문 등록</span></button></a>
                         <div class="dropdown font-sans-serif ms-2">
                           <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -100,6 +100,9 @@
 	                          			<c:if test="${map['countReply']>0}">
 	                          				<span style="color: red">[${map['countReply']}]</span>
 	                          			</c:if>
+          				                <c:if test="${map['timeNew']==1}">
+	                    					<img alt="new이미지" src="<c:url value='/images/new.jpg'/>">
+	                    				</c:if>
 	                          		</a>
 	                          </td>
 	                          <td class="align-middle subscription fs-0 text-end"><small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small></td>

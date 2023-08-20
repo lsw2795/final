@@ -25,4 +25,5 @@ public class EmployeeVO {
 	private int deptNo; /* 부서번호 */
 	private int clubNo; /* 동호회번호 */
 	private int annualYear; /* 근속 년수 */
+	private String addressdetail; /* 상세 주소 */
 }

@@ -4,27 +4,6 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript">
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-
-           var roadAddr = data.roadAddress; // 도로명 주소 변수
-           var extraRoadAddr = ''; // 참고 항목 변수
-
-           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-               extraRoadAddr += data.bname;
-           }
-           if(data.buildingName !== '' && data.apartment === 'Y'){
-              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-           }
-         
-           document.getElementById('sample4_postcode').value = data.zonecode;
-           document.getElementById("sample4_roadAddress").value = roadAddr;
-           }
-        }).open();
-    }
-</script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -42,8 +21,8 @@
 					        <input type="text" class="form-control admindefault" id="name" name="name"/>
 					    </div>
 					</div>
-					<div class="col-md-auto adminempdiv8">
-			        	<span class="fas fa-user" class="empimage">
+					<div class="col-md-auto adminempdiv8 col-md-6 d-flex justify-content-end" id="imagePriview">
+					 <img src="<c:url value='/images/person.png'/>" class="img-fluid">
 			    	</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv17">
@@ -63,6 +42,14 @@
 							<span class="adminhyphen">-</span>
 							<input type="password" class="form-control admindefault" 
 							id="jumin2" name="jumin2" maxlength="7">
+						</div>
+					</div>
+					<div class="row mb-3 d-flex align-items-center">
+						<div class="col-md-auto adminempdiv3">
+							<label class="col-form-label adminemplabel" for="imageUpload">사원 사진</label>
+						</div>
+						<div class="col-md-6">	 
+							<input type="file" class="form-control admindefault" name="imageUpload" id="imageUpload"/>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -158,7 +145,7 @@
 				    	<div class="col-md-auto adminempdiv16"></div>
 					    <div class="col-md-6">
 					        <input type="text" class="form-control admindefault" id="sample4_roadAddress" placeholder="도로명주소">
-					        <input type="text" class="form-control admindefault" id="sample4_detailAddress" placeholder="상세주소">
+					        <input type="text" class="form-control admindefault" name="addressdetail" id="sample4_detailAddress" placeholder="상세주소">
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -198,14 +185,6 @@
 		                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
 						</div>
 					</div>
-					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto adminempdiv3">
-							<label class="col-form-label adminemplabel" for="imageUpload">사원 사진</label>
-						</div>
-						<div class="col-md-6">	 
-							<input type="file" class="form-control admindefault" name="imageUpload"/>
-						</div>
-					</div>
 					<div style="text-align: center;">
 					<input type="submit" value="등록" id="empWrite" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-primary"/>
@@ -213,8 +192,8 @@
 					<!-- hidden 처리 인풋태그들 -->
 					 <input type="hidden" id="jumin" name="jumin" value=""/>
 					 <input type="hidden" id="extensionNo" name="extensionNo" value=""/>
-					 <input type="hidden" id="tel" name="tel" value=""/>
 					 <input type="hidden" id="address" name="address" value=""/>
+					 <input type="hidden" id="tel" name="tel" value=""/>
 					 <input type="hidden" id="email" name="email" value=""/>
 				</form>
 			</div>

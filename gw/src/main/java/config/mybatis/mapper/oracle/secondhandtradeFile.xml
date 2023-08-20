@@ -10,4 +10,25 @@
 		insert into secondhand_trade_file(file_No, imageURL, trade_no)
 		values(#{fileNo}, #{imageURL}, #{tradeNo})
 	</insert>
+	
+	<select id="showThumbnail" resultType="secondhandtradeFileVo">
+		select * from secondhand_trade_file
+		where imageurl like '%_0%'
+		order by trade_no desc
+	</select>
+	
+	<select id="selectDetailFileByNo" resultType="secondhandtradeFileVo">
+		select * from secondhand_trade_file where trade_no=#{tradeNo}
+	</select>
+	
+	<update id="updateFile" parameterType="secondhandtradeFileVo">
+		update secondhand_trade_file
+		set imageurl=#{imageURL}
+		where trade_no=#{tradeNo}
+	</update>
+	
+	<delete id="deleteMarketFile">
+		delete from secondhand_trade_file
+		where trad_no = #{tradeNo}
+	</delete>
 </mapper>

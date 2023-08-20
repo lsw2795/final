@@ -2,26 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
+<script type="text/javascript" src="<c:url value='/js/employee2.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-             
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-            }
-        }).open();
-    }
+<script type="text/javascript">
+function btnpwdEdit(empNo){
+	 window.open("<c:url value='/mypage/pwdEdit?empNo='/>"+empNo,'pwdEdit','width=450,height=400,top=200,left=600,location=yes,resizable=yes');
+}
 </script>
 <div class="row g-0">
 	<div class="col-lg-12 pe-lg-2 mb-3">
@@ -30,32 +16,50 @@
 				<h5 class="mb-0"><span class="fas fa-user" style="margin: 0 10px;"></span>내 정보 수정</h5>
 			</div>
 			<div class="card-body py-2">
-				<form>
+				<form name="frmWrite" method="post" enctype="multipart/form-data"
+				action="<c:url value='/mypage/empInfoEdit'/>">	
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto mypageempdiv3">
+					        <label class="col-form-label mypageemplabel" for="name">사원 번호</label>
+					    </div>
+					    <div class="col-md-6">
+					        <span class="mypageempspan">${map['EMP_NO']}</span>
+					    </div> 
+					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv3">
 					        <label class="col-form-label mypageemplabel" for="name">사원 이름</label>
 					    </div>
 					    <div class="col-md-6">
-					        <span class="mypageempspan">이름 고정</span>
+					        <span class="mypageempspan">${map['NAME']}</span>
 					    </div> 
 					</div>
 					<div class="col-md-auto mypageempdiv8">
-			        	<img src="<c:url value='/images/IMG_5487.jpg'/>" alt="사원 이미지" class="employeeimage">
+			        	<img src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지" class="employeeimage">
 			    	</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv12">
 					        <label class="col-form-label mypageemplabel" for="ename">사원 영어이름</label>
 					    </div>
 					    <div class="col-md-6">
-					       <span class="mypageempspan">사원영어이름 고정</span>
+					       <span class="mypageempspan">${map['ENAME']}</span>
 					    </div>
 					</div>
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto mypageempdiv4">
+							<label class="col-form-label mypageemplabel">주민번호</label>
+						</div>
+						<div class="col-md-6">
+					       <span class="mypageempspan" id="jumin">${map['JUMIN']}</span>
+					    </div>
+					</div>
+						 
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv6">
 							<label class="col-form-label mypageemplabel" for="basic-form-gender">부서</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							<span class="mypageempspan">부서는 관리자만 수정가능</span>
+							<span class="mypageempspan">${map['DEPT_NAME']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -63,7 +67,7 @@
 							<label class="col-form-label mypageemplabel" for="basic-form-gender">직급</label>
 						</div>
 						<div class="col-md-6 mypagespan">
-							 <span class="mypageempspan">직급은 관리자만 수정가능</span>
+							 <span class="mypageempspan">${map['POSITION_NAME']}</span>
 						</div>
 					</div>
 					
@@ -72,7 +76,7 @@
 							<label class="col-form-label mypageemplabel">내선번호</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<span class="mypageempspan">내선번호는 관리자만 수정가능</span>
+							<span class="mypageempspan">${map['EXTENSION_NO']}</span>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
@@ -80,42 +84,57 @@
 							<label class="col-form-label mypageemplabel" for="hiredate">입사일</label>
 						</div>
 						<div class="col-md-6"> 
-							<span class="mypageempspan">입사일 고정</span>
+							<span class="mypageempspan">
+								<fmt:formatDate value="${map['HIREDATE']}" pattern="yyyy년 MM 월 dd 일"/>
+							</span>
 						</div>
 					</div>
+					<c:if test="${!empty map['ANNUAL_YEAR']}">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv4">
 							<label class="col-form-label mypageemplabel">근속연수</label> 
 						</div>	
 						<div class="col-md-6 mypagespan">							
-							<span class="mypageempspan">근속연수 고정</span>
+							<span class="mypageempspan">${map['ANNUAL_YEAR']}</span>
 						</div>
 					</div>
+					</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv6">
 							<label class="col-form-label mypageemplabel" for="annualSalary">연봉</label>
 						</div>
-						<div class="col-md-6">  
-							<span class="mypageempspan">연봉은 관리자만 수정가능</span>
+						<div class="col-md-6">
+							<c:if test="${empty map['ANNUAL_SALARY']}">
+								<span class="mypageempspan">
+								연봉협상 예정
+								</span>
+							</c:if>	  
+							<c:if test="${!empty map['ANNUAL_SALARY']}">
+								<span class="mypageempspan">
+									<fmt:formatNumber value="${map['ANNUAL_SALARY']}" pattern="#,###"/> 만
+								</span>
+							</c:if>
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv4">
-							<label class="col-form-label mypageemplabel" for="password">비밀번호</label>
+							<label class="col-form-label mypageemplabel" for="pwd">비밀번호</label>
 						</div>
 						
 						<div class="col-md-8 mypagespan">	 
-							<input type="text" class="form-control" id="password" style="width: 75%;"/>
+							<input type="password" class="form-control" id="pwd" name="pwd" style="width: 75%;"/>
 							<span class="mypagehyphen"></span>
-							<input type="Button" value="비밀번호 변경" id="btnpwdEdit" class="btn btn-primary" title="새창열림" style="width: 25%;">
+							
+							<input type="Button" value="비밀번호 변경" onclick="btnpwdEdit(${map['EMP_NO']})" class="btn btn-primary" 
+								title="새창열림" style="width: 25%;">
 						</div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto mypageempdiv12">
-							<label class="col-form-label mypageemplabel" for="password1">비밀번호 확인</label>
+							<label class="col-form-label mypageemplabel" for="pwd2">비밀번호 확인</label>
 						</div>
 						<div class="col-md-6">
-							<input type="password" class="form-control" id="password1" />
+							<input type="password" class="form-control" id="pwd2" />
 						</div>
 					</div>
 					
@@ -147,26 +166,25 @@
 					    <div class="col-md-6">
 					        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
 					        <div class="mb-1"></div>
-					        <input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소">
+					        <input type="text" class="form-control" name="addressdetail" id="sample4_detailAddress" value="${map['ADDRESSDETAIL']}" placeholder="상세주소">
 					    </div>
 				    </div>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto mypageempdiv5">
 							<label class="col-form-label mypageemplabel">이메일</label>
 						</div>	 
-						<div class="col-md-9 mypagespan">							
-							<input type="text" class="form-control" id="email1" name="email1" style="width: 31%">
-							<span class="mypagehyphen">@</span>
-							<select class="form-select" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 33%">
-					            <option value="naver.com">naver.com</option>
-					            <option value="hanmail.net">hanmail.net</option>
-					            <option value="nate.com">nate.com</option>
-					            <option value="gmail.com">gmail.com</option>
-					            <option value="etc">직접입력</option>
-					        </select>
-					        <span class="mypagehyphen"></span>
-					        <input type="text" name="email3" id="email3" title="직접입력인 경우 이메일주소 뒷자리" 
-					        	class="form-control" style="visibility:visibility; width: 35%">
+						<div class="col-md-9 mypagespan">
+						<input type="text" class="form-control" id="email1" name="email1" style="width: 31%">
+						<span class="mypagehyphen">@</span>
+						<select class="form-select" name="email2" id="email2" title="이메일주소 뒷자리" style="width: 34%">
+						    <option value="naver.com">naver.com</option>
+						    <option value="hanmail.net">hanmail.net</option>
+						    <option value="nate.com">nate.com</option>
+						    <option value="gmail.com">gmail.com</option>
+						    <option value="etc">직접입력</option>
+						</select>
+						<span class="mypagehyphen"></span>
+						<input type="text" name="email3" id="email3" class="form-control" title="직접입력인 경우 이메일주소 뒷자리" style="visibility: hidden; width:35%;">
 						</div>
 					</div>
 					
@@ -177,29 +195,34 @@
 						<div class="col-md-6 mypagespan">
 					        <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagY">Y</label>
-		                        <input type="radio" class="form-check-input" id="marriedFlagY"  name="married" />
+		                        <input type="radio" class="form-check-input" id="marriedFlagY" value="Y" name="married" />
 	                       </div>
 	                       <span class="mypagehyphen"></span>
 	                       <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagN">N</label>
-		                        <input type="radio" class="form-check-input" id="marriedFlagN"  name="married" checked="checked"/>
+		                        <input type="radio" class="form-check-input" id="marriedFlagN" value="N" name="married" checked="checked"/>
 	                      </div>
 				    	</div>
 					</div>
-					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto mypageempdiv5">
-							<label class="col-form-label mypageemplabel" for="">동호회</label>
+					<c:if test="${!empty map['CLUB_NO']}">
+						<div class="row mb-3 d-flex align-items-center">
+						    <div class="col-md-auto mypageempdiv5">
+								<label class="col-form-label mypageemplabel" for="">동호회</label>
+							</div>
+							<div class="col-md-6"> 
+								<span class="mypageempspan">${map['CLUB_NO']}</span>
+							</div>
 						</div>
-						<div class="col-md-6"> 
-							<span class="mypageempspan">동호회가 있으면 나타남</span>
-						</div>
-					</div>
-					
+					</c:if>
 					<div style="text-align: center;">
-					<input type="submit" value="수정" class="btn btn-primary"/>
+					<input type="submit" value="수정" id="empWrite" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-primary"/>
 					</div>
-				</form>
+					<!-- hidden 처리 인풋태그들 -->
+					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
+					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
+					 <input type="hidden" id="address" name="address" value="${map['ADDRESS']}"/>
+ 				</form>
 			</div>
 		</div>
 	</div>

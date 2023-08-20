@@ -1,12 +1,19 @@
 
 /**
- * employee.js
+ * employee.js (관리자 사원 등록)
  */
 
 	//전역변수 선언
 	var contextPath = "/gw";
 
  	$(function() {
+		 $('#imageUpload').change(function(){
+			 file = $('#imageUpload').prop("files")[0];
+	            imageURL = URL.createObjectURL(file);
+	            $('#imagePriview img').attr('src', imageURL);
+	            $('#imagePriview').slideDown(); 
+		});
+		 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {
 			var jumin1=$('#jumin1').val();
@@ -27,6 +34,15 @@
 	        }
 	        $('#extensionNo').attr('value', extensionNo);
 			
+			var postcode=$('#sample4_postcode').val();
+			var roadaddress=$('#sample4_roadAddress').val();
+			
+			var address="";
+			if(postcode!=="" && roadaddress!==""){
+				address="("+postcode+")"+roadaddress;
+			}
+			$('#address').attr('value',address);
+			
 			var tel1=$('#tel1').val();
 			var tel2=$('#tel2').val();
 			var tel3=$('#tel3').val();
@@ -36,15 +52,6 @@
 				tel=tel1+"-"+tel2+"-"+tel3;
 			}
 			$('#tel').attr('value',tel);
-			
-			var roadAddress=$('#sample4_roadAddress').val();
-			var detailAddress=$('#sample4_detailAddress').val();
-			
-			var address="";
-			if(roadAddress!=="" && detailAddress!==""){
-				address=roadAddress+" "+detailAddress;
-			}
-			$('#address').attr('value',address);
 			
 			var email1=$('#email1').val();
 			var email2=$('#email2').val();
@@ -104,8 +111,14 @@
 				return false;
 			}
 			
-			if ($('#address').val().length < 1) {
+			if ($('#sample4_roadAddress').val().length < 1) {
 				alert("주소는 필수 입력사항입니다.");
+				$('#btnsearchAddress').focus();
+				return false;
+			}
+			
+			if ($('#sample4_detailAddress').val().length < 1) {
+				alert("상세주소는 필수 입력사항입니다.");
 				$('#btnsearchAddress').focus();
 				return false;
 			}
@@ -131,7 +144,12 @@
 				$("#jumin1").focus();
 				return false;
 			}
-			
+			if ($("#jumin1").val().length!=6
+				|| $("#jumin2").val().length!=7) {
+				alert("주민번호의 형식이 올바르지 않습니다.");
+				$("#jumin1").focus();
+				return false;
+			}
 		});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -145,6 +163,26 @@
 			}
 		});
 	});
+	
+	function sample4_execDaumPostcode() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	
+	       var roadAddr = data.roadAddress; // 도로명 주소 변수
+	       var extraRoadAddr = ''; // 참고 항목 변수
+	
+	       if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	           extraRoadAddr += data.bname;
+	       }
+	       if(data.buildingName !== '' && data.apartment === 'Y'){
+	          extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	       }
+	     
+	       document.getElementById('sample4_postcode').value = data.zonecode;
+	       document.getElementById("sample4_roadAddress").value = roadAddr;
+	       }
+	    }).open();
+	}
 	
 	function validate_num(num) {
 		var pattern = new RegExp(/^[0-9]*$/g);
