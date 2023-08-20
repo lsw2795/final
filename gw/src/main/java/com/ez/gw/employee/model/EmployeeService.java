@@ -27,4 +27,6 @@ public interface EmployeeService {
 	Map<String, Object> selectEmpByEmpNo(int empNo); //사원 정보 상세보기 메서드
 	int updateEmpInfo(EmployeeVO empVo); //사원 - 사원정보 수정하기
 	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
+	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 - 사원 목록,검색 메서드
+	int getTotalRecord(SearchVO searchVo); //관리자, 사원 - 전체 목록 건수 (organizationChartView 이용)
 }

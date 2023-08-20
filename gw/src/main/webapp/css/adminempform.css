@@ -123,3 +123,7 @@
 .adminempdiv17 {
     margin: 0 5px 0 0px;
 }
+.adminempbtncss{
+	border: none;
+	background-color: white;
+}

@@ -76,6 +76,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.updateEmpPwd(empVo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo) {
+		return employeeDao.selectSerachEmp2(searchVo);
+	}
+
+	@Override
+	public int getTotalRecord(SearchVO searchVo) {
+		return employeeDao.getTotalRecord(searchVo);
+	}
+
 
 
 }
