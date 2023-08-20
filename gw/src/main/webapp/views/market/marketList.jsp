@@ -6,6 +6,7 @@
 
 <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>"
 	rel="stylesheet">
+<link href="<c:url value='/css/Marketcss.css'/>" rel="stylesheet">
 <style type="text/css">
 .image-container {
 	width: 240px;
