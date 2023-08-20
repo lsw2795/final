@@ -178,24 +178,23 @@ public class SecondHandTradeController {
 		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		pagingInfo.setTotalRecord(totalRecord);
-		String cutfile="";
-		String thumbnail = "";
-		
-		for (SecondhandTradeFileVO f : fileList) {
-			String fileName = f.getImageURL();
-			int idx = fileName.indexOf(".");
-			thumbnail = fileName.substring(idx);
-			logger.info("fileName={},thumbnail={}", fileName, thumbnail);
-		}
 
 		for (SecondHandTradeVO fg : list) {
+			
+			for (SecondhandTradeFileVO f : fileList) {
+				// 게시글과 파일의 매칭 조건을 설정
+				if (f.getTradeNo() == fg.getTradeNo() && f.getImageURL().contains("_0.")) {
+					fg.setThumbnail(f.getImageURL()); // 썸네일 파일명 저장
+					logger.info("썸네일 파일명={}", fg.getThumbnail());
+					break; // 매칭되는 파일을 찾았으면 더 이상 검색하지 않고 반복문을 종료
+				}
+			}
+			
 			int empNo = fg.getEmpNo();
 			emp = employeeService.selectByEmpNo(empNo);
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
-			fg.setThumbnail(thumbnail);
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
-			logger.info("thumbnail={}", fg.getThumbnail());
 		}
 
 		// 3

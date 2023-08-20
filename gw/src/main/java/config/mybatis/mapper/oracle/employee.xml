@@ -41,6 +41,7 @@
 			#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
 	
+	
 	<select id="selectSearchEmp" parameterType="searchVo" resultType="map">
 			select * from organizationChartView
 		<if test="searchKeyword!=null and searchKeyword!=''">
