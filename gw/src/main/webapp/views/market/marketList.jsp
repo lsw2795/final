@@ -105,7 +105,7 @@ ul#navbarVerticalNav {
 															href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo }'/>">
 															<img class="rounded-1"
 															style="max-height: 200px; max-weight: 240px"
-															src="<c:url value='/market/upload/${vo.thumbnail}'/>"
+															src="<c:url value='/market/upload/${vo.tradeNo}_0${vo.thumbnail }'/>"
 															alt="" />
 														</a>
 														<c:if test="${vo.timeNew==1}">
@@ -192,7 +192,7 @@ ul#navbarVerticalNav {
 																		href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
 																		<img class="rounded-1 h-100 w-100 object-fit-cover"
 																		style="max-height: 200px; max-weight: 240px"
-																		src="<c:url value='/market/upload/${vo.thumbnail}'/>"
+																		src="<c:url value='/market/upload/${vo.tradeNo}_0${vo.thumbnail }'/>"
 																		alt="" />
 																	</a>
 																</div>

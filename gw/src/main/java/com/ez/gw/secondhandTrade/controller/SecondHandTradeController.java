@@ -184,25 +184,18 @@ public class SecondHandTradeController {
 		for (SecondhandTradeFileVO f : fileList) {
 			String fileName = f.getImageURL();
 			int idx = fileName.indexOf(".");
-			
-			if(fileName.endsWith("_0.jpg")||fileName.endsWith("_0.png")
-					||fileName.endsWith("_0.jpeg")) {
-			//	f.setThumbnail(fileName);
-				logger.info("썸네일={}", thumbnail);
-			}
-			
-			//f.setCutfile(f.getCutfile());
-		//	logger.info("fileName={}, cutfile={}", fileName, f.getCutfile());
+			thumbnail = fileName.substring(idx);
+			logger.info("fileName={},thumbnail={}", fileName, thumbnail);
 		}
 
 		for (SecondHandTradeVO fg : list) {
-			
-			
 			int empNo = fg.getEmpNo();
 			emp = employeeService.selectByEmpNo(empNo);
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
+			fg.setThumbnail(thumbnail);
 			logger.info("title={}", fg.getTitle());
 			logger.info("regdate={}", fg.getRegdate());
+			logger.info("thumbnail={}", fg.getThumbnail());
 		}
 
 		// 3
