@@ -197,7 +197,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/approval/confirmList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 문서함</span>
+                        				<span class="nav-link-text ps-1">나의 문서함</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -205,6 +205,13 @@
                     			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/confirm/confirmList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 대기함(임원)</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " onclick="titleChange(this)" href="<c:url value='/approval/deptAgreeList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">합의 문서함(임원)</span>
                         			</div> 
                       			</a>
                     		</li>

@@ -46,6 +46,9 @@
 					<c:if test="${title==1 }">
 						결재 대기함
 					</c:if>
+					<c:if test="${title==2 }">
+						합의 문서함
+					</c:if>
 					</div>
 					<div class="col-md-2" align="right">
 						<button class="form-control btn btn-primary" onclick="search(${title})">검색</button>
@@ -147,7 +150,7 @@
 							    <td class="text-nowrap">
 							    	<div class="d-flex align-items-center ms-4">
 							            <div class="avatar avatar-xl">
-							            	<img class="rounded-circle" src="<c:url value='/images/IMG_5487.jpg'/>" alt="" />
+							            	<img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="" />
 							            </div>
 							            <div class="ms-2">${map['NAME']}</div>
 							        </div>

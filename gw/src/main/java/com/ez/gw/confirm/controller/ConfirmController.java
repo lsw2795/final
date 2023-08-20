@@ -27,6 +27,7 @@ import com.ez.gw.confirmFile.model.ConfirmFileService;
 import com.ez.gw.confirmLine.model.ConfirmLineService;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
+import com.ez.gw.deptagree.model.DeptagreeService;
 import com.ez.gw.deptagree.model.DeptagreeVO;
 import com.ez.gw.documentform.model.DocumentFormService;
 import com.ez.gw.documentform.model.DocumentFormVO;
@@ -51,6 +52,7 @@ public class ConfirmController {
     private final ConfirmFileService confirmFileService; 
     private final DocumentFormService documentFormService; 
     private final DeptService deptService;
+    private final DeptagreeService deptAgreeService;
     private final PositionService positionService; 
     private final EmployeeService employeeService; 
     private final ReferService referService; 
@@ -253,6 +255,43 @@ public class ConfirmController {
     	return "approval/confirmList";
     }
     
+    @RequestMapping("/deptAgreeList")
+    public String deptAgreeList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("합의함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+    	pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllDeptAgree(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalAgreeRecord(vo);
+    	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+    	pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","2");
+    	
+    	//4
+    	return "approval/confirmList";
+    }
+    
     @RequestMapping("/approvalDetail")
     public String approvalDetail(@RequestParam(required = true) String confirmDocumentNo,Model model) {
     	//1
@@ -264,14 +303,14 @@ public class ConfirmController {
     	
     	Object obj=confirmMap.get("EMP_NO");
     	int empNo = ((BigDecimal) obj).intValue();
-    	Map<String, Object> empMap=employeeService.organiationChartViewByEmpNo(empNo);
+    	Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
     	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
     	
     	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
     	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
     	
     	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
-    	logger.info("참조자 조회 결과 deptAgreeMap={}",deptAgreeMap);
+    	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
     	
 
     	//3
@@ -304,7 +343,7 @@ public class ConfirmController {
     
     @ResponseBody
     @RequestMapping("/updateConfirmAjax")
-    public Map updateConfirmAjax(@ModelAttribute ConfirmVO vo) {
+    public String updateConfirmAjax(@ModelAttribute ConfirmVO vo) {
     	//1
     	logger.info("결재상태 업데이트 파라미터 vo={}",vo);
     	
@@ -313,8 +352,36 @@ public class ConfirmController {
     	logger.info("클릭 결재상태 업데이트 결과 cnt={}",cnt);
     	
     	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(vo.getConfirmDocumentNo());
+    	logger.info("결재 문서 조회 confirmMap={}",confirmMap);
     	
     	//3
-    	return confirmMap;
+    	int stateNo = ((BigDecimal) confirmMap.get("CONFIRM_STATE")).intValue();
+    	String state="";
+    	String msg="";
+    	
+    	if(stateNo==3) {
+    		state="검토";
+    	}else if(stateNo==7) {
+    		state="확인";
+    	}else if(stateNo==5) {
+    		if(vo.getSearchKeyword()==null || vo.getSearchKeyword().isEmpty() ) {
+    			state="확인";
+    		}else if(vo.getSearchKeyword()!=null && !vo.getSearchKeyword().isEmpty()) {
+    			state="합의";
+    			int agree=deptAgreeService.updateDeptAgree((String)confirmMap.get("CONFIRM_DOCUMENT_NO"));
+    			logger.info("합의부서 업데이트 agree={}",agree);
+    		}
+    	}else if(stateNo==10) {
+    		state="승인";
+    	}
+    	
+    	if(cnt>0) {
+    		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 "+state+"처리되었습니다.";
+    	}else {
+    		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 "+state+"처리 중 에러가 발생했습니다.";
+    	}
+    	
+    	//4
+    	return msg;
     }
 }
