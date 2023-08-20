@@ -63,7 +63,17 @@
             	and confirm_document_no=#{confirmDocumentNo}
 			</where>
 		</if>
-		<if test="confirmState!=1 and confirmState!=3 and confirmState!=5">
+		<if test="confirmState==7">
+			<set>
+				confirm_state=8
+			</set>
+			<where>
+				(select manager from confirmagreeview
+				 where confirm_document_no=#{confirmDocumentNo})=#{empNo}
+            	and confirm_document_no=#{confirmDocumentNo}
+			</where>
+		</if>
+		<if test="confirmState!=1 and confirmState!=3 and confirmState!=5 and confirmState!=7">
 			<set>
 				confirm_state=#{confirmState}
 			</set>
@@ -83,8 +93,26 @@
 			</where>
 		</if>
 		<if test="confirmState==3 or confirmState==4">
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				<set>
+					confirm_state=7, confirm_date=sysdate
+				</set>
+				<where>
+		            confirm_document_no=#{confirmDocumentNo}
+				</where>
+			</if>
+			<if test="searchKeyword==null or searchKeyword==''">
+				<set>
+					confirm_state=5, confirm_date=sysdate
+				</set>
+				<where>
+		            confirm_document_no=#{confirmDocumentNo}
+				</where>
+			</if>
+		</if>
+		<if test="confirmState==7 or confirmState==8">
 			<set>
-				confirm_state=5, confirm_date=sysdate
+				confirm_state=5
 			</set>
 			<where>
 	            confirm_document_no=#{confirmDocumentNo}
@@ -92,7 +120,7 @@
 		</if>
 		<if test="confirmState==5 or confirmState==6">
 			<set>
-				confirm_state=7, complete_date=sysdate
+				confirm_state=10, complete_date=sysdate
 			</set>
 			<where>
 	            confirm_document_no=#{confirmDocumentNo}
@@ -135,7 +163,6 @@
 					where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
 					or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
 					or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
-					or confirm_state = 10
 				)A
 				<trim prefix="where" prefixOverrides="AND|OR">
 					<include refid="search"></include>
@@ -146,9 +173,30 @@
 		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
 	</select>
 	
+	<select id="selectAllDeptAgree" parameterType="confirmVo" resultType="map">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from confirmagreeview
+					where manager = #{empNo}
+					<include refid="search"></include>
+				)A
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
+	</select>
+	
 	<select id="getTotalRecord" parameterType="confirmVo" resultType="int">
 		select count(*) from confirmsview 
 		where emp_no=#{empNo}
+		<include refid="search"></include>
+	</select>
+	
+	<select id="getTotalAgreeRecord" parameterType="confirmVo" resultType="int">
+		select count(*) from confirmagreeview 
+		where manager=#{empNo}
 		<include refid="search"></include>
 	</select>
 

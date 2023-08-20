@@ -17,4 +17,6 @@ public interface ConfirmDAO {
 	Map<String, Object> selectDeptAgree(String confirmDocumentNo);
 	int updateConfirmState(ConfirmVO vo);
 	int updateConfirmStateByClick(ConfirmVO vo);
+	List<Map<String, Object>> selectAllDeptAgree(ConfirmVO vo);
+	int getTotalAgreeRecord (ConfirmVO vo);
 }

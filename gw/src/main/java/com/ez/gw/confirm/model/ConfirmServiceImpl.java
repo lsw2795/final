@@ -125,4 +125,14 @@ public class ConfirmServiceImpl implements ConfirmService{
 	public int updateConfirmStateByClick(ConfirmVO vo) {
 		return confirmDao.updateConfirmStateByClick(vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectAllDeptAgree(ConfirmVO vo) {
+		return confirmDao.selectAllDeptAgree(vo);
+	}
+
+	@Override
+	public int getTotalAgreeRecord(ConfirmVO vo) {
+		return confirmDao.getTotalAgreeRecord(vo);
+	}
 }
