@@ -408,4 +408,17 @@ public class SecondHandTradeController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/ajaxlikeit")
+	@ResponseBody
+	public int likeit(@RequestParam(defaultValue = "0")int tradeNo) {
+		logger.info("ajax - likeit, 파라미터 tradeNo={}", tradeNo);
+		
+		int cnt = secondHandTradeService.updateLike(tradeNo);
+		logger.info("좋아요 결과, cnt={}", cnt);
+		if(cnt>0) {
+			cnt= secondHandTradeService.showLike(tradeNo);
+		}
+		return cnt;
+	}
 }
