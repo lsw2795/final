@@ -95,4 +95,14 @@
 	    where emp_no=#{empNo}
 	</update>
 	
+	<update id="updateEmpAdmin" parameterType="employeeVo">
+		update employee
+		set name=#{name}, ename=#{ename}, jumin=#{jumin}, image=#{image}, dept_no=#{deptNo},
+			position_no=#{positionNo}, authority=#{authority}, extension_no=#{extensionNo},
+			tel=#{tel}, address=#{address}, addressdetail=#{addressdetail}, 
+			annual_salary=#{annualSalary}, email=#{email}
+		where emp_no=#{empNo}
+	</update>
+	
+	
 </mapper>

@@ -107,13 +107,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectSerachEmp2(searchVo);
 	}
 
-
-	
-
 	@Override
 	public String selectPwd(int empNo) {
 		return employeeDao.selectPwd(empNo);
 	}
+
+	@Override
+	public int updateEmpAdmin(EmployeeVO empVo) {
+		return employeeDao.updateEmpAdmin(empVo);
+	}
+
 
 }
 

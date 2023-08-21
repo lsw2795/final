@@ -60,9 +60,6 @@ public class ConfirmController {
     private final FileUploadUtil fileUploadUtil;
     private final StateService StateService;
     
-    
-    
-    
     @GetMapping("/approvalWrite")
     public String approvalWrite_get(Model model,HttpSession session ) {
     	//1
@@ -255,6 +252,43 @@ public class ConfirmController {
     	return "approval/confirmList";
     }
     
+    @RequestMapping("/completeList")
+    public String completeList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재완료 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+   		pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    			
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllCompleteDocument(vo);
+    	logger.info("결재완료문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalComplteRecord(vo);
+		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+		model.addAttribute("formList",formList);
+		model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","3");
+
+    	//4
+    	return "approval/confirmList";
+    }
+    
     @RequestMapping("/deptAgreeList")
     public String deptAgreeList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
@@ -287,6 +321,80 @@ public class ConfirmController {
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
     	model.addAttribute("title","2");
+    	
+    	//4
+    	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/referList")
+    public String referList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("참조함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+    	pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllRefer(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalReferRecord(vo);
+    	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+    	pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","4");
+    	
+    	//4
+    	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/returnList")
+    public String returnList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("반려함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+    	pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllReturn(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalReturnRecord(vo);
+    	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+    	pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","5");
     	
     	//4
     	return "approval/confirmList";
@@ -383,5 +491,31 @@ public class ConfirmController {
     	
     	//4
     	return msg;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/recordAjax")
+    public List<Integer> recordAjax(HttpSession session) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("레코드 조회 사용자 empNo={}",empNo);
+    	
+    	//2
+    	ConfirmVO vo = new ConfirmVO();
+    	vo.setEmpNo(empNo);
+    	List<Integer> recordList = new ArrayList<>();
+    	
+    	int confirm=confirmService.getTotalConfirmRecord(vo);
+    	logger.info("결재 레코드 조회, confirm={}",confirm);
+    	int turn=confirmService.getTotalReturnRecord(vo);
+    	logger.info("반려 레코드 조회, turn={}",turn);
+    	int agree=confirmService.getTotalAgreeRecordMain(vo);
+    	logger.info("합의 레코드 조회, agree={}",agree);
+    	
+    	recordList.add(confirm);
+    	recordList.add(turn);
+    	recordList.add(agree);
+    	
+    	return recordList;
     }
 }

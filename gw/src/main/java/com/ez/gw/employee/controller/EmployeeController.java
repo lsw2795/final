@@ -1,5 +1,6 @@
 package com.ez.gw.employee.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -228,10 +229,72 @@ public class EmployeeController {
 		model.addAttribute("deptList", deptList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		
-		
 		//4
 		return "admin/employee/employeeList";	
 	}
+	
+	@GetMapping("/admin/employee/employeeEdit")
+	public String adminEmpEdit(@RequestParam (defaultValue = "0")int empNo, Model model) {
+		logger.info("관리자 - 사원 정보 수정 페이지 보여주기, 파라미터 empNo={}", empNo);
+		List<DeptVO> deptList = deptService.selectAllDept();
+		List<PositionVO> positionList=positionService.selectAllPosition();
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("부서&직위 전체목록 조회 결과, dpetList={}, positionList= {}", deptList, positionList);
+		model.addAttribute("deptList",deptList);
+		model.addAttribute("positionList",positionList);
+		model.addAttribute("map", map);
+		return "admin/employee/employeeRegister";
+	}
+	
+	@PostMapping("/admin/employee/employeeEdit")
+	public String adminEmpEdit_post(@RequestParam (defaultValue = "0")int empNo,
+			@ModelAttribute EmployeeVO empVo,
+			HttpServletRequest request,@RequestParam String oldFileName, Model model) {
+		empVo.setEmpNo(empNo);
+		logger.info("관리자 - 사원 정보 수정 처리 파라미터 empVo={}, oldFileName={}", empVo,oldFileName);
+		
+		String fileName="", originalFileName="";
+		long fileSize=0;
+		try {
+			List<Map<String, Object>> list
+				=fileuploadUtil.fileupload(request, ConstUtil.UPLOAD_IMAGE_FLAG);
+			
+			for(Map<String, Object> map:list) {
+				fileName=(String) map.get("fileName");
+				originalFileName=(String) map.get("originalFileName");
+				fileSize=(long) map.get("fileSize");
+			}
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		empVo.setImage(fileName);
+		
+		int cnt=employeeService.updateEmpAdmin(empVo);
+		logger.info("관리자 - 사원 정보 수정 처리 결과 cnt={}", cnt);
+		String msg="사원 정보 수정에 실패했습니다.",url="/admin/employee/employeeEdit?empNo="+empVo.getEmpNo();
+		if(cnt>0) {
+			msg="사원 정보 수정이 완료되었습니다.";
+			if(empVo.getImage()!=null && !empVo.getImage().isEmpty()) {//새파일 업로드
+				if(oldFileName!=null && !oldFileName.isEmpty()) { //기존파일이 있으면
+					String upPath
+						=fileuploadUtil.getUploadPath(request,  ConstUtil.UPLOAD_IMAGE_FLAG);
+					File file=new File(upPath, oldFileName);
+					if(file.exists()) {
+						boolean bool=file.delete();
+						logger.info("기존 파일 삭제 여부 bool={}",bool);
+					}
+				}
+			}
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/message";
+	}
+	
+	
 	
 }
 
