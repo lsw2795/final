@@ -271,6 +271,21 @@
 					    </div>
 					</div>
 					</c:if>
+					<c:if test="${!empty param.empNo}">
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto adminempdiv5">
+							<label class="col-form-label adminemplabel" for="club">동호회</label>
+						</div>
+						<div class="col-md-6"> 
+					    <c:if test="${empty map['CLUB_NO']}">
+					    	<span class="adminempspan">미가입</span>
+					    </c:if>
+					    <c:if test="${!empty map['CLUB_NO']}">
+							<span class="adminempspan">${map['TITLE']}</span>
+						</c:if>
+						</div>
+					</div>
+					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" data-bs-toggle="modal" data-bs-target="#authentication-modal" value="${btLabel}" class="btn btn-primary"/>
 						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
