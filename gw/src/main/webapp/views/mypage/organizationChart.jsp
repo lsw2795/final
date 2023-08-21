@@ -36,22 +36,20 @@ $.send = function(curPage){
 	
 	var searchKeyword= $('input[type=search]').val();
 	var currentPage=$('#currentPage').val();
-	var countPerPage=$('#countPerPage').val();
 	
 	$.ajax({
     url: "<c:url value='/mypage/ajaxSearchEmp'/>",
     type: "get",
     data:{
 		searchKeyword: searchKeyword,
-		currentPage: currentPage,
-		countPerPage: countPerPage
+		currentPage: currentPage
 	},
-    success: function (res) {
-        $('#searchemp').empty();
-        if (res.length > 0) {
-            var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.length + "</b>건 입니다.<br>";
-            var results = "";
-            $.each(res, function (index, item) {
+	success: function (res) {
+	 $('#searchEmp').empty();
+    	if (res.searchList.length > 0) {
+        var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.pagingInfo.totalRecord + "</b>건 입니다.<br>";
+        var results = "";
+        $.each(res.searchList, function (index, item) {
                 results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
                     "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
                     "</a><br>";
@@ -59,7 +57,10 @@ $.send = function(curPage){
             $('#searchEmp').empty();
             $('#divPage').empty();
             $('#searchEmp').append(searchrs + results);
-            $('#totalRecord').val(res.length);
+            $('#totalRecord').val(res.pagingInfo.totalRecord);
+            $('#currentPage').val(res.pagingInfo.currentPage);
+            $('#countPerPage').val(res.pagingInfo.recordCountPerPage);
+            $('#firstRecordIndex').val(res.pagingInfo.firstRecordIndex);
             pageMake(curPage);
         } else {
             var result = "검색결과가 없습니다.";
@@ -80,7 +81,7 @@ function pageMake(){
        var countPerPage = $('#countPerPage').val();
        var currentPage = $('#currentPage').val(); 
        var totalRecord = $('#totalRecord').val();
-	   
+       var firstRecordIndex = $('#firstRecordIndex').val();
        pagination(currentPage, countPerPage, blockSize, totalRecord);
 	   //이전 블럭으로
 	   var str="";
@@ -92,9 +93,9 @@ function pageMake(){
 	   //페이지 번호 출력
 	   for(var i=firstPage;i<=lastPage;i++){
 		   if(i==currentPage){
-			   str+="<span style='font-weight: bold; color: blue'>"+ i +"</span>";
+			   str+="<span style='font-weight: bold; color: blue; font-size:20px;'>"+ i +"</span>";
 		   }else{
-			   str+="<a href='#' onclick='$.send("+i+")'>["+ i +"]</a>";
+			   str+="<a href='#' onclick='$.send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
 		   }
 	   }//for
 	   
@@ -156,8 +157,9 @@ function pageMake(){
 			</div>
 		</div>
 		<input type="text" name="currentPage" id="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
-	    <input type="text" name="countPerPage" id="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
+	  	<input type="text" name="countPerPage" id="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
 		<input type="text" id="totalRecord"/>
+		<input type="text" id="firstRecordIndex"/>
 		<div id="searchEmp"></div>
 		<div id="divPage"></div>
 		  </div>

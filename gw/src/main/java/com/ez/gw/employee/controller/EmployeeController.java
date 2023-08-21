@@ -2,6 +2,7 @@ package com.ez.gw.employee.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,20 +105,34 @@ public class EmployeeController {
 	
 	@RequestMapping("/mypage/ajaxSearchEmp")
 	@ResponseBody
-	public List<Map<String, Object>> searchEmpList(
-			@RequestParam(required = false) String searchKeyword,
-			@RequestParam(defaultValue = "0")int currentPage,
-			@RequestParam(defaultValue = "0")int countPerPage,
-			@ModelAttribute SearchVO searchVo){
-		
-		searchVo.setCurrentPage(currentPage);
-		searchVo.setRecordCountPerPage(countPerPage);
-		searchVo.setSearchKeyword(searchKeyword);
-		logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
-		
-		List<Map<String, Object>> searchList=employeeService.selectSearchEmp(searchVo);
-		logger.info("ajax 이용, 조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
-		return searchList;
+	public Map<String, Object> searchEmpList(
+	        @RequestParam(required = false) String searchKeyword,
+	        @ModelAttribute SearchVO searchVo) {
+
+	    searchVo.setSearchKeyword(searchKeyword);
+	    
+	    //[1] PaginationInfo 객체 생성
+  		PaginationInfo pagingInfo=new PaginationInfo();
+  		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+  		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+  		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	  	
+  		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+  		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+  		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	    
+	    logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
+
+	    List<Map<String, Object>> searchList = employeeService.selectSearchEmp(searchVo);
+	    int totalRecord = employeeService.gTRSearchEmp(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+	    logger.info("ajax 이용, 조직도 사원 검색 결과 - searchList.size()={}", searchList.size());
+
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("searchList", searchList);
+	    result.put("pagingInfo", pagingInfo);
+
+	    return result;
 	}
 	
 	@GetMapping("/mypage/empInfoEdit")

@@ -32,5 +32,5 @@ public interface EmployeeService {
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
 	String selectPwd(int empNo); //비밀번호 확인 메서드
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
-
+	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 }

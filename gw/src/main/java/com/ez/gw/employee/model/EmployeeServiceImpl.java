@@ -116,6 +116,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.updateEmpAdmin(empVo);
 	}
 
+	@Override
+	public int gTRSearchEmp(SearchVO searchVo) {
+		return employeeDao.gTRSearchEmp(searchVo);
+	}
+
 
 }
 

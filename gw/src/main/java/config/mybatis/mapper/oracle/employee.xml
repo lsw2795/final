@@ -43,7 +43,31 @@
 	
 	
 	<select id="selectSearchEmp" parameterType="searchVo" resultType="map">
-			select * from organizationChartView
+		select *
+		from
+		(
+		    select rownum as rnum, A.*
+		    from
+		    (
+		       select * from organizationChartView
+				<if test="searchKeyword!=null and searchKeyword!=''">
+					where name like '%'|| #{searchKeyword} ||'%'
+					or emp_no like '%'|| #{searchKeyword} ||'%'
+					or dept_name like '%'|| #{searchKeyword} ||'%'
+					or position_name like '%'|| #{searchKeyword} ||'%'
+					and retiredate is null
+				</if>
+					order by dept_name asc, position_name desc
+		    )A
+		)
+	<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>
+	</select>		
+	
+	<select id="gTRSearchEmp" parameterType="searchVo">
+		select count(*) from organizationChartView
 		<if test="searchKeyword!=null and searchKeyword!=''">
 			where name like '%'|| #{searchKeyword} ||'%'
 			or emp_no like '%'|| #{searchKeyword} ||'%'
@@ -52,7 +76,7 @@
 			and retiredate is null
 		</if>
 			order by dept_name asc, position_name desc
-	</select>		
+	</select>
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
 		select *
