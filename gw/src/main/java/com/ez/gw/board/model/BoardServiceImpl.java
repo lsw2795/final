@@ -69,6 +69,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteNotice(vo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectByEmpNo(int empNo) {
+		return boardDao.selectByEmpNo(empNo);
+	}
+
+
 
 
 

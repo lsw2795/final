@@ -80,6 +80,10 @@
 		where boardList_no=2000 and board_no=#{boardNo}
 	</delete>
 	
-	
+	<select id="selectByEmpNo" parameterType="int" resultType="map">
+		select * from boardListView
+		where emp_no=#{empNo}
+		order by boardList_no asc, board_no desc
+	</select>
 	
 </mapper>
