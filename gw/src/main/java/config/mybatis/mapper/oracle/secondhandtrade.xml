@@ -81,4 +81,8 @@
 		where trade_no = #{tradeNo}
 	</update>
 	
+	<select id="showLike">
+		select likecount from secondhand_trade
+		where trade_no = #{tradeNo}
+	</select>
 </mapper>

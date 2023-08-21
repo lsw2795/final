@@ -8,7 +8,6 @@
 <script type="text/javascript" src = "<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		
 		$('#bt1').click(function() {
 	        // 파일이 선택되었는지 확인
 	        if ($('#uploadfile')[0].files.length === 0) {
@@ -84,6 +83,13 @@
 				return false;
 			}
 			
+			if($('#pwd').val().length<1){
+				alert("비밀번호를 입력해주세요.");
+				$('#pwd').focus();
+				
+				return false;
+			}
+			
 			/* if($('#product-description').val().length<50){
 				alert("상품 상세 설명은 50자 이상 입력해주세요.");
 				$('#product-description').focus();
@@ -112,11 +118,7 @@
 				}
 			});
 		});  
-		  
 	});
-	
-		
-	
 		
 </script>
 <style type="text/css">

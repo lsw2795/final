@@ -105,7 +105,7 @@ ul#navbarVerticalNav {
 														<a class="d-block"
 															href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo }'/>">
 															<img class="rounded-1"
-															style="max-height: 200px; max-weight: 240px"
+															style="max-height: 200px; max-weight: 240px;"
 															src="<c:url value='/market/upload/${vo.thumbnail}'/>"
 															alt="" />
 														</a>
@@ -192,17 +192,18 @@ ul#navbarVerticalNav {
 																	<a class="d-block h-sm-100"
 																		href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
 																		<img class="rounded-1 h-100 w-100 object-fit-cover"
-																		style="max-height: 200px; max-weight: 240px"
+																		style="max-height: 200px; max-weight: 240px;"
 																		src="<c:url value='/market/upload/${vo.thumbnail}'/>"
 																		alt="" />
 																	</a>
 																</div>
 																<div class="swiper-slide h-100">
 																	<a class="d-block h-sm-100"
-																		href="../../../app/e-commerce/product/product-details.jsp"><img
-																		class="rounded-1 h-100 w-100 object-fit-cover"
+																		href="../../../app/e-commerce/product/product-details.jsp">
+																		<img class="rounded-1 h-100 w-100 object-fit-cover"
 																		src="<c:url value='/assets/img/products/1-2.jpg'/>"
-																		alt="" /></a>
+																		alt="" />
+																	</a>
 																</div>
 																<div class="swiper-slide h-100">
 																	<a class="d-block h-sm-100"

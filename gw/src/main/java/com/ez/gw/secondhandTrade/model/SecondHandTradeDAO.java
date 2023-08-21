@@ -19,4 +19,5 @@ public interface SecondHandTradeDAO {
 	int updateMarket(SecondHandTradeVO secondVo);
 	int deleteMarket(int tradeNo);
 	int updateLike(int tradeNo);
+	int showLike(int tradeNo);
 }

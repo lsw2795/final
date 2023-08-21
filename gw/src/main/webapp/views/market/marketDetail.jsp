@@ -4,12 +4,33 @@
 <%@ include file="../inc/top.jsp" %>
 
  <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
+ <script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
  <script type="text/javascript">
 	function delMarket(){
 		if(confirm("삭제하시겠습니까?")){
 			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
 	}
+	
+	$(function(){
+		$('#likeit').click(function(){
+			$.ajax({
+				url:"<c:url value='/market/ajaxlikeit'/>",
+				type:"get",
+				dataType:"JSON",
+				data:{tradeNo: $('#tradeNo').val()},
+				success:function(res){
+					$('#showLike').text(res);
+					$('#heart').next(res);
+					
+				},
+				error:function(xhr, status, error){
+					alert(status + ":" + error);
+				}
+			});
+		});
+	});
+	
 </script>
 <style type="text/css">
 div#updateBtn {
@@ -62,6 +83,7 @@ div#updateBtn {
           
                 <div class="col-lg-6">
                   <h4><strong>${vo.title }</strong></h4>
+                  <input type="hidden" id="tradeNo" name="tradeNo" value="${vo.tradeNo }">
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
@@ -73,7 +95,7 @@ div#updateBtn {
                       </span></h4>
                 
                   	<p class="fs--1 mb-1">
-						♥ 좋아요 : <strong>${vo.likeCount }</strong>
+						♥ 좋아요 : <span id="showLike"><strong>${vo.likeCount }</strong></span>
 					</p>
                   <p class="fs--1 mb-1"> <span>조회수 : ${vo.readCount } </span></p>
                   <p class="fs--1">Stock: 
@@ -87,8 +109,8 @@ div#updateBtn {
                   <div class="row">
                     <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-envelope-open"></span><span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span></a></div>
                     <div class="col-auto px-0">
-                    	<a class="btn btn-sm btn-outline-danger border border-300" href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>" data-bs-toggle="tooltip" data-bs-placement="top" >
-                    		<span class="far fa-heart me-1"></span>${vo.likeCount}
+                    	<a class="btn btn-sm btn-outline-danger border border-300" href="#" id = "likeit" data-bs-toggle="tooltip" data-bs-placement="top" >
+                    		<span class="far fa-heart me-1" id="heart"></span>
                     	</a>
                     </div>
                   </div>
