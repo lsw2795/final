@@ -104,7 +104,15 @@ public class EmployeeController {
 	
 	@RequestMapping("/mypage/ajaxSearchEmp")
 	@ResponseBody
-	public List<Map<String, Object>> searchEmpList(@ModelAttribute SearchVO searchVo){
+	public List<Map<String, Object>> searchEmpList(
+			@RequestParam(required = false) String searchKeyword,
+			@RequestParam(defaultValue = "0")int currentPage,
+			@RequestParam(defaultValue = "0")int countPerPage,
+			@ModelAttribute SearchVO searchVo){
+		
+		searchVo.setCurrentPage(currentPage);
+		searchVo.setRecordCountPerPage(countPerPage);
+		searchVo.setSearchKeyword(searchKeyword);
 		logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
 		
 		List<Map<String, Object>> searchList=employeeService.selectSearchEmp(searchVo);
