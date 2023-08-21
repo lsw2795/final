@@ -139,9 +139,7 @@
 				        	<label class="form-label mb-0">
 				               	검토일
 				            </label><br>
-				            <div id="confirmDate">
-				            	<fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
-			                </div>
+				            <fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label mb-0">
@@ -152,10 +150,8 @@
 		                <div class="col-sm">
 				            <label class="form-label mb-0">
 				               	결재일
-				            </label>
-				            <div id="completeDate">
+				            </label><br>
 				            <fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yyyy-MM-dd" />
-				            </div>
 		                </div>
 		            </div>
 	            </div>

@@ -27,6 +27,7 @@ import com.ez.gw.confirm.model.ConfirmVO;
 import com.ez.gw.confirmFile.model.ConfirmFileService;
 import com.ez.gw.confirmFile.model.ConfirmFileVO;
 import com.ez.gw.confirmLine.model.ConfirmLineService;
+import com.ez.gw.confirmLine.model.ConfirmLineVO;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
 import com.ez.gw.deptagree.model.DeptagreeService;
@@ -125,12 +126,13 @@ public class ConfirmController {
     
     @PostMapping("/approvalWrite")
     public String approvalWrite_post(HttpSession session,HttpServletRequest request, @ModelAttribute ConfirmVO confirmVo,
-    		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] referEmpNo, Model model) {
+    		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] referEmpNo,@RequestParam(required = false) int confirmLineNo, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
     	logger.info("결재 작성 처리 파라미터 empNo={},confirmVo={}",empNo,confirmVo);
     	logger.info("결재 작성 처리 파라미터 합의부서 deptAgreeVo={}",deptAgreeVo);
     	logger.info("결재 작성 처리 파라미터 참조자 reperEmpNo={}",referEmpNo);
+    	logger.info("결재 작성 처리 파라미터 결재라인 confirmLineNo={}",confirmLineNo);
     	
     	//2
     	//첨부파일 처리
@@ -143,7 +145,12 @@ public class ConfirmController {
     		e.printStackTrace();
     	}
     	
+    	ConfirmLineVO lineVo = confirmLineService.selectByConfirmLineNo(confirmLineNo);
+    	confirmVo.setConfirm1(lineVo.getConfirm1());
+    	confirmVo.setConfirm2(lineVo.getConfirm2());
+    	confirmVo.setConfirm3(lineVo.getConfirm3());
     	confirmVo.setEmpNo(empNo);
+    	
     	int cnt=confirmService.insertConfirm(confirmVo,deptAgreeVo,referEmpNo,fileList);
     	logger.info("결재 처리 결과 cnt={}",cnt);
     	

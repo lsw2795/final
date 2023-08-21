@@ -21,6 +21,123 @@
     <meta name="theme-color" content="#ffffff">
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
+    <script type="text/javascript">
+    $(function(){
+		var bool=false;
+		$('form[name=documentEditFrm]').submit(function(){
+			if($('#referEmpNo').find('input[name=referEmpNo]').length>0){
+				$('input[name=referEmpNo]').each(function(){
+					if($(this).val()==$('#user').val()){
+						bool=true;
+					}
+				});
+			}else{
+				bool=false;
+			}
+			
+			if($('#documentNo').val()==0){
+				alert('결재 종류를 선택하세요');
+				$('#documentNo').focus();
+				return false;
+			}
+			
+			if($('#confirmTitle').val().length==0){
+				alert('제목을 입력하세요');
+				$('#confirmTitle').focus();
+				return false;
+			}
+
+			if($('#confirmLineNo').val().length==0){
+				alert('결재선을 선택하세요');
+				$('#select').focus();
+				return false;
+			}
+			
+			if($('#confirmContent').val().length==0){
+				alert('내용을 입력하세요');
+				$('#confirmContent').focus();
+				return false;
+			}
+			
+			if($('#startDate').val().length==0){
+				alert('시작일을 선택하세요');
+				$('#startDate').focus();
+				return false;
+			}
+			
+			if($('#endDate').val().length==0){
+				alert('종료일을 선택하세요');
+				$('#endDate').focus();
+				return false;
+			}
+			
+			if(bool){
+				alert('참조자에 작성자가 포함되었습니다.');
+				return false;
+			}
+		});
+
+		$('#btFilePlus').click(function(){
+			var num = $('input[type=file]').length+1;
+			$('#btFilePlus').parent().before("<div class='col-12 mt-1 file'>"+
+					"<label class='form-label mb-0'>첨부파일</label>"+
+					"<input class='form-control' name='confirmFile"+num+"' type='file'/></div>");	
+		});
+		
+		$('#btFileDel').click(function(){
+			$('.file:last').remove();
+		});
+		
+		$('#backBt').click(function(){
+			history.back();
+		});
+		
+    });
+    
+    function startDateChange(){
+		var today = new Date();
+		today.setHours(0, 0, 0, 0);
+		var start = new Date($('#startDate').val());
+		if(start<today){
+			alert('시작일 설정이 잘못되었습니다.');
+			$('#startDate').val('');
+			$('#startDate').focus();
+		}
+	}
+	
+	function endDateChange(){
+		if($('#startDate').val().length==0){
+			alert('시작일을 선택하세요.');
+			$('#endDate').val('');
+			$('#startDate').focus();
+		}else{
+			var start = new Date($('#startDate').val());
+			start.setHours(0, 0, 0, 0);
+			var end = new Date($('#endDate').val());
+			if(end<start){
+				alert('종료일 설정이 잘못되었습니다.');
+				$('#endDate').val('');
+				$('#endDate').focus();
+			}
+		}
+	}
+	
+	function selectRefer(){
+		var referEmpNo=[];
+		$('input[name=referEmpNo]').each(function(){
+			referEmpNo.push($(this).val());
+		});
+		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=600")
+	}
+	
+	function createLine(){
+		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=810, height=600")
+	}
+	
+	function selectLine(){
+		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=680, height=560")
+	}
+    </script>
 	<!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -33,7 +150,7 @@
     <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
 </head>
 <body>
-<form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">
+<form name="documentEditFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalEdit'/>">
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg pe-lg-2 mb-3">
@@ -66,6 +183,7 @@
 			                <label class="form-label">
 			               		작성일
 			                </label><br>
+			                <fmt:formatDate value="${confirmMap['CREATE_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				        	<label class="form-label">
@@ -76,16 +194,19 @@
 				        	<label class="form-label">
 				               	검토일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
 				               	확인일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['CONFIRM_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
 				               	결재일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		            </div>
 	            </div>
@@ -101,7 +222,7 @@
 	                    	<label class="form-label">
 	                        	기안자
 	                        </label><br>
-	                        	${confirmMap['NAME'] }
+	                        ${confirmMap['NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="confirmDocumentNo">
@@ -116,13 +237,13 @@
 	                        <label class="form-label" for="deptName">
 	                        	부서
 	                        </label><br>
-	                       		${empMap['DEPT_NAME'] }
+	                       	${empMap['DEPT_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="positionName">
 	                        	직위
 	                        </label><br>
-	                        	${empMap['POSITION_NAME'] }
+	                        ${empMap['POSITION_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6">
 	                    	<label class="form-label" for="deptNo">
@@ -151,20 +272,31 @@
 	                        	</span>
 	                        </a>
 	                        <div id="referEmpName" >
-	                       		<span id="referEmpNameSpan">참조자를 선택하세요</span>
-	                       		<div id="referEmpNo"></div>
+	                       		<span id="referEmpNameSpan"></span>
+	                       		<div id="referEmpNo">
+		                       		<c:if test="${empty referEmpList }">
+		                    		참조자를 선택하세요
+		                    		</c:if>
+		                    		<c:if test="${!empty referEmpList }">
+										<c:forEach var="empVo" items="${referEmpList }" varStatus="loop">
+											${empVo.name }
+										<c:if test="${!loop.last}">, </c:if>
+										<input type="hidden" name="referEmpNo" value="${empVo.empNo }">
+										</c:forEach>	                    		
+		                    		</c:if>
+	                       		</div>
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="startDate">시작일</label>
 	                        <div>
-	                    		<input type="date" name="startDate">
+	                    		<input type="date" name="startDate" value=${confirmMap['START_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="endDate">종료일</label>
 	                        <div>
-	                    		<input type="date" name="endDate">
+	                    		<input type="date" name="endDate" value=${confirmMap['END_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-12">
@@ -180,32 +312,36 @@
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm1">검토자</label>
 	                        <div id="confirm1_Name">
-	                        	검토자를 선택하세요
+	                        	${confirmMap['CONFIRM1NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM1'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm2">확인자</label>
 	                        <div id="confirm2_Name">
-	                        	확인자를 선택하세요
+	                        	${confirmMap['CONFIRM2NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM2'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm3">승인자</label>
 	                        <div id="confirm3_Name">
-	                        	승인자를 선택하세요
+	                        	${confirmMap['CONFIRM3NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM3'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-12">
 	                        <label class="form-label" for="confirmContent">내용</label>
-	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요"></textarea>
+	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요">${confirmMap['CONFIRM_CONTENT'] } </textarea>
 	                    </div>
 	                    <div class="col-12 mt-2">
 	                        <label class="form-label mb-0">첨부파일 추가/삭제</label><br>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFilePlus" style="width: 50px">+</button>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFileDel" style="width: 50px">-</button>
 	                    </div>
-	                    <div class="col-sm-2 m-auto mt-3">
-	                        <input class="form-control btn btn-primary" type="submit" value="작성"/>
+	                    <div class="col-sm-4 m-auto mt-3">
+	                        <input class="form-control btn btn-primary" type="submit" style="width: 100px" value="수정"/>
+	                        <input class="form-control btn btn-primary" type="button" id="backBt" style="width: 100px" value="취소"/>
 	                    </div>
 	                </div>
 	        	</div>

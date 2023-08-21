@@ -35,9 +35,7 @@
 				confirm_state=2
 			</set>
 			<where>
-				(select confirm1 from confirmline
-				where confirm_line_no in (select confirm_line_no from confirm
-                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+				confirm1=#{empNo}
             	and confirm_document_no=#{confirmDocumentNo}
 			</where>
 		</if>
@@ -46,9 +44,7 @@
 				confirm_state=4
 			</set>
 			<where>
-				(select confirm2 from confirmline
-			where confirm_line_no in (select confirm_line_no from confirm
-                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+				confirm2=#{empNo}
             	and confirm_document_no=#{confirmDocumentNo}
 			</where>
 		</if>
@@ -57,9 +53,7 @@
 				confirm_state=6
 			</set>
 			<where>
-				(select confirm3 from confirmline
-			where confirm_line_no in (select confirm_line_no from confirm
-                            		  where confirm_document_no=#{confirmDocumentNo}))=#{empNo}
+				confirm3=#{empNo}
             	and confirm_document_no=#{confirmDocumentNo}
 			</where>
 		</if>
@@ -135,8 +129,8 @@
 	</select>
 	
 	<insert id="insertConfirm" parameterType="confirmVo">
-		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm_line_no,document_no,start_date,end_date)
-		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirmLineNo},#{documentNo},#{startDate},#{endDate})
+		insert into confirm(confirm_document_no,confirm_title,confirm_content,emp_no,confirm1,confirm2,confirm3,document_no,start_date,end_date)
+		values(#{confirmDocumentNo},#{confirmTitle},#{confirmContent},#{empNo},#{confirm1},#{confirm2},#{confirm3},#{documentNo},#{startDate},#{endDate})
 	</insert>
 	
 	<select id="selectAllByEmpNo" parameterType="confirmVo" resultType="map">

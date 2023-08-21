@@ -27,4 +27,9 @@ public class ConfirmLineServiceImpl implements ConfirmLineService{
 		return confirmLineDao.deleteLine(confirmLineNo);
 	}
 
+	@Override
+	public ConfirmLineVO selectByConfirmLineNo(int confirmLineNo) {
+		return confirmLineDao.selectByConfirmLineNo(confirmLineNo);
+	}
+
 }
