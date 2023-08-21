@@ -135,4 +135,39 @@ public class ConfirmServiceImpl implements ConfirmService{
 	public int getTotalAgreeRecord(ConfirmVO vo) {
 		return confirmDao.getTotalAgreeRecord(vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectAllCompleteDocument(ConfirmVO vo) {
+		return confirmDao.selectAllCompleteDocument(vo);
+	}
+
+	@Override
+	public int getTotalComplteRecord(ConfirmVO vo) {
+		return confirmDao.getTotalComplteRecord(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllRefer(ConfirmVO vo) {
+		return confirmDao.selectAllRefer(vo);
+	}
+
+	@Override
+	public int getTotalReferRecord(ConfirmVO vo) {
+		return confirmDao.getTotalReferRecord(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllReturn(ConfirmVO vo) {
+		return confirmDao.selectAllReturn(vo);
+	}
+
+	@Override
+	public int getTotalReturnRecord(ConfirmVO vo) {
+		return confirmDao.getTotalReturnRecord(vo);
+	}
+
+	@Override
+	public int getTotalAgreeRecordMain(ConfirmVO vo) {
+		return confirmDao.getTotalAgreeRecordMain(vo);
+	}
 }
