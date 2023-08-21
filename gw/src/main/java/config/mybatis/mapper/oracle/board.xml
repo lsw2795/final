@@ -3,6 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.board.model.BoardDAO">
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword!=null and searchKeyword!=''">
+	   	 		${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+	      	</if>
+	    </where>
+	</sql>
+	
 	<insert id="insertQna" parameterType="boardVo">
 		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
 			select board_seq.nextval from dual
