@@ -25,7 +25,7 @@ a {
 }
 
 .board_title strong {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .board_title p {
@@ -46,7 +46,7 @@ a {
     padding: 10px;
     border: 1px solid #000;
     border-radius: 2px;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .bt_wrap a:first-child {
@@ -80,7 +80,7 @@ a {
     display: inline-block;
     padding: 15px 0;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .board_list > div.top > div {
@@ -139,13 +139,13 @@ a {
 
 .board_page a.bt {
     padding-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     letter-spacing: -1px;
 }
 
 .board_page a.num {
     padding-top: 9px;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .board_page a.num.on {
@@ -166,7 +166,7 @@ a {
 .board_view .title {
     padding: 20px 15px;
     border-bottom: 1px dashed #ddd;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .board_view .info {
@@ -203,7 +203,7 @@ a {
 .board_view .info dl dt,
 .board_view .info dl dd {
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .board_view .info dl dt {
@@ -219,7 +219,7 @@ a {
     padding: 15px;
     border-bottom: 1px solid #000;
     line-height: 160%;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .board_write {
@@ -253,7 +253,7 @@ a {
 .board_write .info dd {
     display: inline-block;
     vertical-align: middle;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .board_write .title dt,
@@ -292,7 +292,7 @@ a {
 
 .form-select{
 	display: inline;
-	width: 15%;
+	/*width: 15%;*/
 }
 .form-control{
 	display: inline;

@@ -24,8 +24,9 @@ public interface ConstUtil {
 	String MARKET_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\market\\upload";
 	
 	//집
-	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
-	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
+	String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
+	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
+	
 	//학원
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
 	
@@ -38,7 +39,6 @@ public interface ConstUtil {
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드
 	int UPLOAD_IMAGE_FLAG = 2; //사원 등록시 이미지 업로드
 	int CONFIRMFILE_FLAG = 3;  //자료실 업로드
-	
 	
 	//전자결재
 	Date date = new Date();

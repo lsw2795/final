@@ -9,4 +9,6 @@ public class SecondhandTradeFileVO {
 	 private int fileNo;
 	 private String imageURL;
 	 private int tradeNo;
+	 
+	 
 }

@@ -23,4 +23,7 @@ public class SecondHandTradeVO { //사내중고거래
 	
 	//24시간 이내 글 여부
 	private int timeNew;
+	//썸네일 확장자
+	private String thumbnail;
+	
 }

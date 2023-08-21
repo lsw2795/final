@@ -1,0 +1,27 @@
+  /* input 정의 */
+input[type="text"], input[type="password"], input[type="button"], input[type="image"], input[type="submit"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"], input[type="date"], select {width:100%; height:38px;  margin-bottom:2px;}
+select {padding-right:0;}
+input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled], select[disabled], textarea[disabled], .disabled {background:#f4f4f4; border-color:#ddd;} /* 입력불가 */
+
+/* 첨부파일 스타일 */
+.file_list{padding-top:10px; border-top: 1px dashed #ddd;}
+.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:70%; box-sizing:border-box;}
+.file_input label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:95px; height:38px; line-height:38px; background:#777; color:#fff; text-align:center; box-sizing:border-box;}
+.file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
+.file_input input[type=text] {color:#737070; background:#fff; border:1px solid #ccc;}
+.file_list {max-width:none;}
+.file_list > div {position:relative;}
+.file_list > div > input[type=text] {max-width:300px; vertical-align:top;}
+.file_list > div > button {background:linear-gradient(to bottom, #f7f7f7, #f0f0f0); border:1px solid #ccc; vertical-align:top; height: 39px;}
+.file_list > div > button > span {position:relative;}
+.file_list > div > button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
+.file_list > div > button.del_btn {right:95px;}
+.file_list > div > button.del_btn span::before {background-position:0 -27px;}
+.file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}
+.file_list .file_input {display:inline-block; width:450px; margin-top:0;}
+
+/* 버튼 기본 스타일 ------------------------------- */
+.btns {display:inline-block; padding:0 10px; height:28px; line-height:26px; text-align:center; vertical-align:middle; border-radius:3px; border:1px solid transparent; /* white-space:nowrap; */ font-weight:500; font-family:'Noto Sans KR', Dotum, Arial, tahoma, Helvetica, sans-serif;}
+a.btns:hover, a.btns:focus, button.btns:hover, button.btns:focus, input.btns:hover, input.btns:focus {opacity:0.9;}
+a.btns, button {cursor:pointer;}
+button span {position:relative;}

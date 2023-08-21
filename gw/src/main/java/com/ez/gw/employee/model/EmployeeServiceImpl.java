@@ -70,7 +70,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 		return list;
 	}
-
+	
+	
 	public List<Map<String, Object>> selectSearchEmp(SearchVO searchVo) {
 		return employeeDao.selectSearchEmp(searchVo);
 	}
@@ -106,25 +107,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectSerachEmp2(searchVo);
 	}
 
-
-	@Override
-	public List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo) {
-		List<Integer> referList = referDao.selectEmpNoByConfirmNo(confirmDocumentNo);
-		logger.info("결재문서에 대한 참조자 referList={}",referList);
-		
-		List<EmployeeVO> list = new ArrayList<>();
-		for(int i=0; i<referList.size(); i++) {
-			EmployeeVO vo = employeeDao.selectByEmpNo(referList.get(i));
-			logger.info("참조자에 대한 조회 vo={}",vo);
-			list.add(vo);
-		}
-		return list;
-	}
-
 	@Override
 	public String selectPwd(int empNo) {
 		return employeeDao.selectPwd(empNo);
 	}
+
+	@Override
+	public int updateEmpAdmin(EmployeeVO empVo) {
+		return employeeDao.updateEmpAdmin(empVo);
+	}
+
 
 }
 

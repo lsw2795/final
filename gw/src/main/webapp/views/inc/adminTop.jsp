@@ -95,7 +95,7 @@
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
 				
 					<li class="nav-item">
-	            		<c:import url="/inc/empMain"></c:import>
+            			<c:import url="/inc/empMain"></c:import>
 					</li>
 					
 					<li class="nav-item"><!-- parent pages-->

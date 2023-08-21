@@ -9,8 +9,23 @@
 	
 	function search(num){
 		$('input[name="currentPage"]').val('1');
+		if(num==0){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/confirmList'/>");
+		}
 		if(num==1){
 			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/confirm/confirmList'/>");
+		}
+		if(num==2){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/deptAgreeList'/>");
+		}
+		if(num==3){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/completeList'/>");
+		}
+		if(num==4){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/referList'/>");
+		}
+		if(num==5){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/returnList'/>");
 		}
 		$('form[name="frmSearch"]').submit();
 	}
@@ -41,13 +56,22 @@
 				<div class="row g-3">
 					<div class="col-md-10 listTitle">
 					<c:if test="${title==0 }">
-						결재 문서함
+						나의 문서함
 					</c:if>
 					<c:if test="${title==1 }">
 						결재 대기함
 					</c:if>
 					<c:if test="${title==2 }">
 						합의 문서함
+					</c:if>
+					<c:if test="${title==3 }">
+						결재 완료함
+					</c:if>
+					<c:if test="${title==4 }">
+						결재 문서 참조함
+					</c:if>
+					<c:if test="${title==5 }">
+						반려함
 					</c:if>
 					</div>
 					<div class="col-md-2" align="right">

@@ -12,29 +12,28 @@
 	</insert>
 	
 	<select id="selectAllMarket" resultType="secondHandTradeVo">
-	 select *
-	    from
-	    (
-	        select rownum as RNUM, A.* from
-	        (
-	            select *
-	            from secondhand_trade
-	            <if test="searchKeyword!=null and searchKeyword!=''">
-	                <choose>
-	                    <when test="searchCondition == 'total'">
-	                        and (title like '%' || #{searchKeyword} || '%' or discription like '%' || #{searchKeyword} || '%')
-	                    </when>
-	                    <otherwise>
-	                        and ${searchCondition} like '%' || #{searchKeyword} || '%'
-	                    </otherwise>
-	                </choose>
-	            </if>
-	            order by trade_no desc
-	        ) A
-	    )
+    SELECT *
+    FROM (
+        SELECT ROWNUM AS RNUM, A.*
+        FROM (
+            SELECT *
+            FROM secondhand_trade
+            <if test="searchKeyword!=null and searchKeyword!=''">
+                <choose>
+                    <when test="searchCondition == 'total'">
+                        where (title LIKE '%' || #{searchKeyword} || '%' OR discription LIKE '%' || #{searchKeyword} || '%')
+                    </when>
+                    <otherwise>
+                        where ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
+                    </otherwise>
+                </choose>
+            </if>
+            ORDER BY trade_no DESC
+        ) A
+    ) 
 	    <![CDATA[
-	    where RNUM > #{firstRecordIndex} 
-	    and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+	    WHERE RNUM > #{firstRecordIndex} 
+	    AND RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 	    ]]>
 	</select>
 	

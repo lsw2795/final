@@ -13,7 +13,7 @@
 	
 	<select id="showThumbnail" resultType="secondhandtradeFileVo">
 		select * from secondhand_trade_file
-		where imageurl like '%_0%'
+		where imageurl like '%_0.%'
 		order by trade_no desc
 	</select>
 	

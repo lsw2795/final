@@ -21,7 +21,6 @@ public interface EmployeeService {
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); 
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
-	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); 
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	void sendEmail(EmployeeVO empVo, String div); //비번찾기 메일 보내기
 	//void findPwd(HttpServletResponse response, EmployeeVO empVo) throws Exception; //비번찾기
@@ -30,7 +29,8 @@ public interface EmployeeService {
 	int updateEmpPwd(EmployeeVO empVo); //사원 - 비밀번호 수정하기
 	int getTotalRecord(SearchVO searchVo); //관리자, 사원 - 전체 목록 건수 (organizationChartView 이용)
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
-	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); 
 	String selectPwd(int empNo); //비밀번호 확인 메서드
+	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
+	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); //참조자 정보 조회 
 
 }
