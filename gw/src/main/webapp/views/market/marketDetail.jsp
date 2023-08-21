@@ -9,28 +9,35 @@
 		if(confirm("삭제하시겠습니까?")){
 			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
-		
 	}
 </script>
+<style type="text/css">
+div#updateBtn {
+    display: flex; 
+    margin: 10px 3px;
+    justify-content: flex-end;
+}
+</style>
 <div class="content">
 		<h2>상세보기</h2>
 		
 		<c:if test="${sessionScope.empNo==emp.empNo }">
-			<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
-              	<button class="btn btn-falcon-default btn-sm" type="button">
-            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
-   	        		<span class="d-none d-md-inline-block ms-1">수정</span>
-         	    </button>
-            </a>
-            <button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
-                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
-                 <span class="d-none d-md-inline-block ms-1">삭제</span>
-	        </button>
+			<div id="updateBtn">
+				<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
+	              	<button class="btn btn-falcon-default btn-sm" type="button">
+	            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
+	   	        		<span class="d-none d-md-inline-block ms-1">수정</span>
+	         	    </button>
+	            </a>
+	            <button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+	                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+	                 <span class="d-none d-md-inline-block ms-1">삭제</span>
+		        </button>
+	        </div>
 		</c:if>
           <div class="card mb-3">
             <div class="card-body">
               <div class="row">
-              
               
               
 <div class="col-lg-6 mb-4 mb-lg-0">
@@ -60,13 +67,14 @@
                  	</h6>
                  	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
                   <hr>
-                  <div class="fs--2 mb-3 d-inline-block text-decoration-none"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1 text-600">(8)</span>
-                  </div>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
                   	</span><span class="me-1 fs--1 text-500">
                       </span></h4>
                 
+                  	<p class="fs--1 mb-1">
+						♥ 좋아요 : <strong>${vo.likeCount }</strong>
+					</p>
                   <p class="fs--1 mb-1"> <span>조회수 : ${vo.readCount } </span></p>
                   <p class="fs--1">Stock: 
                   	<c:if test="${vo.selFlag=='N' }">

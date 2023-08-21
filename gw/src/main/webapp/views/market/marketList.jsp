@@ -144,7 +144,7 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		좋아요 : <strong>${vo.likeCount }</strong>
+																		♥ 좋아요 : <strong>${vo.likeCount }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${vo.readCount }</strong>
@@ -251,7 +251,7 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		좋아요 : <strong>${vo.likeCount }</strong>
+																		♥ 좋아요 : <strong>${vo.likeCount }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${vo.readCount }</strong>
