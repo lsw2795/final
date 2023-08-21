@@ -32,5 +32,5 @@ public interface EmployeeService {
 	String selectPwd(int empNo); //비밀번호 확인 메서드
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
 	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); //참조자 정보 조회 
-
+	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 }
