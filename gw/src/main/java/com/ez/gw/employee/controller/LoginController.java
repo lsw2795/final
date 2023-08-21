@@ -4,11 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,10 +34,12 @@ public class LoginController {
 	
 	@PostMapping("/empLogin")
 	public String logiEmp_post(@RequestParam int empNo, @RequestParam String pwd, 
+			@ModelAttribute EmployeeVO empVo, 
 			@RequestParam(required = false)String split_checkbox,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 		//1.
-		logger.info("로그인 처리 페이지,파라미터 empNo={},pwd={},split_checkbox={}",empNo,pwd,split_checkbox);
+		logger.info("로그인 처리 페이지,파라미터 empNo={},pwd={},"
+				+ "split_checkbox={}",empNo,pwd,split_checkbox);
 		
 		//2.
 		int result=empService.loginCheck(pwd, empNo);
@@ -43,7 +47,7 @@ public class LoginController {
 		
 		String msg="로그인 처리 실패", url="/login/empLogin"; 
 		if(result==EmployeeService.LOGIN_OK) {
-			msg=empNo+"님이 로그인 하셨습니다";
+			msg=empVo.getName()+"님이 로그인 하셨습니다";
 			url="/main";
 			
 			//session

@@ -2,7 +2,38 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
-	
+<script type="text/javascript">
+var IMP = window.IMP;
+IMP.init('가맹점 식별코드');
+IMP.request_pay({
+    pg : 'inicis',
+    pay_method : 'card', //카드결제
+    merchant_uid : 'merchant_' + new Date().getTime(),
+    name : '주문명:결제테스트',
+    amount : 12000, //판매가격
+    buyer_email : '구매자 아이디',
+    buyer_name : '구매자 이름',
+    buyer_tel : '연락처',
+    buyer_addr : '주소',
+    buyer_postcode : '우편번호'
+}, function(rsp) {
+    if ( rsp.success ) {
+        var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+           
+        pay_info(rsp);
+        
+    } else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        
+        location.href="goods_pay_fail.do?error_msg="+rsp.error_msg;
+    }
+});
+</script>	
 		<div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
