@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CommuteDAO {
-	List<Map<String, Object>> selectCommuteByEmpNo(int empNo);
+	List<CommuteVO> selectCommuteByEmpNo(int empNo);
 	
 	
 }

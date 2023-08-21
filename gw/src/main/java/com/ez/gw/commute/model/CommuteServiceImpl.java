@@ -13,10 +13,10 @@ public class CommuteServiceImpl implements CommuteService{
 	private final CommuteDAO commuteDao;
 
 	@Override
-	public List<Map<String, Object>> selectCommuteByEmpNo(int empNo) {
+	public List<CommuteVO> selectCommuteByEmpNo(int empNo) {
 		return commuteDao.selectCommuteByEmpNo(empNo);
 	}
-	
+
 	
 	
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CommuteService {
-	List<Map<String, Object>> selectCommuteByEmpNo(int empNo);
+	List<CommuteVO> selectCommuteByEmpNo(int empNo);
 
 	
 }
