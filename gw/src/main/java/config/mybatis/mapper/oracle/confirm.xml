@@ -251,6 +251,12 @@
 		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
 	</select>
 	
+	<update id="returnConfirm" parameterType="confirmVo">
+		update confirm
+		set confirm_state=9
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
+	
 	<select id="getTotalRecord" parameterType="confirmVo" resultType="int">
 		select count(*) from confirmsview 
 		where emp_no=#{empNo}

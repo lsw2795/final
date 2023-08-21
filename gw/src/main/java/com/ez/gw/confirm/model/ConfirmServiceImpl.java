@@ -170,4 +170,16 @@ public class ConfirmServiceImpl implements ConfirmService{
 	public int getTotalAgreeRecordMain(ConfirmVO vo) {
 		return confirmDao.getTotalAgreeRecordMain(vo);
 	}
+	
+	@Transactional
+	@Override
+	public int returnConfirmAndDept(ConfirmVO vo) {
+		int cnt=confirmDao.returnConfirm(vo);
+		if(cnt>0) {
+			if(vo.getSearchKeyword()!=null && !vo.getSearchKeyword().isEmpty() ) {
+				cnt=deptAgreeDao.returnDeptAgree(vo.getConfirmDocumentNo());
+			}
+		}
+		return cnt;
+	}
 }

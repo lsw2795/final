@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
+import com.ez.gw.common.Utility;
 import com.ez.gw.confirm.model.ConfirmService;
 import com.ez.gw.confirm.model.ConfirmVO;
 import com.ez.gw.confirmFile.model.ConfirmFileService;
+import com.ez.gw.confirmFile.model.ConfirmFileVO;
 import com.ez.gw.confirmLine.model.ConfirmLineService;
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
@@ -33,6 +35,7 @@ import com.ez.gw.documentform.model.DocumentFormService;
 import com.ez.gw.documentform.model.DocumentFormVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
+import com.ez.gw.pds.model.PdsVO;
 import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
 import com.ez.gw.refer.model.ReferService;
@@ -82,6 +85,42 @@ public class ConfirmController {
     	logger.info("결재 양식 리스트 formList.size={}",formList.size());
     	
     	return "approval/approvalWrite";
+    }
+    
+    @GetMapping("/approvalEdit")
+    public String approvalEdit_get(@RequestParam String confirmDocumentNo, Model model,HttpSession session ) {
+    	//1
+    	logger.info("결재문서 수정 페이지");
+    	
+    	//2
+    	int empNo=(int)session.getAttribute("empNo");
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	logger.info("결재 양식 리스트 formList.size={}",formList.size());
+    	
+    	List<DeptVO> deptList = deptService.selectAllDept();
+    	logger.info("부서 리스트 deptList={}",deptList.size());
+    	
+    	Map<String, Object> confirmMap = confirmService.selectConfirmDocument(confirmDocumentNo);
+    	logger.info("수정 문서 조회 confirmMap={}",confirmMap);
+    	
+    	Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
+    	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
+    	
+    	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
+    	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
+    	
+    	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
+    	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("deptList",deptList);
+    	model.addAttribute("confirmMap",confirmMap);
+    	model.addAttribute("empMap",empMap);
+    	model.addAttribute("referEmpList",referEmpList);
+    	model.addAttribute("deptAgreeMap",deptAgreeMap);
+    	
+    	return "approval/approvalEdit";
     }
     
     @PostMapping("/approvalWrite")
@@ -420,12 +459,24 @@ public class ConfirmController {
     	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
     	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
     	
-
+    	List<ConfirmFileVO> fileList = confirmFileService.selectAllFileByDocumentNo(confirmDocumentNo);
+    	logger.info("파일 조회 결과 fileList={}",fileList.size());
+    	
+    	//보여질 파일명
+    	List<String> fileInfoArr = new ArrayList<>(); 
+		for(ConfirmFileVO vo : fileList) {
+			long fileSize = vo.getFileSize();
+			String fileName = vo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
     	//3
     	model.addAttribute("confirmMap",confirmMap);
     	model.addAttribute("empMap",empMap);
     	model.addAttribute("referEmpList",referEmpList);
     	model.addAttribute("deptAgreeMap",deptAgreeMap);
+    	model.addAttribute("fileList",fileList);
+    	model.addAttribute("fileInfoArr",fileInfoArr);
     	
     	//4
     	return "approval/approvalView";
@@ -487,6 +538,31 @@ public class ConfirmController {
     		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 "+state+"처리되었습니다.";
     	}else {
     		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 "+state+"처리 중 에러가 발생했습니다.";
+    	}
+    	
+    	//4
+    	return msg;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/returnConfirmAjax")
+    public String returnConfirmAjax(@ModelAttribute ConfirmVO vo) {
+    	//1
+    	logger.info("결재문서 반려처리 파라미터 vo={}",vo);
+    	
+    	//2
+    	int cnt = confirmService.returnConfirmAndDept(vo);
+    	logger.info("결재문서 반려처리 결과 cnt={}",cnt);
+    	
+    	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(vo.getConfirmDocumentNo());
+    	logger.info("결재 문서 조회 confirmMap={}",confirmMap);
+    	
+    	//3
+    	String msg="";
+    	if(cnt>0) {
+    		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 반려 처리되었습니다.";
+    	}else {
+    		msg=confirmMap.get("CONFIRM_DOCUMENT_NO")+" 문서가 반려 처리 중 에러가 발생했습니다.";
     	}
     	
     	//4

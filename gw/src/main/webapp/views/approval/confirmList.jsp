@@ -45,7 +45,7 @@
 	    		alert(status+" : "+error);
 	   		}
 	   	});
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=780, height=660");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=1000, height=660");
 	}
 	
 </script>
@@ -179,7 +179,14 @@
 							            <div class="ms-2">${map['NAME']}</div>
 							        </div>
 							    </td>
-							    <td class="text-nowrap" align="left">${map['CONFIRM_TITLE']}</td>
+							    <td class="text-nowrap" align="left">
+								    <c:if test="${map['CONFIRM_TITLE'].length()>10 }">
+									 	${fn:substring(map['CONFIRM_TITLE'],0,10) }...
+									</c:if>
+									<c:if test="${map['CONFIRM_TITLE'].length()<=10 }">
+			                    		${map['CONFIRM_TITLE']}
+									</c:if>
+							    </td>
 							    <td>
 							    	<c:if test="${map['STATE']=='반려' }">
 							        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">

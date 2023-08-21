@@ -1,122 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "../inc/top.jsp" %>
-<script type="text/javascript">
-	$(function(){
-		var bool=false;
-		$('form[name=documentFrm]').submit(function(){
-			if($('#referEmpNo').find('input[name=referEmpNo]').length>0){
-				$('input[name=referEmpNo]').each(function(){
-					if($(this).val()==$('#user').val()){
-						bool=true;
-					}
-				});
-			}else{
-				bool=false;
-			}
-			
-			if($('#documentNo').val()==0){
-				alert('결재 종류를 선택하세요');
-				$('#documentNo').focus();
-				return false;
-			}
-			
-			if($('#confirmTitle').val().length==0){
-				alert('제목을 입력하세요');
-				$('#confirmTitle').focus();
-				return false;
-			}
-
-			if($('#confirmLineNo').val().length==0){
-				alert('결재선을 선택하세요');
-				$('#select').focus();
-				return false;
-			}
-			
-			if($('#confirmContent').val().length==0){
-				alert('내용을 입력하세요');
-				$('#confirmContent').focus();
-				return false;
-			}
-			
-			if($('#startDate').val().length==0){
-				alert('시작일을 선택하세요');
-				$('#startDate').focus();
-				return false;
-			}
-			
-			if($('#endDate').val().length==0){
-				alert('종료일을 선택하세요');
-				$('#endDate').focus();
-				return false;
-			}
-			
-			if(bool){
-				alert('참조자에 작성자가 포함되었습니다.');
-				return false;
-			}
-		});
-		
-		$('#btFilePlus').click(function(){
-			var num = $('input[type=file]').length+1;
-			$('#btFilePlus').parent().before("<div class='col-12 mt-1 file'>"+
-					"<label class='form-label mb-0'>첨부파일</label>"+
-					"<input class='form-control' name='confirmFile"+num+"' type='file'/></div>");	
-		});
-		
-		$('#btFileDel').click(function(){
-			$('.file:last').remove();
-		});
-		
-		
-	});
-	
-	function startDateChange(){
-		var today = new Date();
-		today.setHours(0, 0, 0, 0);
-		var start = new Date($('#startDate').val());
-		if(start<today){
-			alert('시작일 설정이 잘못되었습니다.');
-			$('#startDate').val('');
-			$('#startDate').focus();
-		}
-	}
-	
-	function endDateChange(){
-		if($('#startDate').val().length==0){
-			alert('시작일을 선택하세요.');
-			$('#endDate').val('');
-			$('#startDate').focus();
-		}else{
-			var start = new Date($('#startDate').val());
-			start.setHours(0, 0, 0, 0);
-			var end = new Date($('#endDate').val());
-			if(end<start){
-				alert('종료일 설정이 잘못되었습니다.');
-				$('#endDate').val('');
-				$('#endDate').focus();
-			}
-		}
-	}
-	
-	function selectRefer(){
-		var referEmpNo=[];
-		$('input[name=referEmpNo]').each(function(){
-			referEmpNo.push($(this).val());
-		});
-		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=500")
-	}
-	
-	function createLine(){
-		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=800, height=500")
-	}
-	
-	function selectLine(){
-		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=520")
-	}
-</script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>결재문서 수정</title>
+	<!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <!-- jquery  -->
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/assets/img/favicons/favicon.ico'/>">
+    <link rel="manifest" href="<c:url value='/assets/img/favicons/manifest.json'/>">
+ 	<meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
+    <meta name="theme-color" content="#ffffff">
+    <script src="<c:url value='/assets/js/config.js'/>"></script>
+    <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
+	<!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="<c:url value='/vendors/simplebar/simplebar.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/assets/css/theme-rtl.css'/>" rel="stylesheet" id="style-rtl">
+    <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
+    <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
+    <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
+</head>
+<body>
 <form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">
-<input type="hidden" id="user" value="${sessionScope.empNo}">
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg pe-lg-2 mb-3">
@@ -134,7 +51,11 @@
 				                <option value="0">종류 선택</option>
 				                <c:if test="${!empty formList}">
 				                <c:forEach var="documentFormVo" items="${formList }">
-					                <option value="${documentFormVo.documentNo }">${documentFormVo.formName }</option>
+					                <option value="${documentFormVo.documentNo }" 
+						                <c:if test="${confirmMap['DOCUMENT_NO']==documentFormVo.documentNo}">
+						                	selected="selected"
+						                </c:if>
+					                >${documentFormVo.formName }</option>
 				                </c:forEach>
 				                </c:if>
 				            </select>
@@ -145,8 +66,6 @@
 			                <label class="form-label">
 			               		작성일
 			                </label><br>
-			                <c:set var="now" value="<%=new java.util.Date()%>" />
-			                <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				        	<label class="form-label">
@@ -176,34 +95,34 @@
 	                  		<label class="form-label" for="confirm_title">
 	               				제목
 	                    	</label>
-	                    	<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" placeholder="제목을 입력하세요" />
+	                    	<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmMap['CONFIRM_TITLE'] }" />
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                    	<label class="form-label">
 	                        	기안자
 	                        </label><br>
-	                        	${empVo.name }
+	                        	${confirmMap['NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="confirmDocumentNo">
 	                        	문서번호
 	                        </label><br>
 	                        <div id="cdNoDiv">
-	                        	<fmt:formatDate value="${now}" pattern="yyMMdd" />-${empVo.empNo }
+	                        	${confirmMap['CONFIRM_DOCUMENT_NO'] }
 	    					</div>
-	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" value="<fmt:formatDate value='${now}' pattern='yyMMdd' />-${empVo.empNo }" />	                
+	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" value="${confirmMap['CONFIRM_DOCUMENT_NO'] }" />	                
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="deptName">
 	                        	부서
 	                        </label><br>
-	                       		${deptVo.name }
+	                       		${empMap['DEPT_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="positionName">
 	                        	직위
 	                        </label><br>
-	                        	${positonVo.positionName }
+	                        	${empMap['POSITION_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6">
 	                    	<label class="form-label" for="deptNo">
@@ -213,7 +132,11 @@
 					            <option value="0">부서 선택</option>
 					            <c:if test="${!empty deptList }">
 	                        	<c:forEach var="deptVo" items="${deptList }">
-					                <option value="${deptVo.deptNo}">${deptVo.name }</option>
+					                <option value="${deptVo.deptNo}" 
+						                <c:if test="${deptAgreeMap['DEPT_NO']==deptVo.deptNo}">
+						                	selected="selected"
+						                </c:if>
+					                >${deptVo.name }</option>
 				                </c:forEach>
 				                </c:if>
 	                        </select>
@@ -223,7 +146,7 @@
 	                        	참조자
 	                        </label>
 	                        <a href="#" onclick="selectRefer()">
-	                        	<span class="badge rounded-pill text-bg-primary" id="referSpan">
+	                        	<span class="badge rounded-pill text-bg-primary" >
 	                        		선택
 	                        	</span>
 	                        </a>
@@ -235,13 +158,13 @@
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="startDate">시작일</label>
 	                        <div>
-	                    		<input type="date" name="startDate" id="startDate" onchange="startDateChange()">
+	                    		<input type="date" name="startDate">
 	                    	</div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="endDate">종료일</label>
 	                        <div>
-	                    		<input type="date" name="endDate" id="endDate" onchange="endDateChange()">
+	                    		<input type="date" name="endDate">
 	                    	</div>
 	                    </div>
 	                    <div class="col-12">
@@ -292,4 +215,18 @@
 </div>
 <input name="confirmLineNo" id="confirmLineNo" type="hidden"/>
 </form>
-<%@ include file = "../inc/bottom.jsp" %>
+	<!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="<c:url value='/vendors/popper/popper.min.js'/>"></script>
+    <script src="<c:url value='/vendors/bootstrap/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/vendors/anchorjs/anchor.min.js'/>"></script>
+    <script src="<c:url value='/vendors/is/is.min.js'/>"></script>
+    <script src="<c:url value='/vendors/echarts/echarts.min.js'/>"></script>
+    <script src="<c:url value='/vendors/fontawesome/all.min.js'/>"></script>
+    <script src="<c:url value='/vendors/lodash/lodash.min.js'/>"></script>
+    <script src="<c:url value='https://polyfill.io/v3/polyfill.min.js?features=window.scroll'/>"></script>
+    <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
+    <script src="<c:url value='/assets/js/theme.js'/>"></script>
+</body>
+</html>

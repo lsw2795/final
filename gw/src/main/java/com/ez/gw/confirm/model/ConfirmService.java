@@ -24,4 +24,5 @@ public interface ConfirmService {
 	List<Map<String, Object>> selectAllReturn (ConfirmVO vo);
 	int getTotalReturnRecord (ConfirmVO vo);
 	int getTotalAgreeRecordMain (ConfirmVO vo);
+	int returnConfirmAndDept(ConfirmVO vo);
 }
