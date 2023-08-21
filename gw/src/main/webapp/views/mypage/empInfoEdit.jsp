@@ -207,16 +207,19 @@ function btnpwdEdit(empNo){
 	                      </div>
 				    	</div>
 					</div>
-					<c:if test="${!empty map['CLUB_NO']}">
 						<div class="row mb-3 d-flex align-items-center">
 						    <div class="col-md-auto mypageempdiv5">
 								<label class="col-form-label mypageemplabel" for="">동호회</label>
 							</div>
 							<div class="col-md-6"> 
-								<span class="mypageempspan">${map['CLUB_NO']}</span>
+								<c:if test="${empty map['CLUB_NO']}">
+									<span class="mypageempspan">미가입</span>
+								</c:if>
+								<c:if test="${!empty map['CLUB_NO']}">
+									<span class="mypageempspan">${map['TITLE']}</span>
+								</c:if>
 							</div>
 						</div>
-					</c:if>
 					<div style="text-align: center;">
 					<input type="submit" value="수정" id="empWrite" class="btn btn-primary"/>
 					<input type="button" value="취소" class="btn btn-secondary"/>

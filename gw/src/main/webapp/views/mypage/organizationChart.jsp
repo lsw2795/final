@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/paging.js'/>"></script>
 <script type="text/javascript">
 $(function(){
     $('.btnDept').click(function () {
@@ -15,12 +16,12 @@ $(function(){
     });   
     
     $('#btnSearch').click(function(){
-    	performSearch();
+    	$.send(1);
     });
     
     $('input[type=search]').keyup(function(event) {
         if (event.keyCode === 13 || event.key === 'Enter') {
-            performSearch();
+        	$.send(1);
         }
     });
     
@@ -30,14 +31,21 @@ function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
 
-function performSearch(){
+$.send = function(curPage){
+	$('#currentPage').val(curPage);
+	
 	var searchKeyword= $('input[type=search]').val();
-	//alert(searchKeyword);
+	var currentPage=$('#currentPage').val();
+	var countPerPage=$('#countPerPage').val();
 	
 	$.ajax({
     url: "<c:url value='/mypage/ajaxSearchEmp'/>",
     type: "get",
-    data: { searchKeyword: searchKeyword },
+    data:{
+		searchKeyword: searchKeyword,
+		currentPage: currentPage,
+		countPerPage: countPerPage
+	},
     success: function (res) {
         $('#searchemp').empty();
         if (res.length > 0) {
@@ -49,10 +57,14 @@ function performSearch(){
                     "</a><br>";
             });
             $('#searchEmp').empty();
+            $('#divPage').empty();
             $('#searchEmp').append(searchrs + results);
+            $('#totalRecord').val(res.length);
+            pageMake(curPage);
         } else {
             var result = "검색결과가 없습니다.";
             $('#searchEmp').empty();
+            $('#divPage').empty();
             $('#searchEmp').append(result);
         }
     },
@@ -60,6 +72,39 @@ function performSearch(){
         alert(status + " : " + error);
     } 
     });
+}
+
+function pageMake(){
+	   //페이징 처리
+	   var blockSize=10;
+       var countPerPage = $('#countPerPage').val();
+       var currentPage = $('#currentPage').val(); 
+       var totalRecord = $('#totalRecord').val();
+	   
+       pagination(currentPage, countPerPage, blockSize, totalRecord);
+	   //이전 블럭으로
+	   var str="";
+	   if(firstPage>1){
+		   str+="<a href='#' onclick='$.send("+(firstPage-1)+")'>";
+		   str+="<img src='<c:url value='/images/first.JPG'/>'></a>";
+	   }
+	   
+	   //페이지 번호 출력
+	   for(var i=firstPage;i<=lastPage;i++){
+		   if(i==currentPage){
+			   str+="<span style='font-weight: bold; color: blue'>"+ i +"</span>";
+		   }else{
+			   str+="<a href='#' onclick='$.send("+i+")'>["+ i +"]</a>";
+		   }
+	   }//for
+	   
+	   //다음 블럭으로
+	   if(lastPage < totalPage){
+		   str+="<a href='#' onclick='$.send("+(lastPage+1)+")'>";
+		   str+="<img src='<c:url value='/images/last.JPG'/>'></a>"
+	   }
+	   
+	   $('#divPage').html(str);
 }
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -110,6 +155,10 @@ function performSearch(){
 				</button>
 			</div>
 		</div>
+		<input type="text" name="currentPage" id="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
+	    <input type="text" name="countPerPage" id="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
+		<input type="text" id="totalRecord"/>
 		<div id="searchEmp"></div>
+		<div id="divPage"></div>
 		  </div>
 		</div>
