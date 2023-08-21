@@ -193,8 +193,6 @@ public class SecondHandTradeController {
 			int empNo = fg.getEmpNo();
 			emp = employeeService.selectByEmpNo(empNo);
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
-			logger.info("title={}", fg.getTitle());
-			logger.info("regdate={}", fg.getRegdate());
 		}
 
 		// 3
@@ -271,26 +269,29 @@ public class SecondHandTradeController {
 		 String fileName="", originalFileName="";
 		 long fileSize=0;
 		 try {
+			 //1. 파일선택 시 기존파일 삭제
+			 List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+			 
+			 if(list.size()>0) {
+				 for(SecondhandTradeFileVO f: list) {
+					 fileName = f.getImageURL();
+					 String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+					 File file = new File(path, fileName);
+					 if(file.exists()) {
+						 boolean del = file.delete();
+						 logger.info("파일 삭제 여부 - del={}", del);
+					 }
+					 
+					 cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
+					 logger.info("파일 DB 삭제여부 - cnt={}", cnt);
+				 }
+			 }
+			 
+			 
+			 //2. 새로운 파일 등록
 			 MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 			 
 			 List<MultipartFile> file = multiRequest.getFiles("imageURL2");
-			 for(MultipartFile f :file) {
-				// 이미지 파일만 업로드 가능
-				if (!f.getContentType().toLowerCase().endsWith("png")
-						&& !f.getContentType().toLowerCase().endsWith("jpg")&&!f.getContentType().toLowerCase().endsWith("jpeg")) {
-					msg = "이미지 파일만 등록해주세요.";
-					url = "/market/editMarket";
-					
-					// 이전에 입력한 폼 데이터 세션에 저장
-					session.setAttribute("secondVo", secondVo);
-					session.setAttribute("secondFileVo", secondFileVo);
-
-					model.addAttribute("msg", msg);
-					model.addAttribute("url", url);
-
-					return "common/message";
-				}
-			 } //for
 			 
 			 cnt = secondHandTradeService.updateMarket(secondVo);
 			 logger.info("중고거래 수정 완료, cnt={}", cnt);
@@ -310,7 +311,7 @@ public class SecondHandTradeController {
 				 
 				 logger.info("파일명 fileName={}", fileName);
 				 secondFileVo.setImageURL(fileName);
-				 result = secondHandTradeFileService.updateFile(secondFileVo);
+				 result = secondHandTradeFileService.insertFile(secondFileVo);
 				 logger.info("파일 등록 결과, result={}", result);
 			 }
 				 
@@ -406,5 +407,18 @@ public class SecondHandTradeController {
 			result=EmployeeService.PWD_DISAGREE;	//비밀번호 불일치
 		}
 		return result;
+	}
+	
+	@RequestMapping("/ajaxlikeit")
+	@ResponseBody
+	public int likeit(@RequestParam(defaultValue = "0")int tradeNo) {
+		logger.info("ajax - likeit, 파라미터 tradeNo={}", tradeNo);
+		
+		int cnt = secondHandTradeService.updateLike(tradeNo);
+		logger.info("좋아요 결과, cnt={}", cnt);
+		if(cnt>0) {
+			cnt= secondHandTradeService.showLike(tradeNo);
+		}
+		return cnt;
 	}
 }

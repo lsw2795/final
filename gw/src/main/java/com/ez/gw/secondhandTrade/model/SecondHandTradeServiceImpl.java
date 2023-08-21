@@ -66,5 +66,10 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 		return secondHandTradeDao.updateLike(tradeNo);
 	}
 
+	@Override
+	public int showLike(int tradeNo) {
+		return secondHandTradeDao.showLike(tradeNo);
+	}
+
 	
 }

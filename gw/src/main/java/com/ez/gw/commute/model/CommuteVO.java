@@ -10,4 +10,5 @@ public class CommuteVO {
 	private int commuteState; //근태 상태
 	private int empNo; //사원번호
 	
+	
 }

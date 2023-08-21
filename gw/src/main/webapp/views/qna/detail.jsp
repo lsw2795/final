@@ -55,7 +55,14 @@
                   <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
                     <div class="d-flex align-items-center gap-2"><a href="../../app/support-desk/contact-details.jsp">
                         <div class="avatar avatar-2xl">
-                          <img class="rounded-circle" src="../../assets/img/../../assets/img/team/1-thumb.png" alt="" />
+                        	<c:if test="${!empty map['IMAGE']}">
+                         		<img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="글쓴 사원 이미지" />
+                        	</c:if>
+   	                    	<c:if test="${empty map['IMAGE']}">
+		                        <div class="avatar avatar-2xl">
+		                          <img class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
+		                        </div>
+	                        </c:if>
                         </div>
                       </a>
                       <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${map['NAME']}</a><a class="mb-0 fs--1 d-block text-500" href="mailto:emma@watson.com">${map['EMAIL']}</a></p>
@@ -81,11 +88,17 @@
                   <!-- 답변 반복 시작 -->
                   <c:forEach var="replyMap" items="${replyList}">
 	                  <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
-	                    <div class="d-flex align-items-center gap-2"><a href="../../app/support-desk/contact-details.jsp">
-	                        <div class="avatar avatar-2xl">
-	                          <img class="rounded-circle" src="../../assets/img/../../assets/img/team/2-thumb.png" alt="" />
-	
-	                        </div>
+	                    <div class="d-flex align-items-center gap-2">
+	                    	<c:if test="${!empty replyMap['IMAGE']}">
+		                        <div class="avatar avatar-2xl">
+		                          <img class="rounded-circle" src="<c:url value='/images/${replayMap["IMAGE"]}'/>"  />
+		                        </div>
+	                        </c:if>
+   	                    	<c:if test="${empty replyMap['IMAGE']}">
+		                        <div class="avatar avatar-2xl">
+		                          <img class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
+		                        </div>
+	                        </c:if>
 	                      </a>
 	                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${replyMap['NAME']}</a>
 	                      <a class="mb-0 fs--1 d-block text-500" href="mailto:mike@support.com">${replyMap['EMAIL']}</a></p>
