@@ -4,5 +4,10 @@
 
 <mapper namespace="com.ez.gw.commute.model.CommuteDAO">
 
+	<select id="selectCommuteByEmpNo" parameterType="int" resultType="commuteVo">
+		select * from commute
+		where emp_no=1
+	</select>
+
 
 </mapper>
