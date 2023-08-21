@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
 var IMP = window.IMP;
-IMP.init('가맹점 식별코드');
+IMP.init('imp73002547');
 IMP.request_pay({
     pg : 'inicis',
     pay_method : 'card', //카드결제
     merchant_uid : 'merchant_' + new Date().getTime(),
-    name : '주문명:결제테스트',
-    amount : 12000, //판매가격
+    name : '동호회 가입 및 회비 결제',
+    amount : 10000, //판매가격
     buyer_email : '구매자 아이디',
     buyer_name : '구매자 이름',
     buyer_tel : '연락처',
@@ -28,7 +29,7 @@ IMP.request_pay({
         
     } else {
         var msg = '결제에 실패하였습니다.';
-        msg += '에러내용 : ' + rsp.error_msg;
+        msg += 'error : ' + rsp.error_msg;
         
         location.href="goods_pay_fail.do?error_msg="+rsp.error_msg;
     }
