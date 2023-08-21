@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
+<style>
+  .avatar img {
+    size: 10px;
+  }
+</style>
 
  <div class="row gx-3">
             <h2>Q&A 게시판</h2>
@@ -88,9 +93,19 @@
 	                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
 	                            <div class="d-flex align-items-center gap-2 position-relative">
 	                              <div class="avatar avatar-xl">
-	                                <div class="avatar-name rounded-circle"><span>${map['ENAME']}</span></div>
-	                              </div>
-	                              <h6 class="mb-0"><span>${map['NAME']}</span></h6>
+									  <c:if test="${!empty map['IMAGE']}">
+									    <div class="avatar-name rounded-circle">
+									      <img src="<c:url value='/images/${map["IMAGE"]}'/>" alt="no">
+									    </div>
+									  </c:if>
+									  
+									  <c:if test="${empty map['IMAGE']}">
+									    <div class="avatar avatar-2xl">
+									      <img style="position:relative; right: 5px;" class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
+									    </div>
+									  </c:if>
+								 </div>
+							     <h6 class="mb-0"><span>${map['NAME']}</span></h6>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle phone-number font-sans-serif white-space-nowrap"><span>사원</span></td>
