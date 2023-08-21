@@ -18,7 +18,7 @@
 	               
 	               if($('#adminPwdChkFlag').val()>0){
 	                  	  alert("관리자 확인이 완료되었습니다.");
-	                  	 $('#staticBackdrop').modal('hide'); 
+	                  	 $('#authentication-modal').modal('hide'); 
 	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
 	                     $('#empWrite').show();    // empWrite 버튼 보이기
 	               }else{
@@ -33,15 +33,15 @@
 	});
 </script>
 <c:if test="${!empty param.empNo}">
-	<c:set var="pageTitle" value="사원 정보 수정" />
-	<c:set var="btLabel" value="수정" />
-	<c:set var="url" value="/admin/employee/employeeEdit" />
-	<c:set var="empNo" value="${param.empNo}" />	
+	<c:set var="pageTitle" value="수정"/>
+	<c:set var="btLabel" value="수정"/>
+	<c:set var="url" value="/admin/employee/employeeEdit"/>
+	<c:set var="empNo" value="${param.empNo}"/>	
 </c:if>
 <c:if test="${empty param.empNo}">
-	<c:set var="pageTitle" value="사원 정보 등록" />
-	<c:set var="btLabel" value="등록" />
-	<c:set var="url" value="/admin/employee/employeeRegister" />
+	<c:set var="pageTitle" value="등록"/>
+	<c:set var="btLabel" value="등록"/>
+	<c:set var="url" value="/admin/employee/employeeRegister"/>
 	<c:set var="empNo" value="0" />	
 </c:if>
 
@@ -49,7 +49,7 @@
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
-				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>${pageTitle }</h5>
+				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>사원 정보 ${pageTitle }</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
@@ -261,8 +261,18 @@
 		                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
 						</div>
 					</div>
+					<c:if test="${!empty param.empNo}">
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto adminempdiv3">
+					        <label class="col-form-label adminemplabel" for="name">결혼 여부</label>
+					    </div>
+					    <div class="col-md-6">
+					       <span class="adminempspan">${map['MARRIED']}</span>
+					    </div>
+					</div>
+					</c:if>
 					<div style="text-align: center;">
-						<input type="button" id="confirmForm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="${btLabel}" class="btn btn-primary"/>
+						<input type="button" id="confirmForm" data-bs-toggle="modal" data-bs-target="#authentication-modal" value="${btLabel}" class="btn btn-primary"/>
 						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
 						<input type="button" value="취소" class="btn btn-secondary"/>
 					</div>

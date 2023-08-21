@@ -13,7 +13,10 @@ function btnpwdEdit(empNo){
 	<div class="col-lg-12 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header">
-				<h5 class="mb-0"><span class="fas fa-user" style="margin: 0 10px;"></span>내 정보 수정</h5>
+				<h5 class="mb-0"><span class="fas fa-user" style="margin: 0 10px;"></span>
+				내 정보 수정
+				</h5>
+				<small>개명 등의 기타 수정사항은 인사팀에 문의 바랍니다.</small>
 			</div>
 			<div class="card-body py-2">
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
@@ -216,7 +219,7 @@ function btnpwdEdit(empNo){
 					</c:if>
 					<div style="text-align: center;">
 					<input type="submit" value="수정" id="empWrite" class="btn btn-primary"/>
-					<input type="button" value="취소" class="btn btn-primary"/>
+					<input type="button" value="취소" class="btn btn-secondary"/>
 					</div>
 					<!-- hidden 처리 인풋태그들 -->
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
