@@ -7,11 +7,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
-
 <div id='calendar'></div>
 
-
 <script>
+
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -33,7 +32,7 @@
 		});
 		calendar.render();
 	});
+	
 </script>
-
 
 <%@ include file="../inc/bottom.jsp"%>
