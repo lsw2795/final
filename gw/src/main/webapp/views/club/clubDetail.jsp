@@ -87,10 +87,13 @@
                   <h5 class="mb-2 mb-md-0">동호회 소개</h5>
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-sm btn-primary me-2" id="payment" onclick="requestPay()" type="button">가입</button>
-                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">
-                  	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">게시판 바로가기</a>
-                  </button>
+              		<button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+                  	<c:if test="${sessionScope.empNo==clubVo.clubNo}">
+	                  	<a href="<c:url value='/club/editClub?clubNo=${clubVo.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
+	                  	<button onclick="deleteQna()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+			            	<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+		                </button>
+                  	</c:if>
                 </div>
               </div>
             </div>
@@ -100,6 +103,7 @@
                 <div class="card-header">
                   <h5 class="mb-0">Introduce Club</h5>
                 </div>
+                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                 <div class="card-body bg-light">
                 	<input type="hidden" name="clubNo" id="clubNo" value="${param.clubNo}">
                     <div class="row gx-2">
@@ -128,15 +132,18 @@
           </div>
           <div class="card mb-3">
             <div class="card-body">
-              <div class="row row flex-between-center">
-              <div class="col-md">
-                  <h5 class="mb-2 mb-md-0"></h5>
-                </div>
-                <div class="col-auto mb-0">
-                </div>
-                <div class="col-md">
-                  <h5 class="mb-2 mb-md-0"></h5>
-                </div>
+              <div class="row flex-between-center">
+	              <div class="col-md">
+	                  <h5 class="mb-2 mb-md-0"></h5>
+	              </div>
+	                <div class="col-auto mb-0">
+	                <div class="col-auto">
+	                  <button class="btn btn-sm btn-primary me-2" id="payment" onclick="requestPay()" type="button">가입</button>
+	                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">
+	                  	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">게시판 바로가기</a>
+	                  </button>
+                	</div>
+	               </div>
               </div>
             </div>
 	              </div>

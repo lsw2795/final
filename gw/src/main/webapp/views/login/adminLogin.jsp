@@ -76,7 +76,7 @@
           }
         </script>
         <div class="row flex-center min-vh-100 py-6">
-          <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4" href="<c:url value='/view/index.jsp'/>"><img src="<c:url value='/title.png'/>" alt="타이틀로고" width="300"/></a>
+          <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4" href="<c:url value='/admin/adminLogin'/>"><img src="<c:url value='/title.png'/>" alt="타이틀로고" width="300"/></a>
             <div class="card">
               <div class="card-body p-4 p-sm-5">
                 <div class="row flex-between-center mb-2">

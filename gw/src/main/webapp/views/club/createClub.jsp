@@ -31,6 +31,7 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
+		          <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
                   <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>
@@ -42,7 +43,6 @@
                   <h5 class="mb-0">Create Club</h5>
                 </div>
                 <div class="card-body bg-light">
-                	<input type="hidden" name="clubNo" id="clubNo" value="${vo.clubNo}">
                     <div class="row gx-2">
                     <div class="col-sm-6 mb-3">
                         <label class="form-label" for="managr">동호회장</label>

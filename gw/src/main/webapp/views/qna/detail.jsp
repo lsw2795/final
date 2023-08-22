@@ -31,7 +31,7 @@
                     <c:if test="${sessionScope.empNo==map['EMP_NO'] }">
 	                    <a href="<c:url value='/qna/edit?boardNo=${map.BOARD_NO}'/>">
     	                	<button class="btn btn-falcon-default btn-sm" type="button">
-        	            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
+        	            		<span class="fas fa-pen" data-fa-transform="shrink-2 down-1"></span>
             	        		<span class="d-none d-md-inline-block ms-1">질문 수정</span>
                 	    	</button>
                    		</a>
