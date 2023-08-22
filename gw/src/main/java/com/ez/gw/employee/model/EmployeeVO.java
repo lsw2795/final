@@ -37,8 +37,14 @@ public class EmployeeVO {
         SimpleDateFormat yearFormat = new SimpleDateFormat("yy");
         String year = yearFormat.format(today);
 
-        // sequenceValue를 4자리 숫자 형식으로 변환
-        String formattedSequence = String.format("%04d", sequenceValue);
+        // sequenceValue를 4자리 숫자 형식으로 변환 (뒷자리 4자리만 사용, 시퀀스 1만이상 넘어갈 때 4자리 변환)
+        String sequenceValueStr = String.valueOf(sequenceValue);
+        String formattedSequence="";
+        if(sequenceValue>=10000) {
+        	formattedSequence = sequenceValueStr.substring(Math.max(sequenceValueStr.length() - 4, 0));
+        }else{
+        	formattedSequence = String.format("%04d", sequenceValue);
+        }
 
         // 연도와 sequenceValue를 결합하여 combinedEmpNo 생성
         this.combinedEmpNo = year + formattedSequence;
