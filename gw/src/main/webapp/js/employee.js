@@ -238,13 +238,6 @@
 			return false;
 		}
 		
-		if (!validate_num($("#hiredate").val())) {
-			alert("입사일은 숫자만 입력 가능합니다.");
-			$("#hiredate").focus();
-			return false;
-		}
-		
-		
 		if (!validate_num($("#jumin1").val())
 				|| !validate_num($("#jumin2").val())) {
 			alert("주민번호는 숫자만 입력 가능합니다.");

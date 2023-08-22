@@ -13,6 +13,7 @@ public interface EmployeeDAO {
 	List<EmployeeVO> selectAllEmp();
 	String selectPwd(int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); //관리자 로그인여부
+	int getNextSequenceValue(); // EMPLOYEE_SEQ.nextval을 얻어오는 메서드(DAO만 등록)
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	int updateFindPwd(EmployeeVO empVo) throws Exception; //사원 비번 찾기

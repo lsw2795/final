@@ -56,6 +56,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int insertEmp(EmployeeVO vo) {
+		int sequenceValue = employeeDao.getNextSequenceValue();
+		vo.generateCombinedEmpNo(sequenceValue);
 		return employeeDao.insertEmp(vo);
 	}
 
