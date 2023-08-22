@@ -15,4 +15,9 @@
 		select * from confirm_file
 		where confirm_document_no=#{confirmDocumentNo}
 	</select>
+	
+	<delete id="deleteFile" parameterType="string">
+		delete from confirm_file
+		where fileName=#{fileName}
+	</delete>
 </mapper>

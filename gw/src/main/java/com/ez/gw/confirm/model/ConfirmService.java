@@ -6,7 +6,8 @@ import java.util.Map;
 import com.ez.gw.deptagree.model.DeptagreeVO;
 
 public interface ConfirmService {
-	int insertConfirm(ConfirmVO vo,DeptagreeVO deptAgreeVo,int[] reperEmpNo,List<Map<String, Object>> fileList);
+	int insertConfirm(ConfirmVO vo,DeptagreeVO deptAgreeVo,int[] referEmpNo,List<Map<String, Object>> fileList);
+	int updateConfirm(ConfirmVO vo,DeptagreeVO deptAgreeVo,int[] referEmpNo,String[] deleteFile,List<Map<String, Object>> fileList);
 	List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo);
 	int getTotalRecord(ConfirmVO vo);
 	List<Map<String, Object>> selectAllConfirmDocument(ConfirmVO vo);

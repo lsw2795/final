@@ -62,6 +62,11 @@
 		$("#memLimitflag").val('N').prop("selected", false);
 	});
 	
+	function deleteClub() {
+		if(confirm("동호회를 삭제하시겠습니까?")){
+			location.href = "<c:url value='/club/delete?clubNo=${param.clubNo}'/>"
+		}
+	}
 </script>
 
 <html data-bs-theme="light" lang="en-US" dir="ltr">
@@ -86,12 +91,17 @@
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">동호회 소개</h5>
                 </div>
+                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                 <div class="col-auto">
               		<button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
-                  	<c:if test="${sessionScope.empNo==clubVo.clubNo}">
-	                  	<a href="<c:url value='/club/editClub?clubNo=${clubVo.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
-	                  	<button onclick="deleteQna()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
-			            	<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+                  	<c:if test="${sessionScope.empNo==clubVo.empNo}">
+	                  	<a href="<c:url value='/club/clubEdit?clubNo=${clubVo.clubNo }'/>">
+	                  		<button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button">
+	                  			<span class="fas fa-pen" ></span>
+	                  		</button>
+	                  	</a>
+	                  	<button onclick="deleteClub()" class="btn btn-falcon-default btn-sm mx-2" type="button">
+			            	<span class="fas fa-trash-alt"></span>
 		                </button>
                   	</c:if>
                 </div>
@@ -103,7 +113,6 @@
                 <div class="card-header">
                   <h5 class="mb-0">Introduce Club</h5>
                 </div>
-                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                 <div class="card-body bg-light">
                 	<input type="hidden" name="clubNo" id="clubNo" value="${param.clubNo}">
                     <div class="row gx-2">

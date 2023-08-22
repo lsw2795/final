@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('먼저 로그인하세요!');");
-			out.print("location.href='"+ request.getContextPath() +"/gw';");			
+			out.print("location.href='"+ request.getContextPath() +"/';");			
 			out.print("</script>");
 			
 			return false;

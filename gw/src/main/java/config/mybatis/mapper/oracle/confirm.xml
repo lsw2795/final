@@ -324,4 +324,13 @@
 		update confirm
 		<include refid="stateSetByClick"></include>
 	</update>
+	
+	<update id="updateConfirm" parameterType="confirmVo">
+		update confirm
+		set confirm_title=#{confirmTitle},confirm_content=#{confirmContent},update_date=sysdate,
+			review_date=null,confirm_date=null,complete_date=null,start_date=#{startDate},
+			end_date=#{endDate},confirm_state=1,document_no=#{documentNo},confirm1=#{confirm1},
+			confirm2=#{confirm2},confirm3=#{confirm3}
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
 </mapper>
