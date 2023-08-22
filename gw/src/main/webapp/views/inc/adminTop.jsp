@@ -78,11 +78,11 @@
             }
           </script>
           <div class="d-flex align-items-center">
-            <div class="toggle-icon-wrapper">
+           <!-- <div class="toggle-icon-wrapper">
               <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation">
               	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
               </button>
-            </div>
+            </div> 토글 버튼 봉인-->
             <a class="navbar-brand" href="index.jsp">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/adminfinallogo.png'/>" alt="" width="150" />

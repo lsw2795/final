@@ -5,6 +5,7 @@ const prevMonth = dayjs && dayjs().subtract(1, "month").format("MM");
 const nextMonth = dayjs && dayjs().add(1, "month").format("MM");
 const currentYear = dayjs && dayjs().format("YYYY");
 const events = [
+	
   {
     title: "Boot Camp",
     start: `${currentYear}-${currentMonth}-01 10:00:00`,

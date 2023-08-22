@@ -124,6 +124,13 @@
 			<version>1.5</version>
 		</dependency>-->
 		
+		<!-- 아임포트 REST API연동 모듈 -->
+		<!--<dependency>
+		    <groupId>com.github.iamport</groupId>
+		    <artifactId>iamport-rest-client-java</artifactId>
+		    <version>0.2.14</version>
+		</dependency>-->
+
 	</dependencies>
 
 	<build>

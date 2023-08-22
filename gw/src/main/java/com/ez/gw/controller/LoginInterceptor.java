@@ -21,16 +21,16 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//컨트롤러 수행이전에 먼저 수행되는 메서드
 		//클라이언트의 요청을 컨트롤러에 전달하기 전에 호출됨
 		
-		String userid=(String) request.getSession().getAttribute("userid");		
-		logger.info("preHandle() 호출!, userid={}", userid);
+		int empNo=(int)request.getSession().getAttribute("empNo");
+		logger.info("preHandle() 호출!, empNo={}", empNo);
 
 		//로그인되지 않은 경우 처리
-		if(userid==null || userid.isEmpty()) {
+		if(empNo==0) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("alert('먼저 로그인하세요!');");
-			out.print("location.href='"+ request.getContextPath() +"/login/login';");			
+			out.print("location.href='"+ request.getContextPath() +"/gw';");			
 			out.print("</script>");
 			
 			return false;
@@ -44,14 +44,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		logger.info("postHandle() 호출!");
-
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		logger.info("afterCompletion() 호출!");
-
 	}
 
 }

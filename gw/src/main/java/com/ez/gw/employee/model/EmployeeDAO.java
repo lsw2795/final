@@ -22,5 +22,6 @@ public interface EmployeeDAO {
 	int getTotalRecord(SearchVO searchVo); //사원, 관리자 전체 레코드 조회 (organizationChartView 이용)
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
+	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 }
 
