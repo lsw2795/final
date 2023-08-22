@@ -92,7 +92,7 @@ div#updateBtn {
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
                  	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
-                 	  <input type = "text" name="empNo" value="${sessionScope.empNo }">
+                 	  <input type = "text" id="empNo" name="empNo" value="${sessionScope.empNo }">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 

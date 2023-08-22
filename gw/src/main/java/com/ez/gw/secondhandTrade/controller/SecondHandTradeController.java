@@ -414,8 +414,8 @@ public class SecondHandTradeController {
 	
 	@RequestMapping("/ajaxlikeit")
 	@ResponseBody
-	public int likeit(@RequestParam(defaultValue = "0")int tradeNo, HttpSession session) {
-		int empNo = (int)session.getAttribute("empNo");
+	public int likeit(@RequestParam(defaultValue = "0")int tradeNo, @RequestParam(defaultValue = "0")int empNo,
+			HttpSession session) {
 		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
 		
 		int cnt = secondHandLikeService.findLike(empNo, tradeNo);
@@ -427,6 +427,8 @@ public class SecondHandTradeController {
 			result = 2; 
 		}else {
 			SecondhandTradeLikeVO like = new SecondhandTradeLikeVO();
+			like.setEmpNo(empNo);
+			like.setTradeNo(tradeNo);
 			cnt = secondHandLikeService.likeHeart(like);
 			logger.info("좋아요 결과, cnt = {}", cnt);
 			result = 1;
