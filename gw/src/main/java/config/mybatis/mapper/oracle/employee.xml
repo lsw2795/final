@@ -128,5 +128,4 @@
 		where emp_no=#{empNo}
 	</update>
 	
-	
 </mapper>

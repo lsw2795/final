@@ -1,8 +1,10 @@
 package com.ez.gw.confirm.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -88,42 +90,6 @@ public class ConfirmController {
     	return "approval/approvalWrite";
     }
     
-    @GetMapping("/approvalEdit")
-    public String approvalEdit_get(@RequestParam String confirmDocumentNo, Model model,HttpSession session ) {
-    	//1
-    	logger.info("결재문서 수정 페이지");
-    	
-    	//2
-    	int empNo=(int)session.getAttribute("empNo");
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
-    	logger.info("결재 양식 리스트 formList.size={}",formList.size());
-    	
-    	List<DeptVO> deptList = deptService.selectAllDept();
-    	logger.info("부서 리스트 deptList={}",deptList.size());
-    	
-    	Map<String, Object> confirmMap = confirmService.selectConfirmDocument(confirmDocumentNo);
-    	logger.info("수정 문서 조회 confirmMap={}",confirmMap);
-    	
-    	Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
-    	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
-    	
-    	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
-    	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
-    	
-    	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
-    	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
-    	
-    	//3
-    	model.addAttribute("formList",formList);
-    	model.addAttribute("deptList",deptList);
-    	model.addAttribute("confirmMap",confirmMap);
-    	model.addAttribute("empMap",empMap);
-    	model.addAttribute("referEmpList",referEmpList);
-    	model.addAttribute("deptAgreeMap",deptAgreeMap);
-    	
-    	return "approval/approvalEdit";
-    }
-    
     @PostMapping("/approvalWrite")
     public String approvalWrite_post(HttpSession session,HttpServletRequest request, @ModelAttribute ConfirmVO confirmVo,
     		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] referEmpNo,@RequestParam(required = false) int confirmLineNo, Model model) {
@@ -158,6 +124,111 @@ public class ConfirmController {
     	String msg="결재 작성 처리 중 에러가 발생했습니다.", url="/approval/approvalWrite";
     	if(cnt>0) {
     		msg="결재 작성 처리가 완료되었습니다.";
+    	}
+    	
+    	//3
+    	model.addAttribute("msg",msg);
+    	model.addAttribute("url",url);
+    	
+    	return "common/message";
+    }
+    
+    @GetMapping("/approvalEdit")
+    public String approvalEdit_get(@RequestParam String confirmDocumentNo, Model model,HttpSession session ) {
+    	//1
+    	logger.info("결재문서 수정 페이지");
+    	
+    	//2
+    	int empNo=(int)session.getAttribute("empNo");
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	logger.info("결재 양식 리스트 formList.size={}",formList.size());
+    	
+    	List<DeptVO> deptList = deptService.selectAllDept();
+    	logger.info("부서 리스트 deptList={}",deptList.size());
+    	
+    	Map<String, Object> confirmMap = confirmService.selectConfirmDocument(confirmDocumentNo);
+    	logger.info("수정 문서 조회 confirmMap={}",confirmMap);
+    	
+    	Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
+    	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
+    	
+    	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
+    	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
+    	
+    	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
+    	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
+    	
+    	List<ConfirmFileVO> fileList=confirmFileService.selectAllFileByDocumentNo(confirmDocumentNo);
+    	logger.info("첨부파일 조회 결과 deptAgreeMap={}",fileList);
+    	
+    	//보여질 파일명
+    	List<String> fileInfoArr = new ArrayList<>(); 
+		for(ConfirmFileVO vo : fileList) {
+			long fileSize = vo.getFileSize();
+			String fileName = vo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("deptList",deptList);
+    	model.addAttribute("confirmMap",confirmMap);
+    	model.addAttribute("empMap",empMap);
+    	model.addAttribute("referEmpList",referEmpList);
+    	model.addAttribute("deptAgreeMap",deptAgreeMap);
+    	model.addAttribute("fileList",fileList);
+    	model.addAttribute("fileInfoArr",fileInfoArr);
+    	
+    	return "approval/approvalEdit";
+    }
+    
+    @PostMapping("/approvalEdit")
+    public String approvalEdit_post(HttpSession session,HttpServletRequest request, @ModelAttribute ConfirmVO confirmVo,
+    		@ModelAttribute DeptagreeVO deptAgreeVo,@RequestParam(required = false) int[] referEmpNo,
+    		@RequestParam(defaultValue = "0") int confirmLineNo,@RequestParam(required = false) String[] deleteFile, Model model) {
+    	//1
+    	logger.info("문서 수정 처리 파라미터 confirmVo={}",confirmVo);
+    	logger.info("문서 수정 처리 파라미터 합의부서 deptAgreeVo={}",deptAgreeVo);
+    	logger.info("문서 수정 처리 파라미터 참조자 reperEmpNo={}",referEmpNo);
+    	logger.info("문서 수정 처리 파라미터 결재라인 confirmLineNo={}",confirmLineNo);
+    	logger.info("문서 수정 처리 파라미터 삭제파일 deleteFile={}",deleteFile);
+    	
+    	//2
+    	//첨부파일 처리
+    	List<Map<String, Object>> fileList = new ArrayList<>();
+    	try {
+    		fileList = fileUploadUtil.fileupload(request,ConstUtil.CONFIRMFILE_FLAG);
+    		logger.info("문서 수정 처리 첨부파일 fileList={}",fileList.size());
+    	} catch (IllegalStateException e) {
+    		e.printStackTrace();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	if(confirmLineNo!=0) {
+    		ConfirmLineVO lineVo = confirmLineService.selectByConfirmLineNo(confirmLineNo);
+    		confirmVo.setConfirm1(lineVo.getConfirm1());
+    		confirmVo.setConfirm2(lineVo.getConfirm2());
+    		confirmVo.setConfirm3(lineVo.getConfirm3());
+    	}
+    	
+    	int cnt=confirmService.updateConfirm(confirmVo,deptAgreeVo,referEmpNo,deleteFile,fileList);
+    	logger.info("수정 처리 결과 cnt={}",cnt);
+    	
+    	
+    	String msg="결재 수정 처리 중 에러가 발생했습니다.", url="/approval/approvalDetail?confirmDocumentNo="+confirmVo.getConfirmDocumentNo();
+    	if(cnt>0) {
+    		msg="수정 처리가 완료되었습니다.";
+    		
+    		if(deleteFile!=null) {
+    			for(int i=0; i<deleteFile.length; i++) {
+    				File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), deleteFile[i]);
+    				if(f.exists()) {
+    					boolean result = f.delete();
+    					logger.info("파일 삭제 여부 result={}", result);
+    				}
+    			}//for
+			}//if
     	}
     	
     	//3

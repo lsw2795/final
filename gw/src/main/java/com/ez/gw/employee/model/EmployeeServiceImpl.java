@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ez.gw.common.SearchVO;
@@ -19,6 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	private final EmployeeDAO employeeDao;
 	private final ReferDAO referDao;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public EmployeeVO selectByEmpNo(int empNo) {
@@ -32,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		if(dbPwd==null || dbPwd.isEmpty()) {
 			result=EmployeeService.EMPNO_NONE;
 		}else {
-			if(dbPwd.equals(pwd)) {
+			if(passwordEncoder.matches(pwd, dbPwd)) {
 				result=EmployeeService.LOGIN_OK;			
 			}else {
 				result=EmployeeService.PWD_DISAGREE;								
@@ -121,6 +123,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int gTRSearchEmp(SearchVO searchVo) {
 		return employeeDao.gTRSearchEmp(searchVo);
 	}
+
+
 
 
 }
