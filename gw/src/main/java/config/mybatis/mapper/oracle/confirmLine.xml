@@ -16,6 +16,11 @@
 		where constructor=#{constructor}
 	</select>
 	
+	<select id="selectByConfirmLineNo" parameterType="int" resultType="confirmLineVo">
+		select * from confirmline
+		where confirm_line_no=#{confirmLineNo}
+	</select>
+	
 	<delete id="deleteLine" parameterType="int">
 		delete from confirmline
 		where confirm_line_no=#{confirmLineNo}

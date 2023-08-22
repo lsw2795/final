@@ -10,4 +10,5 @@ public interface ConfirmLineDAO {
 	int insertConfirmLine(ConfirmLineVO vo);
 	List<Map<String, Object>> selectByEmpNo(int empNo);
 	int deleteLine(int confirmLineNo);
+	ConfirmLineVO selectByConfirmLineNo(int confirmLineNo);
 }

@@ -16,4 +16,10 @@
 		set deptagree_date=sysdate,agreement_state=10
 		where confirm_document_no=#{confirmDocumentNo}
 	</update>
+	
+	<update id="returnDeptAgree" parameterType="string">
+		update deptagree
+		set deptagree_date=null,agreement_state=9
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
 </mapper>

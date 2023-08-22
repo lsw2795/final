@@ -119,7 +119,7 @@
     </style>
 </head>
 <body>
-	<div class="row gx-2 m-5">
+	<div class="row gx-2 m-5" style="min-height: 600px;">
 		<div class="col-sm-12 ">
 			<div class="row gx-2 mb-3" style="float: right;">
 				<div class="col-auto" align="center">

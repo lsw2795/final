@@ -50,8 +50,33 @@
 		   		}
 		   	});
 		}
+		
+		function clickReturn(){
+			var confirmDocumentNo=$('#confirmDocumentNo').val();
+			var searchKeyword=$('#searchKeyword').val();
+			$.ajax({
+		    	url:"<c:url value='/approval/returnConfirmAjax'/>",
+		   		type:"post",
+		   		dataType:"text",
+		   		data:{
+		   			confirmDocumentNo:confirmDocumentNo,
+		   			searchKeyword:searchKeyword
+		   		},
+		   		success:function(res){
+		   			alert(res);
+		   			window.close();
+		   			window.opener.location.reload();
+		    	},error:function(xhr, status, error){
+		    		alert(status+" : "+error);
+		   		}
+		   	});
+		}
+		
+		function edit(no){
+			location.href="<c:url value='/approval/approvalEdit?confirmDocumentNo="+no+"'/>";
+		}
 </script>
-<!-- ===============================================-->
+	<!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -78,19 +103,22 @@
 						<div class="col-sm-10 pt-1" align="right">
 							<c:if test="${confirmMap['CONFIRM1']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==1 or confirmMap['CONFIRM_STATE']==2)}">
 			                    <button class="form-control btn btn-primary" id="review" onclick="clickUpdate()" style="width: 100px">검토</button>
-			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
+			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
 		                    <c:if test="${confirmMap['CONFIRM2']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==3 or confirmMap['CONFIRM_STATE']==4)}">
 			                    <button class="form-control btn btn-primary" id="confirm" onclick="clickUpdate()" style="width: 100px">확인</button>
-			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
+			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
 		                    <c:if test="${confirmMap['CONFIRM3']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==5 or confirmMap['CONFIRM_STATE']==6)}">
 			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">승인</button>
-			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
+			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
 		                    <c:if test="${deptAgreeMap['MANAGER']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==7 or confirmMap['CONFIRM_STATE']==8)}">
 			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">합의</button>
-			                    <button class="form-control btn btn-primary" id="return" style="width: 100px">반려</button>
+			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
+		                    </c:if>
+		                    <c:if test="${confirmMap['EMP_NO']==sessionScope.empNo and confirmMap['CONFIRM_STATE']==9}">
+			                    <button class="form-control btn btn-primary" id="edit" onclick="edit('${confirmMap['CONFIRM_DOCUMENT_NO'] }')" style="width: 100px">수정</button>
 		                    </c:if>
 						</div>
 					</div>
@@ -111,9 +139,7 @@
 				        	<label class="form-label mb-0">
 				               	검토일
 				            </label><br>
-				            <div id="confirmDate">
-				            	<fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
-			                </div>
+				            <fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label mb-0">
@@ -124,10 +150,8 @@
 		                <div class="col-sm">
 				            <label class="form-label mb-0">
 				               	결재일
-				            </label>
-				            <div id="completeDate">
+				            </label><br>
 				            <fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yyyy-MM-dd" />
-				            </div>
 		                </div>
 		            </div>
 	            </div>
@@ -251,7 +275,22 @@
 		                    </div>
 	                    </div>
 	                    <div class="col-12 mb-3">
-	                        <label class="form-label mb-0">첨부파일</label><br>
+	                        <label class="form-label mb-0">첨부파일</label>
+	                        <div>
+		                        <c:if test="${!empty fileList}">
+			                        <c:forEach var="fileVo" items="${fileList }" varStatus="loop">
+										<span>
+											<img src="<c:url value='/images/file.gif' />" alt="파일그림">
+											<a href="<c:url value='/confirmFile/download?fileName=${fileVo.fileName }'/>">
+												${fileInfoArr[loop.index]}
+											</a>
+										</span><br>
+			                        </c:forEach>
+								</c:if>
+		                        <c:if test="${empty fileList}">
+									첨부파일이 없습니다.
+								</c:if>
+							</div>
 	                    </div>
 		                <div class="col-sm-2 m-auto mt-3">
 		                    <button class="form-control btn btn-primary" id="close" style="width: 100px">닫기</button>

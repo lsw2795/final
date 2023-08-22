@@ -26,4 +26,5 @@ public interface ConfirmDAO {
 	List<Map<String, Object>> selectAllReturn (ConfirmVO vo);
 	int getTotalReturnRecord (ConfirmVO vo);
 	int getTotalAgreeRecordMain (ConfirmVO vo);
+	int returnConfirm(ConfirmVO vo);
 }

@@ -1,10 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "../inc/top.jsp" %>
-<script type="text/javascript">
-	$(function(){
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>결재문서 수정</title>
+	<!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <!-- jquery  -->
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/assets/img/favicons/favicon.ico'/>">
+    <link rel="manifest" href="<c:url value='/assets/img/favicons/manifest.json'/>">
+ 	<meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
+    <meta name="theme-color" content="#ffffff">
+    <script src="<c:url value='/assets/js/config.js'/>"></script>
+    <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
+    <script type="text/javascript">
+    $(function(){
 		var bool=false;
-		$('form[name=documentFrm]').submit(function(){
+		$('form[name=documentEditFrm]').submit(function(){
 			if($('#referEmpNo').find('input[name=referEmpNo]').length>0){
 				$('input[name=referEmpNo]').each(function(){
 					if($(this).val()==$('#user').val()){
@@ -56,7 +76,7 @@
 				return false;
 			}
 		});
-		
+
 		$('#btFilePlus').click(function(){
 			var num = $('input[type=file]').length+1;
 			$('#btFilePlus').parent().before("<div class='col-12 mt-1 file'>"+
@@ -68,10 +88,13 @@
 			$('.file:last').remove();
 		});
 		
+		$('#backBt').click(function(){
+			history.back();
+		});
 		
-	});
-	
-	function startDateChange(){
+    });
+    
+    function startDateChange(){
 		var today = new Date();
 		today.setHours(0, 0, 0, 0);
 		var start = new Date($('#startDate').val());
@@ -104,19 +127,30 @@
 		$('input[name=referEmpNo]').each(function(){
 			referEmpNo.push($(this).val());
 		});
-		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=500")
+		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=600")
 	}
 	
 	function createLine(){
-		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=800, height=500")
+		window.open("<c:url value='/approval/selectEmp/createConfirmLine'/>","_blank","width=810, height=600")
 	}
 	
 	function selectLine(){
-		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=520")
+		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=680, height=560")
 	}
-</script>
-<form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">
-<input type="hidden" id="user" value="${sessionScope.empNo}">
+    </script>
+	<!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="<c:url value='/vendors/simplebar/simplebar.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/assets/css/theme-rtl.css'/>" rel="stylesheet" id="style-rtl">
+    <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
+    <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
+    <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
+</head>
+<body>
+<form name="documentEditFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalEdit'/>">
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg pe-lg-2 mb-3">
@@ -134,7 +168,11 @@
 				                <option value="0">종류 선택</option>
 				                <c:if test="${!empty formList}">
 				                <c:forEach var="documentFormVo" items="${formList }">
-					                <option value="${documentFormVo.documentNo }">${documentFormVo.formName }</option>
+					                <option value="${documentFormVo.documentNo }" 
+						                <c:if test="${confirmMap['DOCUMENT_NO']==documentFormVo.documentNo}">
+						                	selected="selected"
+						                </c:if>
+					                >${documentFormVo.formName }</option>
 				                </c:forEach>
 				                </c:if>
 				            </select>
@@ -145,8 +183,7 @@
 			                <label class="form-label">
 			               		작성일
 			                </label><br>
-			                <c:set var="now" value="<%=new java.util.Date()%>" />
-			                <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />
+			                <fmt:formatDate value="${confirmMap['CREATE_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				        	<label class="form-label">
@@ -157,16 +194,19 @@
 				        	<label class="form-label">
 				               	검토일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
 				               	확인일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['CONFIRM_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				            <label class="form-label">
 				               	결재일
 				            </label><br>
+				            <fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		            </div>
 	            </div>
@@ -176,34 +216,34 @@
 	                  		<label class="form-label" for="confirm_title">
 	               				제목
 	                    	</label>
-	                    	<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" placeholder="제목을 입력하세요" />
+	                    	<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmMap['CONFIRM_TITLE'] }" />
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                    	<label class="form-label">
 	                        	기안자
 	                        </label><br>
-	                        	${empVo.name }
+	                        ${confirmMap['NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="confirmDocumentNo">
 	                        	문서번호
 	                        </label><br>
 	                        <div id="cdNoDiv">
-	                        	<fmt:formatDate value="${now}" pattern="yyMMdd" />-${empVo.empNo }
+	                        	${confirmMap['CONFIRM_DOCUMENT_NO'] }
 	    					</div>
-	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" value="<fmt:formatDate value='${now}' pattern='yyMMdd' />-${empVo.empNo }" />	                
+	    					<input name="confirmDocumentNo" id="confirmDocumentNo" type="hidden" value="${confirmMap['CONFIRM_DOCUMENT_NO'] }" />	                
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="deptName">
 	                        	부서
 	                        </label><br>
-	                       		${deptVo.name }
+	                       	${empMap['DEPT_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6 mb-3">
 	                        <label class="form-label" for="positionName">
 	                        	직위
 	                        </label><br>
-	                        	${positonVo.positionName }
+	                        ${empMap['POSITION_NAME'] }
 	                    </div>
 	                    <div class="col-sm-6">
 	                    	<label class="form-label" for="deptNo">
@@ -213,7 +253,11 @@
 					            <option value="0">부서 선택</option>
 					            <c:if test="${!empty deptList }">
 	                        	<c:forEach var="deptVo" items="${deptList }">
-					                <option value="${deptVo.deptNo}">${deptVo.name }</option>
+					                <option value="${deptVo.deptNo}" 
+						                <c:if test="${deptAgreeMap['DEPT_NO']==deptVo.deptNo}">
+						                	selected="selected"
+						                </c:if>
+					                >${deptVo.name }</option>
 				                </c:forEach>
 				                </c:if>
 	                        </select>
@@ -223,25 +267,36 @@
 	                        	참조자
 	                        </label>
 	                        <a href="#" onclick="selectRefer()">
-	                        	<span class="badge rounded-pill text-bg-primary" id="referSpan">
+	                        	<span class="badge rounded-pill text-bg-primary" >
 	                        		선택
 	                        	</span>
 	                        </a>
 	                        <div id="referEmpName" >
-	                       		<span id="referEmpNameSpan">참조자를 선택하세요</span>
-	                       		<div id="referEmpNo"></div>
+	                       		<span id="referEmpNameSpan"></span>
+	                       		<div id="referEmpNo">
+		                       		<c:if test="${empty referEmpList }">
+		                    		참조자를 선택하세요
+		                    		</c:if>
+		                    		<c:if test="${!empty referEmpList }">
+										<c:forEach var="empVo" items="${referEmpList }" varStatus="loop">
+											${empVo.name }
+										<c:if test="${!loop.last}">, </c:if>
+										<input type="hidden" name="referEmpNo" value="${empVo.empNo }">
+										</c:forEach>	                    		
+		                    		</c:if>
+	                       		</div>
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="startDate">시작일</label>
 	                        <div>
-	                    		<input type="date" name="startDate" id="startDate" onchange="startDateChange()">
+	                    		<input type="date" name="startDate" value=${confirmMap['START_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="endDate">종료일</label>
 	                        <div>
-	                    		<input type="date" name="endDate" id="endDate" onchange="endDateChange()">
+	                    		<input type="date" name="endDate" value=${confirmMap['END_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-12">
@@ -257,32 +312,36 @@
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm1">검토자</label>
 	                        <div id="confirm1_Name">
-	                        	검토자를 선택하세요
+	                        	${confirmMap['CONFIRM1NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM1'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm2">확인자</label>
 	                        <div id="confirm2_Name">
-	                        	확인자를 선택하세요
+	                        	${confirmMap['CONFIRM2NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM2'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm3">승인자</label>
 	                        <div id="confirm3_Name">
-	                        	승인자를 선택하세요
+	                        	${confirmMap['CONFIRM3NAME'] }
+	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM3'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-12">
 	                        <label class="form-label" for="confirmContent">내용</label>
-	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요"></textarea>
+	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요">${confirmMap['CONFIRM_CONTENT'] } </textarea>
 	                    </div>
 	                    <div class="col-12 mt-2">
 	                        <label class="form-label mb-0">첨부파일 추가/삭제</label><br>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFilePlus" style="width: 50px">+</button>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFileDel" style="width: 50px">-</button>
 	                    </div>
-	                    <div class="col-sm-2 m-auto mt-3">
-	                        <input class="form-control btn btn-primary" type="submit" value="작성"/>
+	                    <div class="col-sm-4 m-auto mt-3">
+	                        <input class="form-control btn btn-primary" type="submit" style="width: 100px" value="수정"/>
+	                        <input class="form-control btn btn-primary" type="button" id="backBt" style="width: 100px" value="취소"/>
 	                    </div>
 	                </div>
 	        	</div>
@@ -292,4 +351,18 @@
 </div>
 <input name="confirmLineNo" id="confirmLineNo" type="hidden"/>
 </form>
-<%@ include file = "../inc/bottom.jsp" %>
+	<!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="<c:url value='/vendors/popper/popper.min.js'/>"></script>
+    <script src="<c:url value='/vendors/bootstrap/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/vendors/anchorjs/anchor.min.js'/>"></script>
+    <script src="<c:url value='/vendors/is/is.min.js'/>"></script>
+    <script src="<c:url value='/vendors/echarts/echarts.min.js'/>"></script>
+    <script src="<c:url value='/vendors/fontawesome/all.min.js'/>"></script>
+    <script src="<c:url value='/vendors/lodash/lodash.min.js'/>"></script>
+    <script src="<c:url value='https://polyfill.io/v3/polyfill.min.js?features=window.scroll'/>"></script>
+    <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
+    <script src="<c:url value='/assets/js/theme.js'/>"></script>
+</body>
+</html>
