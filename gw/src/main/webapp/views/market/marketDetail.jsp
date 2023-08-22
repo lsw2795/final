@@ -19,13 +19,14 @@
 				type:"post",
 				dataType:"JSON",
 				data:{tradeNo: $('#tradeNo').val(),
-					  empNo:$('#empNO').val()},
+					  empNo : $('#empNo').val()},
 				success:function(result){
 					if(result==1){//좋아요 누름
 						$('#heart').addClass('fa-solid fa-heart')
 					}else if(result==2){//좋아요 한번 더 눌러서 해지
 						$('#heart').addClass('fa-regular fa-heart')
 					}
+					
 				},
 				error:function(xhr, status, error){
 					alert(status + ":" + error);

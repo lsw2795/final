@@ -18,7 +18,7 @@
 		and trade_no = #{tradeNo}
 	</update>
 	
-	<select id="findLike" parameterType="secondhandTradeLikeVo">
+	<select id="findLike" parameterType="map" resultType="int">
 		select  count(*) from secondhand_trade_like 
 		where emp_no=#{empNo} and trade_no = #{tradeNo}
 	</select>
