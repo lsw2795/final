@@ -15,4 +15,9 @@
 		select emp_no from refer
 		where confirm_document_no=#{confirmDocumentNo}
 	</select>
+	
+	<delete id="deleteRefer" parameterType="string" >
+		delete from refer
+		where confirm_document_no=#{confirmDocumentNo}
+	</delete>
 </mapper>

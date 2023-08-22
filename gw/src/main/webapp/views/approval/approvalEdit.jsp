@@ -137,6 +137,20 @@
 	function selectLine(){
 		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=680, height=560")
 	}
+	
+	function deleteFile(fileName,a){
+		var num = $('#deleteFileDiv>input[type=hidden]').length+1;
+		if(num==1){
+			$('#deleteFileDiv').html("<input name='deleteFile' type='hidden' value='"+fileName+"'/>");
+		}else{
+			$('#deleteFileDiv').append("<input name='deleteFile' type='hidden' value='"+fileName+"'/>");
+		}
+		$(a).parent().remove();
+	}
+	
+	function reloadFile(a){
+		location.reload($(a).parent());
+	}
     </script>
 	<!-- ===============================================-->
     <!--    Stylesheets-->
@@ -189,6 +203,7 @@
 				        	<label class="form-label">
 				               	수정일
 				            </label><br>
+			                <fmt:formatDate value="${confirmMap['UPDATE_DATE'] }" pattern="yyyy-MM-dd" />
 		                </div>
 		                <div class="col-sm">
 				        	<label class="form-label">
@@ -290,13 +305,13 @@
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="startDate">시작일</label>
 	                        <div>
-	                    		<input type="date" name="startDate" value=${confirmMap['START_DATE'] }>
+	                    		<input type="date" name="startDate" id="startDate" onchange="startDateChange()" value=${confirmMap['START_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-sm-6 mt-2">
 	                        <label class="form-label" for="endDate">종료일</label>
 	                        <div>
-	                    		<input type="date" name="endDate" value=${confirmMap['END_DATE'] }>
+	                    		<input type="date" name="endDate" id="endDate" onchange="endDateChange()" value=${confirmMap['END_DATE'] }>
 	                    	</div>
 	                    </div>
 	                    <div class="col-12">
@@ -320,22 +335,43 @@
 	                        <label class="form-label" for="confirm2">확인자</label>
 	                        <div id="confirm2_Name">
 	                        	${confirmMap['CONFIRM2NAME'] }
-	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM2'] }">
+	                        	<input type="hidden" name="confirm2" value="${confirmMap['CONFIRM2'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-4 mb-3">
 	                        <label class="form-label" for="confirm3">승인자</label>
 	                        <div id="confirm3_Name">
 	                        	${confirmMap['CONFIRM3NAME'] }
-	                        	<input type="hidden" name="confirm1" value="${confirmMap['CONFIRM3'] }">
+	                        	<input type="hidden" name="confirm3" value="${confirmMap['CONFIRM3'] }">
 	                        </div>
 	                    </div>
 	                    <div class="col-12">
 	                        <label class="form-label" for="confirmContent">내용</label>
 	                        <textarea class="form-control" name="confirmContent" id="confirmContent" rows="5" placeholder="내용을 입력하세요">${confirmMap['CONFIRM_CONTENT'] } </textarea>
 	                    </div>
+		                <c:if test="${!empty fileList }">
+		                    <div class="col-12 mt-2">
+		                        <label class="form-label mb-0">첨부파일</label>
+		                        <a href="#" onclick="reloadFile(this)">
+		                        	<span class="fas fa-redo"></span>
+		                        </a>
+		                        <br>
+			                    	<c:forEach var="fileVo" items="${fileList }" varStatus="loop">
+			                    		<div>
+											<img src="<c:url value='/images/file.gif' />" alt="파일그림">
+												${fileInfoArr[loop.index]}
+											<a href="#" onclick="deleteFile('${fileVo.fileName}',this)">
+												<span class="badge rounded-pill text-bg-primary">
+				                        			삭제
+				                        		</span>
+			                        		</a>
+										</div>
+			                    	</c:forEach>
+			                    <div id="deleteFileDiv"></div>
+		                    </div>
+		                </c:if>
 	                    <div class="col-12 mt-2">
-	                        <label class="form-label mb-0">첨부파일 추가/삭제</label><br>
+	                        <label class="form-label mb-0">첨부파일 추가</label><br>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFilePlus" style="width: 50px">+</button>
 		                    <button type="button" class="btn btn-outline-secondary" id="btFileDel" style="width: 50px">-</button>
 	                    </div>
@@ -349,7 +385,7 @@
 		</div>
 	</div>
 </div>
-<input name="confirmLineNo" id="confirmLineNo" type="hidden"/>
+<input name="confirmLineNo" id="confirmLineNo" type="hidden" value=""/>
 </form>
 	<!-- ===============================================-->
     <!--    JavaScripts-->

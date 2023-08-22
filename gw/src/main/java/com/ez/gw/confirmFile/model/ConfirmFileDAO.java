@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ConfirmFileDAO {
 	int insertConfirmFile(ConfirmFileVO confirmFileVo);
 	List<ConfirmFileVO> selectAllFileByDocumentNo(String confirmDocumentNo);
+	int deleteFile(String fileName);
 }
