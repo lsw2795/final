@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,7 @@ public class EmployeeController {
 	private final DeptService deptService;
     private final PositionService positionService;
     private final FileUploadUtil fileuploadUtil;
+    private final PasswordEncoder passwordEncoder;
     
 	@GetMapping("/admin/employee/employeeRegister")
 	public String empRegister_get(Model model) {
@@ -58,6 +60,7 @@ public class EmployeeController {
 	public String productWrite_post(@ModelAttribute EmployeeVO vo
 			, HttpServletRequest request, Model model) {
 		logger.info("사원 등록 처리 파라미터 vo={}", vo);
+		vo.setPwd(passwordEncoder.encode(vo.getPwd()));
 		//이미지업로드 처리
 		String fileName="", originalFileName="";
 		long fileSize=0;
@@ -203,6 +206,7 @@ public class EmployeeController {
 			HttpSession session, Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		empVo.setEmpNo(empNo);
+		empVo.setPwd(passwordEncoder.encode(empVo.getPwd()));
 		logger.info("사원 - 비밀번호 수정처리 파라미터 empVo={}", empVo);
 		
 		int cnt=employeeService.updateEmpPwd(empVo);
@@ -311,7 +315,7 @@ public class EmployeeController {
 		return "common/message";
 	}
 	
-	
+
 	
 }
 
