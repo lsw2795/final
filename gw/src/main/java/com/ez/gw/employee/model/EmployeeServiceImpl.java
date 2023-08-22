@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	@Override
-	public List<EmployeeVO> selectAllEmp() {
+	public List<Map<String, Object>> selectAllEmp() {
 		return employeeDao.selectAllEmp();
 	}
 

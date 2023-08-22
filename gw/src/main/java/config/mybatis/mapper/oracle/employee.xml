@@ -16,8 +16,8 @@
 		where emp_no=#{empNo}
 	</select>
 	
-	<select id="selectAllEmp" resultType="employeeVo">
-		select * from employee
+	<select id="selectAllEmp" resultType="map">
+		select * from organizationchartview
 	</select>
 	
 	<select id="selectPwd" resultType="string" parameterType="int">

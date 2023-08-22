@@ -17,7 +17,7 @@ public interface EmployeeService {
 	int	ADMIN_NONE=3; //해당 관리자 없음
 	
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
-	List<EmployeeVO> selectAllEmp();
+	List<Map<String, Object>> selectAllEmp();
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); 
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
