@@ -129,56 +129,70 @@
 		$('#email').attr('value',email);
 		
 		if ($('#name').val().length < 1) {
-			alert("사원이름을 입력하세요");
+			alert("사원이름을 입력하세요.");
 			$('#name').focus();
 							
 			return false;
 		}
 		
 		if ($('#ename').val().length < 1) {
-			alert("사원영문이름을 입력하세요");
+			alert("사원 영문이름을 입력하세요.");
 			$('#ename').focus();				
+			return false;
+		}
+		
+		if ($('#jumin').val().length < 1) {
+			alert("주민번호를 입력하세요");
+			if($('#jumin1').val().length<1){
+				$('#jumin1').focus();				
+			}else if($('#jumin2').val().length<1){
+				$('#jumin2').focus();				
+			}
 			return false;
 		}
 		
 		if($('#confirmForm').val()==='등록'){
 			if ($('#pwd').val().length < 1) {
-				alert("비밀번호를 입력하세요");
+				alert("초기 비밀번호를 입력하세요");
 				$('#pwd').focus();
 				return false;
 			}
 		}
 		
-		if ($('#jumin').val().length < 1) {
-			alert("주민번호를 입력하세요");
-			$('#jumin1').focus();				
+		if($('#dept').val().length< 1){
+			alert("부서를 선택하세요.");
+			$('#dept').focus();
 			return false;
 		}
 		
-		if ($('#annualSalary').val().length < 1) {
-			alert("연봉을 입력하세요");
-			$('#annualSalary').focus();				
+		if($('#position').val().length< 1){
+			alert("직위를 선택하세요.");
+			$('#position').focus();
 			return false;
 		}
 
 		if ($('#extensionNo').val().length < 1) {
-			alert("내선번호를 입력하세요");
-			$('#extensionNo1').focus();
+			alert("내선번호를 입력하세요.");
+			if($('#extensionNo1').val().length <1){
+				$('#extensionNo1').focus();
+			}else if($('#extensionNo2').val().length <1){
+				$('#extensionNo2').focus();
+			}
 			return false;
 		}
 		
 		if ($('#tel').val().length < 1) {
-			alert("전화번호를 입력하세요");
-			$('#tel1').focus();
+			alert("전화번호를 입력하세요.");
+			if($('#tel1').val().length<1){
+				$('#tel1').focus();
+			}else if($('#tel2').val().length<1){
+				$('#tel2').focus();
+			}else if($('#tel3').val().length<1){
+				$('#tel3').focus();
+			}
 			return false;
 		}
-		
-		if ($('#email').val().length < 1) {
-			alert("이메일은 필수 입력 사항입니다.");
-			$('#email1').focus();
-			return false;
-		}
-		
+
 		if ($('#sample4_roadAddress').val().length < 1) {
 			alert("주소는 필수 입력사항입니다.");
 			$('#btnsearchAddress').focus();
@@ -190,10 +204,28 @@
 			$('#btnsearchAddress').focus();
 			return false;
 		}
+		
+		if ($('#hiredate').val().length < 1) {
+			alert("입사일은 필수 입력 사항입니다.");
+			$('#hiredate').focus();
+			return false;
+		}
+		
+		if ($('#annualSalary').val().length < 1) {
+			alert("연봉을 입력하세요.");
+			$('#annualSalary').focus();				
+			return false;
+		}
+		
+		if ($('#email').val().length < 1) {
+			alert("이메일은 필수 입력 사항입니다.");
+			$('#email1').focus();
+			return false;
+		}
 	
 		if (!validate_num($("#extensionNo1").val())
 				|| !validate_num($("#extensionNo2").val())) {
-			alert("내선번호는 숫자만 가능합니다");
+			alert("내선번호는 숫자만 입력 가능합니다.");
 			$("#extensionNo1").focus();
 			return false;
 		}
@@ -201,14 +233,21 @@
 		if (!validate_num($("#tel1").val())
 				||!validate_num($("#tel2").val())
 				|| !validate_num($("#tel3").val())) {
-			alert("전화번호는 숫자만 가능합니다");
+			alert("전화번호는 숫자만 입력 가능합니다.");
 			$("#tel1").focus();
 			return false;
 		}
 		
+		if (!validate_num($("#hiredate").val())) {
+			alert("입사일은 숫자만 입력 가능합니다.");
+			$("#hiredate").focus();
+			return false;
+		}
+		
+		
 		if (!validate_num($("#jumin1").val())
 				|| !validate_num($("#jumin2").val())) {
-			alert("주민번호는 숫자만 가능합니다");
+			alert("주민번호는 숫자만 입력 가능합니다.");
 			$("#jumin1").focus();
 			return false;
 		}

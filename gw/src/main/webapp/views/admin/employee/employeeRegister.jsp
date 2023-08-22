@@ -84,7 +84,7 @@
 			    	</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv17">
-					        <label class="col-form-label adminemplabel" for="ename">사원 영어이름</label>
+					        <label class="col-form-label adminemplabel" for="ename">사원 영문이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" value="${map['ENAME']}" class="form-control admindefault" id="ename" name="ename"/>
@@ -112,8 +112,8 @@
 					</div>
 					<c:if test="${empty param.empNo}">
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv1">
-							<label class="col-form-label adminemplabel" for="pwd">초기비밀번호</label>
+					    <div class="col-md-auto adminempdiv17">
+							<label class="col-form-label adminemplabel" for="pwd">초기 비밀번호</label>
 						</div>
 						<div class="col-md-6">
 							<input type="password" class="form-control admindefault" id="pwd" name="pwd" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
