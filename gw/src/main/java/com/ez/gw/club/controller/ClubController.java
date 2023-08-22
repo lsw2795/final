@@ -40,8 +40,9 @@ public class ClubController {
 	public String clubWrite_post(@ModelAttribute ClubVO vo, HttpSession session ,Model model) {
 		//1.
 		int empNo = (int)session.getAttribute("empNo");
-		
-		logger.info("동호회 개설 처리 페이지 vo={}",vo);
+		vo.setEmpNo(empNo);
+		logger.info("동호회 개설 처리 페이지 empNo={},vo={}",empNo,vo);
+
 		//2.
 		int cnt=clubService.insertClub(vo);
 		logger.info("동호회 개설 결과 cnt={}",cnt);

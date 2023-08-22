@@ -8,8 +8,8 @@
 		<selectKey keyProperty="clubNo" order="BEFORE" resultType="int">
 			select CLUB_SEQ.NEXTVAL from dual
 		</selectKey>
-		insert into CLUB(CLUB_NO, MANAGER, MEM_LIMIT, TITLE, INTRODUCE, SECFLAG, MEM_LIMITFLAG)
-		values(#{clubNo},#{manager},#{memLimit} ,#{title},#{introduce},#{secflag},#{memLimitflag})
+		insert into CLUB(CLUB_NO, MANAGER, MEM_LIMIT, TITLE, INTRODUCE, SECFLAG, MEM_LIMITFLAG, EMP_NO)
+		values(#{clubNo},#{manager},#{memLimit} ,#{title},#{introduce},#{secflag},#{memLimitflag},#{empNo})
 	</insert>
 	
 	<select id="selectClub" parameterType="searchVo">

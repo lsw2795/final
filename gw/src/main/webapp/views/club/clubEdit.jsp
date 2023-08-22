@@ -116,19 +116,19 @@
                     <div class="row gx-2">
                     <div class="col-sm-6 mb-3">
                         <label class="form-label" for="managr">동호회장</label>
-                        <input class="form-control" id="manager" name="manager"  type="text" value="${clubVo.manager }" disabled/>
+                        <input class="form-control" id="manager" name="manager"  type="text" value="${clubVo.manager }"/>
                       </div>
                       <div class="col-sm-4 mb-3">
                         <label class="form-label" for="memberCnt">모집 회원 수</label>
-                        <input class="form-control" id="memberCnt" name="memLimit" type="text" value="${clubVo.memLimit }" disabled/>
+                        <input class="form-control" id="memberCnt" name="memLimit" type="text" value="${clubVo.memLimit }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">동호희 이름</label>
-                        <input class="form-control" id="title" name="title" type="text" value="${clubVo.title}" disabled/>
+                        <input class="form-control" id="title" name="title" type="text" value="${clubVo.title}"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="introduce">동호회 소개</label>
-                        <input class="form-control" id="introduce" name="introduce" type="text" value="${clubVo.introduce}" disabled/>
+                        <input class="form-control" id="introduce" name="introduce" type="text" value="${clubVo.introduce}"/>
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>
