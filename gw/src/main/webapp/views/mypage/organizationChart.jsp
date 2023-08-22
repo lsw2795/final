@@ -57,6 +57,7 @@ $.send = function(curPage){
             $('#searchEmp').empty();
             $('#divPage').empty();
             $('#searchEmp').append(searchrs + results);
+            
             $('#totalRecord').val(res.pagingInfo.totalRecord);
             $('#currentPage').val(res.pagingInfo.currentPage);
             $('#countPerPage').val(res.pagingInfo.recordCountPerPage);
@@ -81,7 +82,6 @@ function pageMake(){
        var countPerPage = $('#countPerPage').val();
        var currentPage = $('#currentPage').val(); 
        var totalRecord = $('#totalRecord').val();
-       var firstRecordIndex = $('#firstRecordIndex').val();
        pagination(currentPage, countPerPage, blockSize, totalRecord);
 	   //이전 블럭으로
 	   var str="";
@@ -156,10 +156,10 @@ function pageMake(){
 				</button>
 			</div>
 		</div>
-		<input type="text" name="currentPage" id="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
-	  	<input type="text" name="countPerPage" id="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
-		<input type="text" id="totalRecord"/>
-		<input type="text" id="firstRecordIndex"/>
+		<input type="hidden" name="currentPage" id="currentPage" value="1"/>
+	  	<input type="hidden" id="countPerPage"/>
+		<input type="hidden" id="totalRecord"/>
+		<input type="hidden" id="firstRecordIndex"/>
 		<div id="searchEmp"></div>
 		<div id="divPage"></div>
 		  </div>

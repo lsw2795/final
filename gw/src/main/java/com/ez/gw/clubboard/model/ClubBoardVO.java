@@ -12,5 +12,6 @@ public class ClubBoardVO {
 	private String regdate; //등록일
 	private int readcount; //조회수
 	private int boardListNo; //게시글목록 번호?
+	private String delflag; //동호회 게시글 삭제여부. default 'N'
 	
 }

@@ -105,12 +105,8 @@ public class EmployeeController {
 	
 	@RequestMapping("/mypage/ajaxSearchEmp")
 	@ResponseBody
-	public Map<String, Object> searchEmpList(
-	        @RequestParam(required = false) String searchKeyword,
-	        @ModelAttribute SearchVO searchVo) {
-
-	    searchVo.setSearchKeyword(searchKeyword);
-	    
+	public Map<String, Object> searchEmpList(@ModelAttribute SearchVO searchVo) {
+		logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
 	    //[1] PaginationInfo 객체 생성
   		PaginationInfo pagingInfo=new PaginationInfo();
   		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
@@ -120,8 +116,6 @@ public class EmployeeController {
   		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
   		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
   		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-	    
-	    logger.info("ajax 이용, 조직도 사원 검색- 파라미터 searchVo={}", searchVo);
 
 	    List<Map<String, Object>> searchList = employeeService.selectSearchEmp(searchVo);
 	    int totalRecord = employeeService.gTRSearchEmp(searchVo);
@@ -175,9 +169,9 @@ public class EmployeeController {
 	public String empMain(HttpSession session,Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
-		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
-		logger.info("사원메인 정보 페이지 결과 map={}", map);
-		model.addAttribute("map", map);
+		Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원메인 정보 페이지 결과 empMap={}", empMap);
+		model.addAttribute("empMap", empMap);
 		return "inc/empMain";
 	}
 	

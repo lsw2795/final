@@ -2,6 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">    
+<script type="text/javascript">	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/mypage/myWritingList'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+</form>
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
        <div class="card h-lg-100 overflow-hidden">
@@ -49,12 +66,11 @@
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm table-hover">
 						<colgroup>
-							<col style="width:5%;" />
+							<col style="width:7%;" />
 							<col style="width:20%;" />
-							<col style="width:26%;" />
+							<col style="width:43%;" />
 							<col style="width:15%;" />
 							<col style="width:15%;" />
-							<col style="width:19%;" />		
 						</colgroup>
                       <thead class="adminempthead">
                         <tr style="text-align: center;">
@@ -66,51 +82,85 @@
                           <th class="sort align-middle" scope="col">게시판 카테고리</th>
                           <th class="sort align-middle" scope="col">제목</th>
                           <th class="sort align-middle" scope="col">조회수</th>
-                          <th class="sort align-middle" scope="col">추천</th>
                           <th class="sort align-middle" scope="col">작성일</th>
                         </tr>
                       </thead>
                       <tbody id="table-contact-body">
+                      <c:if test="${empty boardList }">
+                      	<tr class="mypageemptr">
+                      	<td class="align-middle fs-0 py-3 align-middle" colspan="6">해당 게시글이 없습니다.</td>
+                      	</tr>
+                      </c:if>
+                      <c:if test="${!empty boardList }">
+                      <c:forEach var="map" items="${boardList }">
                         <tr class="mypageemptr">
                           <td class="align-middle fs-0 py-3 align-middle">
                             <div class="form-check mb-0">
-                              <input class="form-check-input" type="checkbox" data-bulk-select-row="data-bulk-select-row" />
+                              <input class="form-check-input" type="checkbox" value="${map['BOARD_NO']}" data-bulk-select-row="data-bulk-select-row" />
                             </div>
                           </td>
-                           <td class="align-middle"><a href="#">해당 카테고리 게시판 목록뷰로 가기</a></td>
-                          <td class="align-middle"><a href="#">보드디테일뷰 가기</a></td>
-                          <td class="align-middle">4</td>
-                          <td class="align-middle">추천안쓰는게시판은 추천수 디폴트0설정</td>
-                          <td class="align-middle">6</td>
+						  <c:if test="${map['BOARDLIST_NO']==100}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/market/marketList'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          </c:if>
+                          <c:if test="${map['BOARDLIST_NO']==1000}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/qna/list'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/qna/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          </c:if>
+                          <c:if test="${map['BOARDLIST_NO']==2000}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/board/noticeList'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/board/noticeDetail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          </c:if>
+                          <c:if test="${map['BOARDLIST_NO']==3000}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          </c:if>
+                          <!-- 추후 동호회 게시글 만들어지면 진행하기 <c:if test="#">	                          
+                          	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
+                          </c:if> -->
+                          <td class="align-middle">${map['READCOUNT']}</td>
+                          <td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
                         </tr>
-                         
-                         <tr class="mypageemptr">
-                          <td class="align-middle fs-0 py-3 align-middle">
-                            <div class="form-check mb-0">
-                              <input class="form-check-input" type="checkbox" data-bulk-select-row="data-bulk-select-row" />
-                            </div>
-                          </td>
-                          <td class="align-middle"><a href="#">해당 카테고리 게시판 목록뷰로 가기</a></td>
-                          <td class="align-middle"><a href="#">보드디테일뷰 가기</a></td>
-                          <td class="align-middle">4</td>
-                          <td class="align-middle">추천안쓰는게시판은 추천수 디폴트0설정</td>
-                          <td class="align-middle">6</td>
-                        </tr>
+                        </c:forEach> 
+                        </c:if>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                  <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                  <ul class="pagination mb-0"></ul>
-                  <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                	<div class="divPage" id="divPage">
+							<!-- 페이지 번호 추가 -->		
+							<!-- 이전 블럭으로 이동 -->
+							<c:if test="${pagingInfo.firstPage>1 }">
+                  			<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})" class="btn btn-sm btn-falcon-default me-1">
+                  				<span class="fas fa-chevron-left"></span>
+							</a>
+							</c:if>	
+											
+							<!-- [1][2][3][4][5][6][7][8][9][10] -->
+							<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+								<c:if test="${i == pagingInfo.currentPage }">		
+									<span class="mb-0" id="curPage">${i}</span>
+					        	</c:if>
+								<c:if test="${i != pagingInfo.currentPage }">		
+							         <a href="#" class="mb-0" id="otherPage" onclick="pageFunc(${i})">[${i}]</a>
+							    </c:if>   		
+							</c:forEach>
+							
+							<!-- 다음 블럭으로 이동 -->
+							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+                  				<a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})" class="btn btn-sm btn-falcon-default ms-1">
+                  					<span class="fas fa-chevron-right"></span>
+                  				</a>
+							</c:if>
+							<!--  페이지 번호 끝 -->
+						</div>
+                
+                
+                
                 </div>
        		</div>
           </div>
-          
-          
-          
-          
        </div>
    </div>
 </div>
