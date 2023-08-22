@@ -157,14 +157,17 @@
 				$('#pwd').focus();
 				return false;
 			}
+			if ($('#hiredate').val().length < 1) {
+				alert("입사일은 필수 입력 사항입니다.");
+				$('#hiredate').focus();
+				return false;
+			}
 		}
-		
 		if($('#dept').val().length< 1){
 			alert("부서를 선택하세요.");
 			$('#dept').focus();
 			return false;
 		}
-		
 		if($('#position').val().length< 1){
 			alert("직위를 선택하세요.");
 			$('#position').focus();
@@ -205,11 +208,6 @@
 			return false;
 		}
 		
-		if ($('#hiredate').val().length < 1) {
-			alert("입사일은 필수 입력 사항입니다.");
-			$('#hiredate').focus();
-			return false;
-		}
 		
 		if ($('#annualSalary').val().length < 1) {
 			alert("연봉을 입력하세요.");

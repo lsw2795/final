@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#empWrite").hide();
-		$('#btnadminPwd').click(function(){
+		$('#btnadminPwd').click(function(){ //모달에 있는 클릭버튼
 			 $.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
@@ -292,7 +292,7 @@
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
+						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
 						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
