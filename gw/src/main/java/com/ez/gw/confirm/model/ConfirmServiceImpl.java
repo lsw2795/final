@@ -30,7 +30,7 @@ public class ConfirmServiceImpl implements ConfirmService{
 	private static final Logger logger = LoggerFactory.getLogger(ConfirmServiceImpl.class); 
 	private final ConfirmDAO confirmDao;
 	private final DeptagreeDAO deptAgreeDao;
-	private final ReferDAO reperDao;
+	private final ReferDAO referDao;
 	private final ConfirmFileDAO confirmFileDao;
 	
 	@Transactional
@@ -56,7 +56,7 @@ public class ConfirmServiceImpl implements ConfirmService{
 			referVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
 	    	for(int i=0;i<referEmpNo.length;i++) {
 	    		referVo.setEmpNo(referEmpNo[i]);
-	    		cnt=reperDao.insertRefer(referVo);
+	    		cnt=referDao.insertRefer(referVo);
 	    		logger.info("참조자 처리 결과 cnt={}",cnt);
 	    	}
 		}
@@ -86,6 +86,77 @@ public class ConfirmServiceImpl implements ConfirmService{
 		return cnt;
 	}
 
+	@Transactional
+	@Override
+	public int updateConfirm(ConfirmVO vo, DeptagreeVO deptAgreeVo, int[] referEmpNo, String[] deleteFile,
+			List<Map<String, Object>> fileList) {
+		//결재문서 수정
+		int cnt = confirmDao.updateConfirm(vo);
+		logger.info("문서 수정 결과 cnt={}",cnt);
+		
+		//합의부서 수정
+		int deptCnt=deptAgreeDao.countByDocument(vo.getConfirmDocumentNo()); //기존 합의부서 있는지 체크
+		logger.info("합의부서 조회 결과 deptCnt={}",deptCnt);
+		if(deptCnt>0) { //있을때
+			if(deptAgreeVo.getDeptNo()!=0) { //합의부서를 선택했을때
+				cnt=deptAgreeDao.updateDeptAgreeByReturn(deptAgreeVo);
+				logger.info("합의부서 수정 결과 cnt={}",cnt);
+			}else if(deptAgreeVo.getDeptNo()==0) { //합의부서 선택 안했을때
+				cnt=deptAgreeDao.deleteDeptAgree(vo.getConfirmDocumentNo());
+				logger.info("합의부서 삭제 결과 cnt={}",cnt);
+			}
+		}else if(deptCnt<1 && deptAgreeVo.getDeptNo()!=0) { //기존 합의부서가 없고, 합의부서를 선택했을때
+			cnt=deptAgreeDao.insertDeptAgree(deptAgreeVo);
+			logger.info("합의부서 선택 결과 cnt={}",cnt);
+		}
+		
+		//참조자 수정
+		//기존 참조자 삭제
+		int referDelete=referDao.deleteRefer(vo.getConfirmDocumentNo());
+		logger.info("참조지 삭제 결과 referDelete={}",referDelete);
+		if(referEmpNo!=null) {
+			ReferVO referVo = new ReferVO();
+			referVo.setConfirmDocumentNo(vo.getConfirmDocumentNo());
+	    	for(int i=0;i<referEmpNo.length;i++) {
+	    		referVo.setEmpNo(referEmpNo[i]);
+	    		cnt=referDao.insertRefer(referVo);
+	    		logger.info("참조자 처리 결과 cnt={}",cnt);
+	    	}
+		}
+		
+		//파일 처리
+		if(deleteFile!=null) { //기존파일 삭제
+			for(int i=0;i<deleteFile.length;i++) {
+				cnt=confirmFileDao.deleteFile(deleteFile[i]);
+				logger.info("기존파일 삭제 결과 cnt={}",cnt);
+			}
+		}
+		
+		//첨부파일 처리
+		if(fileList.size()!=0) {
+			String fileName="", originalFileName="";
+			long fileSize=0;
+						
+			ConfirmFileVO confirmFileVo = new ConfirmFileVO();
+			confirmFileVo.setConfirmDocumentNo(vo.getConfirmDocumentNo());
+						
+			for(Map<String, Object> map : fileList) {
+				fileName=(String)map.get("fileName");
+				originalFileName=(String)map.get("originalFileName");
+				fileSize=(long)map.get("fileSize");
+							
+				confirmFileVo.setFileName(fileName);
+				confirmFileVo.setOriginalFileName(originalFileName);
+				confirmFileVo.setFileSize(fileSize);
+						
+				cnt=confirmFileDao.insertConfirmFile(confirmFileVo);
+				logger.info("파일 저장 결과 cnt={}",cnt);
+			}//for
+		}
+		
+		return cnt;
+	}
+	
 	@Override
 	public List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo) {
 		return confirmDao.selectAllByEmpNo(vo);
@@ -182,4 +253,5 @@ public class ConfirmServiceImpl implements ConfirmService{
 		}
 		return cnt;
 	}
+
 }

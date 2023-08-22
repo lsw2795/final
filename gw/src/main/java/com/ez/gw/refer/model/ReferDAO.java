@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReferDAO {
 	int insertRefer(ReferVO referVo);
 	List<Integer> selectEmpNoByConfirmNo(String confirmDocumentNo);
+	int deleteRefer(String confirmDocumentNo);
 }

@@ -27,4 +27,5 @@ public interface ConfirmDAO {
 	int getTotalReturnRecord (ConfirmVO vo);
 	int getTotalAgreeRecordMain (ConfirmVO vo);
 	int returnConfirm(ConfirmVO vo);
+	int updateConfirm(ConfirmVO vo);
 }
