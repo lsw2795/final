@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
-<head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +12,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>관리자 로그인 페이지</title>
+    <title>비밀번호 찾기</title>
 
 
     <!-- ===============================================-->
@@ -52,13 +53,9 @@
         linkRTL.setAttribute('disabled', true);
         userLinkRTL.setAttribute('disabled', true);
       }
-      
-      $(function() {
-	      $('submit').
-		
-	});
     </script>
   </head>
+
 
   <body>
 
@@ -66,7 +63,7 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-      <div class="container" data-layout="container">
+      <div class="container-fluid">
         <script>
           var isFluid = JSON.parse(localStorage.getItem('isFluid'));
           if (isFluid) {
@@ -74,43 +71,56 @@
             container.classList.remove('container');
             container.classList.add('container-fluid');
           }
+          
+          /* 임시 비밀번호 메일로 보내기 */
+          $(function(){
+			$("#btnSend").click(function(){
+				$.ajax({
+					url : "/employee/",
+					type : "POST",
+					data : {
+						empNo : $("#empNo").val(),
+						email : $("#email").val()
+					},
+					success : function(result) {
+						alert(result);
+					},
+				})
+			});
+		});
+          
+          
         </script>
-        <div class="row flex-center min-vh-100 py-6">
-          <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4" href="<c:url value='/admin/adminLogin'/>"><img src="<c:url value='/title.png'/>" alt="타이틀로고" width="300"/></a>
-            <div class="card">
-              <div class="card-body p-4 p-sm-5">
-                <div class="row flex-between-center mb-2">
-                  <div class="col-auto">
-                    <h5>Admin Log in</h5>
+        
+        <div class="row min-vh-100 bg-100">
+          <div class="col-6 d-none d-lg-block position-relative">
+            <div class="bg-holder overlay" style="background-image:url(../../assets/img/generic/17.jpg);background-position: 50% 76%;">
+            </div>
+            <!--/.bg-holder-->
+
+          </div>
+          <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
+            <div class="row justify-content-center g-0">
+              <div class="col-lg-9 col-xl-8 col-xxl-6">
+                <div class="card">
+                  <div class="card-header text-center p-2"><a class="font-sans-serif fw-bolder fs-4 z-1 position-relative link-light" href="<c:url value='/login/empForgotPwd'/>" data-bs-theme="light"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <h4 class="mb-0"> Forgot your password?</h4><small>Enter your email and we'll send you email.</small>
+                      <form name="frmPwd" method="post" action="<c:url value='/login/empLogin'/>" class="mb-3 mt-4">
+                        <input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
+                        <div class="mb-3"></div>
+                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" id="btnSend" name="submit">Send email</button>
+                    </div>
                   </div>
                 </div>
-                 <form name="adminLoginFrm" method="post" action="<c:url value='/login/adminLogin'/>">
-                  <div class="mb-3">
-                    <input class="form-control" name="empNo" type="text" placeholder="관리자 사원번호" />
-                  </div>
-                  <div class="mb-3">
-                    <input class="form-control" name="pwd" type="password" placeholder="Password" />
-                  </div>
-                  <div class="row flex-between-center">
-                    <div class="col-auto">
-                      <div class="form-check mb-0">
-                        <input class="form-check-input" type="checkbox" name="split-checkbox" id="basic-checkbox" checked="checked" />
-                        <label class="form-check-label mb-0" for="basic-checkbox">사원번호 저장하기</label>
-                      </div>
-                    </div>
-                    <div class="col-auto"><a class="fs--1" href="<c:url value='/views/login/admin_forgot_password.jsp'/>">Forgot Password?</a></div>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in</button>
-                  </div>
-                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </main>
-    
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
@@ -123,4 +133,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll'/>"></script>
     <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
     <script src="<c:url value='/assets/js/theme.js'/>"></script>
-</body>
+
+  </body>
+
+</html>

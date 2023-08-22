@@ -13,4 +13,5 @@ public interface ClubDAO {
 	ClubVO selectByClubNo(int clubNo);
 	int updateClub(ClubVO vo);
 	int deleteClub(int clubNo);
+	
 }

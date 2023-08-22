@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.gw.club.model.ClubService;
 import com.ez.gw.club.model.ClubVO;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.employee.model.EmployeeService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class ClubController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubController.class);
 	private final ClubService clubService;
+	private final EmployeeService empService;
 	
 	@RequestMapping("/createClub")
 	public String clubWrite() {
@@ -34,16 +37,26 @@ public class ClubController {
 	}
 	
 	@PostMapping("/createClub")
-	public String clubWrite_post(@ModelAttribute ClubVO vo, Model model) {
+	public String clubWrite_post(@ModelAttribute ClubVO vo, HttpSession session ,Model model) {
 		//1.
+		int empNo = (int)session.getAttribute("empNo");
+		
 		logger.info("동호회 개설 처리 페이지 vo={}",vo);
 		//2.
 		int cnt=clubService.insertClub(vo);
 		logger.info("동호회 개설 결과 cnt={}",cnt);
 		
+		String msg="동호회 개설 실패", url="/club/clubList";
+		if(cnt>0) {
+			msg="동호회 개설 완료";
+		}
+		
 		//3.
-		//4.
-		return "redirect:/club/clubList";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
 	}
 	
 	@RequestMapping("/clubList")
@@ -66,7 +79,7 @@ public class ClubController {
 		logger.info("동호회 개설 수정 페이지, clubNo={}",clubNo);
 		//2.
 		ClubVO vo = clubService.selectByClubNo(clubNo);
-		logger.info("수정 페이지 vo={}",vo);
+		logger.info("클럽번호로 보는 수정 페이지 vo={}",vo);
 
 		if(clubNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
@@ -92,6 +105,7 @@ public class ClubController {
 		String msg="수정 실패하였습니다.", url="/club/editClub?clubNo="+vo.getClubNo();
 		if(cnt>0) {
 			msg="수정 완료되었습니다.";
+			url="club/clubList";
 		}
 		//3.
 		model.addAttribute("msg", msg);
@@ -100,7 +114,6 @@ public class ClubController {
 		return "common/message";
 		
 	}
-	
 	
 	
 	@RequestMapping("/deleteClub")

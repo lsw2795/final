@@ -92,7 +92,7 @@
             <div class="row justify-content-center g-0">
               <div class="col-lg-9 col-xl-8 col-xxl-6">
                 <div class="card">
-                  <div class="card-header text-center p-2"><a class="d-flex flex-center mb-4" href="<c:url value='/view/login/empLogin.jsp'/>"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
+                  <div class="card-header text-center p-2"><a class="d-flex flex-center mb-4" href="<c:url value='/'/>"><img src="<c:url value='/adminfinallogo.png'/>" alt="타이틀로고" width="300"/></a></div>
                   <div class="card-body p-4">
                     <div class="row flex-between-center">
                       <div class="col-auto">
