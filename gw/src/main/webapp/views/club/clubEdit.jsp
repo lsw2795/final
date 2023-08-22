@@ -2,60 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
-
-	function requestPay() {
-		var IMP = window.IMP;
-		IMP.init('imp73002547');
-		
-		IMP.request_pay({
-		    pg : 'inicis',
-		    pay_method : 'card', //카드결제
-		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '동호회 가입 및 회비 결제',
-		    amount : 10000, //판매가격
-		    buyer_email : 'rlacodud4456@naver.com',
-		    buyer_name : '차은우',
-		    buyer_tel : '010-2222-2222',
-		    buyer_addr : '',
-		    buyer_postcode : ''
-		}, function(rsp) { //call back
-		    if ( rsp.success ) {
-		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-		    	jQuery.ajax({
-		    		url: "/club/clubDetail?clubNo="+${param.clubNo}, //cross-domain error가 발생하지 않도록 주의해주세요
-		    		type: 'POST',
-		    		dataType: 'json',
-		    		data: {
-			    		imp_uid : rsp.imp_uid
-			    		//기타 필요한 데이터가 있으면 추가 전달
-		    		}
-		    	}).done(function(data) {
-		    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-		    		if ( everythings_fine ) {
-		    			var msg = '결제가 완료되었습니다.';
-		    			msg += '\n고유ID : ' + rsp.imp_uid;
-		    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-		    			msg += '\결제 금액 : ' + rsp.paid_amount;
-		    			msg += '카드 승인번호 : ' + rsp.apply_num;
-		    			
-		    			alert(msg);
-		    		} else {
-		    			//[3] 아직 제대로 결제가 되지 않았습니다.
-		    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-		    		}
-		    	});
-		        
-		    } else {
-		        var msg = '결제에 실패하였습니다.';
-		        msg += 'error : ' + rsp.error_msg;
-		        alert(msg);
-		        //location.href="/club/clubDetail?clubNo=${param.clubNo }"+rsp.error_msg;
-		    }
-		});
-	}
 	
 	$(function() {
 		$("#memLimitflag").val('Y').prop("selected", true); 
@@ -82,26 +29,19 @@
 
  
   	<body>
-		<form name="detailFrm" action="" method="">
+		<form name="editFrm" method="post" action="<c:url value='/club/clubEdit/>">
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
                 <div class="col-md">
-                  <h5 class="mb-2 mb-md-0">동호회 소개</h5>
+                  <h5 class="mb-2 mb-md-0">동호회 수정</h5>
                 </div>
-                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                 <div class="col-auto">
-              		<button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
-                  	<c:if test="${sessionScope.empNo==clubVo.empNo}">
-	                  	<a href="<c:url value='/club/editClub?clubNo=${clubVo.clubNo }'/>">
-	                  		<button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button">
-	                  			<span class="fas fa-pen" ></span>
-	                  		</button>
-	                  	</a>
-	                  	<button onclick="deleteClub()" class="btn btn-falcon-default btn-sm mx-2" type="button">
-			            	<span class="fas fa-trash-alt"></span>
-		                </button>
-                  	</c:if>
+              		<button class="btn btn-falcon-default btn-sm" type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+	                <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
+	                <button onclick="deleteClub()" class="btn btn-falcon-default btn-sm mx-2" type="button">
+			           <span class="fas fa-trash-alt"></span>
+		            </button>
                 </div>
               </div>
             </div>
@@ -116,19 +56,19 @@
                     <div class="row gx-2">
                     <div class="col-sm-6 mb-3">
                         <label class="form-label" for="managr">동호회장</label>
-                        <input class="form-control" id="manager" name="manager"  type="text" value="${clubVo.manager }"/>
+                        <input class="form-control" id="manager" name="manager"  type="text" value="${vo.manager }"/>
                       </div>
                       <div class="col-sm-4 mb-3">
                         <label class="form-label" for="memberCnt">모집 회원 수</label>
-                        <input class="form-control" id="memberCnt" name="memLimit" type="text" value="${clubVo.memLimit }"/>
+                        <input class="form-control" id="memberCnt" name="memLimit" type="text" value="${vo.memLimit }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">동호희 이름</label>
-                        <input class="form-control" id="title" name="title" type="text" value="${clubVo.title}"/>
+                        <input class="form-control" id="title" name="title" type="text" value="${vo.title}"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="introduce">동호회 소개</label>
-                        <input class="form-control" id="introduce" name="introduce" type="text" value="${clubVo.introduce}"/>
+                        <input class="form-control" id="introduce" name="introduce" type="text" value="${vo.introduce}"/>
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>
