@@ -73,6 +73,8 @@
 		 
 	 //등록(또는 수정) 버튼 클릭시 유효성검사
 	$("#confirmForm").click(function() {
+		var ConfirmFormCheck=false;
+		
 		var jumin1=$('#jumin1').val();
 		var jumin2=$('#jumin2').val();
 		
@@ -128,7 +130,8 @@
 		
 		if ($('#name').val().length < 1) {
 			alert("사원이름을 입력하세요");
-			$('#name').focus();				
+			$('#name').focus();
+							
 			return false;
 		}
 		
@@ -215,7 +218,11 @@
 			$("#jumin1").focus();
 			return false;
 		}
+		ConfirmFormCheck=true;
 		
+		if(ConfirmFormCheck){
+			$('#authentication-modal').modal('show'); 
+		}
 	});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
