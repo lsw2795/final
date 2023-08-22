@@ -1,29 +1,55 @@
 package com.ez.gw.employee.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
 public class EmployeeVO {
-	private int empNo; /* 사원번호 */
-	private String name; /* 사원이름 */
-	private String ename; /* 사원영문이름 */
-	private String jumin; /* 주민번호 */
-	private String email; /* 이메일 */
-	private String pwd; /* 비밀번호 */
-	private String extensionNo; /* 내선번호 */
-	private String tel; /* 전화번호 */
-	private String address; /* 주소 */
-	private String married; /* 결혼여부 */
-	private String hiredate; /* 입사일 */
-	private Timestamp retiredate; /* 퇴사일 */
-	private String authority; /* 권한 */
-	private int annualSalary; /* 연봉 */
-	private String image; /* 이미지 */
-	private int positionNo; /* 직위/직책코드 */
-	private int deptNo; /* 부서번호 */
-	private int clubNo; /* 동호회번호 */
-	private int annualYear; /* 근속 년수 */
-	private String addressdetail; /* 상세 주소 */
+    private int empNo;
+    private String name;
+    private String ename;
+    private String jumin;
+    private String email;
+    private String pwd;
+    private String extensionNo;
+    private String tel;
+    private String address;
+    private String married;
+    private String hiredate;
+    private Timestamp retiredate;
+    private String authority;
+    private int annualSalary;
+    private String image;
+    private int positionNo;
+    private int deptNo;
+    private int clubNo;
+    private int annualYear;
+    private String addressdetail;
+
+    private String combinedEmpNo;
+    private int combinedEmpNoInt;
+
+    public void generateCombinedEmpNo(int sequenceValue) {
+        Date today = new Date();
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yy");
+        String year = yearFormat.format(today);
+
+        // sequenceValue를 4자리 숫자 형식으로 변환 (뒷자리 4자리만 사용, 시퀀스 1만이상 넘어갈 때 4자리 변환)
+        String sequenceValueStr = String.valueOf(sequenceValue);
+        String formattedSequence="";
+        if(sequenceValue>=10000) {
+        	formattedSequence = sequenceValueStr.substring(Math.max(sequenceValueStr.length() - 4, 0));
+        }else{
+        	formattedSequence = String.format("%04d", sequenceValue);
+        }
+
+        // 연도와 sequenceValue를 결합하여 combinedEmpNo 생성
+        this.combinedEmpNo = year + formattedSequence;
+
+        // 문자열로 된 combinedEmpNo를 int로 파싱하여 저장
+        this.combinedEmpNoInt = Integer.parseInt(this.combinedEmpNo);
+    }
 }

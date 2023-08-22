@@ -30,13 +30,13 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<select id="getNextSequenceValue" resultType="int">
+	    select EMPLOYEE_SEQ.nextval from dual
+	</select>
 	<insert id="insertEmp" parameterType="employeeVo">
-		<selectKey keyProperty="empNo" order="BEFORE" resultType="int">
-			select EMPLOYEE_SEQ.nextval from dual
-		</selectKey>
 		insert into employee(emp_no, name, ename, jumin, email, pwd, extension_no, tel, address, 
 			addressdetail, hiredate, authority, annual_salary, image, position_no, dept_no)
-		values(#{empNo},#{name},#{ename},#{jumin,jdbcType=VARCHAR},
+		values(#{combinedEmpNoInt},#{name},#{ename},#{jumin,jdbcType=VARCHAR},
 			#{email},#{pwd},#{extensionNo},#{tel},#{address},#{addressdetail},
 			#{hiredate},#{authority},#{annualSalary},#{image},#{positionNo},#{deptNo})
 	</insert>
