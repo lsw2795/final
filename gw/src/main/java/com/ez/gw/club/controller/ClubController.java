@@ -74,7 +74,7 @@ public class ClubController {
 		return "club/clubList";
 	}
 	
-	@GetMapping("/editClub")
+	@GetMapping("/clubEdit")
 	public String editClub(@RequestParam(defaultValue = "0")int clubNo ,Model model) {
 		//1.
 		logger.info("동호회 개설 수정 페이지, clubNo={}",clubNo);
@@ -91,11 +91,11 @@ public class ClubController {
 		
 		model.addAttribute("vo", vo);
 		
-		return "club/editClub";
+		return "club/clubEdit";
 	}
 	
-	@RequestMapping("/editClub")
-	public String editClub_post(@ModelAttribute ClubVO vo,Model model) {
+	@RequestMapping("/clubEdit")
+	public String editClub_post(@ModelAttribute ClubVO vo, Model model) {
 		//1.
 		logger.info("수정 처리 페이지, vo={}",vo);
 		
@@ -103,7 +103,7 @@ public class ClubController {
 		int cnt=clubService.updateClub(vo);
 		logger.info("수정 처리 결과 cnt={}",cnt);
 		
-		String msg="수정 실패하였습니다.", url="/club/editClub?clubNo="+vo.getClubNo();
+		String msg="수정 실패하였습니다.", url="/club/clubEdit?clubNo="+vo.getClubNo();
 		if(cnt>0) {
 			msg="수정 완료되었습니다.";
 			url="club/clubList";
@@ -125,7 +125,7 @@ public class ClubController {
 		int cnt=clubService.deleteClub(clubNo);
 		logger.info("동호회 삭제 결과 cnt={}",cnt);
 		
-		String msg="삭제 실패했습니다.", url="/club/clubList";
+		String msg="삭제 실패했습니다.", url="/club/clubEdit?clubNo="+clubNo;
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";
 			url="/club/clubList";

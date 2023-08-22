@@ -63,7 +63,9 @@
 	});
 	
 	function deleteClub() {
-		
+		if(confirm("동호회를 삭제하시겠습니까?")){
+			location.href = "<c:url value='/club/delete?clubNo=${param.clubNo}'/>"
+		}
 	}
 </script>
 
@@ -93,7 +95,7 @@
                 <div class="col-auto">
               		<button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
                   	<c:if test="${sessionScope.empNo==clubVo.empNo}">
-	                  	<a href="<c:url value='/club/editClub?clubNo=${clubVo.clubNo }'/>">
+	                  	<a href="<c:url value='/club/clubEdit?clubNo=${clubVo.clubNo }'/>">
 	                  		<button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button">
 	                  			<span class="fas fa-pen" ></span>
 	                  		</button>
