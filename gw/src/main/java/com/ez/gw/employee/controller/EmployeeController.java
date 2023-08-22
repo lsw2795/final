@@ -301,7 +301,7 @@ public class EmployeeController {
 			if(empVo.getImage()!=null && !empVo.getImage().isEmpty()) {//새파일 업로드
 				if(oldFileName!=null && !oldFileName.isEmpty()) { //기존파일이 있으면
 					String upPath
-						=fileuploadUtil.getUploadPath(request,  ConstUtil.UPLOAD_IMAGE_FLAG);
+						=fileuploadUtil.getUploadPath(request,ConstUtil.UPLOAD_IMAGE_FLAG);
 					File file=new File(upPath, oldFileName);
 					if(file.exists()) {
 						boolean bool=file.delete();
