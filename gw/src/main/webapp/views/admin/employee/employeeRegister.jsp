@@ -287,7 +287,6 @@
 					</div>
 					</c:if>
 					<div style="text-align: center;">
-						<!--<input type="button" id="confirmForm" data-bs-toggle="modal" data-bs-target="#authentication-modal" value="${btLabel}" class="btn btn-primary"/> -->
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
 						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
 						<input type="button" value="취소" class="btn btn-secondary"/>
@@ -304,7 +303,7 @@
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
 					 <input type="hidden" id="authority" value="${map['AUTHORITY']}"/>	
-					 <input type="text" id="adminPwdChkFlag"/>
+					 <input type="hidden" id="adminPwdChkFlag"/>
 				</form>
 			</div>
 		</div>
