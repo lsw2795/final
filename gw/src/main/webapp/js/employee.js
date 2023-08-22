@@ -59,7 +59,7 @@
 			 var authorityStatus = $('#authority').val();
 			    if (authorityStatus === "Y") {
 			        $("#authorityFlagY").prop("checked", true);
-			    } else if (authorityStatus === "N" || authorityStatus==null) {
+			    } else if (authorityStatus === "N" || authorityStatus.length<1) {
 			        $("#authorityFlagN").prop("checked", true);
 			    }
 			}//if
@@ -267,6 +267,7 @@
 				$("#email3").css("visibility", "hidden");
 			}
 		});
+		
 	});
 	
 	function sample4_execDaumPostcode() {

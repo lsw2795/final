@@ -30,6 +30,10 @@
 	            }
 	         });//ajax
 		});
+		
+		$('#btCancel').click(function(){
+			location.href="<c:url value='/admin/employee/employeeList'/>";
+		});
 	});
 </script>
 <c:if test="${!empty param.empNo}">
@@ -261,7 +265,7 @@
 		                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
 						</div>
 					</div>
-					<c:if test="${!empty param.empNo}">
+					<c:if test="${!empty param.empNo && !empty map['MARRIED']}">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="col-form-label adminemplabel" for="name">결혼 여부</label>
@@ -289,7 +293,7 @@
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
 						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
-						<input type="button" value="취소" class="btn btn-secondary"/>
+						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
 					<!-- hidden 처리 인풋태그들 -->
