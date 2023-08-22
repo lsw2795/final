@@ -67,21 +67,24 @@
     		    $('.nav-link').not(this).removeClass('active');
     		  });
     		  
-    		  $.ajax({
-    		    	url:"<c:url value='/approval/recordAjax'/>",
-    		   		type:"post",
-    		   		dataType:"json",
-    		   		success:function(res){
-    		   			$('#confirm').text(res[0]);
-    		   			$('#turn').text(res[1]);
-    		   			$('#agree').text(res[2]);
-    		   			$('#approval').text(res[0]+res[1]+res[2]);
-    		    	},error:function(xhr, status, error){
-    		    		alert(status+" : "+error);
-    		   		}
-    		   	});
+    		  confirmRecord();
 		});
     	
+    	function confirmRecord(){
+    		$.ajax({
+    			url:"<c:url value='/approval/recordAjax'/>",
+    		   	type:"post",
+    		   	dataType:"json",
+    		   	success:function(res){
+    		   		$('#confirm').text(res[0]);
+    		   		$('#turn').text(res[1]);
+    		   		$('#agree').text(res[2]);
+    		   		$('#approval').text(res[0]+res[1]+res[2]);
+    		    },error:function(xhr, status, error){
+    		    	alert(status+" : "+error);
+    		   	}
+    		});
+    	}
     </script>
   </head>
   <body>

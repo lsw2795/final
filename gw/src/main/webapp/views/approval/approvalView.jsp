@@ -25,6 +25,7 @@
 	$(function(){
 		$('#close').click(function(){
 			window.close();
+			window.opener.location.reload();
 		});
 		
 	});
@@ -75,6 +76,10 @@
 		function edit(no){
 			location.href="<c:url value='/approval/approvalEdit?confirmDocumentNo="+no+"'/>";
 		}
+		
+		function print(no){
+			location.href="<c:url value='/approval/downloadPDF?confirmDocumentNo="+no+"'/>";
+		}
 </script>
 	<!-- ===============================================-->
     <!--    Stylesheets-->
@@ -119,6 +124,9 @@
 		                    </c:if>
 		                    <c:if test="${confirmMap['EMP_NO']==sessionScope.empNo and confirmMap['CONFIRM_STATE']==9}">
 			                    <button class="form-control btn btn-primary" id="edit" onclick="edit('${confirmMap['CONFIRM_DOCUMENT_NO'] }')" style="width: 100px">수정</button>
+		                    </c:if>
+		                    <c:if test="${confirmMap['CONFIRM_STATE']==10}">
+			                    <button class="form-control btn btn-primary" id="print" onclick="print('${confirmMap['CONFIRM_DOCUMENT_NO'] }')" style="width: 100px">출력</button>
 		                    </c:if>
 						</div>
 					</div>

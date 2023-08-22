@@ -1,39 +1,18 @@
 @charset "UTF-8";
+
 h2{
 	text-align: center;
 }
 
-#document,#header{
-	width:200px;
-} 
-
-#document tr>td:first-child, #document tr>td:nth-child(3),
-#document tr:nth-child(6)>td:nth-child(2),#document tr:nth-child(6)>td:nth-child(5){
+#document tr>td:first-child, #document tr>td:nth-child(3){
 	background-color: #D9E2F3;
 	text-align: center;
 }
 
-body>div:first-child{
-	width: 645px;
-}
-
-#check td{
-	text-align: center;
-}
-
-div#header {
-    margin:0 auto;
-    margin-bottom: 15px;
-    margin-top: 15px;
+#document td{
+	border:black solid 1px;
 }
 
 div#mainTitle {
     padding-top: 20px;
-}
-
-#referName,#title{
-	width: 100%;
-}
-#tel1,#tel2,#tel3{
-	width: 100px;
 }
