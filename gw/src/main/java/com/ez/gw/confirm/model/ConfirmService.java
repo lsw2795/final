@@ -10,6 +10,7 @@ public interface ConfirmService {
 	int updateConfirm(ConfirmVO vo,DeptagreeVO deptAgreeVo,int[] referEmpNo,String[] deleteFile,List<Map<String, Object>> fileList);
 	List<Map<String, Object>> selectAllByEmpNo(ConfirmVO vo);
 	int getTotalRecord(ConfirmVO vo);
+	int getTotalRecordAdmin(ConfirmVO vo);
 	List<Map<String, Object>> selectAllConfirmDocument(ConfirmVO vo);
 	int getTotalConfirmRecord(ConfirmVO vo);
 	Map<String, Object> selectConfirmDocument(String confirmDocumentNo);
@@ -26,4 +27,5 @@ public interface ConfirmService {
 	int getTotalReturnRecord (ConfirmVO vo);
 	int getTotalAgreeRecordMain (ConfirmVO vo);
 	int returnConfirmAndDept(ConfirmVO vo);
+	List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo);
 }
