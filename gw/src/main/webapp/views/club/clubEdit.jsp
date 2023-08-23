@@ -10,7 +10,9 @@
 	});
 	
 	function deleteClub() {
-		
+		if(confirm("동호회를 삭제하시겠습니까?")){
+			location.href = "<c:url value='/club/deleteClub?clubNo=${param.clubNo}'/>"
+		}
 	}
 </script>
 
@@ -29,7 +31,7 @@
 
  
   	<body>
-		<form name="editFrm" method="post" action="<c:url value='/club/clubEdit/>">
+		<form name="editFrm" method="post" action="<c:url value='/club/clubEdit'/>">
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
@@ -37,9 +39,9 @@
                   <h5 class="mb-2 mb-md-0">동호회 수정</h5>
                 </div>
                 <div class="col-auto">
-              		<button class="btn btn-falcon-default btn-sm" type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+              		<button class="btn btn-falcon-default btn-sm" type="button"><a href="<c:url value='/club/clubDetail?clubNo=${param.clubNo }'/>"><span class="fas fa-arrow-left"></span></a></button>
 	                <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
-	                <button onclick="deleteClub()" class="btn btn-falcon-default btn-sm mx-2" type="button">
+	                <button onclick="deleteClub()" class="btn btn-falcon-default btn-sm" type="button">
 			           <span class="fas fa-trash-alt"></span>
 		            </button>
                 </div>
@@ -83,13 +85,20 @@
 	              <div class="col-md">
 	                  <h5 class="mb-2 mb-md-0"></h5>
 	              </div>
+	              <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
+              <div class="col-auto">
+                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
+                        <option value="Y">제한</option>
+                        <option value="N">제한없음</option>
+                   </select>
+                </div>
 	                <div class="col-auto mb-0">
-	                <div class="col-auto">
-	                  <button class="btn btn-sm btn-primary me-2" id="payment" onclick="requestPay()" type="button">가입</button>
-	                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">
-	                  	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">게시판 바로가기</a>
-	                  </button>
-                	</div>
+		                <div class="col-auto">
+		                	<button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
+		                	<button onclick="deleteClub()" class="btn btn-falcon-default btn-sm" type="button">
+				           		<span class="fas fa-trash-alt"></span>
+			            	</button>
+	                	</div>
 	               </div>
               </div>
             </div>
