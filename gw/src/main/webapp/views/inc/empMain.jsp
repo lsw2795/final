@@ -18,10 +18,12 @@
 	  border-radius: 2px;
 	}
 	.button {
+	    line-height: 34px;
 		background: #3D4C53;
-	    margin: 20px auto;
 	    width: 40%;
-	    height: 50px;
+	    float : left;
+	    margin-left: 14px;
+	    height: 36px;
 	    overflow: hidden;
 	    text-align: center;
 	    transition: .2s;
