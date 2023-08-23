@@ -9,8 +9,37 @@
 		where CLUB_NO=#{clubNo}
 	</select>
 	
-	<insert id="insertClubBoard">
-		
+	<insert id="insertClubBoard" parameterType="clubBoardVo">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			select clubboard_seq.nextval from dual
+		</selectKey>
+		insert into clubBoard(BOARD_NO, CLUB_NO, EMP_NO, TITLE, CONTENT, BOARDLIST_NO,DELFLAG)
+		values(#{boardNo}, #{clubNo}, #{empNo}, #{title}, #{content},200,#{delflag})
 	</insert>
 	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

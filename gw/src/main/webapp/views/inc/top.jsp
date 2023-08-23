@@ -165,7 +165,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="a">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/commute/status'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">출/퇴근 현황</span>
                         			</div> 
