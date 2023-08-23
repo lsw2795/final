@@ -52,8 +52,8 @@ public class LoginController {
 			
 			//session
 			HttpSession session=request.getSession();
-			session.setAttribute("empNo", empNo);
 			session.setMaxInactiveInterval(-1); // 무제한 세션 유지
+			session.setAttribute("empNo", empNo);
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);
