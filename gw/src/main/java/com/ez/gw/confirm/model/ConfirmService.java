@@ -28,4 +28,5 @@ public interface ConfirmService {
 	int getTotalAgreeRecordMain (ConfirmVO vo);
 	int returnConfirmAndDept(ConfirmVO vo);
 	List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo);
+	int updateConfirmDelFlag(String[] confirmDocumentNo);
 }

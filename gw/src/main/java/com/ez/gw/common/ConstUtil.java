@@ -43,13 +43,13 @@ public interface ConstUtil {
 	
 	//전자결재
 	Date date = new Date();
-	int CONFIRM_NO=1;
-	int RETURN = -1; 
-	int WAIT = 0; 
-	int CONFIRM1=1;
-	int CONFIRM2=2;
-	int DEPTAGREE=3;
-	int CONFIRM3=4;
-	int COMPLETE=5;
+	int MY_CONFIRM_LIST = 0;
+	int CONFIRM_STAY = 1;
+	int AGREE_LIST = 2;
+	int COMPLETE_LIST = 3;
+	int REFER_LIST = 4;
+	int RETURN_LIST= 5;
+	int ADMIN = 6;
+
 	
 }
