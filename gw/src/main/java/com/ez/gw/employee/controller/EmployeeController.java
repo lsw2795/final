@@ -290,25 +290,19 @@ public class EmployeeController {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	    empVo.setImage(fileName);
 
-	    EmployeeVO vo = employeeService.selectByEmpNo(empNo);
-	    logger.info("파일 업로드후 db에 저장되어있는 사원 이미지 image={}", vo.getImage());
-
-	    if (fileName != null && !fileName.isEmpty()) {
-	        empVo.setImage(fileName);
-	        if (!oldFileName.equals(fileName)) { // If new file uploaded and names are different
-	            if (oldFileName != null && !oldFileName.isEmpty()) { // If old file exists
-	                String upPath = fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_IMAGE_FLAG);
-	                File file = new File(upPath, oldFileName);
-	                if (file.exists()) {
-	                    boolean bool = file.delete();
-	                    logger.info("기존 파일 삭제 여부 bool={}", bool);
-	                }
-	            }
-	        }
-	    } else {
-	        empVo.setImage(oldFileName);
-	    }
+	    if (empVo.getImage()!= null && !empVo.getImage().isEmpty()) { //새파일 업로드
+            if (oldFileName != null && !oldFileName.isEmpty()) { //기존 파일이 있으면
+                String upPath = fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_IMAGE_FLAG);
+                File file = new File(upPath, oldFileName);
+                if (file.exists()) {
+                    boolean bool = file.delete();
+                    logger.info("기존 파일 삭제 여부 bool={}", bool);
+                }
+            }
+        }
+   
 
 	    int cnt = employeeService.updateEmpAdmin(empVo);
 	    logger.info("관리자 - 사원 정보 수정 처리 결과 cnt={}", cnt);
