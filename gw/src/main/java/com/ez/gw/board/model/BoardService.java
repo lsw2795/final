@@ -3,6 +3,7 @@ package com.ez.gw.board.model;
 import java.util.List;
 import java.util.Map;
 
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 public interface BoardService {
@@ -17,5 +18,6 @@ public interface BoardService {
 	Map<String, Object> selectNotice(int boardNo); //공지사항 글 1개 디테일 조회 메서드
 	int updateNotice(BoardVO vo); //관리자 공지사항 글수정 메서드
 	int deleteNotice(BoardVO vo); //관리자 공지사항 삭제 메서드
-	List<Map<String, Object>> selectByEmpNo(int empNo); //사원 - 내가쓴 게시글 목록 조회 메서드
+	List<Map<String, Object>> selectByEmpNo(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 목록 조회 메서드
+	int gTRSearchBoard(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 검색 전체 레코드
 }
