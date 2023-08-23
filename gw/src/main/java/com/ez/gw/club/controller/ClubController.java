@@ -106,7 +106,7 @@ public class ClubController {
 		String msg="수정 실패하였습니다.", url="/club/clubEdit?clubNo="+vo.getClubNo();
 		if(cnt>0) {
 			msg="수정 완료되었습니다.";
-			url="club/clubList";
+			url="/club/clubList";
 		}
 		//3.
 		model.addAttribute("msg", msg);

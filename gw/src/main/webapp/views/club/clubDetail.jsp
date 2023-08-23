@@ -64,7 +64,7 @@
 	
 	function deleteClub() {
 		if(confirm("동호회를 삭제하시겠습니까?")){
-			location.href = "<c:url value='/club/delete?clubNo=${param.clubNo}'/>"
+			location.href = "<c:url value='/club/deleteClub?clubNo=${param.clubNo}'/>"
 		}
 	}
 </script>
