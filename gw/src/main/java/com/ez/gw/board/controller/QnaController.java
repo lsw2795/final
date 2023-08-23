@@ -27,14 +27,14 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/qna")
+@RequestMapping
 public class QnaController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	private final BoardService boardService;
 	private final EmployeeService employeeService;
 	private final CommentsService commentsService;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/qna/list")
 	public String qnaList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("qna 목록 페이지");
@@ -57,7 +57,7 @@ public class QnaController {
 		return "qna/list";
 	}
 	
-	@GetMapping("/write")
+	@GetMapping("/qna/write")
 	public String qnaWrite_get() {
 		//1 
 		logger.info("qna 등록 페이지");
@@ -68,7 +68,7 @@ public class QnaController {
 		return "qna/write";
 	}
 	
-	@PostMapping("/write")
+	@PostMapping("/qna/write")
 	public String qnaWrite_post(@ModelAttribute BoardVO vo, HttpSession session, Model model) {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
@@ -92,7 +92,7 @@ public class QnaController {
 		
 	}
 	
-	@RequestMapping("/detail")
+	@RequestMapping("/qna/detail")
 	public String qnaDetail(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("qna 글 상세보기 페이지, 파라미터 boardNo={}", boardNo);
@@ -122,7 +122,7 @@ public class QnaController {
 		return "qna/detail";
 	}
 	
-	@GetMapping("/edit")
+	@GetMapping("/qna/edit")
 	public String qnaEdit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("질문 수정 페이지, 파라미터 boardNo={}", boardNo);
@@ -145,7 +145,7 @@ public class QnaController {
 		return "qna/edit";
 	}
 	
-	@PostMapping("/edit")
+	@PostMapping("/qna/edit")
 	public String qnaEdit_post(@ModelAttribute BoardVO vo, Model model) {
 		//1
 		logger.info("qna 수정, 파라미터 vo={}", vo);
@@ -169,7 +169,7 @@ public class QnaController {
 		return "common/message";
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/qna/delete")
 	public String qnaDelete(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("질문 삭제 파라미터, boardNo={}", boardNo);
@@ -198,7 +198,7 @@ public class QnaController {
 	}
 	
 	
-	@RequestMapping("/reply")
+	@RequestMapping("/qna/reply")
 	public String reply(@ModelAttribute CommentsVO vo) {
 		//1
 		logger.info("답변 등록 파라미터, vo={}", vo);
@@ -211,5 +211,34 @@ public class QnaController {
 		//4
 		return "redirect:/qna/detail?boardNo=" + vo.getBoardNo();
 	}
+	
+	
+	//-----------------------------admin-----------------------------------
+	
+	@RequestMapping("/qna/admin/qnaList")
+	public String admin_qnaList(@ModelAttribute SearchVO searchVo, Model model) {
+		//1
+		logger.info("qna 목록 페이지");
+		
+		//2
+		List<Map<String, Object>> list = boardService.selectQnaAll(searchVo);
+		logger.info("qna 전체 조회 결과, list.size={}", list.size());
+		
+		for(Map<String, Object> map : list) {
+			int boardNo = Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
+			int countReply = commentsService.selectCountReply(boardNo);
+			map.put("countReply", countReply);
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
+		
+		//3
+		model.addAttribute("list", list);
+		
+		//4
+		return "admin/qna/qnaList";
+		
+	}
+	
+	
 	
 }
