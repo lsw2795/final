@@ -26,7 +26,12 @@ $(function(){
 		jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // jsPDF 옵션
 	};
 
-	html2pdf().from(element).set(options).save();	 
+	html2pdf().from(element).set(options).save();
+	
+	setTimeout(function() {
+		alert("이전 페이지로 돌아갑니다.");
+		history.back();
+		}, 3000);
 	
 });
 </script>
@@ -34,24 +39,38 @@ $(function(){
 <body>
 	<div class="container p-0 m-auto" style="width: 750px; height:750px;" id="pdf">
 		<div class="row g-0 m-0 mb-4 mt-5" id="header" >
-			<div class="col-6 pt-4" id="mainTitle">
+			<div class="col-7 pt-4" id="mainTitle">
 				<h2>${confirmMap['FORM_NAME'] }</h2>
 				<input type="hidden" id="formName" value="${confirmMap['FORM_NAME'] }">
 			</div>
-			<div class="col-6 pt-2 pr-4" id="check-div">
-				<table id="check" width="250" class="table-bordered" align="right" style="text-align: center;">
+			<div class="col-5 pt-2 pr-4" id="check-div">
+				<table id="check" width="280" class="table-bordered" align="right" style="text-align: center;">
 					<tbody>
 						<tr>
-					    	<td>기안</td>
-						    <td>검토</td>
-						    <td>확인</td>
-						    <td>승인</td>
+					    	<td width="70">기안</td>
+						    <td width="70">검토</td>
+						    <td width="70">확인</td>
+						    <td width="70">승인</td>
 						</tr>
 						<tr>
 						    <td height="60">${confirmMap['NAME'] }</td>
 						    <td height="60">${confirmMap['CONFIRM1NAME'] }</td>
 						    <td height="60">${confirmMap['CONFIRM2NAME'] }</td>
 						    <td height="60">${confirmMap['CONFIRM3NAME'] }</td>
+						</tr>
+						<tr>
+						    <td height="10">
+						    	<fmt:formatDate value="${confirmMap['CREATE_DATE'] }" pattern="yy-MM-dd" />
+						    </td>
+						    <td height="10">
+						    	<fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yy-MM-dd" />
+						    </td>
+						    <td height="10">
+						    	<fmt:formatDate value="${confirmMap['CONFIRM_DATE'] }" pattern="yy-MM-dd" />
+						    </td>
+						    <td height="10">
+						    	<fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yy-MM-dd" />
+						    </td>
 						</tr>
 					</tbody>
 				</table>
@@ -76,9 +95,9 @@ $(function(){
 						<td align="center">
 							${confirmMap['NAME'] }
 						</td>
-						<td>수정일자</td>
+						<td>검토일자</td>
 						<td align="center">
-							<fmt:formatDate value="${confirmMap['UPDATE_DATE'] }" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
 						</td>
 				  	</tr>
 					<tr>
@@ -86,9 +105,9 @@ $(function(){
 						<td align="center">
 							${empMap['DEPT_NAME'] }
 						</td>
-						<td>검토일자</td>
+						<td>확인일자</td>
 						<td align="center">
-							<fmt:formatDate value="${confirmMap['REVIEW_DATE'] }" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${confirmMap['CONFIRM_DATE'] }" pattern="yyyy-MM-dd" />
 						</td>
 					</tr>
 					<tr>
@@ -96,9 +115,9 @@ $(function(){
 						<td align="center">
 							${empMap['POSITION_NAME'] }
 						</td>
-						<td>확인일자</td>
+						<td>승인일자</td>
 						<td align="center">
-							<fmt:formatDate value="${confirmMap['CONFIRM_DATE'] }" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${confirmMap['COMPLETE_DATE'] }" pattern="yyyy-MM-dd" />
 						</td>
 					</tr>
 					<tr>

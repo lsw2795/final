@@ -163,15 +163,17 @@
 			                    ${deptVo.name}
 		                  	</a>
 		                  	<ul class="nav collapse" id="${deptVo.deptNo }">
-		                  	<c:forEach var="employeeVo" items="${empList }">
-		                  	<c:if test="${deptVo.deptNo == employeeVo.deptNo }">
-				            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
-					        		<a class="a-select nav-link" href="#">
-			                    		<span class="nav-link-icon"><span class="fas fa-user"></span></span>
-					                	<div id="empNameDiv" style="display: inline;">${employeeVo.name }</div>
-					                	<input type="hidden" id="empNo" value="${employeeVo.empNo }">
-					                </a>
-				                </li>
+		                  	<c:forEach var="employeeMap" items="${empList }">
+		                  	<c:if test="${deptVo.deptNo == employeeMap['DEPT_NO']}">
+			                  	<c:if test="${employeeMap['POSITION_RANK']>=3}">
+					            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
+						        		<a class="a-select nav-link" href="#">
+				                    		<span class="nav-link-icon"><span class="fas fa-user"></span></span>
+						                	<div id="empNameDiv" style="display: inline;">${employeeMap['NAME']}</div>
+						                	<input type="hidden" id="empNo" value="${employeeMap['EMP_NO'] }">
+						                </a>
+					                </li>
+				                </c:if>
 			                </c:if>
 			                </c:forEach>
 							</ul>

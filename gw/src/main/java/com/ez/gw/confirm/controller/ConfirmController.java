@@ -244,7 +244,7 @@ public class ConfirmController {
     	logger.info("참조자 선택 페이지 파라미터 referEmpNo={}",referEmpNo);
     	
     	//2
-    	List<EmployeeVO> empList = employeeService.selectAllEmp();
+    	List<Map<String, Object>> empList = employeeService.selectAllEmp();
     	List<DeptVO> deptList = deptService.selectAllDept();
     	List<EmployeeVO> referEmpList = new ArrayList<>();
     	if(referEmpNo!=null) {
@@ -268,7 +268,7 @@ public class ConfirmController {
     	logger.info("결재라인 생성 페이지");
     	
     	//2
-    	List<EmployeeVO> empList = employeeService.selectAllEmp();
+    	List<Map<String, Object>> empList = employeeService.selectAllEmp();
     	List<DeptVO> deptList = deptService.selectAllDept();
     	
     	//3
