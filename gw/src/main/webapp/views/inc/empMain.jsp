@@ -41,15 +41,15 @@
 	    left: -250px;
 	    transition: .3s;
 	}
-	.btnText {
+ 	.btnText {
 	  color : white;
 	  transition : .3s;
 	}
 	.btnText2 {
-	  margin-top : 63px;
+	  margin-top: 15px;
 	  margin-right : -130px;
 	  color : #FFF;
-	}
+	} 
 	.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
 	  left: -130px;
 	}
@@ -59,6 +59,7 @@
 	.button:active { /*Clicked and held*/
 	  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 	}
+	
 </style>
 
 <div class="row mb-3">
