@@ -90,9 +90,22 @@ div#updateBtn {
                   <input type="hidden" id="tradeNo" name="tradeNo" value="${vo.tradeNo }">
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+                 	<div id = "write">
                  	</h6>
-                 	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
-                 	  <input type = "text" id="empNo" name="empNo" value="${sessionScope.empNo }">
+                 	<div class="dropdown-center">
+                 	 <span><strong> 작성자 : </strong></span>
+                 	  <p class="fs--1 mb-1"> 
+						  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    ${emp.name }
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" href="#">사원정보보기</a></li>
+						    <li><a class="dropdown-item" href="#">신고하기</a></li>
+						  </ul>
+						</div>
+                 	  </div>
+                 	  </p>
+                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo }">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
