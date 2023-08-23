@@ -45,7 +45,7 @@
 	    		alert(status+" : "+error);
 	   		}
 	   	});
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=1000, height=660");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=1000, height=700");
 	}
 	
 </script>
@@ -98,10 +98,22 @@
 					    <label class="form-label" for="endDate">종료일</label>
 					    <input class="form-control" name="endDate" id="endDate" type="date" value="${confirmVO.endDate}"/>
 					</div>
-					<div class="col-md-6">
-					    <label class="form-label" for="confirmTitle">제목</label>
-					    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
-					</div>
+					<c:if test="${title==0 or title==5 }">
+						<div class="col-md-6">
+						    <label class="form-label" for="confirmTitle">제목</label>
+						    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
+						</div>
+					</c:if>
+					<c:if test="${title!=0 and title!=5 }">
+						<div class="col-md-3">
+						    <label class="form-label" for="confirmTitle">제목</label>
+						    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
+						</div>
+						<div class="col-md-3">
+						    <label class="form-label" for="empName">기안자</label>
+						    <input class="form-control" name="searchKeyword" id="searchKeyword" type="text" value="${confirmVO.searchKeyword}"/>
+						</div>
+					</c:if>
 					<div class="col-md-3">
 					    <label class="form-label" for="documentNo">문서종류</label>
 					    <select class="form-select" name="documentNo" >

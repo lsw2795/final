@@ -16,12 +16,16 @@
 		$('#likeit').click(function(){
 			$.ajax({
 				url:"<c:url value='/market/ajaxlikeit'/>",
-				type:"get",
+				type:"post",
 				dataType:"JSON",
-				data:{tradeNo: $('#tradeNo').val()},
-				success:function(res){
-					$('#showLike').text(res);
-					$('#heart').next(res);
+				data:{tradeNo: $('#tradeNo').val(),
+					  empNo : $('#empNo').val()},
+				success:function(result){
+					if(result==1){//좋아요 누름
+						$('#heart').addClass('fa-solid fa-heart')
+					}else if(result==2){//좋아요 한번 더 눌러서 해지
+						$('#heart').addClass('fa-regular fa-heart')
+					}
 					
 				},
 				error:function(xhr, status, error){
@@ -88,6 +92,7 @@ div#updateBtn {
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
                  	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
+                 	  <input type = "text" id="empNo" name="empNo" value="${sessionScope.empNo }">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 

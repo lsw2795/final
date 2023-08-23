@@ -147,6 +147,7 @@ ul#navbarVerticalNav {
 																		♥ 좋아요 : <strong>${vo.likeCount }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
+																		<span class="fa-solid fa-eye"></span>
 																		조회수 : <strong>${vo.readCount }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">

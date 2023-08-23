@@ -244,7 +244,7 @@ public class ConfirmController {
     	logger.info("참조자 선택 페이지 파라미터 referEmpNo={}",referEmpNo);
     	
     	//2
-    	List<EmployeeVO> empList = employeeService.selectAllEmp();
+    	List<Map<String, Object>> empList = employeeService.selectAllEmp();
     	List<DeptVO> deptList = deptService.selectAllDept();
     	List<EmployeeVO> referEmpList = new ArrayList<>();
     	if(referEmpNo!=null) {
@@ -268,7 +268,7 @@ public class ConfirmController {
     	logger.info("결재라인 생성 페이지");
     	
     	//2
-    	List<EmployeeVO> empList = employeeService.selectAllEmp();
+    	List<Map<String, Object>> empList = employeeService.selectAllEmp();
     	List<DeptVO> deptList = deptService.selectAllDept();
     	
     	//3
@@ -558,6 +558,36 @@ public class ConfirmController {
     	
     	//4
     	return "approval/approvalView";
+    }
+    
+    @RequestMapping("/downloadPDF")
+    public String downloadPDF(@RequestParam(required = true) String confirmDocumentNo,Model model) {
+    	//1
+    	logger.info("문서 상세정보 파라미터 confirmDocumentNo={}",confirmDocumentNo);
+    	
+    	//2
+    	Map<String, Object> confirmMap=confirmService.selectConfirmDocument(confirmDocumentNo);
+    	logger.info("문서 상세정보 선택 결과 confirmMap={}",confirmMap);
+    	
+    	Object obj=confirmMap.get("EMP_NO");
+    	int empNo = ((BigDecimal) obj).intValue();
+    	Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
+    	logger.info("기안자 정보 조회 결과 empMap={}",empMap);
+    	
+    	List<EmployeeVO> referEmpList = employeeService.selectByReferEmpNo(confirmDocumentNo);
+    	logger.info("참조자 조회 결과 referList={}",referEmpList.size());
+    	
+    	Map<String, Object> deptAgreeMap=confirmService.selectDeptAgree(confirmDocumentNo);
+    	logger.info("합의부서 조회 결과 deptAgreeMap={}",deptAgreeMap);
+		
+    	//3
+    	model.addAttribute("confirmMap",confirmMap);
+    	model.addAttribute("empMap",empMap);
+    	model.addAttribute("referEmpList",referEmpList);
+    	model.addAttribute("deptAgreeMap",deptAgreeMap);
+    	
+    	//4
+    	return "approval/document/pdfForm";
     }
     
     @ResponseBody

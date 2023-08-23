@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#empWrite").hide();
-		$('#btnadminPwd').click(function(){
+		$('#btnadminPwd').click(function(){ //모달에 있는 클릭버튼
 			 $.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
@@ -29,6 +29,10 @@
 	               alert(status+" : "+error);
 	            }
 	         });//ajax
+		});
+		
+		$('#btCancel').click(function(){
+			location.href="<c:url value='/admin/employee/employeeList'/>";
 		});
 	});
 </script>
@@ -84,7 +88,7 @@
 			    	</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv17">
-					        <label class="col-form-label adminemplabel" for="ename">사원 영어이름</label>
+					        <label class="col-form-label adminemplabel" for="ename">사원 영문이름</label>
 					    </div>
 					    <div class="col-md-6">
 					        <input type="text" value="${map['ENAME']}" class="form-control admindefault" id="ename" name="ename"/>
@@ -112,8 +116,8 @@
 					</div>
 					<c:if test="${empty param.empNo}">
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv1">
-							<label class="col-form-label adminemplabel" for="pwd">초기비밀번호</label>
+					    <div class="col-md-auto adminempdiv17">
+							<label class="col-form-label adminemplabel" for="pwd">초기 비밀번호</label>
 						</div>
 						<div class="col-md-6">
 							<input type="password" class="form-control admindefault" id="pwd" name="pwd" placeholder="초기비밀번호는 사원의 생년월일 앞 6자리 입니다." />
@@ -261,7 +265,7 @@
 		                       class="form-control admindefault" style="visibility: hidden; width: 35%;" value="${email3}" />
 						</div>
 					</div>
-					<c:if test="${!empty param.empNo}">
+					<c:if test="${!empty param.empNo && !empty map['MARRIED']}">
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv3">
 					        <label class="col-form-label adminemplabel" for="name">결혼 여부</label>
@@ -288,8 +292,8 @@
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<input type="submit" value="${btLabel}" id="empWrite" class="btn btn-primary"/>
-						<input type="button" value="취소" class="btn btn-secondary"/>
+						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
+						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
 					<!-- hidden 처리 인풋태그들 -->

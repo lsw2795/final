@@ -49,9 +49,10 @@
 		var maritalStatus = $('#married').val();
 	    if (maritalStatus === "Y") {
 	        $("#marriedFlagY").prop("checked", true);
-	    } else if (maritalStatus === "N" || maritalStatus==null) {
+	    } else if (maritalStatus === "N" || maritalStatus.length<1) {
 	        $("#marriedFlagN").prop("checked", true);
 	    }
+			
 					 
 		//등록(또는 수정) 버튼 클릭시 유효성검사
 		$("#empWrite").click(function() {

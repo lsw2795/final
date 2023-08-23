@@ -5,6 +5,9 @@
 <mapper namespace="com.ez.gw.confirm.model.ConfirmDAO">
 	<sql id="search">
 		<trim prefix="and" prefixOverrides="AND|OR">
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				and name like '%' || #{searchKeyword} || '%'
+			</if>
 			<if test="confirmDocumentNo!=null and confirmDocumentNo!=''">
 				and confirm_document_no like '%' || #{confirmDocumentNo} || '%'
 			</if>

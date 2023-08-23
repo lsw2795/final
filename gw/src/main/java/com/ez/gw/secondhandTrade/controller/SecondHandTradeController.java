@@ -35,6 +35,8 @@ import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeService;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeVO;
 
 import ch.qos.logback.classic.pattern.Util;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +52,7 @@ public class SecondHandTradeController {
 	private final SecondHandTradeService secondHandTradeService;
 	private final SecondhandTradeFileService secondHandTradeFileService;
 	private final EmployeeService employeeService;
+	private final SecondhandTradeLikeService secondHandLikeService;
 
 	@GetMapping("/addMarket")
 	public String get_addMarket(Model model, HttpSession session) {
@@ -411,14 +414,27 @@ public class SecondHandTradeController {
 	
 	@RequestMapping("/ajaxlikeit")
 	@ResponseBody
-	public int likeit(@RequestParam(defaultValue = "0")int tradeNo) {
-		logger.info("ajax - likeit, 파라미터 tradeNo={}", tradeNo);
+	public int likeit(@RequestParam(defaultValue = "0")int tradeNo, @RequestParam(defaultValue = "0")int empNo,
+			HttpSession session) {
+		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
 		
-		int cnt = secondHandTradeService.updateLike(tradeNo);
-		logger.info("좋아요 결과, cnt={}", cnt);
+		int cnt = secondHandLikeService.findLike(empNo, tradeNo);
+		logger.info("좋아요 여부, cnt={}", cnt);
+		int result = 0;
 		if(cnt>0) {
-			cnt= secondHandTradeService.showLike(tradeNo);
+			cnt = secondHandLikeService.disLikeHeart(empNo, tradeNo);
+			logger.info("좋아요 취소 결과, cnt = {}", cnt);
+			result = 2; 
+		}else {
+			SecondhandTradeLikeVO like = new SecondhandTradeLikeVO();
+			like.setEmpNo(empNo);
+			like.setTradeNo(tradeNo);
+			cnt = secondHandLikeService.likeHeart(like);
+			logger.info("좋아요 결과, cnt = {}", cnt);
+			result = 1;
 		}
-		return cnt;
+		return result;
 	}
+	
+	
 }

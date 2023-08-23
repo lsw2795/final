@@ -67,21 +67,24 @@
     		    $('.nav-link').not(this).removeClass('active');
     		  });
     		  
-    		  $.ajax({
-    		    	url:"<c:url value='/approval/recordAjax'/>",
-    		   		type:"post",
-    		   		dataType:"json",
-    		   		success:function(res){
-    		   			$('#confirm').text(res[0]);
-    		   			$('#turn').text(res[1]);
-    		   			$('#agree').text(res[2]);
-    		   			$('#approval').text(res[0]+res[1]+res[2]);
-    		    	},error:function(xhr, status, error){
-    		    		alert(status+" : "+error);
-    		   		}
-    		   	});
+    		  confirmRecord();
 		});
     	
+    	function confirmRecord(){
+    		$.ajax({
+    			url:"<c:url value='/approval/recordAjax'/>",
+    		   	type:"post",
+    		   	dataType:"json",
+    		   	success:function(res){
+    		   		$('#confirm').text(res[0]);
+    		   		$('#turn').text(res[1]);
+    		   		$('#agree').text(res[2]);
+    		   		$('#approval').text(res[0]+res[1]+res[2]);
+    		    },error:function(xhr, status, error){
+    		    	alert(status+" : "+error);
+    		   	}
+    		});
+    	}
     </script>
   </head>
   <body>
@@ -228,33 +231,35 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/approval/confirm/confirmList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">
-                        					결재 대기함(임원)
-                        					<span class="badge rounded-pill text-bg-primary" id="confirm" ></span>
-                        				</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/approval/completeList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 완료함(임원)</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/approval/deptAgreeList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">
-	                        				합의 문서함(임원)
-	                        				<span class="badge rounded-pill text-bg-primary" id="agree" ></span>
-                        				</span>
-                        			</div> 
-                      			</a>
-                    		</li>
+                    		<c:if test="${empMap['POSITION_RANK']>=3 }"> <!-- 대리 이상 -->
+	                    		<li class="nav-item"><!-- more inner pages-->
+	                    			<a class="nav-link " href="<c:url value='/approval/confirm/confirmList'/>">
+	                        			<div class="d-flex align-items-center">
+	                        				<span class="nav-link-text ps-1">
+	                        					결재 대기함
+	                        					<span class="badge rounded-pill text-bg-primary" id="confirm" ></span>
+	                        				</span>
+	                        			</div> 
+	                      			</a>
+	                    		</li>
+	                    		<li class="nav-item"><!-- more inner pages-->
+	                    			<a class="nav-link " href="<c:url value='/approval/completeList'/>">
+	                        			<div class="d-flex align-items-center">
+	                        				<span class="nav-link-text ps-1">결재 완료함</span>
+	                        			</div> 
+	                      			</a>
+	                    		</li>
+                    		</c:if>
+	                    		<li class="nav-item"><!-- more inner pages-->
+	                    			<a class="nav-link " href="<c:url value='/approval/deptAgreeList'/>">
+	                        			<div class="d-flex align-items-center">
+	                        				<span class="nav-link-text ps-1">
+		                        				합의 문서함
+		                        				<span class="badge rounded-pill text-bg-primary" id="agree" ></span>
+	                        				</span>
+	                        			</div> 
+	                      			</a>
+	                    		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/approval/referList'/>">
                         			<div class="d-flex align-items-center">
