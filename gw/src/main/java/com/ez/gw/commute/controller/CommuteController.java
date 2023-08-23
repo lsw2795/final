@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.commute.model.CommuteService;
@@ -74,6 +76,21 @@ public class CommuteController {
         mv.setViewName(viewpage);
         return mv;
     }
+	
+	
+	@RequestMapping("/workIn")
+	@ResponseBody
+	public int ajaxWorkIn(@RequestParam int empNo) {
+		//1
+		logger.info("ajax 사원 번호={}", empNo);
+		//2
+		int cnt = commuteService.insertWorkIn(empNo);
+		//3
+		//4
+		return cnt;
+	}
+		
+	
 
 
 

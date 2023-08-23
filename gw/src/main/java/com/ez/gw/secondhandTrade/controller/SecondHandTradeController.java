@@ -66,7 +66,7 @@ public class SecondHandTradeController {
 			model.addAttribute("secondVo", secondVo);
 			model.addAttribute("secondFileVo", secondFileVo);
 		}
-		return "/market/addMarket";
+		return "market/addMarket";
 	}
 
 	@PostMapping("/addMarket")
