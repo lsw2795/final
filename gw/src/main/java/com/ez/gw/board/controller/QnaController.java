@@ -239,6 +239,17 @@ public class QnaController {
 		
 	}
 	
+	@RequestMapping("/qna/admin/delete")
+	public String admin_qnaDelete() {
+		//1
+		logger.info("삭제 파라미터");
+		//2
+		
+		//3
+		//4
+		return "redirect:/qna/admin/qnaList";
+	}
+	
 	
 	
 }
