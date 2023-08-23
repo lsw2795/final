@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         selectable: true,
         droppable: true,
-        editable: true,
+        editable: false,
         events: [ 
             <% List<Map<String, Object>> calendarList = (List<Map<String, Object>>) request.getAttribute("calendarList"); %>
             <% if (calendarList != null) { %>

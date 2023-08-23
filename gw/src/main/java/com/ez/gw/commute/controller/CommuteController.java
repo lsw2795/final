@@ -42,7 +42,7 @@ public class CommuteController {
         
         List<Map<String, Object>> events = new ArrayList<>();
         SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); // 입력 날짜 형식 추가
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (CommuteVO vo : list) {
             Map<String, Object> event = new HashMap<>();
