@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface CommuteService {
 	List<CommuteVO> selectCommuteByEmpNo(int empNo);
-
+	int insertWorkIn(int empNo);
 	
 }

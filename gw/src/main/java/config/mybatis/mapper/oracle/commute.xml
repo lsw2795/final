@@ -8,6 +8,20 @@
 		select * from commute
 		where emp_no=#{empNo}
 	</select>
+	
+	<insert id="insertWorkIn" parameterType="int">
+<!-- 		<selectKey keyProperty="commuteNo" order="BEFORE" resultType="int">
+			select commute_seq.nextval from dual
+		</selectKey> -->
+		insert into commute(commute_no, work_in, commute_state, emp_no)
+		select 16, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 0, #{empNo}
+		from dual
+<!--  		where not exists (
+		    select 1
+		    from commute
+		    where trunc(work_in) = trunc(sysdate) and emp_no = #{empNo}
+		)  -->
+	</insert>
 
 
 </mapper>
