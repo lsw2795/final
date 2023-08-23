@@ -105,12 +105,12 @@
     font-size: 20px;
 }
 #prevPage, #nextPage{
-	border: 1px solid#101726;
+	border: 1px solid#e9e9e9;
 	border-radius: 5px;
 
 }
 #curPage, #otherPage {
-    border: 1px solid #101726;
+    border: 1px solid #e9e9e9;
     border-radius: 5px;
     margin: 2px;
 }
