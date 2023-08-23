@@ -6,7 +6,7 @@
 
 	<select id="selectCommuteByEmpNo" parameterType="int" resultType="commuteVo">
 		select * from commute
-		where emp_no=1
+		where emp_no=#{empNo}
 	</select>
 
 

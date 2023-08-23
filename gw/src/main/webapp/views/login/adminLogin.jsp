@@ -98,7 +98,7 @@
                         <label class="form-check-label mb-0" for="basic-checkbox">사원번호 저장하기</label>
                       </div>
                     </div>
-                    <div class="col-auto"><a class="fs--1" href="<c:url value='/views/login/admin_forgot_password.jsp'/>">Forgot Password?</a></div>
+                    <div class="col-auto"><a class="fs--1" href="<c:url value='/login/adminForgotPwd'/>">Forgot Password?</a></div>
                   </div>
                   <div class="mb-3">
                     <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in</button>

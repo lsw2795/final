@@ -1,5 +1,7 @@
 package com.ez.gw.clubboard.model;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -9,9 +11,9 @@ public class ClubBoardVO {
 	private int empNo; //사원 번호
 	private String title; //게시글 제목
 	private String content; //내용
-	private String regdate; //등록일
+	private Timestamp regdate; //등록일
 	private int readcount; //조회수
-	private int boardListNo; //게시글목록 번호?
+	private int boardListNo; //게시판목록 번호
 	private String delflag; //동호회 게시글 삭제여부. default 'N'
 	
 }
