@@ -299,7 +299,7 @@ public class ConfirmController {
     public String confirmList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
+    	logger.info("관리자 - 결재문서 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
     	List<DocumentFormVO> formList = documentFormService.selectAllForm();
@@ -317,7 +317,7 @@ public class ConfirmController {
     	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(vo);
     	logger.info("결재문서 조회결과, list.size={}",list.size());
     	
-    	int totalRecord = confirmService.getTotalRecord(vo);
+    	int totalRecord = confirmService.getTotalRecordAdmin(vo);
 		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
     	
@@ -328,6 +328,43 @@ public class ConfirmController {
     	model.addAttribute("pagingInfo",pagingInfo);
     	model.addAttribute("title","0");
 
+    	//4
+    	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/confirmList/admin")
+    public String confirmList_admin(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+    	pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllByAdmin(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalRecord(vo);
+    	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+    	pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title","6");
+    	
     	//4
     	return "approval/confirmList";
     }

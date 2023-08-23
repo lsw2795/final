@@ -254,4 +254,14 @@ public class ConfirmServiceImpl implements ConfirmService{
 		return cnt;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo) {
+		return confirmDao.selectAllByAdmin(vo);
+	}
+
+	@Override
+	public int getTotalRecordAdmin(ConfirmVO vo) {
+		return confirmDao.getTotalRecordAdmin(vo);
+	}
+
 }
