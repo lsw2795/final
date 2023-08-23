@@ -102,6 +102,7 @@
 				</if>
 				<if test="searchKeyword!=null and searchKeyword!=''">
 	 			and content like '%'|| #{searchKeyword} ||'%'
+	      		or title like '%'|| #{searchKeyword} ||'%'
 	      		</if>
 				and delflag='N'
 				order by boardList_no asc, board_no desc
@@ -121,6 +122,7 @@
 		</if>
 		<if test="searchKeyword!=null and searchKeyword!=''">
 	 	and content like '%'|| #{searchKeyword} ||'%'
+	 	or title like '%'|| #{searchKeyword} ||'%'
    		</if>
 		and delflag='N'
 		order by boardList_no asc, board_no desc

@@ -21,9 +21,9 @@
   		  <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/mypage/myWritingList'/>" 
 			name="frmPage" method="post">
-			<input type="text" name="currentPage">
-			<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-			<input type="text" name="searchCondition" value="${param.searchCondition}">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 		</form>
   		  <div class="card-body py-2">
               <div class="card" id="allContactTable">
@@ -33,6 +33,7 @@
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
                          <select name="searchCondition" class="mypageempborder mypageempsel">
+							<option value="">전체보기</option>
 							<c:forEach var="boardListVo" items="${boardListNames }">
 								<option value="${boardListVo.boardName}"
 									<c:if test="${param.searchCondition==boardListVo.boardName}">
@@ -68,7 +69,7 @@
                 </div>
                 <div class="admindefault searchEmpResult" style="padding: 10px 0 0 25px;">
 							<c:if test="${!empty param.searchKeyword }">
-							   <p>검색어 :${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+							   <p>검색어 : ${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
 							</c:if>   
 						</div>
                 <div class="card-body p-0">
