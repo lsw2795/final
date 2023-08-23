@@ -148,7 +148,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/mypage/addressBook?empNo=${sessionScope.empNo}'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1" >주소록</span>
                         			</div> 
@@ -343,13 +343,6 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">받은 쪽지함</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">조직도</span>
                         			</div> 
                       			</a>
                     		</li>
