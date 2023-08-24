@@ -9,6 +9,12 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<style>
+	div#calendar {
+	    background: white;
+	    padding: 20px;
+	}
+</style>
 
 <div id='calendar'></div>
 

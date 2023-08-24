@@ -27,7 +27,7 @@
             <div class="col-xxl-12 col-xl-8">
               <div class="card">
                 <div class="card-header d-flex flex-between-center">
-                  <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/qna/list'/>"><span class="fas fa-arrow-left"></span></a></button>
+                  <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/admin/qna/list'/>"><span class="fas fa-arrow-left"></span></a></button>
                   <div class="d-flex">
                   	<h2 class="title">Q&A 게시판</h2>
                     
@@ -95,7 +95,7 @@
 	                    <div class="d-flex align-items-center gap-2">
 	                    	<c:if test="${!empty replyMap['IMAGE']}">
 		                        <div class="avatar avatar-2xl">
-		                          <img class="rounded-circle" src="<c:url value='/images/${replayMap["IMAGE"]}'/>"  />
+		                          <img class="rounded-circle" src="<c:url value='/images/${replyMap["IMAGE"]}'/>"  />
 		                        </div>
 	                        </c:if>
    	                    	<c:if test="${empty replyMap['IMAGE']}">
@@ -130,7 +130,7 @@
 	                <div class="collapse transition-none" id="previewMailForm">
 	                  <h5 class="mb-0 p-x1 bg-light">답변</h5>
 	                  <div class="border border-y-0 border-200">
-	                  	<input name="boardNo" type="text" value="${param.boardNo}">
+	                  	<input name="boardNo" type="hidden" value="${param.boardNo}">
 	                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="15" placeholder="내용" form="replyForm"></textarea>
 	                  </div>
 	                  

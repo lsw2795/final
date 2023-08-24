@@ -39,7 +39,7 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmList" method="post" action='<c:url value='/admin/board/noticeList'/>'>
+					<form name="frmList" method="post" action='<c:url value='/admin/qna/list'/>'>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
@@ -118,7 +118,6 @@
 					<tbody class="list" id="table-contact-body">
 					
 						<c:set var="idx" value="0"/>
-						
 						<!-- 반복 시작  -->
 						<c:forEach var="map" items="${list}">
 							<tr>
@@ -159,6 +158,9 @@
 								</td>
 								<td class="align-middle">${map['READCOUNT']}</td>
 							</tr>
+							
+							<c:set var="idx" value="${idx+1}"/>
+							
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>
