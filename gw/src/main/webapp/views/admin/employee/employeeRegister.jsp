@@ -12,7 +12,7 @@
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
 	            dataType : "text",
-	            data:"pwd="+$('#pwd').val(),
+	            data:"pwd="+$('#adminPwd').val(),
 	            success: function(res){
 	               $('#adminPwdChkFlag').val(res);
 	               
@@ -298,7 +298,7 @@
 					
 					<!-- hidden 처리 인풋태그들 -->
 					<c:if test="${!empty param.empNo}">
-						<input type="text" name="oldFileName" value="${map['IMAGE']}">
+						<input type="hidden" name="oldFileName" value="${map['IMAGE']}">
 						<input type="hidden" name="empNo" value="${empNo}" />
 					</c:if>
 					 <input type="hidden" id="jumin" name="jumin" value="${map['JUMIN']}"/>
