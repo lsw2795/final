@@ -39,10 +39,16 @@ public interface ConstUtil {
 	//String IMAGE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\images";
 	//String IMAGE_FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\images";
 	
+	//관리자 페이지 - 공지사항 자료실 이용한 파일 저장 경로
+	String NOTICE_FILE_UPLOAD_PATH="pds_upload";
+	String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
+	
+	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드
 	int UPLOAD_IMAGE_FLAG = 2; //사원 등록시 이미지 업로드
 	int CONFIRMFILE_FLAG = 3;  //전자결재 업로드
+	int UPLOAD_NOTICE_FLAG = 4; //관리자 - 공지사항 자료실 이용 업로드
 	
 	//전자결재
 	Date date = new Date();
