@@ -14,14 +14,24 @@
 			
 	}); */
 	
+	function changeTab(tabName) {
+	    // 매개변수 없이 현재 URL을 가져옵니다.
+	    let currentUrl = window.location.href.split('?')[0];
+	    
+	    // 선택한 탭 이름을 매개변수로 사용하여 새 URL을 생성합니다.
+	    let newUrl = `${currentUrl}?key=${tabName}`;
+	    
+	    // 새 URL로 리디렉션합니다.
+	    window.location.href = newUrl;
+	}
 	
 	let key = "${param.key}";
 	console.log(key);
-	if(key === "meetingroom"){//userinfo
+	if(key === "meetingRoom"){//userinfo
 		
 		$("#myreview-tab").removeClass("active");
-		$("#wishlist-tab").removeClass("active");
-		$("#meetingroom-tab").addClass("active");
+		$("#notebook-tab").removeClass("active");
+		$("#meetingRoom-tab").addClass("active");
 		
 		$("#notebook").removeClass("show active");
 		$("#wishlist").removeClass("show active");
@@ -97,7 +107,7 @@
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#allContactOffcanvas" aria-controls="allContactOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                      <input type="text" name="category" id="category" value=""/>
+                     
                       	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
 						<a href="<c:url value='/admin/officeProduct/noticeEdit'/>" class="btn btn-primary">수정</a>
@@ -112,19 +122,20 @@
 		<!-- 탭 메뉴 -->
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="meetingroom-tab" data-bs-toggle="tab"
-						data-bs-target="#meetingroom" type="button" role="tab" aria-controls="userinfo"
-						aria-selected="true" value="meetingroom">회의실</button>
+				 <input type="text" name="category" id="category" value="${param.category} "/>
+					<button class="nav-link active" id="meetingRoom-tab" data-bs-toggle="tab"
+						data-bs-target="#meetingRoom" type="button" role="tab" aria-controls="userinfo"
+						aria-selected="true" value="meetingRoom" onclick = "changeTab('meetingRoom')">회의실</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="notebook-tab" data-bs-toggle="tab"
 						data-bs-target="notebook" type="button" role="tab"
-						aria-controls="myreview" aria-selected="false">노트북</button>
+						aria-controls="notebook" aria-selected="false" onclick = "changeTab('notebook')">노트북</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="wishlist-tab" data-bs-toggle="tab"
-						data-bs-target="#wishlist" type="button" role="tab"
-						aria-controls="wishlist" aria-selected="false">차량</button>
+					<button class="nav-link" id="rentcar-tab" data-bs-toggle="tab"
+						data-bs-target="#rentcar" type="button" role="tab"
+						aria-controls="rentcar" aria-selected="false" onclick="changeTab('rentcar')">차량</button>
 				</li>
 			</ul>
 			

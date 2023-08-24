@@ -61,10 +61,12 @@ import lombok.RequiredArgsConstructor;
 	public String productList(@RequestParam(required = false)String category, Model model) {
 		logger.info("자원목록 페이지, 파라미터 category={}", category);
 		
-		List<RemanVO> list = remanService.selectOfficeProductByCategory(category);
-		logger.info("list.size={}", list.size());
-		
-		model.addAttribute("list", list);
+		/*
+		 * List<RemanVO> list = remanService.selectOfficeProductByCategory(category);
+		 * logger.info("list.size={}", list.size());
+		 * 
+		 * model.addAttribute("list", list);
+		 */
 		
 		return "admin/officeProduct/officeProductList";
 	}
