@@ -72,7 +72,7 @@
 	function delFunc(){
 		var count = $('tbody input[type=checkbox]:checked').length;
 		if(count<1){
-			alert('삭제하고 싶은 자원을 먼저 체크하세요');
+			alert("삭제하고 싶은 자원을 먼저 체크하세요");
 		}
 		
 		if(count > 0){
@@ -82,6 +82,19 @@
 			} // if
 		} 
 		
+	}
+	
+	function editFunc(remanNo){
+		var editUrl = "<c:url value='/admin/officeProduct/editOfficeProduct?remanNo="+remanNo+"'/>";
+		
+		// 새 탭 또는 새 창을 중앙에 띄우고 크기를 조정합니다.
+        var width = 550;
+        var height = 600;
+        var left = (window.innerWidth - width) / 2;
+        var top = (window.innerHeight - height) / 2;
+        
+     // 새 창을 엽니다.
+        var newWindow = window.open(editUrl, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
 	}
 </script>
 <style type="text/css">
@@ -237,7 +250,11 @@
 											value="${pd.remanNo}"/>
 									</div>
 								</td>
-								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle">
+									<a href="#" onclick="editFunc(${pd.remanNo})">
+									${pd.name}
+									</a>
+								</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">
 									<div class="d-flex align-items-center gap-2 position-relative">
 										${pd.discription}

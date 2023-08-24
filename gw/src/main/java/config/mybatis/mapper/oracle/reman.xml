@@ -18,4 +18,14 @@
 	<delete id="deleteReman" parameterType="int">
 		delete from reman where reman_no = #{remanNo}
 	</delete>
+	
+	<select id="selectRemanByNo" parameterType="int" resultType="remanVo">
+	 	select * from reman where reman_no = #{remanNo}
+	</select>
+	
+	<update id="updateReman" parameterType="remanVo">
+		update reman 
+		set category = #{category}, name = #{name}, discription = #{discription}, state = #{state}, manager = #{manager}
+		where reman_no = #{remanNo}
+	</update>
 </mapper>
