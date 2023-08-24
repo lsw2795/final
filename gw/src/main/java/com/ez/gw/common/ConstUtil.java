@@ -6,7 +6,9 @@ public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
 	public static final int RECORD_COUNT=10;
 	public static final int CONFIRM_RECORD_COUNT=10;
+	public static final int ADMIN_RECORD_COUNT=7;
 	int BLOCK_SIZE=10;
+	int ADMIN_FORMLIST_BLOCK_SIZE=5;
 	
 	//파일 업로드 처리 관련 상수
 	String FILE_UPLOAD_TYPE = "test";

@@ -15,6 +15,20 @@ public class DocumentFormServiceImpl implements DocumentFormService {
 	public List<DocumentFormVO> selectAllForm() {
 		return documentFormDao.selectAllForm();
 	}
+
+	@Override
+	public int getTotalRecord(DocumentFormVO vo) {
+		return documentFormDao.getTotalRecord(vo);
+	}
 	
-	
+	@Override
+	public int formInsert(DocumentFormVO vo) {
+		return documentFormDao.formInsert(vo);
+	}
+
+	@Override
+	public List<DocumentFormVO> selectAllFormPage(DocumentFormVO vo) {
+		return documentFormDao.selectAllFormPage(vo);
+	}
+
 }
