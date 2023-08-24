@@ -19,6 +19,7 @@ import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.pds.model.PdsService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class NoticeController {
 	private static final Logger logger=LoggerFactory.getLogger(NoticeController.class);
 	private final BoardService boardService;
+	private final PdsService pdsService;
 	
 	@GetMapping("/admin/board/noticeWrite")
 	public String noticeWrite_get() {
@@ -46,7 +48,8 @@ public class NoticeController {
 		
 		//2
 		int cnt=boardService.insertNotice(vo);
-		logger.info("관리자 - 공지사항 글 등록결과, cnt={}",cnt);
+		//int result=pdsService.insertPds(vo);
+		logger.info("관리자 - 공지사항 글 등록, 파일등록 결과, cnt={}", cnt);
 		
 		String msg="공지사항 등록에 실패했습니다.",url="/admin/board/noticeWrite";
 		if(cnt>0) {
