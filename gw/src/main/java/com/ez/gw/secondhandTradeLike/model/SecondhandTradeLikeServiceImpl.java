@@ -13,8 +13,8 @@ public class SecondhandTradeLikeServiceImpl implements SecondhandTradeLikeServic
 	private final SecondhandTradeLikeDAO secondLikeDao;
 	
 	@Override
-	public int likeHeart(SecondhandTradeLikeVO secondLikeVo) {
-		return secondLikeDao.likeHeart(secondLikeVo);
+	public int insertFirstHeart(SecondhandTradeLikeVO secondLikeVo) {
+		return secondLikeDao.insertFirstHeart(secondLikeVo);
 	}
 	
 	@Override
@@ -23,7 +23,18 @@ public class SecondhandTradeLikeServiceImpl implements SecondhandTradeLikeServic
 	}
 
 	@Override
-	public int findLike(int empNO, int tradeNo) {
+	public String findLike(int empNO, int tradeNo) {
 		return secondLikeDao.findLike(empNO, tradeNo);
 	}
+
+	@Override
+	public int findLikeCount(int empNo, int tradeNo) {
+		return secondLikeDao.findLikeCount(empNo, tradeNo);
+	}
+
+	@Override
+	public int likeHeart(int empNo, int tradeNo) {
+		return secondLikeDao.likeHeart(empNo, tradeNo);
+	}
+
 }
