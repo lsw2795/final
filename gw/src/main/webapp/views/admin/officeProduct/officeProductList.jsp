@@ -70,9 +70,18 @@
        }
 	
 	function delFunc(){
-		if(confirm('정말 삭제하시겠습니까?'){
-			location.href="<c:url value=''/>";
+		var count = $('tbody input[type=checkbox]:checked').length;
+		if(count<1){
+			alert('삭제하고 싶은 자원을 먼저 체크하세요');
 		}
+		
+		if(count > 0){
+			if(confirm('선택한 자원을 삭제하시겠습니까?')){
+				$('form[name=frmList]').prop('action', "<c:url value='/admin/officeProduct/delOfficeProduct'/>");
+				$('form[name=frmList]').submit();
+			} // if
+		} 
+		
 	}
 </script>
 <style type="text/css">
@@ -106,13 +115,13 @@
 		font-weight: bold;
    }
 </style>	
-<h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">사내 자원관리</a></h2>
+<h2>사내 자원관리</h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>' >
+					<form name="frmList" method="post" action='<c:url value='/admin/board/noticeList'/>' >
 						<input type="hidden" id="category" name="category" value="${param.category}"/>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
@@ -215,15 +224,17 @@
 					</thead>
 					<tbody class="list" id="table-contact-body">
 						<!-- 반복 시작  -->
+						<c:set var="idx" value="0"/>
 						<c:forEach var="pd" items="${list}">
 						<c:if test="${pd.category =='meetingRoom' }">
+						
 							<tr>
 								<td class="align-middle fs-0 py-3">
 									<div class="form-check mb-0">
 										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
+											id="all-contact-0" name="remanList[${idx}].remanNo"
 											data-bulk-select-row="data-bulk-select-row"
-											value="${pd.name }"/>
+											value="${pd.remanNo}"/>
 									</div>
 								</td>
 								<td class="align-middle">${pd.name}</td>
@@ -251,6 +262,7 @@
 								</td>
 							</tr>
 						  </c:if>
+						<c:set var = "idx" value="${idx+1 }"/>
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>
@@ -287,14 +299,15 @@
 					</thead>
 					<tbody class="list" id="table-contact-body">
 						<!-- 반복 시작  -->
+						<c:set var="idx" value="0"/>
 						<c:forEach var="pd" items="${list}">
 							<tr>
 								<td class="align-middle fs-0 py-3">
 									<div class="form-check mb-0">
 										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
+											id="all-contact-0" name = "remanList[${idx }].remanNo"
 											data-bulk-select-row="data-bulk-select-row"
-											value=""/>
+											value="${pd.remanNo }"/>
 									</div>
 								</td>
 								<td class="align-middle">${pd.name}</td>
@@ -321,6 +334,7 @@
 								    </c:choose>
 								</td>
 							</tr>
+							<c:set var="idx" value="${idx +1 }"/>
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>
@@ -357,14 +371,15 @@
 					</thead>
 					<tbody class="list" id="table-contact-body">
 						<!-- 반복 시작  -->
+						<c:set var = "idx" value="0"/>
 						<c:forEach var="pd" items="${list}">
 							<tr>
 								<td class="align-middle fs-0 py-3">
 									<div class="form-check mb-0">
 										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
+											id="all-contact-0" name = "remanList[${idx }].remanNo"
 											data-bulk-select-row="data-bulk-select-row"
-											value=""/>
+											value="${pd.remanNo }"/>
 									</div>
 								</td>
 								<td class="align-middle">${pd.name}</td>
@@ -391,6 +406,7 @@
 								    </c:choose>
 								</td>
 							</tr>
+							<c:set var = "idx" value="${idx + 1 }"/>
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>

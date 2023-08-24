@@ -14,4 +14,8 @@
 	<select id="selectOfficeProductByCategory" parameterType="string" resultType="remanVo">
 		select * from reman where category = #{category} order by reman_no
 	</select>
+	
+	<delete id="deleteReman" parameterType="int">
+		delete from reman where reman_no = #{remanNo}
+	</delete>
 </mapper>

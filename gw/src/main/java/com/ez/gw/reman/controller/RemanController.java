@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.position.controller.PositionController;
+import com.ez.gw.reman.model.ListRemanVO;
 import com.ez.gw.reman.model.RemanService;
 import com.ez.gw.reman.model.RemanVO;
 
@@ -69,5 +70,28 @@ public class RemanController {
 		 
 
 		return "admin/officeProduct/officeProductList";
+	}
+	
+	@RequestMapping("/admin/officeProduct/delOfficeProduct")
+	public String productDelete(@ModelAttribute ListRemanVO remanVo, Model model) {
+		//1
+		logger.info("파라미터 remanVo={}", remanVo);
+		
+		//2
+		List<RemanVO> remanList = remanVo.getRemanList();
+		int cnt = remanService.multiDelReman(remanList);
+		logger.info("삭제 결과, cnt = {}", cnt);
+		
+		String msg = "삭제 실패", url="/admin/officeProduct/officeProductList?category=meetingRoom";
+		if(cnt>0) {
+			msg = "삭제가 완료되었습니다.";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
 	}
 }
