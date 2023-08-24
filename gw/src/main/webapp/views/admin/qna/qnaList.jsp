@@ -6,12 +6,21 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btnDel').click(function(){
-			if(confirm('정말 삭제하시겠습니까?'){
-				
+			var count = $('tbody input[type=checkbox]:checked').length;
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
 			}
+			
+			if(count > 0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/qna/admin/delete'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
 		});
+		
 	});
-</script>	
+</script>
 <style>
 	h6.mb-0 {
    	 	color: black;
@@ -31,7 +40,7 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>'>
+					<form name="frmList" method="post" action='<c:url value='/admin/board/noticeList'/>'>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
@@ -65,7 +74,7 @@
 							</div>
 						</div>
 						</div>
-						</form>
+						
 					</div>
 				<div class="border-bottom border-200 my-3"></div>
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
@@ -78,7 +87,7 @@
 						<span class="adminhyphen"></span>
 						<input type="button" value="삭제" id="btnDel" class="btn btn-primary"/>
                       </div>
-                    </div>
+              	</div>
 			</div>
 		</div>
 		<div class="card-body p-0 admindefault">
@@ -109,6 +118,9 @@
 						</tr>
 					</thead>
 					<tbody class="list" id="table-contact-body">
+					
+						<c:set var="idx" value="0"/>
+						
 						<!-- 반복 시작  -->
 						<c:forEach var="map" items="${list}">
 							<tr>
@@ -117,6 +129,7 @@
 										<input class="form-check-input" type="checkbox"
 											id="all-contact-0"
 											data-bulk-select-row="data-bulk-select-row"
+											name="boardItems[${idx}].boardNo"
 											value="${map['BOARD_NO']}"/>
 									</div>
 								</td>
@@ -170,4 +183,5 @@
 		</div>
 	</div>
 </div>
+</form>
 <%@ include file='../../inc/adminBottom.jsp'%>
