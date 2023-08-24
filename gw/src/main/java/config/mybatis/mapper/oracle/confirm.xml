@@ -373,4 +373,9 @@
 		set delflag='Y'
 		where confirm_document_no=#{confirmDocumentNo}
 	</update>
+	
+	<select id="searchByDocumentFormNo" parameterType="int" resultType="int">
+		select count(*) from confirm
+		where document_no=#{documentNo}
+	</select>
 </mapper>

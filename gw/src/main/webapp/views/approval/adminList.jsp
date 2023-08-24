@@ -57,11 +57,15 @@
 	function delOk(chk,no,create,deadLine){
 		var today = new Date();
 		var create = new Date(create);
+		var deadLine = parseInt(deadLine);
+		
 		today.setHours(0, 0, 0, 0);
 		create.setHours(0, 0, 0, 0);
 		create.setFullYear(create.getFullYear() + deadLine);
 		
 		if(today<create){
+			alert(today);
+			alert(create);
 			alert(no+"문서는 보존기한이 남아있는 문서입니다.");
 			$(chk).prop('checked',false);
 		}	
