@@ -80,7 +80,7 @@ public class CommuteController {
 	
 	@RequestMapping("/workIn")
 	@ResponseBody
-	public int ajaxWorkIn(@RequestParam int empNo) {
+	public int ajaxWorkIn(@RequestParam(defaultValue = "0") int empNo) {
 		//1
 		logger.info("ajax 사원 번호={}", empNo);
 		//2

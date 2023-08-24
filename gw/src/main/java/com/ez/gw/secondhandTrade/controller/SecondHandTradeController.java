@@ -436,5 +436,4 @@ public class SecondHandTradeController {
 		return result;
 	}
 	
-	
 }

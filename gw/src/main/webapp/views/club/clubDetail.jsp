@@ -7,11 +7,12 @@
 <script type="text/javascript">
 
 	function requestPay() {
+			
 		var IMP = window.IMP;
 		IMP.init('imp73002547');
 		
 		IMP.request_pay({
-		    pg : 'inicis',
+		    pg : 'kakaopay',
 		    pay_method : 'card', //카드결제
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '동호회 가입 및 회비 결제',
@@ -19,13 +20,14 @@
 		    buyer_email : 'rlacodud4456@naver.com',
 		    buyer_name : '차은우',
 		    buyer_tel : '010-2222-2222',
-		    buyer_addr : '',
-		    buyer_postcode : ''
+		    buyer_addr : '서울',
+		    buyer_postcode : '110-888'
+		   // m_redirect_url: "{http://localhost:9091/gw/club/clubDetail?clubNo=27}"
 		}, function(rsp) { //call back
 		    if ( rsp.success ) {
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		    	jQuery.ajax({
-		    		url: "/club/clubDetail?clubNo="+${param.clubNo}, //cross-domain error가 발생하지 않도록 주의해주세요
+		    		url: '/payments/complete', //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {
@@ -40,7 +42,6 @@
 		    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 		    			msg += '\결제 금액 : ' + rsp.paid_amount;
 		    			msg += '카드 승인번호 : ' + rsp.apply_num;
-		    			
 		    			alert(msg);
 		    		} else {
 		    			//[3] 아직 제대로 결제가 되지 않았습니다.
@@ -50,13 +51,12 @@
 		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
-		        msg += 'error : ' + rsp.error_msg;
-		        alert(msg);
+		        msg += '\nerror : ' + rsp.error_msg;
 		        //location.href="/club/clubDetail?clubNo=${param.clubNo }"+rsp.error_msg;
 		    }
+		        alert(msg);
 		});
 	}
-	
 	$(function() {
 		$("#memLimitflag").val('Y').prop("selected", true); 
 		$("#memLimitflag").val('N').prop("selected", false);
@@ -91,12 +91,12 @@
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">동호회 소개</h5>
                 </div>
-                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                 <div class="col-auto">
-              		<button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+              		<button class="btn btn-falcon-default btn-sm mx-2"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+	                <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
                   	<c:if test="${sessionScope.empNo==clubVo.empNo}">
 	                  	<a href="<c:url value='/club/clubEdit?clubNo=${clubVo.clubNo }'/>">
-	                  		<button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button">
+	                  		<button class="btn btn-falcon-default btn-sm" id="edit" type="button">
 	                  			<span class="fas fa-pen" ></span>
 	                  		</button>
 	                  	</a>
@@ -147,7 +147,7 @@
 	              </div>
 	                <div class="col-auto mb-0">
 	                <div class="col-auto">
-	                  <button class="btn btn-sm btn-primary me-2" id="payment" onclick="requestPay()" type="button">가입</button>
+	                  <button class="btn btn-sm btn-primary me-2" id="payment" name="payment" onclick="requestPay()" type="button">가입</button>
 	                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">
 	                  	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">게시판 바로가기</a>
 	                  </button>

@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		logger.info("preHandle() 호출!, empNo={}", empNo);
 
 		//로그인되지 않은 경우 처리
-		if(empNo==0) {
+		if(empNo<0) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");

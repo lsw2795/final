@@ -140,6 +140,7 @@
                         			</div> 
                       			</a>
                     		</li>
+	                  			
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/mypage/myWritingList?empNo=${sessionScope.empNo}'/>">
                         			<div class="d-flex align-items-center">

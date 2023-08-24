@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${title!=6 }">
 <%@ include file = "../inc/top.jsp" %>
+</c:if>
+<c:if test="${title==6 }">
+<%@ include file = "../inc/adminTop.jsp" %>
+</c:if>
 <script type="text/javascript">
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
@@ -30,7 +36,7 @@
 		$('form[name="frmSearch"]').submit();
 	}
 	
-	function approvalDetail(no,state,a){
+	function approvalDetail(no,state,a,title){
 		$.ajax({
 	    	url:"<c:url value='/approval/updateStateAjax'/>",
 	   		type:"post",
@@ -45,7 +51,7 @@
 	    		alert(status+" : "+error);
 	   		}
 	   	});
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=1000, height=700");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
 	}
 	
 </script>
@@ -72,6 +78,9 @@
 					</c:if>
 					<c:if test="${title==5 }">
 						반려함
+					</c:if>
+					<c:if test="${title==6 }">
+						전자결재 문서함
 					</c:if>
 					</div>
 					<div class="col-md-2" align="right">
@@ -173,7 +182,14 @@
 					   	<c:forEach var="map" items="${list }">
 							<tr class="align-middle" align="center" >
 								<td class="text-nowrap">
-								<a style="color: black;" onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',this)" href="#">
+								<a 
+								<c:if test="${title==6 }">
+									style="color: #9da9bb;" 
+								</c:if>
+								<c:if test="${title!=6 }">
+									style="color: black;" 
+								</c:if>
+								onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',this,'${title }')" href="#">
 							        ${map['CONFIRM_DOCUMENT_NO']}
 								</a>
 							    </td>
@@ -248,4 +264,9 @@
 		</div>
 	</div>
 </div>
+<c:if test="${title==6 }">
+<%@ include file = "../inc/adminBottom.jsp" %>
+</c:if>
+<c:if test="${title!=6 }">
 <%@ include file = "../inc/bottom.jsp" %>
+</c:if>

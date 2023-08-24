@@ -26,7 +26,8 @@
 	</select>
 	
 	<select id="selctAuthority" parameterType="int" resultType="string">
-		select authority from employee
+		select authority 
+		from employee
 		where emp_no=#{empNo}
 	</select>
 	
