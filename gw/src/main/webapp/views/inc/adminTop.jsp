@@ -179,7 +179,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link" href="<c:url value='/admin/officeProduct/officeProductList'/>">
+                    			<a class="nav-link" href="<c:url value='/admin/officeProduct/officeProductList?category=meetingRoom'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">자원 목록</span>
                         			</div> 

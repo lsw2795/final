@@ -15,71 +15,70 @@
 	}); */
 	
 	$(document).ready(function () {
-		if($('#category').val().length<1){
-        	$('#category').val("meetingRoom");
-        }		
         // Function to update the hidden input field with the active tab value
-        function setActiveTab(tabId) {
-            $("#category").val(tabId);
-            
-        }
+        
 
         $("#meetingRoom-tab").click(function () {
             setActiveTab("meetingRoom");
             redirectToCategory("meetingRoom");
         });
 
-        $("#notebook-tab").click(function () {
-            setActiveTab("notebook");
-            redirectToCategory("notebook");
+        $("#noteBook-tab").click(function () {
+            setActiveTab("noteBook");
+            redirectToCategory("noteBook");
         });
 
-        $("#rentcar-tab").click(function () {
-            setActiveTab("rentcar");
-            redirectToCategory("rentcar");
+        $("#rentCar-tab").click(function () {
+            setActiveTab("rentCar");
+            redirectToCategory("rentCar");
         });
         
-		let key = "${param.key}";
+		 let key = "${param.category}";
 		console.log(key);
+		
+		
 		if(key === "meetingRoom"){
-			
-			$("#notebook-tab").removeClass("active");
-			$("#rentcar-tab").removeClass("active");
+			$("#noteBook-tab").removeClass("active");
+			$("#rentCar-tab").removeClass("active");
 			$("#meetingRoom-tab").addClass("active");
 			
-			$("#notebook").removeClass("show active");
-			$("#rentcar").removeClass("show active");
+			$("#noteBook").removeClass("show active");
+			$("#rentCar").removeClass("show active");
 			$("#meetingRoom").addClass("show active");
 			
-		}else if(key === "notebook"){
-			
-			$("#rentcar-tab").removeClass("active");
+		}else if(key === "noteBook"){
+			$("#rentCar-tab").removeClass("active");
 			$("#meetingRoom-tab").removeClass("active");
-			$("#notebook-tab").addClass("active");
+			$("#noteBook-tab").addClass("active");
 			
 			$("#meetingRoom").removeClass("show active");
-			$("#rentcar").removeClass("show active");
-			$("#notebook").addClass("show active");
+			$("#rentCar").removeClass("show active");
+			$("#noteBook").addClass("show active");
 			
-		}else if(key === "rentcar"){
-			
+		}else if(key === "rentCar"){
 			$("#meetingRoom-tab").removeClass("active");
-			$("#notebook-tab").removeClass("active");
-			$("#rentcar-tab").addClass("active");
+			$("#noteBook-tab").removeClass("active");
+			$("#rentCar-tab").addClass("active");
 			
-			$("#notebook").removeClass("show active");
+			$("#noteBook").removeClass("show active");
 			$("#meetingRoom").removeClass("show active");
-			$("#rentcar").addClass("show active");
+			$("#rentCar").addClass("show active");
 			
 		}
 		
-		$('#category').val(key)
+		$('#category').val(key) 
 		
+    });
 		function redirectToCategory(category) {
 		        var url = "<c:url value='/admin/officeProduct/officeProductList?category="+category+"'/>";
 		        window.location.href = url;
+		        $('#noteBook-tab').attr('aria-selected', true);
 		    }
-    });
+		
+		function setActiveTab(tabId) {
+            $("#category").val(tabId);
+            
+        }
 	
 	/* function sendParameter(){
 		var category = $('#category').val();
@@ -99,15 +98,46 @@
 	
 	} */
 	
-</script>	
-<h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">공지사항</a></h2>
+</script>
+<style type="text/css">
+	   h6.mb-0 {
+          color: black;
+   }
+   
+   .gap-2 {
+       padding-left: 52px;
+   }
+   
+   .table-sm > :not(caption) > * > * {
+         text-align: center;
+   }
+   
+   #possible{
+   	    color: #2c7be5;
+	    font-size: 0.8rem;
+	    font-weight: bold;
+   }
+   
+   #disable{
+	   	color : #e52c2c;
+	   	font-size: 0.8rem;
+		font-weight: bold;
+   }
+   
+   #otherwise{
+	   	color : #1f9565;
+	   	font-size: 0.8rem;
+		font-weight: bold;
+   }
+</style>	
+<h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">사내 자원관리</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
 					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>' >
-						<input type="text" id="category" name="category" value="${param.category} }"/>
+						<input type="hidden" id="category" name="category" value="${param.category}"/>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
@@ -145,7 +175,6 @@
 					</div>
 				<div class="border-bottom border-200 my-3"></div>
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
-                      <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#allContactOffcanvas" aria-controls="allContactOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
                       	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
@@ -168,14 +197,14 @@
 						aria-selected="true">회의실</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="notebook-tab" data-bs-toggle="tab"
-						data-bs-target="#notebook" type="button" role="tab"
-						aria-controls="notebook" aria-selected="false">노트북</button>
+					<button class="nav-link" id="noteBook-tab" data-bs-toggle="tab"
+						data-bs-target="#noteBook" type="button" role="tab"
+						aria-controls="noteBook" aria-selected="false">노트북</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="rentcar-tab" data-bs-toggle="tab"
-						data-bs-target="#rentcar" type="button" role="tab"
-						aria-controls="rentcar" aria-selected="false">차량</button>
+					<button class="nav-link" id="rentCar-tab" data-bs-toggle="tab"
+						data-bs-target="#rentCar" type="button" role="tab"
+						aria-controls="rentCar" aria-selected="false">차량</button>
 				</li>
 			</ul>
 			</form>
@@ -183,6 +212,217 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="meetingRoom" role="tabpanel"
 					aria-labelledby="meetingRoom-tab">
+					<table class="table table-sm table-hover">
+					<colgroup>
+						<col style="width: 5%;" />
+						<col style="width: 20%;" />
+						<col style="width: 15%;" />
+						<col style="width: 35%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
+					</colgroup>
+					<thead class="adminempthead">
+						<tr style="text-align: center;">
+							<th class="py-2 fs-0 pe-2" style="width: 28px;">
+								<div class="form-check d-flex align-items-center">
+									<input class="form-check-input"
+										id="checkbox-bulk-tickets-select" type="checkbox"
+										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+								</div>
+							</th>
+							<th class="sort align-middle" scope="col" data-sort="name">자원명[회의실]</th>
+							<th class="sort align-middle" scope="col" data-sort="dept">설명</th>
+							<th class="sort align-middle" scope="col" data-sort="title">등록일</th>
+							<th class="sort align-middle" scope="col" data-sort="regdate">담당자</th>
+							<th class="sort align-middle" scope="col" data-sort="readcount">상태</th>
+						</tr>
+					</thead>
+					<tbody class="list" id="table-contact-body">
+						<!-- 반복 시작  -->
+						<c:forEach var="pd" items="${list}">
+						<c:if test="${pd.category =='meetingRoom' }">
+							<tr>
+								<td class="align-middle fs-0 py-3">
+									<div class="form-check mb-0">
+										<input class="form-check-input" type="checkbox"
+											id="all-contact-0"
+											data-bulk-select-row="data-bulk-select-row"
+											value="${pd.name }"/>
+									</div>
+								</td>
+								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle name white-space-nowrap pe-5 ps-2">
+									<div class="d-flex align-items-center gap-2 position-relative">
+										${pd.discription}
+									</div>
+								</td>
+								<td class="align-middle">
+									<fmt:formatDate value="${pd.regdate}" pattern="yyyy-MM-dd" />
+								</td>
+								<td class="align-middle">${pd.manager}</td>
+								<td class="align-middle">
+									<c:choose>
+								        <c:when test="${pd.state == 1}">
+								            <span id="possible">사용가능</span>
+								        </c:when>
+								        <c:when test="${pd.state == 2}">
+								            <span id = "disable">사용불가</span>
+								        </c:when>
+								        <c:otherwise>
+								            <span id = "otherwise">관리자 문의</span>
+								        </c:otherwise>
+								    </c:choose>
+								</td>
+							</tr>
+						  </c:if>
+						</c:forEach>
+						<!-- 반복 끝 -->
+					</tbody>
+						
+				</table>	
+				</div>
+				<div class="tab-pane fade" id="noteBook" role="tabpanel"
+					aria-labelledby="noteBook-tab">
+					
+					<table class="table table-sm table-hover">
+					<colgroup>
+						<col style="width: 5%;" />
+						<col style="width: 20%;" />
+						<col style="width: 15%;" />
+						<col style="width: 35%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
+					</colgroup>
+					<thead class="adminempthead">
+						<tr style="text-align: center;">
+							<th class="py-2 fs-0 pe-2" style="width: 28px;">
+								<div class="form-check d-flex align-items-center">
+									<input class="form-check-input"
+										id="checkbox-bulk-tickets-select" type="checkbox"
+										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+								</div>
+							</th>
+							<th class="sort align-middle" scope="col" data-sort="name">자원명[노트북]</th>
+							<th class="sort align-middle" scope="col" data-sort="dept">설명</th>
+							<th class="sort align-middle" scope="col" data-sort="title">등록일</th>
+							<th class="sort align-middle" scope="col" data-sort="regdate">담당자</th>
+							<th class="sort align-middle" scope="col" data-sort="readcount">상태</th>
+						</tr>
+					</thead>
+					<tbody class="list" id="table-contact-body">
+						<!-- 반복 시작  -->
+						<c:forEach var="pd" items="${list}">
+							<tr>
+								<td class="align-middle fs-0 py-3">
+									<div class="form-check mb-0">
+										<input class="form-check-input" type="checkbox"
+											id="all-contact-0"
+											data-bulk-select-row="data-bulk-select-row"
+											value=""/>
+									</div>
+								</td>
+								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle name white-space-nowrap pe-5 ps-2">
+									<div class="d-flex align-items-center gap-2 position-relative">
+										${pd.discription}
+									</div>
+								</td>
+								<td class="align-middle">
+									<fmt:formatDate value="${pd.regdate}" pattern="yyyy-MM-dd" />
+								</td>
+								<td class="align-middle">${pd.manager}</td>
+								<td class="align-middle">
+									 <c:choose>
+								        <c:when test="${pd.state == 1}">
+								            <span id="possible">사용가능</span>
+								        </c:when>
+								        <c:when test="${pd.state == 2}">
+								            <span id = "disable">사용불가</span>
+								        </c:when>
+								        <c:otherwise>
+								            <span id = "otherwise">관리자 문의</span>
+								        </c:otherwise>
+								    </c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+						<!-- 반복 끝 -->
+					</tbody>
+				</table>	
+					
+				</div>
+				<div class="tab-pane fade" id="rentCar" role="tabpanel"
+					aria-labelledby="rentCar-tab">
+					
+					<table class="table table-sm table-hover">
+					<colgroup>
+						<col style="width: 5%;" />
+						<col style="width: 20%;" />
+						<col style="width: 15%;" />
+						<col style="width: 35%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
+					</colgroup>
+					<thead class="adminempthead">
+						<tr style="text-align: center;">
+							<th class="py-2 fs-0 pe-2" style="width: 28px;">
+								<div class="form-check d-flex align-items-center">
+									<input class="form-check-input"
+										id="checkbox-bulk-tickets-select" type="checkbox"
+										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+								</div>
+							</th>
+							<th class="sort align-middle" scope="col" data-sort="name">자원명[차량]</th>
+							<th class="sort align-middle" scope="col" data-sort="dept">설명</th>
+							<th class="sort align-middle" scope="col" data-sort="title">등록일</th>
+							<th class="sort align-middle" scope="col" data-sort="regdate">담당자</th>
+							<th class="sort align-middle" scope="col" data-sort="readcount">상태</th>
+						</tr>
+					</thead>
+					<tbody class="list" id="table-contact-body">
+						<!-- 반복 시작  -->
+						<c:forEach var="pd" items="${list}">
+							<tr>
+								<td class="align-middle fs-0 py-3">
+									<div class="form-check mb-0">
+										<input class="form-check-input" type="checkbox"
+											id="all-contact-0"
+											data-bulk-select-row="data-bulk-select-row"
+											value=""/>
+									</div>
+								</td>
+								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle name white-space-nowrap pe-5 ps-2">
+									<div class="d-flex align-items-center gap-2 position-relative">
+										${pd.discription}
+									</div>
+								</td>
+								<td class="align-middle">
+									<fmt:formatDate value="${pd.regdate}" pattern="yyyy-MM-dd" />
+								</td>
+								<td class="align-middle">${pd.manager}</td>
+								<td class="align-middle">
+									<c:choose>
+								        <c:when test="${pd.state == 1}">
+								            <span id="possible">사용가능</span>
+								        </c:when>
+								        <c:when test="${pd.state == 2}">
+								            <span id = "disable">사용불가</span>
+								        </c:when>
+								        <c:otherwise>
+								            <span id = "otherwise">관리자 문의</span>
+								        </c:otherwise>
+								    </c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+						<!-- 반복 끝 -->
+					</tbody>
+				</table>	
+				</div>
+				<div class="tab-pane fade" id="noteBook" role="tabpanel"
+					aria-labelledby="noteBook-tab">
+					
 					<table class="table table-sm table-hover">
 					<colgroup>
 						<col style="width: 5%;" />
@@ -210,168 +450,38 @@
 					</thead>
 					<tbody class="list" id="table-contact-body">
 						<!-- 반복 시작  -->
-						<c:forEach var="map" items="${list}">
+						<c:forEach var="pd" items="${list}">
 							<tr>
 								<td class="align-middle fs-0 py-3">
 									<div class="form-check mb-0">
 										<input class="form-check-input" type="checkbox"
 											id="all-contact-0"
 											data-bulk-select-row="data-bulk-select-row"
-											value="${map['boardNo']}"/>
+											value=""/>
 									</div>
 								</td>
+								<td class="align-middle">${pd.name}</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">
 									<div class="d-flex align-items-center gap-2 position-relative">
 										<div class="avatar avatar-xl">
 											<div class="avatar-name rounded-circle">
-												<span>${map['NAME']}</span>
+												<span></span>
 											</div>
 										</div>
-										<h6 class="mb-0">${map['NAME']}</h6>
+										<h6 class="mb-0">${pd.discription}</h6>
 									</div>
 								</td>
 								
-								<td class="align-middle">개발팀</td>
 								<td class="align-middle">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
+									<fmt:formatDate value="${pd.regdate}" pattern="yyyy-MM-dd" />
 								</td>
-								<td class="align-middle">
-									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
-								</td>
-								<td class="align-middle">${map['READCOUNT']}</td>
+								<td class="align-middle">${pd.manager}</td>
 							</tr>
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>
 				</table>	
-				</div>
-				<div class="tab-pane fade" id="notebook" role="tabpanel"
-					aria-labelledby="notebook-tab">
-					<table class="table table-sm table-hover">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: 20%;" />
-						<col style="width: 15%;" />
-						<col style="width: 40%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
-					<thead class="adminempthead">
-						<tr style="text-align: center;">
-							<th class="py-2 fs-0 pe-2" style="width: 28px;">
-								<div class="form-check d-flex align-items-center">
-									<input class="form-check-input"
-										id="checkbox-bulk-tickets-select" type="checkbox"
-										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-								</div>
-							</th>
-							<th class="sort align-middle" scope="col" data-sort="name">자원명[노트북]</th>
-							<th class="sort align-middle" scope="col" data-sort="dept">설명</th>
-							<th class="sort align-middle" scope="col" data-sort="title">등록일</th>
-							<th class="sort align-middle" scope="col" data-sort="regdate">담당자</th>
-							<th class="sort align-middle" scope="col" data-sort="readcount">상태</th>
-						</tr>
-					</thead>
-					<tbody class="list" id="table-contact-body">
-						<!-- 반복 시작  -->
-						<c:forEach var="map" items="${list}">
-							<tr>
-								<td class="align-middle fs-0 py-3">
-									<div class="form-check mb-0">
-										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
-											data-bulk-select-row="data-bulk-select-row"
-											value="${map['boardNo']}"/>
-									</div>
-								</td>
-								<td class="align-middle name white-space-nowrap pe-5 ps-2">
-									<div class="d-flex align-items-center gap-2 position-relative">
-										<div class="avatar avatar-xl">
-											<div class="avatar-name rounded-circle">
-												<span>${map['NAME']}</span>
-											</div>
-										</div>
-										<h6 class="mb-0">${map['NAME']}</h6>
-									</div>
-								</td>
-								
-								<td class="align-middle">개발팀</td>
-								<td class="align-middle">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
-								</td>
-								<td class="align-middle">
-									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
-								</td>
-								<td class="align-middle">${map['READCOUNT']}</td>
-							</tr>
-						</c:forEach>
-						<!-- 반복 끝 -->
-					</tbody>
-				</table>
-				</div>
-				<div class="tab-pane fade" id="rentcar" role="tabpanel"
-					aria-labelledby="rentcar-tab">
-					<table class="table table-sm table-hover">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: 20%;" />
-						<col style="width: 15%;" />
-						<col style="width: 40%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
-					<thead class="adminempthead">
-						<tr style="text-align: center;">
-							<th class="py-2 fs-0 pe-2" style="width: 28px;">
-								<div class="form-check d-flex align-items-center">
-									<input class="form-check-input"
-										id="checkbox-bulk-tickets-select" type="checkbox"
-										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-								</div>
-							</th>
-							<th class="sort align-middle" scope="col" data-sort="name">자원명[차량]</th>
-							<th class="sort align-middle" scope="col" data-sort="dept">설명</th>
-							<th class="sort align-middle" scope="col" data-sort="title">등록일</th>
-							<th class="sort align-middle" scope="col" data-sort="regdate">담당자</th>
-							<th class="sort align-middle" scope="col" data-sort="readcount">상태</th>
-						</tr>
-					</thead>
-					<tbody class="list" id="table-contact-body">
-						<!-- 반복 시작  -->
-						<c:forEach var="map" items="${list}">
-							<tr>
-								<td class="align-middle fs-0 py-3">
-									<div class="form-check mb-0">
-										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
-											data-bulk-select-row="data-bulk-select-row"
-											value="${map['boardNo']}"/>
-									</div>
-								</td>
-								<td class="align-middle name white-space-nowrap pe-5 ps-2">
-									<div class="d-flex align-items-center gap-2 position-relative">
-										<div class="avatar avatar-xl">
-											<div class="avatar-name rounded-circle">
-												<span>${map['NAME']}</span>
-											</div>
-										</div>
-										<h6 class="mb-0">${map['NAME']}</h6>
-									</div>
-								</td>
-								
-								<td class="align-middle">개발팀</td>
-								<td class="align-middle">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
-								</td>
-								<td class="align-middle">
-									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
-								</td>
-								<td class="align-middle">${map['READCOUNT']}</td>
-							</tr>
-						</c:forEach>
-						<!-- 반복 끝 -->
-					</tbody>
-				</table>
+					
 				</div>
 			</div>
 			<div class="table-responsive scrollbar admindefault">

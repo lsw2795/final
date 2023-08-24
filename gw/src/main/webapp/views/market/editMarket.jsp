@@ -108,8 +108,10 @@
 					$('#check').empty();
 					var str = "";
 					if(res!=1){
-						str+= "<span style='font-weight : bold; color :red'>비밀번호가 일치하지 않습니다.</span>"
-						event.preventDefault;
+						str+= "<span style='font-weight : bold; color :red'>비밀번호가 일치하지 않습니다.</span>";
+						event.preventDefault();
+					}else{
+						str+= "<span style='font-weight : bold; color :green'>비밀번호 확인 완료</span>";
 					}
 					$('#check').append(str);
 				},
@@ -154,7 +156,7 @@ input[type="file"].default-style {
               <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">중고거래 상품 수정</h5>
-                  <input type="text" name= "tradeNo" value="${vo.tradeNo }"/>
+                  <input type="hidden" name= "tradeNo" value="${vo.tradeNo }"/>
                 </div>
                 <div class="col-auto">
                 </div>

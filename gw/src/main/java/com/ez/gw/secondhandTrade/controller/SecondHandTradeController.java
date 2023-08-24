@@ -156,7 +156,7 @@ public class SecondHandTradeController {
 		model.addAttribute("url", url);
 
 		// 4.
-		return "/common/message";
+		return "common/message";
 	}
 
 	@RequestMapping("/marketList")
@@ -253,7 +253,7 @@ public class SecondHandTradeController {
 		model.addAttribute("fileList", fileList);
 
 		// 4
-		return "/market/editMarket";
+		return "market/editMarket";
 	}
 
 

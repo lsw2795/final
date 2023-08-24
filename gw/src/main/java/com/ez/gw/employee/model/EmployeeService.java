@@ -34,4 +34,5 @@ public interface EmployeeService {
 	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); //참조자 정보 조회 
 	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 	int selectEmpByName(String name);
+	String selectNameByEmpNo(int empNo);
 }
