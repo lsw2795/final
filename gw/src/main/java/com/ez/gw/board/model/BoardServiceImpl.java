@@ -86,6 +86,17 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.gTRSearchBoard(searchVo);
 	}
 
+	@Override
+	public Map<String, Object> selectPrevNotice(int boardNo) {
+		return boardDao.selectPrevNotice(boardNo);
+	}
+
+	@Override
+	public Map<String, Object> selectNextNotice(int boardNo) {
+		return boardDao.selectNextNotice(boardNo);
+	}
+
+
 
 	
 

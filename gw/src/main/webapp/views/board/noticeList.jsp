@@ -100,6 +100,7 @@
 					<tbody>
 						<!-- 반복 시작  -->
 						<c:forEach var="map" items="${list}">
+							<tr>
 								<td class="align-middle fs-0 py-3">
 									<div class="d-flex align-items-center gap-2 position-relative">
 										<div class="avatar avatar-xl mypageempdiv14">

@@ -152,4 +152,31 @@
 		order by boardList_no asc, board_no desc
 	</select>
 	
+	<select id="selectPrevNotice" parameterType="int" resultType="map">
+		select * from
+			(
+		    select title,max(board_no)
+		    from noticeListView
+		    <![CDATA[
+		    where board_no<#{boardNo}
+		    ]]>
+		    group by title
+		    order by max(board_no) desc
+			)
+		where rownum=1
+	</select>
+	
+	<select id="selectNextNotice" parameterType="int" resultType="map">
+		select * from
+			(
+		    select title,min(board_no)
+		    from noticelistview
+		    <![CDATA[
+		    where board_no>#{boardNo}
+		    ]]>
+		    group by title
+		    order by min(board_no) asc
+		    )
+		where rownum=1
+	</select>
 </mapper>

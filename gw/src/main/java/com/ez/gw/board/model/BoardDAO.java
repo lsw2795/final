@@ -24,5 +24,6 @@ public interface BoardDAO {
 	int deleteNotice(BoardVO vo); //관리자 공지사항 삭제 메서드
 	List<Map<String, Object>> selectByEmpNo(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 목록 조회 메서드
 	int gTRSearchBoard(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 검색 전체 레코드
-	
+	Map<String, Object> selectPrevNotice(int boardNo); //공지사항 - 이전글 보기
+	Map<String, Object> selectNextNotice(int boardNo); //공지사항 - 다음글 보기
 }
