@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.board.model.ListBoardVO;
 import com.ez.gw.comments.model.CommentsService;
 import com.ez.gw.comments.model.CommentsVO;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +36,7 @@ public class QnaController {
 	private final BoardService boardService;
 	private final EmployeeService employeeService;
 	private final CommentsService commentsService;
+	private final FileUploadUtil fileUploadUtil;
 	
 	@RequestMapping("/qna/list")
 	public String qnaList(@ModelAttribute SearchVO searchVo, Model model) {
@@ -240,16 +244,28 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/admin/delete")
-	public String admin_qnaDelete() {
+	public String admin_qnaDelete(@ModelAttribute ListBoardVO listVo,
+			HttpServletRequest request, Model model) {
 		//1
-		logger.info("삭제 파라미터");
-		//2
+		logger.info("선택한 게시글 삭제, 파라미터 listVo={}", listVo);
+		
+		//2. db
+		List<BoardVO> list = listVo.getBoardItems();
+		int cnt = boardService.deleteMulti(list);
+		logger.info("게시글 삭제 결과, cnt={}", cnt);
+		
+		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/qna/admin/qnaList";
+		if(cnt>0) {
+			msg = "선택한 게시글들을 삭제했습니다.";
+		}
 		
 		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
 		//4
-		return "redirect:/qna/admin/qnaList";
+		return "common/message";
 	}
-	
 	
 	
 }
