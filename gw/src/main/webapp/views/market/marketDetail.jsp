@@ -90,21 +90,19 @@ div#updateBtn {
                   <input type="hidden" id="tradeNo" name="tradeNo" value="${vo.tradeNo }">
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
-                 	<div id = "write">
                  	</h6>
-                 	<div class="dropdown-center">
-                 	 <span><strong> 작성자 : </strong></span>
-                 	  <p class="fs--1 mb-1"> 
-						  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 	  <div class="dropdown">
+                 		<span><strong> 작성자 :  </strong>
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						    ${emp.name }
-						  </button>
+						  </a>
+						  
 						  <ul class="dropdown-menu">
 						    <li><a class="dropdown-item" href="#">사원정보보기</a></li>
 						    <li><a class="dropdown-item" href="#">신고하기</a></li>
 						  </ul>
 						</div>
-                 	  </div>
-                 	  </p>
+                 	  </span>
                  	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo }">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
@@ -151,6 +149,7 @@ div#updateBtn {
                   	 		
                         </div>
                       </div>
+                      
                       <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="reviews-tab">
                         <div class="row mt-3">
                           <div class="col-lg-6 mb-4 mb-lg-0">
