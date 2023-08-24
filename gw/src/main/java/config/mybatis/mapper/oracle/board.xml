@@ -60,7 +60,31 @@
 	</insert>
 
 	<select id="selectNoticeAll" parameterType="searchVo">
-		select * from noticeListView
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from noticeListView
+				<if test="searchKeyword!=null and searchKeyword!=''">
+					where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+					and delflag='N'
+				</if>
+				<if test="searchKeyword==null or searchKeyword==''">
+					where delflag='N'
+				</if>
+				order by board_no desc
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRSearchNotice" parameterType="searchVo">
+		select count(*) from noticeListView
 		<if test="searchKeyword!=null and searchKeyword!=''">
 			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
 			and delflag='N'

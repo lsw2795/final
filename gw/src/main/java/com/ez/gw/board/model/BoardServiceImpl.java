@@ -55,6 +55,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectNoticeAll(searchVo);
 	}
 
+
+	@Override
+	public int gTRSearchNotice(SearchVO searchVo) {
+		return boardDao.gTRSearchNotice(searchVo);
+	}
+
 	@Override
 	public Map<String, Object> selectNotice(int boardNo) {
 		return boardDao.selectNotice(boardNo);
@@ -80,7 +86,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.gTRSearchBoard(searchVo);
 	}
 
-	
 
 	
 

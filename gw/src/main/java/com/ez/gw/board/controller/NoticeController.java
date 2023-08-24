@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 
@@ -99,12 +101,24 @@ public class NoticeController {
 	public String noticeList2(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("사원 - 공지사항 목록 페이지");
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	
+		int totalRecord=boardService.gTRSearchNotice(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
 		//2
 		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("사원 - 공지사항 전체 조회 결과, list.size={}", list.size());
 				
 		//3
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "board/noticeList";
 	}
