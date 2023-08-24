@@ -8,6 +8,14 @@
 		select * from commute
 		where emp_no=#{empNo}
 	</select>
-
-
+	
+	<insert id="insertWorkIn" parameterType="int">
+		<selectKey keyProperty="commuteNo" order="BEFORE" resultType="int">
+			select secondhand_trade_seq.nextval from dual
+		</selectKey>
+		insert into commute(commute_no, work_in, commute_state, emp_no)
+		select #{commuteNo}, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 0, #{empNo}
+		from dual
+	</insert>
+	
 </mapper>

@@ -299,7 +299,7 @@ public class ConfirmController {
     public String confirmList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
+    	logger.info("관리자 - 결재문서 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
     	List<DocumentFormVO> formList = documentFormService.selectAllForm();
@@ -317,7 +317,7 @@ public class ConfirmController {
     	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(vo);
     	logger.info("결재문서 조회결과, list.size={}",list.size());
     	
-    	int totalRecord = confirmService.getTotalRecord(vo);
+    	int totalRecord = confirmService.getTotalRecordAdmin(vo);
 		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
     	
@@ -326,10 +326,47 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","0");
-
+    	model.addAttribute("title",ConstUtil.MY_CONFIRM_LIST);
+    	
     	//4
     	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/confirmList/admin")
+    public String confirmList_admin(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
+    	
+    	//2
+    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<StateVO> stateList = StateService.selectAllState();
+    	
+    	PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+    	pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	
+    	vo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	vo.setEmpNo(empNo);
+    	List<Map<String, Object>> list = confirmService.selectAllByAdmin(vo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	int totalRecord = confirmService.getTotalRecord(vo);
+    	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
+    	pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("formList",formList);
+    	model.addAttribute("stateList",stateList);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pagingInfo",pagingInfo);
+    	model.addAttribute("title",ConstUtil.ADMIN);
+    	
+    	//4
+    	return "approval/adminList";
     }
     
     @RequestMapping("/confirm/confirmList")
@@ -363,7 +400,7 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","1");
+    	model.addAttribute("title",ConstUtil.CONFIRM_STAY);
 
     	//4
     	return "approval/confirmList";
@@ -400,7 +437,7 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","3");
+    	model.addAttribute("title",ConstUtil.COMPLETE_LIST);
 
     	//4
     	return "approval/confirmList";
@@ -437,7 +474,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","2");
+    	model.addAttribute("title",ConstUtil.AGREE_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -474,7 +511,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","4");
+    	model.addAttribute("title",ConstUtil.REFER_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -511,7 +548,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","5");
+    	model.addAttribute("title",ConstUtil.RETURN_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -588,6 +625,21 @@ public class ConfirmController {
     	
     	//4
     	return "approval/document/pdfForm";
+    }
+    
+    @RequestMapping("/deleteConfirm")
+    public String deleteConfirm(@RequestParam String[] deleteNo,Model model) {
+    	int cnt=confirmService.updateConfirmDelFlag(deleteNo);
+    	
+    	String msg="문서 삭제 처리 중 에러가 발생했습니다.",url="/approval/confirmList/admin";
+    	if(cnt>0) {
+    		msg="문서가 삭제 처리되었습니다.";
+    	}
+    	
+    	model.addAttribute("msg",msg);
+    	model.addAttribute("url",url);
+    	
+    	return "common/message";
     }
     
     @ResponseBody

@@ -254,4 +254,25 @@ public class ConfirmServiceImpl implements ConfirmService{
 		return cnt;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo) {
+		return confirmDao.selectAllByAdmin(vo);
+	}
+
+	@Override
+	public int getTotalRecordAdmin(ConfirmVO vo) {
+		return confirmDao.getTotalRecordAdmin(vo);
+	}
+	
+	@Transactional
+	@Override
+	public int updateConfirmDelFlag(String[] confirmDocumentNo) {
+		int cnt=0;
+		for(int i=0;i<confirmDocumentNo.length;i++) {
+			cnt=confirmDao.updateConfirmDelFlag(confirmDocumentNo[i]);
+		}
+		
+		return cnt;
+	}
+
 }

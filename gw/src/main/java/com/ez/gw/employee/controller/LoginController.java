@@ -1,16 +1,16 @@
 package com.ez.gw.employee.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.employee.model.EmployeeService;
-import com.ez.gw.employee.model.EmployeeVO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +34,6 @@ public class LoginController {
 	
 	@PostMapping("/empLogin")
 	public String logiEmp_post(@RequestParam int empNo, @RequestParam String pwd, 
-			@ModelAttribute EmployeeVO empVo, 
 			@RequestParam(required = false)String split_checkbox,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 		//1.
@@ -42,18 +41,27 @@ public class LoginController {
 				+ "split_checkbox={}",empNo,pwd,split_checkbox);
 		
 		//2.
+
 		int result=empService.loginCheck(pwd, empNo);
 		logger.info("로그인 결과 result={}",result);
 		
+		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
+		logger.info("로그인 사원 서열,직급 map={}",map);
+		
 		String msg="로그인 처리 실패", url="/login/empLogin"; 
 		if(result==EmployeeService.LOGIN_OK) {
-			msg=empVo.getName()+"님이 로그인 하셨습니다";
+			msg= map.get("NAME") +"님이 로그인 하셨습니다";
 			url="/main";
 			
 			//session
 			HttpSession session=request.getSession();
 			session.setMaxInactiveInterval(-1); // 무제한 세션 유지
 			session.setAttribute("empNo", empNo);
+			
+			//직위,권한 세션 저장
+			String authority = (String)map.get("AUTHORITY");
+			session.setAttribute("authority",authority);
+			session.setAttribute("positionRank",map.get("POSITION_RANK"));
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);
@@ -75,6 +83,7 @@ public class LoginController {
 		}
 		
 		//3.
+		model.addAttribute("map",map);
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		

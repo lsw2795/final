@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CommuteDAO {
 	List<CommuteVO> selectCommuteByEmpNo(int empNo);
+	int insertWorkIn(int empNo);
 	
 	
 }

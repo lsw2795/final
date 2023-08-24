@@ -41,25 +41,41 @@
 	    left: -250px;
 	    transition: .3s;
 	}
-	.btnText {
+ 	.btnText {
 	  color : white;
 	  transition : .3s;
 	}
 	.btnText2 {
-	  margin-top : 63px;
+	  margin-top: 15px;
 	  margin-right : -130px;
 	  color : #FFF;
-	}
-	.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
-	  left: -130px;
-	}
-	.button:hover .btnText{ /*When hovering over .button change .btnText*/
-	  margin-left : 65px;
-	}
-	.button:active { /*Clicked and held*/
-	  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
-	}
+	} 
 </style>
+
+<script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+<script>
+	
+$(function() {
+    // 출근 버튼 클릭 이벤트
+    $("#workIn").click(function() {
+    	console.log('눌렀어');
+        // AJAX 요청
+        $.ajax({
+            type: "POST", // 요청 메서드 (POST로 변경 가능)
+            url: "<c:url value='/commute/workIn'/>", // 서버 요청 URL
+            data: { empNo: "${empMap['EMP_NO']}" }, // 요청 데이터 (empNo 전송)
+            success: function(response) {
+                // 성공적으로 요청이 처리된 경우의 처리 (추가 작업이 필요하다면 여기에 코드 추가)
+                alert("출근처리 되었습니다.");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // 요청이 실패한 경우의 처리 (에러 핸들링)
+                alert("출근 요청 실패: " + textStatus, errorThrown);
+            }
+        });
+    });
+});  
+</script>
 
 <div class="row mb-3">
 	<div class="col-md-12">
@@ -84,14 +100,14 @@
 			</div>
 			<div class="mb-2" style="text-align: center;">
 					<div class="button">
-					    <p class="btnText">출근</p>
+					    <p class="btnText" name="workIn" id="workIn">출근</p>
 					    <div class="btnTwo">
 					      <p class="btnText2">in</p>
 					    </div>
 					 </div>
 					
 					<div class="button">
-					    <p class="btnText">퇴근</p>
+					    <p class="btnText" name="workOut" id="workOut">퇴근</p>
 					    <div class="btnTwo">
 					      <p class="btnText2">out</p>
 					    </div>

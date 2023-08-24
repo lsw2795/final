@@ -12,35 +12,40 @@
 	    document.getElementById('frmSearch').submit();
 	}
 </script>
-<!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/mypage/myWritingList'/>" 
-	name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
-</form>
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
        <div class="card h-lg-100 overflow-hidden">
           <div class="card-header">
 			<h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 관리</h5>
   		  </div>
+  		  <!-- 페이징 처리 관련 form -->
+		<form action="<c:url value='/mypage/myWritingList'/>" 
+			name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+		</form>
   		  <div class="card-body py-2">
               <div class="card" id="allContactTable">
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
-                  <form name="frmSearch" method="post" action="<c:url value=''/>">
+                  <form name="frmSearch" method="post" action="<c:url value='/mypage/myWritingList'/>">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                         <select class="mypageempborder mypageempsel">
-							<option value="">게시판 목록</option>
-							<option value="">제목</option>
-							<option value="">내용</option>
+                         <select name="searchCondition" class="mypageempborder mypageempsel">
+							<option value="">전체보기</option>
+							<c:forEach var="boardListVo" items="${boardListNames }">
+								<option value="${boardListVo.boardName}"
+									<c:if test="${param.searchCondition==boardListVo.boardName}">
+										selected="selected"
+									</c:if>
+								>${boardListVo.boardName}</option>
+							</c:forEach>
 						</select>
                       </div>
                       <div class="col-auto">
-                         <div class="input-group input-search-width">
-                           <input class="form-control shadow-none search" type="search" placeholder="검색어 입력" aria-label="search" />
+                         <div class="input-group">
+                           <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search" type="search" placeholder="제목 또는 내용 입력" aria-label="search" />
                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                          </div>
                       </div>
@@ -62,6 +67,11 @@
                     </div>
                   </div>
                 </div>
+                <div class="admindefault searchEmpResult" style="padding: 10px 0 0 25px;">
+							<c:if test="${!empty param.searchKeyword }">
+							   <p>검색어 : ${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+							</c:if>   
+						</div>
                 <div class="card-body p-0">
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm table-hover">
@@ -83,7 +93,7 @@
                           <th class="sort align-middle" scope="col">제목</th>
                           <th class="sort align-middle" scope="col">조회수</th>
                           <th class="sort align-middle" scope="col">작성일</th>
-                        </tr>
+        		        </tr>
                       </thead>
                       <tbody id="table-contact-body">
                       <c:if test="${empty boardList }">
@@ -128,36 +138,33 @@
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                	<div class="divPage" id="divPage">
+               		<div class="divPage" id="divPage">
 							<!-- 페이지 번호 추가 -->		
 							<!-- 이전 블럭으로 이동 -->
 							<c:if test="${pagingInfo.firstPage>1 }">
-                  			<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})" class="btn btn-sm btn-falcon-default me-1">
-                  				<span class="fas fa-chevron-left"></span>
-							</a>
+								<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+									<img src="<c:url value='/images/first.JPG'/>">
+								</a>
 							</c:if>	
 											
 							<!-- [1][2][3][4][5][6][7][8][9][10] -->
 							<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
 								<c:if test="${i == pagingInfo.currentPage }">		
-									<span class="mb-0" id="curPage">${i}</span>
-					        	</c:if>
+									<span id="curPage">${i}</span>
+						        	</c:if>
 								<c:if test="${i != pagingInfo.currentPage }">		
-							         <a href="#" class="mb-0" id="otherPage" onclick="pageFunc(${i})">[${i}]</a>
+							         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
 							    </c:if>   		
 							</c:forEach>
 							
 							<!-- 다음 블럭으로 이동 -->
 							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-                  				<a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})" class="btn btn-sm btn-falcon-default ms-1">
-                  					<span class="fas fa-chevron-right"></span>
-                  				</a>
+						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+									<img src="<c:url value='/images/last.JPG'/>">
+								</a>
 							</c:if>
 							<!--  페이지 번호 끝 -->
 						</div>
-                
-                
-                
                 </div>
        		</div>
           </div>

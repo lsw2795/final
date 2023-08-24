@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
@@ -70,9 +71,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectByEmpNo(int empNo) {
-		return boardDao.selectByEmpNo(empNo);
+	public List<Map<String, Object>> selectByEmpNo(EmpSearchVO searchVo) {
+		return boardDao.selectByEmpNo(searchVo);
 	}
+
+	@Override
+	public int gTRSearchBoard(EmpSearchVO searchVo) {
+		return boardDao.gTRSearchBoard(searchVo);
+	}
+
+	
+
+	
 
 
 

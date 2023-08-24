@@ -134,21 +134,22 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/mypage/empInfoEdit?empNo=${sessionScope.empNo}'/>" role="button" data-toggle="collapse">
+                    			<a class="nav-link " href="<c:url value='/mypage/empInfoEdit'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내 정보 수정</span>
                         			</div> 
                       			</a>
                     		</li>
+	                  			
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/mypage/myWritingList?empNo=${sessionScope.empNo}'/>">
+                    			<a class="nav-link " href="<c:url value='/mypage/myWritingList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내가 쓴 글 관리</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/mypage/addressBook'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1" >주소록</span>
                         			</div> 
@@ -231,7 +232,7 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<c:if test="${empMap['POSITION_RANK']>=3 }"> <!-- 대리 이상 -->
+                    		<c:if test="${sessionScope.positionRank>=3 }"> <!-- 대리 이상 -->
 	                    		<li class="nav-item"><!-- more inner pages-->
 	                    			<a class="nav-link " href="<c:url value='/approval/confirm/confirmList'/>">
 	                        			<div class="d-flex align-items-center">
@@ -346,13 +347,6 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">조직도</span>
-                        			</div> 
-                      			</a>
-                    		</li>
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
@@ -401,7 +395,7 @@
 	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/board/faqList'/>" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-question-circle"></span></span>
 	                    		<span class="nav-link-text ps-1">FAQ</span>

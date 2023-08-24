@@ -1,5 +1,6 @@
 package com.ez.gw.controller;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -54,7 +55,7 @@ public class AdminController {
 			
 		}else {
 			int cnt=empService.loginCheck(pwd, empNo);
-			logger.info("로그인 결과 result={}",result);
+			logger.info("로그인 결과 result={}",cnt);
 			
 			String msg="로그인 처리 실패", url="/login/adminLogin"; 
 			if(cnt==EmployeeService.LOGIN_OK) {
