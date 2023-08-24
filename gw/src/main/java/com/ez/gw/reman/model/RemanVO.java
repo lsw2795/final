@@ -12,4 +12,5 @@ public class RemanVO {  //자원관리
 	private String discription; //자원설명
 	private Timestamp regdate; //자원등록일
 	private int state; //자원상태
+	private int empNo;	//담당자 번호
 }

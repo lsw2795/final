@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
 	$(function(){
 		$('#btnDel').click(function(){
-			if(confirm('정말 삭제하시겠습니까?'){
-				
+			var count = $('tbody input[type=checkbox]:checked').length;
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
 			}
+			
+			if(count > 0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/qna/deleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
 		});
+		
 	});
-</script>	
+</script>
 <style>
 	h6.mb-0 {
    	 	color: black;
@@ -31,7 +39,7 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>'>
+					<form name="frmList" method="post" action='<c:url value='/admin/qna/list'/>'>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
@@ -65,20 +73,18 @@
 							</div>
 						</div>
 						</div>
-						</form>
+						
 					</div>
 				<div class="border-bottom border-200 my-3"></div>
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#allContactOffcanvas" aria-controls="allContactOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                      	<a href="<c:url value='/admin/board/noticeWrite'/>" class="btn btn-primary">등록</a>
+                      	<a href="<c:url value='/admin/qna/write'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/board/noticeEdit'/>" class="btn btn-primary">수정</a>
 						<span class="adminhyphen"></span>
-						<input type="button" value="삭제" id="btnDel" class="btn btn-primary"/>
                       </div>
-                    </div>
+              	</div>
 			</div>
 		</div>
 		<div class="card-body p-0 admindefault">
@@ -109,6 +115,8 @@
 						</tr>
 					</thead>
 					<tbody class="list" id="table-contact-body">
+					
+						<c:set var="idx" value="0"/>
 						<!-- 반복 시작  -->
 						<c:forEach var="map" items="${list}">
 							<tr>
@@ -117,6 +125,7 @@
 										<input class="form-check-input" type="checkbox"
 											id="all-contact-0"
 											data-bulk-select-row="data-bulk-select-row"
+											name="boardItems[${idx}].boardNo"
 											value="${map['BOARD_NO']}"/>
 									</div>
 								</td>
@@ -141,13 +150,16 @@
 								
 								<td class="align-middle">개발팀</td>
 								<td class="align-middle">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
+									<a href="<c:url value='/admin/qna/detail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
 								</td>
 								<td class="align-middle">
 									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
 								</td>
 								<td class="align-middle">${map['READCOUNT']}</td>
 							</tr>
+							
+							<c:set var="idx" value="${idx+1}"/>
+							
 						</c:forEach>
 						<!-- 반복 끝 -->
 					</tbody>
@@ -170,4 +182,5 @@
 		</div>
 	</div>
 </div>
+</form>
 <%@ include file='../../inc/adminBottom.jsp'%>

@@ -172,14 +172,14 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="c">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/admin/officeProduct/addOfficeProduct'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">자원 등록</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link" href="<c:url value='/admin/officeProduct/officeProductList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">자원 목록</span>
                         			</div> 
@@ -281,7 +281,7 @@
 	                   			<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
-	                  	<a class="nav-link" href="<c:url value='/qna/admin/qnaList'/>" role="button" data-toggle="collapse">
+	                  	<a class="nav-link" href="<c:url value='/admin/qna/list'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
 	                   			<span class="nav-link-text ps-1">Q&A</span>

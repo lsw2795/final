@@ -126,8 +126,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.gTRSearchEmp(searchVo);
 	}
 
-
-
+	@Override
+	public int selectEmpByName(String name) {
+		return employeeDao.selectEmpByName(name);
+	}
 
 }
 

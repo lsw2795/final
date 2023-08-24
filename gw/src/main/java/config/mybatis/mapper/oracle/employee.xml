@@ -132,4 +132,7 @@
 		where emp_no=#{empNo}
 	</update>
 	
+	<select id="selectEmpByName" parameterType="string">
+		select emp_no from employee where name = #{name}
+	</select>
 </mapper>

@@ -23,4 +23,8 @@ public interface BoardService {
 	int gTRSearchBoard(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 검색 전체 레코드
 	Map<String, Object> selectPrevNotice(int boardNo); //공지사항 - 이전글 보기
 	Map<String, Object> selectNextNotice(int boardNo); //공지사항 - 다음글 보기
+	
+	//Q&A 게시글 여러개 삭제 메서드
+	int deleteMulti(List<BoardVO> list);
+
 }
