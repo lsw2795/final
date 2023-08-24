@@ -57,11 +57,10 @@ public class NoticeController {
 		//다중파일 업로드 처리
 		String fileName="", originalFileName="",filePath = "";
 		long fileSize=0;
-		
 		int cnt=boardService.insertNotice(vo);
-		int result = pdsService.insertPds(vo);
-		logger.info("관리자 - 공지사항 글 등록 결과, cnt={}, result={}", cnt, result);
+		logger.info("관리자 - 공지사항 글 등록 결과, cnt={}", cnt);
 		
+		int result=0;
 		try {
 			List<Map<String, Object>> list
 			=fileuploadUtil.fileupload(request,ConstUtil.UPLOAD_NOTICE_FLAG);
@@ -83,8 +82,8 @@ public class NoticeController {
 				pdsVo.setPath(filePath); //파일 경로
 				
 				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
-					int res = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
-					logger.info("다중 파일 등록 결과 res = {}", res);
+					result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+					logger.info("다중 파일 등록 결과 result = {}", result);
 				}
 			}//for
 		} catch (IllegalStateException e) {
@@ -136,7 +135,7 @@ public class NoticeController {
 	public String noticeDetail(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("관리자 - 공지사항 글 상세보기 페이지, 파라미터 boardNo={}", boardNo);
-	
+		
 		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
 			model.addAttribute("url", "/admin/board/noticeList");
@@ -148,15 +147,17 @@ public class NoticeController {
 		Map<String, Object> map = boardService.selectNotice(boardNo);
 		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
 		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("관리자 - 공지사항 글 상세조회 결과, map={}", map);
 		logger.info("관리자 - 이전글 이동 prevMap={}", prevMap);
 		logger.info("관리자 - 다음글 이동 nextMap={}", nextMap);
+		logger.info("공지사항 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);
 		model.addAttribute("nextMap",nextMap);
-		
+		model.addAttribute("pdsList", pdsList);
 		//4
 		return "admin/board/noticeDetail";
 	}
