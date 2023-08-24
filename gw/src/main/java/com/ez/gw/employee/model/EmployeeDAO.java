@@ -25,5 +25,6 @@ public interface EmployeeDAO {
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
 	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 	int selectEmpByName(String name);
+	String selectNameByEmpNo(int empNo);
 }
 
