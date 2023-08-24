@@ -298,7 +298,7 @@ public class EmployeeController {
 		String msg="사원 정보 수정에 실패했습니다.",url="/admin/employee/employeeEdit?empNo="+empVo.getEmpNo();
 		if(cnt>0) {
 			msg="사원 정보 수정이 완료되었습니다.";
-			if(empVo.getImage()!=null && !empVo.getImage().isEmpty()) {//새파일 업로드
+			if(empVo.getImage()!=null) {//새파일 업로드
 				if(oldFileName!=null && !oldFileName.isEmpty()) { //기존파일이 있으면
 					String upPath
 						=fileuploadUtil.getUploadPath(request,ConstUtil.UPLOAD_IMAGE_FLAG);
