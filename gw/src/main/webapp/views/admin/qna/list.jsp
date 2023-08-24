@@ -83,6 +83,7 @@
                       	<a href="<c:url value='/admin/qna/write'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
 						<span class="adminhyphen"></span>
+						<input type="button" value="삭제" id="btnDel" class="btn btn-primary">
                       </div>
               	</div>
 			</div>
