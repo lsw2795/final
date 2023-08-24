@@ -63,12 +63,7 @@
                     <table class="table table-sm fs--1 mb-0">
                       <thead class="text-800 bg-light">
                         <tr>
-                          <th class="py-2 fs-0 pe-2" style="width: 28px;">
-                            <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-                            </div>
-                          </th>
-                          <th class="sort align-middle ps-2" data-sort="name">작성자</th>
+                          <th class="sort align-middle ps-5" data-sort="name">작성자</th>
                           <th class="sort align-middle pe-5" data-sort="userid">직급</th>
                           <th class="sort align-middle pe-5" data-sort="title">제목</th>
                           <th class="sort align-middle text-end" data-sort="regdate">등록일</th>
@@ -79,11 +74,6 @@
                       <!-- 반복 시작  -->
                       	<c:forEach var="map" items="${list}">
 	                        <tr>
-	                          <td class="align-middle fs-0 py-3">
-	                            <div class="form-check mb-0">
-	                              <input class="form-check-input" type="checkbox" id="all-contact-0" data-bulk-select-row="data-bulk-select-row" />
-	                            </div>
-	                          </td>
 	                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
 	                            <div class="d-flex align-items-center gap-2 position-relative">
 	                              <div class="avatar avatar-xl">
