@@ -14,50 +14,90 @@
 			
 	}); */
 	
-	function changeTab(tabName) {
-	    // 매개변수 없이 현재 URL을 가져옵니다.
-	    let currentUrl = window.location.href.split('?')[0];
-	    
-	    // 선택한 탭 이름을 매개변수로 사용하여 새 URL을 생성합니다.
-	    let newUrl = `${currentUrl}?key=${tabName}`;
-	    
-	    // 새 URL로 리디렉션합니다.
-	    window.location.href = newUrl;
-	}
+	$(document).ready(function () {
+		if($('#category').val().length<1){
+        	$('#category').val("meetingRoom");
+        }		
+        // Function to update the hidden input field with the active tab value
+        function setActiveTab(tabId) {
+            $("#category").val(tabId);
+            
+        }
+
+        $("#meetingRoom-tab").click(function () {
+            setActiveTab("meetingRoom");
+            redirectToCategory("meetingRoom");
+        });
+
+        $("#notebook-tab").click(function () {
+            setActiveTab("notebook");
+            redirectToCategory("notebook");
+        });
+
+        $("#rentcar-tab").click(function () {
+            setActiveTab("rentcar");
+            redirectToCategory("rentcar");
+        });
+        
+		let key = "${param.key}";
+		console.log(key);
+		if(key === "meetingRoom"){
+			
+			$("#notebook-tab").removeClass("active");
+			$("#rentcar-tab").removeClass("active");
+			$("#meetingRoom-tab").addClass("active");
+			
+			$("#notebook").removeClass("show active");
+			$("#rentcar").removeClass("show active");
+			$("#meetingRoom").addClass("show active");
+			
+		}else if(key === "notebook"){
+			
+			$("#rentcar-tab").removeClass("active");
+			$("#meetingRoom-tab").removeClass("active");
+			$("#notebook-tab").addClass("active");
+			
+			$("#meetingRoom").removeClass("show active");
+			$("#rentcar").removeClass("show active");
+			$("#notebook").addClass("show active");
+			
+		}else if(key === "rentcar"){
+			
+			$("#meetingRoom-tab").removeClass("active");
+			$("#notebook-tab").removeClass("active");
+			$("#rentcar-tab").addClass("active");
+			
+			$("#notebook").removeClass("show active");
+			$("#meetingRoom").removeClass("show active");
+			$("#rentcar").addClass("show active");
+			
+		}
+		
+		$('#category').val(key)
+		
+		function redirectToCategory(category) {
+		        var url = "<c:url value='/admin/officeProduct/officeProductList?category="+category+"'/>";
+		        window.location.href = url;
+		    }
+    });
 	
-	let key = "${param.key}";
-	console.log(key);
-	if(key === "meetingRoom"){//userinfo
-		
-		$("#myreview-tab").removeClass("active");
-		$("#notebook-tab").removeClass("active");
-		$("#meetingRoom-tab").addClass("active");
-		
-		$("#notebook").removeClass("show active");
-		$("#wishlist").removeClass("show active");
-		$("#meetingroom").addClass("show active");
-		
-	}else if(key === "notebook"){ //myreview
-		
-		$("#wishlist-tab").removeClass("active");
-		$("#meetingroom-tab").removeClass("active");
-		$("#myreview-tab").addClass("active");
-		
-		$("#meetingroom").removeClass("show active");
-		$("#wishlist").removeClass("show active");
-		$("#notebook").addClass("show active");
-		
-	}else if(key === "wishlist"){
-		
-		$("#meetingroom-tab").removeClass("active");
-		$("#myreview-tab").removeClass("active");
-		$("#wishlist-tab").addClass("active");
-		
-		$("#myreview").removeClass("show active");
-		$("#meetingroom").removeClass("show active");
-		$("#notebook").addClass("show active");
-		
-	}
+	/* function sendParameter(){
+		var category = $('#category').val();
+	
+	
+		$.ajax({
+			type:"GET",
+			url:"<c:url value='/admin/officeProduct/officeProductList'/>",
+			data: {category:category},
+			success:function(res){
+				
+			},
+			error:function(xhr, status, error){
+				alert(status + " : " + error);
+			}
+		});
+	
+	} */
 	
 </script>	
 <h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">공지사항</a></h2>
@@ -66,7 +106,8 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>'>
+					<form name="frmSearch" action='<c:url value='/admin/board/noticeList'/>' >
+						<input type="text" id="category" name="category" value="${param.category} }"/>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
@@ -100,14 +141,13 @@
 							</div>
 						</div>
 						</div>
-						</form>
+						
 					</div>
 				<div class="border-bottom border-200 my-3"></div>
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#allContactOffcanvas" aria-controls="allContactOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                     
                       	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
 						<a href="<c:url value='/admin/officeProduct/noticeEdit'/>" class="btn btn-primary">수정</a>
@@ -119,30 +159,30 @@
 		</div>
 		
 		<div class="card-body p-0 admindefault">
+		
 		<!-- 탭 메뉴 -->
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-				 <input type="text" name="category" id="category" value="${param.category} "/>
 					<button class="nav-link active" id="meetingRoom-tab" data-bs-toggle="tab"
-						data-bs-target="#meetingRoom" type="button" role="tab" aria-controls="userinfo"
-						aria-selected="true" value="meetingRoom" onclick = "changeTab('meetingRoom')">회의실</button>
+						data-bs-target="#meetingRoom" type="button" role="tab" aria-controls="meetingRoom"
+						aria-selected="true">회의실</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="notebook-tab" data-bs-toggle="tab"
-						data-bs-target="notebook" type="button" role="tab"
-						aria-controls="notebook" aria-selected="false" onclick = "changeTab('notebook')">노트북</button>
+						data-bs-target="#notebook" type="button" role="tab"
+						aria-controls="notebook" aria-selected="false">노트북</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="rentcar-tab" data-bs-toggle="tab"
 						data-bs-target="#rentcar" type="button" role="tab"
-						aria-controls="rentcar" aria-selected="false" onclick="changeTab('rentcar')">차량</button>
+						aria-controls="rentcar" aria-selected="false">차량</button>
 				</li>
 			</ul>
-			
+			</form>
 			<!-- 내용 -->
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="userinfo" role="tabpanel"
-					aria-labelledby="userinfo-tab">
+				<div class="tab-pane fade show active" id="meetingRoom" role="tabpanel"
+					aria-labelledby="meetingRoom-tab">
 					<table class="table table-sm table-hover">
 					<colgroup>
 						<col style="width: 5%;" />
@@ -205,8 +245,8 @@
 					</tbody>
 				</table>	
 				</div>
-				<div class="tab-pane fade" id="myreview" role="tabpanel"
-					aria-labelledby="myreview-tab">
+				<div class="tab-pane fade" id="notebook" role="tabpanel"
+					aria-labelledby="notebook-tab">
 					<table class="table table-sm table-hover">
 					<colgroup>
 						<col style="width: 5%;" />
@@ -269,8 +309,8 @@
 					</tbody>
 				</table>
 				</div>
-				<div class="tab-pane fade" id="wishlist" role="tabpanel"
-					aria-labelledby="wishlist-tab">
+				<div class="tab-pane fade" id="rentcar" role="tabpanel"
+					aria-labelledby="rentcar-tab">
 					<table class="table table-sm table-hover">
 					<colgroup>
 						<col style="width: 5%;" />
