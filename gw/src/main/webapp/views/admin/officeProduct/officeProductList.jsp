@@ -4,19 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
-	/* $(function(){
-		$('#btnDel').click(function(){
-			if(confirm('정말 삭제하시겠습니까?'){
-				location.href="<c:url value=''/>";
-			}
-		});
-			
-			
-	}); */
-	
 	$(document).ready(function () {
         // Function to update the hidden input field with the active tab value
-        
 
         $("#meetingRoom-tab").click(function () {
             setActiveTab("meetingRoom");
@@ -66,38 +55,25 @@
 			
 		}
 		
-		$('#category').val(key) 
+		$('#category').val(key); 
 		
     });
-		function redirectToCategory(category) {
-		        var url = "<c:url value='/admin/officeProduct/officeProductList?category="+category+"'/>";
-		        window.location.href = url;
-		        $('#noteBook-tab').attr('aria-selected', true);
-		    }
-		
-		function setActiveTab(tabId) {
-            $("#category").val(tabId);
-            
-        }
+	function redirectToCategory(category) {
+	        var url = "<c:url value='/admin/officeProduct/officeProductList?category="+category+"'/>";
+	        window.location.href = url;
+	        $('#noteBook-tab').attr('aria-selected', true);
+	    }
 	
-	/* function sendParameter(){
-		var category = $('#category').val();
+	function setActiveTab(tabId) {
+           $("#category").val(tabId);
+           
+       }
 	
-	
-		$.ajax({
-			type:"GET",
-			url:"<c:url value='/admin/officeProduct/officeProductList'/>",
-			data: {category:category},
-			success:function(res){
-				
-			},
-			error:function(xhr, status, error){
-				alert(status + " : " + error);
-			}
-		});
-	
-	} */
-	
+	function delFunc(){
+		if(confirm('정말 삭제하시겠습니까?'){
+			location.href="<c:url value=''/>";
+		}
+	}
 </script>
 <style type="text/css">
 	   h6.mb-0 {
@@ -179,9 +155,9 @@
                       <div class="d-flex align-items-center">
                       	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/officeProduct/noticeEdit'/>" class="btn btn-primary">수정</a>
+						<a href="<c:url value='/admin/officeProduct/editOfficeProduct'/>" class="btn btn-primary">수정</a>
 						<span class="adminhyphen"></span>
-						<input type="button" value="삭제" id="btnDel" class="btn btn-primary"/>
+						<input type="button" value="삭제" id="btnDel" class="btn btn-primary" onclick = "delFunc()"/>
                       </div>
                     </div>
 			</div>
