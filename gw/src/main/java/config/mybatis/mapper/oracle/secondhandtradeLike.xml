@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeDAO">
+	<insert id="insertFirstHeart" parameterType="secondhandTradeLikeVo">
+		<selectKey keyProperty="likeNo" order="BEFORE" resultType="int">
+			select secondhand_trade_like_seq.nextval from dual
+		</selectKey>
+		insert into secondhand_trade_like(like_no, likeflag, emp_no, trade_no)
+		values(#{likeNo}, 'Y', #{empNo}, #{tradeNo})
+	</insert>
+	
+	<update id="disLikeHeart" parameterType="secondhandTradeLikeVo">
+		update secondhand_trade_like
+		set likeflag = 'N'
+		where emp_no = #{empNo}
+		and trade_no = #{tradeNo}
+	</update>
+	
+	<update id="likeHeart" parameterType="secondhandTradeLikeVo">
+		update secondhand_trade_like
+		set likeflag = 'Y'
+		where emp_no = #{empNo}
+		and trade_no = #{tradeNo}
+	</update>
+	
+	<select id="findLike" parameterType="map" resultType="string">
+		select likeflag from secondhand_trade_like 
+		where emp_no=#{empNo} and trade_no = #{tradeNo}
+	</select>
+	
+	<select id="findLikeCount" parameterType="map" resultType="int">
+		select  count(*) from secondhand_trade_like 
+		where emp_no=#{empNo} and trade_no = #{tradeNo}
+	</select>
+	
+
+
+</mapper>

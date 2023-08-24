@@ -1,7 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${title!=6 }">
 <%@ include file = "../inc/top.jsp" %>
+</c:if>
+<c:if test="${title==6 }">
+<%@ include file = "../inc/adminTop.jsp" %>
+</c:if>
 <script type="text/javascript">
+	$(function(){
+		$('input[name=allCheck]').click(function(){
+			$('td input[type=checkbox]').prop('checked',this.checked);
+		});
+		
+		$('#deleteConfirm').click(function(){
+			var cnt=$('td input[type=checkbox]:checked').length;
+			
+			if(cnt==0){
+				alert("삭제 할 문서를 선택하세요");
+				return false;
+			}
+			
+			$('form[name=frmList]').submit();
+		});
+	});
+	
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmSearch"]').submit();
@@ -27,10 +50,13 @@
 		if(num==5){
 			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/returnList'/>");
 		}
+		if(num==6){
+			$('form[name="frmSearch"]').prop('action',"<c:url value='/approval/confirmList/admin'/>");
+		}
 		$('form[name="frmSearch"]').submit();
 	}
 	
-	function approvalDetail(no,state,a){
+	function approvalDetail(no,state,a,title){
 		$.ajax({
 	    	url:"<c:url value='/approval/updateStateAjax'/>",
 	   		type:"post",
@@ -45,8 +71,9 @@
 	    		alert(status+" : "+error);
 	   		}
 	   	});
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"'/>","_blank","width=1000, height=660");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
 	}
+	
 	
 </script>
 <div class="container p-0">
@@ -67,11 +94,14 @@
 					<c:if test="${title==3 }">
 						결재 완료함
 					</c:if>
-					<c:if test="${title==4 }">
+					<c:if test="${title==4}">
 						결재 문서 참조함
 					</c:if>
 					<c:if test="${title==5 }">
 						반려함
+					</c:if>
+					<c:if test="${title==6 }">
+						전자결재 문서함
 					</c:if>
 					</div>
 					<div class="col-md-2" align="right">
@@ -98,10 +128,22 @@
 					    <label class="form-label" for="endDate">종료일</label>
 					    <input class="form-control" name="endDate" id="endDate" type="date" value="${confirmVO.endDate}"/>
 					</div>
-					<div class="col-md-6">
-					    <label class="form-label" for="confirmTitle">제목</label>
-					    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
-					</div>
+					<c:if test="${title==0 or title==5 }">
+						<div class="col-md-6">
+						    <label class="form-label" for="confirmTitle">제목</label>
+						    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
+						</div>
+					</c:if>
+					<c:if test="${title!=0 and title!=5 }">
+						<div class="col-md-3">
+						    <label class="form-label" for="confirmTitle">제목</label>
+						    <input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
+						</div>
+						<div class="col-md-3">
+						    <label class="form-label" for="empName">기안자</label>
+						    <input class="form-control" name="searchKeyword" id="searchKeyword" type="text" value="${confirmVO.searchKeyword}"/>
+						</div>
+					</c:if>
 					<div class="col-md-3">
 					    <label class="form-label" for="documentNo">문서종류</label>
 					    <select class="form-select" name="documentNo" >
@@ -136,6 +178,7 @@
 			</div>
 		</div>
 	</div>
+	<form name="frmList" method="post" action="<c:url value='/approval/deleteConfirm'/>" >
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-body table-responsive scrollbar">
@@ -143,6 +186,11 @@
 					<table class="table table-hover table-striped overflow-hidden" style="width: 100%">
 						<thead>
 					    	<tr class="align-middle" align="center">
+						    	<c:if test="${title==6 }">
+							      	<th width="5%" scope="col">
+							      		<input type="checkbox" name="allCheck">
+							      	</th>
+						    	</c:if>
 						      	<th width="20%" scope="col">문서번호</th>
 						      	<th width="15%" scope="col">문서종류</th>
 						        <th width="10%" scope="col">작성일</th>
@@ -160,8 +208,20 @@
 					   	<c:if test="${!empty list }">
 					   	<c:forEach var="map" items="${list }">
 							<tr class="align-middle" align="center" >
+								<c:if test="${title==6 }">
+									<td>
+										<input type="checkbox" name="deleteNo" value="${map['CONFIRM_DOCUMENT_NO']}">
+									</td>
+								</c:if>
 								<td class="text-nowrap">
-								<a style="color: black;" onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',this)" href="#">
+								<a 
+								<c:if test="${title==6 }">
+									style="color: #9da9bb;" 
+								</c:if>
+								<c:if test="${title!=6 }">
+									style="color: black;" 
+								</c:if>
+								onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',this,'${title }')" href="#">
 							        ${map['CONFIRM_DOCUMENT_NO']}
 								</a>
 							    </td>
@@ -233,7 +293,16 @@
      			</button>
      		</c:if>
    			</div>
+   			<c:if test="${title==6 }">
+	   			<button class="btn btn-sm btn-falcon-default text-primary" type="button" id="deleteConfirm">삭제</button>
+   			</c:if>
 		</div>
 	</div>
+	</form>
 </div>
+<c:if test="${title==6 }">
+<%@ include file = "../inc/adminBottom.jsp" %>
+</c:if>
+<c:if test="${title!=6 }">
 <%@ include file = "../inc/bottom.jsp" %>
+</c:if>

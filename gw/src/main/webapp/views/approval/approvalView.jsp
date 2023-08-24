@@ -25,6 +25,7 @@
 	$(function(){
 		$('#close').click(function(){
 			window.close();
+			window.opener.location.reload();
 		});
 		
 	});
@@ -75,6 +76,10 @@
 		function edit(no){
 			location.href="<c:url value='/approval/approvalEdit?confirmDocumentNo="+no+"'/>";
 		}
+		
+		function print(no){
+			location.href="<c:url value='/approval/downloadPDF?confirmDocumentNo="+no+"'/>";
+		}
 </script>
 	<!-- ===============================================-->
     <!--    Stylesheets-->
@@ -101,24 +106,27 @@
 							${confirmMap['FORM_NAME'] }
 						</div>
 						<div class="col-sm-10 pt-1" align="right">
-							<c:if test="${confirmMap['CONFIRM1']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==1 or confirmMap['CONFIRM_STATE']==2)}">
+							<c:if test="${confirmMap['CONFIRM1']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==1 or confirmMap['CONFIRM_STATE']==2) and param.title!=6}">
 			                    <button class="form-control btn btn-primary" id="review" onclick="clickUpdate()" style="width: 100px">검토</button>
 			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
-		                    <c:if test="${confirmMap['CONFIRM2']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==3 or confirmMap['CONFIRM_STATE']==4)}">
+		                    <c:if test="${confirmMap['CONFIRM2']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==3 or confirmMap['CONFIRM_STATE']==4) and param.title!=6}">
 			                    <button class="form-control btn btn-primary" id="confirm" onclick="clickUpdate()" style="width: 100px">확인</button>
 			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
-		                    <c:if test="${confirmMap['CONFIRM3']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==5 or confirmMap['CONFIRM_STATE']==6)}">
+		                    <c:if test="${confirmMap['CONFIRM3']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==5 or confirmMap['CONFIRM_STATE']==6) and param.title!=6}">
 			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">승인</button>
 			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
-		                    <c:if test="${deptAgreeMap['MANAGER']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==7 or confirmMap['CONFIRM_STATE']==8)}">
+		                    <c:if test="${deptAgreeMap['MANAGER']==sessionScope.empNo and (confirmMap['CONFIRM_STATE']==7 or confirmMap['CONFIRM_STATE']==8) and param.title!=6}">
 			                    <button class="form-control btn btn-primary" id="complete" onclick="clickUpdate()" style="width: 100px">합의</button>
 			                    <button class="form-control btn btn-primary" id="return" onclick="clickReturn()" style="width: 100px">반려</button>
 		                    </c:if>
-		                    <c:if test="${confirmMap['EMP_NO']==sessionScope.empNo and confirmMap['CONFIRM_STATE']==9}">
+		                    <c:if test="${confirmMap['EMP_NO']==sessionScope.empNo and confirmMap['CONFIRM_STATE']==9 and param.title!=6}">
 			                    <button class="form-control btn btn-primary" id="edit" onclick="edit('${confirmMap['CONFIRM_DOCUMENT_NO'] }')" style="width: 100px">수정</button>
+		                    </c:if>
+		                    <c:if test="${confirmMap['CONFIRM_STATE']==10 and param.title!=6}">
+			                    <button class="form-control btn btn-primary" id="print" onclick="print('${confirmMap['CONFIRM_DOCUMENT_NO'] }')" style="width: 100px">출력</button>
 		                    </c:if>
 						</div>
 					</div>

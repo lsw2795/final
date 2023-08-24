@@ -11,8 +11,8 @@
        </div>
        <div class="modal-body py-4 px-5 admindefault">
           <div class="mb-3">
-             <label class="form-label" for="pwd">관리자 비밀번호</label>
-             <input class="form-control admindefault" type="password" autocomplete="on" id="pwd" />
+             <label class="form-label" for="adminPwd">관리자 비밀번호</label>
+             <input class="form-control admindefault" type="password" autocomplete="on" id="adminPwd" />
            </div>
 	       <div class="modal-footer">
 		        <button type="submit" class="btn btn-primary" id="btnadminPwd">확인</button>

@@ -16,12 +16,16 @@
 		$('#likeit').click(function(){
 			$.ajax({
 				url:"<c:url value='/market/ajaxlikeit'/>",
-				type:"get",
+				type:"post",
 				dataType:"JSON",
-				data:{tradeNo: $('#tradeNo').val()},
-				success:function(res){
-					$('#showLike').text(res);
-					$('#heart').next(res);
+				data:{tradeNo: $('#tradeNo').val(),
+					  empNo : $('#empNo').val()},
+				success:function(result){
+					if(result==1){//좋아요 누름
+						$('#heart').addClass('fa-solid fa-heart')
+					}else if(result==2){//좋아요 한번 더 눌러서 해지
+						$('#heart').addClass('fa-regular fa-heart')
+					}
 					
 				},
 				error:function(xhr, status, error){
@@ -87,7 +91,19 @@ div#updateBtn {
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
-                 	  <p class="fs--1 mb-1"> <span><strong>작성자 : ${emp.name } </strong></span></p>
+                 	  <div class="dropdown">
+                 		<span><strong> 작성자 :  </strong>
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    ${emp.name }
+						  </a>
+						  
+						  <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" href="#">사원정보보기</a></li>
+						    <li><a class="dropdown-item" href="#">신고하기</a></li>
+						  </ul>
+						</div>
+                 	  </span>
+                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo}">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
@@ -133,43 +149,7 @@ div#updateBtn {
                   	 		
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <div class="row mt-3">
-                          <div class="col-lg-6 mb-4 mb-lg-0">
-                            <div class="mb-1"><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="ms-3 text-dark fw-semi-bold">Awesome support, great code ð</span>
-                            </div>
-                            <p class="fs--1 mb-2 text-600">By Drik Smith â¢ October 14, 2019</p>
-                            <p class="mb-0">You shouldn't need to read a review to see how nice and polished this theme is. So I'll tell you something you won't find in the demo. After the download I had a technical question, emailed the team and got a response right from the team CEO with helpful advice.</p>
-                            <hr class="my-4" />
-                            <div class="mb-1"><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star-half-alt text-warning star-icon fs--1"></span><span class="ms-3 text-dark fw-semi-bold">Outstanding Design, Awesome Support</span>
-                            </div>
-                            <p class="fs--1 mb-2 text-600">By Liane â¢ December 14, 2019</p>
-                            <p class="mb-0">This really is an amazing template - from the style to the font - clean layout. SO worth the money! The demo pages show off what Bootstrap 4 can impressively do. Great template!! Support response is FAST and the team is amazing - communication is important.</p>
-                          </div>
-                          <div class="col-lg-6 ps-lg-5">
-                            <form>
-                              <h5 class="mb-3">Write your Review</h5>
-                              <div class="mb-3">
-                                <label class="form-label">Ratting: </label>
-                                <div class="d-block" data-rater='{"starSize":32,"step":0.5}'></div>
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGroupNameInput">Name:</label>
-                                <input class="form-control" id="formGroupNameInput" type="text" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGroupEmailInput">Email:</label>
-                                <input class="form-control" id="formGroupEmailInput" type="email" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGrouptextareaInput">Review:</label>
-                                <textarea class="form-control" id="formGrouptextareaInput" rows="3"></textarea>
-                              </div>
-                              <button class="btn btn-primary" type="submit">Submit</button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>

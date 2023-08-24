@@ -35,6 +35,8 @@ import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeService;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeVO;
 
 import ch.qos.logback.classic.pattern.Util;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +52,7 @@ public class SecondHandTradeController {
 	private final SecondHandTradeService secondHandTradeService;
 	private final SecondhandTradeFileService secondHandTradeFileService;
 	private final EmployeeService employeeService;
+	private final SecondhandTradeLikeService secondHandLikeService;
 
 	@GetMapping("/addMarket")
 	public String get_addMarket(Model model, HttpSession session) {
@@ -63,7 +66,7 @@ public class SecondHandTradeController {
 			model.addAttribute("secondVo", secondVo);
 			model.addAttribute("secondFileVo", secondFileVo);
 		}
-		return "/market/addMarket";
+		return "market/addMarket";
 	}
 
 	@PostMapping("/addMarket")
@@ -133,7 +136,7 @@ public class SecondHandTradeController {
 				logger.info("파일명:{}", fileName);
 				secondFileVo.setImageURL(fileName);
 				secondFileVo.setTradeNo(secondVo.getTradeNo());
-				
+
 				result = secondHandTradeFileService.insertFile(secondFileVo);
 				logger.info("이미지 멀티 파일 등록 결과 result = {}", result);
 			}
@@ -153,7 +156,7 @@ public class SecondHandTradeController {
 		model.addAttribute("url", url);
 
 		// 4.
-		return "/common/message";
+		return "common/message";
 	}
 
 	@RequestMapping("/marketList")
@@ -180,7 +183,7 @@ public class SecondHandTradeController {
 		pagingInfo.setTotalRecord(totalRecord);
 
 		for (SecondHandTradeVO fg : list) {
-			
+
 			for (SecondhandTradeFileVO f : fileList) {
 				// 게시글과 파일의 매칭 조건을 설정
 				if (f.getTradeNo() == fg.getTradeNo() && f.getImageURL().contains("_0.")) {
@@ -189,7 +192,7 @@ public class SecondHandTradeController {
 					break; // 매칭되는 파일을 찾았으면 더 이상 검색하지 않고 반복문을 종료
 				}
 			}
-			
+
 			int empNo = fg.getEmpNo();
 			emp = employeeService.selectByEmpNo(empNo);
 			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
@@ -250,92 +253,92 @@ public class SecondHandTradeController {
 		model.addAttribute("fileList", fileList);
 
 		// 4
-		return "/market/editMarket";
+		return "market/editMarket";
 	}
 
-	
-	 @PostMapping("/editMarket") 
-	 public String post_editMarket(@RequestParam(defaultValue = "0")int tradeNo, @ModelAttribute SecondHandTradeVO secondVo, 
-			 	@ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) { 
-	  //1
-		 int empNo = (int)session.getAttribute("empNo");
-		 logger.info("수정 게시판, 파라미터 tradeNo={}", tradeNo);
-		 logger.info("secondVo={}", secondVo);
-		 logger.info("secondFileVo={}", secondFileVo);
-	  
-	  //2
-		 String msg="", url="";
-		 int cnt = 0, result = 0;
-		 String fileName="", originalFileName="";
-		 long fileSize=0;
-		 try {
-			 //1. 파일선택 시 기존파일 삭제
-			 List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-			 
-			 if(list.size()>0) {
-				 for(SecondhandTradeFileVO f: list) {
-					 fileName = f.getImageURL();
-					 String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-					 File file = new File(path, fileName);
-					 if(file.exists()) {
-						 boolean del = file.delete();
-						 logger.info("파일 삭제 여부 - del={}", del);
-					 }
-					 
-					 cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
-					 logger.info("파일 DB 삭제여부 - cnt={}", cnt);
-				 }
-			 }
-			 
-			 
-			 //2. 새로운 파일 등록
-			 MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-			 
-			 List<MultipartFile> file = multiRequest.getFiles("imageURL2");
-			 
-			 cnt = secondHandTradeService.updateMarket(secondVo);
-			 logger.info("중고거래 수정 완료, cnt={}", cnt);
-			 
-			 int i=0;
-			 for(MultipartFile f:file) {
-				 originalFileName=f.getOriginalFilename();
-				 int cut = originalFileName.indexOf(".");
-				 String cutFileName = originalFileName.substring(cut);
-				 
-				 fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
-				 fileSize = (long)f.getSize();
-				 
-				 String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-				 File files = new File(path, fileName);
-				 f.transferTo(files);
-				 
-				 logger.info("파일명 fileName={}", fileName);
-				 secondFileVo.setImageURL(fileName);
-				 result = secondHandTradeFileService.insertFile(secondFileVo);
-				 logger.info("파일 등록 결과, result={}", result);
-			 }
-				 
-		 }catch(IllegalStateException e) {
-			 e.printStackTrace();
-		 }catch(IOException e) {
-			 e.printStackTrace();
-		 }
-		 
-		 
-		 if(cnt>0 && result>0) {
-			 msg="중고거래 수정이 완료되었습니다.";
-			 url="/market/marketList";
-		 }
-	  
-	  //3
+
+	@PostMapping("/editMarket") 
+	public String post_editMarket(@RequestParam(defaultValue = "0")int tradeNo, @ModelAttribute SecondHandTradeVO secondVo, 
+			@ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) { 
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("수정 게시판, 파라미터 tradeNo={}", tradeNo);
+		logger.info("secondVo={}", secondVo);
+		logger.info("secondFileVo={}", secondFileVo);
+
+		//2
+		String msg="", url="";
+		int cnt = 0, result = 0;
+		String fileName="", originalFileName="";
+		long fileSize=0;
+		try {
+			//1. 파일선택 시 기존파일 삭제
+			List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+
+			if(list.size()>0) {
+				for(SecondhandTradeFileVO f: list) {
+					fileName = f.getImageURL();
+					String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+					File file = new File(path, fileName);
+					if(file.exists()) {
+						boolean del = file.delete();
+						logger.info("파일 삭제 여부 - del={}", del);
+					}
+
+					cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
+					logger.info("파일 DB 삭제여부 - cnt={}", cnt);
+				}
+			}
+
+
+			//2. 새로운 파일 등록
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+
+			List<MultipartFile> file = multiRequest.getFiles("imageURL2");
+
+			cnt = secondHandTradeService.updateMarket(secondVo);
+			logger.info("중고거래 수정 완료, cnt={}", cnt);
+
+			int i=0;
+			for(MultipartFile f:file) {
+				originalFileName=f.getOriginalFilename();
+				int cut = originalFileName.indexOf(".");
+				String cutFileName = originalFileName.substring(cut);
+
+				fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
+				fileSize = (long)f.getSize();
+
+				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+				File files = new File(path, fileName);
+				f.transferTo(files);
+
+				logger.info("파일명 fileName={}", fileName);
+				secondFileVo.setImageURL(fileName);
+				result = secondHandTradeFileService.insertFile(secondFileVo);
+				logger.info("파일 등록 결과, result={}", result);
+			}
+
+		}catch(IllegalStateException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+
+
+		if(cnt>0 && result>0) {
+			msg="중고거래 수정이 완료되었습니다.";
+			url="/market/marketList";
+		}
+
+		//3
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
-	  //4 
-	  return"common/message";
-	
-	 }
-	
+
+		//4 
+		return"common/message";
+
+	}
+
 
 	@RequestMapping("/delMarket")
 	public String delete(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
@@ -392,13 +395,13 @@ public class SecondHandTradeController {
 		// 4
 		return "redirect:/market/marketList";
 	}
-	
+
 	@RequestMapping("/ajaxCheckPwd")
 	@ResponseBody
 	public int checkPwd(@RequestParam(required = false)String pwd, HttpSession session) {
 		int empNo = (int)session.getAttribute("empNo");
 		logger.info("비밀번호 확인 ajax - pwd={}", pwd);
-		
+
 		String checkPwd = employeeService.selectPwd(empNo);
 		int result = 0;
 		if(checkPwd.equals(pwd)) {
@@ -408,17 +411,46 @@ public class SecondHandTradeController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping("/ajaxlikeit")
 	@ResponseBody
-	public int likeit(@RequestParam(defaultValue = "0")int tradeNo) {
-		logger.info("ajax - likeit, 파라미터 tradeNo={}", tradeNo);
-		
-		int cnt = secondHandTradeService.updateLike(tradeNo);
-		logger.info("좋아요 결과, cnt={}", cnt);
-		if(cnt>0) {
-			cnt= secondHandTradeService.showLike(tradeNo);
+	public int likeit(@RequestParam(defaultValue = "0")int tradeNo,
+			@RequestParam(defaultValue = "0")int empNo, @ModelAttribute SecondhandTradeLikeVO like) {
+		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
+		like.setEmpNo(empNo); //사원번호 셋팅
+		like.setTradeNo(tradeNo); //거래번호 셋팅
+
+		//1 해당 회원이 해당글에 좋아요를 누른 적 있는지 조회 count 이용
+		int count = secondHandLikeService.findLikeCount(empNo, tradeNo);
+		int result = 0;
+		//2 count가 0이면 새로 좋아요 인서트
+		if(count<1) {
+			secondHandLikeService.insertFirstHeart(like);
+			result = 1;
+			//3 만약에 else 0보다 크면 좋아요가 N 인지 Y인지 조회
+		}else {
+			String likeflag = secondHandLikeService.findLike(empNo, tradeNo);
+			//4 Y면 dislike로 N으로 업데이트
+			if(likeflag.equals("Y")) {
+				int cnt1 = secondHandLikeService.disLikeHeart(empNo, tradeNo);
+				logger.info("좋아요 취소 성공 여부 cnt1={}", cnt1);
+				result = 2;
+				//5 N이면 likeHeart로 Y로 업데이트
+			}else if(likeflag.equals("N")) {
+				int cnt2 = secondHandLikeService.likeHeart(empNo, tradeNo);
+				logger.info("좋아요 성공 여부 cnt2={}", cnt2);
+				result = 1;
+			}
 		}
-		return cnt;
+
+		return result;
 	}
+
+
+
+	//2
+
+
+
+
 }

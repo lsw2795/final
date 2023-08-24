@@ -12,7 +12,7 @@
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
 	            dataType : "text",
-	            data:"pwd="+$('#pwd').val(),
+	            data:"pwd="+$('#adminPwd').val(),
 	            success: function(res){
 	               $('#adminPwdChkFlag').val(res);
 	               

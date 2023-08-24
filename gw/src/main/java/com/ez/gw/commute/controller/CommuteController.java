@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.commute.model.CommuteService;
@@ -42,7 +44,7 @@ public class CommuteController {
         
         List<Map<String, Object>> events = new ArrayList<>();
         SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); // 입력 날짜 형식 추가
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (CommuteVO vo : list) {
             Map<String, Object> event = new HashMap<>();
@@ -74,6 +76,21 @@ public class CommuteController {
         mv.setViewName(viewpage);
         return mv;
     }
+	
+	
+	@RequestMapping("/workIn")
+	@ResponseBody
+	public int ajaxWorkIn(@RequestParam(defaultValue = "0") int empNo) {
+		//1
+		logger.info("ajax 사원 번호={}", empNo);
+		//2
+		int cnt = commuteService.insertWorkIn(empNo);
+		//3
+		//4
+		return cnt;
+	}
+		
+	
 
 
 

@@ -10,7 +10,7 @@ import com.ez.gw.common.SearchVO;
 @Mapper
 public interface EmployeeDAO {
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
-	List<EmployeeVO> selectAllEmp();
+	List<Map<String, Object>> selectAllEmp();
 	String selectPwd(int empNo); //로그인 성공여부
 	String selctAuthority(int empNo); //관리자 로그인여부
 	int getNextSequenceValue(); // EMPLOYEE_SEQ.nextval을 얻어오는 메서드(DAO만 등록)
@@ -24,5 +24,7 @@ public interface EmployeeDAO {
 	List<Map<String, Object>> selectSerachEmp2(SearchVO searchVo); //관리자 사원 전체 조회 메서드(페이징처리)
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
 	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
+	int selectEmpByName(String name);
+	String selectNameByEmpNo(int empNo);
 }
 

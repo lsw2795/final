@@ -16,8 +16,8 @@
 		where emp_no=#{empNo}
 	</select>
 	
-	<select id="selectAllEmp" resultType="employeeVo">
-		select * from employee
+	<select id="selectAllEmp" resultType="map">
+		select * from organizationchartview
 	</select>
 	
 	<select id="selectPwd" resultType="string" parameterType="int">
@@ -26,7 +26,8 @@
 	</select>
 	
 	<select id="selctAuthority" parameterType="int" resultType="string">
-		select authority from employee
+		select authority 
+		from employee
 		where emp_no=#{empNo}
 	</select>
 	
@@ -121,11 +122,21 @@
 	
 	<update id="updateEmpAdmin" parameterType="employeeVo">
 		update employee
-		set name=#{name}, ename=#{ename}, jumin=#{jumin}, image=#{image}, dept_no=#{deptNo},
+		set name=#{name}, ename=#{ename}, jumin=#{jumin}, dept_no=#{deptNo},
 			position_no=#{positionNo}, authority=#{authority}, extension_no=#{extensionNo},
 			tel=#{tel}, address=#{address}, addressdetail=#{addressdetail}, 
 			annual_salary=#{annualSalary}, email=#{email}
+		<if test="image!=null and image!=''">
+		, image=#{image}
+		</if>	
 		where emp_no=#{empNo}
 	</update>
 	
+	<select id="selectEmpByName" parameterType="string">
+		select emp_no from employee where name = #{name}
+	</select>
+	
+	<select id="selectNameByEmpNo" parameterType="int" resultType="string">
+		select name from employee where emp_no = #{empNo}
+	</select>
 </mapper>

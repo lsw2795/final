@@ -17,6 +17,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.selectCommuteByEmpNo(empNo);
 	}
 
+	@Override
+	public int insertWorkIn(int empNo) {
+		return commuteDao.insertWorkIn(empNo);
+	}
+
 	
 	
 }

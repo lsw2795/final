@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	@Override
-	public List<EmployeeVO> selectAllEmp() {
+	public List<Map<String, Object>> selectAllEmp() {
 		return employeeDao.selectAllEmp();
 	}
 
@@ -126,8 +126,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.gTRSearchEmp(searchVo);
 	}
 
+	@Override
+	public int selectEmpByName(String name) {
+		return employeeDao.selectEmpByName(name);
+	}
 
-
+	@Override
+	public String selectNameByEmpNo(int empNo) {
+		return employeeDao.selectNameByEmpNo(empNo);
+	}
 
 }
 

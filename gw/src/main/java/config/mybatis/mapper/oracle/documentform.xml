@@ -3,7 +3,45 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.documentform.model.DocumentFormDAO">
-	<select id="selectAllForm" resultType="documentFormVo">
+	<sql id="search">
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				and name like '%' || #{searchKeyword} || '%'
+			</if>
+		</trim>
+	</sql>
+
+	<select id="selectAllForm" parameterType="documentFormVo" resultType="documentFormVo">
 		select * from document_form
+		order by SECURITY_LEVEL desc
 	</select>
+	
+	<select id="selectAllFormPage" parameterType="documentFormVo" resultType="documentFormVo">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from document_form
+					<include refid="search"></include>
+					order by SECURITY_LEVEL desc
+				)A
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="documentFormVo" resultType="int">
+		select count(*) from document_form 
+		<include refid="search"></include>
+	</select>
+	
+	<insert id="formInsert" parameterType="documentFormVo">
+		<selectKey keyProperty="documentNo" resultType="int" order="BEFORE">
+			select document_form_seq.nextval from dual
+		</selectKey>
+		insert into document_form
+		values(#{documentNo},#{formName},#{securityLevel},#{deadline})
+	</insert>
+	
 </mapper>

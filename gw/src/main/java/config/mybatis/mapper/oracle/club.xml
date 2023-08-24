@@ -32,8 +32,7 @@
 	
 	<update id="updateClub" parameterType="clubVo">
 		update club
-		set  MEM_LIMIT=#{memLimit}, TITLE=#{title}, INTRODUCE=#{introduce}, SECFLAG=#{secflag},
-			MEM_LIMITFLAG=#{memLimitflag}
+		set MEM_LIMIT=#{memLimit},TITLE=#{title},INTRODUCE=#{introduce},MEM_LIMITFLAG=#{memLimitflag}
 		where CLUB_NO=#{clubNo}
 	</update>
 	

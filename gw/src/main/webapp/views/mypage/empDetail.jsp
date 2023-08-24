@@ -16,7 +16,7 @@
       	 <h2>사원정보</h2>
        </div>
     </div>
-      <div class="card-body" style="text-align: center; font-size: 20px;">
+      <div class="card-body" style="text-align: center; font-size: 16px;">
       	<img src="<c:url value='/images/${empVo.image }'/>" alt="사원 이미지" style="width:200px; height:250px;">
       	<br><br>
         사원 번호 : ${empVo.empNo }<br>

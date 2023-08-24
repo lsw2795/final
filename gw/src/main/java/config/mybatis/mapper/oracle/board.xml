@@ -60,7 +60,31 @@
 	</insert>
 
 	<select id="selectNoticeAll" parameterType="searchVo">
-		select * from noticeListView
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from noticeListView
+				<if test="searchKeyword!=null and searchKeyword!=''">
+					where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+					and delflag='N'
+				</if>
+				<if test="searchKeyword==null or searchKeyword==''">
+					where delflag='N'
+				</if>
+				order by board_no desc
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRSearchNotice" parameterType="searchVo">
+		select count(*) from noticeListView
 		<if test="searchKeyword!=null and searchKeyword!=''">
 			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
 			and delflag='N'
@@ -88,10 +112,71 @@
 		where boardList_no=2000 and board_no=#{boardNo}
 	</delete>
 	
-	<select id="selectByEmpNo" parameterType="int" resultType="map">
-		select * from boardListView
+	<select id="selectByEmpNo" parameterType="empSearchVo" resultType="map">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from boardListView
+				where emp_no=#{empNo}
+				<if test="searchCondition!=null and searchCondition!=''">
+				and board_name='${searchCondition}'
+				</if>
+				<if test="searchKeyword!=null and searchKeyword!=''">
+	 			and content like '%'|| #{searchKeyword} ||'%'
+	      		or title like '%'|| #{searchKeyword} ||'%'
+	      		</if>
+				and delflag='N'
+				order by boardList_no asc, board_no desc
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRSearchBoard" parameterType="empSearchVo">
+		select count(*) from boardListView
 		where emp_no=#{empNo}
+		<if test="searchCondition!=null and searchCondition!=''">
+		and board_name='${searchCondition}'
+		</if>
+		<if test="searchKeyword!=null and searchKeyword!=''">
+	 	and content like '%'|| #{searchKeyword} ||'%'
+	 	or title like '%'|| #{searchKeyword} ||'%'
+   		</if>
+		and delflag='N'
 		order by boardList_no asc, board_no desc
 	</select>
 	
+	<select id="selectPrevNotice" parameterType="int" resultType="map">
+		select * from
+			(
+		    select title,max(board_no)
+		    from noticeListView
+		    <![CDATA[
+		    where board_no<#{boardNo}
+		    ]]>
+		    group by title
+		    order by max(board_no) desc
+			)
+		where rownum=1
+	</select>
+	
+	<select id="selectNextNotice" parameterType="int" resultType="map">
+		select * from
+			(
+		    select title,min(board_no)
+		    from noticelistview
+		    <![CDATA[
+		    where board_no>#{boardNo}
+		    ]]>
+		    group by title
+		    order by min(board_no) asc
+		    )
+		where rownum=1
+	</select>
 </mapper>

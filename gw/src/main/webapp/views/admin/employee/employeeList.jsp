@@ -183,7 +183,7 @@
 							<!-- 이전 블럭으로 이동 -->
 							<c:if test="${pagingInfo.firstPage>1 }">
 								<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
-								&lt;
+									<img src="<c:url value='/images/first.JPG'/>">
 								</a>
 							</c:if>	
 											
@@ -200,7 +200,7 @@
 							<!-- 다음 블럭으로 이동 -->
 							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
 						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
-								&gt;
+									<img src="<c:url value='/images/last.JPG'/>">
 								</a>
 							</c:if>
 							<!--  페이지 번호 끝 -->

@@ -150,3 +150,12 @@
     color: dodgerblue;
     background-color: whitesmoke;
 }
+#prevPage {
+    margin: 0px 7px 0 0px;
+}
+#nextPage {
+    margin: 0 0 0 4px;
+}
+.adminempdiv18{
+	margin: 0 0 0 40px;
+}    

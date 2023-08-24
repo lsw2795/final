@@ -5,6 +5,9 @@
 <mapper namespace="com.ez.gw.confirm.model.ConfirmDAO">
 	<sql id="search">
 		<trim prefix="and" prefixOverrides="AND|OR">
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				and name like '%' || #{searchKeyword} || '%'
+			</if>
 			<if test="confirmDocumentNo!=null and confirmDocumentNo!=''">
 				and confirm_document_no like '%' || #{confirmDocumentNo} || '%'
 			</if>
@@ -141,8 +144,25 @@
 					select * from confirmsview
 					where emp_no=#{empNo}
 					and confirm_state not in(9)
+					and delflag='N'
 					<include refid="search"></include>
 					order by confirm_state,create_date desc
+				)A
+			)
+		<![CDATA[
+		where num>#{firstRecordIndex} 
+		and num<=#{firstRecordIndex}+#{recordCountPerPage} ]]>
+	</select>
+	
+	<select id="selectAllByAdmin" parameterType="confirmVo" resultType="map">
+		select * from
+			(
+			select rownum as num, A.* from
+				(
+					select * from confirmsview
+					where delflag='N'
+					<include refid="search"></include>
+					order by create_date desc
 				)A
 			)
 		<![CDATA[
@@ -158,6 +178,7 @@
 					select * from confirmsview
 					where emp_no=#{empNo}
 					and confirm_state =9
+					and delflag='N'
 					<include refid="search"></include>
 					order by create_date desc
 				)A
@@ -176,11 +197,10 @@
 					where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
 					or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
 					or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
+					and delflag='N'
+					<include refid="search"></include>
 					order by confirm_state,create_date desc
 				)A
-				<trim prefix="where" prefixOverrides="AND|OR">
-					<include refid="search"></include>
-				</trim>
 			)
 		<![CDATA[
 		where num>#{firstRecordIndex} 
@@ -196,11 +216,10 @@
 					where (confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
 					or (confirm2 = #{empNo} and confirm_state not in (1,2,3,4,9))
 					or (confirm3 = #{empNo} and confirm_state = 10)
+					and delflag='N'
+					<include refid="search"></include>
 					order by confirm_state,create_date desc
 				)A
-				<trim prefix="where" prefixOverrides="AND|OR">
-					<include refid="search"></include>
-				</trim>
 			)
 		<![CDATA[
 		where num>#{firstRecordIndex} 
@@ -215,6 +234,7 @@
 					select * from confirmagreeview
 					where manager = #{empNo}
 					and confirm_state not in(9)
+					and delflag='N'
 					<include refid="search"></include>
 					order by confirm_state,create_date desc
 				)A
@@ -236,6 +256,7 @@
 						where emp_no=#{empNo}
 						and confirm_state not in(9)
 					)
+					and delflag='N'
 					<include refid="search"></include>
 					order by create_date desc,confirm_state
 				)A
@@ -255,6 +276,13 @@
 		select count(*) from confirmsview 
 		where emp_no=#{empNo}
 		and confirm_state not in(9)
+		and delflag='N'
+		<include refid="search"></include>
+	</select>
+	
+	<select id="getTotalRecordAdmin" parameterType="confirmVo" resultType="int">
+		select count(*) from confirmsview 
+		where delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -262,6 +290,7 @@
 		select count(*) from confirmsview 
 		where emp_no=#{empNo}
 		and confirm_state =9
+		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -269,6 +298,7 @@
 		select count(*) from confirmagreeview 
 		where manager=#{empNo}
 		and confirm_state not in(9)
+		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -276,6 +306,7 @@
 		select count(*) from confirmagreeview 
 		where manager=#{empNo}
 		and confirm_state in(7,8)
+		and delflag='N'
 	</select>
 
 	<select id="getTotalConfirmRecord" parameterType="confirmVo" resultType="int">
@@ -283,6 +314,7 @@
 		where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
 		or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
 		or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
+		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -291,6 +323,7 @@
 		where (confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
 		or (confirm2 = #{empNo} and confirm_state not in (1,2,3,4,9))
 		or (confirm3 = #{empNo} and confirm_state = 10)
+		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -302,6 +335,7 @@
 				where emp_no=#{empNo}
 			)
 		and confirm_state not in(9)
+		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -331,6 +365,12 @@
 			review_date=null,confirm_date=null,complete_date=null,start_date=#{startDate},
 			end_date=#{endDate},confirm_state=1,document_no=#{documentNo},confirm1=#{confirm1},
 			confirm2=#{confirm2},confirm3=#{confirm3}
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
+	
+	<update id="updateConfirmDelFlag" parameterType="string">
+		update confirm
+		set delflag='Y'
 		where confirm_document_no=#{confirmDocumentNo}
 	</update>
 </mapper>

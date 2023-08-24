@@ -6,7 +6,9 @@ public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
 	public static final int RECORD_COUNT=10;
 	public static final int CONFIRM_RECORD_COUNT=10;
+	public static final int ADMIN_RECORD_COUNT=7;
 	int BLOCK_SIZE=10;
+	int ADMIN_FORMLIST_BLOCK_SIZE=5;
 	
 	//파일 업로드 처리 관련 상수
 	String FILE_UPLOAD_TYPE = "test";
@@ -34,6 +36,8 @@ public interface ConstUtil {
 	//관리자 페이지 - 사원 이미지 저장 경로
 	String IMAGE_FILE_UPLOAD_PATH = "images";
 	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\images";
+	//String IMAGE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\images";
+	//String IMAGE_FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\images";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;  //자료실 업로드
@@ -42,13 +46,13 @@ public interface ConstUtil {
 	
 	//전자결재
 	Date date = new Date();
-	int CONFIRM_NO=1;
-	int RETURN = -1; 
-	int WAIT = 0; 
-	int CONFIRM1=1;
-	int CONFIRM2=2;
-	int DEPTAGREE=3;
-	int CONFIRM3=4;
-	int COMPLETE=5;
+	int MY_CONFIRM_LIST = 0;
+	int CONFIRM_STAY = 1;
+	int AGREE_LIST = 2;
+	int COMPLETE_LIST = 3;
+	int REFER_LIST = 4;
+	int RETURN_LIST= 5;
+	int ADMIN = 6;
+
 	
 }

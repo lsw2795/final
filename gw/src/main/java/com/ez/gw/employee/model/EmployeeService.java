@@ -17,9 +17,9 @@ public interface EmployeeService {
 	int	ADMIN_NONE=3; //해당 관리자 없음
 	
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
-	List<EmployeeVO> selectAllEmp();
+	List<Map<String, Object>> selectAllEmp();
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
-	String selctAuthority(int empNo);
+	String selctAuthority(int empNo); //관리자 로그인 여부
 	int insertEmp(EmployeeVO vo); //관리자 - 사원 등록 메서드
 	List<Map<String, Object>> selectSearchEmp(SearchVO searchVo);//조직도 - 사원 검색 메서드
 	void sendEmail(EmployeeVO empVo, String div); //비번찾기 메일 보내기
@@ -33,4 +33,6 @@ public interface EmployeeService {
 	int updateEmpAdmin(EmployeeVO empVo); //관리자 - 사원정보 수정하기
 	List<EmployeeVO> selectByReferEmpNo(String confirmDocumentNo); //참조자 정보 조회 
 	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
+	int selectEmpByName(String name);
+	String selectNameByEmpNo(int empNo);
 }

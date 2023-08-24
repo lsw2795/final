@@ -3,5 +3,32 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.addressbook.model.AddressBookDAO">
-
+	<select id="selectAll" parameterType="empSearchVo" resultType="addressBookVo">
+		select *
+			from
+			(
+				select rownum as rnum, A.*
+				from
+				(
+					select * from address_book
+					where emp_no=#{empNo}
+					<if test="searchKeyword!=null and searchKeyword!=''">
+			   	 		and	${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+			      	</if>
+				)A
+			)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRSearchCount" parameterType="empSearchVo" resultType="int">
+		select count(*) from address_book
+		where emp_no=#{empNo}
+		<if test="searchKeyword!=null and searchKeyword!=''">
+  	 		and	${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+     	</if>
+	</select>
+	
 </mapper>

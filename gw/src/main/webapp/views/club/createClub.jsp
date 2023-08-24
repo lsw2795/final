@@ -78,9 +78,9 @@
             <div class="card-body">
               <div class="row row flex-between-center">
               <div class="col-md">
-                  <h5 class="mb-2 mb-md-0"></h5>
-                </div>
-                <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
+                <h5 class="mb-2 mb-md-0"></h5>
+              </div>
+              <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
               <div class="col-auto">
                    <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
                         <option value="Y">제한</option>

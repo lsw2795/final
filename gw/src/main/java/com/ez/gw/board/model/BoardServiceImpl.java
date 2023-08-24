@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +57,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectNoticeAll(searchVo);
 	}
 
+
+	@Override
+	public int gTRSearchNotice(SearchVO searchVo) {
+		return boardDao.gTRSearchNotice(searchVo);
+	}
+
 	@Override
 	public Map<String, Object> selectNotice(int boardNo) {
 		return boardDao.selectNotice(boardNo);
@@ -70,12 +79,43 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectByEmpNo(int empNo) {
-		return boardDao.selectByEmpNo(empNo);
+	public List<Map<String, Object>> selectByEmpNo(EmpSearchVO searchVo) {
+		return boardDao.selectByEmpNo(searchVo);
 	}
 
+	@Override
+	public int gTRSearchBoard(EmpSearchVO searchVo) {
+		return boardDao.gTRSearchBoard(searchVo);
+	}
 
+	public Map<String, Object> selectPrevNotice(int boardNo) {
+		return boardDao.selectPrevNotice(boardNo);
+	}
 
+	@Override
+	public Map<String, Object> selectNextNotice(int boardNo) {
+		return boardDao.selectNextNotice(boardNo);
+	}
+
+	@Override
+	@Transactional
+	public int deleteMulti(List<BoardVO> list) {
+		int cnt = 0;
+		try {
+			for(BoardVO vo : list) {
+				int boardNo = vo.getBoardNo();
+				if(boardNo!=0) { //체크된 질문만 삭제
+					cnt = boardDao.deleteQna(boardNo);
+				}
+			}//for
+		}catch(RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+	}
 
 
 
