@@ -232,7 +232,7 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<c:if test="${empMap['POSITION_RANK']>=3 }"> <!-- 대리 이상 -->
+                    		<c:if test="${sessionScope.positionRank>=3 }"> <!-- 대리 이상 -->
 	                    		<li class="nav-item"><!-- more inner pages-->
 	                    			<a class="nav-link " href="<c:url value='/approval/confirm/confirmList'/>">
 	                        			<div class="d-flex align-items-center">

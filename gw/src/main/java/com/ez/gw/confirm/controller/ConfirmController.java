@@ -326,8 +326,8 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","0");
-
+    	model.addAttribute("title",ConstUtil.MY_CONFIRM_LIST);
+    	
     	//4
     	return "approval/confirmList";
     }
@@ -363,10 +363,10 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","6");
+    	model.addAttribute("title",ConstUtil.ADMIN);
     	
     	//4
-    	return "approval/confirmList";
+    	return "approval/adminList";
     }
     
     @RequestMapping("/confirm/confirmList")
@@ -400,7 +400,7 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","1");
+    	model.addAttribute("title",ConstUtil.CONFIRM_STAY);
 
     	//4
     	return "approval/confirmList";
@@ -437,7 +437,7 @@ public class ConfirmController {
 		model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","3");
+    	model.addAttribute("title",ConstUtil.COMPLETE_LIST);
 
     	//4
     	return "approval/confirmList";
@@ -474,7 +474,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","2");
+    	model.addAttribute("title",ConstUtil.AGREE_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -511,7 +511,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","4");
+    	model.addAttribute("title",ConstUtil.REFER_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -548,7 +548,7 @@ public class ConfirmController {
     	model.addAttribute("stateList",stateList);
     	model.addAttribute("list",list);
     	model.addAttribute("pagingInfo",pagingInfo);
-    	model.addAttribute("title","5");
+    	model.addAttribute("title",ConstUtil.RETURN_LIST);
     	
     	//4
     	return "approval/confirmList";
@@ -625,6 +625,21 @@ public class ConfirmController {
     	
     	//4
     	return "approval/document/pdfForm";
+    }
+    
+    @RequestMapping("/deleteConfirm")
+    public String deleteConfirm(@RequestParam String[] deleteNo,Model model) {
+    	int cnt=confirmService.updateConfirmDelFlag(deleteNo);
+    	
+    	String msg="문서 삭제 처리 중 에러가 발생했습니다.",url="/approval/confirmList/admin";
+    	if(cnt>0) {
+    		msg="문서가 삭제 처리되었습니다.";
+    	}
+    	
+    	model.addAttribute("msg",msg);
+    	model.addAttribute("url",url);
+    	
+    	return "common/message";
     }
     
     @ResponseBody

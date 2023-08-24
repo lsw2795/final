@@ -367,4 +367,10 @@
 			confirm2=#{confirm2},confirm3=#{confirm3}
 		where confirm_document_no=#{confirmDocumentNo}
 	</update>
+	
+	<update id="updateConfirmDelFlag" parameterType="string">
+		update confirm
+		set delflag='Y'
+		where confirm_document_no=#{confirmDocumentNo}
+	</update>
 </mapper>
