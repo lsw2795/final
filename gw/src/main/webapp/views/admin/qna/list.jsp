@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
 	$(function(){
@@ -13,7 +12,7 @@
 			
 			if(count > 0){
 				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
-					$('form[name=frmList]').prop('action', "<c:url value='/qna/admin/delete'/>");
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/qna/delete'/>");
 					$('form[name=frmList]').submit();
 				} // if
 			} 
@@ -81,9 +80,8 @@
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#allContactOffcanvas" aria-controls="allContactOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                      	<a href="<c:url value='/admin/board/noticeWrite'/>" class="btn btn-primary">등록</a>
+                      	<a href="<c:url value='/admin/qna/write'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/board/noticeEdit'/>" class="btn btn-primary">수정</a>
 						<span class="adminhyphen"></span>
 						<input type="button" value="삭제" id="btnDel" class="btn btn-primary"/>
                       </div>

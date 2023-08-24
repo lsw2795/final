@@ -219,8 +219,8 @@ public class QnaController {
 	
 	//-----------------------------admin-----------------------------------
 	
-	@RequestMapping("/qna/admin/qnaList")
-	public String admin_qnaList(@ModelAttribute SearchVO searchVo, Model model) {
+	@RequestMapping("/admin/qna/list")
+	public String adminQnaList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("qna 목록 페이지");
 		
@@ -239,22 +239,22 @@ public class QnaController {
 		model.addAttribute("list", list);
 		
 		//4
-		return "admin/qna/qnaList";
+		return "admin/qna/list";
 		
 	}
 	
-	@RequestMapping("/qna/admin/delete")
+	@RequestMapping("/admin/qna/delete")
 	public String admin_qnaDelete(@ModelAttribute ListBoardVO listVo,
 			HttpServletRequest request, Model model) {
 		//1
-		logger.info("선택한 게시글 삭제, 파라미터 listVo={}", listVo);
+		logger.info("관리자 - 선택한 게시글 삭제, 파라미터 listVo={}", listVo);
 		
 		//2. db
 		List<BoardVO> list = listVo.getBoardItems();
 		int cnt = boardService.deleteMulti(list);
 		logger.info("게시글 삭제 결과, cnt={}", cnt);
 		
-		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/qna/admin/qnaList";
+		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/admin/qna/list";
 		if(cnt>0) {
 			msg = "선택한 게시글들을 삭제했습니다.";
 		}
@@ -265,6 +265,41 @@ public class QnaController {
 		
 		//4
 		return "common/message";
+	}
+	
+	@GetMapping("/admin/qna/write")
+	public String adminQnaWrite() {
+		//1 
+		logger.info("관리자 - qna 등록 페이지");
+		//2
+		//3
+		
+		//4
+		return "admin/qna/write";
+	}
+	
+	@PostMapping("/admin/qna/write")
+	public String adminQnaWritePost(@ModelAttribute BoardVO vo, HttpSession session, Model model) {
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("관리자 - qna 등록, 파라미터 vo={}, empNo={}", vo, empNo);
+		
+		//2
+		int cnt = boardService.insertQna(vo);
+		logger.info("qna 등록 결과, cnt={}", cnt);
+		
+		String msg = "질문 등록에 실패하였습니다.", url = "/admin/qna/list";
+		if(cnt>0) {
+			msg = "질문이 등록되었습니다.";
+		}
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+		
 	}
 	
 	
