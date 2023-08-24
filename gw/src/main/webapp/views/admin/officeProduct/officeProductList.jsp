@@ -121,7 +121,7 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmList" method="post" action='<c:url value='/admin/board/noticeList'/>' >
+					<form name="frmList" method="post" action='<c:url value='/admin/'/>' >
 						<input type="hidden" id="category" name="category" value="${param.category}"/>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
@@ -192,7 +192,7 @@
 						aria-controls="rentCar" aria-selected="false">차량</button>
 				</li>
 			</ul>
-			</form>
+			
 			<!-- 내용 -->
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="meetingRoom" role="tabpanel"
@@ -488,4 +488,5 @@
 		
 	</div>
 </div>
+</form>
 <%@ include file='../../inc/adminBottom.jsp'%>
