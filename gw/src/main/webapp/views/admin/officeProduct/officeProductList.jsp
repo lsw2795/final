@@ -10,7 +10,7 @@
         $("#meetingRoom-tab").click(function () {
             setActiveTab("meetingRoom");
             redirectToCategory("meetingRoom");
-        });
+        });  
 
         $("#noteBook-tab").click(function () {
             setActiveTab("noteBook");
