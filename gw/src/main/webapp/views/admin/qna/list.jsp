@@ -12,7 +12,7 @@
 			
 			if(count > 0){
 				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
-					$('form[name=frmList]').prop('action', "<c:url value='/admin/qna/delete'/>");
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/qna/deleteMulti'/>");
 					$('form[name=frmList]').submit();
 				} // if
 			} 
@@ -152,7 +152,7 @@
 								
 								<td class="align-middle">개발팀</td>
 								<td class="align-middle">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
+									<a href="<c:url value='/admin/qna/detail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
 								</td>
 								<td class="align-middle">
 									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
