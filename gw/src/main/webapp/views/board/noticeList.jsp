@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
+<link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">    
+<script type="text/javascript">
+	function empDetail(empNo) {
+	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+	}
+	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
+  <!-- 페이징 처리 관련 form -->
+		<form action="<c:url value='/board/noticeList'/>" 
+			name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+		</form>
 <h2><a href="<c:url value='/board/noticeList'/>" style="text-decoration: none; color: #38404e;">공지사항</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
@@ -16,6 +38,11 @@
 		                            		selected = "selected"
 		                            	</c:if>
 		                            >제목</option>
+		                            <option value="dept_name"
+		                            	<c:if test="${param.searchCondition=='dept_name'}">
+		                            		selected= "selected"
+		                            	</c:if>
+		                            >부서</option>		
 		                            <option value="name"
 	                       		        <c:if test="${param.searchCondition=='name'}">
 		                            		selected = "selected"
@@ -29,7 +56,7 @@
 	                          </select>
 						</div>
 						<div class="col-auto">
-							<div class="input-group input-search-width">
+							<div class="input-group">
 								<input name="searchKeyword"
 									class="form-control shadow-none search "
 									value='${param.searchKeyword}' type="search"
@@ -40,8 +67,14 @@
 								</button>
 							</div>
 						</div>
+						 <div class="col-auto searchEmpResult" style="padding: 10px 0 0 25px;">
+							<c:if test="${!empty param.searchKeyword }">
+							   <p>검색어 : ${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+							</c:if>   
+						</div>
 						</div>
 						</form>
+					
 					</div>
 			</div>
 		</div>
@@ -49,59 +82,54 @@
 			<div class="table-responsive scrollbar ">
 				<table class="table table-sm table-hover">
 					<colgroup>
-						<col style="width: 5%;" />
 						<col style="width: 20%;" />
 						<col style="width: 15%;" />
 						<col style="width: 40%;" />
-						<col style="width: 10%;" />
+						<col style="width: 15%;" />
 						<col style="width: 10%;" />
 					</colgroup>
 					<thead class="adminempthead">
 						<tr style="text-align: center;">
-							<th class="py-2 fs-0 pe-2" style="width: 28px;">
-								<div class="form-check d-flex align-items-center">
-									<input class="form-check-input"
-										id="checkbox-bulk-tickets-select" type="checkbox"
-										data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-								</div>
-							</th>
-							<th class="sort align-middle" scope="col" data-sort="name">작성자</th>
-							<th class="sort align-middle" scope="col" data-sort="dept">부서</th>
-							<th class="sort align-middle" scope="col" data-sort="title">제목</th>
-							<th class="sort align-middle" scope="col" data-sort="regdate">등록일</th>
-							<th class="sort align-middle" scope="col" data-sort="readcount">조회수</th>
+							<th class="align-middle py-2 fs-0 pe-2" scope="col" data-sort="name">작성자</th>
+							<th class="align-middle" scope="col" data-sort="dept">부서</th>
+							<th class="align-middle" scope="col" data-sort="title">제목</th>
+							<th class="align-middle" scope="col" data-sort="regdate">등록일</th>
+							<th class="align-middle" scope="col" data-sort="readcount">조회수</th>
 						</tr>
 					</thead>
-					<tbody class="list" id="table-contact-body">
+					<tbody>
 						<!-- 반복 시작  -->
 						<c:forEach var="map" items="${list}">
 							<tr>
 								<td class="align-middle fs-0 py-3">
-									<div class="form-check mb-0">
-										<input class="form-check-input" type="checkbox"
-											id="all-contact-0"
-											data-bulk-select-row="data-bulk-select-row" />
-									</div>
-								</td>
-								<td class="align-middle name white-space-nowrap pe-5 ps-2">
 									<div class="d-flex align-items-center gap-2 position-relative">
-										<div class="avatar avatar-xl">
-											<div class="avatar-name rounded-circle">
-												<span>${map['NAME']}</span>
+										<div class="avatar avatar-xl mypageempdiv14">
+											<div>
+												<img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
 											</div>
 										</div>
-										<h6 class="mb-0">${map['NAME']}</h6>
+										<a href="#" onclick="empDetail(${map.EMP_NO});" 
+											style="text-decoration:none; color: #5e6e82;">${map['NAME']}
+										</a>
 									</div>
 								</td>
 								
-								<td class="align-middle">개발팀</td>
+								<td class="align-middle"><div class="mypageempdiv14">${map['DEPT_NAME']}</div></td>
 								<td class="align-middle">
+									<div class="mypageempdiv14">
 									<a href="<c:url value='/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
+									</div>
 								</td>
 								<td class="align-middle">
-									<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
+									<div class="mypageempdiv14">
+										<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/>
+									</div>
 								</td>
-								<td class="align-middle">${map['READCOUNT']}</td>
+								<td class="align-middle">
+								<div class="mypageempdiv14">
+									${map['READCOUNT']}
+								</div>
+								</td>
 							</tr>
 						</c:forEach>
 						<!-- 반복 끝 -->
@@ -113,15 +141,33 @@
 			</div>
 		</div>
 		<div class="card-footer d-flex justify-content-center ">
-			<button class="btn btn-sm btn-falcon-default me-1" type="button"
-				title="Previous" data-list-pagination="prev">
-				<span class="fas fa-chevron-left"></span>
-			</button>
-			<ul class="pagination mb-0"></ul>
-			<button class="btn btn-sm btn-falcon-default ms-1" type="button"
-				title="Next" data-list-pagination="next">
-				<span class="fas fa-chevron-right"></span>
-			</button>
+			<div class="divPage" id="divPage">
+				<!-- 페이지 번호 추가 -->		
+				<!-- 이전 블럭으로 이동 -->
+				<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<img src="<c:url value='/images/first.JPG'/>">
+					</a>
+				</c:if>	
+								
+				<!-- [1][2][3][4][5][6][7][8][9][10] -->
+				<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+					<c:if test="${i == pagingInfo.currentPage }">		
+						<span id="curPage">${i}</span>
+			        	</c:if>
+					<c:if test="${i != pagingInfo.currentPage }">		
+				         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+				    </c:if>   		
+				</c:forEach>
+				
+				<!-- 다음 블럭으로 이동 -->
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+			         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<img src="<c:url value='/images/last.JPG'/>">
+					</a>
+				</c:if>
+				<!--  페이지 번호 끝 -->
+			</div>
 		</div>
 	</div>
 </div>

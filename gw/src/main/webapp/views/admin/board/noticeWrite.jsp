@@ -14,27 +14,6 @@
 	<c:set var="url" value="/admin/board/noticeWrite" />
 	<c:set var="no" value="0" />	
 </c:if>
-<script type="text/javascript">
-	$(function(){
-        $('#title').focus();
-		
-		$('input[type=button]').click(function(){
-			location.href	= "<c:url value='/admin/board/noticeList'/>";
-		});
-		
-		$('input[type=submit]').click(function(){
-		   $('.boardbox').each(function(idx, item){
-		      if($(this).val().length <1){
-		         alert($(this).parent().parent().find('.form-label').text() + '를 입력하세요');
-		         $(this).focus();
-		         event.preventDefault();
-		         return false;
-		      }
-		   });
-		   
-		});		
-	});
-</script>
 <div class="card mb-3">
 	<div class="card-body position-relative admindefault">
 		<div class="row">

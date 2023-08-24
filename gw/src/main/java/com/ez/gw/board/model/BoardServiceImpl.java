@@ -57,6 +57,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectNoticeAll(searchVo);
 	}
 
+
+	@Override
+	public int gTRSearchNotice(SearchVO searchVo) {
+		return boardDao.gTRSearchNotice(searchVo);
+	}
+
 	@Override
 	public Map<String, Object> selectNotice(int boardNo) {
 		return boardDao.selectNotice(boardNo);
@@ -82,11 +88,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.gTRSearchBoard(searchVo);
 	}
 
+	public Map<String, Object> selectPrevNotice(int boardNo) {
+		return boardDao.selectPrevNotice(boardNo);
+	}
+
+	@Override
+	public Map<String, Object> selectNextNotice(int boardNo) {
+		return boardDao.selectNextNotice(boardNo);
+	}
+
 	@Override
 	@Transactional
 	public int deleteMulti(List<BoardVO> list) {
 		int cnt = 0;
-
 		try {
 			for(BoardVO vo : list) {
 				int boardNo = vo.getBoardNo();

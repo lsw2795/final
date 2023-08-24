@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.pds.model.PdsService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class NoticeController {
 	private static final Logger logger=LoggerFactory.getLogger(NoticeController.class);
 	private final BoardService boardService;
+	private final PdsService pdsService;
 	
 	@GetMapping("/admin/board/noticeWrite")
 	public String noticeWrite_get() {
@@ -44,7 +48,8 @@ public class NoticeController {
 		
 		//2
 		int cnt=boardService.insertNotice(vo);
-		logger.info("관리자 - 공지사항 글 등록결과, cnt={}",cnt);
+		//int result=pdsService.insertPds(vo);
+		logger.info("관리자 - 공지사항 글 등록, 파일등록 결과, cnt={}", cnt);
 		
 		String msg="공지사항 등록에 실패했습니다.",url="/admin/board/noticeWrite";
 		if(cnt>0) {
@@ -62,12 +67,25 @@ public class NoticeController {
 	public String noticeList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("관리자 - 공지사항 목록 페이지");
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	
+		int totalRecord=boardService.gTRSearchNotice(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+
 		//2
 		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("관리자 - 공지사항 전체 조회 결과, list.size={}", list.size());
 				
 		//3
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "admin/board/noticeList";
 	}
@@ -86,25 +104,43 @@ public class NoticeController {
 		
 		//2
 		Map<String, Object> map = boardService.selectNotice(boardNo);
+		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
+		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
 		logger.info("관리자 - 공지사항 글 상세조회 결과, map={}", map);
+		logger.info("관리자 - 이전글 이동 prevMap={}", prevMap);
+		logger.info("관리자 - 다음글 이동 nextMap={}", nextMap);
 		
 		//3
 		model.addAttribute("map", map);
+		model.addAttribute("prevMap",prevMap);
+		model.addAttribute("nextMap",nextMap);
 		
 		//4
-		return "/admin/board/noticeDetail";
+		return "admin/board/noticeDetail";
 	}
 	
 	@RequestMapping("/board/noticeList")
 	public String noticeList2(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("사원 - 공지사항 목록 페이지");
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	
+		int totalRecord=boardService.gTRSearchNotice(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
 		//2
 		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("사원 - 공지사항 전체 조회 결과, list.size={}", list.size());
 				
 		//3
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		//4
 		return "board/noticeList";
 	}
@@ -123,13 +159,17 @@ public class NoticeController {
 		
 		//2
 		boardService.updateReadcount(boardNo); //사원 공지사항 뷰만 조회수 증가
-		
 		Map<String, Object> map = boardService.selectNotice(boardNo);
+		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
+		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
 		logger.info("사원 - 공지사항 글 상세조회 결과, map={}", map);
+		logger.info("사원 - 이전글 이동 prevMap={}", prevMap);
+		logger.info("사원 - 다음글 이동 nextMap={}", nextMap);
 		
 		//3
 		model.addAttribute("map", map);
-		
+		model.addAttribute("prevMap",prevMap);
+		model.addAttribute("nextMap",nextMap);
 		//4
 		return "board/noticeDetail";
 	}

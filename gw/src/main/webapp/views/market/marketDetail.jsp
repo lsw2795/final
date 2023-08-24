@@ -103,7 +103,7 @@ div#updateBtn {
 						  </ul>
 						</div>
                  	  </span>
-                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo }">
+                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo}">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 

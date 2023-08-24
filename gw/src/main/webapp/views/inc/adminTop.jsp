@@ -155,9 +155,9 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/document/formList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">결재 양식 관리</span>
+                        				<span class="nav-link-text ps-1">문서 양식 관리</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -281,7 +281,7 @@
 	                   			<span class="nav-link-text ps-1">공지사항</span>
 	                    	</div>
 	                  	</a>
-	                  	<a class="nav-link" href="<c:url value='/qna/admin/qnaList'/>" role="button" data-toggle="collapse">
+	                  	<a class="nav-link" href="<c:url value='/admin/qna/list'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-key"></span></span>
 	                   			<span class="nav-link-text ps-1">Q&A</span>

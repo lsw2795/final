@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script type="text/javascript">
+	function empDetail(empNo) {
+	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+	}
+</script>
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between admindefault">
                <div class="d-lg-flex">
@@ -18,10 +23,14 @@
               <div class="row">
                 <div class="col-md d-flex">
                   <div class="avatar avatar-2xl">
-                    <img class="rounded-circle" src="<c:url value='/images/IMG_5487.jpg'/>" alt="" />
+                    <img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지"/>
                   </div>
                   <div class="flex-1 ms-2">
-                    <h5 class="mb-0 admindefault">${map['TITLE']}</h5><a class="text-800 fs--1" href="#!"><span class="fw-semi-bold">${map['NAME']}</span><span class="ms-1 text-500">&lt;${map['EMAIL']}&gt;</span></a>
+                    <h5 class="mb-0 admindefault">${map['TITLE']}</h5>
+                    <a class="text-800 fs--1" href="#" onclick="empDetail(${map['EMP_NO']});">
+	                    <span class="bold" style="color: black;">${map['NAME']}</span>
+	                    <span class="ms-1 text-500">&lt;${map['EMAIL']}&gt;</span>
+                    </a>
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
@@ -45,6 +54,20 @@
                   <div class="shadow-none mb-3 admindefault">
                       <p>다운로드파일이름 : 수정해야함</p>
                   </div>
+                  <div style="font-size: 18px;">
+                	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">
+	                 이전 글이 없습니다.
+	                </c:if>
+                	<c:if test="${!empty prevMap['MAX(BOARD_NO)']}">
+	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a><br>
+	                </c:if>
+	                <c:if test="${empty nextMap['MIN(BOARD_NO)']}">
+	                 다음 글이 없습니다.
+	                </c:if>
+	                <c:if test="${!empty nextMap['MIN(BOARD_NO)']}">
+                 	  <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${nextMap["MIN(BOARD_NO)"]}'/>">다음 글&nbsp;&nbsp;|&nbsp;&nbsp;${nextMap['TITLE']}</a>
+               		</c:if>
+                </div>
                   <div class="text-center">
                      <a class="btn btn-falcon-default" href="<c:url value='/admin/board/noticeList'/>">
               	 	목록 가기
