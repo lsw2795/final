@@ -36,34 +36,44 @@
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	조회수 : ${map['READCOUNT']}
                 	<span class="adminhyphen"></span>
-                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
+                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-primary">수정</a>
-               		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-primary">삭제</a>
+               		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
+	                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
+	               		<span class="adminhyphen"></span>
+	                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-outline-danger">삭제</a>
+               		</c:if>
                 </div>
               </div>
             </div>
-            <div class="card-body admindefault">
+            <div class="card-body admindefault" style="background: #f9fafd;">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 admindefault">
                     <div class="card-body adminempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>
-                  <div class="shadow-none mb-3 admindefault">
-                      <p>첨부 파일</p>
-                      <c:forEach var="pdsVo" items="${pdsList }">
-                      <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
-                      ${pdsVo.fileName }<br>
-                      </c:forEach>
+                  <div class="shadow-none mb-3 admindefault" style="background: #f9fafd;">
+                      <h6 style="color: black;">첨부 파일</h6>
+                      <c:if test="${empty pdsList}">
+                      첨부파일이 없습니다.
+                      </c:if>
+                       <c:if test="${!empty pdsList }">
+	                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
+		                       <span><a href="<c:url value='/notice/download?boardNo=${pdsVo.boardNo}&fileName=${pdsVo.fileName}'/>" style="color: black;">
+			                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
+			                     	${fileInfoArr[status.index]}</a>
+		                     	</span><br>
+	                      </c:forEach>
+                     </c:if>
                   </div>
                   <div style="font-size: 18px;">
                 	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">
 	                 이전 글이 없습니다.
 	                </c:if>
                 	<c:if test="${!empty prevMap['MAX(BOARD_NO)']}">
-	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a><br>
+	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a>
+	                 <br>
 	                </c:if>
 	                <c:if test="${empty nextMap['MIN(BOARD_NO)']}">
 	                 다음 글이 없습니다.

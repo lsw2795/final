@@ -37,6 +37,13 @@
 			 $('input[type=file]:last').remove();
 		});
 	});
+	
+	function fileDelete(i){
+		var fileDelId='fileDeleteSpan'+i;
+		var oldFileName='oldFileName'+i;
+		document.getElementById(fileDelId).style.display='none';
+		document.getElementById(oldFileName).value="";
+	}
 </script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
@@ -85,7 +92,24 @@
 						<div class="col-md-auto adminempdiv3">
 							<label class="form-label">첨부 파일</label>
 						</div>
-						<div class="col-md-3" style="margin-left: 7px;">
+						<div class="col-md-5" style="margin-left: 7px;">
+							<c:if test="${empty pdsList}">
+		                      첨부파일이 없습니다.
+		                      </c:if>
+		                       <c:if test="${!empty pdsList }">
+			                      <c:set var="i" value="0"></c:set>
+			                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
+				                       <span id="fileDeleteSpan${i }">
+				                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
+				                     	${fileInfoArr[status.index]}&nbsp;&nbsp;
+				                       <input type="button" onclick="fileDelete(${i})" class="btn-close">
+			                     	   </span>
+			                     	   <br>
+			                     	  <input type="text" name="oldFileName${i }" value="${pdsVo.fileName }">
+			                     	  <input type="text" name="originalFileName${i }" value="${pdsVo.originalFileName }"> 
+			                     	  <c:set var="i" value="${i+1 }"></c:set>
+			                      </c:forEach>
+		                     </c:if>
 							<input type="button" id="btnAddFile" value="추가" class="btn btn-outline-success">
 							<input type="button" id="btnDelFile" value="제거" class="btn btn-outline-danger">
 						</div>
