@@ -7,4 +7,8 @@ public interface DocumentFormService {
 	List<DocumentFormVO> selectAllForm();
 	int getTotalRecord(DocumentFormVO vo);
 	int formInsert(DocumentFormVO vo);
+	int formUpdate(DocumentFormVO vo);
+	int formDelete(int[] delFormNo);
+	int searchName(String formName);
+	DocumentFormVO selectFormByNo(int documentNo);
 }

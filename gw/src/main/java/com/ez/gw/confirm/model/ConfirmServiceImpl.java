@@ -275,4 +275,9 @@ public class ConfirmServiceImpl implements ConfirmService{
 		return cnt;
 	}
 
+	@Override
+	public int searchByDocumentFormNo(int documentNo) {
+		return confirmDao.searchByDocumentFormNo(documentNo);
+	}
+
 }

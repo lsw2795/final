@@ -23,6 +23,6 @@ public interface PdsDAO {
 	int updateDownloadCount(int boardNo);
 	int getTotalRecord(SearchVO vo);
 	int selectIsFile(int boardNo);
-	
+	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
 	
 }

@@ -52,7 +52,11 @@
                     </div>
                   </div>
                   <div class="shadow-none mb-3 admindefault">
-                      <p>다운로드파일이름 : 수정해야함</p>
+                      <p>첨부 파일</p>
+                      <c:forEach var="pdsVo" items="${pdsList }">
+                      <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
+                      ${pdsVo.fileName }<br>
+                      </c:forEach>
                   </div>
                   <div style="font-size: 18px;">
                 	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">

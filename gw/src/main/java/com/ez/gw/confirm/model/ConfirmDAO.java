@@ -31,4 +31,5 @@ public interface ConfirmDAO {
 	int updateConfirm(ConfirmVO vo);
 	List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo);
 	int updateConfirmDelFlag(String confirmDocumentNo);
+	int searchByDocumentFormNo(int documentNo);
 }

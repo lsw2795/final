@@ -4,6 +4,40 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
 <script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#title').focus();
+		
+		$('#btnCancel').click(function(){
+			location.href	= "<c:url value='/admin/board/noticeList'/>";
+		});
+		
+		$('input[type=submit]').click(function(){
+			if($('input[name=title]').val().trim().length<1){
+				alert("제목을 입력하세요.");
+				$('input[name=title]').focus();
+				return false;
+			}
+			
+			if(CKEDITOR.instances.editor.getData() =='' 
+			        || CKEDITOR.instances.editor.getData().length ==0){
+			    alert("내용을 입력해주세요.");
+			    $("#editor").focus();
+			    return false;
+			}
+		});		
+		
+		$('#btnAddFile').click(function(){
+			var num = $('input[type=file]').length+1;
+			 var newInput = $("<input type='file' name='files" + num + "' class='form-control admindefault' style='margin:5px 0px;'/>");
+			 $('#inputFiles').append(newInput);
+		});
+		
+		$('#btnDelFile').click(function(){
+			 $('input[type=file]:last').remove();
+		});
+	});
+</script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
 	<c:set var="url" value="/admin/board/noticeEdit" />
@@ -51,13 +85,18 @@
 						<div class="col-md-auto adminempdiv3">
 							<label class="form-label">첨부 파일</label>
 						</div>
-						<div class="col-md-4">	 
-							<input type="file" class="form-control admindefault"/>
+						<div class="col-md-3" style="margin-left: 7px;">
+							<input type="button" id="btnAddFile" value="추가" class="btn btn-outline-success">
+							<input type="button" id="btnDelFile" value="제거" class="btn btn-outline-danger">
 						</div>
+					</div>
+					<div class="row mb-3 d-flex align-items-center">
+						<div class="col-md-auto adminempdiv19"></div>
+						<div class="col-md-4" id="inputFiles" style="margin-left: 7px;"></div>
 					</div>
 					<div style="text-align: center;">
 						<input type="submit" value="${btLabel}" class="btn btn-primary"/>
-						<input type="button" value="취소" class="btn btn-primary"/>
+						<input type="button" id="btnCancel" value="취소" class="btn btn-primary"/>
 					</div>
 				</form>
 			</div>

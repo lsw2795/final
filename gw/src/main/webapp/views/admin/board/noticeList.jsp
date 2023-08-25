@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
 	$(function(){
@@ -26,7 +25,7 @@
 	}
 </script>
 <!-- 페이징 처리 관련 form -->
-		<form action="<c:url value='/board/noticeList'/>" 
+		<form action="<c:url value='/admin/board/noticeList'/>" 
 			name="frmPage" method="post">
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
@@ -144,7 +143,7 @@
 												<img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
 											</div>
 										</div>
-										<a href="#" onclick="empDetail(${map['EMP_NO']});" 
+										<a href="#" onclick="empDetail(${map.EMP_NO});" 
 											style="text-decoration:none; color: #5e6e82;">${map['NAME']}
 										</a>
 									</div>
