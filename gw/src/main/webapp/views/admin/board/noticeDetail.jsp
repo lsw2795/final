@@ -38,27 +38,27 @@
                 	<span class="adminhyphen"></span>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
                		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-primary">수정</a>
+                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
                		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-primary">삭제</a>
+                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-outline-danger">삭제</a>
                 </div>
               </div>
             </div>
-            <div class="card-body admindefault">
+            <div class="card-body admindefault" style="background: #f9fafd;">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 admindefault">
                     <div class="card-body adminempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>
-                  <div class="shadow-none mb-3 admindefault">
-                      <p>첨부 파일</p>
+                  <div class="shadow-none mb-3 admindefault" style="background: #f9fafd;">
+                      <h6 style="color: black;">첨부 파일</h6>
                       <c:if test="${empty pdsList}">
                       첨부파일이 없습니다.
                       </c:if>
                        <c:if test="${!empty pdsList }">
 	                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
-		                       <span><a href="#" style="color: black;">
+		                       <span><a href="<c:url value='/notice/download?boardNo=${pdsVo.boardNo}&fileName=${pdsVo.fileName}'/>" style="color: black;">
 			                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
 			                     	${fileInfoArr[status.index]}</a>
 		                     	</span><br>
