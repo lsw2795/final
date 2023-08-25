@@ -280,16 +280,56 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/admin/board/noticeEdit")
-	public String noticeEdit_post(@ModelAttribute BoardVO vo, Model model) {
+	public String noticeEdit_post(@ModelAttribute BoardVO vo,
+			@RequestParam (defaultValue = "0")int pdsNo,
+			@ModelAttribute PdsVO pdsVo,
+			HttpServletRequest request,
+			Model model) {
 		//1
-		logger.info("관리자 - 공지사항 수정, 파라미터 vo={}", vo);
+		logger.info("관리자 - 공지사항 수정, 파라미터 vo={}, pdsVo={}", vo, pdsVo);
 		
 		//2
-		int cnt = boardService.updateNotice(vo);
-		logger.info("관리자 - 공지사항 수정 결과, cnt={}", cnt);
+		//다중파일 업로드 처리
+		String fileName="", originalFileName="",filePath = "";
+		long fileSize=0;
+		int cnt1 = pdsService.editNoticeFile(pdsNo); //기존 등록 파일 삭제처리
+		int cnt2 = boardService.updateNotice(vo);
+		logger.info("관리자 - 공지사항 수정 결과, cnt1={}, cnt2={}", cnt1, cnt2);
+		
+		int result=0;
+		try {
+			List<Map<String, Object>> list
+			=fileuploadUtil.fileupload(request,ConstUtil.UPLOAD_NOTICE_FLAG);
+			
+			for(Map<String, Object> map:list) {
+				fileName=(String) map.get("fileName");
+				originalFileName=(String) map.get("originalFileName");
+				fileSize=(long) map.get("fileSize");
+				filePath = (String) map.get("uploadPath") + File.separator + fileName;
+				
+				logger.info("파일명:{}", fileName);
+				
+				pdsVo.setBoardListNo(2000); //공지사항 게시판 번호임
+				pdsVo.setBoardNo(vo.getBoardNo()); //게시글 번호
+				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+				pdsVo.setFileName(fileName); //서버저장 파일명
+				pdsVo.setFileSize(fileSize); //파일크기
+				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+				pdsVo.setPath(filePath); //파일 경로
+				
+				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
+					result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+					logger.info("다중 파일 등록 결과 result = {}", result);
+				}
+			}//for
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		String msg = "공지사항 수정에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + vo.getBoardNo();
-		if(cnt>0) {
+		if(cnt1>0 && cnt2>0) {
 			msg = "공지사항 수정이 완료되었습니다.";
 			url = "/admin/board/noticeDetail?boardNo="+vo.getBoardNo();
 		}
