@@ -24,6 +24,8 @@ public interface PdsDAO {
 	int getTotalRecord(SearchVO vo);
 	int selectIsFile(int boardNo);
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
+	int editNoticeFile(int boardNo); //공지사항 수정시 파일 삭제
+	
 	
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	
