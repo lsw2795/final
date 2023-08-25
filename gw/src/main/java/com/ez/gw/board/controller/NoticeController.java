@@ -223,15 +223,26 @@ public class NoticeController {
 		Map<String, Object> map = boardService.selectNotice(boardNo);
 		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
 		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("사원 - 공지사항 글 상세조회 결과, map={}", map);
 		logger.info("사원 - 이전글 이동 prevMap={}", prevMap);
 		logger.info("사원 - 다음글 이동 nextMap={}", nextMap);
-		
+		logger.info("공지사항 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 	
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);
 		model.addAttribute("nextMap",nextMap);
+		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
+		
 		//4
 		return "board/noticeDetail";
 	}
