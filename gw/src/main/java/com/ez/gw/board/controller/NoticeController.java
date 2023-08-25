@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
@@ -221,15 +223,26 @@ public class NoticeController {
 		Map<String, Object> map = boardService.selectNotice(boardNo);
 		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
 		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("사원 - 공지사항 글 상세조회 결과, map={}", map);
 		logger.info("사원 - 이전글 이동 prevMap={}", prevMap);
 		logger.info("사원 - 다음글 이동 nextMap={}", nextMap);
-		
+		logger.info("공지사항 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 	
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);
 		model.addAttribute("nextMap",nextMap);
+		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
+		
 		//4
 		return "board/noticeDetail";
 	}
@@ -248,9 +261,20 @@ public class NoticeController {
 		
 		//2
 		Map<String, Object> map = boardService.selectNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("관리자 - 공지사항 글 수정페이지 조회 결과, map={}", map);
+		logger.info("기존 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
+		
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
 		
 		model.addAttribute("map", map);
+		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
 		
 		return "admin/board/noticeWrite";
 	}
@@ -299,5 +323,32 @@ public class NoticeController {
 		//4
 		return "common/message";
 	}
+	
+	@RequestMapping("/notice/download")
+	public ModelAndView download(@RequestParam(defaultValue = "0") int boardNo,
+			@RequestParam String fileName, HttpServletRequest request) {
+		//1
+		logger.info("파일 다운로드 처리, 파라미터 no={}, fileName={}", boardNo, fileName);
+
+		//2
+		int cnt = pdsService.updateDownloadCount(boardNo);
+		logger.info("다운로드 수 증가, 결과 cnt={}", cnt);
+
+		//3
+		//4
+		//강제 다운로드 처리를 위한 뷰페이지로 보내준다
+
+		Map<String, Object> map = new HashMap<>();
+		String upPath 
+		= fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_NOTICE_FLAG);
+		File file = new File(upPath, fileName);
+		map.put("file", file);
+
+		//ModelAndView(String viewName, Map<String, ?> model)
+		ModelAndView mav = new ModelAndView("pdsDownloadView", map); //첫글자 소문자
+		return mav;
+
+	}
+
 	
 }
