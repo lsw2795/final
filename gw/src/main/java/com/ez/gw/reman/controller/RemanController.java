@@ -94,4 +94,44 @@ public class RemanController {
 		//4
 		return "common/message";
 	}
+	
+	@GetMapping("/admin/officeProduct/editOfficeProduct")
+	public String get_edit(@RequestParam(defaultValue = "0")int remanNo, Model model) {
+		//1
+		logger.info("자원 수정 페이지, 파라미터 remanNo={}", remanNo);
+		
+		//2
+		RemanVO remanVo = remanService.selectRemanByNo(remanNo);
+		logger.info("remanVo={}", remanVo);
+		
+		//3
+		model.addAttribute("remanVo", remanVo);
+		
+		//4
+		return "admin/officeProduct/editOfficeProduct";
+	}
+	
+	@PostMapping("/admin/officeProduct/editOfficeProduct")
+	public String post_edit(@ModelAttribute RemanVO remanVo, Model model) {
+		//1
+		logger.info("remanVo = {}", remanVo);
+		
+		//2
+		int cnt = remanService.updateReman(remanVo);
+		logger.info("자원 수정 결과, cnt = {}", cnt);
+		
+		String msg = "자원 수정 실패!", url = "/admin/officeProduct/editOfficeProduct";
+		if(cnt>0) {
+			msg = "수정 성공했습니다.";
+			
+			model.addAttribute("closeWindow", true);
+		}
+		//3
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
 }
