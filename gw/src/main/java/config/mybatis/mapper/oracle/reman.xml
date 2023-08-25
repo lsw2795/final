@@ -7,11 +7,15 @@
 		<selectKey keyProperty="remanNo" order="BEFORE" resultType="int">
 			select reman_seq.nextval from dual
 		</selectKey>
-			insert into reman(reman_no, category, name, discription, state, emp_no)
-			values(#{remanNo}, #{category}, #{name}, #{discription}, #{state}, #{empNo})
+			insert into reman(reman_no, category, name, discription, state, emp_no, manager)
+			values(#{remanNo}, #{category}, #{name}, #{discription}, #{state}, #{empNo}, #{manager})
 	</insert>
 	
 	<select id="selectOfficeProductByCategory" parameterType="string" resultType="remanVo">
 		select * from reman where category = #{category} order by reman_no
 	</select>
+	
+	<delete id="deleteReman" parameterType="int">
+		delete from reman where reman_no = #{remanNo}
+	</delete>
 </mapper>

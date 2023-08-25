@@ -131,6 +131,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectEmpByName(name);
 	}
 
+	@Override
+	public String selectNameByEmpNo(int empNo) {
+		return employeeDao.selectNameByEmpNo(empNo);
+	}
+
 }
 
 

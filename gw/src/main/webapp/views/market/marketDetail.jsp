@@ -103,7 +103,7 @@ div#updateBtn {
 						  </ul>
 						</div>
                  	  </span>
-                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo }">
+                 	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo}">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
                   	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
@@ -150,43 +150,6 @@ div#updateBtn {
                         </div>
                       </div>
                       
-                      <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <div class="row mt-3">
-                          <div class="col-lg-6 mb-4 mb-lg-0">
-                            <div class="mb-1"><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="ms-3 text-dark fw-semi-bold">Awesome support, great code ð</span>
-                            </div>
-                            <p class="fs--1 mb-2 text-600">By Drik Smith â¢ October 14, 2019</p>
-                            <p class="mb-0">You shouldn't need to read a review to see how nice and polished this theme is. So I'll tell you something you won't find in the demo. After the download I had a technical question, emailed the team and got a response right from the team CEO with helpful advice.</p>
-                            <hr class="my-4" />
-                            <div class="mb-1"><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star text-warning fs--1"></span><span class="fa fa-star-half-alt text-warning star-icon fs--1"></span><span class="ms-3 text-dark fw-semi-bold">Outstanding Design, Awesome Support</span>
-                            </div>
-                            <p class="fs--1 mb-2 text-600">By Liane â¢ December 14, 2019</p>
-                            <p class="mb-0">This really is an amazing template - from the style to the font - clean layout. SO worth the money! The demo pages show off what Bootstrap 4 can impressively do. Great template!! Support response is FAST and the team is amazing - communication is important.</p>
-                          </div>
-                          <div class="col-lg-6 ps-lg-5">
-                            <form>
-                              <h5 class="mb-3">Write your Review</h5>
-                              <div class="mb-3">
-                                <label class="form-label">Ratting: </label>
-                                <div class="d-block" data-rater='{"starSize":32,"step":0.5}'></div>
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGroupNameInput">Name:</label>
-                                <input class="form-control" id="formGroupNameInput" type="text" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGroupEmailInput">Email:</label>
-                                <input class="form-control" id="formGroupEmailInput" type="email" />
-                              </div>
-                              <div class="mb-3">
-                                <label class="form-label" for="formGrouptextareaInput">Review:</label>
-                                <textarea class="form-control" id="formGrouptextareaInput" rows="3"></textarea>
-                              </div>
-                              <button class="btn btn-primary" type="submit">Submit</button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

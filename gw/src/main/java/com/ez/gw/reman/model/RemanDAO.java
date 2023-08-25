@@ -10,5 +10,6 @@ import lombok.Data;
 public interface RemanDAO {
 	int insertOfficeProduct(RemanVO remanVo);
 	List<RemanVO> selectOfficeProductByCategory(String category);
+	int deleteReman(int remanNo);
 
 }
