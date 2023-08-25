@@ -62,7 +62,6 @@
 			                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
 			                     	${fileInfoArr[status.index]}</a>
 		                     	</span><br>
-		                      
 	                      </c:forEach>
                      </c:if>
                   </div>
