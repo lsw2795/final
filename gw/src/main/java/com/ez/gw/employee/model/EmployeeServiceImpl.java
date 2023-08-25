@@ -136,6 +136,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectNameByEmpNo(empNo);
 	}
 
+	@Override
+	public int emailCheck(String email, int empNo) {
+		String dbEmail=employeeDao.selectEmail(empNo);
+		int res=0;
+		if(dbEmail==null || dbEmail.isEmpty()) {
+			res=EMPNO_NONE;
+		}
+		
+		return res;
+	}
+
+	
+
 }
 
 

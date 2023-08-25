@@ -1,5 +1,6 @@
 package com.ez.gw.club.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.gw.club.model.ClubService;
 import com.ez.gw.club.model.ClubVO;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 
 import jakarta.servlet.http.HttpSession;
@@ -63,10 +65,14 @@ public class ClubController {
 	@RequestMapping("/clubList")
 	public String clubList(@ModelAttribute SearchVO searchVo,Model model) {
 		//1.
-		logger.info("동호회 개설 전체조회 searchVo={},",searchVo);
+		logger.info("동호회 개설 전체조회 searchVo={}",searchVo);
 		//2.
-		List<ClubVO>list=clubService.selectClub(searchVo);
+		List<Map<String, Object>> list=clubService.selectClub(searchVo);
 		logger.info("개설된 동호회 list.size()={}",list.size());
+		
+		for(Map<String, Object> map : list) {
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
 		
 		//3.
 		model.addAttribute("list", list);
@@ -155,6 +161,7 @@ public class ClubController {
 		//2.
 		clubVo=clubService.selectByClubNo(clubNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
+		
 		//3.
 		model.addAttribute("clubVo", clubVo);
 		//4.
