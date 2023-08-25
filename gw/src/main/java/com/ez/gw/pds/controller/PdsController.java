@@ -38,7 +38,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/pds")
+@RequestMapping
 public class PdsController {
 	private static final Logger logger=LoggerFactory.getLogger(PdsController.class);
 	private final PdsService pdsService;
@@ -47,7 +47,7 @@ public class PdsController {
 	private final EmployeeService employeeService;
 
 
-	@RequestMapping("/list")
+	@RequestMapping("/pds/list")
 	public String list(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1
 		logger.info("자료실 메인페이지 파라미터 searchVo={}", searchVo);
@@ -88,7 +88,7 @@ public class PdsController {
 
 	}
 
-	@GetMapping("/write")
+	@GetMapping("/pds/write")
 	public String write(HttpSession session, Model model) {
 		int empNo = (int)session.getAttribute("empNo");
 		//1
@@ -104,7 +104,7 @@ public class PdsController {
 		return "pds/write";
 	}
 
-	@PostMapping("/write")
+	@PostMapping("/pds/write")
 	public String write_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
 			HttpSession session,HttpServletRequest request, Model model) {
 		//1
@@ -163,7 +163,7 @@ public class PdsController {
 		return "common/message";
 	}
 
-	@GetMapping("/edit")
+	@GetMapping("/pds/edit")
 	public String edit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("자료실 수정 페이지");
@@ -188,7 +188,7 @@ public class PdsController {
 		return "pds/edit";
 	}
 
-	@PostMapping("/edit")
+	@PostMapping("/pds/edit")
 	public String edit_post(@ModelAttribute BoardVO boardVo, @ModelAttribute PdsVO pdsVo,
 			@RequestParam(name = "oldFileNames", required = false) String[] oldFileNames,
 			HttpServletRequest request, Model model) {
@@ -301,7 +301,7 @@ public class PdsController {
 	}
 
 
-	@RequestMapping("/detail")
+	@RequestMapping("/pds/detail")
 	public String detail(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("자료실 상세보기 페이지");
@@ -338,7 +338,7 @@ public class PdsController {
 		return "pds/detail";
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/pds/delete")
 	public String delete(@RequestParam(defaultValue = "0") int boardNo,
 			HttpServletRequest request, Model model) {
 		//1
@@ -389,7 +389,7 @@ public class PdsController {
 
 
 
-	@RequestMapping("/download")
+	@RequestMapping("/pds/download")
 	public ModelAndView download(@RequestParam(defaultValue = "0") int boardNo,
 			@RequestParam String fileName, HttpServletRequest request) {
 		//1
@@ -415,6 +415,22 @@ public class PdsController {
 
 	}
 
+	//-------------------admin------------------------------
+	
+	@RequestMapping("/admin/pds/management")
+	public String adminPdsManagement() {
+		//1
+		logger.info("자료실 관리 페이지");
+		
+		//4
+		return "admin/pds/management";
+		
+	}
+	
+	
+	
+	
+	
 }
 
 
