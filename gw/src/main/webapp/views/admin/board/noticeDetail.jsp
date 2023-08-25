@@ -38,9 +38,11 @@
                 	<span class="adminhyphen"></span>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
-               		<span class="adminhyphen"></span>
-                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-outline-danger">삭제</a>
+               		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
+	                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
+	               		<span class="adminhyphen"></span>
+	                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-outline-danger">삭제</a>
+               		</c:if>
                 </div>
               </div>
             </div>

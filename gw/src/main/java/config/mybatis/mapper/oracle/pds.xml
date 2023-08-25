@@ -118,5 +118,14 @@
 		select * from pds
 		where boardList_no=2000 and board_no=#{boardNo}
 	</select>
-
+	
+	<delete id="editNoticeFile" parameterType="pdsVo">
+		delete pds
+		where boardList_no=2000 and pds_no=#{pdsNo}
+		<if test="oldFileName!=null and oldFileName!=''">
+			and fileName=#{oldFileName}
+		</if>
+	</delete>
+	
+	
 </mapper>
