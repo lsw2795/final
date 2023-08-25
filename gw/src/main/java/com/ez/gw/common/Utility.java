@@ -25,7 +25,6 @@ public class Utility {
 		Date today = new Date();
 		long gap = (today.getTime()-regdate.getTime())/1000;
 		gap=gap/(60*60);
-		logger.info("gap={}", gap);
 		int result=0;
 		if(gap<24) {
 			result=1;

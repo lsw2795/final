@@ -19,6 +19,12 @@
 		});
 		
 	});
+	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
 </script>
 <style>
 	h6.mb-0 {
@@ -33,6 +39,15 @@
    		text-align: center;
 	}
 </style>
+
+  <!-- 페이징 처리 관련 form -->
+		<form action="<c:url value='/admin/qna/list'/>" 
+			name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+		</form>
+
 <h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">Q&A</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
@@ -170,18 +185,42 @@
 				</div>
 			</div>
 		</div>
+
+
 		<div class="card-footer d-flex justify-content-center admindefault">
-			<button class="btn btn-sm btn-falcon-default me-1" type="button"
-				title="Previous" data-list-pagination="prev">
-				<span class="fas fa-chevron-left"></span>
-			</button>
-			<ul class="pagination mb-0"></ul>
-			<button class="btn btn-sm btn-falcon-default ms-1" type="button"
-				title="Next" data-list-pagination="next">
-				<span class="fas fa-chevron-right"></span>
-			</button>
+			<div class="divPage" id="divPage">
+				<!-- 페이지 번호 추가 -->		
+				<!-- 이전 블럭으로 이동 -->
+				<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<img src="<c:url value='/images/first.JPG'/>">
+					</a>
+				</c:if>	
+								
+				<!-- [1][2][3][4][5][6][7][8][9][10] -->
+				<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+					<c:if test="${i == pagingInfo.currentPage }">		
+						<span id="curPage">${i}</span>
+			        	</c:if>
+					<c:if test="${i != pagingInfo.currentPage }">		
+				        <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+				    </c:if>   		
+				</c:forEach>
+				
+				<!-- 다음 블럭으로 이동 -->
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+			         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<img src="<c:url value='/images/last.JPG'/>">
+					</a>
+				</c:if>
+				<!--  페이지 번호 끝 -->
+			</div>
 		</div>
+
+
+
 	</div>
 </div>
 </form>
+
 <%@ include file='../../inc/adminBottom.jsp'%>

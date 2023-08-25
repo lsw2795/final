@@ -117,6 +117,17 @@ public class BoardServiceImpl implements BoardService {
 		return cnt;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAdminQnaAll(SearchVO searchVo) {
+		return boardDao.selectAdminQnaAll(searchVo);
+	}
+
+	@Override
+	public int selectAdminQnaTotalRecord(SearchVO searchVo) {
+		return boardDao.selectAdminQnaTotalRecord(searchVo);
+	}
+	
+
 
 
 }
