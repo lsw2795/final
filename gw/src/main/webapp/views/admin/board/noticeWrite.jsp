@@ -36,14 +36,15 @@
 		$('#btnDelFile').click(function(){
 			 $('input[type=file]:last').remove();
 		});
+		
+		$('.FileDelete').click(function(){
+			$(this).prev().remove();
+			$(this).remove();
+			var pdsNo=$('#pdsNo').val();
+			location.href="<c:url value='/admin/board/notice/filesDelete?pdsNo='"+pdsNo+"/>";
+		});
+		
 	});
-	
-	function fileDelete(i){
-		var fileDelId='fileDeleteSpan'+i;
-		var oldFileName='oldFileName'+i;
-		document.getElementById(fileDelId).style.display='none';
-		document.getElementById(oldFileName).value="";
-	}
 </script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
@@ -99,15 +100,14 @@
 		                       <c:if test="${!empty pdsList }">
 			                      <c:set var="i" value="0"></c:set>
 			                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
-				                       <span id="fileDeleteSpan${i }">
-				                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
-				                     	${fileInfoArr[status.index]}&nbsp;&nbsp;
-				                       <input type="button" onclick="fileDelete(${i})" class="btn-close">
+				                       <span>
+					                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
+					                     	${fileInfoArr[status.index]}&nbsp;&nbsp;
 			                     	   </span>
+				                       <a href="#" class="btn-close FileDelete" style="font-size: 18px;"></a>
+			                     	  <input type="text" name="oldFileNames" value="${pdsVo.originalFileName }">
+			                     	  <input type="text" id="pdsNo" name="pdsNo" value="${pdsVo.pdsNo }"> 
 			                     	   <br>
-			                     	  <input type="text" name="oldFileName${i }" value="${pdsVo.fileName }">
-			                     	  <input type="text" name="originalFileName${i }" value="${pdsVo.originalFileName }"> 
-			                     	  <c:set var="i" value="${i+1 }"></c:set>
 			                      </c:forEach>
 		                     </c:if>
 							<input type="button" id="btnAddFile" value="추가" class="btn btn-outline-success">

@@ -18,6 +18,7 @@
 	
 	<select id="selectAllEmp" resultType="map">
 		select * from organizationchartview
+		order by position_rank desc
 	</select>
 	
 	<select id="selectPwd" resultType="string" parameterType="int">

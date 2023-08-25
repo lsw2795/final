@@ -104,7 +104,7 @@
 		$('input[name=referEmpNo]').each(function(){
 			referEmpNo.push($(this).val());
 		});
-		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=550")
+		window.open("<c:url value='/approval/selectEmp/selectEmp?referEmpNo="+referEmpNo+"'/>","_blank","width=800, height=580")
 	}
 	
 	function createLine(){
@@ -112,7 +112,7 @@
 	}
 	
 	function selectLine(){
-		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=550")
+		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=580")
 	}
 </script>
 <form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">

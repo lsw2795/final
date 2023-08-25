@@ -34,7 +34,7 @@ public class PdsServiceImpl implements PdsService {
 	public Map<String, Object> selectPds(int boardNo) {
 		return pdsDao.selectPds(boardNo);
 	}
-	
+
 	@Override
 	public int updatePds(BoardVO vo) {
 		return pdsDao.updatePds(vo);
@@ -88,11 +88,17 @@ public class PdsServiceImpl implements PdsService {
 	public List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo) {
 		return pdsDao.selectAdminPdsAll(searchVo);
 	}
+	@Override
+	public int editNoticeFile(int pdsNo) {
+		return pdsDao.editNoticeFile(pdsNo);
+	}
 
 
-
-
-
-	
-	
 }
+
+
+
+
+
+
+
