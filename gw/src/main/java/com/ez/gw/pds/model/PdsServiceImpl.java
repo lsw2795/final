@@ -79,6 +79,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.editPdsFile(boardNo, oldFileName);
 	}
 
+	@Override
+	public List<PdsVO> selFilesByNotice(int boardNo) {
+		return pdsDao.selFilesByNotice(boardNo);
+	}
+
 
 
 

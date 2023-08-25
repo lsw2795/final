@@ -1,5 +1,7 @@
 package com.ez.gw.board.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.pds.model.PdsService;
+import com.ez.gw.pds.model.PdsVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +35,7 @@ public class NoticeController {
 	private static final Logger logger=LoggerFactory.getLogger(NoticeController.class);
 	private final BoardService boardService;
 	private final PdsService pdsService;
+	private final FileUploadUtil fileuploadUtil;
 	
 	@GetMapping("/admin/board/noticeWrite")
 	public String noticeWrite_get() {
@@ -39,20 +45,55 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/admin/board/noticeWrite")
-	public String noticeWrite_post(@ModelAttribute BoardVO vo, 
-			HttpSession session, Model model) {
+	public String noticeWrite_post(@ModelAttribute BoardVO vo,
+			@ModelAttribute PdsVO pdsVo,
+			HttpSession session,
+			HttpServletRequest request,Model model) {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
 		vo.setEmpNo(empNo);
 		logger.info("관리자 - 공지사항 글쓰기 페이지, 파라미터 vo={}, empNo={}", vo, empNo);
-		
 		//2
+		//다중파일 업로드 처리
+		String fileName="", originalFileName="",filePath = "";
+		long fileSize=0;
 		int cnt=boardService.insertNotice(vo);
-		//int result=pdsService.insertPds(vo);
-		logger.info("관리자 - 공지사항 글 등록, 파일등록 결과, cnt={}", cnt);
+		logger.info("관리자 - 공지사항 글 등록 결과, cnt={}", cnt);
+		
+		int result=0;
+		try {
+			List<Map<String, Object>> list
+			=fileuploadUtil.fileupload(request,ConstUtil.UPLOAD_NOTICE_FLAG);
+			
+			for(Map<String, Object> map:list) {
+				fileName=(String) map.get("fileName");
+				originalFileName=(String) map.get("originalFileName");
+				fileSize=(long) map.get("fileSize");
+				filePath = (String) map.get("uploadPath") + File.separator + fileName;
+				
+				logger.info("파일명:{}", fileName);
+				
+				pdsVo.setBoardListNo(2000); //공지사항 게시판 번호임
+				pdsVo.setBoardNo(vo.getBoardNo()); //게시글 번호
+				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+				pdsVo.setFileName(fileName); //서버저장 파일명
+				pdsVo.setFileSize(fileSize); //파일크기
+				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+				pdsVo.setPath(filePath); //파일 경로
+				
+				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
+					result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+					logger.info("다중 파일 등록 결과 result = {}", result);
+				}
+			}//for
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		String msg="공지사항 등록에 실패했습니다.",url="/admin/board/noticeWrite";
-		if(cnt>0) {
+		if(cnt>0 && result>0) {
 			msg="공지사항 등록이 완료되었습니다.";
 			url="/admin/board/noticeList";
 		}
@@ -94,7 +135,7 @@ public class NoticeController {
 	public String noticeDetail(@RequestParam(defaultValue = "0") int boardNo, Model model) {
 		//1
 		logger.info("관리자 - 공지사항 글 상세보기 페이지, 파라미터 boardNo={}", boardNo);
-	
+		
 		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
 			model.addAttribute("url", "/admin/board/noticeList");
@@ -106,15 +147,17 @@ public class NoticeController {
 		Map<String, Object> map = boardService.selectNotice(boardNo);
 		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
 		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("관리자 - 공지사항 글 상세조회 결과, map={}", map);
 		logger.info("관리자 - 이전글 이동 prevMap={}", prevMap);
 		logger.info("관리자 - 다음글 이동 nextMap={}", nextMap);
+		logger.info("공지사항 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);
 		model.addAttribute("nextMap",nextMap);
-		
+		model.addAttribute("pdsList", pdsList);
 		//4
 		return "admin/board/noticeDetail";
 	}

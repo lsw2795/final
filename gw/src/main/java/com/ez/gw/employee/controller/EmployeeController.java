@@ -284,7 +284,6 @@ public class EmployeeController {
 	            originalFileName = (String) map.get("originalFileName");
 	            fileSize = (long) map.get("fileSize");
 	        }
-
 	    } catch (IllegalStateException e) {
 	        e.printStackTrace();
 	    } catch (IOException e) {
@@ -302,8 +301,6 @@ public class EmployeeController {
                 }
             }
         }
-   
-
 	    int cnt = employeeService.updateEmpAdmin(empVo);
 	    logger.info("관리자 - 사원 정보 수정 처리 결과 cnt={}", cnt);
 

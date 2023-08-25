@@ -113,5 +113,10 @@
 		select count(*) from pds
 		where board_no = #{boardNo}
 	</select>
+	
+	<select id="selFilesByNotice" parameterType="int" resultType="pdsVo">
+		select * from pds
+		where boardList_no=2000 and board_no=#{boardNo}
+	</select>
 
 </mapper>
