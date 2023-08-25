@@ -5,6 +5,10 @@
   .avatar img {
     size: 10px;
   }
+  
+ 	.d-flex.align-items-center.gap-2.position-relative {
+ 	  	margin-left: 10px;
+	}
 </style>
 
  <div class="row gx-3">

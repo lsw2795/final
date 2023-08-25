@@ -38,6 +38,8 @@
 	.table-sm > :not(caption) > * > * {
    		text-align: center;
 	}
+	
+
 </style>
 
   <!-- 페이징 처리 관련 form -->

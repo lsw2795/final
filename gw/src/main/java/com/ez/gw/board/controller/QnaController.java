@@ -421,11 +421,11 @@ public class QnaController {
 	@PostMapping("/admin/qna/edit")
 	public String adminQnaEdit_post(@ModelAttribute BoardVO vo, Model model) {
 		//1
-		logger.info("qna 수정, 파라미터 vo={}", vo);
+		logger.info("관리자 - qna 수정, 파라미터 vo={}", vo);
 		
 		//2
 		int cnt = boardService.updateQna(vo);
-		logger.info("qna 수정 결과, cnt={}", cnt);
+		logger.info("관리자 - qna 수정 결과, cnt={}", cnt);
 		
 		
 		String msg = "질문 수정에 실패하였습니다.", url = "admin/qna/edit?boardNo=" + vo.getBoardNo();
