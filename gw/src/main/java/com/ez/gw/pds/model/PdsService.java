@@ -21,4 +21,5 @@ public interface PdsService {
 	int getTotalRecord(SearchVO vo);
 	int selectIsFile(int boardNo);
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
+	int editNoticeFile(int pdsNo);
 }
