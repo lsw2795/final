@@ -261,9 +261,20 @@ public class NoticeController {
 		
 		//2
 		Map<String, Object> map = boardService.selectNotice(boardNo);
+		List<PdsVO> pdsList=pdsService.selFilesByNotice(boardNo);
 		logger.info("관리자 - 공지사항 글 수정페이지 조회 결과, map={}", map);
+		logger.info("기존 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
+		
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
 		
 		model.addAttribute("map", map);
+		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
 		
 		return "admin/board/noticeWrite";
 	}

@@ -57,6 +57,13 @@ public class BoardController {
 		return "mypage/myWritingList";
 	}
 	
+	@RequestMapping("/admin/board/manageBoards")
+	public String manageBoards() {
+		logger.info("관리자 - 게시판 관리 페이지");
+		return "admin/board/manageBoards";
+	}
+	
+	
 	
 	
 }
