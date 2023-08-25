@@ -1,41 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
-<form class="card">
-	<div class="card-header bg-light">
-		<h5 class="mb-0">쪽지 보내기</h5>
-	</div>
-	<div class="card-body p-0">
-		<div class="border border-top-0 border-200">
-			<input class="form-control border-0 rounded-0 outline-none px-x1" id="email-to" type="text" placeholder="받는사람" />
+<script type="text/javascript">
+	$(function(){
+		
+	});
+		function setReader(no, name){
+			var bool=true;
+			var str="";
+			
+			$('#readerName>#reader').each(function(){
+				if($(this).val()==no){
+					alert("이미 선택된 사람입니다.")
+					bool=false;
+				}
+			});
+			
+			if(bool){
+				str+="<span id='readerName'>";
+				str+=name+"<a href='#' onclick='delReader(this)'>";
+				str+="<span class='fas fa-minus' style='width: 8px'></span></a>";
+				str+="<input id='reader' name='reader' type='hidden' value='"+no+"'/>";
+				str+="&nbsp;&nbsp;</span>";
+				
+				if($('#readerDiv').find('#readerName').length==0){
+					$('#readerDiv').html(str);
+				}else{
+					$('#readerDiv').append(str);
+				}
+			}
+		}
+		
+		function delReader(a){
+			$(a).parent().remove();
+			if($('#readerDiv').find('#readerName').length==0){
+				$('#readerDiv').html("조직도에서 선택하세요");
+			}
+		}
+</script>
+<div class="container p-0">
+	<div class="row g-0">
+		<div class="col-lg-4 pe-lg-2 mb-3">
+			<div class="card h-lg-100 overflow-hidden">
+				<div class="card-header bg-light">
+					<div class="row align-items-center">
+	                    <div class="col pl-2">
+							<h5 class="mb-0">조직도</h5>
+	                    </div>
+	                </div>
+				</div>
+				<div class="card-body scrollbar" style="max-height: 556px; min-height: 556px;">
+					<ul id="navbarVerticalNav">
+		        	<c:forEach var="deptVo" items="${deptList }">
+		        		<li class="nav-item">
+		        			<a class="nav-link" href="#${deptVo.deptNo }" data-bs-toggle="collapse" >
+			                    ${deptVo.name}
+		                  	</a>
+		                  	<ul class="nav collapse" id="${deptVo.deptNo }">
+			                  	<c:forEach var="employeeMap" items="${empList }">
+				                  	<c:if test="${deptVo.deptNo == employeeMap['DEPT_NO']}">
+						            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
+							        		<a class="a-select nav-link" onclick="setReader('${employeeMap['EMP_NO'] }','${employeeMap['POSITION_NAME']} ${employeeMap['NAME']}')" href="#">
+					                    		<span class="nav-link-icon"><span class="fas fa-user"></span></span>
+							                	<div id="empNameDiv" style="display: inline;">${employeeMap['POSITION_NAME']} ${employeeMap['NAME']} </div>
+							                	<input type="hidden" id="empNo" value="${employeeMap['EMP_NO'] }">
+							                </a>
+						                </li>
+					                </c:if>
+				                </c:forEach>
+							</ul>
+		        		</li>
+		        	</c:forEach>
+					</ul>
+				</div>
+			</div>
 		</div>
-        <textarea rows="15" cols="20" class="form-control" name="content"></textarea>
-		<div class="bg-light px-x1 py-1">
-            <div class="d-inline-flex flex-column">
-                <div class="px-2 rounded-3 d-flex flex-between-center my-1 fs--1">
-                	<input class="form-control" type="file">
-                  	<a class="text-300 p-1" href="#!" title="Delete">
-                  		<span class="fas fa-times"></span>
-                  	</a>
-            	</div>
-            	<div class="px-2 rounded-3 d-flex flex-between-center my-1 fs--1">
-                	<input class="form-control" type="file">
-                  	<a class="text-300 p-1" href="#!" title="Delete">
-                  		<span class="fas fa-times"></span>
-                  	</a>
-            	</div>
-                <div class="px-2 rounded-3 d-flex flex-between-center my-1 fs--1">
-                <a href="#!" title="첨부파일 추가">
-		           	<span class="fas fa-paperclip fs-1"></span>
-                </a>
-            	</div>
+		<div class="col-lg-8 pe-lg-2 mb-3">
+			<div class="card h-lg-100 overflow-hidden">
+				<form class="card" method="post" action="<c:url value='/message/messageWrite'/>">
+					<div class="card-header bg-light">
+						<div class="row align-items-center">
+		                    <div class="col pl-2">
+								<h5 class="mb-0">쪽지 보내기</h5>
+		                    </div>
+	                	</div>
+					</div>
+					<div class="card-body p-0" style="min-height: 556px;">
+						<div class="border border-top-0 border-200">
+							<label class="form-label border-200">받는사람</label>
+							<div id="readerDiv">
+								조직도에서 선택하세요.
+							</div>
+						</div>
+						<label class="form-label">내용</label>
+				        <textarea rows="19" cols="20" class="form-control" name="messageContent" placeholder="내용을 입력하세요."></textarea>
+					</div>
+				    <div class="card-footer border-top border-200 ">
+						<div class="align-items-center" align="right">
+							<button class="btn btn-primary btn-sm px-5 me-2" type="submit">보내기</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-    <div class="card-footer border-top border-200 ">
-		<div class="align-items-center" align="right">
-			<button class="btn btn-primary btn-sm px-5 me-2" type="submit">보내기</button>
-		</div>
-	</div>
-</form>
+</div>
 <%@ include file = "../inc/bottom.jsp" %>

@@ -9,4 +9,8 @@ import lombok.RequiredArgsConstructor;
 public class MessageServiceImpl implements MessageService{
 	private final MessageDAO messageDao;
 	
+	@Override
+	public int insertMessage(MessageVO vo) {
+		return messageDao.insertMessage(vo);
+	}
 }

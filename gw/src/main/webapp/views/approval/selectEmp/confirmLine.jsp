@@ -169,7 +169,7 @@
 					            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
 						        		<a class="a-select nav-link" href="#">
 				                    		<span class="nav-link-icon"><span class="fas fa-user"></span></span>
-						                	<div id="empNameDiv" style="display: inline;">${employeeMap['NAME']}</div>
+						                	<div id="empNameDiv" style="display: inline;">${employeeMap['POSITION_NAME']} ${employeeMap['NAME']}</div>
 						                	<input type="hidden" id="empNo" value="${employeeMap['EMP_NO'] }">
 						                </a>
 					                </li>

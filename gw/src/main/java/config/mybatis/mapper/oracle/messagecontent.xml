@@ -3,7 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.messagecontent.model.MessageContentDAO">
-
+	<insert id="insertMessage" parameterType="messageContentVo">
+		<selectKey keyProperty="messageNo" resultType="int" order="BEFORE">
+			select message_content_seq.nextval from dual
+		</selectKey>
+		insert into message_content(message_no,message_content,emp_no)
+		values(#{messageNo},#{messageContent},#{empNo})
+	</insert>
 
 
 </mapper>
