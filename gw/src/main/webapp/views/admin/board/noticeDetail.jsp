@@ -36,7 +36,7 @@
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	조회수 : ${map['READCOUNT']}
                 	<span class="adminhyphen"></span>
-                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
+                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="adminhyphen"></span>
                 	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
                		<span class="adminhyphen"></span>
@@ -71,7 +71,8 @@
 	                 이전 글이 없습니다.
 	                </c:if>
                 	<c:if test="${!empty prevMap['MAX(BOARD_NO)']}">
-	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a><br>
+	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a>
+	                 <br>
 	                </c:if>
 	                <c:if test="${empty nextMap['MIN(BOARD_NO)']}">
 	                 다음 글이 없습니다.

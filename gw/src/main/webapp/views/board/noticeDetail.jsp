@@ -36,7 +36,7 @@
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
-                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy/MM/dd HH:mm:ss"/>
+                	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                 </div>
               </div>
             </div>
