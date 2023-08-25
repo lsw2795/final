@@ -24,4 +24,8 @@ public interface PdsService {
 	
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int editNoticeFile(int pdsNo);
+	
+	int deleteMulti(List<PdsVO> list); //관리자 - 파일 다중 삭제
+	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드
+	
 }

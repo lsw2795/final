@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.board.model.ListBoardVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
@@ -29,6 +30,7 @@ import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
+import com.ez.gw.pds.model.ListPdsVO;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
 
@@ -234,8 +236,8 @@ public class PdsController {
 					}
 				}//바깥 for
 
-			//3.2 삭제해야할 파일들 선별해서 pds_upload에서 파일먼저 삭제
-			//넘어온 기존파일명이 하나도 없을때 새 파일 업로드전 해당 게시글에 모든 파일과 파일 db삭제
+				//3.2 삭제해야할 파일들 선별해서 pds_upload에서 파일먼저 삭제
+				//넘어온 기존파일명이 하나도 없을때 새 파일 업로드전 해당 게시글에 모든 파일과 파일 db삭제
 			}else { 
 				List<PdsVO> oldlist = pdsService.selectFilesByBoardNo(boardVo.getBoardNo());
 				logger.info("게시글 번호로 업로드되어있는 파일 갯수 조회 list.size={}", oldlist.size());
@@ -253,7 +255,7 @@ public class PdsController {
 
 				int delFile = pdsService.editPdsFile(boardVo.getBoardNo(), null);
 				logger.info("넘어온 파일명 없을 경우 기존 파일 db 삭제 여부 delFile={}", delFile);
-				
+
 			}//if
 
 			//3.3 기존 파일들중 삭제 작업 완료 후 새로운 파일들 업로드
@@ -416,28 +418,67 @@ public class PdsController {
 	}
 
 	//-------------------admin------------------------------
-	
+
 	@RequestMapping("/admin/pds/management")
 	public String adminPdsManagement(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
 		logger.info("괸리자 - 자료실 관리 페이지 파라미터 searchVo={}", searchVo);
-		
+
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+
 		//2
 		List<Map<String, Object>> list = pdsService.selectAdminPdsAll(searchVo);
 		logger.info("관리자 - 파일목록 전체 조회 결과 list.size={}", list.size());
 		
+		int totalRecord=pdsService.getAdminTotalFile(searchVo);
+		logger.info("관리자 - 파일 검색 조회 총 레코드 갯수 totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+
 		//3
 		model.addAttribute("list", list);
-		
+		model.addAttribute("pagingInfo", pagingInfo);
+
 		//4
 		return "admin/pds/management";
-		
+
 	}
-	
-	
-	
-	
-	
+
+	@RequestMapping("/admin/pds/deleteMulti")
+	public String admin_qnaDelete(@ModelAttribute ListPdsVO listVo,
+			HttpServletRequest request, Model model) {
+		//1
+		logger.info("관리자 - 선택한 파일 삭제, 파라미터 listVo={}", listVo);
+
+		//2. db
+		List<PdsVO> list = listVo.getPdsItems();
+		int cnt = pdsService.deleteMulti(list);
+		logger.info("파일 삭제 결과, cnt={}", cnt);
+
+		String msg = "선택한 파일 삭제 중 에러가 발생했습니다.", url = "/admin/pds/management";
+		if(cnt>0) {
+			msg = "선택한 파일들을 삭제했습니다.";
+		}
+
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
+	}
+
+
+
+
+
 }
 
 

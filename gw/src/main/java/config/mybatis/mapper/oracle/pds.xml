@@ -42,19 +42,15 @@
 	</select>
 
 	<select id="selectAdminPdsAll" parameterType="searchVo" resultType="map">
-		select * from pdsview
-		where boardList_no=3000
-		
-		<!-- select *
+		select *
 		from
 		(
 			select rownum as rnum, A.*
 			from
 			(
 				select * from pdsview
-				where boardList_no=3000
 				<if test="searchKeyword!=null and searchKeyword!=''">
-					and ${searchCondition} like '%' || #{searchKeyword} ||'%'
+					where ${searchCondition} like '%' || #{searchKeyword} ||'%'
 				</if>
 				order by pds_no desc
 			)A
@@ -62,24 +58,32 @@
 		<![CDATA[
 			where rnum > #{firstRecordIndex}
 			and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
-		]]>		 -->
+		]]>		
 	</select>
 	
-<select id="getTotalRecord" parameterType="searchVo" resultType="int">
-    select count(*)
-    from pdsListview
-    where boardList_no = 3000
-    <if test="searchKeyword!=null and searchKeyword!=''">
-        <choose>
-            <when test="searchCondition == 'total'">
-                and (title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%')
-            </when>
-            <otherwise>
-                and ${searchCondition} like '%' || #{searchKeyword} || '%'
-            </otherwise>
-        </choose>
-    </if>
-</select>
+	<select id="getAdminTotalFile" parameterType="searchVo" resultType="int">
+	    select count(*)
+	    from pdsview
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
+	</select>
+	
+	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
+	    select count(*)
+	    from pdsListview
+	    where boardList_no = 3000
+	    <if test="searchKeyword!=null and searchKeyword!=''">
+	        <choose>
+	            <when test="searchCondition == 'total'">
+	                and (title like '%' || #{searchKeyword} || '%' or content like '%' || #{searchKeyword} || '%')
+	            </when>
+	            <otherwise>
+	                and ${searchCondition} like '%' || #{searchKeyword} || '%'
+	            </otherwise>
+	        </choose>
+	    </if>
+	</select>
 	
 	
 	<select id="selectPds" parameterType="int" resultType="map">
@@ -146,6 +150,11 @@
 	<delete id="editNoticeFile" parameterType="int">
 		delete pds
 		where boardList_no=2000 and pds_no=#{pdsNo}
+	</delete>
+	
+	<delete id="deleteAdminFile" parameterType="int">
+		delete pds
+		where pds_no=#{pdsNo}
 	</delete>
 	
 	

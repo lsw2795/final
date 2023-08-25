@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.SearchVO;
@@ -91,6 +92,30 @@ public class PdsServiceImpl implements PdsService {
 	@Override
 	public int editNoticeFile(int pdsNo) {
 		return pdsDao.editNoticeFile(pdsNo);
+	}
+
+	@Override
+	public int deleteMulti(List<PdsVO> list) {
+		int cnt = 0;
+		try {
+			for(PdsVO vo : list) {
+				int pdsNo = vo.getPdsNo();
+				if(pdsNo!=0) { //체크된 질문만 삭제
+					cnt = pdsDao.deleteAdminFile(pdsNo);
+				}
+			}//for
+		}catch(RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+	}
+
+	@Override
+	public int getAdminTotalFile(SearchVO searchVo) {
+		return pdsDao.getAdminTotalFile(searchVo);
 	}
 
 

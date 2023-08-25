@@ -2,18 +2,28 @@
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
-<script type="text/javascript">	
+<script type="text/javascript">
+	$(function(){
+		$('#btnDel').click(function(){
+			var count = $('tbody input[type=checkbox]:checked').length;
+			if(count<1){
+				alert('삭제하고 싶은 파일을 먼저 체크하세요');
+			}
+			
+			if(count > 0){
+				if(confirm('선택한 파일을 삭제하시겠습니까?')){
+					$('form[name=frmDelete]').prop('action', "<c:url value='/admin/pds/deleteMulti'/>");
+					$('form[name=frmDelete]').submit();
+				} // if
+			} 
+			
+		});
+		
+	});
+	
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
-	}
-	
-	function submitForm() {
-	    document.getElementById('frmSearch').submit();
-	}
-	
-	function empDetail(empNo) {
-	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
 </script>
 <style>
@@ -27,12 +37,13 @@
 </style>
 
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/employee/employeeList'/>" 
+<form action="<c:url value='/admin/pds/management'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 </form>
+		
 <div class="row g-0">
 	<div class="col-lg-7 col-xl-8 pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -45,7 +56,7 @@
 				<div class="card" id="allContactTable">
 					<div class="card-header border-bottom border-200 px-0 admindefault">
 						<div class="d-lg-flex justify-content-between">
-							<form name="frmSearch" method="post" action="<c:url value='/admin/employee/employeeList'/>">
+							<form name="frmSearch" method="post" action="<c:url value='/admin/pds/management'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 admindefault">
 										<select name="searchCondition" class="admindefault adminempborder adminempsel">
@@ -61,6 +72,7 @@
 											>작성자</option>
 										</select>
 									</div>
+									</form>
 									<div class="col-auto">
 										<div class="input-group input-search-width admindefault">
 											<input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search admindefault"
@@ -72,12 +84,12 @@
 										</div>
 									</div>
 								</div>
-							</form>
+
 							<div class="border-bottom border-200 my-3"></div>
 							<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
 								<div class="d-flex align-items-center admindefault"
 									id="table-contact-replace-element">
-									<button class="btn btn-falcon-default btn-sm admindefault"
+									<button id="btnDel" class="btn btn-falcon-default btn-sm admindefault"
 										type="button">
 										<span class="fas fa-minus" data-fa-transform="shrink-3"></span><span
 											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">삭제</span>
@@ -109,13 +121,13 @@
 											<div class="form-check d-flex align-items-center">
 												<input class="form-check-input"
 													id="checkbox-bulk-tickets-select" type="checkbox"
-													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
 											</div>
 										</th>
 										<th class="sort align-middle" scope="col">파일번호</th>
-										<th class="sort align-middle" scope="col">게시글번호</th>
-										<th class="sort align-middle" scope="col">작성자</th>
+										<th class="sort align-middle" scope="col">등록 게시판</th>
 										<th class="sort align-middle" scope="col">파일명</th>
+										<th class="sort align-middle" scope="col">자료등록일</th>
 										<th class="sort align-middle" scope="col">다운로드수</th>
 										<th class="sort align-middle" scope="col">다운로드</th>
 									</tr>
@@ -129,18 +141,24 @@
 										</tr>
 									</c:if>
 									<c:if test="${!empty list }">
+									
+										<c:set var="idx" value="0"/>
+										<form name="frmDelete" method="post">
 										<c:forEach var="map" items="${list}">
 											<tr class="adminemptr">
 												<td class="align-middle fs-0 py-3 align-middle">
 													<div class="form-check mb-0">
 														<input class="form-check-input" type="checkbox"
-															data-bulk-select-row="data-bulk-select-row" value=${map['PDS_NO']} />
+															data-bulk-select-row="data-bulk-select-row"
+															name="pdsItems[${idx}].pdsNo"
+															value=${map['PDS_NO']} />
 													</div>
+												</form>
 												</td>
 												<td class="align-middle">${map['PDS_NO']}</td>
-												<td class="align-middle">${map['BOARD_NO']}</a></td>
-												<td class="align-middle">${map['NAME']}</td>
+												<td class="align-middle">${map['BOARD_NAME']}</a></td>
 												<td class="align-middle">${map['ORIGINALFILENAME']}</td>
+												<td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
 												<td class="align-middle">${map['DOWNLOADCOUNT']}</td>
 												<td class="align-middle">
 									                <a href="<c:url value='/pds/download?boardNo=${map[BOARD_NO]}&fileName=${map[FILENAME]}'/>">
@@ -148,44 +166,45 @@
 								                </a>
 												</td>
 											</tr>
+											<c:set var="idx" value="${idx+1}"/>
 										</c:forEach>
 									</c:if>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="card-footer d-flex justify-content-center admindefault">
-						<div class="divPage" id="divPage">
-							<!-- 페이지 번호 추가 -->		
-							<!-- 이전 블럭으로 이동 -->
-							<c:if test="${pagingInfo.firstPage>1 }">
-								<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
-									<img src="<c:url value='/images/first.JPG'/>">
-								</a>
-							</c:if>	
-											
-							<!-- [1][2][3][4][5][6][7][8][9][10] -->
-							<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
-								<c:if test="${i == pagingInfo.currentPage }">		
-									<span id="curPage">${i}</span>
-						        	</c:if>
-								<c:if test="${i != pagingInfo.currentPage }">		
-							         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
-							    </c:if>   		
-							</c:forEach>
-							
-							<!-- 다음 블럭으로 이동 -->
-							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
-									<img src="<c:url value='/images/last.JPG'/>">
-								</a>
-							</c:if>
-							<!--  페이지 번호 끝 -->
+					
+				<div class="card-footer d-flex justify-content-center admindefault">
+							<div class="divPage" id="divPage">
+								<!-- 페이지 번호 추가 -->		
+								<!-- 이전 블럭으로 이동 -->
+								<c:if test="${pagingInfo.firstPage>1 }">
+									<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+										<img src="<c:url value='/images/first.JPG'/>">
+									</a>
+								</c:if>	
+												
+								<!-- [1][2][3][4][5][6][7][8][9][10] -->
+								<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+									<c:if test="${i == pagingInfo.currentPage }">		
+										<span id="curPage">${i}</span>
+							        	</c:if>
+									<c:if test="${i != pagingInfo.currentPage }">		
+								        <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+								    </c:if>   		
+								</c:forEach>
+								
+								<!-- 다음 블럭으로 이동 -->
+								<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+							         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+										<img src="<c:url value='/images/last.JPG'/>">
+									</a>
+								</c:if>
+								<!--  페이지 번호 끝 -->
+							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
 <%@ include file='../../inc/adminBottom.jsp'%>
