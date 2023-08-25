@@ -32,8 +32,7 @@
                   	<h2 class="title">Q&A 게시판</h2>
                     
                     <!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 질문수정 버튼이 보임  -->
-                    <c:if test="${sessionScope.empNo==map['EMP_NO'] }">
-	                    <a href="<c:url value='/qna/edit?boardNo=${map.BOARD_NO}'/>">
+	                    <a href="<c:url value='/admin/qna/edit?boardNo=${map.BOARD_NO}'/>">
     	                	<button class="btn btn-falcon-default btn-sm" type="button">
         	            		<span class="fas fa-pen" data-fa-transform="shrink-2 down-1"></span>
             	        		<span class="d-none d-md-inline-block ms-1">질문 수정</span>
@@ -43,7 +42,6 @@
 		                    <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
 		                    <span class="d-none d-md-inline-block ms-1">삭제</span>
 	                    </button>
-                    </c:if>	
                     <div class="dropdown font-sans-serif ms-2">
                     </div>
                   </div>

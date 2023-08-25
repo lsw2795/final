@@ -341,6 +341,7 @@ public class QnaController {
 		List<Map<String, Object>> replyList = commentsService.selectQnaReplys(boardNo);
 		logger.info("관리자 - 해당 게시글 답변 조회 목록, replyList={}", replyList);
 		
+		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("replyList", replyList);
@@ -392,6 +393,53 @@ public class QnaController {
 		//3
 		//4
 		return "redirect:/admin/qna/detail?boardNo=" + vo.getBoardNo();
+	}
+	
+	@GetMapping("/admin/qna/edit")
+	public String adminQnaEdit(@RequestParam(defaultValue = "0") int boardNo, Model model) {
+		//1
+		logger.info("관리자 - 질문 수정 페이지, 파라미터 boardNo={}", boardNo);
+		
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/qna/list");
+			
+			return "common/message";
+		}
+		
+		//2
+		Map<String, Object> map = boardService.selectQna(boardNo);
+		logger.info("관리자 - 게시글 번호로 정보 조회 결과, map={}", map);
+		
+		//3
+		model.addAttribute("map", map);
+		
+		//4
+		return "admin/qna/edit";
+	}
+	
+	@PostMapping("/admin/qna/edit")
+	public String adminQnaEdit_post(@ModelAttribute BoardVO vo, Model model) {
+		//1
+		logger.info("qna 수정, 파라미터 vo={}", vo);
+		
+		//2
+		int cnt = boardService.updateQna(vo);
+		logger.info("qna 수정 결과, cnt={}", cnt);
+		
+		
+		String msg = "질문 수정에 실패하였습니다.", url = "admin/qna/edit?boardNo=" + vo.getBoardNo();
+		if(cnt>0) {
+			msg = "질문이 수정되었습니다.";
+			url = "/admin/qna/list";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
 	}
 	
 	
