@@ -16,6 +16,16 @@
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
 </script>
+<style>
+	.row.g-0 {
+    	width: 1770px;
+	}
+	
+	select.admindefault.adminempborder.adminempsel {
+    	width: 80px;
+	}
+</style>
+
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/admin/employee/employeeList'/>" 
 	name="frmPage" method="post">
@@ -102,12 +112,12 @@
 													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
 											</div>
 										</th>
-										<th class="sort align-middle" scope="col">사원번호</th>
-										<th class="sort align-middle" scope="col">사원이름</th>
-										<th class="sort align-middle" scope="col">부서</th>
-										<th class="sort align-middle" scope="col">직위</th>
-										<th class="sort align-middle" scope="col">내선번호</th>
-										<th class="sort align-middle" scope="col">재직여부</th>
+										<th class="sort align-middle" scope="col">파일번호</th>
+										<th class="sort align-middle" scope="col">게시글번호</th>
+										<th class="sort align-middle" scope="col">작성자</th>
+										<th class="sort align-middle" scope="col">파일명</th>
+										<th class="sort align-middle" scope="col">다운로드수</th>
+										<th class="sort align-middle" scope="col">다운로드</th>
 									</tr>
 								</thead>
 								<tbody id="table-contact-body">
