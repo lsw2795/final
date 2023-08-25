@@ -53,10 +53,18 @@
                   </div>
                   <div class="shadow-none mb-3 admindefault">
                       <p>첨부 파일</p>
-                      <c:forEach var="pdsVo" items="${pdsList }">
-                      <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
-                      ${pdsVo.fileName }<br>
-                      </c:forEach>
+                      <c:if test="${empty pdsList}">
+                      첨부파일이 없습니다.
+                      </c:if>
+                       <c:if test="${!empty pdsList }">
+	                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
+		                       <span><a href="#" style="color: black;">
+			                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
+			                     	${fileInfoArr[status.index]}</a>
+		                     	</span><br>
+		                      
+	                      </c:forEach>
+                     </c:if>
                   </div>
                   <div style="font-size: 18px;">
                 	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">

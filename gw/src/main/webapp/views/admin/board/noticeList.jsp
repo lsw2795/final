@@ -24,13 +24,13 @@
 	    document.getElementById('frmSearch').submit();
 	}
 </script>
-<!-- 페이징 처리 관련 form -->
+  <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/admin/board/noticeList'/>" 
-			name="frmPage" method="post">
-			<input type="hidden" name="currentPage">
+			name="frmPage" method="get">
+			<input type="hidden" name="currentPage" value=${param.currentPage }>
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
-		</form>	
+		</form>
 <h2><a id="admina" class="admina" href="<c:url value='/admin/board/noticeList'/>">공지사항</a></h2>
 <div class="col-lg-12 pe-lg-2 mb-3">
 	<div class="card" id="allContactTable">
@@ -152,7 +152,12 @@
 								<td class="align-middle"><div class="adminempdiv18">${map['DEPT_NAME']}</div></td>
 								<td class="align-middle">
 								<div class="adminempdiv18">
-									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a>
+									<a href="<c:url value='/admin/board/noticeDetail?boardNo=${map["BOARD_NO"]}'/>">
+									${map['TITLE']}
+									<c:if test="${map['timeNew']==1}">
+										<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">
+									</c:if>
+									</a>
 								</div>
 								</td>
 								<td class="align-middle">
@@ -191,7 +196,7 @@
 						<span id="curPage">${i}</span>
 			        	</c:if>
 					<c:if test="${i != pagingInfo.currentPage }">		
-				         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+				        <a href="<c:url value='/admin/board/noticeList?currentPage=${i}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>" id="otherPage">${i}</a>
 				    </c:if>   		
 				</c:forEach>
 				

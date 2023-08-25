@@ -2,6 +2,8 @@ package com.ez.gw.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
@@ -116,14 +119,16 @@ public class NoticeController {
 		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-	
+		
 		int totalRecord=boardService.gTRSearchNotice(searchVo);
 		pagingInfo.setTotalRecord(totalRecord);
-
 		//2
-		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
+				List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("관리자 - 공지사항 전체 조회 결과, list.size={}", list.size());
-				
+	
+		for(Map<String, Object> map : list) {
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -153,11 +158,19 @@ public class NoticeController {
 		logger.info("관리자 - 다음글 이동 nextMap={}", nextMap);
 		logger.info("공지사항 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 		
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);
 		model.addAttribute("nextMap",nextMap);
 		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
 		//4
 		return "admin/board/noticeDetail";
 	}
@@ -180,7 +193,10 @@ public class NoticeController {
 		//2
 		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("사원 - 공지사항 전체 조회 결과, list.size={}", list.size());
-				
+		
+		for(Map<String, Object> map : list) {
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -209,6 +225,7 @@ public class NoticeController {
 		logger.info("사원 - 이전글 이동 prevMap={}", prevMap);
 		logger.info("사원 - 다음글 이동 nextMap={}", nextMap);
 		
+	
 		//3
 		model.addAttribute("map", map);
 		model.addAttribute("prevMap",prevMap);

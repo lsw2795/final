@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.ez.gw.common.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
@@ -74,7 +76,6 @@
 						</div>
 						</div>
 						</form>
-					
 					</div>
 			</div>
 		</div>
@@ -117,12 +118,18 @@
 								<td class="align-middle"><div class="mypageempdiv14">${map['DEPT_NAME']}</div></td>
 								<td class="align-middle">
 									<div class="mypageempdiv14">
-									<a href="<c:url value='/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">${map['TITLE']}</a>
+									<a href="<c:url value='/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">
+									${map['TITLE']}
+									<c:if test="${map['timeNew']==1}">
+										<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">
+									</c:if>
+									</a>
 									</div>
 								</td>
 								<td class="align-middle">
 									<div class="mypageempdiv14">
 										<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/>
+										
 									</div>
 								</td>
 								<td class="align-middle">

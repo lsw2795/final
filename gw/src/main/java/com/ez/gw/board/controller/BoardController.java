@@ -56,4 +56,7 @@ public class BoardController {
 		
 		return "mypage/myWritingList";
 	}
+	
+	
+	
 }
