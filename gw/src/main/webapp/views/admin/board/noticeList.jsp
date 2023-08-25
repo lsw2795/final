@@ -90,9 +90,7 @@
                       <div class="d-flex align-items-center">
                       	<a href="<c:url value='/admin/board/noticeWrite'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/board/noticeEdit'/>" class="btn btn-primary">수정</a>
-						<span class="adminhyphen"></span>
-						<input type="button" value="삭제" id="btnDel" class="btn btn-primary"/>
+						<input type="button" value="삭제" id="btnDel" class="btn btn-danger"/>
                       </div>
                     </div>
 			</div>
