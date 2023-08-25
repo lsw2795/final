@@ -4,17 +4,41 @@
 
 <mapper namespace="com.ez.gw.documentform.model.DocumentFormDAO">
 	<sql id="search">
-		<trim prefix="where" prefixOverrides="AND|OR">
+		<trim prefix="and" prefixOverrides="AND|OR">
 			<if test="searchKeyword!=null and searchKeyword!=''">
-				and name like '%' || #{searchKeyword} || '%'
+				${searchCondition} like '%' || #{searchKeyword} || '%'
 			</if>
 		</trim>
 	</sql>
 
 	<select id="selectAllForm" parameterType="documentFormVo" resultType="documentFormVo">
 		select * from document_form
+		where form_delflag='N'
 		order by SECURITY_LEVEL desc
 	</select>
+	
+	<select id="selectFormByNo" parameterType="int" resultType="documentFormVo">
+		select * from document_form
+		where document_no = #{documentNo}
+		and form_delflag='N'
+	</select>
+	
+	<update id="formDelFlagUpdate" parameterType="int">
+		update document_form
+		set form_delflag='Y'
+		where document_no = #{documentNo}
+	</update>
+	
+	<delete id="formDelete" parameterType="int">
+		delete from document_form
+		where document_no = #{documentNo}
+	</delete>
+	
+	<update id="formUpdate" parameterType="documentFormVo">
+		update document_form
+		set form_name=#{formName},security_level=#{securityLevel},deadline=#{deadline}
+		where document_no = #{documentNo}
+	</update>
 	
 	<select id="selectAllFormPage" parameterType="documentFormVo" resultType="documentFormVo">
 		select * from
@@ -22,6 +46,7 @@
 			select rownum as num, A.* from
 				(
 					select * from document_form
+					where form_delflag='N'
 					<include refid="search"></include>
 					order by SECURITY_LEVEL desc
 				)A
@@ -33,6 +58,7 @@
 	
 	<select id="getTotalRecord" parameterType="documentFormVo" resultType="int">
 		select count(*) from document_form 
+		where form_delflag='N'
 		<include refid="search"></include>
 	</select>
 	
@@ -40,8 +66,13 @@
 		<selectKey keyProperty="documentNo" resultType="int" order="BEFORE">
 			select document_form_seq.nextval from dual
 		</selectKey>
-		insert into document_form
+		insert into document_form(document_no,form_name,security_level,deadline)
 		values(#{documentNo},#{formName},#{securityLevel},#{deadline})
 	</insert>
+	
+	<select id="searchName" parameterType="string" resultType="int">
+		select count(*) from document_form
+		where form_name = #{formName}
+	</select>
 	
 </mapper>

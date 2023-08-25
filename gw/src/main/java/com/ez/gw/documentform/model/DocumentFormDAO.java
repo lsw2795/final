@@ -10,4 +10,9 @@ public interface DocumentFormDAO {
 	List<DocumentFormVO> selectAllForm();
 	int getTotalRecord(DocumentFormVO vo);
 	int formInsert(DocumentFormVO vo);
+	int formUpdate(DocumentFormVO vo);
+	int formDelete(int documentNo);
+	int formDelFlagUpdate(int documentNo);
+	int searchName(String formName);
+	DocumentFormVO selectFormByNo(int documentNo);
 }
