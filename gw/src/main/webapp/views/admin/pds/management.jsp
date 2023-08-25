@@ -129,25 +129,24 @@
 										</tr>
 									</c:if>
 									<c:if test="${!empty list }">
-										<c:forEach var="map" items="${list }">
+										<c:forEach var="map" items="${list}">
 											<tr class="adminemptr">
 												<td class="align-middle fs-0 py-3 align-middle">
 													<div class="form-check mb-0">
 														<input class="form-check-input" type="checkbox"
-															data-bulk-select-row="data-bulk-select-row" value=${map['EMP_NO']} />
+															data-bulk-select-row="data-bulk-select-row" value=${map['PDS_NO']} />
 													</div>
 												</td>
-												<td class="align-middle">${map['EMP_NO']}</td>
-												<td class="align-middle"><a href="<c:url value='/admin/employee/employeeEdit?empNo=${map["EMP_NO"]}'/>">${map['NAME']}</a></td>
-												<td class="align-middle">${map['DEPT_NAME']}</td>
-												<td class="align-middle">${map['POSITION_NAME']}</td>
-												<td class="align-middle">${map['EXTENSION_NO']}</td>
-												<c:if test="${empty map['RETIREDATE']}">
-													<td class="align-middle">Y</td>
-												</c:if>
-												<c:if test="${!empty map['RETIREDATE']}">
-													<td class="align-middle">N</td>
-												</c:if>
+												<td class="align-middle">${map['PDS_NO']}</td>
+												<td class="align-middle">${map['BOARD_NO']}</a></td>
+												<td class="align-middle">${map['NAME']}</td>
+												<td class="align-middle">${map['ORIGINALFILENAME']}</td>
+												<td class="align-middle">${map['DOWNLOADCOUNT']}</td>
+												<td class="align-middle">
+									                <a href="<c:url value='/pds/download?boardNo=${map[BOARD_NO]}&fileName=${map[FILENAME]}'/>">
+								              		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지" >
+								                </a>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>

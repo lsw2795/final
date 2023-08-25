@@ -418,9 +418,16 @@ public class PdsController {
 	//-------------------admin------------------------------
 	
 	@RequestMapping("/admin/pds/management")
-	public String adminPdsManagement() {
+	public String adminPdsManagement(@ModelAttribute SearchVO searchVo, Model model) {
 		//1
-		logger.info("자료실 관리 페이지");
+		logger.info("괸리자 - 자료실 관리 페이지 파라미터 searchVo={}", searchVo);
+		
+		//2
+		List<Map<String, Object>> list = pdsService.selectAdminPdsAll(searchVo);
+		logger.info("관리자 - 파일목록 전체 조회 결과 list.size={}", list.size());
+		
+		//3
+		model.addAttribute("list", list);
 		
 		//4
 		return "admin/pds/management";

@@ -43,8 +43,8 @@
 			)A
 		)
 		<![CDATA[
-			where rnum > #{firstRecordIndex}
-			and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+			where rnum>#{firstRecordIndex}
+			and rnum<=#{firstRecordIndex} + #{recordCountPerPage}
 		]]>		
 	</select>
 	

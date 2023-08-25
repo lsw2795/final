@@ -84,6 +84,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.selFilesByNotice(boardNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo) {
+		return pdsDao.selectAdminPdsAll(searchVo);
+	}
+
 
 
 
