@@ -1,6 +1,8 @@
 package com.ez.gw.controller;
 
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,9 @@ public class AdminController {
 		String result=empService.selctAuthority(empNo);
 		logger.info("관리자여부 결과 result={}",result);
 		
+		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
+		logger.info("로그인 관리자 서열,직급 map={}",map);
+		
 		if(result.equals("N")){
 			model.addAttribute("msg", "관리자 권한이 없습니다.");
 			model.addAttribute("url","/admin/login");
@@ -59,8 +64,8 @@ public class AdminController {
 			
 			String msg="로그인 처리 실패", url="/admin/login"; 
 			if(cnt==EmployeeService.LOGIN_OK) {
-				msg=empNo+"님이 로그인 하셨습니다";
-				url="/admin/main";
+				msg = map.get("NAME") +" 님이 로그인 하셨습니다";
+				url = "/admin/main";
 				
 				//session
 				HttpSession session=request.getSession();

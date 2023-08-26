@@ -50,7 +50,7 @@ public class LoginController {
 		
 		String msg="로그인 처리 실패", url="/login/empLogin"; 
 		if(result==EmployeeService.LOGIN_OK) {
-			msg= map.get("NAME") +"님이 로그인 하셨습니다";
+			msg= map.get("NAME") +" 님이 로그인 하셨습니다";
 			url="/main";
 			
 			//session
