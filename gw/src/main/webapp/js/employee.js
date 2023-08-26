@@ -157,8 +157,8 @@
 				$('#pwd').focus();
 				return false;
 			}
-			if ($('#hiredate').val().length < 1) {
-				alert("입사일은 필수 입력 사항입니다.");
+			if ($('#hiredate').val().length!=10) {
+				alert("입사일의 형식이 올바르지 않습니다. 입사일 형식 예시)2023-05-20");
 				$('#hiredate').focus();
 				return false;
 			}

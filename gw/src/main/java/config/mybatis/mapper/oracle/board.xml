@@ -131,7 +131,7 @@
 	
 	<update id="updateNotice" parameterType="boardVo">
 		update board
-		set title=#{title}, content=#{content}, regdate=sysdate
+		set title=#{title}, content=#{content}
 		where boardList_no=2000 and board_No=#{boardNo}
 	</update>
 	
