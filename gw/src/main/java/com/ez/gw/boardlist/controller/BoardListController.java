@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,6 +67,15 @@ public class BoardListController {
 		logger.info("ajax 이용 - 게시판 상세 정보 조회 결과, boardlistVo={}", boardlistVo);
 		
 		return boardlistVo;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/board/ajaxUpdateBoardList")
+	public int updateBoardList(@ModelAttribute BoardListVO boardlistVo) {
+		logger.info("ajax 이용 - 게시판 수정처리 파라미터, boardlistVo={}", boardlistVo);
+		int cnt=boardListService.updateBoardList(boardlistVo);
+		logger.info("ajax 이용 - 게시판 수정처리 결과, cnt={}", cnt);
+		return cnt;
 	}
 	
 	

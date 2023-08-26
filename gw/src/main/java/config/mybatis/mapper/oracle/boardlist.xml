@@ -48,7 +48,7 @@
 		update boardList
 		set board_name=#{boardName},board_type=#{boardType},board_like=#{boardLike},
 			comment_flag=#{commentFlag},upload_flag=#{uploadFlag},secflag=#{secflag}
-		where boardList_no=#{boardListNo}
+		where boardlist_no=#{boardlistNo}
 	</update>
 	
 	<select id="boardListByboardlistNo" parameterType="int" resultType="boardListVo">

@@ -38,8 +38,12 @@
 	            	$('#secflagDiv').empty();
 	            	
 	            	var receivedData = res;
-	            	var boardType=receivedData.boardName;
-	            	var result0="<input type='text' name='boardType' value='"+boardType+"' class='form-control admindefault'/>"
+	            	var boardType=receivedData.boardType;
+	            	var boardlistNo=receivedData.boardlistNo;
+	            	var boardName=receivedData.boardName;
+	            	var result0="<input type='text' id='ajaxboardType' name='boardType' value='"+boardType+"' class='form-control admindefault'/>"
+	            	+"<input type='hidden' id='ajaxboardlistNo' name='boardlistNo' value='"+boardlistNo+"'/>"
+	            	+"<input type='hidden' id='ajaxboardName' name='boardName' value='"+boardName+"'/>";
 	            	
 	            	$('#boardTypeDiv').append(result0);	            	
 	            	
@@ -100,15 +104,31 @@
 		});
 		
 		
-		
 		$('#editBoardList').click(function(){
-			//alert($.param($('#UpdateBoardList').serializeArray()));
-			$.ajax({
-	            url: "<c:url value='/admin/board/ajaxUpdateBoardList'/>",
-	            type:'post',
-				data: $('#UpdateBoardList').serializeArray(),
-				dataType:'json',
-	            success: function (res) {
+		    var boardlistNo=$('#ajaxboardlistNo').val();
+		    var boardName=$('#ajaxboardName').val();
+			var boardType=$('#ajaxboardType').val();
+			var boardLike=$('input[name=boardLike]:checked').val();
+			var commentFlag=$('input[name=commentFlag]:checked').val();
+			var uploadFlag=$('input[name=uploadFlag]:checked').val();
+			var secflag= $('input[name=secflag]:checked').val();
+			//alert(boardlistNo +" : "+boardName +" : "+boardType);
+			//alert(boardLike +" : "+ commentFlag +" : "+uploadFlag+" : "+secflag);
+			
+		    $.ajax({
+		        url: "<c:url value='/admin/board/ajaxUpdateBoardList'/>",
+		        type: 'get',
+		        data:{
+					boardlistNo: boardlistNo,
+					boardName: boardName,
+					boardType: boardType,
+					boardLike: boardLike,
+					commentFlag: commentFlag,
+					uploadFlag: uploadFlag,
+					secflag: secflag
+				},
+		        dataType: 'json',
+		        success: function (res) {
 	            	if(res>0){
                    		alert($('#boardName').val()+" 게시판의 수정이 완료되었습니다.");
 	            	}
@@ -118,9 +138,6 @@
 	            } 
 	        });//ajax
 		});
-		
-		
-		
 		
 	});
 	
@@ -167,8 +184,8 @@
 								</colgroup>
 								<thead class="adminempthead">
 									<tr style="text-align: center;">
-										<th class="sort align-middle" scope="col">게시판 번호</th>
 										<th class="sort align-middle" scope="col">게시판 이름</th>
+										<th class="sort align-middle" scope="col">게시판 종류</th>
 										<th class="sort align-middle" scope="col">삭제</th>
 									</tr>
 								</thead>
@@ -181,8 +198,8 @@
 									<c:if test="${!empty boardList }">
 										<c:forEach var="boardListVo" items="${boardList}">
 										<tr class="adminemptr">
-											<td class="align-middle"><a href="#">${boardListVo.boardlistNo }</a></td>
 											<td class="align-middle"><a href="#">${boardListVo.boardName }</a></td>
+											<td class="align-middle"><a href="#">${boardListVo.boardType }</a></td>
 											<td class="align-middle">
 											<button type="button" class="btn btn-danger"><span class="fas fa-trash"></span></button>
 											</td>
@@ -343,7 +360,6 @@
 									<col style="width: 65%;" />
 								</colgroup>
 								<tbody id="table-contact-body">
-								<form id="updateBoardList">
 									<tr class="adminemptr">
 										<td class="align-middle">게시판 이름</td>
 										<td class="align-middle">
@@ -391,7 +407,6 @@
 										 <div class="col-md-12 adminspan" id="secflagDiv"></div>
 										</td>
 									</tr>
-								  </form>
 								</tbody>
 							</table>
 						</div>
