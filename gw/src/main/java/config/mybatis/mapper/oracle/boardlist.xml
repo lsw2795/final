@@ -4,6 +4,54 @@
 
 <mapper namespace="com.ez.gw.boardlist.model.BoardListDAO">
 	<select id="selectBoardList" resultType="boardListVo">
-		select * from boardList
+		select * from boardList order by boardlist_no
+	</select>
+	
+	<select id="selAdminBoardList" parameterType="searchVo">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from boardList
+				<if test="searchKeyword!=null and searchKeyword!=''">
+					where board_name like '%' || #{searchKeyword} ||'%'
+				</if> 
+				order by boardlist_no
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRSearchBoardList" resultType="int">
+		select count(*) from boardList
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where board_name like '%' || #{searchKeyword} ||'%'
+		</if> 
+		order by boardlist_no
+	</select>
+	
+	<insert id="insertBoardList" parameterType="boardListVo">
+		<selectKey keyProperty="boardlistNo" order="BEFORE" resultType="int">
+			select BOARDLIST_SEQ.nextval from dual
+		</selectKey>
+		
+		insert into boardList(boardlist_no, board_name, board_type, board_like, comment_flag, upload_flag, secflag)
+		values(#{boardlistNo},#{boardName},#{boardType},#{boardLike},#{commentFlag},#{uploadFlag},#{secflag})
+	</insert>
+	
+	<update id="updateBoardList" parameterType="boardListVo">
+		update boardList
+		set board_name=#{boardName},board_type=#{boardType},board_like=#{boardLike},
+			comment_flag=#{commentFlag},upload_flag=#{uploadFlag},secflag=#{secflag}
+		where boardList_no=#{boardListNo}
+	</update>
+	
+	<select id="boardListByboardlistNo" parameterType="int" resultType="boardListVo">
+		select * from boardList where boardlist_no=#{boardlistNo}
 	</select>
 </mapper>
