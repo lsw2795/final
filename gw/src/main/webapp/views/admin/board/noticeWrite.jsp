@@ -47,7 +47,7 @@
 	function FileDelete(index) {
 	    var pdsNo = $('#pdsNo' + index).val();
 	    var oldFileName = $('#oldFileName'+ index).val();
-	    alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
+	    //alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
 	    
 	    $.ajax({
             url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
