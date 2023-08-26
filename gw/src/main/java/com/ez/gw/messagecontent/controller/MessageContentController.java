@@ -1,6 +1,7 @@
 package com.ez.gw.messagecontent.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.dept.model.DeptService;
 import com.ez.gw.dept.model.DeptVO;
@@ -73,6 +75,37 @@ public class MessageContentController {
 		String msg="쪽지 처리 중 에러가 발생했습니다.", url="/message/messageWrite";
 		if(cnt>0) {
 			msg="쪽지가 발송되었습니다.";
+			url="/message/messageList";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/messageDelete")
+	public String messageDelete(@ModelAttribute MessageViewVO vo,
+			Model model, HttpSession session){
+		int empNo=(int)session.getAttribute("empNo");
+		int cnt=0;
+		vo.setEmpNo(empNo);
+		
+		if(vo.getReader()!=empNo) {
+			logger.info("보낸쪽지 삭제 처리 empNo={}, mcvo={}",empNo,vo);
+			cnt=messageContentService.updateDelFlagOrDelete(vo);
+		}else {
+			logger.info("받은쪽지 삭제 처리 empNo={}, mcvo={}",empNo,vo);
+			cnt=messageService.updateDelFlagOrDelete(vo);
+		}
+		logger.info("삭제 처리 결과 cnt={}",cnt);
+		
+		
+		
+		
+		String msg="쪽지 삭제처리 중 에러가 발생했습니다.", url="/message/messageList";
+		if(cnt>0) {
+			msg="쪽지가 삭제되었습니다.";
 		}
 		
 		model.addAttribute("msg",msg);
@@ -86,24 +119,62 @@ public class MessageContentController {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("쪽지함 페이지 empNo={}",empNo);
 		
-		List<Integer> readerList = messageContentService.selectAllReader(empNo);
-		logger.info("내가 보낸 쪽지 받은사람 조회 readList={}",readerList.size());
 		
-		
-		List<MessageViewVO> mViewList = new ArrayList<>();
-		if(readerList.size()>0) {
-			for(int i=0; i<readerList.size(); i++) {
-				MessageViewVO mViewVo = new MessageViewVO();
-				mViewVo.setEmpNo(empNo);
-				mViewVo.setReader(readerList.get(i));
-				mViewVo=messageContentService.selectLastMessageByReader(mViewVo);
-				logger.info("마지막 메시지 조회 받은사람={},mViewVo={}",readerList.get(i),mViewVo);
-				mViewList.add(mViewVo);
-			}
-		}
+		List<MessageViewVO> mViewList = messageContentService.selectLastMessage(empNo);
+		logger.info("마지막 메시지 조회 mViewList={}",mViewList.size());
 		
 		model.addAttribute("mViewList",mViewList);
 		
 		return "message/messageList";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/messageListClickAjax")
+	public Map<String, Object> messageListClickAjax(@RequestParam(defaultValue = "0") int reader,
+			@RequestParam(required = false) String messageContent, HttpSession session){
+		Map<String, Object> resultMap = new HashMap<>();
+		int empNo=(int)session.getAttribute("empNo");
+		
+		MessageViewVO mViewVo = new MessageViewVO();
+		mViewVo.setEmpNo(empNo);
+		mViewVo.setReader(reader);
+		
+		if(messageContent==null || messageContent.isEmpty()) {
+			logger.info("쪽지함 클릭 Ajax reader={},empNo={}",reader,empNo);
+			
+			Map<String, Object> empMap = employeeService.selectEmpByEmpNo(reader);
+			logger.info("상대방 정보 조회 empMap={}",empMap);
+			
+			int cnt=messageContentService.updateReadDate(mViewVo);
+			logger.info("받은 메시지에 대한 readDate 처리 cnt={}",cnt);
+			
+			resultMap.put("empMap", empMap);
+		}else {
+			logger.info("쪽지보내기 Ajax reader={},empNo={},messageContent={}",reader,empNo,messageContent);
+			
+			MessageContentVO mcVo=new MessageContentVO();
+			mcVo.setEmpNo(empNo);
+			mcVo.setMessageContent(messageContent);
+			
+			int cnt=messageContentService.insertMessage(mcVo);
+			logger.info("보낸사람 쪽지처리 결과 cnt={}",cnt);
+			
+			if(cnt>0) {
+				MessageVO vo=new MessageVO();
+				vo.setMessageNo(mcVo.getMessageNo());
+				vo.setReader(reader);
+				
+				cnt=messageService.insertMessage(vo);
+				logger.info("받는사람 쪽지처리 결과 cnt={}",cnt);
+			}
+		}
+		
+		List<MessageViewVO> messageList=messageContentService.selectAllMyMessage(mViewVo);
+		logger.info("메시지 전체 조회 messageList={}",messageList.size());
+		
+		resultMap.put("messageList", messageList);
+		return resultMap;
+	}
+	
+	
 }

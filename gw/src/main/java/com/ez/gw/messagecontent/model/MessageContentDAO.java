@@ -9,4 +9,10 @@ public interface MessageContentDAO {
 	int insertMessage(MessageContentVO vo);
 	List<Integer> selectAllReader(int empNo);
 	MessageViewVO selectLastMessageByReader(MessageViewVO mViewVo);
+	List<MessageViewVO> selectLastMessage(int empNo);
+	List<MessageViewVO> selectAllMyMessage(MessageViewVO mViewVo);
+	int updateReadDate(MessageViewVO vo);
+	int updateSendDelFlag(MessageViewVO vo);
+	int searchDeleteMessage(MessageViewVO vo);
+	int deleteMessage(int messageNo);
 }

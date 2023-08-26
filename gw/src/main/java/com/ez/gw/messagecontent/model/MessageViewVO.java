@@ -9,7 +9,7 @@ public class MessageViewVO {
 	private int messageNo;
 	private String messageContent;
 	private Timestamp sendDate;
-	private String delFlag;
+	private String delflag;
 	private	int empNo;
 	private int reader;
 	private String readerDelflag;
