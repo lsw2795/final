@@ -47,8 +47,6 @@
 					{
 						title : '퇴근',
 						start : '<%=vo.getWorkOut()%>',
-						display : 'block',
-						backgroundColor : 'red'
 					},
 					<%}%>
 				<%}%>
