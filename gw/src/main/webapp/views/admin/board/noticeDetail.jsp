@@ -3,6 +3,14 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
+	$(function(){
+		$('#btnDelNotice').click(function(){
+			if(confirm('정말 삭제하시겠습니까?')){
+				location.href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>";
+			}
+		});
+	});
+
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
@@ -37,7 +45,7 @@
                		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
 	               		<span class="adminhyphen"></span>
-	                	<a href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>" class="btn btn-outline-danger">삭제</a>
+	               		<button id="btnDelNotice" class="btn btn-outline-danger">삭제</button>
                		&nbsp;
                		</c:if>
                 	조회수 : ${map['READCOUNT']}

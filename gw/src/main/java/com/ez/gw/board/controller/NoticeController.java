@@ -361,13 +361,37 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/admin/board/noticeDelete")
-	public String noticeDelete(@ModelAttribute BoardVO vo, Model model) {
+	public String noticeDelete(@ModelAttribute BoardVO vo,
+			HttpServletRequest request, Model model) {
 		//1
 		logger.info("관리자 - 공지사항 삭제 파라미터, vo={}", vo);
 		
-		//2
-		int cnt = boardService.deleteNotice(vo);
+		if(vo.getBoardNo()==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/pds/list");
+
+			return "common/message";
+		}
 		
+		//2
+		List<PdsVO> fileList = pdsService.selFilesByNotice(vo.getBoardNo());
+		logger.info("게시글 삭제 - 파일 삭제 전 파일 갯수 조회 fileList.size={}", fileList.size());
+		
+		if(fileList.size()>0) {
+			for(PdsVO pdsVo : fileList) {
+				String fileName = pdsVo.getFileName();
+				if(fileName!=null && !fileName.isEmpty()) { //파일 삭제
+					File f = new File(fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_NOTICE_FLAG), fileName);
+					logger.info("컨트롤러 파일 f={}", f);
+					if(f.exists()) {
+						boolean result = f.delete();
+						logger.info("글 삭제 - 파일 삭제 여부 : {}", result);
+					}
+				}//if
+			}//for
+		}
+		
+		int cnt = boardService.deleteNotice(vo);
 		String msg = "공지사항 삭제에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + vo.getBoardNo();
 		if(cnt>0) {
 			msg = "공지사항 삭제가 완료되었습니다.";
