@@ -24,6 +24,11 @@
 		
 		$('#selboardName').change(function(){
 		  	var selectedValue = $('#selboardName').val();
+		  	if(selectedValue==""){
+		  		location.href="<c:url value='/admin/board/manageBoards'/>";
+		  		return false;
+		  	}
+		  	
 		  	//alert(selectedValue);
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxSelectBoardList'/>",
@@ -31,6 +36,7 @@
 				data: "boardlistNo="+$('#selboardName').val(),
 				dataType:'json',
 	            success: function (res) {
+	            	$('#boardNameDiv').empty();
 	            	$('#boardTypeDiv').empty();
 	            	$('#boardLikeDiv').empty();
 	            	$('#commentFlagDiv').empty();
@@ -41,45 +47,48 @@
 	            	var boardType=receivedData.boardType;
 	            	var boardlistNo=receivedData.boardlistNo;
 	            	var boardName=receivedData.boardName;
+	            	
+	            	var result="<input type='text' id='ajaxboardName' name='boardName' value='"+boardName+"' class='form-control admindefault'/>";
+	            	$('#boardNameDiv').append(result);
+	            	
 	            	var result0="<input type='text' id='ajaxboardType' name='boardType' value='"+boardType+"' class='form-control admindefault'/>"
-	            	+"<input type='hidden' id='ajaxboardlistNo' name='boardlistNo' value='"+boardlistNo+"'/>"
-	            	+"<input type='hidden' id='ajaxboardName' name='boardName' value='"+boardName+"'/>";
+	            	+"<input type='hidden' id='ajaxboardlistNo' name='boardlistNo' value='"+boardlistNo+"'/>";
 	            	
 	            	$('#boardTypeDiv').append(result0);	            	
 	            	
 	            	var result1="<div class='form-check'>"
                     +"<label class='form-check-label mb-0' for='boardLikeYY'>Y</label>"
-                    +"<input type='radio' class='form-check-input' id='boardLikeYY' value='Y' name='boardLike'/></div>"
+                    +"<input type='radio' class='form-check-input' id='boardLikeYY' value='Y' name='newBoardLike'/></div>"
               		+"<span class='adminhyphen'></span><div class='form-check'>"	
              		+"<label class='form-check-label mb-0' for='boardLikeNN'>N</label>"
-               		+"<input type='radio' class='form-check-input' id='boardLikeNN' value='N' name='boardLike'/></div>"
+               		+"<input type='radio' class='form-check-input' id='boardLikeNN' value='N' name='newBoardLike'/></div>"
 			  		 
                		$('#boardLikeDiv').append(result1);
 			  		
 	            	var result2="<div class='form-check'>"
 	                    +"<label class='form-check-label mb-0' for='commentFlagYY'>Y</label>"
-	                    +"<input type='radio' class='form-check-input' id='commentFlagYY' value='Y' name='commentFlag'/></div>"
+	                    +"<input type='radio' class='form-check-input' id='commentFlagYY' value='Y' name='newCommentFlag'/></div>"
 	              		+"<span class='adminhyphen'></span><div class='form-check'>"	
 	             		+"<label class='form-check-label mb-0' for='commentFlagNN'>N</label>"
-	               		+"<input type='radio' class='form-check-input' id='commentFlagNN' value='N' name='commentFlag'/></div>"
+	               		+"<input type='radio' class='form-check-input' id='commentFlagNN' value='N' name='newCommentFlag'/></div>"
 				  		
 			  		$('#commentFlagDiv').append(result2);
 				  		
 	            	var result3="<div class='form-check'>"
 	                    +"<label class='form-check-label mb-0' for='uploadFlagYY'>Y</label>"
-	                    +"<input type='radio' class='form-check-input' id='uploadFlagYY' value='Y' name='uploadFlag'/></div>"
+	                    +"<input type='radio' class='form-check-input' id='uploadFlagYY' value='Y' name='newUploadFlag'/></div>"
 	              		+"<span class='adminhyphen'></span><div class='form-check'>"	
 	             		+"<label class='form-check-label mb-0' for='uploadFlagNN'>N</label>"
-	               		+"<input type='radio' class='form-check-input' id='uploadFlagNN' value='N' name='uploadFlag'/></div>"
+	               		+"<input type='radio' class='form-check-input' id='uploadFlagNN' value='N' name='newUploadFlag'/></div>"
 				  			
 			  		$('#uploadFlagDiv').append(result3);	
 				  		
 	               	var result4="<div class='form-check'>"
 	                    +"<label class='form-check-label mb-0' for='secflagYY'>Y</label>"
-	                    +"<input type='radio' class='form-check-input' id='secflagYY' value='Y' name='secflag'/></div>"
+	                    +"<input type='radio' class='form-check-input' id='secflagYY' value='Y' name='newSecflag'/></div>"
 	              		+"<span class='adminhyphen'></span><div class='form-check'>"	
 	             		+"<label class='form-check-label mb-0' for='secflagNN'>N</label>"
-	               		+"<input type='radio' class='form-check-input' id='secflagNN' value='N' name='secflag'/></div>"
+	               		+"<input type='radio' class='form-check-input' id='secflagNN' value='N' name='newSecflag'/></div>"
 
                		$('#secflagDiv').append(result4);		
 	               		
@@ -108,12 +117,13 @@
 		    var boardlistNo=$('#ajaxboardlistNo').val();
 		    var boardName=$('#ajaxboardName').val();
 			var boardType=$('#ajaxboardType').val();
-			var boardLike=$('input[name=boardLike]:checked').val();
-			var commentFlag=$('input[name=commentFlag]:checked').val();
-			var uploadFlag=$('input[name=uploadFlag]:checked').val();
-			var secflag= $('input[name=secflag]:checked').val();
+			var boardLike=$('input[name=newBoardLike]:checked').val();
+			var commentFlag=$('input[name=newCommentFlag]:checked').val();
+			var uploadFlag=$('input[name=newUploadFlag]:checked').val();
+			var secflag= $('input[name=newSecflag]:checked').val();
+			
 			//alert(boardlistNo +" : "+boardName +" : "+boardType);
-			//alert(boardLike +" : "+ commentFlag +" : "+uploadFlag+" : "+secflag);
+			alert(boardLike +" : "+ commentFlag +" : "+uploadFlag+" : "+secflag);
 			
 		    $.ajax({
 		        url: "<c:url value='/admin/board/ajaxUpdateBoardList'/>",
@@ -352,6 +362,18 @@
 					<div class="card-header pb-0 admindefault">
 						<h5 class="mb-0 admindefault">게시판 권한 수정</h5>
 					</div>
+					<div class="ms-2" style="width:200px;"> 
+					<select id="selboardName" name="boardName" class="admindefault adminempborder adminempsel form-select">
+						<option value="">선택하세요</option>
+						<c:forEach var="boardListVo" items="${boardList}">
+							<option value="${boardListVo.boardlistNo}"
+								<c:if test="${param.boardlistNo==boardListVo.boardlistNo}">
+									selected="selected"
+								</c:if>
+							>${boardListVo.boardName}</option>
+						</c:forEach>
+					</select>
+					</div>
 					<div class="card-body pt-3 admindefault">
 						<div class="table-responsive scrollbar admindefault">
 							<table class="table table-bordered">
@@ -363,48 +385,37 @@
 									<tr class="adminemptr">
 										<td class="align-middle">게시판 이름</td>
 										<td class="align-middle">
-											<div class="adminempdiv11"> 
-											<select id="selboardName" name="boardName" class="admindefault adminempborder adminempsel form-select">
-												<option value="">선택하세요</option>
-												<c:forEach var="boardListVo" items="${boardList}">
-													<option value="${boardListVo.boardlistNo}"
-														<c:if test="${param.boardlistNo==boardListVo.boardlistNo}">
-															selected="selected"
-														</c:if>
-													>${boardListVo.boardName}</option>
-												</c:forEach>
-											</select>
-											</div>
+										<div id="boardNameDiv">게시판을 선택하세요.</div>	
 										</td>
 									</tr>
 									<tr class="adminemptr">
 										<td class="align-middle">게시판 종류</td>
 										<td class="align-middle">
-										<div id="boardTypeDiv"></div>	
+										<div id="boardTypeDiv">게시판을 선택하세요.</div>	
 										</td>
 									</tr>
 									<tr class="adminemptr">
-										<td class="align-middle">좋아요 허용여부</td>
+										<td class="align-middle">좋아요<br>허용여부</td>
 										<td class="align-middle">
-										<div class="col-md-12 adminspan" id="boardLikeDiv"></div>
+										<div class="col-md-12 adminspan" id="boardLikeDiv">게시판을 선택하세요.</div>
 										</td>
 									</tr>
 									<tr class="adminemptr">
-										<td class="align-middle">댓글 허용여부</td>
+										<td class="align-middle">댓글<br>허용여부</td>
 										<td class="align-middle">
-										<div class="col-md-12 adminspan" id="commentFlagDiv"></div>
+										<div class="col-md-12 adminspan" id="commentFlagDiv">게시판을 선택하세요.</div>
 										</td>
 									</tr>
 									<tr class="adminemptr">
-										<td class="align-middle">업로드 허용여부</td>
+										<td class="align-middle">업로드<br>허용여부</td>
 										<td class="align-middle">
-										<div class="col-md-12 adminspan" id="uploadFlagDiv"></div>
+										<div class="col-md-12 adminspan" id="uploadFlagDiv">게시판을 선택하세요.</div>
 										</td>
 									</tr>
 									<tr class="adminemptr">
-										<td class="align-middle">사원 공개여부</td>
+										<td class="align-middle">사원<br>공개여부</td>
 										<td class="align-middle">
-										 <div class="col-md-12 adminspan" id="secflagDiv"></div>
+										 <div class="col-md-12 adminspan" id="secflagDiv">게시판을 선택하세요.</div>
 										</td>
 									</tr>
 								</tbody>
