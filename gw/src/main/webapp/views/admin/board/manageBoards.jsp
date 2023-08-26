@@ -180,7 +180,10 @@
                   <div class="col-auto">
                      <div class="input-group">
                        <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search admindefault" type="search" placeholder="게시판 이름을 입력하세요" aria-label="search" />
-                       <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+                       <button onclick="submitForm()" 
+	                       	class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+	                       	<span class="fa fa-search fs--1"></span>
+                       	</button>
                      </div>
                   </div>
                 </div>
