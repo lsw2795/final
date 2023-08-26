@@ -143,7 +143,7 @@ public class ClubController {
 		model.addAttribute("url", url);
 
 		//4.
-		return "club/clubList";
+		return "common/message";
 	}
 
 	@RequestMapping("/clubDetail")

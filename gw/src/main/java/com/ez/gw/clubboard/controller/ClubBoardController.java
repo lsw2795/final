@@ -21,7 +21,7 @@ public class ClubBoardController {
 	public String clubBoadList() {
 		//1.
 		logger.info("동호회 게시판 페이지");
-		return "/club/clubBoard";
+		return "club/clubBoard";
 	}
 	
 	
