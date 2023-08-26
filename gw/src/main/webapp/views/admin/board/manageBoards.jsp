@@ -14,6 +14,7 @@
 	            success: function (res) {
 	            	if(res>0){
                    		alert($('#boardName').val()+" 게시판이 생성되었습니다.");
+                   		location.href="<c:url value='/admin/board/manageBoards'/>";
 	            	}
 	            },
 	            error:function(xhr,status,error){
@@ -123,7 +124,7 @@
 			var secflag= $('input[name=newSecflag]:checked').val();
 			
 			//alert(boardlistNo +" : "+boardName +" : "+boardType);
-			alert(boardLike +" : "+ commentFlag +" : "+uploadFlag+" : "+secflag);
+			//alert(boardLike +" : "+ commentFlag +" : "+uploadFlag+" : "+secflag);
 			
 		    $.ajax({
 		        url: "<c:url value='/admin/board/ajaxUpdateBoardList'/>",
@@ -141,6 +142,7 @@
 		        success: function (res) {
 	            	if(res>0){
                    		alert($('#boardName').val()+" 게시판의 수정이 완료되었습니다.");
+                   		location.href="<c:url value='/admin/board/manageBoards'/>";
 	            	}
 	            },
 	            error:function(xhr,status,error){
@@ -160,18 +162,18 @@
 	    document.getElementById('frmSearch').submit();
 	}
 </script>
+  <!-- 페이징 처리 관련 form -->
+		<form action="<c:url value='/admin/board/manageBoards'/>" 
+			name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+		</form>
 <div class="row g-3 mb-3">
 	<div class="col-xxl-4">
 		<div class="card h-100 admindefault">
 			<div class="card-header d-flex flex-between-center admindefault">
 				<h5 class="mb-0 admindefault">게시판 목록</h5>
 			</div>
-			<!-- 페이징 처리 관련 form -->
-			<form action="<c:url value='/admin/board/manageBoards'/>" 
-				name="frmPage" method="post">
-				<input type="hidden" name="currentPage">
-				<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-			</form>
 			<div class="d-lg-flex justify-content-between">
               <form name="frmSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
                 <div class="row flex-between-center gy-2 px-x1">
@@ -185,6 +187,9 @@
               </form>
              </div>	
 			<div class="card-body pt-3 admindefault">
+			<c:if test="${!empty param.searchKeyword }">
+				   <p>검색어 :${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+				</c:if> 
 						<div class="table-responsive scrollbar admindefault">
 							<table class="table table-hover">
 								<colgroup>
@@ -236,7 +241,7 @@
 						<span id="curPage">${i}</span>
 			        	</c:if>
 					<c:if test="${i != pagingInfo.currentPage }">		
-				         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+				        <a href="<c:url value='/admin/board/manageBoards?currentPage=${i}&searchKeyword=${param.searchKeyword }'/>" id="otherPage">${i}</a>
 				    </c:if>   		
 				</c:forEach>
 				
@@ -438,6 +443,13 @@
 					</div>
 						<div class="card-body pb-0 admindefault">
 						<div class="table-responsive scrollbar admindefault">
+							
+							
+							
+			
+							
+							
+							
 							
 						</div>
 					</div>
