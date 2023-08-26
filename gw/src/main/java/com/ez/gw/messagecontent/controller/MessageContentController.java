@@ -1,5 +1,7 @@
 package com.ez.gw.messagecontent.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import com.ez.gw.message.model.MessageService;
 import com.ez.gw.message.model.MessageVO;
 import com.ez.gw.messagecontent.model.MessageContentService;
 import com.ez.gw.messagecontent.model.MessageContentVO;
+import com.ez.gw.messagecontent.model.MessageViewVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -78,4 +81,29 @@ public class MessageContentController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/messageList")
+	public String messageList(HttpSession session,Model model){
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("쪽지함 페이지 empNo={}",empNo);
+		
+		List<Integer> readerList = messageContentService.selectAllReader(empNo);
+		logger.info("내가 보낸 쪽지 받은사람 조회 readList={}",readerList.size());
+		
+		
+		List<MessageViewVO> mViewList = new ArrayList<>();
+		if(readerList.size()>0) {
+			for(int i=0; i<readerList.size(); i++) {
+				MessageViewVO mViewVo = new MessageViewVO();
+				mViewVo.setEmpNo(empNo);
+				mViewVo.setReader(readerList.get(i));
+				mViewVo=messageContentService.selectLastMessageByReader(mViewVo);
+				logger.info("마지막 메시지 조회 받은사람={},mViewVo={}",readerList.get(i),mViewVo);
+				mViewList.add(mViewVo);
+			}
+		}
+		
+		model.addAttribute("mViewList",mViewList);
+		
+		return "message/messageList";
+	}
 }

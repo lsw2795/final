@@ -10,6 +10,21 @@
 		insert into message_content(message_no,message_content,emp_no)
 		values(#{messageNo},#{messageContent},#{empNo})
 	</insert>
-
+	
+	<select id="selectAllReader" parameterType="int" resultType="int">
+		select distinct reader from messageView m
+		where emp_no = #{empNo}
+	</select>
+	
+	<select id="selectLastMessageByReader" parameterType="messageViewVo" resultType="messageViewVo">
+		select rownum, A.* from
+		(
+		    select * from messageView m
+		    where (emp_no =#{empNo} or reader=#{empNo})
+   			and (reader=#{reader} or emp_no =#{reader})
+		    order by send_date desc
+		)A
+		where rownum=1
+	</select>
 
 </mapper>

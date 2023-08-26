@@ -9,6 +9,11 @@
 			var bool=true;
 			var str="";
 			
+			if(${sessionScope.empNo}==no){
+				alert("선택 할 수 없습니다.")
+				return false;
+			}
+			
 			$('#readerName>#reader').each(function(){
 				if($(this).val()==no){
 					alert("이미 선택된 사람입니다.")
