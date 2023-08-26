@@ -72,22 +72,7 @@
 							<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1 admindefault">
 								<div class="d-flex align-items-center admindefault"
 									id="table-contact-replace-element">
-									<button class="btn btn-falcon-default btn-sm admindefault"
-										type="button">
-										<span class="fas fa-minus" data-fa-transform="shrink-3"></span><span
-											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">삭제</span>
-									</button>
-									<button class="btn btn-falcon-default btn-sm mx-2 admindefault"
-										type="button">
-										<span class="fas fa-external-link-alt"
-											data-fa-transform="shrink-3"></span><span
-											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span>
-									</button>
-									<button class="btn btn-falcon-default btn-sm admindefault"
-										type="button">
-										<span class="fas fa-file-import" data--transform="shrink-3"></span><span
-											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span>
-									</button>
+								<a href="<c:url value='/admin/employee/employeeRegister'/>" class="btn btn-primary">사원 등록</a>
 								</div>
 							</div>
 						</div>
@@ -101,35 +86,27 @@
 						<div class="table-responsive scrollbar admindefault">
 							<table class="table table-sm table-hover">
 								<colgroup>
-									<col style="width: 5%;" />
 									<col style="width: 20%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
 									<col style="width: 17%;" />
-									<col style="width: 13%;" />
+									<col style="width: 18%;" />
 								</colgroup>
 								<thead class="adminempthead">
 									<tr style="text-align: center;">
-										<th class="py-2 fs-0 pe-2" style="width: 28px;">
-											<div class="form-check d-flex align-items-center">
-												<input class="form-check-input"
-													id="checkbox-bulk-tickets-select" type="checkbox"
-													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-											</div>
-										</th>
-										<th class="sort align-middle" scope="col">사원번호</th>
+										<th class="py-2 fs-0 pe-2 sort align-middle" scope="col">사원번호</th>
 										<th class="sort align-middle" scope="col">사원이름</th>
 										<th class="sort align-middle" scope="col">부서</th>
 										<th class="sort align-middle" scope="col">직위</th>
 										<th class="sort align-middle" scope="col">내선번호</th>
-										<th class="sort align-middle" scope="col">재직여부</th>
+										<th class="sort align-middle" scope="col">입사일</th>
 									</tr>
 								</thead>
 								<tbody id="table-contact-body">
 									<c:if test="${empty list }">
 										<tr class="adminemptr">
-											<td colspan="7" style="text-align: center">
+											<td colspan="6" style="text-align: center">
 											해당 임직원 목록이 없습니다.
 											</td>
 										</tr>
@@ -137,23 +114,14 @@
 									<c:if test="${!empty list }">
 										<c:forEach var="map" items="${list }">
 											<tr class="adminemptr">
-												<td class="align-middle fs-0 py-3 align-middle">
-													<div class="form-check mb-0">
-														<input class="form-check-input" type="checkbox"
-															data-bulk-select-row="data-bulk-select-row" value=${map['EMP_NO']} />
-													</div>
-												</td>
-												<td class="align-middle">${map['EMP_NO']}</td>
+												<td class="align-middle fs-0 py-3">${map['EMP_NO']}</td>
 												<td class="align-middle"><a href="<c:url value='/admin/employee/employeeEdit?empNo=${map["EMP_NO"]}'/>">${map['NAME']}</a></td>
 												<td class="align-middle">${map['DEPT_NAME']}</td>
 												<td class="align-middle">${map['POSITION_NAME']}</td>
 												<td class="align-middle">${map['EXTENSION_NO']}</td>
-												<c:if test="${empty map['RETIREDATE']}">
-													<td class="align-middle">Y</td>
-												</c:if>
-												<c:if test="${!empty map['RETIREDATE']}">
-													<td class="align-middle">N</td>
-												</c:if>
+												<td class="align-middle">
+												<fmt:formatDate value="${map['HIREDATE']}" pattern="yyyy-MM-dd"/> 
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>
