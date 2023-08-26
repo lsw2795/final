@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -75,15 +76,41 @@
           /* 임시 비밀번호 메일로 보내기 */
           $(function(){
 			$("#btnSend").click(function(){
+				
+				if($("#email").val()==null){
+					alert("이메일을 입력해주세요.");
+					$("#email").focus;
+				}else if($("#empNo").val()==0){
+					alert("사원번호를 입력해주세요.");
+					$("#email").focus;
+				}
+				
 				$.ajax({
-					url : "/employee/",
-					type : "POST",
+					url : "<c:url value='/login/findPwd'/>",
+					type : "GET",
 					data : {
-						empNo : $("#empNo").val(),
 						email : $("#email").val()
+						empNo : $("#empNo").val()
 					},
 					success : function(result) {
-						alert(result);
+						 if (result['check']) {
+			                swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) = > {
+								if(OK){
+									$.ajax({
+										url : "<c:url value='/login/sendEmail'/>",
+										type : "POST",
+										data : {
+											email : $("#email").val()
+											empNo : $("#empNo").val()
+										}
+									})
+									window.location="<c:url value='/login/empForgotPwd'/>"
+								}
+							}
+			            	 $('#checkMsg').html('<p style="color:darkblue"></p>');    	 
+			             }else{
+			            	 $('#checkMsg').html('<p style="color:red">일치하는 정보가 없습니다.</p>');
+			             }
 					},
 				})
 			});
@@ -111,6 +138,8 @@
                         <input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
                         <div class="mb-3"></div>
+                        <hr>
+                        <div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
                         <button class="btn btn-primary d-block w-100 mt-3" type="submit" id="btnSend" name="submit">Send email</button>
                     </div>
                   </div>

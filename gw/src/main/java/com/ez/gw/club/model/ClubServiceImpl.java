@@ -1,6 +1,7 @@
 package com.ez.gw.club.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class ClubServiceImpl implements ClubService{
 	}
 
 	@Override
-	public List<ClubVO> selectClub(SearchVO searchVo) {
+	public List<Map<String, Object>> selectClub(SearchVO searchVo) {
 		return clubDao.selectClub(searchVo);
 	}
 	
