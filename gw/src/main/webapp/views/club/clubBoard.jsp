@@ -11,12 +11,25 @@
                         <h6 class="mb-0">Club Board</h6>
                       </div>
                       <div class="col-auto">
-                        <form>
-                          <div class="input-group input-search-width">
-                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
-                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
-                          </div>
-                        </form>
+                        <form action='<c:url value='/club/clubList'/>'>
+		                    <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+			                       <option value="title"
+			                          	<c:if test="${param.searchCondition=='title'}">
+			                            	selected = "selected"
+			                            </c:if>
+			                        >제목</option>
+			                        <option value="manager"
+		                       		    <c:if test="${param.searchCondition=='name'}">
+			                            	selected = "selected"
+			                            </c:if>
+			                         >이름</option>
+			                         <option value="content"
+			                            <c:if test="${param.searchCondition=='content'}">
+			                            	selected = "selected"
+			                            </c:if>
+			                         >내용</option>
+		                     </select>
+		                  </form>
                       </div>
                     </div>
                     <div class="border-bottom border-200 my-3"></div>
@@ -24,18 +37,12 @@
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                        <div class="dropdown">
-                          <button class="btn btn-sm btn-falcon-default dropdown-toggle dropdown-caret-none" type="button" id="ticket-layout" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block me-1">Card View</span><span class="fas fa-chevron-down" data-fa-transform="shrink-3 down-1"></span></button>
-                          <div class="dropdown-menu dropdown-toggle-item dropdown-menu-end border py-2" aria-labelledby="ticket-layout"><a class="dropdown-item" href="../../app/support-desk/table-view.jsp">Table View</a><a class="dropdown-item active" href="../../app/support-desk/card-view.jsp">Card View</a></div>
-                        </div>
-                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span></button>
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
-                        <div class="dropdown font-sans-serif ms-2">
-                          <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                          </div>
-                        </div>
+                     	 <a href="<c:url value='/club/clubBoardWrite'/>">
+                       		 <button class="btn btn-falcon-default btn-sm mx-2" type="button">
+                        		<span class="fas fa-plus" data-fa-transform="shrink-3">
+                        		</span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span>
+                        	</button>
+                        </a>
                       </div>
                     </div>
                   </div>

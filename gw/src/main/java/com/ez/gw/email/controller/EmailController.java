@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,12 +33,12 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/sendEmail")
-	public String sendEmail(String email) {
+	public String sendEmail(String email, @ModelAttribute EmployeeVO empvo) {
 		String str = getTempPassword();
-		EmployeeVO vo = new EmployeeVO();
 		
-		String receiver = vo.getEmail(); //받는 사람의 이메일 주소
-		vo.setEmail(email);
+		String receiver = empvo.getEmail(); //받는 사람의 이메일 주소
+		empvo.setEmail(email);
+		
 		String subject = "COSMOS 임시 비밀번호 안내";		
 		String content = "안녕하세요. "
 						+ "COSMOS 임시 비밀번호 안내 관련 이메일입니다."
@@ -45,7 +46,7 @@ public class EmailController {
 						+ "로그인 후 비밀번호 변경해주세요 ";		
 		String sender = "rlacodud4456@naver.com"; //보내는 사람의 이메일 주소
 											//앞에 설정한 본인의 보내는 이메일 주소
-		empService.updateEmpPwd(vo);
+		empService.updateEmpPwd(empvo);
 		
 		try {
 			emailSender.sendEmail(subject, content, receiver, sender);

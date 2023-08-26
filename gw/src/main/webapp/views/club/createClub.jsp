@@ -6,6 +6,44 @@
 	$(function() {
 		$("#memLimitflag").val('Y').prop("selected", true); 
 		$("#memLimitflag").val('N').prop("selected", false);
+		
+		$('form[name=createFrm]').submit(function() {
+			
+			if($('#manager').val().length<1){
+				alert('동호회장(Manager)을 입력해주세요.');
+				$('#manager').focus();
+				return false;
+			}
+			
+			if($('#title').val().length<1){
+				alert('동호회 제목(Title)을 입력해주세요.');
+				$('#title').focus();
+				return false;
+			}
+			
+			if($('#introduce').val().length<1){
+				alert('동호회 소개(Introduce)를 입력해주세요.');
+				$('#introduce').focus();
+				return false;
+			}
+
+			/* if($('#secflag').val().length<1){
+				alert('동호회 공개여부를 선택해주세요.');
+				$('#secflag').focus();
+				return false;
+			} */
+			
+			/* if($('#memLimitflag').val().length<1){
+				alert('동호회 모집인원 제한 여부를 선택해주세요.');
+				$('#memLimitflag').focus();
+			} 
+			if($('#memberCnt').val().length<1){
+				alert('모집 인원수를 입력해주세요.');
+				$('#memberCnt').focus();
+				return false;
+			} */
+		});
+		
 	});
 </script>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
@@ -32,7 +70,7 @@
                 </div>
                 <div class="col-auto">
 		          <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
-                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
+                  <button class="btn btn-primary btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>
             </div>
@@ -88,7 +126,7 @@
                    </select>
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
+                  <button class="btn btn-primary btn-sm me-2" type="submit">저장</button>
                 </div>
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0"></h5>

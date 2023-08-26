@@ -24,26 +24,26 @@
                         <h6 class="mb-0">Club List</h6>
                       </div>
                         <div class="col-auto pe-0">
-                  <form action='<c:url value='/club/clubList'/>'>
-                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-	                            <option value="title"
-	                            	<c:if test="${param.searchCondition=='title'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >제목</option>
-	                            <option value="manager"
-                       		        <c:if test="${param.searchCondition=='manager'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >이름</option>
-	                            <option value="introduce"
-	                            	<c:if test="${param.searchCondition=='introduce'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >소개</option>
-                          </select>
+		                  <form action='<c:url value='/club/clubList'/>'>
+		                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+			                            <option value="title"
+			                            	<c:if test="${param.searchCondition=='title'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >제목</option>
+			                            <option value="manager"
+		                       		        <c:if test="${param.searchCondition=='manager'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >이름</option>
+			                            <option value="introduce"
+			                            	<c:if test="${param.searchCondition=='introduce'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >소개</option>
+		                          </select>
+		                  </form>
                       </div>
-                  </form>
                       <div class="col-auto">
                           <div class="input-group input-search-width">
                             <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
@@ -56,7 +56,11 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                        <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
+                        <a href="<c:url value='/club/createClub'/>">
+                        	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
+                        		<span class="fas fa-plus" ></span>
+                        	</button>
+                        </a>
                       </div>
                   </div>
                 </div>
