@@ -148,5 +148,4 @@
 		where boardList_no=2000 and pds_no=#{pdsNo}
 	</delete>
 	
-	
 </mapper>

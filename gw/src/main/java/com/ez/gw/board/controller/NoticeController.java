@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.board.model.BoardService;
@@ -98,7 +99,7 @@ public class NoticeController {
 		}
 		
 		String msg="공지사항 등록에 실패했습니다.",url="/admin/board/noticeWrite";
-		if(cnt>0 && result>0) {
+		if(cnt>0) { //파일 등록을 안하고 공지사항 등록을 할 수 있기때문에 result>0 빼기
 			msg="공지사항 등록이 완료되었습니다.";
 			url="/admin/board/noticeList";
 		}
@@ -279,11 +280,29 @@ public class NoticeController {
 		return "admin/board/noticeWrite";
 	}
 	
+	@RequestMapping("/admin/board/ajaxNoticeFileDelete")
+	@ResponseBody
+	public int noticeDelPdsFile(@RequestParam (defaultValue = "0")int pdsNo,
+			@RequestParam(required = false) String oldFileName,
+			HttpServletRequest request) {
+		logger.info("ajax이용 - 삭제할 파일 자료실번호 파라미터 pdsNo={}", pdsNo);
+
+		String upPath = fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_NOTICE_FLAG);
+		File file = new File(upPath, oldFileName);
+		if (file.exists()) {
+			boolean bool = file.delete();
+			logger.info("기존 파일 삭제 여부 bool={}", bool);
+		}
+		
+		int cnt=pdsService.editNoticeFile(pdsNo);
+		logger.info("ajax이용 - 자료실 파일 삭제 결과 cnt={}", cnt);
+		
+		return cnt;
+	}
+	
 	@PostMapping("/admin/board/noticeEdit")
 	public String noticeEdit_post(@ModelAttribute BoardVO vo,
-			@RequestParam (defaultValue = "0")int pdsNo,
-			@ModelAttribute PdsVO pdsVo,
-			HttpServletRequest request,
+			@ModelAttribute PdsVO pdsVo, HttpServletRequest request,
 			Model model) {
 		//1
 		logger.info("관리자 - 공지사항 수정, 파라미터 vo={}, pdsVo={}", vo, pdsVo);
@@ -292,10 +311,10 @@ public class NoticeController {
 		//다중파일 업로드 처리
 		String fileName="", originalFileName="",filePath = "";
 		long fileSize=0;
-		int cnt1 = pdsService.editNoticeFile(pdsNo); //기존 등록 파일 삭제처리
-		int cnt2 = boardService.updateNotice(vo);
-		logger.info("관리자 - 공지사항 수정 결과, cnt1={}, cnt2={}", cnt1, cnt2);
+		int cnt = boardService.updateNotice(vo);
+		logger.info("관리자 - 공지사항 수정 결과, cnt={}", cnt);
 		
+		//3
 		int result=0;
 		try {
 			List<Map<String, Object>> list
@@ -329,11 +348,10 @@ public class NoticeController {
 		}
 		
 		String msg = "공지사항 수정에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + vo.getBoardNo();
-		if(cnt1>0 && cnt2>0) {
+		if(cnt>0) { //파일 등록을 안할 수도 있으니까 result>0 뺌
 			msg = "공지사항 수정이 완료되었습니다.";
-			url = "/admin/board/noticeDetail?boardNo="+vo.getBoardNo();
+			url = "/admin/board/noticeDetail?boardNo=" + vo.getBoardNo();
 		}
-		
 		//3
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

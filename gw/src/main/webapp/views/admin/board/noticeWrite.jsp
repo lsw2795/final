@@ -36,15 +36,36 @@
 		$('#btnDelFile').click(function(){
 			 $('input[type=file]:last').remove();
 		});
-		
+
 		$('.FileDelete').click(function(){
 			$(this).prev().remove();
-			$(this).remove();
-			var pdsNo=$('#pdsNo').val();
-			location.href="<c:url value='/admin/board/notice/filesDelete?pdsNo='"+pdsNo+"/>";
+	        $(this).remove();
+	      
 		});
-		
 	});
+	
+	function FileDelete(index) {
+	    var pdsNo = $('#pdsNo' + index).val();
+	    var oldFileName = $('#oldFileName'+ index).val();
+	    alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
+	    
+	    $.ajax({
+            url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
+            type: "get",
+            data: { 
+            	pdsNo: pdsNo,
+            	oldFileName: oldFileName
+            },
+            success: function (res) {
+                if (res> 0) {                	
+                    alert('파일 삭제 성공');
+                }
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 </script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
@@ -71,7 +92,6 @@
 				<!-- 수정 처리시 no,oldFileName가 필요하므로 hidden 필드에 넣어서 보내준다 -->
 				<c:if test="${!empty param.boardNo}">
 				<input type="hidden" name="boardNo" value="${map['BOARD_NO']}">
-				<input type="hidden" name="oldFileName" value="">
 				</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 					    <div class="col-md-auto adminempdiv6">
@@ -98,16 +118,17 @@
 		                      첨부파일이 없습니다.
 		                      </c:if>
 		                       <c:if test="${!empty pdsList }">
-			                      <c:set var="i" value="0"></c:set>
+		                       <c:set var="i" value="0"/>
 			                      <c:forEach var="pdsVo" items="${pdsList }" varStatus="status">
 				                       <span>
 					                       <img alt="첨부파일 이미지" src="<c:url value='/images/file.gif'/>">
 					                     	${fileInfoArr[status.index]}&nbsp;&nbsp;
 			                     	   </span>
-				                       <a href="#" class="btn-close FileDelete" style="font-size: 18px;"></a>
-			                     	  <input type="text" name="oldFileNames" value="${pdsVo.originalFileName }">
-			                     	  <input type="text" id="pdsNo" name="pdsNo" value="${pdsVo.pdsNo }"> 
+				                      <input type="button" onclick="FileDelete(${i})" class="btn-close FileDelete" style="font-size: 18px;"/>
+				                      <input type="hidden" name="pdsNo" id="pdsNo${i }" value="${pdsVo.pdsNo }"/> 
+			                     	  <input type="hidden" name="oldFileNames" id="oldFileName${i }" value="${pdsVo.fileName }">
 			                     	   <br>
+			                      	<c:set var="i" value="${i+1 }"/>
 			                      </c:forEach>
 		                     </c:if>
 							<input type="button" id="btnAddFile" value="추가" class="btn btn-outline-success">
@@ -120,7 +141,7 @@
 					</div>
 					<div style="text-align: center;">
 						<input type="submit" value="${btLabel}" class="btn btn-primary"/>
-						<input type="button" id="btnCancel" value="취소" class="btn btn-primary"/>
+						<input type="button" id="btnCancel" value="취소" class="btn btn-secondary"/>
 					</div>
 				</form>
 			</div>
