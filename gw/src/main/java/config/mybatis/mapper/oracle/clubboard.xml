@@ -4,9 +4,13 @@
 
 <mapper namespace="com.ez.gw.clubboard.model.ClubBoardDAO">
 
-	<select id="selectClubBoard" resultType="clubboardVo" parameterType="int">
-		select * from clubBoard
+	<select id="clubBoardView" resultType="map" parameterType="map">
+		select * from CLUBBOARDVIEW
 		where CLUB_NO=#{clubNo}
+		<if test="searchVo.searchKeyword!=null and searchVo.searchKeyword!=''">
+			where ${searchVo.searchCondition} like '%' || #{searchVo.searchKeyword} ||'%'
+		</if>
+		order by regDate desc
 	</select>
 	
 	<insert id="insertClubBoard" parameterType="clubBoardVo">

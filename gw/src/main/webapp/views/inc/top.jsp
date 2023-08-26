@@ -433,13 +433,6 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/club/payClub'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">동호회 결제</span>
-                       			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/views/club/clubStanby.jsp'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">결재 대기 동호회(임원)</span>

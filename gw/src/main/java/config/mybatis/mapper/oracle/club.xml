@@ -12,7 +12,7 @@
 		values(#{clubNo},#{manager},#{memLimit} ,#{title},#{introduce},#{secflag},#{memLimitflag},#{empNo})
 	</insert>
 	
-	<select id="selectClub" parameterType="searchVo">
+	<select id="selectClub" parameterType="searchVo" resultType="map">
 		select * from club
 		<if test="searchKeyword!=null and searchKeyword!=''">
 			where ${searchCondition} like '%' || #{searchKeyword} ||'%'

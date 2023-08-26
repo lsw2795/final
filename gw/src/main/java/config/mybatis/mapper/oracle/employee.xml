@@ -140,4 +140,10 @@
 	<select id="selectNameByEmpNo" parameterType="int" resultType="string">
 		select name from employee where emp_no = #{empNo}
 	</select>
+	
+	<select id="selectEmail" parameterType="int" resultType="string">
+		select email 
+		from employee
+		where emp_no=#{empNo}
+	</select>
 </mapper>

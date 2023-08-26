@@ -1,6 +1,8 @@
 package com.ez.gw.controller;
 
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,20 +25,20 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	private final EmployeeService empService;
 	
-	@RequestMapping("/admin")
+	@RequestMapping("/admin/main")
 	public String admin() {
 		logger.info("관리자 페이지 화면 확인");
 		
 		return "admin/adminIndex";
 	}
 	
-	@RequestMapping("/login/adminLogin")
+	@RequestMapping("/admin/login")
 	public String adminLogin() {
 		logger.info("관리자 로그인 페이지");
 		return "login/adminLogin";
 	}
 	
-	@PostMapping("/login/adminLogin")
+	@PostMapping("/admin/login")
 	public String adminLogin_post(@RequestParam(defaultValue = "0")int empNo,
 			@RequestParam String pwd, 
 			@RequestParam(required = false)String split_checkbox,
@@ -47,9 +49,12 @@ public class AdminController {
 		String result=empService.selctAuthority(empNo);
 		logger.info("관리자여부 결과 result={}",result);
 		
+		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
+		logger.info("로그인 관리자 서열,직급 map={}",map);
+		
 		if(result.equals("N")){
 			model.addAttribute("msg", "관리자 권한이 없습니다.");
-			model.addAttribute("url","/login/adminLogin");
+			model.addAttribute("url","/admin/login");
 			
 			return "common/message";
 			
@@ -57,10 +62,10 @@ public class AdminController {
 			int cnt=empService.loginCheck(pwd, empNo);
 			logger.info("로그인 결과 result={}",cnt);
 			
-			String msg="로그인 처리 실패", url="/login/adminLogin"; 
+			String msg="로그인 처리 실패", url="/admin/login"; 
 			if(cnt==EmployeeService.LOGIN_OK) {
-				msg=empNo+"님이 로그인 하셨습니다";
-				url="/admin";
+				msg = map.get("NAME") +" 님이 로그인 하셨습니다";
+				url = "/admin/main";
 				
 				//session
 				HttpSession session=request.getSession();

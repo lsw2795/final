@@ -24,26 +24,26 @@
                         <h6 class="mb-0">Club List</h6>
                       </div>
                         <div class="col-auto pe-0">
-                  <form action='<c:url value='/club/clubList'/>'>
-                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-	                            <option value="title"
-	                            	<c:if test="${param.searchCondition=='title'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >제목</option>
-	                            <option value="manager"
-                       		        <c:if test="${param.searchCondition=='manager'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >이름</option>
-	                            <option value="introduce"
-	                            	<c:if test="${param.searchCondition=='introduce'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >소개</option>
-                          </select>
+		                  <form action='<c:url value='/club/clubList'/>'>
+		                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+			                            <option value="title"
+			                            	<c:if test="${param.searchCondition=='title'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >제목</option>
+			                            <option value="manager"
+		                       		        <c:if test="${param.searchCondition=='manager'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >이름</option>
+			                            <option value="introduce"
+			                            	<c:if test="${param.searchCondition=='introduce'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >소개</option>
+		                          </select>
+		                  </form>
                       </div>
-                  </form>
                       <div class="col-auto">
                           <div class="input-group input-search-width">
                             <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
@@ -56,8 +56,11 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                        <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
-                        <a href="<c:url value='/club/editClub?clubNo=${vo.clubNo }'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
+                        <a href="<c:url value='/club/createClub'/>">
+                        	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
+                        		<span class="fas fa-plus" ></span>
+                        	</button>
+                        </a>
                       </div>
                   </div>
                 </div>
@@ -71,7 +74,7 @@
                               <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
                             </div>
                           </th>
-                          <th class="sort align-middle ps-2" data-sort="Name">Manager</th>
+                          <th class="sort align-middle ps-2" data-sort="Manager">Manager</th>
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:15.625rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
                           <th class="sort align-middle" data-sort="Date">Date</th>
@@ -79,8 +82,8 @@
                       </thead>
                       <tbody class="list" id="table-ticket-body">
                           <!-- 반복 시작 -->
-                          <c:forEach var="vo" items="${list }">
-                          	<c:if test="${vo.secflag=='Y' }">
+                          <c:forEach var="map" items="${list}">
+                          	<c:if test="${map['SECFLAG']=='Y'}">
 		                        <tr>
 		                          <td class="align-middle fs-0 py-3">
 		                            <div class="form-check mb-0">
@@ -89,15 +92,22 @@
 		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
 			                          <div class="d-flex align-items-center gap-2 position-relative">
-			                             <h6 class="mb-0">${vo.manager }</h6>
+			                             <h6 class="mb-0">${map['MANAGER']}</h6>
 			                           </div>
 			                        </td>
-			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${vo.clubNo }'/>">${vo.title }</a></td>
+			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${map.CLUB_NO}'/>">${map['TITLE']}</a>
+			                        	<c:if test="${map['timeNew']==1}">
+											&nbsp;&nbsp;
+											<span class="badge rounded-pill bg-success position-absolute me-2">
+												New
+											</span>
+										</c:if>
+			                        </td>
 			                        <td class="align-middle memberCnt pe-4">
-			                          	${vo.memLimit }
+			                          	${map['MEM_LIMIT']}
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
-			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/></small> 
+			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small>
 			                        </td>
 			                      </tr>
                           	</c:if>
