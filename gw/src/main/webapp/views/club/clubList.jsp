@@ -100,10 +100,10 @@
 										</c:if>
 			                        </td>
 			                        <td class="align-middle memberCnt pe-4">
-			                          	${map['MEMLIMIT']}
+			                          	${map['MEM_LIMIT']}
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
-			                          <%-- <small class="badge rounded badge-subtle-success">${map['REGDATE']}</small>  --%>
+			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small>
 			                        </td>
 			                      </tr>
                           	</c:if>
