@@ -69,12 +69,12 @@ public class ClubController {
 		//2.
 		List<Map<String, Object>> list=clubService.selectClub(searchVo);
 		logger.info("개설된 동호회 list.size()={}",list.size());
-
-
-		for(Map<String, Object> map : list) { map.put("timeNew",
-				Utility.displayNew((Date)map.get("REGDATE"))); }
-
-
+		
+		
+		 for(Map<String, Object> map : list) { 
+			 map.put("timeNew",Utility.displayNew((Date)map.get("REGDATE"))); 
+		 }
+		 
 		//3.
 		model.addAttribute("list", list);
 		//4.
@@ -143,7 +143,7 @@ public class ClubController {
 		model.addAttribute("url", url);
 
 		//4.
-		return "club/clubList";
+		return "common/message";
 	}
 
 	@RequestMapping("/clubDetail")
