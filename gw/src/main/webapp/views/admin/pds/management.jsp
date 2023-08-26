@@ -161,7 +161,7 @@
 												<td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
 												<td class="align-middle">${map['DOWNLOADCOUNT']}</td>
 												<td class="align-middle">
-									                <a href="<c:url value='/pds/download?boardNo=${map[BOARD_NO]}&fileName=${map[FILENAME]}'/>">
+									                <a href="<c:url value='/pds/download?boardNo=${map["BOARD_NO"]}&fileName=${map["FILENAME"]}'/>">
 								              		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지" >
 								                </a>
 												</td>

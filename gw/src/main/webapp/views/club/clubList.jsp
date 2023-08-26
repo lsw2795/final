@@ -57,7 +57,6 @@
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>"><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-plus" ></span></button></a>
-                        <a href="<c:url value='/club/editClub?clubNo=${map.CLUB_NO}'/>"><button class="btn btn-falcon-default btn-sm mx-2" id="edit" type="button"><span class="fas fa-pen" ></span></button></a>
                       </div>
                   </div>
                 </div>
@@ -94,16 +93,17 @@
 			                        </td>
 			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${map.CLUB_NO}'/>">${map['TITLE']}</a>
 			                        	<c:if test="${map['timeNew']==1}">
-											<div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
+											&nbsp;&nbsp;
+											<span class="badge rounded-pill bg-success position-absolute me-2">
 												New
-											</div>
+											</span>
 										</c:if>
 			                        </td>
 			                        <td class="align-middle memberCnt pe-4">
 			                          	${map['MEM_LIMIT']}
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
-			                          <small class="badge rounded badge-subtle-success">${map['REGDATE']}</small>
+			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small>
 			                        </td>
 			                      </tr>
                           	</c:if>
