@@ -5,10 +5,9 @@
 <%@ page import="com.ez.gw.commute.model.CommuteVO"%>
 <%@ include file="../inc/top.jsp"%>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<link href= "<c:url value='/lib/fullcalendar/main.css'/>"  rel='stylesheet' />
+<script src="<c:url value='/lib/fullcalendar/main.js'/> "></script>
+<script src="<c:url value='/lib/fullcalendar/locales-all.min.js'/> "></script>
 <style>
 	div#calendar {
 	    background: white;
@@ -19,39 +18,48 @@
 <div id='calendar'></div>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-	    var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	        initialView: 'dayGridMonth',
-	        locale: 'ko', // 한국어 설정
-	        headerToolbar: {
-	            start: "prev next today",
-	            center: "title",
-	            end: 'dayGridMonth,dayGridWeek,dayGridDay'
-	        },
-	        selectable: true,
-	        droppable: true,
-	        editable: false,
-	        events: [ 
-	            <% List<Map<String, Object>> calendarList = (List<Map<String, Object>>) request.getAttribute("calendarList"); %>
-	            <% if (calendarList != null) { %>
-	                <% for (Map<String, Object> event : calendarList) { %>
-	                    {
-	                        title: '출근',
-	                        start: '<%= event.get("start") %>', // 출근 시간
-	                        color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
-	                    },
-	                    {
-	                        title: '퇴근',
-	                        start: '<%= event.get("end") %>',     // 퇴근 시간
-	                        color: '#' + Math.round(Math.random() * 0xffffff).toString(16)
-	                    },
-	                <% } %>
-	            <% } %>
-	        ]
-	    });
-	    calendar.render();
+  document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView : 'dayGridMonth', //초기 캘린더 화면
+			headerToolbar : {
+				start : 'prev next today',
+				center : 'title',
+				end : ''
+			},
+			titleFormat : function(date) {
+				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+			},
+			//initialDate: '2023-08-01', // 초기 날짜 설정 (설정 x => 오늘날짜)
+			selectable : false, // 달력 일자 드래그 가능
+			droppable : false,
+			editable : false,
+			nowIndicator: true, 
+			locale: 'ko', // 한국어로 변경해주기
+			events : [
+				<%List<CommuteVO> commuteList = (List<CommuteVO>)request.getAttribute("list");  %>
+				<%if(commuteList != null && !commuteList.isEmpty()){ %>
+					<%for(CommuteVO vo : commuteList){ %>
+					{
+						title : '출근' ,
+						start : '<%=vo.getWorkIn()%>',
+					},
+					{
+						title : '퇴근',
+						start : '<%=vo.getWorkOut()%>',
+						display : 'block',
+						backgroundColor : 'red'
+					},
+					<%}%>
+				<%}%>
+				
+			]
+			
+		});
+		calendar.render();
 	});
 </script>
+
+
 
 <%@ include file="../inc/bottom.jsp" %>
