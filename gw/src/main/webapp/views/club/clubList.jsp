@@ -103,7 +103,7 @@
 			                          	${map['MEMLIMIT']}
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
-			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small> 
+			                          <%-- <small class="badge rounded badge-subtle-success">${map['REGDATE']}</small>  --%>
 			                        </td>
 			                      </tr>
                           	</c:if>
