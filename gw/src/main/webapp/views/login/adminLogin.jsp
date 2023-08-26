@@ -84,7 +84,7 @@
                     <h5>Admin Log in</h5>
                   </div>
                 </div>
-                 <form name="adminLoginFrm" method="post" action="<c:url value='/login/adminLogin'/>">
+                 <form name="adminLoginFrm" method="post" action="<c:url value='/admin/login'/>">
                   <div class="mb-3">
                     <input class="form-control" name="empNo" type="text" placeholder="관리자 사원번호" value="${cookie.ck_empNo.value}" />
                   </div>
