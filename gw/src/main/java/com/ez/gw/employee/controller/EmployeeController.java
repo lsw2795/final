@@ -98,10 +98,10 @@ public class EmployeeController {
 	public String empDetail(@RequestParam (defaultValue = "0") int empNo, Model model) {
 		logger.info("조직도- 사원 디테일 페이지 보기 파라미터 empNo={}", empNo);
 
-		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
-		logger.info("사원 디테일 조회 결과, empVo={}", empVo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원 디테일 조회 결과, map={}", map);
 
-		model.addAttribute("empVo", empVo);
+		model.addAttribute("map", map);
 
 		return "mypage/empDetail";
 	}
@@ -267,6 +267,20 @@ public class EmployeeController {
 		return "admin/employee/employeeRegister";
 	}
 
+	@ResponseBody
+	@RequestMapping("/ajaxUpdateRetiredate")
+	public int updateEmpRetiredate(@ModelAttribute EmployeeVO empVo,
+			@RequestParam (defaultValue = "0") int empNo,
+			@RequestParam (required = false)String retiredate) {
+		 empVo.setEmpNo(empNo);
+		 empVo.setRetiredate(retiredate);
+		 logger.info("관리자 - 사원 퇴사 처리 파라미터 empVo={}", empVo);
+		 int cnt=employeeService.updateEmpRetiredate(empVo);
+		 logger.info("관리자 - 사원 퇴사 처리 결과, cnt={}", cnt);
+		 
+		 return cnt;
+	}
+	
 	@PostMapping("/admin/employee/employeeEdit")
 	public String adminEmpEdit_post(@RequestParam (defaultValue = "0") int empNo,
 	        @ModelAttribute EmployeeVO empVo,

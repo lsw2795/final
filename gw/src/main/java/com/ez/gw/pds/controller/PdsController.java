@@ -87,7 +87,6 @@ public class PdsController {
 		//4
 		return "pds/list";
 
-
 	}
 
 	@GetMapping("/pds/write")
@@ -452,7 +451,7 @@ public class PdsController {
 	}
 
 	@RequestMapping("/admin/pds/deleteMulti")
-	public String admin_qnaDelete(@ModelAttribute ListPdsVO listVo,
+	public String adminPdsDelete(@ModelAttribute ListPdsVO listVo,
 			HttpServletRequest request, Model model) {
 		//1
 		logger.info("관리자 - 선택한 파일 삭제, 파라미터 listVo={}", listVo);
@@ -475,6 +474,68 @@ public class PdsController {
 		return "common/message";
 	}
 
+	@RequestMapping("/admin/pds/boardManagement")
+	public String adminPdsBoardManagement(@ModelAttribute SearchVO searchVo ,Model model) {
+		//1
+		logger.info("관리자 - 자료실 게시글 관리 페이지 파라미터 searchVo={}", searchVo);
+		
+		//2
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+
+		//[2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+
+		List<Map<String, Object>> list = pdsService.selectPdsAll(searchVo);
+		logger.info("관리자 자료실 게시글 관리 전체조회, list.size={}", list.size());
+
+		for (Map<String, Object> map : list) {
+			BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
+			int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
+			int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
+			map.put("fileCount", fileCount);
+		}
+		
+		int totalRecord = pdsService.getTotalRecord(searchVo);
+		logger.info("글 목록 전체 조회 - totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+
+		//3
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+
+		//4
+		return "admin/pds/boardManagement";
+
+	}
+	
+	@RequestMapping("/admin/pds/boardDeleteMulti")
+	public String admin_qnaDelete(@ModelAttribute ListBoardVO listVo,
+			HttpServletRequest request, Model model) {
+		//1
+		logger.info("관리자 - 선택한 파일 삭제, 파라미터 listVo={}", listVo);
+
+		//2. db
+		List<BoardVO> list = listVo.getBoardItems();
+		int cnt = pdsService.deleteBoardMulti(request, list);
+		logger.info("관리자 - 자료실 게시글 삭제 결과, cnt={}", cnt);
+
+		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/admin/pds/boardManagement";
+		if(cnt>0) {
+			msg = "선택한 게시글들을 삭제했습니다.";
+			
+		}
+
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
+	}
 
 
 

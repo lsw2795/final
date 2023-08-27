@@ -134,4 +134,23 @@ public class RemanController {
 		//4
 		return "common/message";
 	}
+	
+	@RequestMapping("/admin/officeProduct/ajaxManagerCheck")
+	@ResponseBody
+	public int ajaxManagerCk(@RequestParam(required = false)String manager) {
+		//
+		logger.info("파라미터 manager = {}", manager);
+		
+		int cnt = employeeService.countManager(manager);
+		logger.info("사원 찾기 결과, cnt = {}", cnt);
+		
+		int result = 0;
+		if(cnt>0) {
+			result = 1;	//사원 존재
+		}else {
+			result = 2;	//사원 존재하지 않음
+		}
+		
+		return result;
+	}
 }

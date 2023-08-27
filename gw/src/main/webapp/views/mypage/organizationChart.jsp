@@ -31,6 +31,10 @@ function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
 
+function messageWrite(empNo) {
+    window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
+};
+
 $.send = function(curPage){
 	$('#currentPage').val(curPage);
 	

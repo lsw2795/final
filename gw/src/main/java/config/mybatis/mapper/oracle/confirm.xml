@@ -23,12 +23,6 @@
 			<if test="createDate!=null and createDate!=''">
 				and trunc(create_date) = #{createDate}
 			</if>
-			<if test="startDate!=null and startDate!=''">
-				and trunc(start_date) = #{startDate}
-			</if>
-			<if test="endDate!=null and endDate!=''">
-				and trunc(end_date) = #{endDate}
-			</if>
 		</trim>
 	</sql>
 	

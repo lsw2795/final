@@ -59,6 +59,9 @@
     </script>
     <script type="text/javascript">
     	$(function() {
+    		$.when(confirmRecord(), newMessage()).done(function() {
+    	        bellSet();
+    	    });
     		  $('.nav-link').on('click', function() {
     		    // 해당 a 태그에 active 클래스 추가
     		    $(this).addClass('active');
@@ -66,12 +69,19 @@
     		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
     		    $('.nav-link').not(this).removeClass('active');
     		  });
-    		  
-    		  confirmRecord();
+    		
 		});
     	
+    	function bellSet(){
+    		var newCnt=$('.list-group').find('.new').length;
+    		if(newCnt>0){
+    			$('#navbarDropdownNotification').addClass('notification-indicator');
+    			$('#navbarDropdownNotification').addClass('notification-indicator-primary');
+    		}
+    	}
+    	
     	function confirmRecord(){
-    		$.ajax({
+    		return $.ajax({
     			url:"<c:url value='/approval/recordAjax'/>",
     		   	type:"post",
     		   	dataType:"json",
@@ -80,10 +90,104 @@
     		   		$('#turn').text(res[1]);
     		   		$('#agree').text(res[2]);
     		   		$('#approval').text(res[0]+res[1]+res[2]);
+    		   		approvalInfo(res[0],res[1],res[2]);
     		    },error:function(xhr, status, error){
     		    	alert(status+" : "+error);
     		   	}
     		});
+    	}
+    	
+    	function newMessage(){
+    		return $.ajax({
+    			url:"<c:url value='/message/newMessageAjax'/>",
+    		   	type:"post",
+    		   	dataType:"json",
+    		   	success:function(res){
+    		   		$('#newMessage').text(res);
+    		   		$('#totalMessage').text(res);
+    		   		messageInfo(res);
+    		    },error:function(xhr, status, error){
+    		    	alert(status+" : "+error);
+    		   	}
+    		});
+    	}
+    	
+    	function approvalInfo(confirm,turn,agree){
+        	var str="";
+        	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+        	var confirmStr="<strong>결재할 문서</strong> : "+confirm+"건이 있습니다.</p>";
+        	var turnStr="<strong>반려된 문서</strong> : "+turn+"건이 있습니다.</p>";
+        	var agreeStr="<strong>합의할 문서</strong> : "+agree+"건이 있습니다.</p>";
+        	var turnUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/returnList'/>'>";
+        	var agreeUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/deptAgreeList'/>'>";
+        	var confirmUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/confirm/confirmList'/>'>";
+        	var divstr="<div class='list-group-item new'>";	
+        	var divstr2="<div class='notification-avatar'>";
+        	divstr2+="<div class='avatar avatar-2xl me-3'>";
+        	divstr2+="<img class='rounded-circle' src='<c:url value='/images/approval.png'/>' alt='쪽지아이콘' />";
+        	divstr2+="</div>";
+        	divstr2+="</div>";
+        	divstr2+="<div class='notification-body'>";
+        	divstr2+="<p class='mb-1'>";
+        	
+          	if(confirm>0 || turn>0 || agree>0){
+	          	if(confirm>0){
+		        	str+=divstr;
+		        	str+=confirmUrl;
+		        	str+=divstr2;
+		        	str+=confirmStr;
+		        	str+="</div></a></div>";
+	          	}
+	          	if(turn>0){
+	          		str+=divstr;
+		        	str+=turnUrl;
+		        	str+=divstr2;
+	          	  	str+=turnStr;
+	          	  	str+="</div></a></div>";
+	          	}
+	          	if(agree>0){
+	          		str+=divstr;
+		        	str+=agreeUrl;
+		        	str+=divstr2;
+	          	  	str+=agreeStr;
+	          	  	str+="</div></a></div>";
+	          	}
+          	}else{
+          		return;
+          	}
+          	
+          	if($('.list-group').find('.new').length==0){
+          		$('.list-group').html(topstr);
+          	} 
+          	$('.list-group').append(str);
+          
+    	}
+    	
+    	function messageInfo(cnt){
+        	var str="";
+        	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+        	
+          	if(cnt>0){
+        	  str+="<div class='list-group-item new'>";
+        	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
+        	  str+="<div class='notification-avatar'>";
+        	  str+="<div class='avatar avatar-2xl me-3'>";
+        	  str+="<img class='rounded-circle' src='<c:url value='/images/message.png'/>' alt='쪽지아이콘' />";
+        	  str+="</div>";
+        	  str+="</div>";
+        	  str+="<div class='notification-body'>";
+        	  str+="<p class='mb-1'>";
+        	  str+="<strong>안읽은 메시지</strong> : "+cnt+"건이 있습니다.</p>";
+        	  str+="</div></a></div>";
+          	}else{
+          		return;
+          	}
+          	
+          	if($('.list-group').find('.new').length==0){
+          		$('.list-group').html(topstr);
+          	} 
+          	$('.list-group').append(str);
+          
     	}
     </script>
   </head>
@@ -169,20 +273,6 @@
                     			<a class="nav-link " href="<c:url value='/commute/status'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">출/퇴근 현황</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">연차 휴가 신청</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">잔여 연차 현황</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -279,7 +369,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="c">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/reservation/addReservation'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">자원 예약</span>
                         			</div> 
@@ -303,6 +393,13 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/calendar/addCalendar'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">일정 등록</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/calendar/fullCalendar'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내 일정 관리</span>
@@ -324,7 +421,7 @@
 	                    		<span class="nav-link-text"><span class="fas fa-envelope-open"></span></span>
 	                    		<span class="nav-link-text ps-1">
 	                    		쪽지
-	                    		<span class="badge rounded-pill text-bg-primary" id="totalMessage">0</span>
+	                    		<span class="badge rounded-pill text-bg-primary" id="totalMessage"></span>
 	                    		</span>
 	                    	</div>
 	                  	</a>
@@ -341,7 +438,7 @@
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">
                         					쪽지함
-                        					<span class="badge rounded-pill text-bg-primary" id="newMessage">0</span>
+                        					<span class="badge rounded-pill text-bg-primary" id="newMessage"></span>
                         				</span>
                         			</div> 
                       			</a>
@@ -512,89 +609,30 @@
                 <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link notification-indicator notification-indicator-primary px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll"><span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span></a>
+                <a class="nav-link px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll">
+                	<span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span>
+                </a>
                 <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-menu-notification dropdown-caret-bg" aria-labelledby="navbarDropdownNotification">
                   <div class="card card-notification shadow-none">
                     <div class="card-header">
                       <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
-                          <h6 class="card-header-title mb-0">Notifications</h6>
+                          <h6 class="card-header-title mb-0">알림</h6>
                         </div>
-                        <div class="col-auto ps-0 ps-sm-3"><a class="card-link fw-normal" href="#">Mark all as read</a></div>
                       </div>
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
                       <div class="list-group list-group-flush fw-normal fs--1">
                         <div class="list-group-title border-bottom">NEW</div>
                         <div class="list-group-item">
-                          <a class="notification notification-flush notification-unread" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="assets/img/team/1-thumb.png" alt="" />
-                              </div>
+                            <div class="notification-body p-3" align="center">
+                              <p class="mb-1">
+                              	<strong>새로운 알림이 없습니다.</strong> 
+                              </p>
                             </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world ð"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¬</span>Just now</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="notification notification-flush notification-unread" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <div class="avatar-name rounded-circle"><span>AB</span></div>
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
-                              <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-title border-bottom">EARLIER</div>
-                        <div class="list-group-item">
-                          <a class="notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="assets/img/icons/weather-sm.jpg" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¤ï¸</span>1d</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="border-bottom-0 notification-unread  notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="assets/img/logos/oxford.png" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">âï¸</span>1w</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="border-bottom-0 notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="assets/img/team/10.jpg" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ðâ</span>2d</span>
-                            </div>
-                          </a>
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer text-center border-top"><a class="card-link d-block" href="app/social/notifications.jsp">View all</a></div>
                   </div>
                 </div>
               </li>

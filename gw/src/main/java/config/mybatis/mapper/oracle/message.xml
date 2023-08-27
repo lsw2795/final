@@ -30,5 +30,12 @@
 		where reader=#{empNo}
 		and message_no=#{messageNo}
 	</delete>
+	
+	<select id="newMessage" parameterType="int">
+		select count(*) from messageView
+		where reader=#{reader} 
+		and read_date is null
+		and delflag='N'
+	</select>
 
 </mapper>

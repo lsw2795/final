@@ -253,6 +253,7 @@
 		if(ConfirmFormCheck){
 			$('#authentication-modal').modal('show'); 
 		}
+		
 	});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -264,6 +265,11 @@
 			}else {
 				$("#email3").css("visibility", "hidden");
 			}
+		});
+		
+		
+		$('#btnDeleteEmp').click(function(){
+			$('#deleteEmp-modal').modal('show'); 
 		});
 		
 	});

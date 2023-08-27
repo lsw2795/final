@@ -4,6 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
+<script type="text/javascript">
+function setReader(empNo) {
+	window.opener.messageWrite(empNo);
+    window.close();
+}
+</script>
 <style>
 	body{
 		background: #eff2f8;
@@ -17,16 +23,17 @@
        </div>
     </div>
       <div class="card-body" style="text-align: center; font-size: 16px;">
-      	<img src="<c:url value='/images/${empVo.image }'/>" alt="사원 이미지" style="width:200px; height:250px;">
+      	<img src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지" style="width:200px; height:250px;">
       	<br><br>
-        사원 번호 : ${empVo.empNo }<br>
-		사원 이름 : ${empVo.name }<br>
-		내선 번호 : ${empVo.extensionNo}<br>
-		연락처 : ${empVo.tel }<br>
-		이메일 : ${empVo.email }<br>
+        사원 번호 : ${map['EMP_NO']}<br>
+		사원 이름 : ${map['NAME']}<br>
+		내선 번호 : ${map['EXTENSION_NO']}<br>
+		연락처 : ${map['TEL']}<br>
+		이메일 : ${map['EMAIL']}<br>
       </div>
       <div class="card-footer" style="text-align: center;"><br>
-        <input type="button" value="쪽지 보내기" class="mypageempbtncss2"/>
+        <input type="button" value="쪽지 보내기" class="mypageempbtncss2" 
+        onclick="setReader('${map['EMP_NO']}')"/>
       </div>
     </div>
   </div>

@@ -40,12 +40,17 @@ public class MessageContentController {
 	private final DeptService deptService;
 	
 	@GetMapping("/messageWrite")
-	public String messageWrite(Model model){
-		logger.info("쪽지 보내기 페이지");
+	public String messageWrite(@RequestParam(defaultValue = "0") int empNo, Model model){
+		logger.info("쪽지 보내기 페이지 파라미터 empNo={}",empNo);
 		
 		List<Map<String, Object>> empList = employeeService.selectAllEmp();
 		List<DeptVO> deptList = deptService.selectAllDept();
+		Map<String, Object> empSet = new HashMap<>(); 
+		if(empNo!=0) {
+			empSet =employeeService.selectEmpByEmpNo(empNo);
+		}
 		
+		model.addAttribute("empSet",empSet);
 		model.addAttribute("empList",empList);
 		model.addAttribute("deptList",deptList);
 		
@@ -174,6 +179,18 @@ public class MessageContentController {
 		
 		resultMap.put("messageList", messageList);
 		return resultMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/newMessageAjax")
+	public int messageListClickAjax(HttpSession session){
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("새로운 메시지 조회 empNo={}",empNo);
+			
+		int cnt=messageService.newMessage(empNo);
+		logger.info("새로운 메시지 조회 결과 cnt={}",cnt);
+		
+		return cnt;
 	}
 	
 	

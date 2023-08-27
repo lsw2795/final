@@ -126,11 +126,11 @@ public class SecondHandTradeController {
 				fileSize = (long) f.getSize();
 
 				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-				// String filePath = request.getSession().getServletContext().getRealPath(path);
+				String filePath = request.getSession().getServletContext().getRealPath(path);
 				// String filePath =
 				// "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
 
-				File file = new File(path, fileName);
+				File file = new File(filePath, fileName);
 				f.transferTo(file);
 
 				logger.info("파일명:{}", fileName);
@@ -147,16 +147,21 @@ public class SecondHandTradeController {
 		}
 
 		// 3
-
+		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		url = "/market/marketList";
 		if (cnt > 0 && result>0) {
 			msg = "상품이 성공적으로 등록되었습니다.";
-			url = "/market/marketList";
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "common/message";
 		}
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
+		
+		model.addAttribute("emp", emp);
 		// 4.
-		return "common/message";
+		
+		return "market/market/List";
 	}
 
 	@RequestMapping("/marketList")
