@@ -17,8 +17,8 @@
 	               $('#adminPwdChkFlag').val(res);
 	               
 	               if($('#adminPwdChkFlag').val()>0){
-	                  	  alert("관리자 확인이 완료되었습니다.");
-	                  	  if($('#retiredate').val().length>1){
+	                  	 alert("관리자 확인이 완료되었습니다.");
+	                  	 if($('#retiredate').val().length==10){
 	                     	ConfirmFormCheck=true;
 	                    	if(confirm('정말 퇴사처리 하시겠습니까?')){
 	            				if(ConfirmFormCheck){
