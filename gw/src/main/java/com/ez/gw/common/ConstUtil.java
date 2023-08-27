@@ -25,8 +25,6 @@ public interface ConstUtil {
 	String MARKET_UPLOAD_PATH="upload";
 	String MARKET_UPLOAD_PATH_TEST="/market/upload";
 	
-	
-	
 	//집
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
@@ -36,11 +34,12 @@ public interface ConstUtil {
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
 	String FILE_UPLOAD_PATH_TEST = "pds_upload";
 	
-	
 	//관리자 페이지 - 사원 이미지 저장 경로
 	String IMAGE_FILE_UPLOAD_PATH = "images";
 	//String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\images";
 	String IMAGE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\images";
+	String IMAGE_FILE_UPLOAD_PATH_TEST = "images";
+	//String IMAGE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\images";
 	//String IMAGE_FILE_UPLOAD_PATH_TEST = "C:\\Users\\ezen\\git\\final\\gw\\src\\main\\webapp\\images";
 	//String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\final_ws\\final\\gw\\src\\main\\webapp\\images";  채영
 	

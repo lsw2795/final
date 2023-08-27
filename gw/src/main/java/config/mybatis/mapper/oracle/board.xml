@@ -216,4 +216,34 @@
 		values(#{boardNo}, #{empNo}, 4000, #{title}, #{content})
 	</insert>
 	
+	<select id="selectFAQ" parameterType="searchVo" resultType="boardVo">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from board
+				where boardList_no=4000
+				<if test="searchKeyword!=null and searchKeyword!=''">
+	   	 			and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+	      		</if>
+				order by regdate desc
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="gTRsearchFAQ" parameterType="searchVo" resultType="int">
+		select count(*) from board
+		where boardList_no=4000
+		<if test="searchKeyword!=null and searchKeyword!=''">
+	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+   		</if>
+		order by regdate desc
+	</select>
+	
 </mapper>

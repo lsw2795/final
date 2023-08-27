@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
@@ -28,5 +29,7 @@ public interface BoardDAO {
 	int gTRSearchBoard(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 검색 전체 레코드
 	Map<String, Object> selectPrevNotice(int boardNo); //공지사항 - 이전글 보기
 	Map<String, Object> selectNextNotice(int boardNo); //공지사항 - 다음글 보기
-	
+	int insertFAQ(BoardVO vo); //관리자 FAQ 글등록 메서드
+	List<BoardVO> selectFAQ(SearchVO seachVo); //FAQ 목록 조회 메서드
+	int gTRsearchFAQ(SearchVO searchVo); //FAQ 검색 총 레코드 값 조회 메서드
 }
