@@ -49,6 +49,7 @@
 <style type="text/css">
 	#calendar{
 		background: white;
+		padding : 20px;
 	}
 </style>
 

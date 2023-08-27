@@ -136,6 +136,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectNameByEmpNo(empNo);
 	}
 
+	@Override
+	public int countManager(String name) {
+		return employeeDao.countManager(name);
+	}
+
 }
 
 

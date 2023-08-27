@@ -26,5 +26,6 @@ public interface EmployeeDAO {
 	int gTRSearchEmp(SearchVO searchVo); //조직도 - 사원 검색 레코드 조회 (organizationChartView 이용)
 	int selectEmpByName(String name);
 	String selectNameByEmpNo(int empNo);
+	int countManager(String name);
 }
 

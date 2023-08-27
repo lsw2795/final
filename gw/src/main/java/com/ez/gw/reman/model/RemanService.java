@@ -8,4 +8,5 @@ public interface RemanService {
 	int multiDelReman(List<RemanVO> remanList);
 	RemanVO selectRemanByNo(int remanNo);
 	int updateReman(RemanVO remanVo);
+	List<RemanVO> selectAllReman();
 }
