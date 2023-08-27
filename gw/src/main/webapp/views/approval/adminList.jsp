@@ -64,8 +64,6 @@
 		create.setFullYear(create.getFullYear() + deadLine);
 		
 		if(today<create){
-			alert(today);
-			alert(create);
 			alert(no+"문서는 보존기한이 남아있는 문서입니다.");
 			$(chk).prop('checked',false);
 		}	
@@ -89,31 +87,15 @@
 			<div class="card-body">
 				<form class="row g-3" name="frmSearch" action="<c:url value='/approval/confirmList/admin'/>" >
 				<input type="hidden" name="currentPage" value="">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<label class="form-label" for="confirmDocumentNo">문서번호</label>
 					    <input class="form-control" name="confirmDocumentNo" id="ConfirmDocumentNo" type="text" value="${confirmVO.confirmDocumentNo }" />
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-4">
 					    <label class="form-label" for="createDate">작성일</label>
 					    <input class="form-control" name="createDate" id="createDate" type="date" value="${confirmVO.createDate }" />
 					</div>
-					<div class="col-md-3">
-					    <label class="form-label" for="startDate">시작일</label>
-					    <input class="form-control" name="startDate" id="startDate" type="date" value="${confirmVO.startDate}"/>
-					</div>
-					<div class="col-md-3">
-					    <label class="form-label" for="endDate">종료일</label>
-					    <input class="form-control" name="endDate" id="endDate" type="date" value="${confirmVO.endDate}"/>
-					</div>
-					<div class="col-md-3">
-						<label class="form-label" for="confirmTitle">제목</label>
-						<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
-					</div>
-					<div class="col-md-3">
-						<label class="form-label" for="empName">기안자</label>
-						<input class="form-control" name="searchKeyword" id="searchKeyword" type="text" value="${confirmVO.searchKeyword}"/>
-					</div>
-					<div class="col-md-3">
+					<div class="col-md-4">
 					    <label class="form-label" for="documentNo">문서종류</label>
 					    <select class="form-select" name="documentNo" >
 							<option value="0">선택하세요</option>
@@ -128,7 +110,15 @@
 					    	</c:if>
 						</select>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-4">
+						<label class="form-label" for="confirmTitle">제목</label>
+						<input class="form-control" name="confirmTitle" id="confirmTitle" type="text" value="${confirmVO.confirmTitle}"/>
+					</div>
+					<div class="col-md-4">
+						<label class="form-label" for="empName">기안자</label>
+						<input class="form-control" name="searchKeyword" id="searchKeyword" type="text" value="${confirmVO.searchKeyword}"/>
+					</div>
+					<div class="col-md-4">
 					    <label class="form-label" for="confirmState">결재상태</label>
 					    <select class="form-select" name="confirmState" id="confirmState">
 							<option value="0">선택하세요</option>
