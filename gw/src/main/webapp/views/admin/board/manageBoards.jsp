@@ -171,6 +171,7 @@
 	            success: function (res) {
 	            	if(res>0){
 	                	alert('게시판 삭제 처리를 완료했습니다.');
+	                	location.href="<c:url value='/admin/board/manageBoards'/>";
 	            	}else{
 	            		alert('게시판의 게시글이 존재하여 삭제처리가 불가능합니다.');
 	            	}
