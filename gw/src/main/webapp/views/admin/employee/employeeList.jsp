@@ -39,6 +39,11 @@
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 admindefault">
 										<select name="searchCondition" class="admindefault adminempborder adminempsel">
+											<option value="emp_no"
+												<c:if test="${param.searchCondition=='emp_no'}">
+								            		selected="selected"
+								            	</c:if> 
+											>사원번호</option>
 											<option value="dept_name"
 												<c:if test="${param.searchCondition=='dept_name'}">
 								            		selected="selected"
