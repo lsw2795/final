@@ -195,14 +195,14 @@
 						    </div>
 	                    	<div class="col-auto text-center p-1">
 					        	<button class="form-control btn btn-primary" id="search" style="width: 80px">검색</button>
-					        	<button class="form-control btn btn-primary" id="formDelete" style="width: 80px">삭제</button>
+					        	<button class="form-control btn btn-primary" type="button" id="formDelete" style="width: 80px">삭제</button>
 					        </div>
 	                	</div>
 					</div>
 				</form>
             	<div class="card-body table-responsive scrollbar">
 					<div class="table-responsive scrollbar" id="tableDiv">
-						<form name="frmTable" action="<c:url value='/document/formDelete'/>">
+						<form name="frmTable" method="post" action="<c:url value='/document/formDelete'/>">
 							<table class="table table-hover table-striped overflow-hidden m-0" style="width: 100%">
 								<thead>
 							    	<tr class="align-middle" align="center">

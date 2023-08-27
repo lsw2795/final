@@ -232,7 +232,5 @@
 			</div>
 		</div>
 	</div>
-
-
 </div>
 <%@ include file='../../inc/adminBottom.jsp'%>

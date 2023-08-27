@@ -39,7 +39,7 @@
 		function delReader(a){
 			$(a).parent().remove();
 			if($('#readerDiv').find('#readerName').length==0){
-				$('#readerDiv').html("조직도에서 선택하세요");
+				$('#readerDiv').html("<b>조직도에서 선택하세요</b>");
 			}
 		}
 </script>
@@ -94,7 +94,7 @@
 						<div class="border border-top-0 border-200">
 							<label class="form-label border-200">받는사람</label>
 							<div id="readerDiv">
-								조직도에서 선택하세요.
+								<b>조직도에서 선택하세요.</b>
 							</div>
 						</div>
 						<label class="form-label">내용</label>

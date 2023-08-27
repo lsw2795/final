@@ -28,4 +28,9 @@ public class MessageServiceImpl implements MessageService{
 		}
 		return cnt;
 	}
+
+	@Override
+	public int newMessage(int reader) {
+		return messageDao.newMessage(reader);
+	}
 }

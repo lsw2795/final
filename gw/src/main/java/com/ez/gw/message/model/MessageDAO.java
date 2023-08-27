@@ -10,4 +10,5 @@ public interface MessageDAO {
 	int updateDelFlag(MessageViewVO vo);
 	int searchDeleteMessage(MessageViewVO vo);
 	int deleteMessage(MessageViewVO vo);
+	int newMessage(int reader);
 }

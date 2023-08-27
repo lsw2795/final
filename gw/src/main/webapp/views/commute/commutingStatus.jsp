@@ -13,6 +13,15 @@
 	    background: white;
 	    padding: 20px;
 	}
+	
+	.fc-event-time{
+		color: black;
+	}
+	
+	.fc-event-title{
+		color: blue;
+	}
+	
 </style>
 
 <div id='calendar'></div>
@@ -25,7 +34,7 @@
 			headerToolbar : {
 				start : 'prev next today',
 				center : 'title',
-				end : ''
+				end : 'dayGridMonth,dayGridWeek'
 			},
 			titleFormat : function(date) {
 				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';

@@ -22,6 +22,21 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.insertWorkIn(empNo);
 	}
 
+	@Override
+	public int updateWorkOut(int empNo) {
+		return commuteDao.updateWorkOut(empNo);
+	}
+
+	@Override
+	public int selectIsWorkIn(int empNo) {
+		return commuteDao.selectIsWorkIn(empNo);
+	}
+
+	@Override
+	public int selectIsWorkOut(int empNo) {
+		return commuteDao.selectIsWorkOut(empNo);
+	}
+
 	
 	
 }
