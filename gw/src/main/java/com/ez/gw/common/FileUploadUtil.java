@@ -91,9 +91,10 @@ public class FileUploadUtil {
 				path=ConstUtil.NOTICE_FILE_UPLOAD_PATH;//pds_upload
 			}
 
-			//실제 물리적인 경로 구하기
-			path=request.getSession().getServletContext().getRealPath(path);
 		}
+		
+		//실제 물리적인 경로 구하기
+		path=request.getSession().getServletContext().getRealPath(path);
 
 		logger.info("업로드 경로 : {}", path);
 
