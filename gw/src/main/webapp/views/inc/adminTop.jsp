@@ -213,23 +213,19 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="e">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/message/messageWrite'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">쪽지 쓰기</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/message/messageList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">보낸 쪽지함</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">받은 쪽지함</span>
+                        				<span class="nav-link-text ps-1">
+                        					쪽지함
+                        					<span class="badge rounded-pill text-bg-primary" id="newMessage"></span>
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
