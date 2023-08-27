@@ -14,6 +14,7 @@
 	<select id="selectByEmpNo" parameterType="int" resultType="employeeVo">
 		select * from employee
 		where emp_no=#{empNo}
+		order by position_no desc
 	</select>
 	
 	<select id="selectAllEmp" resultType="map">
@@ -59,7 +60,7 @@
 					or position_name like '%'|| #{searchKeyword} ||'%'
 					and retiredate is null
 				</if>
-					order by dept_name asc, position_name desc
+				order by position_rank desc, dept_name asc
 		    )A
 		)
 	<![CDATA[
@@ -77,7 +78,7 @@
 			or position_name like '%'|| #{searchKeyword} ||'%'
 			and retiredate is null
 		</if>
-			order by dept_name asc, position_name desc
+		order by position_rank desc, dept_name asc
 	</select>
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
@@ -92,7 +93,7 @@
 				<if test="searchKeyword!=null and searchKeyword!=''">
 	   	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
 	      		</if>
-				order by position_rank desc, dept_no asc
+				order by position_rank desc, position_name
 			)A
 		)
 		<![CDATA[
@@ -107,7 +108,7 @@
 		<if test="searchKeyword!=null and searchKeyword!=''">
  	 	and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
     	</if>
-        order by position_rank desc, dept_no asc
+       	order by position_rank desc, position_name
 	</select>
 	
 	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
