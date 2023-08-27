@@ -40,7 +40,7 @@ public interface ConstUtil {
 	
 	//관리자 페이지 - 공지사항 자료실 이용한 파일 저장 경로
 	String NOTICE_FILE_UPLOAD_PATH="pds_upload";
-	String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
+	String NOTICE_FILE_UPLOAD_PATH_TEST="pds_upload";
 	
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값

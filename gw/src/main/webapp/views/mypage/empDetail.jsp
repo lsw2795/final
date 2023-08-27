@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script type="text/javascript">
 function setReader(empNo) {
-   location.href="<c:url value='/message/messageWrite?empNo="+empNo+"'/>";
+	window.opener.messageWrite(empNo);
+    window.close();
 }
 </script>
 <style>
