@@ -172,20 +172,6 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">연차 휴가 신청</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">잔여 연차 현황</span>
-                        			</div> 
-                      			</a>
-                    		</li>
                     		<!-- 임원 -->
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
