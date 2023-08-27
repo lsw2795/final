@@ -81,6 +81,7 @@
     		   		$('#turn').text(res[1]);
     		   		$('#agree').text(res[2]);
     		   		$('#approval').text(res[0]+res[1]+res[2]);
+    		   		approvalInfo(res[0],res[1],res[2]);
     		    },error:function(xhr, status, error){
     		    	alert(status+" : "+error);
     		   	}
@@ -102,12 +103,55 @@
     		});
     	}
     	
+    	function approvalInfo(confirm,turn,agree){
+        	var str="";
+        	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+        	var confirmStr="<strong>결재할 문서</strong> : "+confirm+"건이 있습니다.</p>";
+        	var turnStr="<strong>반려된 문서</strong> : "+turn+"건이 있습니다.</p>";
+        	var agreeStr="<strong>합의할 문서</strong> : "+agree+"건이 있습니다.</p>";
+        	var divstr="<div class='list-group-item new'>";
+        	divstr+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
+        	divstr+="<div class='notification-avatar'>";
+        	divstr+="<div class='avatar avatar-2xl me-3'>";
+        	divstr+="<img class='rounded-circle' src='<c:url value='/images/approval.png'/>' alt='쪽지아이콘' />";
+        	divstr+="</div>";
+        	divstr+="</div>";
+        	divstr+="<div class='notification-body'>";
+        	divstr+="<p class='mb-1'>";
+        	
+          	if(confirm>0 || turn>0 || agree>0){
+	          	if(confirm>0){
+		        	str+=divstr;
+		        	str+=confirmStr;
+		        	str+="</div></a></div>";
+	          	}
+	          	if(turn>0){
+	          		str+=divstr;
+	          	  	str+=turnStr;
+	          	  	str+="</div></a></div>";
+	          	}
+	          	if(agree>0){
+	          		str+=divstr;
+	          	  	str+=agreeStr;
+	          	  	str+="</div></a></div>";
+	          	}
+          	}else{
+          		return;
+          	}
+          	
+          	if($('.list-group').find('.new').length==0){
+          		$('.list-group').html(topstr);
+          	} 
+          	$('.list-group').append(str);
+          
+    	}
+    	
     	function messageInfo(cnt){
         	var str="";
         	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
         	
           	if(cnt>0){
-        	  str+="<div class='list-group-item newMessage'>";
+        	  str+="<div class='list-group-item new'>";
         	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
         	  str+="<div class='notification-avatar'>";
         	  str+="<div class='avatar avatar-2xl me-3'>";
@@ -122,7 +166,7 @@
           		return;
           	}
           	
-          	if($('.list-group').find('.newMessage').length==0){
+          	if($('.list-group').find('.new').length==0){
           		$('.list-group').html(topstr);
           	} 
           	$('.list-group').append(str);
