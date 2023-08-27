@@ -87,7 +87,6 @@ public class PdsController {
 		//4
 		return "pds/list";
 
-
 	}
 
 	@GetMapping("/pds/write")
@@ -475,6 +474,43 @@ public class PdsController {
 		return "common/message";
 	}
 
+	@RequestMapping("/admin/pds/boardManagement")
+	public String adminPdsBoardManagement(@ModelAttribute SearchVO searchVo ,Model model) {
+		//1
+		logger.info("관리자 - 자료실 게시글 관리 페이지 파라미터 searchVo={}", searchVo);
+		
+		//2
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+
+		//[2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+
+		List<Map<String, Object>> list = pdsService.selectPdsAll(searchVo);
+		logger.info("관리자 자료실 게시글 관리 전체조회, list.size={}", list.size());
+
+		for (Map<String, Object> map : list) {
+			BigDecimal boardNoDecimal = (BigDecimal) map.get("BOARD_NO");
+			int boardNo = boardNoDecimal.intValue(); // BigDecimal을 int로 변환
+			int fileCount = pdsService.selectIsFile(boardNo); // 파일 첨부 여부 조회
+			map.put("fileCount", fileCount);
+		}
+		
+		int totalRecord = pdsService.getTotalRecord(searchVo);
+		logger.info("글 목록 전체 조회 - totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+
+		//3
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+
+		//4
+		return "pds/boardManagement";
+
+	}
 
 
 
