@@ -2,114 +2,141 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
+ <!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/admin/board/faqList'/>" 
+	name="frmPage" method="get">
+	<input type="hidden" name="currentPage" value=${param.currentPage }>
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+</form>
 <div class="card mb-3">
 	<div class="card-body admindefault position-relative">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-12">
 				<h3 class="admindefault">FAQ</h3>
 				<div class="col-auto">
 					<div class="input-group admindefault">
-						<input class="form-control shadow-none search admindefault"
-							type="search" placeholder="내용 검색" aria-label="search" />
-						<button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-							<span class="fa fa-search fs--1"></span>
-						</button>
+						<form name="frmSearch" action='<c:url value='/admin/board/faqList'/>'>
+						<div class="row flex-between-center">
+						<div class="col-auto pe-0">
+							<select name="searchCondition" class="form-select admindefault">
+	                            <option value="title"
+	                            	<c:if test="${param.searchCondition=='title'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >제목</option>
+	                            <option value="content"
+	                            	<c:if test="${param.searchCondition=='content'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >내용</option>
+                          </select>
+						</div>
+						<div class="col-auto">
+							<div class="input-group">
+								<input name="searchKeyword"
+									class="form-control shadow-none search admindefault"
+									value='${param.searchKeyword}' type="search"
+									placeholder="검색어 입력" aria-label="search" />
+								<button
+									class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+									<span class="fa fa-search fs--1"></span>
+								</button>
+							</div>
+						</div>
+						<div class="col-auto mt-3">
+							<div class="admindefault adminempdiv13" id="table-contact-replace-element">
+								<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<span class="adminhyphen"></span>
+								<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<span class="adminhyphen"></span>
+								<input type="button" value="삭제" class="btn btn-primary"/>
+							</div>
+						</div>
+						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="card">
-	<div class="card-body admindefault">
-		<div class="accordion border rounded overflow-hidden" id="accordionFaq">
-		<div class="card shadow-none rounded-0">
-		
-			<div class="d-flex justify-content-lg-end admindefault">
-				<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-					<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
-					<span class="adminhyphen"></span>
-					<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
-					<span class="adminhyphen"></span>
-					<input type="button" value="삭제" class="btn btn-primary"/>
-				</div>
-			</div>
-		
-		    <div class="accordion-item border-0">
-		        <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading1">
-		            <input class="form-check-input me-2" type="checkbox"/>
-		            <button
-		                class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none"
-		                data-bs-toggle="collapse"
-		                data-bs-target="#collapseFaqAccordion1" aria-expanded="false"
-		                aria-controls="collapseFaqAccordion1">
-		                <span class="fas fa-caret-right accordion-icon me-3"
-		                    data-fa-transform="shrink-2"></span><span
-		                    class="fw-medium font-sans-serif text-900">Does Falcon
-		                    work fine with Ruby?</span>
-		            </button>
-		        </div>
-		        <div class="accordion-collapse collapse admindefault"
-		            id="collapseFaqAccordion1"
-		            aria-labelledby="faqAccordionHeading1"
-		            data-parent="#accordionFaq">
-		            <div class="accordion-body p-0">
-		                <div class="card-body pt-2">
-		                    <div class="ps-3 mb-0">
-		                        <p class='mb-0'>
-		                            I'm afraid we do not have any documentation on Rails
-		                            integration yet or any version for Ruby. But you may find the
-		                            following link useful. Since all the Bootstrap themes are
-		                            structured in a similar fashion, you may find it helpful: <a
-		                                target='_blank'
-		                                href='https://rubyyagi.com/how-to-integrate-html-bootstrap-theme-into-rails-6/'>https://rubyyagi.com/how-to-integrate-html-bootstrap-theme-into-rails-6/</a>.
-		                        </p>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
+	<div class="card">
+      <div class="card-body admindefault">
+       <div class="col-auto searchEmpResult admindefault" style="padding: 10px 0 0 25px;">
+			<c:if test="${!empty param.searchKeyword }">
+			   <p>검색어 : ${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+			</c:if>   
 		</div>
-		<div class="card shadow-none rounded-0">
-    <div class="accordion-item border-0">
-        <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading2">
-            <input class="form-check-input me-2" type="checkbox"/>
-            <button
-                class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseFaqAccordion2" aria-expanded="false"
-                aria-controls="collapseFaqAccordion2">
-                <span class="fas fa-caret-right accordion-icon me-3"
-                    data-fa-transform="shrink-2"></span><span
-                    class="fw-medium font-sans-serif text-900">Does Falcon
-                    work fine with Ruby?</span>
-            </button>
-        </div>
-        <div class="accordion-collapse collapse admindefault"
-            id="collapseFaqAccordion2"
-            aria-labelledby="faqAccordionHeading2"
-            data-parent="#accordionFaq">
-            <div class="accordion-body p-0">
-                <div class="card-body pt-2">
+        <div class="accordion border rounded overflow-hidden" id="accordionFaq">
+          <c:if test="${!empty faqList }">
+          <c:forEach var="boardVo" items="${faqList }">
+          <div class="card shadow-none rounded-bottom-0 border-bottom">
+            <div class="accordion-item border-0">
+              <div class="card-header p-0" id="faqAccordionHeading${boardVo.boardNo }">
+                <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
+                data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
+                <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
+                <span class="fw-medium font-sans-serif text-900">${boardVo.title }</span>
+                </button>
+              </div>
+              <div class="accordion-collapse collapse" id="collapseFaqAccordion${boardVo.boardNo }" 
+              aria-labelledby="faqAccordionHeading${boardVo.boardNo }" data-parent="#accordionFaq">
+                <div class="accordion-body p-0 admindefault">
+                  <div class="card-body pt-2">
                     <div class="ps-3 mb-0">
-                        <p class='mb-0'>
-                            I'm afraid we do not have any documentation on Rails
-                            integration yet or any version for Ruby. But you may find the
-                            following link useful. Since all the Bootstrap themes are
-                            structured in a similar fashion, you may find it helpful: <a
-                                target='_blank'
-                                href='https://rubyyagi.com/how-to-integrate-html-bootstrap-theme-into-rails-6/'>https://rubyyagi.com/how-to-integrate-html-bootstrap-theme-into-rails-6/</a>.
-                        </p>
+                      <p>${boardVo.content }</p>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-</div>	
-	
+          </div>
+		</c:forEach>
+		</c:if>
 		</div>
+	<div class="card-footer d-flex justify-content-center admindefault">
+	<div class="divPage" id="divPage">
+		<!-- 페이지 번호 추가 -->		
+		<!-- 이전 블럭으로 이동 -->
+		<c:if test="${pagingInfo.firstPage>1 }">
+			<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+				<img src="<c:url value='/images/first.JPG'/>">
+			</a>
+		</c:if>	
+						
+		<!-- [1][2][3][4][5][6][7][8][9][10] -->
+		<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+			<c:if test="${i == pagingInfo.currentPage }">		
+				<span id="curPage">${i}</span>
+	        	</c:if>
+			<c:if test="${i != pagingInfo.currentPage }">		
+		        <a href="<c:url value='/admin/board/noticeList?currentPage=${i}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>" id="otherPage">${i}</a>
+		    </c:if>   		
+		</c:forEach>
+		
+		<!-- 다음 블럭으로 이동 -->
+		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+	         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+				<img src="<c:url value='/images/last.JPG'/>">
+			</a>
+		</c:if>
+		<!--  페이지 번호 끝 -->
 	</div>
 </div>
+</div>
+</div>
+
 
 
 <%@ include file='faqWrite.jsp'%>

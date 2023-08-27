@@ -126,7 +126,7 @@ public class NoticeController {
 		int totalRecord=boardService.gTRSearchNotice(searchVo);
 		pagingInfo.setTotalRecord(totalRecord);
 		//2
-				List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
+		List<Map<String, Object>> list = boardService.selectNoticeAll(searchVo);
 		logger.info("관리자 - 공지사항 전체 조회 결과, list.size={}", list.size());
 	
 		for(Map<String, Object> map : list) {

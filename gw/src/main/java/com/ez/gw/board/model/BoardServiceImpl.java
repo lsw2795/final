@@ -126,6 +126,21 @@ public class BoardServiceImpl implements BoardService {
 	public int selectAdminQnaTotalRecord(SearchVO searchVo) {
 		return boardDao.selectAdminQnaTotalRecord(searchVo);
 	}
+
+	@Override
+	public int insertFAQ(BoardVO vo) {
+		return boardDao.insertFAQ(vo);
+	}
+
+	@Override
+	public List<BoardVO> selectFAQ(SearchVO seachVo) {
+		return boardDao.selectFAQ(seachVo);
+	}
+
+	@Override
+	public int gTRsearchFAQ(SearchVO searchVo) {
+		return boardDao.gTRsearchFAQ(searchVo);
+	}
 	
 
 
