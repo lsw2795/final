@@ -96,9 +96,16 @@ public class AdminController {
 		//3.
 		//4.
 		return "common/message";
-		
 	}
 	
+	@RequestMapping("/admin/logout")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃");
+		
+		session.removeAttribute("empNo");
+		
+		return "redirect:/admin/login";
+	}
 	
 	
 	

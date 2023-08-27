@@ -1,5 +1,8 @@
 package com.ez.gw.clubboard.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.clubboard.model.ClubBoardService;
 import com.ez.gw.clubboard.model.ClubBoardVO;
+import com.ez.gw.common.SearchVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class ClubBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubBoardController.class);
 	private final ClubBoardService clubBoardService;
-	
-	
-	@RequestMapping("/clubBoard")
-	public String clubBoadList() {
-		//1.
-		logger.info("각 동호회 자유게시판 페이지");
-		return "club/clubBoard";
-	}
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -59,6 +56,20 @@ public class ClubBoardController {
 
 		//4
 		return "common/message";
+	}
+	
+	
+	@RequestMapping("/clubBoard")
+	public String clubBoadList(@ModelAttribute SearchVO saerchVo,
+			@RequestParam(defaultValue = "0")int clubNo) {
+		//1.
+		logger.info("각 동호회 자유게시판 페이지");
+	
+		//2.
+		List<Map<String, Object>> list = clubBoardService.clubBoardView(clubNo, saerchVo);
+		logger.info("");
+		
+		return "club/clubBoard";
 	}
 	
 	

@@ -62,7 +62,7 @@
                           </div>
                         </a>
                         <div class="ms-1 ms-sm-3">
-                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="<c:url value='/club/clubBoardDetail?clubNo=${clubNo }'/>">club1</a></p>
+                          <p class="fw-semi-bold mb-3 mb-sm-2"><a href="<c:url value='/club/clubBoardDetail?clubNo=${clubNo}'/>">club1</a></p>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
                               <h6 class="client mb-0"><a class="text-800 d-flex align-items-center gap-1" href="#"><span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span><span>정창모</span></a></h6>
