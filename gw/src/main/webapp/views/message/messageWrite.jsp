@@ -28,6 +28,12 @@
 				str+="<input id='reader' name='reader' type='hidden' value='"+no+"'/>";
 				str+="&nbsp;&nbsp;</span>";
 				
+				<span id='readerName'>
+				name<a href='#' onclick='delReader(this)'>
+				<span class='fas fa-minus' style='width: 8px'></span></a>
+				<input id='reader' name='reader' type='hidden' value='"+no+"'/>
+				&nbsp;&nbsp;</span>
+				
 				if($('#readerDiv').find('#readerName').length==0){
 					$('#readerDiv').html(str);
 				}else{
@@ -94,7 +100,16 @@
 						<div class="border border-top-0 border-200">
 							<label class="form-label border-200">받는사람</label>
 							<div id="readerDiv">
+							<c:if test="${param.empNo!=0 }">
+								<span id="readerName">${empSet['POSITION_NAME'] empSet['NAME']}
+								<a href="#" onclick="delReader(this)">
+								<span class="fas fa-minus" style='width: 8px'></span></a>
+								<input id="reader" name="reader" type="hidden" value="${empSet['EMPNO']}"/>
+								&nbsp;&nbsp;</span>
+							</c:if>
+							<c:if test="${param.empNo==0 }">
 								<b>조직도에서 선택하세요.</b>
+							</c:if>
 							</div>
 						</div>
 						<label class="form-label">내용</label>

@@ -40,11 +40,16 @@ public class MessageContentController {
 	private final DeptService deptService;
 	
 	@GetMapping("/messageWrite")
-	public String messageWrite(Model model){
-		logger.info("쪽지 보내기 페이지");
+	public String messageWrite(@RequestParam(defaultValue = "0") int empNo, Model model){
+		logger.info("쪽지 보내기 페이지 파라미터 empNo={}",empNo);
 		
 		List<Map<String, Object>> empList = employeeService.selectAllEmp();
 		List<DeptVO> deptList = deptService.selectAllDept();
+		 
+		if(empNo!=0) {
+			Map<String, Object> empSet =employeeService.selectEmpByEmpNo(empNo);
+			model.addAttribute("empSet",empSet);
+		}
 		
 		model.addAttribute("empList",empList);
 		model.addAttribute("deptList",deptList);
