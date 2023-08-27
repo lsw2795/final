@@ -109,7 +109,7 @@
 					var str = "";
 					if(res!=1){
 						str+= "<span style='font-weight : bold; color :red'>비밀번호가 일치하지 않습니다.</span>";
-						event.preventDefault();
+						alert("비밀번호가 일치하지 않습니다.");
 					}else{
 						str+= "<span style='font-weight : bold; color :green'>비밀번호 확인 완료</span>";
 					}

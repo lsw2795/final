@@ -15,4 +15,7 @@ public class ReservationVO { //자원예약
 	private Timestamp regdate; //자원예약일
 	private int empNo; //사원번호
 	private int deptNo; //부서번호
+	
+	private int startTime;	//예약 시작 시간
+	private int endTime;	//예약 끝 시간
 }

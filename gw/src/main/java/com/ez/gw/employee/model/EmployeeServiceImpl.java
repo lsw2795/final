@@ -154,6 +154,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	
 
+	public int countManager(String name) {
+		return employeeDao.countManager(name);
+	}
+
 }
 
 

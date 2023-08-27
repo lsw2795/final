@@ -10,83 +10,79 @@
 	rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		
-		$('#bt1').click(function(){
-			if(confirm('수정하시겠습니까?')){
-				$('form[name=editList]').prop('action', "<c:url value='/admin/officeProduct/editOfficeProduct'/>");
-				$('form[name=editList]').submit();
-			}
-		});
-		
-		var closeWindow = ${closeWindow};
-		if(closeWindow){
-			window.close();
-		}
-	});
-		
-	/* $(function(){
+	$(function(){
 		$('#bt1').click(function(){
 			
-			if($('#product-name').val().length<1){
-				alert("제목을 입력하세요.");
+			if($('#name').val().length<1){
+				alert("자원 이름을 입력하세요.");
 				$('#product-name').focus();
 				
 				return false;
 			}
 			
-			if($('#identification-no').val().length<1){
-				alert("명을 입력하세요.");
-				$('#identification-no').focus();
+			if($('#category').val().length<1){
+				alert("자원 종류를 선택하세요.");
+				$('#category').focus();
 				
 				return false;
 			}
 			
-			if($('#product-summary').val().length<1){
-				alert("가격을 입력하세요.");
-				$('#product-summary').focus();
+			if(!$('input[name=state]').is(':checked')){
+				alert("자원 상태를 선택해주세요.");
 				
 				return false;
 			}
 			
-			if(!validate_price($("#product-summary").val())){
-				alert("가격은 숫자만 입력해주세요.");
-				$('#product-summary').focus();
+			if($('#product-manager').val().length<1){
+				alert("담당자를 기재해주세요.");
+				$('#product-manager').focus();
 				
 				return false;
 			}
 			
-			/* if($('#product-description').val().length<50){
-				alert("상품 상세 설명은 50자 이상 입력해주세요.");
+			if($('#product-description').val().length<1){
+				alert("자원 내용을 입력해주세요.");
 				$('#product-description').focus();
 				
 				return false;
-			} 
+			}
+			
+			if(confirm('수정하시겠습니까?')){
+				$('form[name=editList]').prop('action', "<c:url value='/admin/officeProduct/editOfficeProduct'/>");
+				$('form[name=editList]').submit();
+				editEnd();
+			}
 		});
+	});
 		
-	}); */
-		
+	function editEnd(){
+		var closeWindow = ${closeWindow};
+
+		if(closeWindow){
+			window.close();
+		}
+	}
 </script>
 <style type="text/css">
-.mb-2 {
-	color: #0E1726;
-}
-
-.card {
-	background: white;
-	color: #0E1726;
-}
-
-.form-select {
-	background: white;
-	color: #0E1726;
-}
-
-.form-control {
-	background: white;
-	color: #0E1726;
-}
-</style>
+	.mb-2 {
+		color: #0E1726;
+	}
+	
+	.card {
+		background: white;
+		color: #0E1726;
+	}
+	
+	.form-select {
+		background: white;
+		color: #0E1726;
+	}
+	
+	.form-control {
+		background: white;
+		color: #0E1726;
+	}
+</style> 
 <div class="content">
 	<div class="card mb-3">
 		<div class="card-body">
@@ -120,7 +116,7 @@
 						</select>
 						<div class="col-12 mb-3" s>
 							<br> 
-							<input type="text" name = "remanNo" value="${remanVo.remanNo }">
+							<input type="hidden" name = "remanNo" value="${remanVo.remanNo }">
 							<label class="form-label" for="product-name">자원 이름</label> 
 							<input class="form-control" id="name" name="name" type="text" value="${remanVo.name }"/>
 						</div>

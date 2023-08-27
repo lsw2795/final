@@ -161,4 +161,7 @@
 		where emp_no=#{empNo}
 	</select>
 	
+	<select id="countManager" parameterType="string">
+		select count(*)from employee where name= #{name}
+	</select>
 </mapper>

@@ -37,4 +37,5 @@ public interface EmployeeService {
 	int selectEmpByName(String name);
 	String selectNameByEmpNo(int empNo);
 	int emailCheck(String email, int empNo); //비번찾기 메일 확인
+	int countManager(String name);
 }

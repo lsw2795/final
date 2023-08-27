@@ -28,5 +28,6 @@ public interface EmployeeDAO {
 	int selectEmpByName(String name);
 	String selectNameByEmpNo(int empNo);
 	String selectEmail(int empNo); //비밀번호 찾을때 이메일 확인
+	int countManager(String name);
 }
 

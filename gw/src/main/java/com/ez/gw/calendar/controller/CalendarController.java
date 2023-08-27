@@ -27,19 +27,14 @@ public class CalendarController {
 	private static final Logger logger = LoggerFactory.getLogger(CalendarController.class);
 	private final CalendarService calendarService;
 	
-	@RequestMapping("/viewMySchedule")
-	public String get_cal() {
-		logger.info("캘린더 내 일정관리 화면 보여주기");
-		return "calendar/calendar";
-	}
 	
-	@GetMapping("/addSchedule")
+	@GetMapping("/addCalendar")
 	public String get_schedule() {
 		logger.info("일정등록 화면 보여주기");
 		return "calendar/addCalendar";
 	}
 	
-	@PostMapping("/addSchedule")
+	@PostMapping("/addCalendar")
 	public String post_schedule(@ModelAttribute CalendarVO calVo, HttpSession session) {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
@@ -49,9 +44,9 @@ public class CalendarController {
 		String getenddate = calVo.getEnddate();
 		
 		String begindate = getbegindate.substring(0,10);
-		String begintime = getbegindate.substring(10);
+		String begintime = getbegindate.substring(11);
 		String enddate = getenddate.substring(0,10);
-		String endtime = getenddate.substring(10);
+		String endtime = getenddate.substring(11);
 		
 		
 		calVo.setBegindate(begindate);
@@ -78,19 +73,15 @@ public class CalendarController {
 		
 		//3
 		//4
-		return "redirect:/calendar/calendar";
+		return "redirect:/calendar/fullCalendar";
 	}
+	
+	
 	
 	@RequestMapping("/fullCalendar")
-	public String calendar() {
-		logger.info("캘린더 내 일정관리 화면 보여주기");
-		return "calendar/fullCalendar";
-	}
-	
-	@RequestMapping("/mySchedule")
 	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
 		logger.info("내 스케줄 보기");
-		String viewpage="/calendar/fullCalendar";
+		String viewpage="calendar/fullCalendar";
 		List<CalendarVO> calendarList=null;
 		
 		try {
@@ -104,5 +95,4 @@ public class CalendarController {
 		mv.setViewName(viewpage);
 		return mv;
 	}
-
 }

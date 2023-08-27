@@ -10,47 +10,92 @@
 	rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
-	/* $(function(){
+	var bool = false;
+	 $(function(){
 		$('#bt1').click(function(){
 			
-			if($('#product-name').val().length<1){
-				alert("제목을 입력하세요.");
+			if($('#name').val().length<1){
+				alert("자원 이름을 입력하세요.");
 				$('#product-name').focus();
 				
 				return false;
 			}
 			
-			if($('#identification-no').val().length<1){
-				alert("명을 입력하세요.");
-				$('#identification-no').focus();
+			
+			if($('#category').val().length<1){
+				alert("자원 종류를 선택하세요.");
+				$('#category').focus();
 				
 				return false;
 			}
 			
-			if($('#product-summary').val().length<1){
-				alert("가격을 입력하세요.");
-				$('#product-summary').focus();
-				
-				return false;
-			}
-			
-			if(!validate_price($("#product-summary").val())){
-				alert("가격은 숫자만 입력해주세요.");
-				$('#product-summary').focus();
-				
-				return false;
-			}
-			
-			/* if($('#product-description').val().length<50){
-				alert("상품 상세 설명은 50자 이상 입력해주세요.");
+			if($('#product-description').val().length<1){
+				alert("자원 내용을 입력해주세요.");
 				$('#product-description').focus();
 				
 				return false;
-			} */
+			}
+			
+			if($('#product-manager').val().length<1){
+				alert("담당자를 기재해주세요.");
+				$('#product-manager').focus();
+				
+				return false;
+			}
+			
+			if(!$('input[name=state]').is(':checked')){
+				alert("자원 상태를 선택해주세요.");
+				
+				return false;
+			}
+			
+			if(!bool){
+				alert("담당자가 없습니다.");
+				return false;
+			}
+			
 		});
+			$('#product-manager').keyup(function(){
+				$.ajax({
+					url:"<c:url value='/admin/officeProduct/ajaxManagerCheck'/>",
+					type:"get",
+					dataType:"JSON",
+					data:{manager:$('#product-manager').val()},
+					success:function(result){
+						$('#check').empty();
+						
+						var str = "";
+						if(result ==1){
+							str += "<span style='font-weight : bold; color :green'>사원 확인</span>"
+							bool = true;
+						}else{
+							str += "<span style='font-weight : bold; color :red'>존재하지 않는 사원입니다.</span>"
+							bool = false;
+						}
+							$('#check').append(str);
+							
+					},
+					error:function(xhr, status, error){
+						alert(status + " : " + error);
+					}
+					
+				});
+			});
+	}); 
+	
+	function checkOnlyOne(element){
+		const checkboxes = document.getElementsByName("state");
+		  
+		  checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+	}
+	
+	function checkManager(){
 		
-	}); */
-		
+	}
 </script>
 <style type="text/css">
 .mb-2 {
@@ -88,8 +133,8 @@
 					method="post" action="<c:url value='/admin/officeProduct/addOfficeProduct'/>">
 					<div class="row gx-2">
 						<label class="form-label" for="product-name">종류</label> 
-						<select class="form-select" aria-label="Default select example" name = "category">
-							<option selected>선택하세요.</option>
+						<select class="form-select" aria-label="Default select example" id = "category" name = "category">
+							<option value="">선택하세요.</option>
 							<option value="meetingRoom">회의실</option>
 							<option value="noteBook">노트북</option>
 							<option value="rentCar">차량</option>
@@ -108,22 +153,23 @@
 							</div>
 							<br> 
 							<label class="form-label" for="product-name">담당자</label>
-							<input class="form-control" id="product-name" name="manager"
+							<input class="form-control" id="product-manager" name="manager"
 								type="text" />
+							<label id = "check"></label>
 						</div>
 					</div>
 					<br> <label class="form-label" for="product-name">자원 상태</label>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" id="state" name = "state" value="1"> 
+						<input class="form-check-input" type="checkbox" id="state" name = "state" value="1"  onclick='checkOnlyOne(this)'> 
 						<label class="form-check-label" for="inlineCheckbox1">이용 가능</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" id="state" name = "state" value="2"> 
+						<input class="form-check-input" type="checkbox" id="state" name = "state" value="2" onclick='checkOnlyOne(this)'> 
 						<label class="form-check-label" for="inlineCheckbox2">이용 불가</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" id="state" name = "state" value="3" disabled> 
-						<label class="form-check-label" for="inlineCheckbox3">3(disabled)</label>
+						<input class="form-check-input" type="checkbox" id="state" name = "state" value="3" onclick='checkOnlyOne(this)'> 
+						<label class="form-check-label" for="inlineCheckbox3">관리자 문의</label>
 					</div>
 				</div>
 			</div>
