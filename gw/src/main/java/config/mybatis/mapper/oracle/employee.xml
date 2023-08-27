@@ -78,7 +78,7 @@
 			or position_name like '%'|| #{searchKeyword} ||'%'
 			and retiredate is null
 		</if>
-		order by position_rank desc, dept_name asc
+		order by position_rank desc, dept_no asc
 	</select>
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
@@ -93,7 +93,7 @@
 				<if test="searchKeyword!=null and searchKeyword!=''">
 	   	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
 	      		</if>
-				order by position_rank desc, position_name
+				order by position_rank desc, dept_no asc
 			)A
 		)
 		<![CDATA[
