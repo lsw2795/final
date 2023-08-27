@@ -45,19 +45,48 @@ public class CommuteController {
 	public int ajaxWorkIn(@RequestParam(defaultValue = "0") int empNo) {
 		//1
 		logger.info("ajax 사원 번호={}", empNo);
-		//2
-		int cnt = commuteService.insertWorkIn(empNo);
-		logger.info("출근 버튼 클릭시 인서트 결과 cnt={}", cnt);
-		//3
-		//4
-		return cnt;
-	}
 		
+		//2
+		int count = commuteService.selectIsWorkIn(empNo); // 출근 기록 없으면 0, 출근 기록 있으면 1 리턴
+		logger.info("출근 기록 존재 여부 count={}", count);
+		
+		int result = 0; //ajax로 리턴해줄 int 값 초기화, 0:출근 처리 실패 1:출근 처리 성공
+		if(count<1) { //출근 기록 없을때만 insert
+			int cnt = commuteService.insertWorkIn(empNo);
+			logger.info("출근 버튼 클릭시 인서트 결과 cnt={}", cnt);
+			result = 1; //출근 처리 성공
+		}
+		
+		return result;
+		
+	}
 	
-
-
-
-
+	@RequestMapping("/workOut")
+	@ResponseBody
+	public int ajaxWorkOut(@RequestParam(defaultValue = "0") int empNo) {
+		//1
+		logger.info("ajax 사원 번호={}", empNo);
+		
+		//출근기록 있는지 여부 조회 없으면 0 있으면 1
+		int count = commuteService.selectIsWorkIn(empNo); // 출근 기록 없으면 0, 출근 기록 있으면 1 리턴
+		logger.info("퇴근 기록 존재 여부 count={}", count);
+		
+		int result = 0; //ajax로 리턴해줄 int 값 초기화, 0:퇴근 처리 실패 1:퇴근 처리 성공
+		
+		//출근 기록이 있으면
+		if(count>0) { //출근 기록 있을때만 insert
+			int count2 = commuteService.selectIsWorkOut(empNo); //퇴근기록 조회
+			//출근기록이 있는데 퇴근기록이 없을때만 퇴근 처리
+			if(count2<1) {
+				int cnt = commuteService.updateWorkOut(empNo);
+				logger.info("퇴근 버튼 클릭시 인서트 결과 cnt={}", cnt);
+				result = 1; //퇴근 처리 완료
+			}
+		}
+		
+		return result;
+		
+	}
 
 
 }
