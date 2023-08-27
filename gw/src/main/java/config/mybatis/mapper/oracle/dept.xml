@@ -12,12 +12,13 @@
 	</select>
 	
 	<select id="selectAllDept2" parameterType="deptVo" resultMap="empListResultMap">
-		select * from dept order by dept_level desc
+		select * from dept order by dept_no asc
 	</select>
 	
 	<select id="selectEmpByDeptNo" parameterType="int" resultType="map">
         select * from organizationChartView
         where dept_no = #{deptNo}
+        order by position_rank desc
     </select>
 	
 	<resultMap type="deptAllVo" id="empListResultMap">

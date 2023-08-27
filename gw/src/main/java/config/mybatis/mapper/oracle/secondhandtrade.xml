@@ -11,7 +11,7 @@
 		values(#{tradeNo}, #{empNo}, #{title}, #{product}, #{price}, #{discription}, 100)
 	</insert>
 	
-	<select id="selectAllMarket" resultType="secondHandTradeVo">
+	<select id="selectAllMarket" parameterType="searchVo" resultType="map">
     SELECT *
     FROM (
         SELECT ROWNUM AS RNUM, A.*

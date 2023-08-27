@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface SecondHandTradeService {
 	int insertMarket(SecondHandTradeVO secondVo);
-	List<SecondHandTradeVO> selectAllMarket(SearchVO searchVo);
+	Map<String, Object> selectAllMarket(SearchVO searchVo);
 	SecondHandTradeVO selectMarketByNo(int tradeNo);
 	int updateReadCount(int tradeNo);
 	int getTotalRecord(SearchVO searchVo);
