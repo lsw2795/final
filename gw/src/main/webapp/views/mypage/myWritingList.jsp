@@ -16,7 +16,7 @@
    <div class="col-lg-12 pe-lg-2 mb-3">
        <div class="card h-lg-100 overflow-hidden">
           <div class="card-header">
-			<h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 관리</h5>
+			<a href="<c:url value='/mypage/myWritingList'/>"><h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 관리</h5></a>
   		  </div>
   		  <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/mypage/myWritingList'/>" 
@@ -45,7 +45,7 @@
                       </div>
                       <div class="col-auto">
                          <div class="input-group">
-                           <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search" type="search" placeholder="제목 또는 내용 입력" aria-label="search" />
+                           <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search" type="search" placeholder="검색할 내용을 입력하세요" aria-label="search" />
                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                          </div>
                       </div>
@@ -113,6 +113,10 @@
                           	<td class="align-middle"><a href="<c:url value='/market/marketList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                          <c:if test="${map['BOARDLIST_NO']==200}">	                          
+                          	<td class="align-middle"><a href="<c:url value=''/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value=''/>">${map['TITLE']}</a></td>
+                          </c:if>
                           <c:if test="${map['BOARDLIST_NO']==1000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/qna/list'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/qna/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
@@ -125,9 +129,6 @@
                           	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
-                          <!-- 추후 동호회 게시글 만들어지면 진행하기 <c:if test="#">	                          
-                          	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
-                          </c:if> -->
                           <td class="align-middle">${map['READCOUNT']}</td>
                           <td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
                         </tr>

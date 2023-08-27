@@ -89,7 +89,7 @@
 			(
 				select * from organizationChartView
 				<include refid="searchWhere"/>
-				order by dept_name desc		
+				order by position_rank desc, dept_no asc
 			)A
 		)
 		<![CDATA[
@@ -101,6 +101,7 @@
 	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
 		select count(*) from organizationChartView
         <include refid="searchWhere"></include>
+        order by position_rank desc, dept_no asc
 	</select>
 	
 	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">

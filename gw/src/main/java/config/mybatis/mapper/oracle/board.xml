@@ -154,11 +154,10 @@
 				and board_name='${searchCondition}'
 				</if>
 				<if test="searchKeyword!=null and searchKeyword!=''">
-	 			and content like '%'|| #{searchKeyword} ||'%'
-	      		or title like '%'|| #{searchKeyword} ||'%'
+	      		and content like '%'|| #{searchKeyword} || '%'
 	      		</if>
 				and delflag='N'
-				order by boardList_no asc, board_no desc
+				order by regdate desc
 			)A
 		)
 		<![CDATA[
@@ -175,10 +174,9 @@
 		</if>
 		<if test="searchKeyword!=null and searchKeyword!=''">
 	 	and content like '%'|| #{searchKeyword} ||'%'
-	 	or title like '%'|| #{searchKeyword} ||'%'
    		</if>
 		and delflag='N'
-		order by boardList_no asc, board_no desc
+		order by regdate desc
 	</select>
 	
 	<select id="selectPrevNotice" parameterType="int" resultType="map">
