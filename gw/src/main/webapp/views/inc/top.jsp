@@ -571,7 +571,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="i">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link" href="<c:url value='/anonymous/boardList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">익명게시판</span>
                         			</div> 
@@ -623,7 +623,6 @@
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
                       <div class="list-group list-group-flush fw-normal fs--1">
-                        <div class="list-group-title border-bottom">NEW</div>
                         <div class="list-group-item">
                             <div class="notification-body p-3" align="center">
                               <p class="mb-1">
