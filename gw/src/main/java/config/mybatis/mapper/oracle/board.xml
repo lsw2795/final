@@ -207,7 +207,7 @@
 		where rownum=1
 	</select>
 	
-	<insert id="insertNotice" parameterType="boardVo">
+	<insert id="insertFAQ" parameterType="boardVo">
 		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
 			select board_seq.nextval from dual
 		</selectKey>
