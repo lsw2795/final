@@ -88,7 +88,10 @@
 			from
 			(
 				select * from organizationChartView
-				<include refid="searchWhere"/>
+				where retiredate is null
+				<if test="searchKeyword!=null and searchKeyword!=''">
+	   	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+	      		</if>
 				order by position_rank desc, dept_no asc
 			)A
 		)
@@ -100,7 +103,10 @@
 	
 	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
 		select count(*) from organizationChartView
-        <include refid="searchWhere"></include>
+		where retiredate is null
+		<if test="searchKeyword!=null and searchKeyword!=''">
+ 	 	and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+    	</if>
         order by position_rank desc, dept_no asc
 	</select>
 	
@@ -114,6 +120,12 @@
     set address=#{address}, addressdetail=#{addressdetail},
         tel=#{tel}, email=#{email}, married=#{married}
     where emp_no=#{empNo}
+	</update>
+	
+	<update id="updateEmpRetiredate" parameterType="employeeVo">
+		update employee
+		set retiredate=#{retiredate}
+		where emp_no=#{empNo}
 	</update>
 	
 	<update id="updateEmpPwd" parameterType="employeeVo">
@@ -141,4 +153,6 @@
 	<select id="selectNameByEmpNo" parameterType="int" resultType="string">
 		select name from employee where emp_no = #{empNo}
 	</select>
+	
+	
 </mapper>

@@ -102,6 +102,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 
 	@Override
+	public int updateEmpRetiredate(EmployeeVO empVo) {
+		return employeeDao.updateEmpRetiredate(empVo);
+	}
+	
+	@Override
 	public int getTotalRecord(SearchVO searchVo) {
 		return employeeDao.getTotalRecord(searchVo);
 	}
@@ -135,6 +140,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public String selectNameByEmpNo(int empNo) {
 		return employeeDao.selectNameByEmpNo(empNo);
 	}
+
 
 }
 

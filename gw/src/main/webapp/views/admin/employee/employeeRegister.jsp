@@ -18,9 +18,38 @@
 	               
 	               if($('#adminPwdChkFlag').val()>0){
 	                  	  alert("관리자 확인이 완료되었습니다.");
-	                  	 $('#authentication-modal').modal('hide'); 
-	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
-	                     $('#empWrite').show();    // empWrite 버튼 보이기
+	                  	  if($('#retiredate').val().length>1){
+	                     	ConfirmFormCheck=true;
+	                    	if(confirm('정말 퇴사처리 하시겠습니까?')){
+	            				if(ConfirmFormCheck){
+	            					 $.ajax({
+	            			            url : "<c:url value='/ajaxUpdateRetiredate'/>",
+	            			            type:"get",
+	            			            dataType : "text",
+	            			            data:{
+	            			            	empNo:$('input[name=empNo]').val(),
+	            			            	retiredate:$('input[name=retiredate]').val()
+	            			            	},
+	            			            success: function(res){
+	            			               if(res>0){
+	            		                  	  alert("퇴사처리가 완료되었습니다.");
+	            		                  	 $('#deleteEmp-modal').modal('hide');
+	            		                  	 location.href="<c:url value='/admin/employee/employeeList'/>"
+	            			               }else{
+	            			                  alert('퇴사처리가 완료되지 않았습니다.');
+	            			               }
+	            			            },
+	            			            error:function(xhr, status, error){
+	            			               alert(status+" : "+error);
+	            			            }
+	            			         });//ajax
+	            				}
+	            			}
+	                  	  }else{
+		                  	 $('#authentication-modal').modal('hide'); 
+		                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
+		                     $('#empWrite').show();    // empWrite 버튼 보이기
+	                  	  }
 	               }else{
 	                  alert('관리자 비밀번호가 일치하지 않습니다.');
 	               }
@@ -289,6 +318,14 @@
 						</c:if>
 						</div>
 					</div>
+					<div class="row mb-3 d-flex align-items-center">
+					    <div class="col-md-auto adminempdiv6">
+							<label class="col-form-label adminemplabel" for="basic-form-gender">퇴사</label>
+						</div>
+						<div class="col-md-6 adminspan">
+							<input type="button" id="btnDeleteEmp" value="퇴사 처리하기" class="btn btn-danger"/>
+						</div>
+					</div>
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
@@ -313,6 +350,6 @@
 		</div>
 	</div>
 </div>
-
+<%@ include file='employeeDelete.jsp' %>
 <%@ include file='adminPwdConfirm.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
