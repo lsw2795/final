@@ -98,10 +98,10 @@ public class EmployeeController {
 	public String empDetail(@RequestParam (defaultValue = "0") int empNo, Model model) {
 		logger.info("조직도- 사원 디테일 페이지 보기 파라미터 empNo={}", empNo);
 
-		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
-		logger.info("사원 디테일 조회 결과, empVo={}", empVo);
+		Map<String, Object> map=employeeService.selectEmpByEmpNo(empNo);
+		logger.info("사원 디테일 조회 결과, map={}", map);
 
-		model.addAttribute("empVo", empVo);
+		model.addAttribute("map", map);
 
 		return "mypage/empDetail";
 	}

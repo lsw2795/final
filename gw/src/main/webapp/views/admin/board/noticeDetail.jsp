@@ -42,12 +42,10 @@
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
-               		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
 	               		<span class="adminhyphen"></span>
 	               		<button id="btnDelNotice" class="btn btn-outline-danger">삭제</button>
                		&nbsp;
-               		</c:if>
                 	조회수 : ${map['READCOUNT']}
                 	<span class="adminhyphen"></span>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
