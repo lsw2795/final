@@ -58,6 +58,7 @@
 		$('#category').val(key); 
 		
     });
+	
 	function redirectToCategory(category) {
 	        var url = "<c:url value='/admin/officeProduct/officeProductList?category="+category+"'/>";
 	        window.location.href = url;
@@ -212,8 +213,8 @@
 					aria-labelledby="meetingRoom-tab">
 					<table class="table table-sm table-hover">
 					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: 20%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
 						<col style="width: 15%;" />
 						<col style="width: 35%;" />
 						<col style="width: 10%;" />
@@ -291,8 +292,8 @@
 					
 					<table class="table table-sm table-hover">
 					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: 20%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
 						<col style="width: 15%;" />
 						<col style="width: 35%;" />
 						<col style="width: 10%;" />
@@ -363,8 +364,8 @@
 					
 					<table class="table table-sm table-hover">
 					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: 20%;" />
+						<col style="width: 10%;" />
+						<col style="width: 15%;" />
 						<col style="width: 15%;" />
 						<col style="width: 35%;" />
 						<col style="width: 10%;" />

@@ -14,6 +14,7 @@
 	<select id="selectByEmpNo" parameterType="int" resultType="employeeVo">
 		select * from employee
 		where emp_no=#{empNo}
+		order by position_no desc
 	</select>
 	
 	<select id="selectAllEmp" resultType="map">
@@ -59,7 +60,7 @@
 					or position_name like '%'|| #{searchKeyword} ||'%'
 					and retiredate is null
 				</if>
-					order by dept_name asc, position_name desc
+				order by position_rank desc, dept_name asc
 		    )A
 		)
 	<![CDATA[
@@ -77,7 +78,7 @@
 			or position_name like '%'|| #{searchKeyword} ||'%'
 			and retiredate is null
 		</if>
-			order by dept_name asc, position_name desc
+		order by position_rank desc, dept_no asc
 	</select>
 	
 	<select id="selectSerachEmp2" parameterType="searchVo" resultType="map">
@@ -88,8 +89,11 @@
 			from
 			(
 				select * from organizationChartView
-				<include refid="searchWhere"/>
-				order by dept_name desc		
+				where retiredate is null
+				<if test="searchKeyword!=null and searchKeyword!=''">
+	   	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+	      		</if>
+				order by position_rank desc, dept_no asc
 			)A
 		)
 		<![CDATA[
@@ -100,7 +104,11 @@
 	
 	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
 		select count(*) from organizationChartView
-        <include refid="searchWhere"></include>
+		where retiredate is null
+		<if test="searchKeyword!=null and searchKeyword!=''">
+ 	 	and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+    	</if>
+       	order by position_rank desc, position_name
 	</select>
 	
 	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
@@ -113,6 +121,12 @@
     set address=#{address}, addressdetail=#{addressdetail},
         tel=#{tel}, email=#{email}, married=#{married}
     where emp_no=#{empNo}
+	</update>
+	
+	<update id="updateEmpRetiredate" parameterType="employeeVo">
+		update employee
+		set retiredate=#{retiredate}
+		where emp_no=#{empNo}
 	</update>
 	
 	<update id="updateEmpPwd" parameterType="employeeVo">
@@ -145,5 +159,9 @@
 		select email 
 		from employee
 		where emp_no=#{empNo}
+	</select>
+	
+	<select id="countManager" parameterType="string">
+		select count(*)from employee where name= #{name}
 	</select>
 </mapper>

@@ -19,7 +19,7 @@ public class EmployeeVO {
     private String address;
     private String married;
     private String hiredate;
-    private Timestamp retiredate;
+    private String retiredate;
     private String authority;
     private int annualSalary;
     private String image;

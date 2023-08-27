@@ -23,6 +23,10 @@
 	 	select * from reman where reman_no = #{remanNo}
 	</select>
 	
+	<select id="selectAllReman">
+		select * from reman
+	</select>
+	
 	<update id="updateReman" parameterType="remanVo">
 		update reman 
 		set category = #{category}, name = #{name}, discription = #{discription}, state = #{state}, manager = #{manager}

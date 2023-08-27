@@ -13,5 +13,6 @@ public interface RemanDAO {
 	int deleteReman(int remanNo);
 	RemanVO selectRemanByNo(int remanNo);
 	int updateReman(RemanVO remanVo);
+	List<RemanVO> selectAllReman();
 
 }

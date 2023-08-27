@@ -51,4 +51,9 @@ public class RemanServiceImpl implements RemanService{
 	public int updateReman(RemanVO remanVo) {
 		return remanDao.updateReman(remanVo);
 	}
+
+	@Override
+	public List<RemanVO> selectAllReman() {
+		return remanDao.selectAllReman();
+	}
 }
