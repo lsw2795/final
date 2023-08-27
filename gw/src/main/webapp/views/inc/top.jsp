@@ -59,6 +59,9 @@
     </script>
     <script type="text/javascript">
     	$(function() {
+    		$.when(confirmRecord(), newMessage()).done(function() {
+    	        bellSet();
+    	    });
     		  $('.nav-link').on('click', function() {
     		    // 해당 a 태그에 active 클래스 추가
     		    $(this).addClass('active');
@@ -66,13 +69,19 @@
     		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
     		    $('.nav-link').not(this).removeClass('active');
     		  });
-    		  
-    		  confirmRecord();
-    		  newMessage();
+    		
 		});
     	
+    	function bellSet(){
+    		var newCnt=$('.list-group').find('.new').length;
+    		if(newCnt>0){
+    			$('#navbarDropdownNotification').addClass('notification-indicator');
+    			$('#navbarDropdownNotification').addClass('notification-indicator-primary');
+    		}
+    	}
+    	
     	function confirmRecord(){
-    		$.ajax({
+    		return $.ajax({
     			url:"<c:url value='/approval/recordAjax'/>",
     		   	type:"post",
     		   	dataType:"json",
@@ -89,7 +98,7 @@
     	}
     	
     	function newMessage(){
-    		$.ajax({
+    		return $.ajax({
     			url:"<c:url value='/message/newMessageAjax'/>",
     		   	type:"post",
     		   	dataType:"json",
@@ -109,29 +118,37 @@
         	var confirmStr="<strong>결재할 문서</strong> : "+confirm+"건이 있습니다.</p>";
         	var turnStr="<strong>반려된 문서</strong> : "+turn+"건이 있습니다.</p>";
         	var agreeStr="<strong>합의할 문서</strong> : "+agree+"건이 있습니다.</p>";
-        	var divstr="<div class='list-group-item new'>";
-        	divstr+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
-        	divstr+="<div class='notification-avatar'>";
-        	divstr+="<div class='avatar avatar-2xl me-3'>";
-        	divstr+="<img class='rounded-circle' src='<c:url value='/images/approval.png'/>' alt='쪽지아이콘' />";
-        	divstr+="</div>";
-        	divstr+="</div>";
-        	divstr+="<div class='notification-body'>";
-        	divstr+="<p class='mb-1'>";
+        	var turnUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/returnList'/>'>";
+        	var agreeUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/deptAgreeList'/>'>";
+        	var confirmUrl="<a class='notification notification-flush notification-unread' href='<c:url value='/approval/confirm/confirmList'/>'>";
+        	var divstr="<div class='list-group-item new'>";	
+        	var divstr2="<div class='notification-avatar'>";
+        	divstr2+="<div class='avatar avatar-2xl me-3'>";
+        	divstr2+="<img class='rounded-circle' src='<c:url value='/images/approval.png'/>' alt='쪽지아이콘' />";
+        	divstr2+="</div>";
+        	divstr2+="</div>";
+        	divstr2+="<div class='notification-body'>";
+        	divstr2+="<p class='mb-1'>";
         	
           	if(confirm>0 || turn>0 || agree>0){
 	          	if(confirm>0){
 		        	str+=divstr;
+		        	str+=confirmUrl;
+		        	str+=divstr2;
 		        	str+=confirmStr;
 		        	str+="</div></a></div>";
 	          	}
 	          	if(turn>0){
 	          		str+=divstr;
+		        	str+=turnUrl;
+		        	str+=divstr2;
 	          	  	str+=turnStr;
 	          	  	str+="</div></a></div>";
 	          	}
 	          	if(agree>0){
 	          		str+=divstr;
+		        	str+=agreeUrl;
+		        	str+=divstr2;
 	          	  	str+=agreeStr;
 	          	  	str+="</div></a></div>";
 	          	}
@@ -606,7 +623,9 @@
                 <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link notification-indicator notification-indicator-primary px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll"><span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span></a>
+                <a class="nav-link px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll">
+                	<span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span>
+                </a>
                 <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-menu-notification dropdown-caret-bg" aria-labelledby="navbarDropdownNotification">
                   <div class="card card-notification shadow-none">
                     <div class="card-header">
