@@ -77,7 +77,7 @@
                           <th class="sort align-middle ps-2" data-sort="Manager">Manager</th>
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:15.625rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
-                          <th class="sort align-middle" data-sort="Date">Date</th>
+                          <th class="sort align-middle" data-sort="Date">등록일</th>
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">

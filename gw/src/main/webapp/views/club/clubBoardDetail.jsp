@@ -6,17 +6,14 @@
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
 		<button class="btn btn-falcon-default btn-sm" type="button">
-			<span class="fas fa-arrow-left"><a href="#"></span>
+			<span class="fas fa-arrow-left"><a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>"></span>
 		</button>
 		<div class="d-flex">
-			<button class="btn btn-falcon-default btn-sm mx-2" type="button">
-				<span class="fas fa-check" data-fa-transform="shrink-2 down-2"></span><span
-					class="d-none d-md-inline-block ms-1">close</span>
-			</button>
+			
 			<button class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block"
 				type="button">
-				<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span><span
-					class="d-none d-md-inline-block ms-1">Delete</span>
+				<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+				<span class="d-none d-md-inline-block ms-1">Delete</span>
 			</button>
 			<div class="dropdown font-sans-serif ms-2">
 				<button
@@ -25,20 +22,13 @@
 					data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
 					<span class="fas fa-ellipsis-v fs--2"></span>
 				</button>
-				<div class="dropdown-menu dropdown-menu-end border py-2"
-					aria-labelledby="preview-dropdown">
-					<a class="dropdown-item" href="#!">View</a><a class="dropdown-item"
-						href="#!">Export</a><a class="dropdown-item d-sm-none" href="#!">Delete</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item text-danger" href="#!">Remove</a>
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h5><span class="fas fa-parachute-box me-2"></span><span>club1</span></h5>
+                  <h5><span class="fas fa-parachute-box me-2"></span><span>${map['TITLE'] }</span></h5>
                 </div>
                 <div class="card-body">
                   <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
@@ -49,10 +39,12 @@
                       </a>
                       <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="#">홍길동  </a>부서명</p>
                     </div>
-                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">01 March, 2020<span class="mx-1">|</span><span class="fst-italic">8:40 AM (1 Day ago)</span><span class="fas fa-star ms-2 text-warning"></span></p>
+                    <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
+                    	${map['REGDATE']}
+                    </p>
                   </div>
                   <div>
-                    <p>사내동아리 모집</p>
+                    <p>${map['CONTENT']}</p>
                     <div class="p-x1 bg-light rounded-3 mt-3">
                       <div class="d-inline-flex flex-column">
                         <div class="border p-2 rounded-3 d-flex bg-white dark__bg-1000 fs--1 mb-2"><span class="fs-1 far fa-image"></span><span class="ms-2 me-3">broken_tv_solve.jpg (873kb)</span><a class="text-300 ms-auto" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Download"><span class="fas fa-arrow-down"></span></a></div>

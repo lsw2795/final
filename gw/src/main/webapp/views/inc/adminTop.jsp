@@ -325,6 +325,13 @@
                         			</div> 
                       			</a>
                     		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">신고함</span>
+                        			</div> 
+                      			</a>
+                    		</li>
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
