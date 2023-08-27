@@ -96,9 +96,20 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		logger.info("로그아웃");
 		
+		String isAuthority = empService.selctAuthority((int)session.getAttribute("empNo"));
+		logger.info("로그아웃시 관리자 여부 조회 isAuthority={}", isAuthority);
+		
 		session.removeAttribute("empNo");
 		
-		return "redirect:/";
+		String url = "";
+		if(isAuthority.equals("Y")) { //관리자면 로그아웃 후
+			url = "redirect:/admin/login"; // 관리자 로그인 창으로
+		}else { //관리자가 아니면
+			url = "redirect:/"; //사원 로그인 창으로
+		}
+		
+		return url;
+		
 	}
 	
 	

@@ -299,7 +299,7 @@ public class ConfirmController {
     public String confirmList(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("관리자 - 결재문서 리스트 페이지 파라미터 empNo={}",empNo);
+    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
     	List<DocumentFormVO> formList = documentFormService.selectAllForm();
@@ -336,7 +336,8 @@ public class ConfirmController {
     public String confirmList_admin(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
+    	logger.info("관리자 - 결재문서 리스트 페이지 파라미터 empNo={}",empNo);
+    	
     	
     	//2
     	List<DocumentFormVO> formList = documentFormService.selectAllForm();

@@ -14,6 +14,22 @@
 	    values(commute_seq.nextval, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 0, #{empNo})
 	</insert>
 	
+	<update id="updateWorkOut" parameterType="int">
+	    update commute
+	    set work_out = to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
+	    where emp_no=#{empNo} and work_in is not null
+	</update>
 	
+	<select id="selectIsWorkIn" parameterType="int" resultType="int">
+		select count(*)
+		from commute
+		where work_in like '%' || to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
+	</select>
+	
+	<select id="selectIsWorkOut" parameterType="int" resultType="int">
+		select count(*)
+		from commute
+		where work_out like '%' || to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
+	</select>
 	
 </mapper>

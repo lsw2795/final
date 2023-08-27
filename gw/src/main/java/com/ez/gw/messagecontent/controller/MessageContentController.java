@@ -176,5 +176,17 @@ public class MessageContentController {
 		return resultMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/newMessageAjax")
+	public int messageListClickAjax(HttpSession session){
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("새로운 메시지 조회 empNo={}",empNo);
+			
+		int cnt=messageService.newMessage(empNo);
+		logger.info("새로운 메시지 조회 결과 cnt={}",cnt);
+		
+		return cnt;
+	}
+	
 	
 }

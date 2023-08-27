@@ -211,6 +211,10 @@
 		}
 	}
 	
+	function writePage(){
+		location.href="<c:url value='/message/messageWrite'/>";
+	}
+	
 </script>
 <div class="card card-chat overflow-hidden">
 	<div class="card-body d-flex p-0 h-100">
@@ -303,6 +307,9 @@
 	                        	<h5 class="mb-0 text-truncate fs-0">쪽지를 클릭하세요</h5>
 	                        </div>
                       	</div>
+                    	<div class="col-3 col-sm-4 align-items-center p-0" align="right">
+                    		<button class="btn btn-primary btn-sm px-5 me-2" type="button" onclick="writePage()">새쪽지</button>
+                    	</div>
                     </div>
                 </div>
                 <div class="chat-content-body" style="display: inherit;">
