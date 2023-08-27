@@ -451,7 +451,7 @@ public class PdsController {
 	}
 
 	@RequestMapping("/admin/pds/deleteMulti")
-	public String admin_qnaDelete(@ModelAttribute ListPdsVO listVo,
+	public String adminPdsDelete(@ModelAttribute ListPdsVO listVo,
 			HttpServletRequest request, Model model) {
 		//1
 		logger.info("관리자 - 선택한 파일 삭제, 파라미터 listVo={}", listVo);
@@ -508,8 +508,33 @@ public class PdsController {
 		model.addAttribute("pagingInfo", pagingInfo);
 
 		//4
-		return "pds/boardManagement";
+		return "admin/pds/boardManagement";
 
+	}
+	
+	@RequestMapping("/admin/pds/boardDeleteMulti")
+	public String admin_qnaDelete(@ModelAttribute ListBoardVO listVo,
+			HttpServletRequest request, Model model) {
+		//1
+		logger.info("관리자 - 선택한 파일 삭제, 파라미터 listVo={}", listVo);
+
+		//2. db
+		List<BoardVO> list = listVo.getBoardItems();
+		int cnt = pdsService.deleteBoardMulti(request, list);
+		logger.info("관리자 - 자료실 게시글 삭제 결과, cnt={}", cnt);
+
+		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/admin/pds/boardManagement";
+		if(cnt>0) {
+			msg = "선택한 게시글들을 삭제했습니다.";
+			
+		}
+
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
 	}
 
 

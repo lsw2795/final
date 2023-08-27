@@ -108,11 +108,11 @@
 							<table class="table table-sm table-hover">
 								<colgroup>
 									<col style="width: 5%;" />
-									<col style="width: 20%;" />
+									<col style="width: 10%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
-									<col style="width: 17%;" />
+									<col style="width: 10%;" />
 									<col style="width: 13%;" />
 								</colgroup>
 								<thead class="adminempthead">
@@ -157,7 +157,10 @@
 												</td>
 												<td class="align-middle">${map['PDS_NO']}</td>
 												<td class="align-middle">${map['BOARD_NAME']}</a></td>
-												<td class="align-middle">${map['ORIGINALFILENAME']}</td>
+												<td class="align-middle">
+													<img alt="파일 이미지" src="<c:url value='/images/file.gif'/>">
+													${map['ORIGINALFILENAME']}
+												</td>
 												<td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
 												<td class="align-middle">${map['DOWNLOADCOUNT']}</td>
 												<td class="align-middle">

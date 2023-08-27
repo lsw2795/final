@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.common.SearchVO;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public interface PdsService {
 	int insertPds(BoardVO vo);
 	List<Map<String, Object>> selectPdsAll(SearchVO vo);
@@ -27,5 +29,5 @@ public interface PdsService {
 	
 	int deleteMulti(List<PdsVO> list); //관리자 - 파일 다중 삭제
 	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드
-	
+	int deleteBoardMulti(HttpServletRequest request, List<BoardVO> list); //관리자 - 자료실 게시글 다중 삭제
 }
