@@ -17,12 +17,34 @@
 		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
 			select clubboard_seq.nextval from dual
 		</selectKey>
-		insert into clubBoard(BOARD_NO, CLUB_NO, EMP_NO, TITLE, CONTENT, BOARDLIST_NO,DELFLAG)
-		values(#{boardNo}, #{clubNo}, #{empNo}, #{title}, #{content},200,#{delflag})
+		insert into clubBoard(BOARD_NO, CLUB_NO, EMP_NO, TITLE, CONTENT, BOARDLIST_NO)
+		values(#{boardNo}, #{clubNo}, #{empNo}, #{title}, #{content},200)
 	</insert>
 	
+	<update id="updateReadcount" parameterType="int">
+		update clubBoard
+		set readcount=readcount+1
+		where board_no=#{boardNo}
+	</update>
+
+	<update id="updateClubBoard" parameterType="clubBoardVo">
+		update clubBoard
+		set TITLE=#{title}, CONTENT=#{content}
+		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
+	</update>
+	
+	<select id="detailClubBoard" resultType="map" parameterType="int">
+		select * from CLUBBOARDVIEW
+		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
+	</select>
+	
+	<delete id="deleteClubBoard">
+		delete from clubBoard
+		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
+	</delete>
 	
 	
+		
 </mapper>
 
 

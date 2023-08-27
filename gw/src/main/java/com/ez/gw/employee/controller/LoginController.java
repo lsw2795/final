@@ -48,7 +48,7 @@ public class LoginController {
 		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
 		logger.info("로그인 사원 서열,직급 map={}",map);
 		
-		String msg="로그인 처리 실패", url="/login/empLogin"; 
+		String msg="로그인 처리 실패", url="/"; 
 		if(result==EmployeeService.LOGIN_OK) {
 			msg= map.get("NAME") +" 님이 로그인 하셨습니다";
 			url="/main";

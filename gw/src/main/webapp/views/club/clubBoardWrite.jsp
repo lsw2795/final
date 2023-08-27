@@ -5,7 +5,6 @@
 <link href="<c:url value='/vendors/choices/choices.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/flatpickr/flatpickr.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/dropzone/dropzone.min.c.css'/>" rel="stylesheet">
-<script type="text/javascript" src = "<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#btn').click(function(){
@@ -27,8 +26,6 @@
 		});
 		
 		  $("#fileInput").on("change", function() {
-			  var imagePreview = $(".dz-message");
-			  imagePreview.empty();
 			  
 			  var files = $(this)[0].files;
               for (var i = 0; i < files.length; i++) {
@@ -68,15 +65,16 @@
                   <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
                   	name="clubBoardFrm"	method="post" action="<c:url value='/club/clubBoardWrite'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
+                    <input type="hidden" name="clubNo" value="${param.clubNo }">
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">제목</label>
-                        <input class="form-control" id="title" name="title" type="text" value="${clubVo.title }"/>
+                        <input class="form-control" id="title" name="title" type="text"/>
                       </div>
                       <div class="col-12 mb-3">
                       	<label class="form-label" for="content">내용</label>
                       	<div class="create-product-description-textarea">
                         	<textarea class="form-control" data-tinymce="data-tinymce" name="content" id="content"
-                        		style="height:300px">${clubVo.content }</textarea>
+                        		style="height:300px"></textarea>
                       	</div>
                    	</div>
                     </div>
@@ -89,9 +87,9 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="imageURL2" type="file" multiple="multiple" id="fileInput" required/>
+                      <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
                     </div>
-                    <div class="dz-message" data-dz-message="data-dz-message"> 
+                    <div class="dz-message" data-dz-message=""> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
 	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
                     </div>
