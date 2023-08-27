@@ -322,7 +322,10 @@
 						<a class="nav-link dropdown-indicator" href="#e" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-envelope-open"></span></span>
-	                    		<span class="nav-link-text ps-1">쪽지</span>
+	                    		<span class="nav-link-text ps-1">
+	                    		쪽지
+	                    		<span class="badge rounded-pill text-bg-primary" id="totalMessage">0</span>
+	                    		</span>
 	                    	</div>
 	                  	</a>
 	                  	<ul class="nav collapse" id="e">
@@ -336,7 +339,10 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/message/messageList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">쪽지함</span>
+                        				<span class="nav-link-text ps-1">
+                        					쪽지함
+                        					<span class="badge rounded-pill text-bg-primary" id="newMessage">0</span>
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
