@@ -207,4 +207,13 @@
 		where rownum=1
 	</select>
 	
+	<insert id="insertFAQ" parameterType="boardVo">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			select board_seq.nextval from dual
+		</selectKey>
+		
+		insert into board(board_no, emp_no, boardList_no, title, content)
+		values(#{boardNo}, #{empNo}, 4000, #{title}, #{content})
+	</insert>
+	
 </mapper>

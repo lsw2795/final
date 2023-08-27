@@ -45,12 +45,12 @@ public class MessageContentController {
 		
 		List<Map<String, Object>> empList = employeeService.selectAllEmp();
 		List<DeptVO> deptList = deptService.selectAllDept();
-		 
+		Map<String, Object> empSet = new HashMap<>(); 
 		if(empNo!=0) {
-			Map<String, Object> empSet =employeeService.selectEmpByEmpNo(empNo);
-			model.addAttribute("empSet",empSet);
+			empSet =employeeService.selectEmpByEmpNo(empNo);
 		}
 		
+		model.addAttribute("empSet",empSet);
 		model.addAttribute("empList",empList);
 		model.addAttribute("deptList",deptList);
 		
