@@ -131,7 +131,7 @@
 	
 	<update id="updateNotice" parameterType="boardVo">
 		update board
-		set title=#{title}, content=#{content}, regdate=sysdate
+		set title=#{title}, content=#{content}
 		where boardList_no=2000 and board_No=#{boardNo}
 	</update>
 	
@@ -154,11 +154,10 @@
 				and board_name='${searchCondition}'
 				</if>
 				<if test="searchKeyword!=null and searchKeyword!=''">
-	 			and content like '%'|| #{searchKeyword} ||'%'
-	      		or title like '%'|| #{searchKeyword} ||'%'
+	      		and content like '%'|| #{searchKeyword} || '%'
 	      		</if>
 				and delflag='N'
-				order by boardList_no asc, board_no desc
+				order by regdate desc
 			)A
 		)
 		<![CDATA[
@@ -175,10 +174,9 @@
 		</if>
 		<if test="searchKeyword!=null and searchKeyword!=''">
 	 	and content like '%'|| #{searchKeyword} ||'%'
-	 	or title like '%'|| #{searchKeyword} ||'%'
    		</if>
 		and delflag='N'
-		order by boardList_no asc, board_no desc
+		order by regdate desc
 	</select>
 	
 	<select id="selectPrevNotice" parameterType="int" resultType="map">

@@ -10,5 +10,25 @@
 		insert into message(no,reader,message_no)
 		values(#{no},#{reader},#{messageNo})
 	</insert>
+	
+	<select id="searchDeleteMessage" parameterType="messageViewVo" resultType="int">
+		select count(*) from messageView 
+	    where reader = #{empNo}
+	    and message_no = #{messageNo}
+	    and delflag='N'
+	</select>
+	
+	<update id="updateDelFlag" parameterType="messageViewVo">
+		update message
+		set delflag='Y'
+		where reader=#{empNo}
+		and message_no=#{messageNo}
+	</update>
+	
+	<delete id="deleteMessage" parameterType="messageViewVo">
+		delete from message
+		where reader=#{empNo}
+		and message_no=#{messageNo}
+	</delete>
 
 </mapper>

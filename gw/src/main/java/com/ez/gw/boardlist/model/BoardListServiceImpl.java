@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -14,5 +16,30 @@ public class BoardListServiceImpl implements BoardListService {
 	@Override
 	public List<BoardListVO> selectBoardList() {
 		return boardListDao.selectBoardList();
+	}
+
+	@Override
+	public List<BoardListVO> selAdminBoardList(SearchVO searchVo) {
+		return boardListDao.selAdminBoardList(searchVo);
+	}
+
+	@Override
+	public int gTRSearchBoardList(SearchVO searchVo) {
+		return boardListDao.gTRSearchBoardList(searchVo);
+	}
+
+	@Override
+	public int insertBoardList(BoardListVO boardListVo) {
+		return boardListDao.insertBoardList(boardListVo);
+	}
+
+	@Override
+	public int updateBoardList(BoardListVO boardListVo) {
+		return boardListDao.updateBoardList(boardListVo);
+	}
+
+	@Override
+	public BoardListVO boardListByboardlistNo(int boardlistNo) {
+		return boardListDao.boardListByboardlistNo(boardlistNo);
 	}
 }

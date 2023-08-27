@@ -161,4 +161,10 @@
 }
 .adminempdiv19 {
     margin: 0 5px 0 91px;
+}
+#selboardName{
+	margin: 11px 0 0 12px;
+}
+#boardLikeDiv, #commentFlagDiv, #uploadFlagDiv, #secflagDiv {
+    margin: 0 0 0 21px;
 }    

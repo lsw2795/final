@@ -20,11 +20,56 @@
 		select rownum, A.* from
 		(
 		    select * from messageView m
-		    where (emp_no =#{empNo} or reader=#{empNo})
-   			and (reader=#{reader} or emp_no =#{reader})
+		    where ((emp_no =#{empNo} and delflag='N') or (reader=#{empNo} and reader_delflag='N'))
+	   		and (reader=#{reader} or emp_no =#{reader})
 		    order by send_date desc
 		)A
 		where rownum=1
 	</select>
+	
+	<select id="selectLastMessage" parameterType="int" resultType="messageViewVo">
+		select m1.* from messageView m1
+		where (m1.emp_no = #{empNo} or m1.reader = #{empNo})
+		and m1.send_date = (
+    		select max(m2.send_date)
+    		from messageView m2
+    		where (m2.emp_no = m1.emp_no and m2.reader = m1.reader and m2.delflag='N')
+    		or (m2.emp_no = m1.reader and m2.reader = m1.emp_no and m2.reader_delflag='N')
+		)
+		order by m1.send_date desc
+	</select>
+	
+	<select id="selectAllMyMessage" parameterType="messageViewVo" resultType="messageViewVo">
+		select * from messageView 
+	    where (emp_no =#{empNo} or reader=#{empNo})
+	    and (reader=#{reader} or emp_no =#{reader})
+	    order by send_date
+	</select>
+	
+	<update id="updateReadDate" parameterType="messageViewVo">
+		update messageView
+		set read_date=sysdate
+		where emp_no =#{reader} and reader=#{empNo}
+		and read_date is null
+	</update>
+	
+	<update id="updateSendDelFlag" parameterType="messageViewVo">
+		update message_content
+		set delflag='Y'
+		where emp_no = #{empNo}
+		and message_no = #{messageNo}
+	</update>
+	
+	<select id="searchDeleteMessage" parameterType="messageViewVo" resultType="int">
+		select count(*) from messageView 
+	    where emp_no = #{empNo}
+	    and message_no = #{messageNo}
+	    and reader_delflag='N'
+	</select>
+	
+	<delete id="deleteMessage" parameterType="int">
+		delete from message_content
+		where message_no = #{messageNo}
+	</delete>
 
 </mapper>
