@@ -92,7 +92,14 @@ public class LoginController {
 		
 	}
 	
-	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃");
+		
+		session.removeAttribute("empNo");
+		
+		return "redirect:/";
+	}
 	
 	
 }
