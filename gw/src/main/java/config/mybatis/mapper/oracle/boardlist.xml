@@ -54,4 +54,12 @@
 	<select id="boardListByboardlistNo" parameterType="int" resultType="boardListVo">
 		select * from boardList where boardlist_no=#{boardlistNo}
 	</select>
+	
+	<select id="boardlistCount" parameterType="int">
+		select count(*) from boardlistview where boardlist_no=#{boardlistNo}
+	</select>
+	
+	<delete id="deleteboardList" parameterType="int">
+		delete boardlist where boardlist_no=#{boardlistNo}
+	</delete>
 </mapper>

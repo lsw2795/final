@@ -161,6 +161,27 @@
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
+	
+	function deleteBoard(boardlistNo){
+	    if(confirm('해당 게시판을 삭제하시겠습니까?')){
+		    $.ajax({
+	            url: "<c:url value='/admin/board/ajaxBoardListDelete'/>",
+	            type: "get",
+	            data:"boardlistNo="+boardlistNo,
+	            success: function (res) {
+	            	if(res>0){
+	                	alert('게시판 삭제 처리를 완료했습니다.');
+	            	}else{
+	            		alert('게시판의 게시글이 존재하여 삭제처리가 불가능합니다.');
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+	    }
+	}
+	
 </script>
   <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/admin/board/manageBoards'/>" 
@@ -219,7 +240,9 @@
 											<td class="align-middle"><a href="#">${boardListVo.boardName }</a></td>
 											<td class="align-middle"><a href="#">${boardListVo.boardType }</a></td>
 											<td class="align-middle">
-											<button type="button" class="btn btn-danger"><span class="fas fa-trash"></span></button>
+											<button type="button" class="btn btn-danger" onclick="deleteBoard(${boardListVo.boardlistNo})">
+											<span class="fas fa-trash"></span>
+											</button>
 											</td>
 										</tr>
 									</c:forEach>

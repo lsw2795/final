@@ -42,4 +42,14 @@ public class BoardListServiceImpl implements BoardListService {
 	public BoardListVO boardListByboardlistNo(int boardlistNo) {
 		return boardListDao.boardListByboardlistNo(boardlistNo);
 	}
+
+	@Override
+	public int boardlistCount(int boardlistNo) {
+		return boardListDao.boardlistCount(boardlistNo);
+	}
+
+	@Override
+	public int deleteboardList(int boardlistNo) {
+		return boardListDao.deleteboardList(boardlistNo);
+	}
 }
