@@ -58,7 +58,6 @@
 $(function() {
     // 출근 버튼 클릭 이벤트
     $("#workIn").click(function() {
-    	console.log('눌렀어');
         // AJAX 요청
         $.ajax({
             type: "POST", // 요청 메서드 (POST로 변경 가능)
@@ -79,6 +78,31 @@ $(function() {
             }
         });
     });
+    
+    // 퇴근 버튼 클릭 이벤트
+    $("#workOut").click(function() {
+        // AJAX 요청
+        $.ajax({
+            type: "POST", // 요청 메서드 (POST로 변경 가능)
+            url: "<c:url value='/commute/workOut'/>", // 서버 요청 URL
+            data: { empNo: "${empMap['EMP_NO']}" }, // 요청 데이터 (empNo 전송)
+            success: function(result) {
+                // 성공적으로 요청이 처리된 경우의 처리 (추가 작업이 필요하다면 여기에 코드 추가)
+                if(result>0){
+                	alert("퇴근처리 되었습니다.");
+                }else{
+                	alert("당일 퇴근처리가 이미 되어있습니다.");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // 요청이 실패한 경우의 처리 (에러 핸들링)
+                alert("퇴근 요청 실패: " + textStatus, errorThrown);
+            }
+        });
+    });
+    
+    
+    
 });  
 </script>
 
