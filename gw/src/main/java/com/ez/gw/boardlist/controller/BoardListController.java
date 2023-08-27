@@ -78,5 +78,18 @@ public class BoardListController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/admin/board/ajaxBoardListDelete")
+	public int deleteBoardList(@RequestParam(defaultValue = "0") int boardlistNo) {
+		logger.info("ajax 이용 - 게시판 삭제처리 파리미터, boardlistNo={}", boardlistNo);
+		int cnt=boardListService.boardlistCount(boardlistNo);
+		logger.info("ajax 이용 - 게시판 삭제처리 전 자식 레코드 개수 cnt={}", cnt);
+		int result=0;
+		if(cnt==0) {
+			result=boardListService.deleteboardList(boardlistNo);
+			logger.info("ajax 이용 - 게시판 삭제 처리 결과 result={}", result);
+		}
+		return result;
+	}
 	
 }

@@ -267,6 +267,20 @@ public class EmployeeController {
 		return "admin/employee/employeeRegister";
 	}
 
+	@ResponseBody
+	@RequestMapping("/ajaxUpdateRetiredate")
+	public int updateEmpRetiredate(@ModelAttribute EmployeeVO empVo,
+			@RequestParam (defaultValue = "0") int empNo,
+			@RequestParam (required = false)String retiredate) {
+		 empVo.setEmpNo(empNo);
+		 empVo.setRetiredate(retiredate);
+		 logger.info("관리자 - 사원 퇴사 처리 파라미터 empVo={}", empVo);
+		 int cnt=employeeService.updateEmpRetiredate(empVo);
+		 logger.info("관리자 - 사원 퇴사 처리 결과, cnt={}", cnt);
+		 
+		 return cnt;
+	}
+	
 	@PostMapping("/admin/employee/employeeEdit")
 	public String adminEmpEdit_post(@RequestParam (defaultValue = "0") int empNo,
 	        @ModelAttribute EmployeeVO empVo,
