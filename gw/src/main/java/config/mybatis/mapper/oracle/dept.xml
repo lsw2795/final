@@ -33,4 +33,12 @@
 		</collection>
 	</resultMap>
 	
+	<insert id="insertDept" parameterType="deptVo">
+		<selectKey keyProperty="deptNo" order="BEFORE" resultType="int">
+			select * from DEPT_SEQ.nextval from dual
+		</selectKey>
+		insert into dept(dept_no, name, manager, upper_dept, dept_level)
+		values(${deptNo},#{name},#{manager},#{upperDept},#{deptLevel})
+	</insert>
+	
 </mapper>
