@@ -46,4 +46,17 @@
      <p class="fw-bold fs-1 mt-3">신고 게시물이 없습니다.</p>
  </div>
 </div>
+	<div class="card-footer d-flex justify-content-center">
+        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+           <ul class="pagination mb-0"></ul>
+        <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+    </div>
 <%@ include file='../../inc/adminBottom.jsp'%>
+
+
+
+
+
+
+
+

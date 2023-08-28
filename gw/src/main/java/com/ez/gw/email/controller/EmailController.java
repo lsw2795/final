@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.email.EmailSender;
@@ -33,20 +34,21 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/sendEmail")
-	public String sendEmail(String email, @ModelAttribute EmployeeVO empvo) {
+	public String sendEmail(String email, @ModelAttribute EmployeeVO empVo,
+			@RequestParam int empNo) {
 		String str = getTempPassword();
+		int receiverEmail=empService.emailCheck(email, empNo);
 		
-		String receiver = empvo.getEmail(); //받는 사람의 이메일 주소
-		empvo.setEmail(email);
+		String receiver = empVo.getEmail(); //받는 사람의 이메일 주소
 		
 		String subject = "COSMOS 임시 비밀번호 안내";		
-		String content = "안녕하세요. "
+		String content = "안녕하세요.^^"
 						+ "COSMOS 임시 비밀번호 안내 관련 이메일입니다."
 						+ "귀하의 임시비밀번호는[ "+str+" ] 입니다."
 						+ "로그인 후 비밀번호 변경해주세요 ";		
 		String sender = "rlacodud4456@naver.com"; //보내는 사람의 이메일 주소
 											//앞에 설정한 본인의 보내는 이메일 주소
-		empService.updateEmpPwd(empvo);
+		empService.updateEmpPwd(empVo);
 		
 		try {
 			emailSender.sendEmail(subject, content, receiver, sender);
