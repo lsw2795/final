@@ -104,6 +104,13 @@ public class CommuteController {
 	                LocalDateTime currentTime = LocalDateTime.now();
 	                LocalDateTime sixPM = currentTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
 	                if (currentTime.isBefore(sixPM)) { // 오후 6시 이전에 퇴근한 경우에만 commute_state 업데이트
+	                	int state = commuteService.selectLateState(empNo); //지각여부 조회 1이면 지각
+	                	if(state==1) {
+	                		 int cnt3 = commuteService.updateCommuteStateTotal(empNo);
+	                		 if(cnt3>0) {
+	                			 return 4; // 지각 + 조퇴면 4 리턴
+	                		 }
+	                	}
 	                    int result2 = commuteService.updateCommuteStateEalry(empNo); // commute_state 업데이트
 	                    if(result2>0) {
 	                    	return 3; // 오후 6시 이전에 퇴근할 경우 조퇴 

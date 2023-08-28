@@ -47,6 +47,16 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.updateCommuteStateEalry(empNo);
 	}
 
+	@Override
+	public int selectLateState(int empNo) {
+		return commuteDao.selectLateState(empNo);
+	}
+
+	@Override
+	public int updateCommuteStateTotal(int empNo) {
+		return updateCommuteStateTotal(empNo);
+	}
+
 	
 	
 }

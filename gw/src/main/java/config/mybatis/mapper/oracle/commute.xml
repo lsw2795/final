@@ -41,10 +41,23 @@
 	
 	<update id="updateCommuteStateEalry" parameterType="int">
 		UPDATE commute
-		SET commute_state = 5
+		SET commute_state = 2
 		WHERE emp_no = #{empNo}
 		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
+	
+	<update id="updateCommuteStateTotal" parameterType="int">
+		UPDATE commute
+		SET commute_state = 3
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</update>
+	
+	<select id="selectLateState" parameterType="int" resultType="int">
+		select commute_state from commute 
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE);
+	</select>
 
 	
 </mapper>

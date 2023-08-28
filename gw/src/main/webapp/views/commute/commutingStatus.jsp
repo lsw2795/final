@@ -58,7 +58,7 @@ div#calendar {
 									title : '퇴근',
 									start : '<%=vo.getWorkOut()%>'
 								},
-							<%}else if(vo.getCommuteState()==5){%>
+							<%}else if(vo.getCommuteState()==2){%>
 								{
 									title : '출근' ,
 									start : '<%=vo.getWorkIn()%>'
@@ -67,7 +67,7 @@ div#calendar {
 									title : '퇴근:조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
-							<%}else if(vo.getCommuteState()==1 && vo.getCommuteState()==5){%>
+							<%}else if(vo.getCommuteState()==3){%>
 								{
 									title : '출근:지각' ,
 									start : '<%=vo.getWorkIn()%>'
