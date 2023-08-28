@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "java.util.List" %>
-<%@ page import = "com.ez.gw.calendar.model.CalendarVO" %>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
@@ -31,13 +30,12 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			events : [ 
-	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
-	            <%if (calendarList != null) {%>
-	            <%for (CalendarVO vo : calendarList) {%>
+	    	    <%List<ReservationVO> reservationList = (List<ReservationVO>)request.getAttribute("reservationList");%>
+	            <%if (reservationList != null) {%>
+	            <%for (ReservationVO vo : reservationList) {%>
 	            {
-	            	title : '<%=vo.getTitle()%>',
-	                start : '<%=vo.getBegindate()%>',
-	                end : '<%=vo.getEnddate()%>',
+	            	title : '예약',
+	                start : '<%=vo.getBookDate()%>',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
 	             },
 		<%}
