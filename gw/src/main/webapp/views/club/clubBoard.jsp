@@ -95,10 +95,10 @@
                         </div>
                       </div>
                     </div>
-                  </c:forEach>
 	                <div class="text-center d-none" id="tickets-card-fallback">
 	                  <p class="fw-bold fs-1 mt-3">게시글이 존재하지 않습니다.</p>
 	                </div>
+                  </c:forEach>
                 </div>
                 <div class="card-footer">
                   <div class="d-flex justify-content-center">

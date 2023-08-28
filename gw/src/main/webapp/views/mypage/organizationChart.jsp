@@ -33,7 +33,7 @@ function empDetail(empNo) {
 
 function messageWrite(empNo) {
     window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
-};
+}
 
 $.send = function(curPage){
 	$('#currentPage').val(curPage);
@@ -81,35 +81,32 @@ $.send = function(curPage){
 }
 
 function pageMake(){
-	   //페이징 처리
-	   var blockSize=10;
-       var countPerPage = $('#countPerPage').val();
-       var currentPage = $('#currentPage').val(); 
-       var totalRecord = $('#totalRecord').val();
-       pagination(currentPage, countPerPage, blockSize, totalRecord);
-	   //이전 블럭으로
-	   var str="";
-	   if(firstPage>1){
-		   str+="<a href='#' onclick='$.send("+(firstPage-1)+")'>";
-		   str+="<img src='<c:url value='/images/first.JPG'/>'></a>";
+   //페이징 처리
+   var blockSize=10;
+      var countPerPage = $('#countPerPage').val();
+      var currentPage = $('#currentPage').val(); 
+      var totalRecord = $('#totalRecord').val();
+      pagination(currentPage, countPerPage, blockSize, totalRecord);
+   //이전 블럭으로
+   var str="";
+   if(firstPage>1){
+	   str+="<a href='#' onclick='$.send("+(firstPage-1)+")'>";
+	   str+="<img src='<c:url value='/images/first.JPG'/>'></a>";
+   }
+   //페이지 번호 출력
+   for(var i=firstPage;i<=lastPage;i++){
+	   if(i==currentPage){
+		   str+="<span style='font-weight: bold; color: blue; font-size:20px;'>"+ i +"</span>";
+	   }else{
+		   str+="<a href='#' onclick='$.send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
 	   }
-	   
-	   //페이지 번호 출력
-	   for(var i=firstPage;i<=lastPage;i++){
-		   if(i==currentPage){
-			   str+="<span style='font-weight: bold; color: blue; font-size:20px;'>"+ i +"</span>";
-		   }else{
-			   str+="<a href='#' onclick='$.send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
-		   }
-	   }//for
-	   
-	   //다음 블럭으로
-	   if(lastPage < totalPage){
-		   str+="<a href='#' onclick='$.send("+(lastPage+1)+")'>";
-		   str+="<img src='<c:url value='/images/last.JPG'/>'></a>"
-	   }
-	   
-	   $('#divPage').html(str);
+   }//for
+   //다음 블럭으로
+   if(lastPage < totalPage){
+	   str+="<a href='#' onclick='$.send("+(lastPage+1)+")'>";
+	   str+="<img src='<c:url value='/images/last.JPG'/>'></a>"
+   }
+   $('#divPage').html(str);
 }
 </script>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -149,7 +146,6 @@ function pageMake(){
                 </div>
             </c:forEach>
         </c:if>
- 
 		<div class="border-top border-200 py-x1">
 			사원번호/이름/부서/직위 검색
 			<div class="input-group">

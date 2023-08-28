@@ -9,11 +9,6 @@
 <script type="text/javascript">
 	$(function(){
 		$('#bt1').click(function() {
-	        // 파일이 선택되었는지 확인
-	        if ($('#uploadfile')[0].files.length === 0) {
-	            alert("이미지 파일을 선택해주세요.");
-	            return false;
-	        }
 
 	        // 선택된 파일의 확장자 확인
 	        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // 허용할 확장자 목록
@@ -186,12 +181,12 @@ input[type="file"].default-style {
                       </div>
                       <div class="col-12 mb-3">
 					    <div class="col-md-auto mypageempdiv4">
-							<label class="form-label">거래 완료 여부</label>
+							<label class="form-label" >거래 완료 여부</label>
 						</div> 
 						<div class="col-md-6 mypagespan">
 					        <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagY">거래완료</label>
-		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selflag" />
+		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selflag" value="Y"/>
 	                       </div>
 	                       <span class="mypagehyphen"></span>
 				    	</div>

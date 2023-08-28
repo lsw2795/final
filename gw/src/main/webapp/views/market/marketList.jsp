@@ -56,8 +56,8 @@ ul#navbarVerticalNav {
 										<c:if test="${param.searchCondition=='title'}">
 	                            		selected = "selected"
 	                            	</c:if>>제목</option>
-									<option value="name"
-										<c:if test="${param.searchCondition=='name'}">
+									<option value="NAME"
+										<c:if test="${param.searchCondition=='NAME'}">
 	                            		selected = "selected"
 	                            	</c:if>>이름</option>
 									<option value="discription"
@@ -95,7 +95,7 @@ ul#navbarVerticalNav {
 						</c:when>
 						<c:otherwise>
 							<c:set var="i" value="0" />
-							<c:forEach var="vo" items="${list }" varStatus="loopStatus">
+							<c:forEach var="map" items="${list }" varStatus="loopStatus">
 								<c:choose>
 									<c:when test="${loopStatus.index %2 ==0 }">
 										<div class="col-12 p-x1">
@@ -103,13 +103,13 @@ ul#navbarVerticalNav {
 												<div class="col-sm-5 col-md-4">
 													<div class="position-relative">
 														<a class="d-block"
-															href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo }'/>">
+															href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"] }'/>">
 															<img class="rounded-1"
 															style="max-height: 200px; max-weight: 240px;"
-															src="<c:url value='/market/upload/${vo.thumbnail}'/>"
+															src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
 															alt="" />
 														</a>
-														<c:if test="${vo.timeNew==1}">
+														<c:if test="${map['timeNew']==1}">
 															<div
 																class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
 																New</div>
@@ -121,12 +121,12 @@ ul#navbarVerticalNav {
 														<div class="col-lg-8">
 															<h5 class="mt-3 mt-sm-0">
 																<a class="text-dark fs-0 fs-lg-1"
-																	href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
-																	${vo.title } </a>
+																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
+																	${map["TITLE"] } </a>
 															</h5>
 															<p class="fs--1 mb-2 mb-md-3">
 															<h6 class="text-500">
-																<fmt:formatDate value="${vo.regdate }"
+																<fmt:formatDate value="${map['REGDATE'] }"
 																	pattern="yyyy-MM-dd HH:mm" />
 															</h6>
 															</p>
@@ -135,7 +135,7 @@ ul#navbarVerticalNav {
 															class="col-lg-4 d-flex justify-content-between flex-column">
 															<div>
 																<h4 class="fs-1 fs-md-2 mb-0">
-																	<fmt:formatNumber value="${vo.price }" pattern="#,###" />
+																	<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
 																	원
 																</h4>
 																<h5 class="fs--1 text-500 mb-0 mt-1"></h5>
@@ -144,21 +144,21 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong>${vo.likeCount }</strong>
+																		♥ 좋아요 : <strong>${map['LIKECOUNT'] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		<span class="fa-solid fa-eye"></span>
-																		조회수 : <strong>${vo.readCount }</strong>
+																		조회수 : <strong>${map['READCOUNT'] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
-																		작성자 : <strong>${emp.name }</strong>
+																		작성자 : <strong>${map["NAME"] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		Stock:
-																		<c:if test="${vo.selFlag=='N' }">
+																		<c:if test="${map['SELFLAG']=='N' }">
 																			<strong class="text-success">거래가능</strong>
 																		</c:if>
-																		<c:if test="${vo.selFlag=='Y' }">
+																		<c:if test="${map['SELFLAG']=='Y' }">
 																			<strong class="text-danger">판매완료</strong>
 																		</c:if>
 																	</p>
@@ -167,7 +167,7 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	href="<c:url value='/market/like?tradeNo=${map["TRADE_NO"] }'/>">
 																	<span class="far fa-heart"></span><span
 																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
 																<a
@@ -191,10 +191,10 @@ ul#navbarVerticalNav {
 															<div class="swiper-wrapper h-100">
 																<div class="swiper-slide h-100">
 																	<a class="d-block h-sm-100"
-																		href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
+																		href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
 																		<img class="rounded-1 h-100 w-100 object-fit-cover"
 																		style="max-height: 200px; max-weight: 240px;"
-																		src="<c:url value='/market/upload/${vo.thumbnail}'/>"
+																		src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
 																		alt="" />
 																	</a>
 																</div>
@@ -219,7 +219,7 @@ ul#navbarVerticalNav {
 																<div class="swiper-button-prev swiper-button-white"></div>
 															</div>
 														</div>
-														<c:if test="${vo.timeNew == 1 }">
+														<c:if test="${map['timeNew'] == 1 }">
 															<div
 																class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
 																New</div>
@@ -231,12 +231,12 @@ ul#navbarVerticalNav {
 														<div class="col-lg-8">
 															<h5 class="mt-3 mt-sm-0">
 																<a class="text-dark fs-0 fs-lg-1"
-																	href="<c:url value='/market/marketDetail?tradeNo=${vo.tradeNo}'/>">
-																	${vo.title } </a>
+																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
+																	${map["TITLE"] } </a>
 															</h5>
 															<p class="fs--1 mb-2 mb-md-3">
 															<h6 class="text-500">
-																<fmt:formatDate value="${vo.regdate }"
+																<fmt:formatDate value="${map['REGDATE']}"
 																	pattern="yyyy-MM-dd HH:mm" />
 															</h6>
 															</p>
@@ -245,7 +245,7 @@ ul#navbarVerticalNav {
 															class="col-lg-4 d-flex justify-content-between flex-column">
 															<div>
 																<h4 class="fs-1 fs-md-2 mb-0">
-																	<fmt:formatNumber value="${vo.price }" pattern="#,###" />
+																	<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
 																	원
 																</h4>
 																<div class="mb-2 mt-3">
@@ -253,20 +253,20 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong>${vo.likeCount }</strong>
+																		♥ 좋아요 : <strong>${map["LIKECOUNT"] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
-																		조회수 : <strong>${vo.readCount }</strong>
+																		조회수 : <strong>${map["READCOUNT"] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
-																		작성자 : <strong>${emp.name }</strong>
+																		작성자 : <strong>${map["NAME"] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		Stock:
-																		<c:if test="${vo.selFlag=='N' }">
+																		<c:if test="${map['SELFLAG']=='N' }">
 																			<strong class="text-success">거래가능</strong>
 																		</c:if>
-																		<c:if test="${vo.selFlag=='Y'}">
+																		<c:if test="${map['SELFLAG']=='Y'}">
 																			<strong class="text-danger">판매완료</strong>
 																		</c:if>
 																	</p>
@@ -275,7 +275,7 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="<c:url value='/market/like?tradeNo=${vo.tradeNo }'/>">
+																	href="<c:url value='/market/like?tradeNo=${map["TRADE_NO"] }'/>">
 																	<span class="far fa-heart"></span><span
 																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
 																<a

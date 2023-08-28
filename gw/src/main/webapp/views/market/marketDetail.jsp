@@ -91,17 +91,8 @@ div#updateBtn {
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
-                 	  <div class="dropdown">
-                 		<span><strong> 작성자 :  </strong>
-						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						    ${emp.name }
-						  </a>
-						  
-						  <ul class="dropdown-menu">
-						    <li><a class="dropdown-item" href="#">사원정보보기</a></li>
-						    <li><a class="dropdown-item" href="#">신고하기</a></li>
-						  </ul>
-						</div>
+                 	<span><strong> 작성자 :  </strong>
+						  ${emp.name }
                  	  </span>
                  	  <input type = "hidden" id="empNo" name="empNo" value="${sessionScope.empNo}">
                   <hr>

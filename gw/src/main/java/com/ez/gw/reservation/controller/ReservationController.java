@@ -6,13 +6,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.reman.model.RemanService;
 import com.ez.gw.reman.model.RemanVO;
 import com.ez.gw.reservation.model.ReservationService;
+import com.ez.gw.reservation.model.ReservationVO;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -20,8 +31,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReservationController {
 	private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
-	private final ReservationService reserationService;
+	private final ReservationService reservationService;
 	private final RemanService remanService;
+	private final EmployeeService employeeService;
 	
 	@RequestMapping("/addReservation")
 	public String get_addRes(Model model) {
@@ -39,5 +51,73 @@ public class ReservationController {
 		
 		return "reservation/addReservation";  
 		
+	}
+	
+	@PostMapping("/addReservation")
+	public String post_addRes(@ModelAttribute ReservationVO reservationVo, Model model, HttpSession session) {
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("자원예약 등록 페이지, 파라미터 reservationVo={}, empNo={}", reservationVo, empNo);
+		
+		String msg = "예약 실패", url = "reservation/addReservation";
+		//2
+		EmployeeVO emp = employeeService.selectByEmpNo(empNo);
+		reservationVo.setDeptNo(emp.getDeptNo());
+		reservationVo.setEmpNo(empNo);
+		
+		int cnt = reservationService.insertReservation(reservationVo);
+		if(cnt>0) {
+			
+			 msg = "예약이 완료되었습니다.";
+			 url = "/reservation/reservationList";
+		}
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+		
+	}
+	
+	/**
+	 * 예약 있는지 여부 확인 ajax
+	 * */
+	@RequestMapping("/ajaxCheckBook")
+	@ResponseBody
+	public int check(@ModelAttribute ReservationVO reservationVo) {
+		//1
+		logger.info("ajax 확인 파라미터 reservationVo={}", reservationVo);
+		
+		//2
+		int result = 0;
+		int cnt = reservationService.checkIsBooked(reservationVo);
+		if(cnt>0) {
+			result =ConstUtil.BOOK_NOTOK;	//1
+		}else {
+			result = ConstUtil.BOOK_OK;		//2
+		}
+		//3
+		//4
+		return result;
+	}
+	
+	@RequestMapping("/reservationList")
+	public ModelAndView reservationList(ModelAndView mv, HttpServletRequest request){
+		logger.info("자원예약 보기");
+		String viewpage = "reservation/reservationList";
+		List<ReservationVO> reservationList = null;
+		
+		try {
+			reservationList = reservationService.selectAllReservation();
+			request.setAttribute("reservationList", reservationList);
+			logger.info("reservationList.size={}", reservationList.size());
+			logger.info("reservationList={}", reservationList);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mv.setViewName(viewpage);
+		return mv;
 	}
 }
