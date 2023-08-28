@@ -151,8 +151,27 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO selectFAQByBoardNo(int boardNo) {
 		return boardDao.selectFAQByBoardNo(boardNo);
 	}
+
+	@Override
+	@Transactional
+	public int faqDeleteMulti(List<BoardVO> list) {
+		int cnt = 0;
+		try {
+			for(BoardVO vo : list) {
+				int boardNo = vo.getBoardNo();
+				if(boardNo!=0) { //체크된 질문만 삭제
+					cnt = boardDao.deleteFAQ(boardNo);
+				}
+			}//for
+		}catch(RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+	}
 	
-
-
+	
 
 }

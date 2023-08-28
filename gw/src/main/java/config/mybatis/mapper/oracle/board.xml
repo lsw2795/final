@@ -228,6 +228,7 @@
 				<if test="searchKeyword!=null and searchKeyword!=''">
 	   	 			and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
 	      		</if>
+	      		and delflag='N'
 				order by regdate desc
 			)A
 		)
@@ -243,6 +244,7 @@
 		<if test="searchKeyword!=null and searchKeyword!=''">
 	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
    		</if>
+   		and delflag='N'
 		order by regdate desc
 	</select>
 	
@@ -256,5 +258,11 @@
 		select * from board
 		where boardList_no=4000 and board_no=#{boardNo}
 	</select>
+	
+	<update id="deleteFAQ" parameterType="int">
+		update board
+		set delflag='Y'
+		where boardList_no=4000 and board_no=#{boardNo}
+	</update>
 	
 </mapper>

@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
 <script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#title').focus();
 		
 		$('#btnCancel').click(function(){
-			location.href	= "<c:url value='/admin/board/faqList'/>";
+			self.close();
 		});
 		
 		$('input[type=submit]').click(function(){
@@ -30,69 +32,91 @@
 			    return false;
 			}
 			
-			
-			$.ajax({
-	            url: "<c:url value='/admin/board/ajaxInsertFaq'/>",
-	            type:'get',
-				data: {
-					title: title,
-					content: content
-				},
-				dataType:'json',
-	            success: function (res) {
-	            	if(res>0){
-                   		alert("FAQ 등록이 완료되었습니다.");
-                   		$('#exampleModal').modal('hide'); 
-                   		location.href="<c:url value='/admin/board/faqList'/>";
-	            	}
-	            },
-	            error:function(xhr,status,error){
-	                alert(status+" : "+error);
-	            } 
-	        });
-			
+			var boardNo=$('#boardNo').val();
+			if(boardNo==0 || boardNo==''){ //등록 ajax
+				$.ajax({
+		            url: "<c:url value='/admin/board/ajaxInsertFAQ'/>",
+		            type:'get',
+					data: {
+						title: title,
+						content: content
+					},
+					dataType:'json',
+		            success: function (res) {
+		            	if(res>0){
+			            	alert('FAQ 등록이 완료되었습니다.');
+			            	self.close();
+		            	}
+		            },
+		            error:function(xhr,status,error){
+		                alert(status+" : "+error);
+		            } 
+		        });//ajax
+			}else if(boardNo!=0){
+				$.ajax({
+		            url: "<c:url value='/admin/board/ajaxUpdateFAQ'/>",
+		            type:'get',
+					data: {
+						boardNo: boardNo,
+						title: title,
+						content: content
+					},
+					dataType:'json',
+		            success: function (res) {
+		            	if(res>0){
+			            	alert('FAQ 수정이 완료되었습니다.');
+			            	self.close();
+		            	}
+		            },
+		            error:function(xhr,status,error){
+		                alert(status+" : "+error);
+		            } 
+		        });//ajax
+			}
 		});		
 	});
 </script>
-<div class="modal fade" id="exampleModal" tabindex="-1" 
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content admindefault" style="width: 700px;">
-      <div class="modal-header">
-        <h5 class="modal-title admindefault" id="exampleModalLabel">FAQ 등록</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-		<table class="table table-bordered">
-			<colgroup>
-				<col style="width: 20%;" />
-				<col style="width: 80%;" />
-			</colgroup>
-			<tbody id="table-contact-body">
-				<form id="insertFaq">
-				<tr class="adminemptr">
-					<td class="align-middle">FAQ 제목</td>
-					<td class="align-middle">
-						<input type="text" class="form-control admindefault" id="title" name="title"/>
-					</td>
-				</tr>
-				<tr class="adminemptr">
-					<td class="align-middle">FAQ 내용</td>
-					<td class="align-middle">
-						<textarea id="editor" name="content"></textarea>
-					</td>
-				</tr>
-			</form>
-			</tbody>
-		</table>
-      </div>
-      <div class="modal-footer" style="text-align: center;">
-        <input type="submit" value="등록" class="btn btn-primary">
-        <input type="button" value="취소" class="btn btn-secondary" id="btnCancel">
-      </div>
-    </div>
-  </div>
-</div> 
+<c:if test="${!empty param.boardNo}">
+	<c:set var="btLabel" value="수정" />
+	<c:set var="url" value="/admin/board/faqEdit" />
+	<c:set var="no" value="${param.boardNo}" />	
+</c:if>
+<c:if test="${empty param.boardNo}">
+	<c:set var="btLabel" value="등록" />
+	<c:set var="url" value="/admin/board/faqWrite" />
+	<c:set var="no" value="0" />	
+</c:if>
+<div class="card mb-3">
+   <div class="card-header">
+     <div class="row flex-between-end">
+       <div class="col-auto align-self-center">
+         <h5 class="mb-0" data-anchor="data-anchor">FAQ ${btLabel }</h5>
+       </div>
+     </div>
+   </div>
+   <div class="card-body bg-light">
+     <div class="tab-content">
+       <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-098d01fc-d98f-4993-8b04-531ca5667534" id="dom-098d01fc-d98f-4993-8b04-531ca5667534">
+        <form name="frmWrite" method="post" enctype="multipart/form-data" action="<c:url value='${url}'/>">	
+         <div class="mb-3">
+           <label class="form-label" for="title">제목</label>
+           <input class="form-control" id="title" name="title" type="text" value="${boardVo.title }"/>
+         </div>
+         <div class="mb-3">
+           <label class="form-label" for="editor">내용</label>
+           <textarea class="form-control" id="editor" name="content">${boardVo.content }</textarea>
+         </div>
+         <!-- hidden -->
+         <input type="hidden" name="boardNo" id="boardNo" value="${boardVo.boardNo }"/>
+         </form>
+       </div>
+     </div>
+   </div>
+   <div class="card-footer" style="text-align: center;">
+     <input type="submit" value="${btLabel }" class="btn btn-primary" id="btnSubmit">
+     <input type="button" value="취소" class="btn btn-secondary" id="btnCancel">
+   </div>
+ </div>
 <script>
 	CKEDITOR.replace('editor', {
 		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
