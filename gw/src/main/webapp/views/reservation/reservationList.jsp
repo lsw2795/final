@@ -36,6 +36,7 @@
 	            {
 	            	title : '예약',
 	                start : '<%=vo.getBookDate()%>',
+	                end : '<%=vo.getEndTime()%>',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
 	             },
 		<%}
