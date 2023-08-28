@@ -105,6 +105,29 @@ public class FaqController {
 		//4
 		return "common/message";
 	}
+
+	@RequestMapping("/board/faqList")
+	public String faqList2(@ModelAttribute SearchVO searchVo,Model model) {
+		logger.info("사원 - FAQ 목록 조회 파라미터 searchVo={}", searchVo);
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		int totalRecord=boardService.gTRsearchFAQ(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
+		//2
+		List<BoardVO> faqList=boardService.selectFAQ(searchVo);
+		logger.info("사원 - FAQ 목록 페이지당 레코드 결과, faqList.size()={}", faqList.size());
+		//3
+		model.addAttribute("faqList", faqList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		return "board/faqList";
+	}
 	
 	
 }

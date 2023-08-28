@@ -63,7 +63,7 @@
 	<div class="card-body admindefault position-relative">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="admindefault">FAQ</h3>
+				<h3><a id="admina" class="admina admindefault" href="<c:url value='/admin/board/faqList'/>">FAQ</a></h3>
 				<div class="col-auto">
 					<div class="input-group admindefault">
 						<form name="frmSearch" action='<c:url value='/admin/board/faqList'/>'>
