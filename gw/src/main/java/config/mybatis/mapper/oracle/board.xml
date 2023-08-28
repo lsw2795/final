@@ -246,4 +246,15 @@
 		order by regdate desc
 	</select>
 	
+	<update id="updateFAQ" parameterType="boardVo">
+		update board
+		set title=#{title}, content=#{content}
+		where boardList_no=4000 and board_no=#{boardNo}
+	</update>
+	
+	<select id="selectFAQByBoardNo" parameterType="int">
+		select * from board
+		where boardList_no=4000 and board_no=#{boardNo}
+	</select>
+	
 </mapper>
