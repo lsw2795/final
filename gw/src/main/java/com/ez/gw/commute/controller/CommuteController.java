@@ -85,7 +85,11 @@ public class CommuteController {
 		}
 		
 		return result;
-		
+	}
+	
+	@RequestMapping("statistics")
+	public String statistics() {
+		logger.info("부서별 근태 통계 페이지");
 	}
 
 
