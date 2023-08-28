@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>부서별 근태 통계</title>
+<title>근태 통계</title>
 </head>
 <body>
-
+	근태 통계 페이지
 </body>
 </html>

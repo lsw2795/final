@@ -1,5 +1,6 @@
 package com.ez.gw.commute.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -53,6 +54,15 @@ public class CommuteController {
 		int result = 0; //ajax로 리턴해줄 int 값 초기화, 0:출근 처리 실패 1:출근 처리 성공
 		if(count<1) { //출근 기록 없을때만 insert
 			int cnt = commuteService.insertWorkIn(empNo);
+			
+			LocalDateTime currentTime = LocalDateTime.now();
+	        LocalDateTime nineAM = currentTime.withHour(9).withMinute(0).withSecond(0).withNano(0);
+	        
+	        int commuteState = currentTime.isBefore(nineAM) ? 0 : 1; // 0: On time, 1: Late
+	        CommuteVO vo = new CommuteVO();
+	        vo.set
+	        
+			
 			logger.info("출근 버튼 클릭시 인서트 결과 cnt={}", cnt);
 			result = 1; //출근 처리 성공
 		}
@@ -87,9 +97,12 @@ public class CommuteController {
 		return result;
 	}
 	
-	@RequestMapping("statistics")
+	@RequestMapping("/statistics")
 	public String statistics() {
 		logger.info("부서별 근태 통계 페이지");
+		
+		
+		return "commute/statistics";
 	}
 
 
