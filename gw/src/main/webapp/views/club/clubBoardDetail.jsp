@@ -6,14 +6,13 @@
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
 		<button class="btn btn-falcon-default btn-sm" type="button">
-			<span class="fas fa-arrow-left"><a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>"></span>
+			<span class="fas fa-arrow-left"><a href="<c:url value='/club/clubBoard?clubNo=${map.CLUB_NO }'/>"></span>
 		</button>
 		<div class="d-flex">
-			
 			<button class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block"
 				type="button">
 				<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
-				<span class="d-none d-md-inline-block ms-1">Delete</span>
+				<span class="d-none d-md-inline-block ms-1"></span>
 			</button>
 			<div class="dropdown font-sans-serif ms-2">
 				<button
@@ -34,10 +33,12 @@
                   <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
                     <div class="d-flex align-items-center gap-2"><a href="../../app/support-desk/contact-details.jsp">
                         <div class="avatar avatar-2xl">
-                          <div class="avatar-name rounded-circle"><span>HG</span></div>
+                          <div class="avatar-name rounded-circle">
+                          	<img src="<c:url value='/images/${map["IMAGE"]}'/>">
+                          </div>
                         </div>
                       </a>
-                      <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="#">홍길동  </a>부서명</p>
+                      <p class="mb-0">${map['NAME']}</p>
                     </div>
                     <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
                     	${map['REGDATE']}
