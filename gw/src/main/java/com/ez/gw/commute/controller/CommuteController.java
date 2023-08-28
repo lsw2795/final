@@ -36,6 +36,7 @@ public class CommuteController {
         List<CommuteVO> list = commuteService.selectCommuteByEmpNo(empNo);
         logger.info("근태관리 - 출/퇴근 데이터 조회 결과 list.size={}", list.size());
         
+        
         model.addAttribute("list", list);
         return "commute/commutingStatus";
     }
@@ -98,6 +99,8 @@ public class CommuteController {
 				int cnt = commuteService.updateWorkOut(empNo);
 				logger.info("퇴근 버튼 클릭시 인서트 결과 cnt={}", cnt);
 				result = 1; //퇴근 처리 완료
+			}else {
+				result = 2; //이미 퇴근 기록이 있움
 			}
 		}
 		

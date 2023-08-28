@@ -106,11 +106,14 @@ $(function() {
             data: { empNo: "${empMap['EMP_NO']}" }, // 요청 데이터 (empNo 전송)
             success: function(result) {
                 // 성공적으로 요청이 처리된 경우의 처리 (추가 작업이 필요하다면 여기에 코드 추가)
-                if(result>0){
+                if(result==1){
                 	alert("퇴근처리 되었습니다.");
-                }else{
+                }else if(result==2){
                 	alert("당일 퇴근처리가 이미 되어있습니다.");
+                }else{
+                	alert("출근 기록이 없습니다. 출근 먼저 해주세요.");
                 }
+                
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // 요청이 실패한 경우의 처리 (에러 핸들링)
