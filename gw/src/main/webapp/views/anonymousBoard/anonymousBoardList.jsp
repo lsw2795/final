@@ -86,10 +86,16 @@
                     	<p class="mb-1 bg-200 rounded-3 p-2">
                       	익명 :
                       	내용</p>
-                      	<div class="px-2">
-                      		시간 
-                      		&bull;<a href="#!">답글달기</a>  
-                      		&bull;<a href="#!">신고하기</a> 
+                      	<div class="row">
+	                      	<div class="col px-3">
+	                      		시간 
+	                      		&bull;<a href="#!">답글달기</a>  
+	                      		&bull;<a href="#!">신고하기</a> 
+	                      	</div>
+	                      	<div class="col-auto px-3">
+	                      		<a href="#!">수정</a>&bull;  
+	                      		<a href="#!">삭제</a>  
+		                    </div>
                       	</div>
                     </div>
 				</div>
