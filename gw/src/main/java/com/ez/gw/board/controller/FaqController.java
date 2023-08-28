@@ -91,23 +91,17 @@ public class FaqController {
 	}
 	
 	@RequestMapping("/admin/board/faqDeleteMulti")
-	public String deleteFaqMulti(@ModelAttribute ListBoardVO listVo,
-			 Model model) {
-		logger.info("관리자 - 선택한 FAQ 게시글 삭제, 파라미터 listVo={}", listVo);
-		
+	public String deleteFaqMulti(@ModelAttribute ListBoardVO listVo,Model model) {
+		logger.info("관리자 - 선택한 FAQ 게시글 멀티삭제, 파라미터 listVo={}", listVo);
 		List<BoardVO> list = listVo.getBoardItems();
 		int cnt = boardService.faqDeleteMulti(list);
-		logger.info("FAQ 게시글 삭제 결과, cnt={}", cnt);
-		
-		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/admin/board/faqList";
+		logger.info("관리자 - FAQ 게시글 멀티삭제 결과, cnt={}", cnt);
+		String msg="FAQ 게시글 삭제에 실패했습니다.",url="/admin/board/faqList";
 		if(cnt>0) {
-			msg = "선택한 게시글들을 삭제했습니다.";
+			msg="FAQ 게시글 삭제에 성공했습니다.";
 		}
-		
-		//3
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
 		//4
 		return "common/message";
 	}
