@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,16 +28,21 @@ public class FaqController {
 	private static final Logger logger = LoggerFactory.getLogger(FaqController.class);
 	private final BoardService boardService;
 	
+	@GetMapping("/admin/board/faqWrite")
+	public String insertFaq_get() {
+		logger.info("관리자 FAQ 등록 페이지");
+		return "admin/board/faqWrite";
+	}
+	
 	@ResponseBody
-	@RequestMapping("/admin/board/ajaxInsertFaq")
-	public int insertFaq(HttpSession session,
-			@ModelAttribute BoardVO boardVo) {
+	@RequestMapping("/admin/board/ajaxInsertFAQ")
+	public int insertFaq(@ModelAttribute BoardVO boardVo,
+			HttpSession session) {
 		int empNo=(int)session.getAttribute("empNo");
 		boardVo.setEmpNo(empNo);
-		logger.info("ajax 이용 - 관리자 FAQ 등록 파라미터 boardVo={}", boardVo);
+		logger.info("ajax 이용 - 관리자 FAQ 등록 처리 파라미터 boardVo={}", boardVo);
 		int cnt=boardService.insertFAQ(boardVo);
-		logger.info("ajax 이용 - 관리자 FAQ 등록 결과 cnt={}", cnt);
-		
+		logger.info("ajax 이용 - 관리자 FAQ 등록 처리 결과 cnt={}", cnt);
 		return cnt;
 	}
 	
@@ -62,13 +69,23 @@ public class FaqController {
 		return "admin/board/faqList";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/admin/board/ajaxSelectOneFAQ")
-	public BoardVO selectOneFAQ(@RequestParam (defaultValue = "0") int boardNo) {
-		logger.info("ajax 이용 수정 페이지 보여주기 파라미터 boardNo={}", boardNo);
+	@GetMapping("/admin/board/faqEdit")
+	public String updateFaq_get(@RequestParam (defaultValue = "0")int boardNo,Model model) {
+		logger.info("관리자 - 수정 페이지 보여주기 파라미터 boardNo={}", boardNo);
 		BoardVO boardVo=boardService.selectFAQByBoardNo(boardNo);
-		logger.info("ajax 이용 수정 페이지 보여주기 결과 boardVo={}", boardVo);
-		return boardVo;
+		logger.info("관리자 - 수정 페이지 결과 boardVo={}", boardVo);
+		model.addAttribute("boardVo",boardVo);
+		return "admin/board/faqWrite";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/board/ajaxUpdateFAQ")
+	public int updateFaq(@ModelAttribute BoardVO boardVo) {
+		logger.info("관리자 - 수정 처리 파라미터 boardVo={}", boardVo);
+		int cnt=boardService.updateFAQ(boardVo);
+		logger.info("관리자 - 수정 처리 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
 	
 }
