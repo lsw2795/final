@@ -1,6 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../inc/top.jsp" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="<c:url value='/js/anonymousBoard.js'/>"></script>
+<link href="<c:url value='/css/anonymousBoard.css'/>" rel="stylesheet">
+<script type="text/javascript">
+$(function (){
+	$('form[name=frmBoardWrite]').submit(function(){
+		$.ajax({
+	    	url:"<c:url value='/anonymous/boardWrite'/>",
+	   		type:"post",
+	   		dataType:"text",
+	   		data:$('form[name=frmBoardWrite]').serializeArray(),
+	   		success:function(res){
+	   			alert(res);
+	    	},error:function(xhr, status, error){
+	    		alert(status+" : "+error);
+	   		}
+	   	});
+		return false;
+	});
+});
+
+function uploadSet(bt){
+	var form = bt.closest('form[name=frmBoardWrite]');
+	var cnt = $(form).find('input[type=file]').length;
+	
+	if(cnt==0){
+		$('input[name=upfile]').attr('type','file');
+	}else{
+		$('input[name=upfile]').attr('type','hidden');
+	}
+}
+</script>
 <div class="row g-3">
 	<div class="col-lg-10 m-auto mt-3">
 		<div class="card mb-3">
@@ -13,11 +45,13 @@
                 </div>
 			</div>
             <div class="card-body p-0">
-            	<form>
-                	<textarea class="shadow-none form-control rounded-0 resize-none px-x1 border-y-0 border-200" placeholder="내용을 입력하세요." rows="4"></textarea>
+            	<form name="frmBoardWrite" method="post" enctype="multipart/form-data" action="<c:url value='/anonymous/boardWrite'/>">
+					<input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." >
+                	<textarea name="content" class="shadow-none form-control rounded-0 resize-none px-x1 border-y-0 border-200" placeholder="내용을 입력하세요." rows="4"></textarea>
+					<input name="upfile" type="hidden" class="form-control" accept="image/*" multiple="multiple" required>
                     <div class="row g-0 justify-content-between mt-3 px-x1 pb-3">
                     	<div class="col">
-	                        <button class="btn btn-light btn-sm rounded-pill shadow-none d-inline-flex align-items-center fs--1 mb-0 me-1" type="button">
+	                        <button onclick="uploadSet(this)" class="btn btn-light btn-sm rounded-pill shadow-none d-inline-flex align-items-center fs--1 mb-0 me-1" type="button">
 		                        <img class="cursor-pointer" src="<c:url value='/assets/img/icons/spot-illustrations/image.svg'/>" width="17" alt="" />
 		                        <span class="ms-2 d-none d-md-inline-block">Image</span>
 	                        </button>
@@ -55,34 +89,59 @@
             </div>
             <div class="card-body overflow-hidden">
             	<p>내용</p>
-                <div class="row mx-n1">
-					<div class="col-8 p-1 m-auto">
-	                	<a href="<c:url value='/images/last.JPG'/>" data-gallery="gallery-1">
-	                    	<img class="img-fluid rounded" src="<c:url value='/assets/img/generic/4.jpg'/>" alt="" />
-	                    </a>
+                <div class="row mx-n1 img-slider">
+					<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
+	                	<button class="btn" id="leftBt" style="width: 50px">
+	                		<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
+	                	</button>
+	                </div>
+					<div class="col-8" id="centerDiv" align="center" >
+	                	<div class="col img-div slideActive" style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
+	                	</div>
+	                	<div class="col img-div" style="background-image:url(<c:url value='/images/IMG_5495_20230821003756826.jpg'/>)">
+	                	</div>
+	                	<div class="col img-div " style="background-image:url(<c:url value='/images/CHUCK%2070%20HI3_20230822202225523.PNG'/>)">
+	                	</div>
+	                	<div class="col img-div " style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
+	                	</div>
+	                </div>
+					<div class="col-2 p-1 m-auto" id="rightBtDiv">
+	                	<button class="btn" id="rightBt" style="width: 50px">
+	                		<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
+	                	</button>
 	                </div>
             	</div>
+	            <div class="col-12 page-nav" align="center">
+					<div class="slideActive"></div>
+				    <div></div>
+				    <div></div>
+				    <div></div>
+				</div>
           	</div>
-            <div class="card-footer bg-light pt-0">
+            <div class="card-footer bg-light pt-0" id="datgeulInfo">
             	<div class="border-bottom border-200 fs--1 py-3">
             		<a class="text-700" href="#!">34개의 댓글이 있습니다.</a>
                 </div>
                 <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
                     <div class="col-auto">
-                    	<a class="rounded-2 d-flex align-items-center me-3" href="#!">
+                    	<a class="rounded-2 d-flex align-items-center me-3" onclick="divEvent(this)" href="#!">
                     		<img src="<c:url value='/assets/img/icons/spot-illustrations/comment-active.png'/>" width="20" alt="" />
                     		<span class="ms-1">댓글</span>
                     	</a>
                     </div>
                 </div>
-                <form class="d-flex align-items-center border-top border-200 pt-3">
-                	<input class="form-control rounded-pill ms-2 fs--1" type="text" placeholder="내용을 입력하세요." />
-                </form>
-                <div class="d-flex mt-3">
-                	<div class="avatar avatar-xl">
-                    	<img class="rounded-circle" src="<c:url value='/assets/img/team/4.jpg'/>" alt="" />
-                    </div>
-                    <div class="flex-1 ms-2 fs--1">
+                <div class="col-12" id="datgeulWriteDiv" style="display: none;">
+		            <form class="d-flex align-items-center border-top border-200 pt-3">
+		                <input class="form-control rounded-pill ms-2 fs--1" type="text" placeholder="내용을 입력하세요." />
+		            </form>
+                </div>
+                <div class="row mt-3" id="datgeulViewDiv" style="display: none;">
+                	<div class="col-1 fs--1" style="width: 20px;">
+	                	<div class="avatar avatar-xl">
+	                    	<img class="rounded-circle" src="<c:url value='/assets/img/team/4.jpg'/>" alt="" />
+	                    </div>
+	                </div>
+                    <div class="col flex-1 ms-2 fs--1">
                     	<p class="mb-1 bg-200 rounded-3 p-2">
                       	익명 :
                       	내용</p>

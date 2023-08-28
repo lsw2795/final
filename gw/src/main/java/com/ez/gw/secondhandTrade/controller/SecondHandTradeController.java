@@ -2,13 +2,10 @@ package com.ez.gw.secondhandTrade.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +26,6 @@ import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
-import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
@@ -38,9 +33,7 @@ import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeService;
 import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeVO;
 
-import ch.qos.logback.classic.pattern.Util;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -180,34 +173,42 @@ public class SecondHandTradeController {
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 
-		List<SecondHandTradeVO> list = secondHandTradeService.selectAllMarket(searchVo);
+		List<Map<String, Object>> list= secondHandTradeService.selectAllMarket(searchVo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
 
 		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		pagingInfo.setTotalRecord(totalRecord);
 
-		for (SecondHandTradeVO fg : list) {
+		for (Map<String, Object> fg : list) {
 
 			for (SecondhandTradeFileVO f : fileList) {
 				// 게시글과 파일의 매칭 조건을 설정
-				if (f.getTradeNo() == fg.getTradeNo() && f.getImageURL().contains("_0.")) {
-					fg.setThumbnail(f.getImageURL()); // 썸네일 파일명 저장
-					logger.info("썸네일 파일명={}", fg.getThumbnail());
+				
+				BigDecimal tradeNoBigDecimal = (BigDecimal) fg.get("TRADE_NO");
+			    int tradeNo = tradeNoBigDecimal.intValue(); // BigDecimal을 int로 변환
+			    
+				if (f.getTradeNo() == tradeNo && f.getImageURL().contains("_0.")) {
+					fg.put("thumbnail", f.getImageURL()); // 썸네일 파일명 저장
+					logger.info("썸네일 파일명={}", fg.get("thumbnail"));
 					break; // 매칭되는 파일을 찾았으면 더 이상 검색하지 않고 반복문을 종료
 				}
 			}
 
-			int empNo = fg.getEmpNo();
+			BigDecimal empNoBigDecimal = (BigDecimal) fg.get("EMP_NO");
+			int empNo = empNoBigDecimal.intValue(); // BigDecimal을 int로 변환
+			
+			//String name = (String)fg.get("NAME");
 			emp = employeeService.selectByEmpNo(empNo);
-			fg.setTimeNew(Utility.displayNew(fg.getRegdate())); // 게시글별로 24시간이내 글등록 확인 여부 저장
+			String name = (String)fg.put("NAME", emp.getName());
+			logger.info("작성자 이름 ={}", (String)fg.put("NAME", emp.getName()));
+			fg.put("timeNew", Utility.displayNew((Date)fg.get("REGDATE"))); // 게시글별로 24시간이내 글등록 확인 여부 저장
 		}
 
 		// 3
 		model.addAttribute("list", list);
-		//model.addAttribute("fileList", fileList);
-		model.addAttribute("emp", emp);
 		model.addAttribute("pagingInfo", pagingInfo);
+		
 		// 4
 		return "market/marketList";
 	}

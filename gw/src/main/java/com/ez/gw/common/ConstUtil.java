@@ -45,6 +45,8 @@ public interface ConstUtil {
 	
 	//관리자 페이지 - 공지사항 자료실 이용한 파일 저장 경로
 	String NOTICE_FILE_UPLOAD_PATH="pds_upload";
+	//String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
+	//String NOTICE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
 	String NOTICE_FILE_UPLOAD_PATH_TEST="pds_upload";
 	//String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
 	//String NOTICE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
@@ -65,5 +67,9 @@ public interface ConstUtil {
 	int REFER_LIST = 4;
 	int RETURN_LIST= 5;
 	int ADMIN = 6;
+	
+	//자원예약
+	int BOOK_NOTOK = 1;	//조회시간에 예약 있는 경우
+	int BOOK_OK = 2;	//예약 가능
 	
 }

@@ -19,6 +19,7 @@
     <!--    Favicons-->
     <!-- ===============================================-->
     <!-- jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
@@ -491,7 +492,7 @@
 	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="<c:url value='/board/faqList'/>" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/board/faqList'/>" role="button">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-question-circle"></span></span>
 	                    		<span class="nav-link-text ps-1">FAQ</span>
@@ -605,9 +606,6 @@
 				</button>
               </li>
               
-              <li class="nav-item d-none d-sm-block">
-                <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
-              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll">
                 	<span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span>

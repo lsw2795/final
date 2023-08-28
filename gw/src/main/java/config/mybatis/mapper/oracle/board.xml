@@ -19,6 +19,15 @@
 		insert into board(board_no, emp_no, boardList_no, title, content)
 		values(#{boardNo}, #{empNo}, 1000, #{title}, #{content})
 	</insert>
+	
+	<insert id="insertAnonumous" parameterType="boardVo">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			select board_seq.nextval from dual
+		</selectKey>
+		
+		insert into board(board_no, emp_no, boardList_no, title, content)
+		values(#{boardNo}, #{empNo}, 5000, #{title}, #{content})
+	</insert>
 
 	<select id="selectQnaAll" parameterType="searchVo" resultType="map">
 		select * from qnaListView
@@ -228,6 +237,7 @@
 				<if test="searchKeyword!=null and searchKeyword!=''">
 	   	 			and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
 	      		</if>
+	      		and delflag='N'
 				order by regdate desc
 			)A
 		)
@@ -243,7 +253,25 @@
 		<if test="searchKeyword!=null and searchKeyword!=''">
 	 		and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
    		</if>
+   		and delflag='N'
 		order by regdate desc
 	</select>
+	
+	<update id="updateFAQ" parameterType="boardVo">
+		update board
+		set title=#{title}, content=#{content}
+		where boardList_no=4000 and board_no=#{boardNo}
+	</update>
+	
+	<select id="selectFAQByBoardNo" parameterType="int">
+		select * from board
+		where boardList_no=4000 and board_no=#{boardNo}
+	</select>
+	
+	<update id="deleteFAQ" parameterType="int">
+		update board
+		set delflag='Y'
+		where boardList_no=4000 and board_no=#{boardNo}
+	</update>
 	
 </mapper>
