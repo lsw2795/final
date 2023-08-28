@@ -119,14 +119,13 @@
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
           <c:set var="idx" value="0"/>
+	       	 	<form name="frmList">
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class="accordion-item border-0">
               <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading${boardVo.boardNo }">
-	       	 	<form name="frmList">
 	       	 	<input class="form-check-input" type="checkbox" id="all-contact-0"
 					data-bulk-select-row="data-bulk-select-row" name="boardItems[${idx}].boardNo" value="${boardVo.boardNo}"/>
-				</form>
                 <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
                 data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
@@ -147,6 +146,7 @@
           </div>
           <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
+		</form>
 		</c:if>
 		</div>
 	<div class="card-footer d-flex justify-content-center admindefault">
