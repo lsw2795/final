@@ -23,10 +23,10 @@ public interface PdsService {
 	int getTotalRecord(SearchVO vo);
 	int selectIsFile(int boardNo);
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
+	List<PdsVO> select24AnonymousImage();
 	
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int editNoticeFile(int pdsNo);
-	
 	int deleteMulti(List<PdsVO> list); //관리자 - 파일 다중 삭제
 	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드
 	int deleteBoardMulti(HttpServletRequest request, List<BoardVO> list); //관리자 - 자료실 게시글 다중 삭제

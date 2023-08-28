@@ -274,4 +274,10 @@
 		where boardList_no=4000 and board_no=#{boardNo}
 	</update>
 	
+	<select id="select24List" resultType="boardVo">
+		select * from board
+		where boardlist_no = 5000
+		and regdate>= sysdate -1
+		and delflag='N'
+	</select>
 </mapper>

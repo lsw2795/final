@@ -161,7 +161,14 @@
 		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
 			select pds_seq.nextval from dual
 		</selectKey>
-		insert into pds(pds_no, fileName, fileSize, originalfileName, boardList_no, board_no)
+		insert into pds(pds_no, fileName, originalfileName, boardList_no, board_no)
 		values(#{pdsNo}, #{fileName}, #{originalFileName}, 5000, #{boardNo})
 	</insert>
+	
+	<select id="select24AnonymousImage" resultType="pdsVo">
+		select * from pds
+		where boardlist_no = 5000
+		and regdate>= sysdate -1
+		order by regdate desc
+	</select>
 </mapper>
