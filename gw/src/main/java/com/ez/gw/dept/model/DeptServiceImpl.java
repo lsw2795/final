@@ -34,4 +34,9 @@ public class DeptServiceImpl implements DeptService{
 		return deptDao.selectAllDept2(deptVo);
 	}
 
+	@Override
+	public int insertDept(DeptVO deptVo) {
+		return deptDao.insertDept(deptVo);
+	}
+
 }
