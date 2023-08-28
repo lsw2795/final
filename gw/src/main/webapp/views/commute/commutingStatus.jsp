@@ -46,20 +46,38 @@ div#calendar {
 			nowIndicator: true, 
 			locale: 'ko', // 한국어로 변경해주기
 			events : [
-				<%List<CommuteVO> commuteList = (List<CommuteVO>) request.getAttribute("list");%>
-				<%if (commuteList != null && !commuteList.isEmpty()) {%>
+				<%List<CommuteVO> commuteList = (List<CommuteVO>)request.getAttribute("list");  %>
+				<%if(commuteList != null && !commuteList.isEmpty()){ %>
 				
-						<%for (CommuteVO vo : commuteList) {%>
-							<%if (vo.getCommuteState() == 1) {%>
+						<%for(CommuteVO vo : commuteList){ %>
+							<%if(vo.getCommuteState()==1){%>
+								{
+									title : '출근:지각',
+									start : '<%=vo.getWorkIn()%>'
+								},
+								{
+									title : '퇴근:',
+									start : '<%=vo.getWorkOut()%>'
+								},
+							<%}else if(vo.getCommuteState()==5){%>
+								{
+									title : '출근' ,
+									start : '<%=vo.getWorkIn()%>'
+								},
+								{
+									title : '퇴근:조퇴',
+									start : '<%=vo.getWorkOut()%>'
+								},
+							<%}else if(vo.getCommuteState()==1 && vo.getCommuteState()==5){%>
 								{
 									title : '출근:지각' ,
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근',
+									title : '퇴근:조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
-							<%} else {%>
+							<%}else{%>
 								{
 									title : '출근' ,
 									start : '<%=vo.getWorkIn()%>'
@@ -70,9 +88,7 @@ div#calendar {
 								},
 							<%}%>
 						<%}%>
-					
-					
-				<%}%>
+					<%}%>
 				
 			]
 			

@@ -42,6 +42,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.updateCommuteState(vo);
 	}
 
+	@Override
+	public int updateCommuteStateEalry(int empNo) {
+		return commuteDao.updateCommuteStateEalry(empNo);
+	}
+
 	
 	
 }

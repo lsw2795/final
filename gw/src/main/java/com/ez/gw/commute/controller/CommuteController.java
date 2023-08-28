@@ -99,11 +99,23 @@ public class CommuteController {
 				int cnt = commuteService.updateWorkOut(empNo);
 				logger.info("퇴근 버튼 클릭시 인서트 결과 cnt={}", cnt);
 				result = 1; //퇴근 처리 완료
+				
+				if (cnt > 0) {
+	                LocalDateTime currentTime = LocalDateTime.now();
+	                LocalDateTime sixPM = currentTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
+	                if (currentTime.isBefore(sixPM)) { // 오후 6시 이전에 퇴근한 경우에만 commute_state 업데이트
+	                    int result2 = commuteService.updateCommuteStateEalry(empNo); // commute_state 업데이트
+	                    if(result2>0) {
+	                    	return 3; // 오후 6시 이전에 퇴근할 경우 조퇴 
+	                    }
+	                }
+	                
+				}
+				
 			}else {
 				result = 2; //이미 퇴근 기록이 있움
 			}
 		}
-		
 		return result;
 	}
 	
