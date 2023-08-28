@@ -7,6 +7,9 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btnFaqEdit').click(function(){
+			event.preventDefault();
+			var modalCheck=false;
+			
 			var count= $('input[type=checkbox]:checked').length;
 			if(count==1){
 				var boardNo=$('input[type=checkbox]:checked').val();
@@ -26,20 +29,15 @@
 		            	var title=receivedData.title;
 		            	var content=receivedData.content;
 		            	
-		            	result="<div class='modal fade' id='exampleModal2' tabindex='-1' aria-labelledby='exampleModalLabel2' aria-hidden='true'>"
-		            	    +"<div class='modal-dialog'><div class='modal-content admindefault' style='width: 700px;'>"
-		            	    +"<div class='modal-header'><h5 class='modal-title admindefault' id='exampleModalLabel2'>FAQ 수정</h5>"
-		            	    +"<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button></div>"
-		            	    +"<div class='modal-body'><table class='table table-bordered'><colgroup><col style='width: 20%;'/><col style='width: 80%;'/>"
-		            		+"</colgroup><tbody id='table-contact-body'><form id='updateFaq'><tr class='adminemptr'><td class='align-middle'>FAQ 제목</td>"
-		            		+"<td class='align-middle'><input type='text' class='form-control admindefault' id='title' name='title' value='"+title+"'/></td></tr>"
-		            		+"<tr class='adminemptr'><td class='align-middle'>FAQ 내용</td><td class='align-middle'>"
-		            		+"<textarea id='editor' name='content'>"+content+"</textarea></td></tr></form></tbody></table></div>"
-		            	    +"<div class='modal-footer' style='text-align: center;'><input type='submit' value='수정' class='btn btn-primary'>"
-		            	    +"<input type='button' value='취소' class='btn btn-secondary' id='btnCancel'></div></div></div></div>";
+		            	result="<input type='text' class='form-control admindefault' id='title' name='title' value='"+title+"'/>";
+		            	result2="<textarea id='editor' name='content'>"+content+"</textarea>";
 		            	
-		            	$('#updateFaq').append(result);
-		            	$('#exampleModal2').modal('show'); 
+		            	$('#updateTitle').append(result);
+		            	$('#updateContent').append(result2);
+		            	modalCheck=true;
+		            	if(modalCheck){
+		            		$('#exampleModal2').modal('show');
+		            	}	
 		            	
 		            },
 		            error:function(xhr,status,error){
@@ -109,7 +107,7 @@
 							<div class="admindefault adminempdiv13" id="table-contact-replace-element">
 								<input type="button" value="등록" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning"/>
+								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2"/>
 								<span class="adminhyphen"></span>
 								<input type="button" value="삭제" class="btn btn-outline-danger"/>
 							</div>
@@ -189,7 +187,46 @@
 </div>
 </div>
 
-<div id="updateFaq"></div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" 
+	aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content admindefault" style="width: 700px;">
+      <div class="modal-header">
+        <h5 class="modal-title admindefault" id="exampleModalLabel2">FAQ 수정</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<table class="table table-bordered">
+			<colgroup>
+				<col style="width: 20%;" />
+				<col style="width: 80%;" />
+			</colgroup>
+			<tbody id="table-contact-body">
+				<form id="updateFaq">
+				<tr class="adminemptr">
+					<td class="align-middle">FAQ 제목</td>
+					<td class="align-middle">
+					<div id="updateTitle"></div>
+					</td>
+				</tr>
+				<tr class="adminemptr">
+					<td class="align-middle">FAQ 내용</td>
+					<td class="align-middle">
+					<div id="updateContent"></div>
+					</td>
+				</tr>
+			</form>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <input type="submit" value="수정" class="btn btn-primary">
+        <input type="button" value="취소" class="btn btn-secondary" id="btnCancel">
+      </div>
+    </div>
+  </div>
+</div> 
 <script>
 	CKEDITOR.replace('editor', {
 		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
