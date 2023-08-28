@@ -73,7 +73,7 @@
 		});
     	
     	function bellSet(){
-    		var newCnt=$('.list-group').find('.new').length;
+    		var newCnt=$('.new-list').find('.new').length;
     		if(newCnt>0){
     			$('#navbarDropdownNotification').addClass('notification-indicator');
     			$('#navbarDropdownNotification').addClass('notification-indicator-primary');
@@ -156,10 +156,10 @@
           		return;
           	}
           	
-          	if($('.list-group').find('.new').length==0){
-          		$('.list-group').html(topstr);
+          	if($('.new-list').find('.new').length==0){
+          		$('.new-list').html(topstr);
           	} 
-          	$('.list-group').append(str);
+          	$('.new-list').append(str);
           
     	}
     	
@@ -183,10 +183,10 @@
           		return;
           	}
           	
-          	if($('.list-group').find('.new').length==0){
-          		$('.list-group').html(topstr);
+          	if($('.new-list').find('.new').length==0){
+          		$('.new-list').html(topstr);
           	} 
-          	$('.list-group').append(str);
+          	$('.new-list').append(str);
           
     	}
     </script>
@@ -571,7 +571,7 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="i">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link" href="<c:url value='/anonymous/boardList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">익명게시판</span>
                         			</div> 
@@ -620,8 +620,7 @@
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
                       <div class="list-group list-group-flush fw-normal fs--1">
-                        <div class="list-group-title border-bottom">NEW</div>
-                        <div class="list-group-item">
+                        <div class="list-group-item new-list">
                             <div class="notification-body p-3" align="center">
                               <p class="mb-1">
                               	<strong>새로운 알림이 없습니다.</strong> 

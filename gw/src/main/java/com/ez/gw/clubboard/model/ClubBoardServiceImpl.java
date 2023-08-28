@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.ez.gw.common.SearchVO;
 
@@ -22,6 +24,48 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 	@Override
 	public int insertClubBoard(ClubBoardVO clubVo) {
 		return clubboardDao.insertClubBoard(clubVo);
+	}
+
+	@Override
+	public int updateReadcount(int boardNo) {
+		return clubboardDao.updateReadcount(boardNo);
+	}
+
+	@Override
+	public int updateClubBoard(ClubBoardVO clubVo) {
+		return clubboardDao.updateClubBoard(clubVo);
+	}
+
+	@Override
+	public Map<String, Object> detailClubBoard(int clubNo, int boardNo) {
+		return clubboardDao.detailClubBoard(clubNo, boardNo);
+	}
+
+	@Override
+	public int deleteClubBoard(int clubNo, int boardNo) {
+		return clubboardDao.deleteClubBoard(clubNo, boardNo);
+	}
+
+	@Override
+	@Transactional
+	public int deleteMulti(List<ClubBoardVO> list) {
+		int cnt = 0;
+		
+		try {
+			for(ClubBoardVO vo : list) {
+				int boardNo = vo.getBoardNo();
+				if(boardNo!=0) { //체크된 질문만 삭제
+					cnt = clubboardDao.deleteClubBoard(cnt, boardNo);
+				}
+			} //for
+		}catch (RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		
+		return cnt;
 	}
 
 	

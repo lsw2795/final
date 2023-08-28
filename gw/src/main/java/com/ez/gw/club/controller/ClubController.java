@@ -25,20 +25,20 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/club")
+@RequestMapping("")
 public class ClubController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubController.class);
 	private final ClubService clubService;
 	private final EmployeeService empService;
 
-	@RequestMapping("/createClub")
+	@RequestMapping("/club/createClub")
 	public String clubWrite() {
 		//1.
 		logger.info("동호회 개설 페이지");
 		return "club/createClub";
 	}
 
-	@PostMapping("/createClub")
+	@PostMapping("/club/createClub")
 	public String clubWrite_post(@ModelAttribute ClubVO vo, HttpSession session ,Model model) {
 		//1.
 		int empNo = (int)session.getAttribute("empNo");
@@ -62,7 +62,7 @@ public class ClubController {
 		return "common/message";
 	}
 
-	@RequestMapping("/clubList")
+	@RequestMapping("/club/clubList")
 	public String clubList(@ModelAttribute SearchVO searchVo,Model model) {
 		//1.
 		logger.info("동호회 개설 전체조회 searchVo={}",searchVo);
@@ -81,7 +81,7 @@ public class ClubController {
 		return "club/clubList";
 	}
 
-	@GetMapping("/clubEdit")
+	@GetMapping("/club/clubEdit")
 	public String editClub(@RequestParam(defaultValue = "0")int clubNo ,Model model) {
 		//1.
 		logger.info("동호회 개설 수정 페이지, clubNo={}",clubNo);
@@ -101,7 +101,7 @@ public class ClubController {
 		return "club/clubEdit";
 	}
 
-	@RequestMapping("/clubEdit")
+	@RequestMapping("/club/clubEdit")
 	public String editClub_post(@ModelAttribute ClubVO vo, Model model) {
 		//1.
 		logger.info("수정 처리 페이지, vo={}",vo);
@@ -124,7 +124,7 @@ public class ClubController {
 	}
 
 
-	@RequestMapping("/deleteClub")
+	@RequestMapping("/club/deleteClub")
 	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
 		logger.info("동호회 삭제");
@@ -146,7 +146,7 @@ public class ClubController {
 		return "common/message";
 	}
 
-	@RequestMapping("/clubDetail")
+	@RequestMapping("/club/clubDetail")
 	public String clubDetail(@ModelAttribute ClubVO clubVo,@RequestParam(defaultValue = "0")int clubNo,
 			Model model) {
 		//1.
@@ -168,7 +168,7 @@ public class ClubController {
 		//4.
 		return "club/clubDetail";
 	}
-
+	
 	@RequestMapping("/payClub")
 	public String payClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
@@ -185,8 +185,49 @@ public class ClubController {
 		return "club/clubDetail?clubNo="+clubNo;
 	}
 
+	
+	//Admin 관리자
+	//admin clubList
+	@RequestMapping("/admin/adminclub/clubList")
+	public String adminclubList(@ModelAttribute SearchVO searchVo, Model model) {
+		logger.info("관리자 - 동호회 전체 현황");
+		
+		List<Map<String, Object>> list=clubService.selectClub(searchVo);
+		logger.info("관리자 - 개설된 동호회 list.size()={}",list.size());
+		
+		
+		 for(Map<String, Object> map : list) { 
+			 map.put("timeNew",Utility.displayNew((Date)map.get("REGDATE"))); 
+		 }
+		 
+		//3.
+		model.addAttribute("list", list);
+		
+		//4.
+		return "admin/adminclub/clubList";
+	}
+	
+	@RequestMapping("/admin/adminclub")
+	public String adminDeleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
+		//1.
+		logger.info("관리자 - 동호회 삭제");
+		//2.
+		int cnt=clubService.deleteClub(clubNo);
+		logger.info("관리자 - 동호회 삭제 결과 cnt={}",cnt);
 
+		String msg="삭제 실패했습니다.", url="/club/clubEdit?clubNo="+clubNo;
+		if(cnt>0) {
+			msg="삭제완료 되었습니다.";
+			url="admin/adminclub/clubList";
+		}
 
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4.
+		return "common/message";
+	}
 
 }
 

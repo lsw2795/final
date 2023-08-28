@@ -91,7 +91,7 @@
 	                    <div class="d-flex align-items-center gap-2">
 	                    	<c:if test="${!empty replyMap['IMAGE']}">
 		                        <div class="avatar avatar-2xl">
-		                          <img class="rounded-circle" src="<c:url value='/images/${replayMap["IMAGE"]}'/>"  />
+		                          <img class="rounded-circle" src="<c:url value='/images/${replyMap["IMAGE"]}'/>"  />
 		                        </div>
 	                        </c:if>
    	                    	<c:if test="${empty replyMap['IMAGE']}">
@@ -127,6 +127,7 @@
 	                  <h5 class="mb-0 p-x1 bg-light">답변</h5>
 	                  <div class="border border-y-0 border-200">
 	                  	<input name="boardNo" type="hidden" value="${param.boardNo}">
+	                  	<input name="empNo" type="hidden" value="${sessionScope.empNo}">
 	                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="15" placeholder="내용" form="replyForm"></textarea>
 	                  </div>
 	                  

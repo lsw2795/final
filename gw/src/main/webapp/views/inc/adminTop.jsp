@@ -213,23 +213,19 @@
 	                  	</a>
 	                  	<ul class="nav collapse show" id="e">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/message/messageWrite'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">쪽지 쓰기</span>
                         			</div> 
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/message/messageList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">보낸 쪽지함</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">받은 쪽지함</span>
+                        				<span class="nav-link-text ps-1">
+                        					쪽지함
+                        					<span class="badge rounded-pill text-bg-primary" id="newMessage"></span>
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -287,7 +283,7 @@
 	                   			<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/admin/board/faqList'/>" role="button" data-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-question-circle"></span></span>
 	                    		<span class="nav-link-text ps-1">FAQ</span>
@@ -322,6 +318,13 @@
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 결제 관리</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="#">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">신고함</span>
                         			</div> 
                       			</a>
                     		</li>
