@@ -213,20 +213,20 @@
 					<div
 						class="d-flex align-items-center justify-content-between px-x1 admindefault">
 						<button class="btn btn-falcon-default btn-sm admindefault"
-							type="button">
+							type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
 							<span class="fas fa-plus" data-fa-transform="shrink-3"></span><span
 								class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">부서
 								추가</span>
 						</button>
 						<button class="btn btn-falcon-default btn-sm mx-2 admindefault"
-							type="button">
+							type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
 							<span class="fas fa-external-link-alt"
 								data-fa-transform="shrink-3"></span><span
 								class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">부서
 								수정</span>
 						</button>
 						<button class="btn btn-falcon-default btn-sm admindefault"
-							type="button">
+							type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
 							<span class="fas fa-minus" data--transform="shrink-3"></span><span
 								class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">부서
 								삭제</span>
@@ -237,4 +237,5 @@
 		</div>
 	</div>
 </div>
+<%@ include file='deptModal.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
