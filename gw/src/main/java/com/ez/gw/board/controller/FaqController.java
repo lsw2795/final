@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.board.model.ListBoardVO;
+import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -85,6 +88,28 @@ public class FaqController {
 		int cnt=boardService.updateFAQ(boardVo);
 		logger.info("관리자 - 수정 처리 결과 cnt={}", cnt);
 		return cnt;
+	}
+	
+	@RequestMapping("/admin/board/faqDeleteMulti")
+	public String deleteFaqMulti(@ModelAttribute ListBoardVO listVo,
+			 Model model) {
+		logger.info("관리자 - 선택한 FAQ 게시글 삭제, 파라미터 listVo={}", listVo);
+		
+		List<BoardVO> list = listVo.getBoardItems();
+		int cnt = boardService.faqDeleteMulti(list);
+		logger.info("FAQ 게시글 삭제 결과, cnt={}", cnt);
+		
+		String msg = "선택한 게시글 삭제 중 에러가 발생했습니다.", url = "/admin/board/faqList";
+		if(cnt>0) {
+			msg = "선택한 게시글들을 삭제했습니다.";
+		}
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
 	}
 	
 	

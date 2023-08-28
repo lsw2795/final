@@ -33,5 +33,7 @@ public interface BoardService {
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);
-
+	//FAQ 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
+	int faqDeleteMulti(List<BoardVO> list);
+	
 }

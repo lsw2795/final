@@ -19,6 +19,22 @@
 				alert('수정할 FAQ 게시글을 하나만 체크 바랍니다.');
 			}
 		});
+		
+		$('#btnFaqDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
+			}
+			
+			if(count > 0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/board/faqDeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
+		});
+		
+		
 	});
 	
 	function pageFunc(curPage){
@@ -82,7 +98,7 @@
 								<span class="adminhyphen"></span>
 								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="삭제" class="btn btn-outline-danger"/>
+								<input type="button" value="삭제" id="btnFaqDel" class="btn btn-outline-danger"/>
 							</div>
 						</div>
 						</div>
@@ -102,11 +118,15 @@
 		</div>
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
+          <c:set var="idx" value="0"/>
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class="accordion-item border-0">
               <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading${boardVo.boardNo }">
-               <input class="form-check-input me-2" type="checkbox" name="boardNo" value="${boardVo.boardNo}"/>
+	       	 	<form name="frmList">
+	       	 	<input class="form-check-input" type="checkbox" id="all-contact-0"
+					data-bulk-select-row="data-bulk-select-row" name="boardItems[${idx}].boardNo" value="${boardVo.boardNo}"/>
+				</form>
                 <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
                 data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
@@ -125,6 +145,7 @@
               </div>
             </div>
           </div>
+          <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
 		</c:if>
 		</div>
