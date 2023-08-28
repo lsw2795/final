@@ -60,7 +60,14 @@ public class CommuteController {
 	        
 	        int commuteState = currentTime.isBefore(nineAM) ? 0 : 1; // 0: On time, 1: Late
 	        CommuteVO vo = new CommuteVO();
-	        vo.set
+	        vo.setEmpNo(empNo);
+	        vo.setCommuteState(commuteState);
+	        
+	        int cnt2 = commuteService.updateCommuteState(vo); // 오전 9시 이후로 출근하면 근태 상태가 1 지각으로 바뀌는 메서드
+	        logger.info("출근 버튼 클릭시 지각 여부 cnt2={}", cnt2);
+	        if(cnt2==1) {
+	        	return 2; //지각 출근
+	        }
 	        
 			
 			logger.info("출근 버튼 클릭시 인서트 결과 cnt={}", cnt);

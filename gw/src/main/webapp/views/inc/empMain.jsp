@@ -66,8 +66,15 @@ $(function() {
             success: function(result) {
             	var $workInButton = $("#workIn");
             	
-                if(result>0){
+                if(result==1){
                 	alert("출근처리 되었습니다.");
+                    $workInButton.text("로그아웃"); // 텍스트 변경
+                    $workInButton.off("click"); // 클릭 이벤트 제거
+                    $workInButton.click(function() {
+                        location.href = "<c:url value='/login/logout'/>";
+                    }); 
+                }else if(result==2){
+                	alert("출근(지각)처리 되었습니다.");
                     $workInButton.text("로그아웃"); // 텍스트 변경
                     $workInButton.off("click"); // 클릭 이벤트 제거
                     $workInButton.click(function() {
@@ -80,6 +87,7 @@ $(function() {
                     $workInButton.click(function() {
                         location.href = "<c:url value='/login/logout'/>";
                     }); 
+                	
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
