@@ -5,12 +5,16 @@
 <mapper namespace="com.ez.gw.clubboardComment.model.ClubBoardCommentDAO">
 	
 	<insert id="insertClubComm">
-		<selectKey keyProperty="clubBoardCommNo" order="BEFORE" resultType="int">
+		<selectKey keyProperty="clubCommNo" order="BEFORE" resultType="int">
 			select CLUBBOARD_COMMENT_seq.nextval from dual
 		</selectKey>
 			insert into CLUBBOARD_COMMENT(COMMENT_NO, CONTENT, GROUPNO, STEP, SORTNO,
     			EMP_NO, BOARD_NO)
-			values(#{clubBoardCommNo},#{content},#{groupNo},#{step},#{sortNo},#{empNo},#{boardNo})
+			values(#{clubCommNo},#{content},#{groupNo},#{step},#{sortNo},#{empNo},#{boardNo})
 	</insert>
+	
+	<select id="selectCommClub">
+		
+	</select>
 	
 </mapper>

@@ -107,8 +107,40 @@ public class ClubBoardController {
 		return "club/clubBoardDetail";
 	}
 	
+	@RequestMapping("/editClubBoard")
+	public String editClubBoard(@RequestParam int clubNo, int boardNo, Model model) {
+		//1.
+		logger.info("동호회 게시글 수정 페이지 보기 clubNo={},boardNo={}",clubNo,boardNo);
+		//2.
+		if(clubNo==0 || boardNo==0) {
+			model.addAttribute("msg", "잘못된 경로입니다.");
+			model.addAttribute("url", "/club/clubboard");
+			
+			return "common/message";
+		}
+		
+		//3.
+		Map<String, Object> map = clubBoardService.detailClubBoard(clubNo, boardNo);
+		logger.info("파라미터로 알아보는 동게 수정페이지 map={}",map);
+
+		model.addAttribute("map", map);
+		//4.
+		return "club/editClubBoard";
+	}
 	
-	
+	@RequestMapping("/editClubBoard")
+	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo) {
+		//1.
+		logger.info("동게 수정처리 clubVo={}",clubVo);
+		
+		//2.
+		
+		//3.
+		
+		//4.
+		return "common/message";
+		
+	}
 	
 	
 	
