@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.clubboard.model.ClubBoardService;
 import com.ez.gw.clubboard.model.ClubBoardVO;
+import com.ez.gw.clubboardComment.model.ClubBoardCommentService;
+import com.ez.gw.clubboardComment.model.ClubBoardCommentVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class ClubBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubBoardController.class);
 	private final ClubBoardService clubBoardService;
+	private final ClubBoardCommentService cbcService;
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -42,7 +45,7 @@ public class ClubBoardController {
 		clubVo.setEmpNo(empNo);
 		clubVo.setClubNo(clubNo);
 		
-		logger.info("동호회 게시판 작성하는 페이지 empNo={},clubVo={}",empNo,clubVo);
+		logger.info("동호회 게시판 작성하는 페이지 empNo={},clubNo={},clubVo={}",empNo,clubNo,clubVo);
 		
 		//2.
 		int cnt=clubBoardService.insertClubBoard(clubVo);
@@ -73,8 +76,11 @@ public class ClubBoardController {
 		logger.info("동호회 게시판목록 list.size={}",list.size());
 		
 		for(Map<String, Object> map : list) { 
-			 map.put("timeNew",Utility.displayNew((Date)map.get("REGDATE"))); 
+			int countCommt = cbcService.selectCountComment(clubNo, clubNo);
+			map.put("countCommt", countCommt);
+			map.put("timeNew",Utility.displayNew((Date)map.get("REGDATE"))); 
 		 }
+		
 		//3.
 		model.addAttribute("list", list);
 		
@@ -100,21 +106,24 @@ public class ClubBoardController {
 		Map<String, Object> map = clubBoardService.detailClubBoard(clubNo, boardNo);
 		logger.info("동호회게시글 상세보기 결과 map={}",map);
 		
+		List<Map<String, Object>> commtList = cbcService.selectCommClub(clubNo, boardNo);
+		logger.info("해당 동호회게시글 모든 답변 결과 commtList.size={}",commtList.size());
 		//3.
 		model.addAttribute("map", map);
+		model.addAttribute("commtList", commtList);
 		
 		//4.
 		return "club/clubBoardDetail";
 	}
 	
-	@RequestMapping("/editClubBoard")
+	@GetMapping("/editClubBoard")
 	public String editClubBoard(@RequestParam int clubNo, int boardNo, Model model) {
 		//1.
 		logger.info("동호회 게시글 수정 페이지 보기 clubNo={},boardNo={}",clubNo,boardNo);
 		//2.
 		if(clubNo==0 || boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
-			model.addAttribute("url", "/club/clubboard");
+			model.addAttribute("url", "/club/clubBoard?clubNo="+clubNo);
 			
 			return "common/message";
 		}
@@ -129,19 +138,69 @@ public class ClubBoardController {
 	}
 	
 	@RequestMapping("/editClubBoard")
-	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo) {
+	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo, Model model) {
 		//1.
 		logger.info("동게 수정처리 clubVo={}",clubVo);
 		
 		//2.
+		int cnt = clubBoardService.updateClubBoard(clubVo);
+		logger.info("동게 수정처리 결과 cnt={}",cnt);
+		//3.
+		String msg="수정 실패하였습니다.", 
+			   url="/club/editClubBoard?clubNo="+clubVo.getClubNo()+"&boardNo="+clubVo.getBoardNo();
+		if(cnt>0) {
+			msg="게시글 수정 완료 되었습니다.";
+			url="/club/clubBoard?clubNo="+clubVo.getClubNo();
+		}
+		//4.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+
+	@RequestMapping("/clubComment")
+	public String insertCommt(@ModelAttribute ClubBoardCommentVO cbcVo, Model model) {
+		//1.
+		logger.info("동게 답변달기 clubBoardCommentVo={}",cbcVo);
+		
+		//2.
+		int comment = cbcService.insertClubCommt(cbcVo);
+		logger.info("동게 답변 결과 comment={}",comment);
+		
+		String msg="등록 실패",
+			   url="/club/clubBoardDetail?clubNo="+cbcVo.getClubNo()+"&boardNo="+cbcVo.getBoardNo();
+		if(comment>0) {
+			msg="답변 등록 완료되었습니다.";
+		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4.
+		return "common/message";
+	}
+	
+	public String deleteClubBoard(@RequestParam(defaultValue = "0")int clubNo,
+			@RequestParam(defaultValue = "0")int boardNo, Model model) {
+		//1.
+		logger.info("동게 삭제 clubNo={},boardNo={}",clubNo,boardNo);
+		//2.
+		int cnt=clubBoardService.deleteClubBoard(clubNo, boardNo);
+		logger.info("동게 삭제 결과 cnt={}",cnt);
+		
+		String msg="삭제 실패했습니다.", 
+				url="/club/clubBoardDetail?clubNo="+clubNo+"&boardNo="+boardNo;
+		if(clubNo==0 || boardNo==0) {
+			msg="게시물 삭제 완료 되었습니다.";
+		}
 		
 		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
 		//4.
 		return "common/message";
-		
 	}
-	
 	
 	
 }

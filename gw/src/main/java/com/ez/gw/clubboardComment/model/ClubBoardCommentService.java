@@ -1,5 +1,10 @@
 package com.ez.gw.clubboardComment.model;
 
+import java.util.List;
+import java.util.Map;
+
 public interface ClubBoardCommentService {
-	int insertClubComm(ClubBoardCommentVO cbcVo);
+	int insertClubCommt(ClubBoardCommentVO cbcVo);
+	List<Map<String, Object>> selectCommClub(int clubNo, int boardNo);
+	int selectCountComment(int clubNo, int boardNo); //답변 개수
 }

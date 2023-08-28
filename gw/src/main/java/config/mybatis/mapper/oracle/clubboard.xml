@@ -40,7 +40,7 @@
 	
 	<delete id="deleteClubBoard">
 		delete from clubBoard
-		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
+		where CLUB_NO=#{clubNo} and board_no=#{boardNo} 
 	</delete>
 	
 	

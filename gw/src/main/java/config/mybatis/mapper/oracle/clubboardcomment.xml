@@ -4,17 +4,33 @@
 
 <mapper namespace="com.ez.gw.clubboardComment.model.ClubBoardCommentDAO">
 	
-	<insert id="insertClubComm">
-		<selectKey keyProperty="clubCommNo" order="BEFORE" resultType="int">
+	<insert id="insertClubCommt" parameterType="clubBoardCommentVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
 			select CLUBBOARD_COMMENT_seq.nextval from dual
 		</selectKey>
-			insert into CLUBBOARD_COMMENT(COMMENT_NO, CONTENT, GROUPNO, STEP, SORTNO,
-    			EMP_NO, BOARD_NO)
-			values(#{clubCommNo},#{content},#{groupNo},#{step},#{sortNo},#{empNo},#{boardNo})
+			insert into CLUBBOARD_COMMENT(COMMENT_NO, CONTENT,EMP_NO, BOARD_NO, CLUB_NO)
+			values(#{commentNo},#{content},#{empNo},#{boardNo}, #{clubNo})
 	</insert>
 	
-	<select id="selectCommClub">
-		
+	<select id="selectCommClub" parameterType="int" resultType="map">
+		select * from CLUBBOARDCOMMVIEW
+		where club_no=#{clubNo} and board_no=#{boardNo} 
+		order by regdate
+	</select>
+	
+	<select id="selectCountComment" parameterType="int" resultType="int">
+		select count(*) from CLUBBOARDCOMMVIEW
+		where club_no=#{clubNo} and board_no = #{boardNo}
 	</select>
 	
 </mapper>
+
+
+
+
+
+
+
+
+
+
