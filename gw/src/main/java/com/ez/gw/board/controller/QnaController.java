@@ -381,8 +381,8 @@ public class QnaController {
 	@RequestMapping("/admin/qna/reply")
 	public String adminReply(@ModelAttribute CommentsVO vo, HttpSession session) {
 		//1
-		int empNo = (int)session.getAttribute("empNo");
-		vo.setEmpNo(empNo);
+//		int empNo = (int)session.getAttribute("empNo");
+//		vo.setEmpNo(empNo);
 		
 		logger.info("관리자 - 답변 등록 파라미터, vo={}", vo);
 		
