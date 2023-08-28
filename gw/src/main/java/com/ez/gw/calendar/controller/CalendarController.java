@@ -81,7 +81,7 @@ public class CalendarController {
 	@RequestMapping("/fullCalendar")
 	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
 		logger.info("내 스케줄 보기");
-		String viewpage="calendar/fullCalendar";
+		String viewpage="reservation/reservationList";
 		List<CalendarVO> calendarList=null;
 		
 		try {

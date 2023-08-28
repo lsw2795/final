@@ -31,13 +31,13 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			events : [ 
-	    	    <%List<ReservationVO> reservationList = (List<ReservationVO>)request.getAttribute("reservationList");%>
-	            <%if (reservationList != null) {%>
-	            <%for (ReservationVO vo : reservationList) {%>
+	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
+	            <%if (calendarList != null) {%>
+	            <%for (CalendarVO vo : calendarList) {%>
 	            {
-	            	title : '<%=vo.getBookDate()%>',
-	                start : '<%=vo.getStartTime()%>',
-	                end : '<%=vo.getEndTime()%>',
+	            	title : '<%=vo.getTitle()%>',
+	                start : '<%=vo.getBegindate()%>',
+	                end : '<%=vo.getEnddate()%>',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
 	             },
 		<%}
