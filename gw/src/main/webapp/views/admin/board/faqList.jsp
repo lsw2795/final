@@ -7,49 +7,34 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btnFaqEdit').click(function(){
-			event.preventDefault();
-			var modalCheck=false;
-			
 			var count= $('input[type=checkbox]:checked').length;
 			if(count==1){
 				var boardNo=$('input[type=checkbox]:checked').val();
-				alert(boardNo);
-				
-				$.ajax({
-		            url: "<c:url value='/admin/board/ajaxSelectOneFAQ'/>",
-		            type:'get',
-					data: {boardNo: boardNo},
-					dataType:'json',
-		            success: function (res) {
-		            	$('#title').empty();
-		            	CKEDITOR.instances.editor.getData().empty();
-		            	
-		            	var receivedData = res;
-		            	var boardNo=receivedData.boardNo;
-		            	var title=receivedData.title;
-		            	var content=receivedData.content;
-		            	
-		            	result="<input type='text' class='form-control admindefault' id='title' name='title' value='"+title+"'/>";
-		            	result2="<textarea id='editor' name='content'>"+content+"</textarea>";
-		            	
-		            	$('#updateTitle').append(result);
-		            	$('#updateContent').append(result2);
-		            	modalCheck=true;
-		            	if(modalCheck){
-		            		$('#exampleModal2').modal('show');
-		            	}	
-		            	
-		            },
-		            error:function(xhr,status,error){
-		                alert(status+" : "+error);
-		            } 
-		        });//ajax
+				//alert(boardNo);
+				window.open("<c:url value='/admin/board/faqEdit?boardNo='/>"+boardNo,'faqEdit',
+				 'width=700,height=800,top=300,left=700,location=yes,resizable=yes');
 			}else if(count<1){
 				alert('수정할 FAQ 게시글을 체크 바랍니다.');
 			}else if(count>1){
 				alert('수정할 FAQ 게시글을 하나만 체크 바랍니다.');
 			}
 		});
+		
+		$('#btnFaqDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
+			}
+			
+			if(count > 0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/board/faqDeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
+		});
+		
+		
 	});
 	
 	function pageFunc(curPage){
@@ -59,6 +44,10 @@
 	
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
+	}
+	
+	function btnFaqWrite(){
+		 window.open("<c:url value='/admin/board/faqWrite'/>",'faqWrite', 'width=700,height=800,top=300,left=700,location=yes,resizable=yes');
 	}
 </script>
  <!-- 페이징 처리 관련 form -->
@@ -105,11 +94,11 @@
 						</div>
 						<div class="col-auto mt-3">
 							<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-								<input type="button" value="등록" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<input type="button" value="등록" class="btn btn-outline-primary" onclick="btnFaqWrite()"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2"/>
+								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="삭제" class="btn btn-outline-danger"/>
+								<input type="button" value="삭제" id="btnFaqDel" class="btn btn-outline-danger"/>
 							</div>
 						</div>
 						</div>
@@ -129,11 +118,15 @@
 		</div>
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
+          <c:set var="idx" value="0"/>
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class="accordion-item border-0">
               <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading${boardVo.boardNo }">
-               <input class="form-check-input me-2" type="checkbox" name="boardNo" value="${boardVo.boardNo}"/>
+	       	 	<form name="frmList">
+	       	 	<input class="form-check-input" type="checkbox" id="all-contact-0"
+					data-bulk-select-row="data-bulk-select-row" name="boardItems[${idx}].boardNo" value="${boardVo.boardNo}"/>
+				</form>
                 <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
                 data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
@@ -152,6 +145,7 @@
               </div>
             </div>
           </div>
+          <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
 		</c:if>
 		</div>
@@ -187,50 +181,4 @@
 </div>
 </div>
 
-
-<div class="modal fade" id="exampleModal2" tabindex="-1" 
-	aria-labelledby="exampleModalLabel2" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content admindefault" style="width: 700px;">
-      <div class="modal-header">
-        <h5 class="modal-title admindefault" id="exampleModalLabel2">FAQ 수정</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-		<table class="table table-bordered">
-			<colgroup>
-				<col style="width: 20%;" />
-				<col style="width: 80%;" />
-			</colgroup>
-			<tbody id="table-contact-body">
-				<form id="updateFaq">
-				<tr class="adminemptr">
-					<td class="align-middle">FAQ 제목</td>
-					<td class="align-middle">
-					<div id="updateTitle"></div>
-					</td>
-				</tr>
-				<tr class="adminemptr">
-					<td class="align-middle">FAQ 내용</td>
-					<td class="align-middle">
-					<div id="updateContent"></div>
-					</td>
-				</tr>
-			</form>
-			</tbody>
-		</table>
-      </div>
-      <div class="modal-footer" style="text-align: center;">
-        <input type="submit" value="수정" class="btn btn-primary">
-        <input type="button" value="취소" class="btn btn-secondary" id="btnCancel">
-      </div>
-    </div>
-  </div>
-</div> 
-<script>
-	CKEDITOR.replace('editor', {
-		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
-	});
-</script>
-<%@ include file='faqWrite.jsp'%>
 <%@ include file='../../inc/adminBottom.jsp'%>

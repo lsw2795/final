@@ -34,4 +34,5 @@ public interface BoardDAO {
 	int gTRsearchFAQ(SearchVO searchVo); //FAQ 검색 총 레코드 값 조회 메서드
 	int updateFAQ(BoardVO vo); //관리자 FAQ 글수정 메서드
 	BoardVO selectFAQByBoardNo(int boardNo); //관리자 글 수정전 게시글 보여주기 메서드
+	int deleteFAQ(int boardNo); //관리자 FAQ 글삭제 메서드
 }
