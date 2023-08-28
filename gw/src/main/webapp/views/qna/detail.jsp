@@ -91,7 +91,7 @@
 	                    <div class="d-flex align-items-center gap-2">
 	                    	<c:if test="${!empty replyMap['IMAGE']}">
 		                        <div class="avatar avatar-2xl">
-		                          <img class="rounded-circle" src="<c:url value='/images/${replayMap["IMAGE"]}'/>"  />
+		                          <img class="rounded-circle" src="<c:url value='/images/${replyMap["IMAGE"]}'/>"  />
 		                        </div>
 	                        </c:if>
    	                    	<c:if test="${empty replyMap['IMAGE']}">
