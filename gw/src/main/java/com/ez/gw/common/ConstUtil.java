@@ -68,4 +68,8 @@ public interface ConstUtil {
 	int RETURN_LIST= 5;
 	int ADMIN = 6;
 	
+	//자원예약
+	int BOOK_NOTOK = 1;	//조회시간에 예약 있는 경우
+	int BOOK_OK = 2;	//예약 가능
+	
 }

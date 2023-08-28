@@ -4,11 +4,11 @@
 
 <mapper namespace="com.ez.gw.reservation.model.ReservationDAO">
 	<insert id="insertReservation" parameterType="reservationVo">
-		<selectKey keyProperty="No" order="BEFORE" resultType="int">
+		<selectKey keyProperty="reservationNo" order="BEFORE" resultType="int">
 			select reservation_seq.nextval from dual
 		</selectKey>
 		insert into reservation(reservation_no, reman_no, bookdate, emp_no, dept_no, starttime, endtime)
-		values(#{No},#{remanNo}, #{bookDate}, #{empNo} #{deptNo}, #{startTime}, #{endTime})
+		values(#{reservationNo},#{remanNo}, #{bookDate}, #{empNo}, #{deptNo}, #{startTime}, #{endTime})
 	</insert>
 
 	<select id="checkIsBooked" parameterType="reservationVo" resultType="int">
@@ -18,5 +18,11 @@
 		and reman_no = #{remanNo} and bookdate = #{bookDate}
 		]]>
 	</select>
+	
+	<select id="selectAllReservation" resultType="reservationVo">
+		select * from reservation
+	</select>
+	
+	
 
 </mapper>
