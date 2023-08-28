@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.reman.model.RemanService;
@@ -67,5 +69,26 @@ public class ReservationController {
 		//4
 		return "reservation/addReservation";
 		
+	}
+	
+	/**
+	 * 예약 있는지 여부 확인 ajax
+	 * */
+	@RequestMapping("/ajaxCheckBook")
+	@ResponseBody
+	public int check(@ModelAttribute ReservationVO reservationVo) {
+		//1
+		logger.info("ajax 확인 파라미터 reservationVo={}", reservationVo);
+		
+		//2
+		int result = 0;
+		int cnt = reservationService.checkIsBooked(reservationVo);
+		if(cnt>0) {
+			
+		}
+		//3
+		
+		//4
+		return result;
 	}
 }

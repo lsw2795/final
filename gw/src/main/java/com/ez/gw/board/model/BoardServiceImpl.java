@@ -141,6 +141,16 @@ public class BoardServiceImpl implements BoardService {
 	public int gTRsearchFAQ(SearchVO searchVo) {
 		return boardDao.gTRsearchFAQ(searchVo);
 	}
+
+	@Override
+	public int updateFAQ(BoardVO vo) {
+		return boardDao.updateFAQ(vo);
+	}
+
+	@Override
+	public BoardVO selectFAQByBoardNo(int boardNo) {
+		return boardDao.selectFAQByBoardNo(boardNo);
+	}
 	
 
 

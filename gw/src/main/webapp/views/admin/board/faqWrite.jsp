@@ -13,6 +13,10 @@
 		});
 		
 		$('input[type=submit]').click(function(){
+			var title=$('#title').val();
+			var content=CKEDITOR.instances.editor.getData();
+			//alert(title+" : "+content);
+				
 			if($('input[name=title]').val().trim().length<1){
 				alert("제목을 입력하세요.");
 				$('input[name=title]').focus();
@@ -26,10 +30,14 @@
 			    return false;
 			}
 			
+			
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxInsertFaq'/>",
-	            type:'post',
-				data: $('#insertFaq').serializeArray(),
+	            type:'get',
+				data: {
+					title: title,
+					content: content
+				},
 				dataType:'json',
 	            success: function (res) {
 	            	if(res>0){
@@ -41,7 +49,7 @@
 	            error:function(xhr,status,error){
 	                alert(status+" : "+error);
 	            } 
-	        });//ajax
+	        });
 			
 		});		
 	});
@@ -61,7 +69,7 @@
 				<col style="width: 80%;" />
 			</colgroup>
 			<tbody id="table-contact-body">
-			<form id="insertFaq">
+				<form id="insertFaq">
 				<tr class="adminemptr">
 					<td class="align-middle">FAQ 제목</td>
 					<td class="align-middle">

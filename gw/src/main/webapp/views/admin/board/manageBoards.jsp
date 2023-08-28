@@ -472,12 +472,6 @@
 						<div class="table-responsive scrollbar admindefault">
 							
 							
-							
-			
-							
-							
-							
-							
 						</div>
 					</div>
 				</div>

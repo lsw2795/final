@@ -2,7 +2,58 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <script type="text/javascript">
+	$(function(){
+		$('#btnFaqEdit').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			if(count==1){
+				var boardNo=$('input[type=checkbox]:checked').val();
+				alert(boardNo);
+				
+				$.ajax({
+		            url: "<c:url value='/admin/board/ajaxSelectOneFAQ'/>",
+		            type:'get',
+					data: {boardNo: boardNo},
+					dataType:'json',
+		            success: function (res) {
+		            	$('#title').empty();
+		            	CKEDITOR.instances.editor.getData().empty();
+		            	
+		            	var receivedData = res;
+		            	var boardNo=receivedData.boardNo;
+		            	var title=receivedData.title;
+		            	var content=receivedData.content;
+		            	
+		            	result="<div class='modal fade' id='exampleModal2' tabindex='-1' aria-labelledby='exampleModalLabel2' aria-hidden='true'>"
+		            	    +"<div class='modal-dialog'><div class='modal-content admindefault' style='width: 700px;'>"
+		            	    +"<div class='modal-header'><h5 class='modal-title admindefault' id='exampleModalLabel2'>FAQ 수정</h5>"
+		            	    +"<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button></div>"
+		            	    +"<div class='modal-body'><table class='table table-bordered'><colgroup><col style='width: 20%;'/><col style='width: 80%;'/>"
+		            		+"</colgroup><tbody id='table-contact-body'><form id='updateFaq'><tr class='adminemptr'><td class='align-middle'>FAQ 제목</td>"
+		            		+"<td class='align-middle'><input type='text' class='form-control admindefault' id='title' name='title' value='"+title+"'/></td></tr>"
+		            		+"<tr class='adminemptr'><td class='align-middle'>FAQ 내용</td><td class='align-middle'>"
+		            		+"<textarea id='editor' name='content'>"+content+"</textarea></td></tr></form></tbody></table></div>"
+		            	    +"<div class='modal-footer' style='text-align: center;'><input type='submit' value='수정' class='btn btn-primary'>"
+		            	    +"<input type='button' value='취소' class='btn btn-secondary' id='btnCancel'></div></div></div></div>";
+		            	
+		            	$('#updateFaq').append(result);
+		            	$('#exampleModal2').modal('show'); 
+		            	
+		            },
+		            error:function(xhr,status,error){
+		                alert(status+" : "+error);
+		            } 
+		        });//ajax
+			}else if(count<1){
+				alert('수정할 FAQ 게시글을 체크 바랍니다.');
+			}else if(count>1){
+				alert('수정할 FAQ 게시글을 하나만 체크 바랍니다.');
+			}
+		});
+	});
+	
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
@@ -56,11 +107,11 @@
 						</div>
 						<div class="col-auto mt-3">
 							<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-								<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<input type="button" value="등록" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="삭제" class="btn btn-primary"/>
+								<input type="button" value="삭제" class="btn btn-outline-danger"/>
 							</div>
 						</div>
 						</div>
@@ -83,7 +134,8 @@
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class="accordion-item border-0">
-              <div class="card-header p-0" id="faqAccordionHeading${boardVo.boardNo }">
+              <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading${boardVo.boardNo }">
+               <input class="form-check-input me-2" type="checkbox" name="boardNo" value="${boardVo.boardNo}"/>
                 <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
                 data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
@@ -137,8 +189,11 @@
 </div>
 </div>
 
-
-
+<div id="updateFaq"></div>
+<script>
+	CKEDITOR.replace('editor', {
+		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
+	});
+</script>
 <%@ include file='faqWrite.jsp'%>
-
 <%@ include file='../../inc/adminBottom.jsp'%>

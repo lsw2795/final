@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.board.model.BoardService;
@@ -59,6 +60,15 @@ public class FaqController {
 		model.addAttribute("faqList", faqList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		return "admin/board/faqList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/board/ajaxSelectOneFAQ")
+	public BoardVO selectOneFAQ(@RequestParam (defaultValue = "0") int boardNo) {
+		logger.info("ajax 이용 수정 페이지 보여주기 파라미터 boardNo={}", boardNo);
+		BoardVO boardVo=boardService.selectFAQByBoardNo(boardNo);
+		logger.info("ajax 이용 수정 페이지 보여주기 결과 boardVo={}", boardVo);
+		return boardVo;
 	}
 	
 }
