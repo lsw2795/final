@@ -39,4 +39,12 @@
 		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
 	
+	<update id="updateCommuteStateEalry" parameterType="int">
+		UPDATE commute
+		SET commute_state = 5
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</update>
+
+	
 </mapper>
