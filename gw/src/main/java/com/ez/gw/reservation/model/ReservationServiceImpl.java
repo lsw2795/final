@@ -8,4 +8,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
 	private final ReservationDAO reservationDao;
+
+	@Override
+	public int insertReservation(ReservationVO reservationVo) {
+		return reservationDao.insertReservation(reservationVo);
+	}
+
+	@Override
+	public int checkIsBooked(ReservationVO reservationVo) {
+		return reservationDao.checkIsBooked(reservationVo);
+	}
+	
+	
 }

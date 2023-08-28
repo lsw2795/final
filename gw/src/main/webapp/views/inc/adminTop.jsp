@@ -251,9 +251,9 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/admin/pds/boardManagement'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">파일 목록</span>
+                        				<span class="nav-link-text ps-1">게시글 목록</span>
                         			</div> 
                       			</a>
                     		</li>

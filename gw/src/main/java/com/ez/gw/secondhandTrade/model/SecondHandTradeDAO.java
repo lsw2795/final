@@ -12,7 +12,7 @@ import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 @Mapper
 public interface SecondHandTradeDAO {
 	int insertMarket(SecondHandTradeVO secondVo);
-	Map<String, Object> selectAllMarket(SearchVO searchVo);
+	List<Map<String, Object>> selectAllMarket(SearchVO searchVo);
 	SecondHandTradeVO selectMarketByNo(int tradeNo);
 	int updateReadCount(int tradeNo);
 	int getTotalRecord(SearchVO searchVo);

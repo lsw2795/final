@@ -32,7 +32,7 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public Map<String, Object> selectAllMarket(SearchVO searchVo) {
+	public List<Map<String, Object>> selectAllMarket(SearchVO searchVo) {
 		return secondHandTradeDao.selectAllMarket(searchVo);
 	}
 

@@ -46,9 +46,17 @@ public interface ConstUtil {
 	
 	//관리자 페이지 - 공지사항 자료실 이용한 파일 저장 경로
 	String NOTICE_FILE_UPLOAD_PATH="pds_upload";
+<<<<<<< HEAD
 	//String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
 	//String NOTICE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
+=======
+>>>>>>> branch 'main' of https://github.com/lsw2795/final.git
 	String NOTICE_FILE_UPLOAD_PATH_TEST="pds_upload";
+<<<<<<< HEAD
+=======
+	//String NOTICE_FILE_UPLOAD_PATH_TEST="D:\\lecture\\workspace_list\\sp_final_ws\\final\\gw\\src\\main\\webapp\\pds_upload";
+	//String NOTICE_FILE_UPLOAD_PATH_TEST="C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";
+>>>>>>> branch 'main' of https://github.com/lsw2795/final.git
 	
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값

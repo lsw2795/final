@@ -51,6 +51,14 @@
 			 }
 			 
 		 });
+		 
+		 $('#endtime').change(function(){
+			 $.ajax({
+				 url:"<c:url value='/reservation/add'/>",
+				 data:,
+				 
+			 });
+		 });
 	 });
 </script>
  	<h2>자원 예약</h2>

@@ -17,11 +17,11 @@
         SELECT ROWNUM AS RNUM, A.*
         FROM (
             SELECT *
-            FROM secondhand_trade
+            FROM secondmarketview
             <if test="searchKeyword!=null and searchKeyword!=''">
                 <choose>
                     <when test="searchCondition == 'total'">
-                        where (title LIKE '%' || #{searchKeyword} || '%' OR discription LIKE '%' || #{searchKeyword} || '%')
+                        where (title LIKE '%' || #{searchKeyword} || '%' OR NAME LIKE '%' || #{searchkeyword} || '%' OR discription LIKE '%' || #{searchKeyword} || '%')
                     </when>
                     <otherwise>
                         where ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="selectMarketByNo" parameterType="int" resultType="secondHandTradeVo">
-		select * from secondhand_trade 
+		select * from secondmarketview
 		where trade_no = #{tradeNo}
 	</select>
 	
@@ -49,12 +49,12 @@
 	
 	<select id="getTotalRecord" parameterType="secondHandTradeVo" resultType="int">
 		 select count(*)
-    	from secondhand_trade
+    	from secondmarketview
     <where>
         <if test="searchKeyword!=null and searchKeyword!=''">
             <choose>
                 <when test="searchCondition == 'total'">
-                    title like '%' || #{searchKeyword} || '%' or discription like '%' || #{searchKeyword} || '%'
+                    title like '%' || #{searchKeyword} || '%' OR NAME LIKE '%' || #{searchkeyword} || '%' or discription like '%' || #{searchKeyword} || '%'
                 </when>
                 <otherwise>
                     ${searchCondition} like '%' || #{searchKeyword} || '%'

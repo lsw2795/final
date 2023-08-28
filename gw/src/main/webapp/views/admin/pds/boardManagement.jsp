@@ -7,16 +7,15 @@
 		$('#btnDel').click(function(){
 			var count = $('tbody input[type=checkbox]:checked').length;
 			if(count<1){
-				alert('삭제하고 싶은 파일을 먼저 체크하세요');
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
 			}
 			
 			if(count > 0){
-				if(confirm('선택한 파일을 삭제하시겠습니까?')){
-					$('form[name=frmDelete]').prop('action', "<c:url value='/admin/pds/deleteMulti'/>");
+				if(confirm('게시글을 삭제하면 글에 업로드된 파일도 같이삭제 됩니다.\n\n선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmDelete]').prop('action', "<c:url value='/admin/pds/boardDeleteMulti'/>");
 					$('form[name=frmDelete]').submit();
 				} // if
-			} 
-			
+			}
 		});
 		
 	});
@@ -37,7 +36,7 @@
 </style>
 
 <!-- 페이징 처리 관련 form -->
-<form action="<c:url value='/admin/pds/management'/>" 
+<form action="<c:url value='/admin/pds/boardManagement'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
@@ -49,27 +48,27 @@
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-header admindefault">
 				<h5 class="mb-0 admindefault">
-					<span class="fa fa-file" style="margin: 0 10px;"></span>파일관리
+					<span class="fa fa-file" style="margin: 0 10px;"></span>자료실 게시글관리
 				</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
 				<div class="card" id="allContactTable">
 					<div class="card-header border-bottom border-200 px-0 admindefault">
 						<div class="d-lg-flex justify-content-between">
-							<form name="frmSearch" method="post" action="<c:url value='/admin/pds/management'/>">
+							<form name="frmSearch" method="post" action="<c:url value='/admin/pds/boardManagement'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 admindefault">
 										<select name="searchCondition" class="admindefault adminempborder adminempsel">
-											<option value="fileName"
-												<c:if test="${param.searchCondition=='fileName'}">
-								            		selected="selected"
-								            	</c:if> 
-											>파일명</option>
-											<option value="name"
-												<c:if test="${param.searchCondition=='name'}">
-								            		selected="selected"
-								            	</c:if> 
-											>작성자</option>
+											<option value="title"
+							            		<c:if test="${param.searchCondition=='title'}">
+							            			selected = "selected"
+							            		</c:if>
+							            		>제목</option>
+							            	<option value="name"
+						    			        <c:if test="${param.searchCondition=='name'}">
+							            			selected = "selected"
+							            		</c:if>
+							            	>작성자</option>
 										</select>
 									</div>
 									</form>
@@ -109,10 +108,10 @@
 								<colgroup>
 									<col style="width: 5%;" />
 									<col style="width: 10%;" />
+									<col style="width: 30%;" />
 									<col style="width: 15%;" />
 									<col style="width: 15%;" />
-									<col style="width: 15%;" />
-									<col style="width: 10%;" />
+									<col style="width: 17%;" />
 									<col style="width: 13%;" />
 								</colgroup>
 								<thead class="adminempthead">
@@ -124,19 +123,19 @@
 													data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
 											</div>
 										</th>
-										<th class="sort align-middle" scope="col">파일번호</th>
-										<th class="sort align-middle" scope="col">등록 게시판</th>
-										<th class="sort align-middle" scope="col">파일명</th>
+										<th class="sort align-middle" scope="col">번호</th>
+										<th class="sort align-middle" scope="col">제목</th>
+										<th class="sort align-middle" scope="col">작성자</th>
 										<th class="sort align-middle" scope="col">자료등록일</th>
-										<th class="sort align-middle" scope="col">다운로드수</th>
-										<th class="sort align-middle" scope="col">다운로드</th>
+										<th class="sort align-middle" scope="col">파일수</th>
+										<th class="sort align-middle" scope="col">조회수</th>
 									</tr>
 								</thead>
 								<tbody id="table-contact-body">
 									<c:if test="${empty list }">
 										<tr class="adminemptr">
 											<td colspan="7" style="text-align: center">
-												자료실에 파일이 존재하지 않습니다.
+												자료실에 게시글이 존재하지 않습니다.
 											</td>
 										</tr>
 									</c:if>
@@ -150,27 +149,21 @@
 													<div class="form-check mb-0">
 														<input class="form-check-input" type="checkbox"
 															data-bulk-select-row="data-bulk-select-row"
-															name="pdsItems[${idx}].pdsNo"
-															value=${map['PDS_NO']} />
+															name="boardItems[${idx}].boardNo"
+															value=${map['BOARD_NO']} />
 													</div>
-												</form>
+
 												</td>
-												<td class="align-middle">${map['PDS_NO']}</td>
-												<td class="align-middle">${map['BOARD_NAME']}</a></td>
-												<td class="align-middle">
-													<img alt="파일 이미지" src="<c:url value='/images/file.gif'/>">
-													${map['ORIGINALFILENAME']}
-												</td>
+												<td class="align-middle">${map['BOARD_NO']}</td>
+												<td class="align-middle">${map['TITLE']}</a></td>
+												<td class="align-middle">${map['NAME']}</td>
 												<td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
-												<td class="align-middle">${map['DOWNLOADCOUNT']}</td>
-												<td class="align-middle">
-									                <a href="<c:url value='/pds/download?boardNo=${map["BOARD_NO"]}&fileName=${map["FILENAME"]}'/>">
-								              		<img src="<c:url value='/images/fileClip.png'/>" alt="파일 이미지" >
-								                </a>
-												</td>
+												<td class="align-middle">${map['fileCount']}개</td>
+												<td class="align-middle">${map['READCOUNT']}</td>
 											</tr>
 											<c:set var="idx" value="${idx+1}"/>
 										</c:forEach>
+										</form>
 									</c:if>
 								</tbody>
 							</table>

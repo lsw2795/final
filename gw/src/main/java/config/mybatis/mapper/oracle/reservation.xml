@@ -7,8 +7,16 @@
 		<selectKey keyProperty="No" order="BEFORE" resultType="int">
 			select reservation_seq.nextval from dual
 		</selectKey>
-		
+		insert into reservation(reservation_no, reman_no, bookdate, emp_no, dept_no, starttime, endtime)
+		values(#{No},#{remanNo}, #{bookDate}, #{empNo} #{deptNo}, #{startTime}, #{endTime})
 	</insert>
 
+	<select id="checkIsBooked" parameterType="reservationVo" resultType="int">
+		select count(*) from reservation
+		<![CDATA[
+		where starttime <= #{startTime} and endtime >= #{startTime}
+		and reman_no = #{remanNo} and bookdate = #{bookDate}
+		]]>
+	</select>
 
 </mapper>

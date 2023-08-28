@@ -1,5 +1,6 @@
 package com.ez.gw.pds.model;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.SearchVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -117,6 +121,48 @@ public class PdsServiceImpl implements PdsService {
 	public int getAdminTotalFile(SearchVO searchVo) {
 		return pdsDao.getAdminTotalFile(searchVo);
 	}
+
+	@Override
+	public int deleteBoardMulti(HttpServletRequest request,List<BoardVO> list) {
+		int cnt = 0;
+		try {
+			for(BoardVO vo : list) {
+				int boardNo = vo.getBoardNo();
+				if(boardNo!=0) { //체크된 질문만 삭제
+					List<PdsVO> fileList = pdsDao.selectFilesByBoardNo(boardNo);
+					logger.info("게시글 삭제 - 파일 삭제 전 파일 갯수 조회 fileList.size={}", fileList.size());
+
+					if(fileList.size()>0) {
+						for(PdsVO pdsVo : fileList) {
+							String fileName = pdsVo.getFileName();
+							if(fileName!=null && !fileName.isEmpty()) { //파일 삭제
+								FileUploadUtil fileUploadUtil = new FileUploadUtil();
+
+								File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), fileName);
+								logger.info("컨트롤러 파일 f={}", f);
+								if(f.exists()) {
+									boolean result = f.delete();
+									logger.info("글 삭제 - 파일 삭제 여부 : {}", result);
+								}
+							}//if
+						}//for
+					}
+
+					cnt = pdsDao.deletePds(boardNo);
+					logger.info("몇번삭제 ? cnt={}", cnt);
+				}
+			}//for
+		}catch(RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+
+	}
+
+
 
 
 }
