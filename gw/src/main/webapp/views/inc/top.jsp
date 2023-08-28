@@ -491,7 +491,7 @@
 	                    		<span class="nav-link-text ps-1">Q&A</span>
 	                    	</div>
 	                  	</a>
-						<a class="nav-link" href="<c:url value='/board/faqList'/>" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/board/faqList'/>" role="button">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-question-circle"></span></span>
 	                    		<span class="nav-link-text ps-1">FAQ</span>

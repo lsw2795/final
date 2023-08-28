@@ -2,7 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
+<script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <script type="text/javascript">
+	$(function(){
+		$('#btnFaqEdit').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			if(count==1){
+				var boardNo=$('input[type=checkbox]:checked').val();
+				//alert(boardNo);
+				window.open("<c:url value='/admin/board/faqEdit?boardNo='/>"+boardNo,'faqEdit',
+				 'width=700,height=800,top=300,left=700,location=yes,resizable=yes');
+			}else if(count<1){
+				alert('수정할 FAQ 게시글을 체크 바랍니다.');
+			}else if(count>1){
+				alert('수정할 FAQ 게시글을 하나만 체크 바랍니다.');
+			}
+		});
+		
+		$('#btnFaqDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			var boardNo=$('input[name=boardNo]').val();
+		
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
+			}
+			
+			if(count>0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/board/faqDeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
+		});
+		
+		
+	});
+	
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
@@ -10,6 +46,10 @@
 	
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
+	}
+	
+	function btnFaqWrite(){
+		 window.open("<c:url value='/admin/board/faqWrite'/>",'faqWrite', 'width=700,height=800,top=300,left=700,location=yes,resizable=yes');
 	}
 </script>
  <!-- 페이징 처리 관련 form -->
@@ -23,7 +63,7 @@
 	<div class="card-body admindefault position-relative">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="admindefault">FAQ</h3>
+				<h3><a id="admina" class="admina admindefault" href="<c:url value='/admin/board/faqList'/>">FAQ</a></h3>
 				<div class="col-auto">
 					<div class="input-group admindefault">
 						<form name="frmSearch" action='<c:url value='/admin/board/faqList'/>'>
@@ -56,11 +96,11 @@
 						</div>
 						<div class="col-auto mt-3">
 							<div class="admindefault adminempdiv13" id="table-contact-replace-element">
-								<input type="button" value="등록" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<input type="button" value="등록" class="btn btn-outline-primary" onclick="btnFaqWrite()"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="수정" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+								<input type="button" value="수정" id="btnFaqEdit" class="btn btn-outline-warning"/>
 								<span class="adminhyphen"></span>
-								<input type="button" value="삭제" class="btn btn-primary"/>
+								<input type="button" value="삭제" id="btnFaqDel" class="btn btn-outline-danger"/>
 							</div>
 						</div>
 						</div>
@@ -80,11 +120,15 @@
 		</div>
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
+          <c:set var="idx" value="0"/>
+		<form name="frmList">
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class="accordion-item border-0">
-              <div class="card-header p-0" id="faqAccordionHeading${boardVo.boardNo }">
-                <button class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none" 
+              <div class="card-header p-0 d-flex align-items-center adminempdiv12" id="faqAccordionHeading${boardVo.boardNo }">
+	       	 	<input class="form-check-input" type="checkbox" id="all-contact-0"
+					data-bulk-select-row="data-bulk-select-row" name="boardItems[${idx}].boardNo" value="${boardVo.boardNo}"/>
+                <button type="button" class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none"
                 data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
                 <span class="fw-medium font-sans-serif text-900">${boardVo.title }</span>
@@ -102,7 +146,9 @@
               </div>
             </div>
           </div>
+          <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
+	</form>
 		</c:if>
 		</div>
 	<div class="card-footer d-flex justify-content-center admindefault">
@@ -136,9 +182,5 @@
 </div>
 </div>
 </div>
-
-
-
-<%@ include file='faqWrite.jsp'%>
 
 <%@ include file='../../inc/adminBottom.jsp'%>

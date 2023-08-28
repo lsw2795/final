@@ -32,4 +32,19 @@
 		where work_out like '%' || to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
 	</select>
 	
+	<update id="updateCommuteState" parameterType="commuteVo">
+		UPDATE commute
+		SET commute_state = 1
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</update>
+	
+	<update id="updateCommuteStateEalry" parameterType="int">
+		UPDATE commute
+		SET commute_state = 5
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</update>
+
+	
 </mapper>
