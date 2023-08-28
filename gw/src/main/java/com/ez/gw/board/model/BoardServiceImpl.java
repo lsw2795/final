@@ -141,6 +141,11 @@ public class BoardServiceImpl implements BoardService {
 	public int gTRsearchFAQ(SearchVO searchVo) {
 		return boardDao.gTRsearchFAQ(searchVo);
 	}
+
+	@Override
+	public int insertAnonumous(BoardVO vo) {
+		return boardDao.insertAnonumous(vo);
+	}
 	
 
 

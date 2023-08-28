@@ -28,8 +28,9 @@ public interface BoardService {
 	int insertFAQ(BoardVO vo); //관리자 FAQ 글등록 메서드
 	List<BoardVO> selectFAQ(SearchVO seachVo); //FAQ 목록 조회 메서드
 	int gTRsearchFAQ(SearchVO searchVo); //FAQ 검색 총 레코드 값 조회 메서드
+	int insertAnonumous(BoardVO vo); //익명게시판 글등록 메서드
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);
-
+	
 }

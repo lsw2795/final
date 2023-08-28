@@ -30,5 +30,6 @@ public interface PdsDAO {
 	int deleteAdminFile(int pdsNo); // 관리자 - 파일 db 삭제 메서드
 	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드
 	
+	int insertPdsByAnonymous(PdsVO vo);
 	
 }

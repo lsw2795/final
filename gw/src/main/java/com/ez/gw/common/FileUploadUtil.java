@@ -66,6 +66,48 @@ public class FileUploadUtil {
 		return resultList;
 	}
 	
+	public List<Map<String, Object>> Multifileupload(HttpServletRequest request,
+			int pathFlag) throws IllegalStateException, IOException {
+		//파일 업로드 처리
+		logger.info("파일 업로드");
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		
+		//Map<String, MultipartFile> fileMap=multiRequest.getFileMap();
+		List<MultipartFile> files =multiRequest.getFiles("upfile");
+		
+		logger.info("파일 몇개? ={}", files.size());
+		
+		//여러개 업로드된 파일의 정보를 저장할 리스트
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		
+		for(MultipartFile tempFile : files) {
+			if(!tempFile.isEmpty()) { //파일이 업로드된 경우
+				long fileSize=tempFile.getSize(); //파일 크기
+				String originName=tempFile.getOriginalFilename(); //변경전 파일명
+				
+				//변경된 파일 이름
+				String fileName = getUniqueFileName(originName);
+				
+				//파일 업로드 처리
+				String uploadPath = getUploadPath(request, pathFlag);
+				
+				File file = new File(uploadPath, fileName);
+				tempFile.transferTo(file);
+				
+				//업로드 파일 정보 저장
+				Map<String, Object> resultMap = new HashMap<>();
+				resultMap.put("fileName", fileName);
+				resultMap.put("originalFileName", originName);
+				resultMap.put("fileSize", fileSize);
+				resultMap.put("uploadPath", uploadPath);
+				
+				resultList.add(resultMap);
+				
+			}//if			
+		}
+		return resultList;
+	}
+	
 	public String getUploadPath(HttpServletRequest request, int pathFlag) {
 		//업로드 경로 구하기
 		String path="";
