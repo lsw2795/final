@@ -87,13 +87,14 @@ public class CommuteController {
 		
 		//출근기록 있는지 여부 조회 없으면 0 있으면 1
 		int count = commuteService.selectIsWorkIn(empNo); // 출근 기록 없으면 0, 출근 기록 있으면 1 리턴
-		logger.info("퇴근 기록 존재 여부 count={}", count);
+		logger.info("출근 기록 존재 여부 count={}", count);
 		
 		int result = 0; //ajax로 리턴해줄 int 값 초기화, 0:퇴근 처리 실패 1:퇴근 처리 성공
 		
 		//출근 기록이 있으면
 		if(count>0) { //출근 기록 있을때만 insert
 			int count2 = commuteService.selectIsWorkOut(empNo); //퇴근기록 조회
+			logger.info("퇴근 기록 조회 여부 count2={}", count2);
 			//출근기록이 있는데 퇴근기록이 없을때만 퇴근 처리
 			if(count2<1) {
 				int cnt = commuteService.updateWorkOut(empNo);
@@ -105,16 +106,16 @@ public class CommuteController {
 	                LocalDateTime sixPM = currentTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
 	                if (currentTime.isBefore(sixPM)) { // 오후 6시 이전에 퇴근한 경우에만 commute_state 업데이트
 	                	int state = commuteService.selectLateState(empNo); //지각여부 조회 1이면 지각
+	                	logger.info("지각 여부 조회 state={}", state);
 	                	if(state==1) {
 	                		 int cnt3 = commuteService.updateCommuteStateTotal(empNo);
-	                		 if(cnt3>0) {
-	                			 return 4; // 지각 + 조퇴면 4 리턴
-	                		 }
+	                		 logger.info("지각도했고 6시 이전에 퇴근도 했으면 업데이트 ={}", cnt3);
+	                	}else {
+	                		int result2 = commuteService.updateCommuteStateEalry(empNo); // commute_state 업데이트
+	                		if(result2>0) {
+	                			result = 3; // 오후 6시 이전에 퇴근할 경우 조퇴 
+	                		}
 	                	}
-	                    int result2 = commuteService.updateCommuteStateEalry(empNo); // commute_state 업데이트
-	                    if(result2>0) {
-	                    	return 3; // 오후 6시 이전에 퇴근할 경우 조퇴 
-	                    }
 	                }
 	                
 				}
