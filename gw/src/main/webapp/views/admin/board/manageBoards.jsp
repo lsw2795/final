@@ -5,6 +5,18 @@
 <script type="text/javascript">
 	$(function(){
 		$('#AddBoardList').click(function(){
+			if($('#boardName').val().length<1){
+				alert('게시판 이름을 입력해주세요.');
+				$('#boardName').focus();
+				return false;
+			}
+			
+			if($('#boardType').val().length<1){
+				alert('게시판 종류를 입력해주세요.');
+				$('#boardType').focus();
+				return false;
+			}
+			
 			//alert($.param($('#insertBoardList').serializeArray()));
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxInsertBoardList'/>",
@@ -30,7 +42,7 @@
 		  		return false;
 		  	}
 		  	
-		  	alert(selectedValue);
+		  	//alert(selectedValue);
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxSelectBoardList'/>",
 	            type:'get',
@@ -115,6 +127,17 @@
 		
 		
 		$('#editBoardList').click(function(){
+			if($('#ajaxboardName').val().length<1){
+				alert('게시판 이름을 입력해주세요.');
+				$('#ajaxboardName').focus();
+				return false;
+			}
+			
+			if($('#ajaxboardType').val().length<1){
+				alert('게시판 종류를 입력해주세요.');
+				$('#ajaxboardType').focus();
+				return false;
+			}
 		    var boardlistNo=$('#ajaxboardlistNo').val();
 		    var boardName=$('#ajaxboardName').val();
 			var boardType=$('#ajaxboardType').val();
@@ -308,7 +331,7 @@
 									<tr class="adminemptr">
 										<td class="align-middle">게시판 종류</td>
 										<td class="align-middle">
-											<input type="text" name="boardType" class="form-control admindefault"/>
+											<input type="text" id="boardType" name="boardType" class="form-control admindefault"/>
 										</td>
 									</tr>
 									<tr class="adminemptr">
