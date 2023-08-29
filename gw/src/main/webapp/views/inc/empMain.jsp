@@ -87,8 +87,9 @@ $(function() {
                     $workInButton.click(function() {
                         location.href = "<c:url value='/login/logout'/>";
                     }); 
-                	
                 }
+                
+                window.location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // 요청이 실패한 경우의 처리 (에러 핸들링)
@@ -116,11 +117,13 @@ $(function() {
                 	alert("당일 출근 기록이 없습니다. 출근 먼저 해주세요.");
                 }
                 
+                window.location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // 요청이 실패한 경우의 처리 (에러 핸들링)
                 alert("퇴근 요청 실패: " + textStatus, errorThrown);
             }
+            
         });
     });
     
