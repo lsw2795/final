@@ -107,14 +107,14 @@ public class CommuteController {
 	                if (currentTime.isBefore(sixPM)) { // 오후 6시 이전에 퇴근한 경우에만 commute_state 업데이트
 	                	int state = commuteService.selectLateState(empNo); //지각여부 조회 1이면 지각
 	                	logger.info("지각 여부 조회 state={}", state);
+	                	
+	                	result = 3;
 	                	if(state==1) {
 	                		 int cnt3 = commuteService.updateCommuteStateTotal(empNo);
 	                		 logger.info("지각도했고 6시 이전에 퇴근도 했으면 업데이트 ={}", cnt3);
+	                		 
 	                	}else {
 	                		int result2 = commuteService.updateCommuteStateEalry(empNo); // commute_state 업데이트
-	                		if(result2>0) {
-	                			result = 3; // 오후 6시 이전에 퇴근할 경우 조퇴 
-	                		}
 	                	}
 	                }
 	                
