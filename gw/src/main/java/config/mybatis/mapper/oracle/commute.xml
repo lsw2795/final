@@ -61,5 +61,10 @@
 		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</select>
 
+
+<!-- 	<select id="selectCommute">
+		select * from commute
+		where emp_no=
+	</select> -->
 	
 </mapper>
