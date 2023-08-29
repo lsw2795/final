@@ -17,17 +17,18 @@
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '동호회 가입 및 회비 결제',
 		    amount : 10000, //판매가격
-		    buyer_email : 'rlacodud4456@naver.com',
-		    buyer_name : '차은우',
-		    buyer_tel : '010-2222-2222',
-		    buyer_addr : '서울',
-		    buyer_postcode : '110-888'
+		    buyer_email : email,
+		    buyer_name : name,
+		    buyer_tel : hp,
+		    buyer_addr : address,
+		    buyer_postcode : zipcode
 		   // m_redirect_url: "{http://localhost:9091/gw/club/clubDetail?clubNo=27}"
 		}, function(rsp) { //call back
 		    if ( rsp.success ) {
+		    	var msg = "결제 완료. 가입되었습니다.";
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-		    	jQuery.ajax({
-		    		url: '/payments/complete', //cross-domain error가 발생하지 않도록 주의해주세요
+		    	$.ajax({
+		    		url: '/payment', //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {
@@ -80,7 +81,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Introduce CLUB</title>
+    <title>Payment Club</title>
 
  
   	<body>
@@ -163,5 +164,5 @@
     
     </body>
     </html>
-    
 <%@ include file="../inc/bottom.jsp" %>
+    
