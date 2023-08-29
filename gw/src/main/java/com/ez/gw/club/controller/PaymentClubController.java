@@ -56,8 +56,11 @@ public class PaymentClubController {
 	//결제 완료시
 	
 	@RequestMapping("/paymentSuccess")
-	public String paymentSuccess(@ModelAttribute EmployeeVO empVo) {
-		logger.info("결제완료시");
+	public String paymentSuccess(@ModelAttribute EmployeeVO empVo,
+			String amount) {
+		logger.info("결제완료시 empVo={},amount={}",empVo,amount);
+		int amt=Integer.parseInt(amount);
+		
 		
 		return "";
 	}

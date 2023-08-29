@@ -61,18 +61,8 @@
 	                  	 ${content}
 	                  </div>
                     <div class="p-x1 bg-light rounded-3 mt-3">
-                      <div class="d-inline-flex flex-column">
-                        <div class="border p-2 rounded-3 d-flex bg-white dark__bg-1000 fs--1 mb-2"><span class="fs-1 far fa-image"></span><span class="ms-2 me-3">broken_tv_solve.jpg (873kb)</span><a class="text-300 ms-auto" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Download"><span class="fas fa-arrow-down"></span></a></div>
-                        <div class="border p-2 rounded-3 d-flex bg-white dark__bg-1000 fs--1"><span class="fs-1 fas fa-file-archive"></span><span class="ms-2 me-3">broken_tv_solve.zip (342kb)</span><a class="text-300 ms-auto" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Download"><span class="fas fa-arrow-down"></span></a></div>
-                      </div>
-                      <hr class="my-x1" />
                       <div class="row flex-between-center gx-4 gy-2">
-                        <div class="col-auto">
-                          <p class="fs--1 text-1000 mb-sm-0 font-sans-serif fw-medium mb-0"><span class="fas fa-link me-2"></span>2 files attached</p>
-                        </div>
-                        <div class="col-auto">
-                          <button class="btn btn-falcon-default btn-sm"><span class="fas fa-file-download me-2"></span>Download all</button>
-                        </div>
+                      	<img src="<c:url value='/pds_upload/${map["ORIGINALFILENAME"]}'/>">
                       </div>
                     </div>
                   </div>

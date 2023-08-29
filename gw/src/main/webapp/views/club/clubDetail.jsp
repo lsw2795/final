@@ -28,7 +28,7 @@
 		    	var msg = "결제 완료. 가입되었습니다.";
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		    	$.ajax({
-		    		url: '/payment', //cross-domain error가 발생하지 않도록 주의해주세요
+		    		url: '/club/PaymentClub', //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {
@@ -161,7 +161,29 @@
 	            </div>
           </div>
 	</form>
-    
+    <!-- ********************************모달 시작****************************** -->
+	<input class="sessionuserEMPNO" type="hidden" value="${sessionScope.emp_No}">
+	<input class="amountValue" type="text">
+	<div class="popup">  <!-- 팝업처럼 하기 위한 배경 -->
+		<div class="pwrap">  <!-- 실제 팝업창 -->
+   			<div class="row flex-between-center">
+				<h1>가입하기</h1><span>동호회 가입 비용은 10,000원입니다.</span>
+			</div>
+			<table>
+			<tr>
+				<td><a href="#" onclick="kakaopay()"><img src="/resources/img/user/iconKakao.svg"></a></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+   		</div>
+   </div>
+   <!-- ****************************모달 끝 *******************************-->
+   
+   
     </body>
     </html>
 <%@ include file="../inc/bottom.jsp" %>
