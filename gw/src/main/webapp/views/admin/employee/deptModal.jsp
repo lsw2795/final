@@ -68,7 +68,7 @@
 	      </select>
 	      </div>
 	       <div class="mb-3 row"></div>
-		  <label class="col-sm-3 col-form-label" for="newname2">수정 할 부서 이름</label>
+		  <label class="col-sm-3 col-form-label" for="newname2">부서 이름</label>
 		  <div class="col-sm-8">
 		 	  <div id="deptNameDiv"></div>
 			  <div class="mb-3 row"></div>

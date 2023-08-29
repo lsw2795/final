@@ -5,18 +5,16 @@
 <script type="text/javascript">	
 $(function(){
 	$('#btnDeptWrite').click(function(){
-		//alert($.param($('#insertDept').serializeArray()));
-		var checkModal1=false;
-		/* if($('#name1').val().length<1){
+		if($('#name1').val().length<1){
             alert("부서이름을 입력하세요.");
             $('#name1').focus();
             return false;
          }
          
          if($('#manager1').val().length<1){
-	            alert("부서장을 선택하세요.");
-	            $('#manager1').focus();
-	            return false;
+            alert("부서장을 선택하세요.");
+            $('#manager1').focus();
+            return false;
 	     }
          
          if($('#upper_dept1').val().length<1){
@@ -31,7 +29,7 @@ $(function(){
             return false;
          }
          
-         if (!validate_hp($('#upper_dept1').val())
+/*          if (!validate_hp($('#upper_dept1').val())
         		 || !validate_hp($('#dept_level1').val())) {
             alert("상위 부서와 부서등급은 숫자만 입력 가능합니다.");
             
@@ -42,26 +40,23 @@ $(function(){
             }
             return false;
          } */
-         checkModal1=true;
 		
-        if(checkModal1){
-			$.ajax({
-	            url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
-	            type:'post',
-	            data: $('#insertDept').serializeArray(),
-	            dataType : 'json',
-	            success: function(res){
-	            	if(res>0){
-		            	alert($('#name1').val()+" 부서 생성이 완료되었습니다.");
-		            	$('#staticBackdrop1').modal('hide'); 
-                		location.href="<c:url value='/admin/employee/employeeList'/>";
-	            	}
-	            },
-	            error:function(xhr, status, error){
-	               alert(status+" : "+error);
-	            }
-	         });//ajax
-         }
+		$.ajax({
+            url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
+            type:'post',
+            data: $('#insertDept').serializeArray(),
+            dataType : 'json',
+            success: function(res){
+            	if(res>0){
+	            	alert($('#name1').val()+" 부서 생성이 완료되었습니다.");
+	            	$('#staticBackdrop1').modal('hide'); 
+               		location.href="<c:url value='/admin/employee/employeeList'/>";
+            	}
+            },
+            error:function(xhr, status, error){
+               alert(status+" : "+error);
+            }
+         });//ajax
 	});
             
      $('#name2').change(function(){
@@ -119,6 +114,18 @@ $(function(){
  	});
      
     $('#btnDeptEdit').click(function(){
+    	if($('#newname2').val().length<1){
+            alert("부서이름을 입력하세요.");
+            $('#newname2').focus();
+            return false;
+         }
+         
+         if($('#manager2').val().length<1){
+            alert("부서장을 선택하세요.");
+            $('#manager2').focus();
+            return false;
+	     }
+         
     	var deptNo=$('#dept_no2').val();
     	var name=$('#newname2').val();
     	var manager=$('#manager2').val();
