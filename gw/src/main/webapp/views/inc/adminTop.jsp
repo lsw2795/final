@@ -232,7 +232,7 @@
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#f" role="button" data-bs-toggle="collapse">
+						<a class="nav-link dropdown-indicator" href="#" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-download"></span></span>
 	                    		<span class="nav-link-text ps-1">자료실 관리</span>
@@ -322,7 +322,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/admin/adminclub/adminClubReport'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">신고함</span>
                         			</div> 
