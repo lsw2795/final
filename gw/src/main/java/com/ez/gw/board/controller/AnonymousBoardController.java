@@ -36,14 +36,23 @@ public class AnonymousBoardController {
 	private final FileUploadUtil fileUploadUtil;
 	
 	@RequestMapping("/boardList")
-	public String anonymousBoardList() {
+	public String anonymousBoardList(HttpSession session,Model model) {
+		logger.info("익명게시판 페이지");
+		
+		List<BoardVO> anonymousList = boardService.select24List();
+		logger.info("게시글 조회 anonymousList={}",anonymousList);
+		List<PdsVO> imageList = pdsService.select24AnonymousImage();
+		logger.info("이미지 조회 imageList={}",imageList);
+		
+		model.addAttribute("anonymousList",anonymousList);
+		model.addAttribute("imageList",imageList);
 		
 		return "anonymousBoard/anonymousBoardList";
 	}
 	
-	@ResponseBody
 	@RequestMapping("/boardWrite")
-	public String anonymousBoardWrite(@ModelAttribute BoardVO boardVo,HttpSession session,HttpServletRequest request) {
+	public String anonymousBoardWrite(@ModelAttribute BoardVO boardVo,Model model,
+			HttpSession session,HttpServletRequest request) {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("익명게시판 글 처리 파라미터 boardVo={}",boardVo);
 		
@@ -51,22 +60,26 @@ public class AnonymousBoardController {
 		
 		PdsVO pdsVo = new PdsVO();
 		int cnt = boardService.insertAnonumous(boardVo);
+		logger.info("익명게시판 글 처리 결과 cnt={}",cnt);
 		
-		String msg="게시글 등록중 에러가 발생했습니다.";
+		String msg="게시글 등록중 에러가 발생했습니다.",url="/anonymous/boardList";
 		if(cnt>0) {
 			try {
-				logger.info("파일 업로드 ");
 				List<Map<String, Object>> fileList = fileUploadUtil.Multifileupload(request, ConstUtil.UPLOAD_IMAGE_FLAG);
-				for(Map<String, Object> fileMap : fileList) {
-					String fileName=(String)fileMap.get("fileName");
-					String originalFileName=(String)fileMap.get("originalFileName");
+				logger.info("파일 업로드 fileList={}",fileList.size());
+				
+				if(fileList!=null || !fileList.isEmpty()) {
+					for(Map<String, Object> fileMap : fileList) {
+						String fileName=(String)fileMap.get("fileName");
+						String originalFileName=(String)fileMap.get("originalFileName");
 						
-					pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
-					pdsVo.setFileName(fileName); //서버저장 파일명
-					pdsVo.setOriginalFileName(originalFileName); //원본 파일명
-					
-					cnt=pdsService.insertPdsByAnonymous(pdsVo);
-					logger.info("파일 저장 결과 cnt={}",cnt);
+						pdsVo.setBoardNo(boardVo.getBoardNo()); //게시글 번호
+						pdsVo.setFileName(fileName); //서버저장 파일명
+						pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+						
+						cnt=pdsService.insertPdsByAnonymous(pdsVo);
+						logger.info("파일 저장 결과 cnt={}",cnt);
+					}
 				}
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
@@ -76,6 +89,9 @@ public class AnonymousBoardController {
 			}
 		}
 		
-		return msg;
+		model.addAttribute("url",url);
+		model.addAttribute("msg",msg);
+		
+		return "common/message";
 	}
 }

@@ -25,6 +25,9 @@ public interface ConstUtil {
 	String MARKET_UPLOAD_PATH="upload";
 	String MARKET_UPLOAD_PATH_TEST="/market/upload";
 	
+	//동호회 파일 저장 경로
+	String CLUB_UPLOAD_PATH="pds_upload";
+	
 	//집
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\pds_upload";
 	//String FILE_UPLOAD_PATH_TEST = "C:\\Users\\Desktop\\git\\final4\\gw\\src\\main\\webapp\\pds_upload";

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.dept.model.DeptAllVO;
 import com.ez.gw.dept.model.DeptService;
@@ -32,5 +35,56 @@ public class DeptController {
         return "mypage/organizationChart";
     }    
  
+    @ResponseBody
+    @RequestMapping("/admin/employee/checkDeptName")
+    public int checkDeptName(@RequestParam (required = false)String deptName) {
+    	logger.info("ajax 이용 - 부서 이름 중복확인 파라미터 deptName={}",deptName);
+    	int cnt=deptService.checkDeptName(deptName);
+    	logger.info("ajax 이용 - 부서 이름 중복확인 결과 cnt={}", cnt);
+    	return cnt;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/admin/employee/ajaxDeptInsert")
+    public int insertDept(@ModelAttribute DeptVO deptVo) {
+    	logger.info("ajax 이용 - 부서 생성, 파라미터 deptVo={}", deptVo);
+    	int cnt=deptService.insertDept(deptVo);
+    	logger.info("ajax 이용 - 부서 생성 결과 cnt={}", cnt);
+    	return cnt;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/admin/employee/ajaxSelectDept")
+    public DeptVO selectDept(@RequestParam (defaultValue ="0")int deptNo) {
+    	logger.info("ajax 이용 - 해당 부서 정보 조회, 파라미터 deptNo={}", deptNo);
+    	DeptVO deptVo=deptService.deptByNo(deptNo);
+    	logger.info("ajax 이용 - 해당 부서 정보 조회 결과, deptVo={}", deptVo);
+    	return deptVo;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/admin/employee/ajaxDeptUpdate")
+    public int updateDept(@ModelAttribute DeptVO deptVo) {
+    	logger.info("ajax 이용 - 선택한 부서 수정 파라미터 deptVo={}", deptVo);
+    	int cnt=deptService.updateDept(deptVo);
+    	logger.info("ajax 이용 - 선택한 부서 수정 결과 cnt={}", cnt);
+    	return cnt;
+    }
+    
+    @ResponseBody
+    @RequestMapping("/admin/employee/ajaxDeptDelete")
+    public int deleteDept(@RequestParam(defaultValue = "0")int deptNo) {
+    	logger.info("ajax 이용 - 선택한 부서 삭제 파라미터 deptNo={}", deptNo);
+    	int cnt=deptService.deptEmpCount(deptNo);
+    	logger.info("ajax 이용 - 부서 삭제처리 전 해당 부서 사원수 조회 결과 cnt={}", cnt);
+    	int result=0;
+    	if(cnt==0) {
+    		result=deptService.deleteDept(deptNo);
+    		logger.info("ajax 이용 - 부서 삭제 처리 결과 result={}", result);
+    	}
+    	return result;
+    }
+    
+    
 }
 	

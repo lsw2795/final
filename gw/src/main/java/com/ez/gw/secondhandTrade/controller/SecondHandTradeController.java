@@ -121,8 +121,6 @@ public class SecondHandTradeController {
 
 				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
 				String filePath = request.getSession().getServletContext().getRealPath(path);
-				// String filePath =
-				// "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
 
 				File file = new File(filePath, fileName);
 				f.transferTo(file);

@@ -15,9 +15,11 @@
 	</insert>
 	
 	<update id="updateWorkOut" parameterType="int">
-	    update commute
-	    set work_out = to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
-	    where emp_no=#{empNo} and work_in is not null
+	  	UPDATE commute
+	    SET work_out = TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss')
+	    WHERE emp_no = #{empNo}
+	    AND work_in IS NOT NULL
+	    AND TO_CHAR(TO_DATE(work_in, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 	</update>
 	
 	<select id="selectIsWorkIn" parameterType="int" resultType="int">
@@ -41,10 +43,50 @@
 	
 	<update id="updateCommuteStateEalry" parameterType="int">
 		UPDATE commute
-		SET commute_state = 5
+		SET commute_state = 2
 		WHERE emp_no = #{empNo}
 		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
+	
+	<update id="updateCommuteStateTotal" parameterType="int">
+		UPDATE commute
+		SET commute_state = 3
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</update>
+	
+	<select id="selectLateState" parameterType="int" resultType="int">
+		select commute_state from commute 
+		WHERE emp_no = #{empNo}
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+	</select>
 
+
+ 	<select id="selectCommuteLateCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where commute_state = 1
+		and emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+ 	<select id="selectCommuteEarlyleaveCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where commute_state = 2
+		and emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+	 <select id="selectCommuteAttendanceCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+	<select id="selectCommuteMonthByEmpNo" parameterType="map" resultType="map">
+		select * from commute
+		where emp_no=#{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select>
+	
 	
 </mapper>

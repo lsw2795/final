@@ -36,4 +36,5 @@ public interface BoardDAO {
 	int updateFAQ(BoardVO vo); //관리자 FAQ 글수정 메서드
 	BoardVO selectFAQByBoardNo(int boardNo); //관리자 글 수정전 게시글 보여주기 메서드
 	int deleteFAQ(int boardNo); //관리자 FAQ 글삭제 메서드
+	List<BoardVO> select24List(); //익명게시판 24시간 이내 글
 }

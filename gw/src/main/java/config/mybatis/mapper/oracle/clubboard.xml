@@ -34,15 +34,16 @@
 	</update>
 	
 	<select id="detailClubBoard" resultType="map" parameterType="int">
-		select * from CLUBBOARDVIEW
+		select * from PDSCLUB
 		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
 	</select>
 	
 	<delete id="deleteClubBoard">
 		delete from clubBoard
-		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
+		where CLUB_NO=#{clubNo} and board_no=#{boardNo} 
 	</delete>
 	
+	 
 	
 		
 </mapper>

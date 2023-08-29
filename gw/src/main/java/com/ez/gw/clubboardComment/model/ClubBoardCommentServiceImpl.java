@@ -1,5 +1,8 @@
 package com.ez.gw.clubboardComment.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -10,7 +13,17 @@ public class ClubBoardCommentServiceImpl implements ClubBoardCommentService{
 	private final ClubBoardCommentDAO cludBoardCommentDao;
 
 	@Override
-	public int insertClubComm(ClubBoardCommentVO cbcVo) {
-		return cludBoardCommentDao.insertClubComm(cbcVo);
+	public int insertClubCommt(ClubBoardCommentVO cbcVo) {
+		return cludBoardCommentDao.insertClubCommt(cbcVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCommClub(int clubNo, int boardNo) {
+		return cludBoardCommentDao.selectCommClub(clubNo, boardNo);
+	}
+
+	@Override
+	public int selectCountComment(int clubNo, int boardNo) {
+		return cludBoardCommentDao.selectCountComment(clubNo, boardNo);
 	}
 }

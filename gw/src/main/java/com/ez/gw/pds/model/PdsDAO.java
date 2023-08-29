@@ -25,6 +25,7 @@ public interface PdsDAO {
 	int selectIsFile(int boardNo);
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
 	int editNoticeFile(int pdsNo); //공지사항 수정시 파일 삭제
+	List<PdsVO> select24AnonymousImage(); //익명게시판 24시간 이내 이미지
 	
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int deleteAdminFile(int pdsNo); // 관리자 - 파일 db 삭제 메서드
@@ -32,4 +33,5 @@ public interface PdsDAO {
 	
 	int insertPdsByAnonymous(PdsVO vo);
 	
+	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
 }

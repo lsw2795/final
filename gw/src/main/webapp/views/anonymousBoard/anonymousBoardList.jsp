@@ -6,20 +6,9 @@
 <link href="<c:url value='/css/anonymousBoard.css'/>" rel="stylesheet">
 <script type="text/javascript">
 $(function (){
-	$('form[name=frmBoardWrite]').submit(function(){
-		$.ajax({
-	    	url:"<c:url value='/anonymous/boardWrite'/>",
-	   		type:"post",
-	   		dataType:"text",
-	   		data:$('form[name=frmBoardWrite]').serializeArray(),
-	   		success:function(res){
-	   			alert(res);
-	    	},error:function(xhr, status, error){
-	    		alert(status+" : "+error);
-	   		}
-	   	});
-		return false;
-	});
+	/* $('form[name=frmBoardWrite]').submit(function(){
+		
+	}); */
 });
 
 function uploadSet(bt){
@@ -63,61 +52,70 @@ function uploadSet(bt){
                 </form>
             </div>
         </div>
-        <div class="card mb-3">
-        	<div class="card-header bg-light">
-            	<div class="row justify-content-between">
-                	<div class="col">
-                    	<div class="d-flex">
-	                        <div class="flex-1 align-self-center ms-2">
-	                        	<p class="mb-1 lh-1">익명의 게시글입니다.</p>
-	                          	<p class="mb-0 fs--1">11 hrs</p>
-	                        </div>
-                      	</div>
-                    </div>
-                    <div class="col-auto">
-                    	<div class="dropdown font-sans-serif btn-reveal-trigger">
-                        	<button class="btn btn-link text-600 btn-sm dropdown-toggle p-1 dropdown-caret-none btn-reveal" type="button" id="post-album-action" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        		<span class="fas fa-ellipsis-h fs--1"></span>
-                        	</button>
-	                        <div class="dropdown-menu dropdown-menu-end py-3" aria-labelledby="post-album-action">
-	                        	<a class="dropdown-item" href="#!">수정하기</a>
-	                          	<a class="dropdown-item text-danger" href="#!">삭제하기</a>
-	                        </div>
-                      	</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body overflow-hidden">
-            	<p>내용</p>
-                <div class="row mx-n1 img-slider">
-					<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
-	                	<button class="btn" id="leftBt" style="width: 50px">
-	                		<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
-	                	</button>
+        <c:if test="${!empty anonymousList }">
+        <c:forEach var="boardVo" items="${anonymousList }">
+	        <div class="card mb-3">
+	        	<div class="card-header bg-light">
+	            	<div class="row justify-content-between">
+	                	<div class="col">
+	                    	<div class="d-flex">
+		                        <div class="flex-1 align-self-center ms-2">
+		                        	<p class="mb-1 lh-1">익명 ${boardVo.boardNo }번째 글입니다.</p>
+		                          	<p class="mb-0 fs--1"><fmt:formatDate value="${boardVo.regdate }" pattern="yy-MM-dd hh-mm"/></p>
+		                        </div>
+	                      	</div>
+	                    </div>
+	                    <div class="col-auto">
+	                    	<div class="dropdown font-sans-serif btn-reveal-trigger">
+	                        	<button class="btn btn-link text-600 btn-sm dropdown-toggle p-1 dropdown-caret-none btn-reveal" type="button" id="post-album-action" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                        		<span class="fas fa-ellipsis-h fs--1"></span>
+	                        	</button>
+		                        <div class="dropdown-menu dropdown-menu-end py-3" aria-labelledby="post-album-action">
+		                        	<a class="dropdown-item" href="#!">수정하기</a>
+		                          	<a class="dropdown-item text-danger" href="#!">삭제하기</a>
+		                        	<input type="hidden" value="${boardVo.boardNo }">
+		                        </div>
+	                      	</div>
+	                    </div>
 	                </div>
-					<div class="col-8" id="centerDiv" align="center" >
-	                	<div class="col img-div slideActive" style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
-	                	</div>
-	                	<div class="col img-div" style="background-image:url(<c:url value='/images/IMG_5495_20230821003756826.jpg'/>)">
-	                	</div>
-	                	<div class="col img-div " style="background-image:url(<c:url value='/images/CHUCK%2070%20HI3_20230822202225523.PNG'/>)">
-	                	</div>
-	                	<div class="col img-div " style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
-	                	</div>
-	                </div>
-					<div class="col-2 p-1 m-auto" id="rightBtDiv">
-	                	<button class="btn" id="rightBt" style="width: 50px">
-	                		<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
-	                	</button>
-	                </div>
-            	</div>
-	            <div class="col-12 page-nav" align="center">
-					<div class="slideActive"></div>
-				    <div></div>
-				    <div></div>
-				    <div></div>
-				</div>
-          	</div>
+	            </div>
+	            <div class="card-body overflow-hidden">
+	            	<p>${boardVo.content}</p>
+	            	<c:if test="${!empty imageList}">
+	            		<c:forEach var="pdsVo" items="${imageList }" >
+	            			<c:if test="${pdsVo.boardNo == boardVo.boardNo}">
+				                <div class="row mx-n1 img-slider">
+									<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
+					                	<button class="btn" id="leftBt" style="width: 50px">
+					                		<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
+					                	</button>
+					                </div>
+									<div class="col-8" id="centerDiv" align="center" >
+					                	<div class="col img-div slideActive" style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
+					                	</div>
+					                	<div class="col img-div" style="background-image:url(<c:url value='/images/IMG_5495_20230821003756826.jpg'/>)">
+					                	</div>
+					                	<div class="col img-div " style="background-image:url(<c:url value='/images/CHUCK%2070%20HI3_20230822202225523.PNG'/>)">
+					                	</div>
+					                	<div class="col img-div " style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
+					                	</div>
+					                </div>
+									<div class="col-2 p-1 m-auto" id="rightBtDiv">
+					                	<button class="btn" id="rightBt" style="width: 50px">
+					                		<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
+					                	</button>
+					                </div>
+				            	</div>
+					            <div class="col-12 page-nav" align="center">
+									<div class="slideActive"></div>
+								    <div></div>
+								    <div></div>
+								    <div></div>
+								</div>
+							</c:if>
+	            		</c:forEach>
+	            	</c:if>
+	          	</div>
             <div class="card-footer bg-light pt-0" id="datgeulInfo">
             	<div class="border-bottom border-200 fs--1 py-3">
             		<a class="text-700" href="#!">34개의 댓글이 있습니다.</a>
@@ -160,6 +158,8 @@ function uploadSet(bt){
 				</div>
 			</div>
 		</div>
+        </c:forEach>
+        </c:if>
 	</div>
 </div>
 <%@ include file = "../inc/bottom.jsp" %>

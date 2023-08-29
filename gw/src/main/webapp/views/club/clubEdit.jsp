@@ -31,7 +31,7 @@
 
  
   	<body>
-		<form name="editFrm" method="post" action="<c:url value='/club/clubEdit'/>">
+		<form name="ClubEditFrm" method="post" action="<c:url value='/club/clubEdit'/>">
           <div class="card mb-3">
             <div class="card-body">
               <div class="row flex-between-center">
@@ -70,7 +70,9 @@
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="introduce">동호회 소개</label>
-                        <input class="form-control" id="introduce" name="introduce" type="text" value="${vo.introduce}"/>
+                        <textarea class="form-control" id="introduce" name="introduce" type="textarea" placeholder="Introduce"
+                        	 style="height:300px">${vo.introduce}
+                        </textarea>
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>
