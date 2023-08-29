@@ -12,4 +12,6 @@ public interface DeptDAO {
 	List<Map<String, Object>> selectEmpByDeptNo(int deptVo);
 	List<DeptAllVO> selectAllDept2(DeptVO deptVo);
 	int insertDept(DeptVO deptVo); //부서 추가
+	List<Map<String, Object>> selectManager(); //부서장 자격 임직원 조회
+	String checkDeptName(String name); //부서 이름 중복확인
 }

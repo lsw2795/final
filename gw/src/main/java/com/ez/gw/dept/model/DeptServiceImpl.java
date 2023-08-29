@@ -39,4 +39,14 @@ public class DeptServiceImpl implements DeptService{
 		return deptDao.insertDept(deptVo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectManager() {
+		return deptDao.selectManager();
+	}
+
+	@Override
+	public String checkDeptName(String name) {
+		return deptDao.checkDeptName(name);
+	}
+
 }
