@@ -57,6 +57,26 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.updateCommuteStateTotal(empNo);
 	}
 
+	@Override
+	public int selectCommuteLateCount(int empNo, String date) {
+		return commuteDao.selectCommuteLateCount(empNo, date);
+	}
+
+	@Override
+	public int selectCommuteEarlyleaveCount(int empNo, String date) {
+		return commuteDao.selectCommuteEarlyleaveCount(empNo, date);
+	}
+
+	@Override
+	public int selectCommuteAttendanceCount(int empNo, String date) {
+		return commuteDao.selectCommuteAttendanceCount(empNo, date);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCommuteMonthByEmpNo(int empNo, String date) {
+		return commuteDao.selectCommuteMonthByEmpNo(empNo, date);
+	}
+
 	
 	
 }
