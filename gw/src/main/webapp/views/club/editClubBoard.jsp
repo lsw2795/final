@@ -52,9 +52,14 @@
             <div class="card-body">
               <div class="row flex-between-center">
                 <div class="col-md">
-                  <h5 class="mb-2 mb-md-0">Club Board</h5>
+                  <h5 class="mb-2 mb-md-0">게시글 수정</h5>
                 </div>
                 <div class="col-auto">
+	                <button class="btn btn-falcon-default btn-sm"type="button">
+	                	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo}'/>">
+	                		<span class="fas fa-arrow-left"></span>
+	                	</a>
+	                </button>
                 </div>
               </div>
             </div>
@@ -63,18 +68,19 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
-                  	name="clubBoardFrm"	method="post" action="<c:url value='/club/clubBoardWrite'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
+                  	name="clubBoardFrm"	method="post" action="<c:url value='/club/editClubBoard'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                     <input type="hidden" name="clubNo" value="${param.clubNo }">
+                    <input type="hidden" name="boardNo" value="${param.boardNo }">
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">제목</label>
-                        <input class="form-control" id="title" name="title" type="text"/>
+                        <input class="form-control" id="title" name="title" type="text" value="${map['TITLE']}"/>
                       </div>
                       <div class="col-12 mb-3">
                       	<label class="form-label" for="content">내용</label>
                       	<div class="create-product-description-textarea">
                         	<textarea class="form-control" data-tinymce="data-tinymce" name="content" id="content"
-                        		style="height:300px"></textarea>
+                        		style="height:300px">${map['CONTENT']}</textarea>
                       	</div>
                    	</div>
                     </div>
@@ -87,7 +93,7 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="imageURL" type="file" multiple="multiple" id="fileInput"/>
+                      <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
                     </div>
                     <div class="dz-message" data-dz-message=""> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
@@ -119,7 +125,7 @@
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" id = "btn" role="button">등록 </button>
+                  <button class="btn btn-primary" id = "btn" role="button">저장 </button>
                 </div>
               </div>
             </div>

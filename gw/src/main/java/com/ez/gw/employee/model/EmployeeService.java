@@ -38,4 +38,6 @@ public interface EmployeeService {
 	String selectNameByEmpNo(int empNo);
 	int emailCheck(String email, int empNo); //비번찾기 메일 확인
 	int countManager(String name);
+	int findInfoCheck(EmployeeVO empVo); //비밀번호 찾을때 이메일,사원번호 개수 확인
+	int findPwd(int empNo, String email); //비번 찾기 비번 변경
 }

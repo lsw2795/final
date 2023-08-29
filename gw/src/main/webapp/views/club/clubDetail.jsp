@@ -130,7 +130,8 @@
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="introduce">동호회 소개</label>
-                        <input class="form-control" id="introduce" name="introduce" type="text" value="${clubVo.introduce}" disabled/>
+                        <textarea class="form-control" id="introduce" name="introduce" type="textarea" placeholder="Introduce"
+                        	style="height:300px" disabled>${clubVo.introduce}</textarea>	
                       </div>
                       <div class="col-12">
                         <div class="border-bottom border-dashed my-3"></div>

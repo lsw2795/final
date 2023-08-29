@@ -96,7 +96,8 @@
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="introduce">동호회 소개</label>
-                        <input class="form-control" id="introduce" name="introduce" type="text" placeholder="Introduce" />
+                        <textarea class="form-control" id="introduce" name="introduce" type="textarea" placeholder="Introduce"
+                        	style="height:300px"></textarea>	
                       </div>
                       <div class="col-sm-6 mb-3">
                         <label class="form-label" for="secflag">공개 여부</label>

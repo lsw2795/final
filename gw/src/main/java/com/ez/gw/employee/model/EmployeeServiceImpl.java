@@ -10,8 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.email.EmailSender;
 import com.ez.gw.refer.model.ReferDAO;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -156,6 +158,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	public int countManager(String name) {
 		return employeeDao.countManager(name);
+	}
+
+	@Override
+	public int findInfoCheck(EmployeeVO empVo) {
+		return employeeDao.findInfoCheck(empVo);
+	}
+
+	@Override
+	public int findPwd(int empNo, String email) {
+		return employeeDao.findPwd(email, empNo, email);
+		
 	}
 
 }
