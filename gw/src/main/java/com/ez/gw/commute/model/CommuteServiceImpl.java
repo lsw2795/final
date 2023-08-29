@@ -54,7 +54,7 @@ public class CommuteServiceImpl implements CommuteService{
 
 	@Override
 	public int updateCommuteStateTotal(int empNo) {
-		return updateCommuteStateTotal(empNo);
+		return commuteDao.updateCommuteStateTotal(empNo);
 	}
 
 	

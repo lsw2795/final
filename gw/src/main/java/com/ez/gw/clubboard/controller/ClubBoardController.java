@@ -85,7 +85,7 @@ public class ClubBoardController {
 				logger.info("idx={}",idx);
 				String cutfile = originalFileName.substring(idx);
 				
-				fileName = clubVo.getClubNo() + "_" + i++ +cutfile;
+				fileName = clubVo.getClubNo() + "_" + i++ + f.getOriginalFilename();
 				fileSize = (long) f.getSize();
 				
 				String path = ConstUtil.CLUB_UPLOAD_PATH;
@@ -95,13 +95,14 @@ public class ClubBoardController {
 				f.transferTo(file);
 				
 				logger.info("파일명 fileName={}",fileName);
-				pdsVo.setBoardNo(clubVo.getBoardNo());
+				pdsVo.setClubBoardNo(clubVo.getBoardNo());
 				pdsVo.setPath(filePath);
 				pdsVo.setFileName(fileName);
 				pdsVo.setFileSize(fileSize);
 				pdsVo.setOriginalFileName(originalFileName);
 				pdsVo.setFileExtension(cutfile);
 				
+				logger.info("귀신 board_no={}", clubVo.getBoardNo());
 				int res=pdsService.clubFiles(pdsVo);
 				logger.info("파일 db저장 결과 res={}",res);		
 			}//for

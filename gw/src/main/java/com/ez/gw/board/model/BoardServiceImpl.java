@@ -175,6 +175,11 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return cnt;
 	}
+
+	@Override
+	public List<BoardVO> select24List() {
+		return boardDao.select24List();
+	}
 	
 	
 

@@ -279,9 +279,9 @@
                     		</li>
                     		<!-- 임원 -->
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/commute/statistics'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1" >부서 근태 통계(임원)</span>
+                        				<span class="nav-link-text ps-1" >근태 통계</span>
                         			</div> 
                       			</a>
                     		</li>

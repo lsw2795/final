@@ -168,6 +168,11 @@ public class PdsServiceImpl implements PdsService {
 	}
 
 	@Override
+	public List<PdsVO> select24AnonymousImage() {
+		return pdsDao.select24AnonymousImage();
+	}
+	
+	@Override
 	public int clubFiles(PdsVO pdsVo) {
 		return pdsDao.clubFiles(pdsVo);
 	}
