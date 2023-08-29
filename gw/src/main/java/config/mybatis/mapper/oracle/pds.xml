@@ -171,7 +171,6 @@
 		order by regdate desc
 	</select>
 	
-		
 	<insert id="clubFiles" parameterType="pdsVo">
 		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
 			select pds_seq.nextval from dual
