@@ -61,11 +61,14 @@ public class ClubBoardController {
 		logger.info("동호회 게시판 작성하는 페이지 empNo={},clubNo={},clubVo={}",empNo,clubNo,clubVo);
 		
 		int cnt=0;
+		
 		//파일 업로드
 		try {
 			
 			String fileName = "", originalFileName = "";
 			long fileSize = 0;
+			
+			String msg="",url="";
 			
 			//2.
 			//파일 업로드 처리 
@@ -73,10 +76,31 @@ public class ClubBoardController {
 			List<MultipartFile> files = multiRequest.getFiles("imageURL");
 			logger.info("files.size={}",files.size());
 			
+			for (MultipartFile f : files) {
+				logger.info("컨텐트 타입, contentType={}, gif={}, png={}, jpg={}", f.getContentType(),
+						f.getContentType().toLowerCase().endsWith("gif"),
+						f.getContentType().toLowerCase().endsWith("png"),
+						f.getContentType().toLowerCase().endsWith("jpg"),
+						f.getContentType().toLowerCase().endsWith("jpeg"));
+				// 이미지 파일만 업로드 가능
+				if (!f.getContentType().toLowerCase().endsWith("png")
+						&& !f.getContentType().toLowerCase().endsWith("jpg")) {
+					msg = "이미지 파일만 등록해주세요.";
+					url = "/pds_upload";
+
+					// 이전에 입력한 폼 데이터 세션에 저장
+					session.setAttribute("clubVo", clubVo);
+					session.setAttribute("pdsVo", pdsVo);
+
+					model.addAttribute("msg", msg);
+					model.addAttribute("url", url);
+
+					return "common/message";
+				}
+			} // for
+			
 			cnt=clubBoardService.insertClubBoard(clubVo);
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
-			logger.info("보드 넘버={}",clubVo.getBoardNo());
-			
 			
 			int i=0;
 			for(MultipartFile f : files){
@@ -102,7 +126,7 @@ public class ClubBoardController {
 				pdsVo.setOriginalFileName(originalFileName);
 				pdsVo.setFileExtension(cutfile);
 				
-				logger.info("귀신 board_no={}", clubVo.getBoardNo());
+				logger.info("board_no={}", clubVo.getBoardNo());
 				int res=pdsService.clubFiles(pdsVo);
 				logger.info("파일 db저장 결과 res={}",res);		
 			}//for
@@ -111,7 +135,7 @@ public class ClubBoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		String msg="게시물 등록 실패", url="/club/clubBoard?clubNo="+clubNo;
 		if(cnt>0) {
 			msg="게시물 등록 완료";
