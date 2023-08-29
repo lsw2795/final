@@ -30,7 +30,7 @@
 		  		return false;
 		  	}
 		  	
-		  	//alert(selectedValue);
+		  	alert(selectedValue);
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxSelectBoardList'/>",
 	            type:'get',
