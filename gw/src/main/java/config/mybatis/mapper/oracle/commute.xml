@@ -62,9 +62,31 @@
 	</select>
 
 
-<!-- 	<select id="selectCommute">
+ 	<select id="selectCommuteLateCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where commute_state = 1
+		and emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+ 	<select id="selectCommuteEarlyleaveCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where commute_state = 2
+		and emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+	 <select id="selectCommuteAttendanceCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+	<select id="selectCommuteMonthByEmpNo" parameterType="map" resultType="map">
 		select * from commute
-		where emp_no=
-	</select> -->
+		where emp_no=#{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select>
+	
 	
 </mapper>

@@ -139,7 +139,7 @@
 
 <div class="s-container">
 	<!-- 검색일<input type="text" id="searchDate">  -->
-	<form action="/attendance/searchDate.sw" method="post">
+	<form action="<c:url value='/commute/statistics'/>" method="post">
 		<table class="t-search">
 			<tr>
 				<td class="t-search-title">검색일</td>
@@ -157,20 +157,15 @@
 				<th class="th-1">근무시간</th>
 				<th class="th-1">근무상태</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
+			<c:forEach var="map" items="${commuteList}">
+				<tr>
+					<td>${map['workDate']}</td>
+					<td>${map['workInTime']}</td>
+					<td>${map['workOutTime']}</td>
+					<td>${map['workTime']}</td>
+					<td>${map['state']}</td>
+				</tr>
+			</c:forEach>
 		</table>
 	</div>
 		<br>
@@ -186,9 +181,9 @@
 					<th class="th-1">출근</th>
 				</tr>
 				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
+					<td>${attendance}</td>
+					<td>${late}</td>
+					<td>${ealry}</td>
 				</tr>
 			</table>
 		</div>
