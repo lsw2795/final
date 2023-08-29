@@ -17,4 +17,7 @@ public class PdsVO {
 	private String titleImage; /* 대표 이미지 */
 	private int boardListNo; /* 게시판번호 */
 	private int boardNo; /* 게시글번호 */
+	
+	
+	private int clubBoardNo; /* 동호회 게시글 번호 */
 }

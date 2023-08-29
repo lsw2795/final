@@ -119,7 +119,6 @@
 		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
 			select pds_seq.nextval from dual
 		</selectKey>
-		
 		insert into pds(pds_no, path, fileName, fileSize, originalfileName, file_extension,
 			 boardList_no, board_no)
 		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalFileName}, #{fileExtension},
@@ -163,5 +162,15 @@
 		</selectKey>
 		insert into pds(pds_no, fileName, fileSize, originalfileName, boardList_no, board_no)
 		values(#{pdsNo}, #{fileName}, #{originalFileName}, 5000, #{boardNo})
+	</insert>
+	
+	<insert id="clubFiles" parameterType="pdsVo">
+		<selectKey keyProperty="pdsNo" order="BEFORE" resultType="int">
+			select pds_seq.nextval from dual
+		</selectKey>
+		insert into pds(pds_no, path, fileName, fileSize, originalfileName, file_extension,
+			 boardList_no, club_board_no ,board_no)
+		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalFileName}, #{fileExtension},
+			200, #{clubBoardNo}, 0)
 	</insert>
 </mapper>

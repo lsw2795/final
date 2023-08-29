@@ -32,4 +32,5 @@ public interface PdsDAO {
 	
 	int insertPdsByAnonymous(PdsVO vo);
 	
+	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
 }

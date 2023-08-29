@@ -32,4 +32,5 @@ public interface PdsService {
 	int deleteBoardMulti(HttpServletRequest request, List<BoardVO> list); //관리자 - 자료실 게시글 다중 삭제
 	
 	int insertPdsByAnonymous(PdsVO vo);
+	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
 }

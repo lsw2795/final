@@ -36,11 +36,10 @@ public class EmailController {
 	@RequestMapping("/sendEmail")
 	public String sendEmail(String email, @ModelAttribute EmployeeVO empVo,
 			@RequestParam int empNo) {
-		String str = getTempPassword();
-		
+		int receiverEmail=empService.emailCheck(email, empNo);
+		String str = emailSender.getTempPassword();
 		empService.updateEmpPwd(empVo);
 		
-		int receiverEmail=empService.emailCheck(email, empNo);
 		
 		String receiver = empVo.getEmail(); //받는 사람의 이메일 주소
 		
@@ -76,24 +75,11 @@ public class EmailController {
 	
 	@RequestMapping("/findPwd")
 	@ResponseBody
-	public String findPwd(String email, ) {
-		
+	public String findPwd(@ModelAttribute EmployeeVO empVo ) {
+		logger.info("empVo={}",empVo);
+		return "";
 	}
 	
 	
-	//임시 비밀번호 발급
-    public String getTempPassword(){
-        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        
-        String str = "";
-
-        int idx = 0;
-        for (int i = 0; i < 10; i++) {
-            idx = (int) (charSet.length * Math.random());
-            str += charSet[idx];
-        }
-        return str;
-    }
 	
 }

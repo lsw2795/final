@@ -1,5 +1,8 @@
 package com.ez.gw.clubboard.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -10,16 +13,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.clubboard.model.ClubBoardService;
 import com.ez.gw.clubboard.model.ClubBoardVO;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentService;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentVO;
+import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
+import com.ez.gw.pds.model.PdsService;
+import com.ez.gw.pds.model.PdsVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +40,8 @@ public class ClubBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubBoardController.class);
 	private final ClubBoardService clubBoardService;
 	private final ClubBoardCommentService cbcService;
+	private final PdsService pdsService;
+	
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -37,9 +49,10 @@ public class ClubBoardController {
 		return "club/clubBoardWrite";
 	}
 	
-	@RequestMapping("/clubBoardWrite")
+	@PostMapping("/clubBoardWrite")
 	public String clubBoardWrite_post(@ModelAttribute ClubBoardVO clubVo, HttpSession session ,
-			@RequestParam int clubNo,Model model) {
+			@RequestParam int clubNo, HttpServletRequest request,
+			@ModelAttribute PdsVO pdsVo,Model model) {
 		//1.
 		int empNo = (int)session.getAttribute("empNo");
 		clubVo.setEmpNo(empNo);
@@ -47,10 +60,57 @@ public class ClubBoardController {
 		
 		logger.info("동호회 게시판 작성하는 페이지 empNo={},clubNo={},clubVo={}",empNo,clubNo,clubVo);
 		
-		//2.
-		int cnt=clubBoardService.insertClubBoard(clubVo);
-		logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
-		
+		int cnt=0;
+		//파일 업로드
+		try {
+			
+			String fileName = "", originalFileName = "";
+			long fileSize = 0;
+			
+			//2.
+			//파일 업로드 처리 
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			List<MultipartFile> files = multiRequest.getFiles("imageURL");
+			logger.info("files.size={}",files.size());
+			
+			cnt=clubBoardService.insertClubBoard(clubVo);
+			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
+			logger.info("보드 넘버={}",clubVo.getBoardNo());
+			
+			
+			int i=0;
+			for(MultipartFile f : files){
+				originalFileName = f.getOriginalFilename();
+				int idx=originalFileName.indexOf(".");
+				logger.info("idx={}",idx);
+				String cutfile = originalFileName.substring(idx);
+				
+				fileName = clubVo.getClubNo() + "_" + i++ +cutfile;
+				fileSize = (long) f.getSize();
+				
+				String path = ConstUtil.CLUB_UPLOAD_PATH;
+				String filePath = request.getSession().getServletContext().getRealPath(path);
+				
+				File file = new File(filePath, fileName);
+				f.transferTo(file);
+				
+				logger.info("파일명 fileName={}",fileName);
+				pdsVo.setBoardNo(clubVo.getBoardNo());
+				pdsVo.setPath(filePath);
+				pdsVo.setFileName(fileName);
+				pdsVo.setFileSize(fileSize);
+				pdsVo.setOriginalFileName(originalFileName);
+				pdsVo.setFileExtension(cutfile);
+				
+				int res=pdsService.clubFiles(pdsVo);
+				logger.info("파일 db저장 결과 res={}",res);		
+			}//for
+		}catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		String msg="게시물 등록 실패", url="/club/clubBoard?clubNo="+clubNo;
 		if(cnt>0) {
 			msg="게시물 등록 완료";

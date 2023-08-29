@@ -167,6 +167,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.insertPdsByAnonymous(vo);
 	}
 
+	@Override
+	public int clubFiles(PdsVO pdsVo) {
+		return pdsDao.clubFiles(pdsVo);
+	}
+
 
 
 
