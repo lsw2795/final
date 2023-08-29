@@ -10,18 +10,22 @@
 <script src="<c:url value='/lib/fullcalendar/main.js'/> "></script>
 <script src="<c:url value='/lib/fullcalendar/locales-all.min.js'/> "></script>
 <style>
-div#calendar {
-	background: white;
-	padding: 20px;
-}
-
-.fc-event-time {
-	color: black;
-}
-
-.fc-event-title {
-	color: blue;
-}
+	div#calendar {
+		background: white;
+		padding: 20px;
+	}
+	
+	.fc-event-time {
+		color: black;
+	}
+	
+	.fc-event-title {
+		color: blue;
+	}
+	
+	.fc .fc-daygrid-event-dot {
+    	border-color: red !important;
+	}
 </style>
 
 <div id='calendar'></div>
