@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.dept.model.DeptAllVO;
 import com.ez.gw.dept.model.DeptService;
@@ -32,5 +34,14 @@ public class DeptController {
         return "mypage/organizationChart";
     }    
  
+    @ResponseBody
+    @RequestMapping("/admin/employee/ajaxDeptInsert")
+    public int insertDept(@ModelAttribute DeptVO deptVo) {
+    	logger.info("ajax 이용 - 부서 생성, 파라미터 deptVo={}", deptVo);
+    	int cnt=deptService.insertDept(deptVo);
+    	logger.info("ajax 이용 - 부서 생성 결과 cnt={}", cnt);
+    	return cnt;
+    }
+    
 }
 	

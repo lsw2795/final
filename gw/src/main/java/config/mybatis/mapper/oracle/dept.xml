@@ -41,4 +41,14 @@
 		values(${deptNo},#{name},#{manager},#{upperDept},#{deptLevel})
 	</insert>
 	
+	<select id="selectManager" resultType="map">
+		select * from organizationchartview
+		where position_rank>=7
+	</select>
+	
+	<select id="checkDeptName" parameterType="string" resultType="string">
+		select name from dept where name=#{name}
+	</select>
+	
+	
 </mapper>

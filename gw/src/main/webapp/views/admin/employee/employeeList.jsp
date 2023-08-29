@@ -3,6 +3,135 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
+	$(function(){
+		
+		$('#btnDeptWrite').click(function(){
+			var checkModal1=false;
+	         if($('#dept_name1').val().length<1){
+	            alert("부서이름을 입력하세요.");
+	            $('#dept_name1').focus();
+	            return false;
+	         }
+	         
+	         if($('#manager1').val().length<1){
+		            alert("부서장을 선택하세요.");
+		            $('#manager1').focus();
+		            return false;
+		         }
+	         
+	         if($('#upper_dept1').val().length<1){
+	            alert("상위 부서를 입력하세요.");
+	            $('#upper_dept1').focus();
+	            return false;
+	         }
+	         
+	         if($('#dept_level1').val().length<1){
+	            alert("부서 등급을 입력하세요.");
+	            $('#dept_level1').focus();
+	            return false;
+	         }
+	         
+	         if (!validate_hp($('#upper_dept1').val())
+	        		 || !validate_hp($('#dept_level1').val())) {
+	            alert("상위 부서와 부서등급은 숫자만 입력 가능합니다.");
+	            
+	            if(!validate_hp($('#upper_dept1').val()){
+	            	$('#upper_dept1').focus();
+	            }else if(!validate_hp($('#dept_level1').val())){
+	            	$('#dept_level1').focus();
+	            }
+	            return false;
+	         }
+	         checkModal1=true;
+	         
+	         if(checkModal1){
+		         $.ajax({
+		            url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
+		            type:"post",
+		            dataType : "text",
+		            data:$('#insertDept').serializeArray(),
+		            success: function(res){
+		            	if(res>0){
+			            	alert($('#dept_name1').val()+" 부서 생성이 완료되었습니다.");
+			            	$('#staticBackdrop1').modal('hide'); 
+	                   		location.href="<c:url value='/admin/employee/employeeList'/>";
+		            	}
+		            },
+		            error:function(xhr, status, error){
+		               alert(status+" : "+error);
+		            }
+		         });//ajax
+	         }
+		});
+		
+		$('#btnDeptEdit').click(function(){
+			var checkModal2=false;
+			if($('#dept_name2').val().length<1){
+	            alert("수정할 부서이름을 선택하세요.");
+	            $('#dept_name2').focus();
+	            return false;
+	         }
+			
+			if($('#newDept_name2').val().length<1){
+	            alert("수정할 부서이름을 입력하세요.");
+	            $('#newDept_name2').focus();
+	            return false;
+	         }
+	         
+	         if($('#manager2').val().length<1){
+		            alert("부서장을 선택하세요.");
+		            $('#manager2').focus();
+		            return false;
+		         }
+	         
+	         if($('#upper_dept2').val().length<1){
+	            alert("상위 부서를 입력하세요.");
+	            $('#upper_dept2').focus();
+	            return false;
+	         }
+	         
+	         if($('#dept_level2').val().length<1){
+	            alert("부서 등급을 입력하세요.");
+	            $('#dept_level2').focus();
+	            return false;
+	         }
+	         
+	         if (!validate_hp($('#upper_dept2').val())
+	        		 || !validate_hp($('#dept_level2').val())) {
+	            alert("상위 부서와 부서등급은 숫자만 입력 가능합니다.");
+	            
+	            if(!validate_hp($('#upper_dept2').val()){
+	            	$('#upper_dept2').focus();
+	            }else if(!validate_hp($('#dept_level2').val())){
+	            	$('#dept_level2').focus();
+	            }
+	            return false;
+	         }
+	         checkModal2=true;
+	         if(checkModal2){
+		         $.ajax({
+		            url : "<c:url value='/admin/employee/ajaxDeptEdit'/>",
+		            type:"post",
+		            dataType : "text",
+		            data:$('#editDept').serializeArray(),
+		            success: function(res){
+		               
+		            },
+		            error:function(xhr, status, error){
+		               alert(status+" : "+error);
+		            }
+		         });//ajax
+	         }	
+		});
+		
+		$('#btnDeptDelete').click(function(){
+			alert('버튼3');
+			
+		});
+		
+	});
+
+
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
@@ -237,5 +366,6 @@
 		</div>
 	</div>
 </div>
+
 <%@ include file='deptModal.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
