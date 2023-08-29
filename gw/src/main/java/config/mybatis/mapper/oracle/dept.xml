@@ -35,10 +35,10 @@
 	
 	<insert id="insertDept" parameterType="deptVo">
 		<selectKey keyProperty="deptNo" order="BEFORE" resultType="int">
-			select * from DEPT_SEQ.nextval from dual
+			select DEPT_SEQ.nextval from dual
 		</selectKey>
 		insert into dept(dept_no, name, manager, upper_dept, dept_level)
-		values(${deptNo},#{name},#{manager},#{upperDept},#{deptLevel})
+		values(#{deptNo},#{name},#{manager},#{upperDept},#{deptLevel})
 	</insert>
 	
 	<select id="selectManager" resultType="map">
@@ -46,9 +46,23 @@
 		where position_rank>=7
 	</select>
 	
-	<select id="checkDeptName" parameterType="string" resultType="string">
-		select name from dept where name=#{name}
+	<select id="checkDeptName" parameterType="string" resultType="int">
+		select count(*) from dept where name=#{name}
 	</select>
 	
+	<update id="updateDept" parameterType="deptVo">
+		update dept
+		set name=#{name},manager=#{manager},upper_dept=#{upperDept},
+		dept_level=#{deptLevel}
+		where dept_no=#{deptNo}
+	</update>
+	
+	<select id="deptEmpCount" parameterType="int">
+		select count(*) from organizationchartview where dept_no=#{deptNo}
+	</select>
+
+	<delete id="deleteDept" parameterType="int">
+		delete dept where dept_no=#{deptNo}
+	</delete>	
 	
 </mapper>
