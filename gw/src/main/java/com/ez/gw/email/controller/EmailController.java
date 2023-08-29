@@ -37,6 +37,9 @@ public class EmailController {
 	public String sendEmail(String email, @ModelAttribute EmployeeVO empVo,
 			@RequestParam int empNo) {
 		String str = getTempPassword();
+		
+		empService.updateEmpPwd(empVo);
+		
 		int receiverEmail=empService.emailCheck(email, empNo);
 		
 		String receiver = empVo.getEmail(); //받는 사람의 이메일 주소
@@ -48,7 +51,7 @@ public class EmailController {
 						+ "로그인 후 비밀번호 변경해주세요 ";		
 		String sender = "rlacodud4456@naver.com"; //보내는 사람의 이메일 주소
 											//앞에 설정한 본인의 보내는 이메일 주소
-		empService.updateEmpPwd(empVo);
+		
 		
 		try {
 			emailSender.sendEmail(subject, content, receiver, sender);
@@ -60,9 +63,8 @@ public class EmailController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/findPwd")
-	@ResponseBody
-	public Map<String, Object> findPwd(String email,int empNo){
+	
+	/*public Map<String, Object> findPwd(String email,int empNo){
 		Map<String, Object> json = new HashMap<>();
 		int pwdChk=empService.emailCheck(email, empNo);
 		logger.info("이메일,사원번호 확인 pwdChk={}", pwdChk);
@@ -70,6 +72,12 @@ public class EmailController {
 		json.put("check", pwdChk);
 
 		return json;
+	}*/
+	
+	@RequestMapping("/findPwd")
+	@ResponseBody
+	public String findPwd(String email, ) {
+		
 	}
 	
 	
