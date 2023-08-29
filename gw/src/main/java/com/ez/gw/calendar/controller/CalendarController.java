@@ -42,11 +42,19 @@ public class CalendarController {
 		
 		String getbegindate = calVo.getBegindate();
 		String getenddate = calVo.getEnddate();
+		String begindate = "", begintime = "";
+		String enddate = "", endtime = "";
+		if(getbegindate!=null && !getbegindate.isEmpty()) {
+			begindate = getbegindate.substring(0,10);
+			begintime = getbegindate.substring(11);
+			logger.info("begindate={}, begintime={}", begindate, begintime);
+			
+		}
 		
-		String begindate = getbegindate.substring(0,10);
-		String begintime = getbegindate.substring(11);
-		String enddate = getenddate.substring(0,10);
-		String endtime = getenddate.substring(11);
+		if(getenddate !=null && !getenddate.isEmpty()) {
+			enddate = getenddate.substring(0,10);
+			endtime = getenddate.substring(11);
+		}
 		
 		
 		calVo.setBegindate(begindate);
@@ -79,13 +87,14 @@ public class CalendarController {
 	
 	
 	@RequestMapping("/fullCalendar")
-	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request) {
-		logger.info("내 스케줄 보기");
+	public ModelAndView getCalendarList(ModelAndView mv, HttpServletRequest request, HttpSession session) {
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("내 스케줄 보기, 파라미터 empNo={}", empNo);
 		String viewpage="calendar/fullCalendar";
 		List<CalendarVO> calendarList=null;
 		
 		try {
-			calendarList = calendarService.calendarList();
+			calendarList = calendarService.calendarList(empNo);
 			request.setAttribute("calendarList", calendarList);
 			logger.info("calendarList.size={}", calendarList.size());
 		}catch(Exception e) {
@@ -93,6 +102,11 @@ public class CalendarController {
 		}
 		
 		mv.setViewName(viewpage);
+		return mv;
+	}
+	
+	@RequestMapping("/")
+	public ModelAndView deptNoCalendar(ModelAndView mv) {
 		return mv;
 	}
 }

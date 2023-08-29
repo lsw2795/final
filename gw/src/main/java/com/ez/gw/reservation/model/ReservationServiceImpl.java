@@ -1,6 +1,7 @@
 package com.ez.gw.reservation.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationVO> selectAllReservation() {
+	public List<Map<String, Object>> selectAllReservation() {
 		return reservationDao.selectAllReservation();
 	}
 	

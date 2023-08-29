@@ -1,9 +1,9 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.ez.gw.reservation.model.ReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "java.util.List" %>
-<%@ page import = "com.ez.gw.calendar.model.CalendarVO" %>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
@@ -31,15 +31,13 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			events : [ 
-	    	    <%List<ReservationVO> reservationList = (List<ReservationVO>)request.getAttribute("reservationList");%>
+	    	    <%List<Map<String, Object>> reservationList = (List<Map<String, Object>>)request.getAttribute("reservationList");%>
 	            <%if (reservationList != null) {%>
-	            <%for (ReservationVO vo : reservationList) {%>
+	            <%for (Map<String, Object> map : reservationList) {%>
 	            {
-	            	title : '<%=vo.getBookDate()%>',
-	                start : '<%=vo.getStartTime()%>',
-	                end : '<%=vo.getEndTime()%>',
+	            	title : '<%= map.get("NAME") %>',
+	                start : '<%= map.get("BOOKDATE")%>',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
-	                <%application.log(vo.getBookDate());%>
 	             },
 		<%}
 	}%>

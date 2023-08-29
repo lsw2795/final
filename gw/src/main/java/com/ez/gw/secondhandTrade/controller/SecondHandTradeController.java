@@ -83,6 +83,7 @@ public class SecondHandTradeController {
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 
 			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
+			
 			for (MultipartFile f : files) {
 				logger.info("컨텐트 타입, contentType={}, png={}, jpg={}", f.getContentType(),
 						f.getContentType().toLowerCase().endsWith("png"),

@@ -143,6 +143,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int insertAnonumous(BoardVO vo) {
+		return boardDao.insertAnonumous(vo);
+	}
+	
 	public int updateFAQ(BoardVO vo) {
 		return boardDao.updateFAQ(vo);
 	}

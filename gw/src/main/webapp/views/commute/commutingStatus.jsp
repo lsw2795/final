@@ -48,7 +48,6 @@ div#calendar {
 			events : [
 				<%List<CommuteVO> commuteList = (List<CommuteVO>)request.getAttribute("list");  %>
 				<%if(commuteList != null && !commuteList.isEmpty()){ %>
-				
 						<%for(CommuteVO vo : commuteList){ %>
 							<%if(vo.getCommuteState()==1){%>
 								{
@@ -56,7 +55,7 @@ div#calendar {
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:',
+									title : '퇴근',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else if(vo.getCommuteState()==5){%>

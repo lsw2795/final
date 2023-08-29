@@ -162,6 +162,11 @@ public class PdsServiceImpl implements PdsService {
 
 	}
 
+	@Override
+	public int insertPdsByAnonymous(PdsVO vo) {
+		return pdsDao.insertPdsByAnonymous(vo);
+	}
+
 
 
 

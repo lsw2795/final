@@ -7,8 +7,8 @@
 		<selectKey keyProperty="calendarNo" order="BEFORE" resultType="int">
 			select calendar_seq.nextval from dual
 		</selectKey>
-		insert into calendar(calendar_no, emp_no, title, begindate, enddate, begintime, endtime, allday_flag, attendee, place, content, category_no)
-		values(#{calendarNo}, #{empNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{attendee}, #{place}, #{content}, #{categoryNo})
+		insert into calendar(calendar_no, emp_no, title, begindate, enddate, begintime, endtime, allday_flag, place, content, category_no)
+		values(#{calendarNo}, #{empNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{place}, #{content}, #{categoryNo})
 	</insert>
 	
 	<resultMap id="Mycalendar" type="com.ez.gw.calendar.model.CalendarVO" >
@@ -25,7 +25,11 @@
 		<result property="categoryNo" column="CATEGORY_NO"/>	
 	</resultMap>
 	
-	<select id="calendarList" resultMap="Mycalendar">
-		select * from calendar
+	<select id="calendarList" resultType="Mycalendar" parameterType="int">
+		select * from calendar where emp_no = #{empNo}
+	</select>
+	
+	<select id="calendarAllDept" resultType="map" parameterType="int">
+		select * from calendar where dept_no = #{dept_no}
 	</select>
 </mapper>

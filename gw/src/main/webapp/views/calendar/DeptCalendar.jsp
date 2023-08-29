@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,7 +21,7 @@
 			headerToolbar : { // 헤더에 표시할 툴 바
 				start : 'prev next today',
 				center : 'title',
-				end : 'dayGridMonth,dayGridWeek,dayGridDay,addEventButton'
+				end : 'dayGridMonth,dayGridWeek,dayGridDay'
 			},customButtons: {
                 addEventButton: { // 추가한 버튼 설정
                     text : "일정 추가",  // 버튼 내용
@@ -60,18 +61,18 @@
 			editable : true,
 			nowIndicator : true,
 			events : [ 
-	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
+	    	    <%List<Map<String, Object>> calendarList = (List<Map<String, Object>>)request.getAttribute("calendarList");%>
 	            <%if (calendarList != null) {%>
-	            <%for (CalendarVO vo : calendarList) {%>
+	            <%for (Map<String, Object> map : calendarList) {%>
 	            {
-	            	title : '<%=vo.getTitle()%>',
-	                start : '<%=vo.getBegindate()%>',
-	                end : '<%=vo.getEnddate()%>',
-	            	<%if(vo.getCategoryNo() == 1){%>
+	            	title : '<%=map.get("TITLE") %>,
+	                start : '<%=map.get("BEGINTIME")%>',
+	                end : '<%=map.get("ENDTIME")%>',
+	            	<%if(map.get("CATEGORYNO").equals(1)){%>
 	            		color: '#DD6F66'
-	            	<%}else if(vo.getCategoryNo() == 2){%>
+	            	<%}else if(map.get("CATEGORYNO").equals(2)){%>
 	            		color : '#A9D18E',
-	            	<%}else if(vo.getCategoryNo() == 3){%>
+	            	<%}else if(map.get("CATEGORYNO").equals(3)){%>
 	            		color : '#5889F0',
 	            	<%}%>
 	            	

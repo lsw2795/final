@@ -19,6 +19,7 @@
     <!--    Favicons-->
     <!-- ===============================================-->
     <!-- jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
@@ -392,13 +393,6 @@
 	                    	</div>
 	                  	</a>
 	                  	<ul class="nav collapse" id="d">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/calendar/addCalendar'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">일정 등록</span>
-                        			</div> 
-                      			</a>
-                    		</li>
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/calendar/fullCalendar'/>">
                         			<div class="d-flex align-items-center">
