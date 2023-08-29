@@ -31,8 +31,6 @@ public class CommuteController {
 
 		logger.info("근태관리 - 출/퇴근 현황 페이지");
 
-		//String viewpage = "commute/commutingStatus";
-
         List<CommuteVO> list = commuteService.selectCommuteByEmpNo(empNo);
         logger.info("근태관리 - 출/퇴근 데이터 조회 결과 list.size={}", list.size());
         
@@ -129,7 +127,8 @@ public class CommuteController {
 	
 	@RequestMapping("/statistics")
 	public String statistics() {
-		logger.info("부서별 근태 통계 페이지");
+		logger.info("근태 통계 페이지");
+		
 		
 		
 		return "commute/statistics";
