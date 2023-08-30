@@ -5,6 +5,9 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
+	function modal(){ //결제창 on-off
+		popup.style.display = 'block';
+	}
 
 	function requestPay() {
 			
@@ -17,7 +20,11 @@
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '동호회 가입 및 회비 결제',
 		    amount : 10000, //판매가격
-		    buyer_email : email,
+		    custom_data{
+		    	emp_no : ${patam}
+		    	club_no : ${param.clubNo}
+		    }
+		    buyer_emp_no : ${sessionScope.empNo},
 		    buyer_name : name,
 		    buyer_tel : hp,
 		    buyer_addr : address,
@@ -25,10 +32,10 @@
 		   // m_redirect_url: "{http://localhost:9091/gw/club/clubDetail?clubNo=27}"
 		}, function(rsp) { //call back
 		    if ( rsp.success ) {
-		    	var msg = "결제 완료. 가입되었습니다.";
+		    	var msg = "결제 완료! 가입 되었습니다.";
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		    	$.ajax({
-		    		url: '/club/PaymentClub', //cross-domain error가 발생하지 않도록 주의해주세요
+		    		url: '/club/ajaxPaymentClub', //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {
@@ -171,7 +178,9 @@
 			</div>
 			<table>
 			<tr>
-				<td><a href="#" onclick="kakaopay()"><img src="/resources/img/user/iconKakao.svg"></a></td>
+				<td><a href="#" onclick="kakaopay()">
+					<img style="size: 50px" src="<c:url value='/kakaopay.jpg'/>"></a>
+				</td>
 				<td></td>
 			</tr>
 			<tr>

@@ -11,5 +11,5 @@ public class AddressBookVO {
     private String addrbookEmail; /* 이메일 */
     private int empNo; /* 사원번호 */
 	private String addrbookDept; /* 부서 */
-	private int addbookRank; /* 직급 */
+	private String addrbookRank; /* 직급 */
 }

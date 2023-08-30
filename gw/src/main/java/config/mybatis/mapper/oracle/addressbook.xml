@@ -31,4 +31,18 @@
      	</if>
 	</select>
 	
+	<insert id="insertAddr" parameterType="addressBookVo">
+		<selectKey keyProperty="addrbookNo" order="BEFORE" resultType="int">
+			select ADDRESS_BOOK_SEQ.nextval from dual
+		</selectKey>
+		insert into address_book(addrbook_no, addrbook_name, addrbook_comname, 
+		addrbook_tel, addrbook_email, emp_no, addrbook_dept, addrbook_rank)
+		values(#{addrbookNo},#{addrbookName},#{addrbookComname},#{addrbookTel},
+		#{addrbookEmail},#{empNo},#{addrbookDept},#{addrbookRank})
+	</insert>
+	
+	<select id="selAddrByAddrNo" parameterType="int" resultType="addressBookVo">
+		select * from address_book where addrbook_no=#{addrbookNo} 
+	</select>
+	
 </mapper>

@@ -10,4 +10,6 @@ import com.ez.gw.common.EmpSearchVO;
 public interface AddressBookDAO {
 	List<AddressBookVO> selectAll(EmpSearchVO searchVo);
 	int gTRSearchCount(EmpSearchVO searchVo);
+	int insertAddr(AddressBookVO vo);
+	AddressBookVO selAddrByAddrNo(int addrbookNo);
 }

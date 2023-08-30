@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.ez.gw.controller.AdminLoginInterceptor;
 import com.ez.gw.controller.LoginInterceptor;
 
 @Configuration
@@ -13,14 +14,16 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		registry.addInterceptor(new LoginInterceptor())
-		.addPathPatterns("/approval/*","/approval/document/*","/approval/selectEmp/*",
-				"/board/*","/calendar/*", "/club/*","/market/*","/mypage/empInfoEdit",
-				"/pds/*","/qna/write");
+		.excludePathPatterns("/")
+		.addPathPatterns("/anonymousBoard/**","/approval/**",
+				"/board/**","/calendar/**", "/club/**","/commute/**",
+				"/market/**","/mypage/**","/message/**","/reman/**",
+				"/pds/**","/qna/**","/reservation/**");
 
-/*		registry.addInterceptor(new AdminLoginInterceptor())
-		.excludePathPatterns("/admin/login/adminLogin")
+		registry.addInterceptor(new AdminLoginInterceptor())
+		.excludePathPatterns("/admin/login")
 		.addPathPatterns("/admin/**");
-*/
+
 
 
 	}
