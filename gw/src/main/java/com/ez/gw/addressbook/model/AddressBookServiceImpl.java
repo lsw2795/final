@@ -32,6 +32,11 @@ public class AddressBookServiceImpl implements AddressBookService{
 	public AddressBookVO selAddrByAddrNo(int addrbookNo) {
 		return addressBookDao.selAddrByAddrNo(addrbookNo);
 	}
+
+	@Override
+	public int updateAddr(AddressBookVO vo) {
+		return addressBookDao.updateAddr(vo);
+	}
 	
 	
 }

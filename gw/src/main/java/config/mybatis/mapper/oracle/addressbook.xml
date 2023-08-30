@@ -45,4 +45,12 @@
 		select * from address_book where addrbook_no=#{addrbookNo} 
 	</select>
 	
+	<update id="updateAddr" parameterType="addressBookVo">
+		update address_book
+		set addrbook_name=#{addrbookName},addrbook_comname=#{addrbookComname},
+		addrbook_tel=#{addrbookTel},addrbook_email=#{addrbookEmail},addrbook_dept=#{addrbookDept},
+		addrbook_rank=#{addrbookRank}
+		where emp_no=#{empNo} and addrbook_no=#{addrbookNo}
+	</update>
+	
 </mapper>

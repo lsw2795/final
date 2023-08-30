@@ -92,9 +92,8 @@
 		  	<div class="col-sm-8 mypagespan" id="addrbookEmailDiv"></div>  
 			<div class="mb-1"></div>
 			<label class="col-sm-3 col-form-label" for="addrbookEmail3"></label>
-		  	<div class="col-sm-8" id="addrbookEmailDiv2">
-		    	<div class="mb-3 row"></div>
-		    </div>	
+		  	<div class="col-sm-8" id="addrbookEmailDiv2"></div>	
+	    	<div class="mb-3 row"></div>
 		 	 <label class="col-sm-3 col-form-label" for="addrbookComname2">회사</label>
 		  	<div class="col-sm-8">
 		    	<div id="addrbookComnameDiv"></div>
@@ -111,11 +110,9 @@
 			  </div>
 		   </div>
       	</div>
-      	<!-- 나뉜부분 hidden으로 합치기 -->
-      	<input class="form-control " id="2addrbookTel" name="addrbookTel" type="hidden"/>
-      	<input class="form-control " id="2addrbookEmail" name="addrbookEmail" type="hidden"/>
+      
       <div class="modal-footer">
-        <button type="button" id="btnAddrEdit" class="btn btn-primary">등록</button>
+        <button type="button" id="btnAddrEdit" class="btn btn-primary">수정</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
