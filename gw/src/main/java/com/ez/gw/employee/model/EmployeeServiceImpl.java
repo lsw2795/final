@@ -166,8 +166,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public int findPwd(int empNo, String email) {
-		return employeeDao.findPwd(email, empNo, email);
+	public int findPwd(EmployeeVO empVo) {
+		return employeeDao.findPwd(empVo);
 		
 	}
 

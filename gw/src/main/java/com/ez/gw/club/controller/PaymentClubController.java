@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -31,6 +32,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 public class PaymentClubController {
@@ -49,11 +51,20 @@ public class PaymentClubController {
 	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session
 			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{	
 		
+		int clubNo=Integer.parseInt(session.getAttribute("clubNo"));
+		
 			return api.paymentByImpUid(imp_uid);
 	}
 	
 	
-	//결제 완료시
+	//결제 완료시 ajax
+	@ResponseBody
+	@RequestMapping("/ajaxPaymentClub")
+	public String ajaxPaymentClub() {
+		
+		return "";
+	}
+	
 	
 	@RequestMapping("/paymentSuccess")
 	public String paymentSuccess(@ModelAttribute EmployeeVO empVo,

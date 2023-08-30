@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.clubboard.model.ClubBoardService;
 import com.ez.gw.clubboard.model.ClubBoardVO;
+import com.ez.gw.clubboard.model.ListClubBoardVO;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentService;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentVO;
 import com.ez.gw.common.ConstUtil;
@@ -28,6 +29,7 @@ import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
+import com.ez.gw.report.model.ReportService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,7 +43,6 @@ public class ClubBoardController {
 	private final ClubBoardService clubBoardService;
 	private final ClubBoardCommentService cbcService;
 	private final PdsService pdsService;
-	
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -265,6 +266,7 @@ public class ClubBoardController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/deleteClubBoard")
 	public String deleteClubBoard(@RequestParam(defaultValue = "0")int clubNo,
 			@RequestParam(defaultValue = "0")int boardNo, Model model) {
 		//1.
@@ -286,6 +288,34 @@ public class ClubBoardController {
 		//4.
 		return "common/message";
 	}
+	
+	
+	//신고함 다중 삭제
+	@RequestMapping("/admin/adminclub/deleteMulti")
+	public String deleteMulti(@ModelAttribute ListClubBoardVO clubBoardItems, Model model) {
+		//1.
+		logger.info("관리자 - 동호회 신고리스트 다중삭제 clubBoardItems={}",clubBoardItems);
+		
+		//2.
+		List<ClubBoardVO> list = clubBoardItems.getClubBoardItems();
+		int cnt=clubBoardService.deleteMulti(list);
+		logger.info("다중 삭제 결과 cnt={}",cnt);
+		
+		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubREport";
+		if(cnt>0) {
+			msg="신고 게시글 삭제 성공했습니다.";
+		}
+		
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4.
+		return "common/message";
+		
+	}
+	
+	
 	
 	
 }

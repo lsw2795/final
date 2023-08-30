@@ -18,5 +18,4 @@
 		where BOARDLIST_NO=200 
 	</select>
 	
-	
 </mapper>

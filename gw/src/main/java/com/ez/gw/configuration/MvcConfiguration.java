@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.ez.gw.controller.AdminLoginInterceptor;
 import com.ez.gw.controller.LoginInterceptor;
 
 @Configuration
@@ -17,10 +18,10 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				"/board/*","/calendar/*", "/club/*","/market/*","/mypage/empInfoEdit",
 				"/pds/*","/qna/write");
 
-/*		registry.addInterceptor(new AdminLoginInterceptor())
+		registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
 		.addPathPatterns("/admin/**");
-*/
+
 
 
 	}
