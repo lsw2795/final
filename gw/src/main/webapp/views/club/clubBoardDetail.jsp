@@ -19,7 +19,7 @@
 	</a>
 		<button class="btn btn-falcon-default btn-sm" type="button">
 			<span class="fas fa-exclamation">
-				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}'/>"></a>
+				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"></a>
 			</span>
 		</button>
 		<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->

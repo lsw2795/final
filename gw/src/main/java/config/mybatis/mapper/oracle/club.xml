@@ -36,6 +36,19 @@
 		where CLUB_NO=#{clubNo}
 	</update>
 	
+	<update id="joinClub" parameterType="int">
+		update employee
+		set club_no=#{clubNo}
+		where emp_no=#{empNo};
+		
+	</update>
+
+	<update id="outClub" parameterType="int">
+		update employee
+		set club_no=null
+		where emp_no=#{empNo};
+	</update>
+	
 </mapper>
 
 

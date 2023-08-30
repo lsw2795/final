@@ -170,9 +170,10 @@
 		where emp_no=#{empNo} and email=#{email}
 	</select>
 	
-	<update id="findPwd">
+	<update id="findPwd" parameterType="employeeVo">
 		update employee
 	    set pwd=#{pwd}
 	    where emp_no=#{empNo} and email=#{email}
 	</update>
+
 </mapper>

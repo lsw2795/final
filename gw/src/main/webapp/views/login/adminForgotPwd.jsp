@@ -12,6 +12,8 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
@@ -63,16 +65,61 @@
             container.classList.remove('container');
             container.classList.add('container-fluid');
           }
+          
+          /* 비번찾기 ajax */
+          
+          $(function(){
+        	  
+        	  $('#btnSend').click(function() {
+        		  
+        		if($("#email").val().length<1){
+  					alert("이메일을 입력해주세요.");
+  					$("#email").focus;
+  					return false;
+        		}
+        		
+  				if($("#empNo").val().length<1){
+  					alert("사원번호를 입력해주세요.");
+  					$("#empNo").focus;
+  					return false;
+  				}
+        		 
+  				var empNo=$('#empNo').val();
+  				var email=$('#email').val();
+  				//alert("사원번호 : "+empNo+"<br> 이메일: "+email+"");
+        		//alert($.param($('#frmPwd').serializeArray()));
+      			$.ajax({
+      	            url: "<c:url value='/login/ajaxempForgotPwd'/>",
+      	            type:'get',
+      				data: {
+      					empNo: empNo,
+      					email: email
+      				},
+      				dataType:'json',
+      	            success: function (res) {
+      					if(res>0){
+      						alert('임시 비밀번호 발송 완료! 메일 확인 후 로그인 해주세요.');
+      						location.href="<c:url value='/admin/login'/>";
+      					}                   	
+      	            },
+      	            error:function(xhr,status,error){
+      	                alert(status+" : "+error);
+      	            } 
+      	        });//ajax
+			});
+		}); 
+          
+          
         </script>
         <div class="row flex-center min-vh-100 py-6 text-center">
           <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4" href="<c:url value='/view/index.jsp'/>"><img src="<c:url value='/title.png'/>" alt="타이틀로고" width="300"/></a>
             <div class="card">
               <div class="card-body p-4 p-sm-5">
-                <h5 class="mb-0">Forgot your password?</h5><small>Enter your email and we'll send you a email.</small>
-                <form class="mt-4">
-                  <input class="form-control" type="email" placeholder="Email address" />
+                <h5 class="mb-0">Forgot your password?</h5><small>Enter your email and we'll send you a email.<br></small>
+                	<input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
+                	<input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
                   <div class="mb-3"></div>
-                  <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Send email</button>
+                  <button class="btn btn-primary d-block w-100 mt-3" id="Send" type="submit" name="submit">Send email</button>
               </div>
             </div>
           </div>

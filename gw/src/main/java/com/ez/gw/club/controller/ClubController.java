@@ -186,6 +186,15 @@ public class ClubController {
 		//2.
 		return "club/clubDetail?clubNo="+clubNo;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	//--------------------------------Admin 관리자----------------------------------------
@@ -235,7 +244,7 @@ public class ClubController {
 	@GetMapping("/admin/adminclub/adminClubReport")
 	public String adminReport(Model model) {
 		//1.
-		logger.info("관리자 - 동호회 신고 목록");
+		logger.info("관리자 - 동호회 신고 목록 페이지");
 		
 		//2.
 		List<Map<String, Object>> list = reportService.selectReportClub();
@@ -247,6 +256,7 @@ public class ClubController {
 		//4.
 		return "admin/adminclub/adminClubReport";
 	}
+	
 	
 }
 
