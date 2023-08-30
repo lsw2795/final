@@ -173,17 +173,19 @@
 		<div class="div-stats">
 			<table class="t-List width1">
 				<tr>
-					<th colspan="3">통계</th>
+					<th colspan="4">통계</th>
 				</tr>
 				<tr>
+					<th class="th-1">출근</th>
 					<th class="th-1">지각</th>
 					<th class="th-1">조퇴</th>
-					<th class="th-1">출근</th>
+					<th class="th-1">총 근무시간</th>
 				</tr>
 				<tr>
 					<td>${attendance}</td>
 					<td>${late}</td>
 					<td>${ealry}</td>
+					<td>${TotalWorkTimeOfMonth}<c:if test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
 				</tr>
 			</table>
 		</div>

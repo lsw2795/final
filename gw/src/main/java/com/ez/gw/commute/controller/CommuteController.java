@@ -150,6 +150,8 @@ public class CommuteController {
 			List<Map<String, Object>> commuteList = commuteService.selectCommuteMonthByEmpNo(empNo, date); //해당 사원 월별 근퇴 전체 조회 메서드
 			logger.info("월별 근태기록 전체 조회 결과 commuteList.size={}", commuteList.size());
 
+			long totalHours = 0;
+			
 			for(Map<String, Object> map : commuteList) {
 				// 시간 추출
 				String workInStr = (String) map.get("WORK_IN");
@@ -165,6 +167,8 @@ public class CommuteController {
 				// 근무 시간 계산
 				Duration workDuration = Duration.between(workInTime, workOutTime);
 				long workTime = workDuration.toHours();
+				
+				totalHours += workTime; // 월 총 근무시간
 
 				// 날짜에서 년도, 월, 일 추출
 				LocalDate workDate = workInTime.toLocalDate();
@@ -200,6 +204,7 @@ public class CommuteController {
 			model.addAttribute("attendance", attendance);
 			model.addAttribute("late", late);
 			model.addAttribute("ealry", ealry);
+			model.addAttribute("TotalWorkTimeOfMonth", totalHours); //월 총 근무 시간
 
 		}
 
