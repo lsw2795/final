@@ -97,7 +97,6 @@
 		<%}
 	}%>
 					],
-<<<<<<< HEAD
 			eventClick: function(info) {
 				 var calendarNum = $("#calendarNo").val(info.event.extendedProps.calendarNo);
 				 
@@ -114,22 +113,6 @@
 				 });
 				 $("#modalDetail").modal("show"); // modal 나타내기 
 				 // 이벤트 클릭 시, 이벤트 수정 모달 폼을 표시하세요.
-				eventClick: function(info) {
-				    var calendarNum = info.event.extendedProps.calendarNo;
-				    
-				    $.ajax({
-				        url: '<c:url value="/calendar/DetailCalendar"/>' + '?calendarNo=' + calendarNum,
-				        dataType: 'JSON',
-				        data: { calendarNo: calendarNum },
-				        success: function(result) {
-				            showModalForm(result);
-				        },
-				        error: function(xhr, status, error) {
-				            alert(status + " : " + error);
-				        }
-				    });
-				    $("#modalDetail").modal("show");
-				}
 		});
 		calendar.render();
 	});
