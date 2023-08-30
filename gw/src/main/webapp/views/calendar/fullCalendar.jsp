@@ -102,6 +102,7 @@
 				 
 				 $.ajax({
 					 url : '<c:url value="/calendar/DetailCalendar"/>?calendarNo='+ calendarNum,
+					 type: 'GET',
 					 dataType : 'JSON',
 					 data : {calendarNo : calendarNum},
 					 success:function(result){

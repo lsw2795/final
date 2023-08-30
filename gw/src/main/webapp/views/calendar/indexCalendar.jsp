@@ -18,11 +18,6 @@
 			initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 			locale : 'ko',//한국어 설정
 			navLinks : true,
-			headerToolbar : { // 헤더에 표시할 툴 바
-				start : 'prev next today',
-				center : 'title',
-				end : 'dayGridMonth,dayGridWeek,dayGridDay'
-			},
 			titleFormat : function(date) {
 				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
 			},
