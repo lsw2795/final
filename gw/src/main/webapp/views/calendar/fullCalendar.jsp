@@ -111,7 +111,9 @@
 				            alert(status + " : " + error);
 				        }
 				    });
-				    $("#modalDetail").modal("show");
+
+					 $("#modalDetail").modal("show"); // modal 나타내기 
+					 // 이벤트 클릭 시, 이벤트 수정 모달 폼을 표시하세요.
 				}
 		});
 		calendar.render();
