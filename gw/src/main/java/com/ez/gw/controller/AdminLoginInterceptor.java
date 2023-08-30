@@ -21,16 +21,16 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 			throws Exception {
 		logger.info("컨트롤러 수행전 preHandler() 호출!");
 		
-		String adminUserid=(String)request.getSession().getAttribute("adminUserid");
+		Integer empNo=(Integer)request.getSession().getAttribute("empNo");
 		
 		//관리자가 로그인되지 않은 경우 에러 처리
-		if(adminUserid==null || adminUserid.isEmpty()) {
+		if(empNo==null) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
 			out.print("<script>");
 			out.print("alert('먼저 관리자 로그인을 하세요');");
-			out.print("location.href='"+ request.getContextPath()+"/admin/login/';");
+			out.print("location.href='"+ request.getContextPath()+"/admin/login';");
 			out.print("</script>");
 			
 			return false; //다음 컨트롤러로 못가게 막는다

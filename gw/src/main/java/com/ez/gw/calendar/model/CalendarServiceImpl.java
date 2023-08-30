@@ -27,4 +27,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarDao.calendarAllDept(deptNo);
 	}
 
+	@Override
+	public CalendarVO selectCalendarByNo(int calendarNo) {
+		return calendarDao.selectCalendarByNo(calendarNo);
+	}
+
 }

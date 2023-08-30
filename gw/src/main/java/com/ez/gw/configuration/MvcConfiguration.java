@@ -14,12 +14,14 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		registry.addInterceptor(new LoginInterceptor())
-		.addPathPatterns("/approval/*","/approval/document/*","/approval/selectEmp/*",
-				"/board/*","/calendar/*", "/club/*","/market/*","/mypage/empInfoEdit",
-				"/pds/*","/qna/write");
+		.excludePathPatterns("/")
+		.addPathPatterns("/anonymousBoard/**","/approval/**",
+				"/board/**","/calendar/**", "/club/**","/commute/**",
+				"/market/**","/mypage/**","/message/**","/reman/**",
+				"/pds/**","/qna/**","/reservation/**");
 
 		registry.addInterceptor(new AdminLoginInterceptor())
-		.excludePathPatterns("/admin/login/adminLogin")
+		.excludePathPatterns("/admin/login")
 		.addPathPatterns("/admin/**");
 
 

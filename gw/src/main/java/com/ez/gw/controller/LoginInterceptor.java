@@ -21,11 +21,11 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//컨트롤러 수행이전에 먼저 수행되는 메서드
 		//클라이언트의 요청을 컨트롤러에 전달하기 전에 호출됨
 		
-		int empNo=(int)request.getSession().getAttribute("empNo");
+		Integer empNo=(Integer)request.getSession().getAttribute("empNo");
 		logger.info("preHandle() 호출!, empNo={}", empNo);
 
 		//로그인되지 않은 경우 처리
-		if(empNo<0) {
+		if(empNo==null) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>");

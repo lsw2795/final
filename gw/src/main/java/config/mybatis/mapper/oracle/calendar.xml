@@ -16,6 +16,10 @@
 	</select>
 	
 	<select id="calendarAllDept" resultType="map" parameterType="int">
-		select * from calendar where dept_no = #{dept_no}
+		select * from calendarview where dept_no = #{dept_no}
+	</select>
+	
+	<select id="selectCalendarByNo" resultType="calendarVo" parameterType="int">
+		select * from calendar where calendar_No = #{calendarNo}
 	</select>
 </mapper>
