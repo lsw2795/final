@@ -15,9 +15,11 @@
 	</insert>
 	
 	<update id="updateWorkOut" parameterType="int">
-	    update commute
-	    set work_out = to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
-	    where emp_no=#{empNo} and work_in is not null
+	  	UPDATE commute
+	    SET work_out = TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss')
+	    WHERE emp_no = #{empNo}
+	    AND work_in IS NOT NULL
+	    AND TO_CHAR(TO_DATE(work_in, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 	</update>
 	
 	<select id="selectIsWorkIn" parameterType="int" resultType="int">
@@ -56,8 +58,37 @@
 	<select id="selectLateState" parameterType="int" resultType="int">
 		select commute_state from commute 
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE);
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</select>
 
+
+ 	<select id="selectCommuteLateCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where emp_no = 230001
+		and substr(work_in, 1, 7) = '2023-08'
+		and to_number(substr(work_in, 12, 2)) >= 9
+	</select> 
+	
+ 	<select id="selectCommuteEarlyleaveCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where emp_no = 230001
+		and substr(work_in, 1, 7) = '2023-08'
+		<![CDATA[
+			and to_number(substr(work_out, 12, 2)) <=18
+		]]>
+	</select> 
+	
+	 <select id="selectCommuteAttendanceCount" parameterType="map" resultType="int">
+		select count(*) from commute
+		where emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select> 
+	
+	<select id="selectCommuteMonthByEmpNo" parameterType="map" resultType="map">
+		select * from commute
+		where emp_no=#{empNo}
+		and substr(work_in, 1, 7) = #{date}
+	</select>
+	
 	
 </mapper>

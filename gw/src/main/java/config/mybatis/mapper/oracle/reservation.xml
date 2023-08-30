@@ -19,8 +19,8 @@
 		]]>
 	</select>
 	
-	<select id="selectAllReservation" resultType="reservationVo">
-		select * from reservation
+	<select id="selectAllReservation" resultType="map">
+		select * from reservationview
 	</select>
 	
 	

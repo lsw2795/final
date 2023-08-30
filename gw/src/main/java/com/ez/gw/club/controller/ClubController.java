@@ -19,6 +19,7 @@ import com.ez.gw.club.model.ClubVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.report.model.ReportService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class ClubController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubController.class);
 	private final ClubService clubService;
 	private final EmployeeService empService;
+	private final ReportService reportService;
 
 	@RequestMapping("/club/createClub")
 	public String clubWrite() {
@@ -184,9 +186,19 @@ public class ClubController {
 		//2.
 		return "club/clubDetail?clubNo="+clubNo;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
-	//Admin 관리자
+	//--------------------------------Admin 관리자----------------------------------------
+	
 	//admin clubList
 	@RequestMapping("/admin/adminclub/clubList")
 	public String adminclubList(@ModelAttribute SearchVO searchVo, Model model) {
@@ -228,7 +240,24 @@ public class ClubController {
 		//4.
 		return "common/message";
 	}
-
+	
+	@GetMapping("/admin/adminclub/adminClubReport")
+	public String adminReport(Model model) {
+		//1.
+		logger.info("관리자 - 동호회 신고 목록 페이지");
+		
+		//2.
+		List<Map<String, Object>> list = reportService.selectReportClub();
+		logger.info("관리자 - 동호회 신고 목록 개수 list.size={}",list.size());
+		
+		//3.
+		model.addAttribute("list", list);
+		
+		//4.
+		return "admin/adminclub/adminClubReport";
+	}
+	
+	
 }
 
 

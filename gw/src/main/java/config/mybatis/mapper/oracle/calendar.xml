@@ -7,25 +7,19 @@
 		<selectKey keyProperty="calendarNo" order="BEFORE" resultType="int">
 			select calendar_seq.nextval from dual
 		</selectKey>
-		insert into calendar(calendar_no, emp_no, title, begindate, enddate, begintime, endtime, allday_flag, attendee, place, content, category_no)
-		values(#{calendarNo}, #{empNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{attendee}, #{place}, #{content}, #{categoryNo})
+		insert into calendar(calendar_no, emp_no, title, begindate, enddate, begintime, endtime, allday_flag, place, content, category_no)
+		values(#{calendarNo}, #{empNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{place}, #{content}, #{categoryNo})
 	</insert>
 	
-	<resultMap id="Mycalendar" type="com.ez.gw.calendar.model.CalendarVO" >
-		<id property="calendarNo" column="CALENDAR_NO"/>
-		<result property="title" column="TITLE"/>	
-		<result property="begindate" column="BEGINDATE"/>	
-		<result property="enddate" column="ENDDATE"/>	
-		<result property="begintime" column="BEGINTIME"/>	
-		<result property="endtime" column="ENDTIME"/>	
-		<result property="alldayFlag" column="ALLDAY_FLAG"/>	
-		<result property="attendee" column="ATTENDEE"/>	
-		<result property="place" column="PLACE"/>	
-		<result property="content" column="CONTENT"/>	
-		<result property="categoryNo" column="CATEGORY_NO"/>	
-	</resultMap>
+	<select id="calendarList" resultType="calendarVo" parameterType="int">
+		select * from calendar where emp_no = #{empNo}
+	</select>
 	
-	<select id="calendarList" resultMap="Mycalendar">
-		select * from calendar
+	<select id="calendarAllDept" resultType="map" parameterType="int">
+		select * from calendarview where dept_no = #{dept_no}
+	</select>
+	
+	<select id="selectCalendarByNo" resultType="calendarVo" parameterType="int">
+		select * from calendar where calendar_No = #{calendarNo}
 	</select>
 </mapper>

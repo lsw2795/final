@@ -1,6 +1,7 @@
 package com.ez.gw.reservation.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +106,7 @@ public class ReservationController {
 	@RequestMapping("/reservationList")
 	public String reservationList(Model model, HttpServletRequest request){
 		logger.info("자원예약 보기");
-		List<ReservationVO> reservationList = null;
+		List<Map<String, Object>> reservationList = null;
 
 		reservationList = reservationService.selectAllReservation();
 		logger.info("자원예약 내역 reservationList.size()={}", reservationList.size());

@@ -164,4 +164,16 @@
 	<select id="countManager" parameterType="string">
 		select count(*)from employee where name= #{name}
 	</select>
+	
+	<select id="findInfoCheck" resultType="int" parameterType="employeeVo">
+		select count(*) from employee
+		where emp_no=#{empNo} and email=#{email}
+	</select>
+	
+	<update id="findPwd" parameterType="employeeVo">
+		update employee
+	    set pwd=#{pwd}
+	    where emp_no=#{empNo} and email=#{email}
+	</update>
+
 </mapper>

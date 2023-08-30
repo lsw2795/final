@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <div class="row gx-3">
               <div class="card" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":7,"pagination":true,"fallback":"tickets-card-fallback"}'>
-                <div class="card-header border-bottom border-200 px-0">
+                <div class="card-header border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
@@ -59,8 +59,8 @@
                   </div>
                   <!-- 반복 시작  -->
                   <c:forEach var="map" items="${list }">
-                  <div class="list bg-light p-x1 d-flex flex-column gap-3" id="card-ticket-body">
-                    <div class="bg-white dark__bg-1100 d-md-flex d-xl-inline-block d-xxl-flex align-items-center p-x1 rounded-3 shadow-sm card-view-height">
+                  <div class="list bg-light d-flex flex-column gap-3" id="card-ticket-body">
+                    <div class="bg-white dark__bg-1100 d-md-flex  align-items-center p-x1 rounded-3 shadow-sm card-view-height">
                       <div class="d-flex align-items-start align-items-sm-center">
                         <div class="form-check me-2 me-xxl-3 mb-0">
                           <input class="form-check-input" type="checkbox" id="card-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
@@ -73,23 +73,28 @@
                         <div class="ms-1 ms-sm-3">
                           <p class="fw-semi-bold mb-3 mb-sm-2">
                           	<a href="<c:url value='/club/clubBoardDetail?clubNo=${param.clubNo}&boardNo=${map.BOARD_NO }'/>">
-                          	${map['TITLE']}
+                          		<div class="col-auto lh-1 me-3">
+	                            <!-- 답변 갯수 표시  -->
+		                        <c:if test="${map['countCommt']>0}">
+		                        	<span style="color: red">[${map['countCommt']}]</span>
+		                        </c:if>
+                            </div>
+                          		${map['TITLE']}
                           	</a>
+                          	<c:if test="${map['timeNew']==1}">
+	                           	&nbsp;<small class="badge rounded-pill bg-success position-absolute me-2">New</small>
+                            </c:if>
                           </p>
-	                      <div class="border-bottom mt-4 mb-x1"><span>${map['READCOUNT'] }</span></div>
                           <div class="row align-items-center gx-0 gy-2">
                             <div class="col-auto me-2">
                               <h6 class="client mb-0">
-	                              <a class="text-800 d-flex align-items-center gap-1" href="#">
 	                              	<span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span>
 	                              	<span>${map['NAME']}</span>
-	                              </a>
                               </h6>
-                            </div>
-                            <div class="col-auto lh-1 me-3">
-                            	<c:if test="${map['timeNew']==1}">
-	                            	<small class="badge rounded-pill bg-success position-absolute me-2">New</small>
-                            	</c:if>
+                              <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
+	                    		<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span>
+	                    	 	<p class="mb-0 text-700">조회수&nbsp;${map['READCOUNT'] }</p>
+	                    	 </p>
                             </div>
                           </div>
                         </div>
@@ -98,7 +103,7 @@
 	                <div class="text-center d-none" id="tickets-card-fallback">
 	                  <p class="fw-bold fs-1 mt-3">게시글이 존재하지 않습니다.</p>
 	                </div>
-                  </c:forEach>
+                 </c:forEach>
                 </div>
                 <div class="card-footer">
                   <div class="d-flex justify-content-center">

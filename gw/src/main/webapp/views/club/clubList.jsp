@@ -9,10 +9,6 @@
 		    	$(this).val();
 		    }
 		}
-		
-		$('#edit').click(function() {
-			
-		});
 	});
 </script>
 		<div class="row gx-3">

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.addressbook.model.AddressBookService;
 import com.ez.gw.addressbook.model.AddressBookVO;
@@ -52,5 +54,35 @@ public class AddressBookController {
 		return "mypage/addressBook";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/ajaxAddrInsert")
+	public int insertAddr(HttpSession session,@ModelAttribute AddressBookVO vo) {
+		int empNo=(int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("ajax 이용 - 주소록 등록 파라미터 vo={}", vo);
+		int cnt=addressBookService.insertAddr(vo);
+		logger.info("ajax 이용 - 주소록 등록 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/ajaxAddrSelect")
+	public AddressBookVO selectAddr(@RequestParam (defaultValue = "0") int addrbookNo) {
+		logger.info("ajax 이용 - 주소록 수정 전 정보 보여주기 파라미터 addrbookNo={}", addrbookNo);
+		AddressBookVO addressbookVo=addressBookService.selAddrByAddrNo(addrbookNo);
+		logger.info("ajax 이용 - 주소록 수정 전 정보 보여주기 결과 addressbookVo={}", addressbookVo);
+		return addressbookVo;
+	}
 
+	@ResponseBody
+	@RequestMapping("/ajaxAddrUpdate")
+	public int updateAddr(@ModelAttribute AddressBookVO vo,HttpSession session) {
+		int empNo=(int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("ajax 이용 - 주소록 수정처리 파라미터 vo={}", vo);
+		int cnt=addressBookService.updateAddr(vo);
+		logger.info("ajax 이용 - 주소록 수정처리 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
 }

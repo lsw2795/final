@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.ez.gw.reservation.model.ReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -30,13 +31,12 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			events : [ 
-	    	    <%List<ReservationVO> reservationList = (List<ReservationVO>)request.getAttribute("reservationList");%>
+	    	    <%List<Map<String, Object>> reservationList = (List<Map<String, Object>>)request.getAttribute("reservationList");%>
 	            <%if (reservationList != null) {%>
-	            <%for (ReservationVO vo : reservationList) {%>
+	            <%for (Map<String, Object> map : reservationList) {%>
 	            {
-	            	title : '예약',
-	                start : '<%=vo.getBookDate()%>',
-	                end : '<%=vo.getEndTime()%>',
+	            	title : '<%= map.get("NAME") %>',
+	                start : '<%= map.get("BOOKDATE")%>',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
 	             },
 		<%}

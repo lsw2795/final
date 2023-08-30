@@ -245,10 +245,13 @@ public class EmployeeController {
 		List<DeptAllVO> deptList = deptService.selectAllDept2(deptVo);
 		logger.info("부서 조회 결과 deptList.size()={}", deptList.size());
 
+		List<Map<String, Object>> managerList=deptService.selectManager();
+		logger.info("부서장 자격 임직원 조회 결과 managerList.size()={}", managerList.size());
 		//3
 		model.addAttribute("list", list);
 		model.addAttribute("deptList", deptList);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("managerList", managerList);
 
 		//4
 		return "admin/employee/employeeList";	

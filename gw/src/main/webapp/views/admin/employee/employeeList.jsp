@@ -3,22 +3,192 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
-	function pageFunc(curPage){
-		$('input[name="currentPage"]').val(curPage);
-		$('form[name="frmPage"]').submit();
-	}
+$(function(){
+	$('#btnDeptWrite').click(function(){
+		if($('#name1').val().length<1){
+            alert("부서이름을 입력하세요.");
+            $('#name1').focus();
+            return false;
+         }
+         
+         if($('#manager1').val().length<1){
+            alert("부서장을 선택하세요.");
+            $('#manager1').focus();
+            return false;
+	     }
+         
+         if($('#upper_dept1').val().length<1){
+            alert("상위 부서를 입력하세요.");
+            $('#upper_dept1').focus();
+            return false;
+         }
+         
+         if($('#dept_level1').val().length<1){
+            alert("부서 등급을 입력하세요.");
+            $('#dept_level1').focus();
+            return false;
+         }
+
+         $.ajax({
+            url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
+            type:'post',
+            data: $('#insertDept').serializeArray(),
+            dataType : 'json',
+            success: function(res){
+            	if(res>0){
+	            	alert($('#name1').val()+" 부서 생성이 완료되었습니다.");
+	            	$('#staticBackdrop1').modal('hide'); 
+               		location.href="<c:url value='/admin/employee/employeeList'/>";
+            	}
+            },
+            error:function(xhr, status, error){
+               alert(status+" : "+error);
+            }
+         });//ajax
+	});
+            
+     $('#name2').change(function(){
+ 		var selectedValue=$('#name2').val();
+ 		//alert(selectedValue);
+ 		if(selectedValue<1){
+ 		 	$('#deptNameDiv').empty();
+           	$('#managerDiv').empty();
+           	$('#upperDeptDiv').empty();
+           	$('#deptLevelDiv').empty();
+ 			return false;
+ 		}
+ 		
+  		$.ajax({
+           url: "<c:url value='/admin/employee/ajaxSelectDept'/>",
+           type:'get',
+		   data: "deptNo="+$('#name2').val(),
+		   dataType:'json',
+           success: function (res) {
+           	$('#deptNameDiv').empty();
+           	$('#managerDiv').empty();
+           	$('#upperDeptDiv').empty();
+           	$('#deptLevelDiv').empty();
+           	
+           	var receivedData = res;
+           	var deptNo=receivedData.deptNo;
+           	var name=receivedData.name;
+           	var manager=receivedData.manager;
+           	var upperDept=receivedData.upperDept;
+           	var deptLevel=receivedData.deptLevel;
+           	
+           	var result="<input class='form-control admindefault' id='newname2' name='newname2' type='text' value='"+name+"'/>";
+           	$('#deptNameDiv').append(result);
+           	
+          	var result1="<select class='form-select admindefault' id='manager2'>"
+   			 +"<option value=''>선택하세요</option>"
+   			 +"<c:forEach var='managerMap' items='${managerList}'>"
+   			 +"<option value='${managerMap['EMP_NO']}'>${managerMap['NAME']}</option>"
+   			 +"</c:forEach>"
+   			 +"</select><input type='hidden' id='dept_no2' name='dept_no' value='"+deptNo+"'/>";
+           	
+   			 $('#managerDiv').append(result1);
+           	
+     		 $('#manager2').val(manager);
+					
+			var result2="<input class='form-control admindefault' id='upper_dept2' name='upper_dept' type='text' value='"+upperDept+"' />";
+			$('#upperDeptDiv').append(result2);		
+			
+			var result3="<input class='form-control admindefault' id='dept_level2' name='dept_level' type='text' value='"+deptLevel+"'/>";
+			$('#deptLevelDiv').append(result3);
+			
+           },
+           error:function(xhr,status,error){
+               alert(status+" : "+error);
+           } 
+       });//ajax
+ 	});
+     
+    $('#btnDeptEdit').click(function(){
+    	if($('#newname2').val().length<1){
+            alert("부서이름을 입력하세요.");
+            $('#newname2').focus();
+            return false;
+         }
+         
+         if($('#manager2').val().length<1){
+            alert("부서장을 선택하세요.");
+            $('#manager2').focus();
+            return false;
+	     }
+         
+    	var deptNo=$('#dept_no2').val();
+    	var name=$('#newname2').val();
+    	var manager=$('#manager2').val();
+    	var upperDept=$('#upper_dept2').val();
+    	var deptLevel=$('#dept_level2').val();
+    	//alert(name+":"+manager+":"+upperDept+":"+deptLevel);
+    	
+    	$.ajax({
+            url : "<c:url value='/admin/employee/ajaxDeptUpdate'/>",
+            type:'get',
+            data: {
+            	deptNo: deptNo,
+            	name: name,
+            	manager: manager,
+            	upperDept: upperDept,
+            	deptLevel: deptLevel
+            },
+            dataType : 'json',
+            success: function(res){
+            	if(res>0){
+	            	alert($('#newname2').val()+"의 부서 수정이 완료되었습니다.");
+	            	$('#staticBackdrop2').modal('hide'); 
+            		location.href="<c:url value='/admin/employee/employeeList'/>";
+            	}
+            },
+            error:function(xhr, status, error){
+               alert(status+" : "+error);
+            }
+         });//ajax
+    }); 
+     
 	
-	function submitForm() {
-	    document.getElementById('frmSearch').submit();
-	}
-	
-	function empDetail(empNo) {
-	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
-	}
-	
-	function messageWrite(empNo) {
-	    window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
-	}
+	$('#btnDeptDelete').click(function(){
+		var deptNo=$('#name3').val();
+		//alert(deptNo);
+		 if(confirm('해당 부서를 삭제하시겠습니까?')){
+		    $.ajax({
+	            url: "<c:url value='/admin/employee/ajaxDeptDelete'/>",
+	            type: "get",
+	            data:"deptNo="+deptNo,
+	            success: function (res) {
+	            	if(res>0){
+	                	alert('부서 삭제 처리를 완료했습니다.');
+	                	$('#staticBackdrop3').modal('hide'); 
+	            		location.href="<c:url value='/admin/employee/employeeList'/>";
+	            	}else{
+	            		alert('해당 부서에 사원이 존재하여 삭제처리가 불가능합니다.');
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		 }
+	});
+});
+
+function pageFunc(curPage){
+	$('input[name="currentPage"]').val(curPage);
+	$('form[name="frmPage"]').submit();
+}
+
+function submitForm() {
+    document.getElementById('frmSearch').submit();
+}
+
+function empDetail(empNo) {
+    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+}
+
+function messageWrite(empNo) {
+    window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
+}
 </script>
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/admin/employee/employeeList'/>" 
@@ -218,7 +388,7 @@
 								class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">부서
 								추가</span>
 						</button>
-						<button class="btn btn-falcon-default btn-sm mx-2 admindefault"
+						<button class="btn btn-falcon-default btn-sm mx-2 admindefault" 
 							type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
 							<span class="fas fa-external-link-alt"
 								data-fa-transform="shrink-3"></span><span

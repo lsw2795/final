@@ -279,9 +279,9 @@
                     		</li>
                     		<!-- 임원 -->
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/commute/statistics'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1" >부서 근태 통계(임원)</span>
+                        				<span class="nav-link-text ps-1" >근태 통계</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -394,13 +394,6 @@
 	                  	</a>
 	                  	<ul class="nav collapse" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/calendar/addCalendar'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">일정 등록</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/calendar/fullCalendar'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">내 일정 관리</span>
@@ -408,7 +401,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/calendar/DeptCalendar'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">부서 일정 관리(임원)</span>
                         			</div> 

@@ -7,4 +7,7 @@ import com.ez.gw.common.EmpSearchVO;
 public interface AddressBookService {
 	List<AddressBookVO> selectAll(EmpSearchVO searchVo);
 	int gTRSearchCount(EmpSearchVO searchVo);
+	int insertAddr(AddressBookVO vo);
+	AddressBookVO selAddrByAddrNo(int addrbookNo);
+	int updateAddr(AddressBookVO vo);
 }

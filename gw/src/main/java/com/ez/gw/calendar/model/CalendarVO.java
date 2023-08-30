@@ -11,11 +11,8 @@ public class CalendarVO { //캘린더
 	private String begintime; //시작시간
 	private String endtime; //종료시간
 	private String alldayFlag; //종일여부
-	private String attendee; //참석자
-	private String outsideAttendee; //외부참석자
 	private String place; //장소
 	private String content; //내용
-	private String categoryColor; //카테고리 색
 	private int categoryNo; //카테고리 번호
 	private int empNo; //사원번호
 

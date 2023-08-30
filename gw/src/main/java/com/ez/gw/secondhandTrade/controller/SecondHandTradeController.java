@@ -83,6 +83,7 @@ public class SecondHandTradeController {
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 
 			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
+			
 			for (MultipartFile f : files) {
 				logger.info("컨텐트 타입, contentType={}, png={}, jpg={}", f.getContentType(),
 						f.getContentType().toLowerCase().endsWith("png"),
@@ -120,8 +121,6 @@ public class SecondHandTradeController {
 
 				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
 				String filePath = request.getSession().getServletContext().getRealPath(path);
-				// String filePath =
-				// "C:\\Users\\pc\\git\\final\\gw\\src\\main\\webapp\\market\\upload";
 
 				File file = new File(filePath, fileName);
 				f.transferTo(file);

@@ -22,6 +22,21 @@ public class AddressBookServiceImpl implements AddressBookService{
 	public int gTRSearchCount(EmpSearchVO searchVo) {
 		return addressBookDao.gTRSearchCount(searchVo);
 	}
+
+	@Override
+	public int insertAddr(AddressBookVO vo) {
+		return addressBookDao.insertAddr(vo);
+	}
+
+	@Override
+	public AddressBookVO selAddrByAddrNo(int addrbookNo) {
+		return addressBookDao.selAddrByAddrNo(addrbookNo);
+	}
+
+	@Override
+	public int updateAddr(AddressBookVO vo) {
+		return addressBookDao.updateAddr(vo);
+	}
 	
 	
 }

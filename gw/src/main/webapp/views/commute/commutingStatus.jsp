@@ -10,20 +10,77 @@
 <script src="<c:url value='/lib/fullcalendar/main.js'/> "></script>
 <script src="<c:url value='/lib/fullcalendar/locales-all.min.js'/> "></script>
 <style>
-div#calendar {
-	background: white;
-	padding: 20px;
-}
-
-.fc-event-time {
-	color: black;
-}
-
-.fc-event-title {
-	color: blue;
-}
+	div#calendar {
+		background: white;
+		padding: 20px;
+	}
+	
+	.fc-event-time {
+		color: black;
+	}
+	
+	.fc-event-title {
+		color: blue;
+	}
+	
+	.fc .fc-daygrid-event-dot {
+    	border-color: red !important;
+	}
+	
+	
+		.stats-List{
+		font-size: 14px;
+		text-align: center;
+		border-collapse: collapse;
+		border-top: 2px solid rgb(200, 200, 200);
+		border-bottom: 2px solid rgb(200, 200, 200);
+	}
+	.stats-List tr {
+		border-top: 1px solid rgb(200, 200, 200);
+		height: 45px;
+	}
+	.stats-List tr:hover {
+		background-color: rgb(250, 250, 250);
+	}
+	.stats-List th {
+		background-color: rgb(240, 240, 240);
+	}
+	.stats-List .th-1 {
+		width: 180px;
+	}
+	.stats-List .th-2 {
+		width: 630px;
+	}
+	.stats-List .th-3 {
+		width: 810px;
+	}
+	.stats-List a {
+		text-decoration: none;
+		color: black;
+		cursor: pointer;
+	}
+	.stats-List span {
+		padding: 5px 10px;
+		border-radius: 4px;
+		border: 1px;
+		color: white;
+	}
+	
+	
+	.div-stats {
+		width: 60%;
+		height: 100%;
+		float: right;
+		display: inline-flex;
+    	align-items: flex-end;
+    	min-width: 515px;
+	}
+	
+	.div-wrap{
+		background: white;
+	}
 </style>
-
+		
 <div id='calendar'></div>
 
 <script>
@@ -95,7 +152,5 @@ div#calendar {
 		calendar.render();
 	});
 </script>
-
-
 
 <%@ include file="../inc/bottom.jsp"%>
