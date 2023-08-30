@@ -10,4 +10,5 @@ public interface CalendarDAO {
 	int insertCalendar(CalendarVO calVo);
 	List<CalendarVO> calendarList(int empNo);
 	List<Map<String, Object>> calendarAllDept(int deptNo);
+	CalendarVO selectCalendarByNo(int calendarNo);
 }

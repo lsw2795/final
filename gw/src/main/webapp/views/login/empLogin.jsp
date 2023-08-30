@@ -84,7 +84,7 @@
 		
         <div class="row min-vh-100 ">
           <div class="col-6 d-none d-lg-block position-relative">
-            <div class="bg-holder" style="background-image:url('${pageContext.request.contextPath}/assets/img/generic/14.jpg'); background-position: 50% 20%;">
+            <div class="bg-holder" style="background-image:url('${pageContext.request.contextPath}/assets/img/generic/universe.jpg'); background-position: 50% 20%;">
             </div>
             <!--/.bg-holder-->
           </div>

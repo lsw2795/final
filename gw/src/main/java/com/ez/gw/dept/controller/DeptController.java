@@ -29,7 +29,7 @@ public class DeptController {
         logger.info("조직도 화면 보여주기");
 
         List<DeptAllVO> list = deptService.selectAllDept2(deptVo);
-        logger.info("부서 조회 결과 list.size()={}, list={}", list.size(), list);
+        logger.info("부서 조회 결과 list.size()={}", list.size());
         model.addAttribute("list", list);
 
         return "mypage/organizationChart";

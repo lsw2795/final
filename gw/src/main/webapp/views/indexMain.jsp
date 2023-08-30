@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    <div class="card mb-3">
      <div class="card-header">
        <div class="row flex-between-end">
@@ -132,17 +133,16 @@
            <h5 class="mb-0" data-anchor="data-anchor">캘린더</h5>
          </div>
          <div class="col-auto ms-auto">
+         	
          여기에 버튼 필요하면 쓰세영 빼도되는기능임
          </div>
        </div>
      </div>
       <div class="card-body bg-light">
         <div class="tab-content">
-          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
-            <div class="input-group flex-nowrap">
-            여기가 본문들어감
-            
-            
+          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" style="width:100%;">
+            <div class="input-group flex-nowrap" >
+            	<%@ include file = "calendar/indexCalendar.jsp" %>
             </div>
           </div>
         </div>
