@@ -1,6 +1,7 @@
 package com.ez.gw.calendar.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,13 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List<CalendarVO> calendarList() {
-		return calendarDao.calendarList();
+	public List<CalendarVO> calendarList(int empNo) {
+		return calendarDao.calendarList(empNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> calendarAllDept(int deptNo) {
+		return calendarDao.calendarAllDept(deptNo);
 	}
 
 }

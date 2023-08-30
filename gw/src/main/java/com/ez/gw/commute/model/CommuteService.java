@@ -3,6 +3,8 @@ package com.ez.gw.commute.model;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface CommuteService {
 	List<CommuteVO> selectCommuteByEmpNo(int empNo); //사원번호로 해당 사원의 출퇴근 기록 전체 조회 메서드
 	int insertWorkIn(int empNo); //출근 시간 인서트
@@ -15,4 +17,9 @@ public interface CommuteService {
 	int selectLateState(int empNo); //지각인지 현재 상태 조회하는 메서드
 	int updateCommuteStateTotal(int empNo); // 지각 + 조퇴면 3으로 바뀌는 메서드
 	
+	int selectCommuteLateCount(@Param("empNo")int empNo, @Param("date")String date); //월별 지각 횟수 조회 메서드
+	int selectCommuteEarlyleaveCount(@Param("empNo")int empNo, @Param("date")String date); //월별 조퇴 횟수 조회 메서드
+	int selectCommuteAttendanceCount(@Param("empNo")int empNo, @Param("date")String date); //월별 출근 횟수 조회 메서드
+	
+	List<Map<String, Object>> selectCommuteMonthByEmpNo(@Param("empNo")int empNo, @Param("date")String date); //해당 사원 월별 근태 기록 전체 조회
 }

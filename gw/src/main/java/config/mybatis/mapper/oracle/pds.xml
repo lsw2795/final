@@ -180,4 +180,5 @@
 		values(#{pdsNo}, #{path}, #{fileName}, #{fileSize}, #{originalFileName}, #{fileExtension},
 			200, #{clubBoardNo}, 0)
 	</insert>
+	
 </mapper>

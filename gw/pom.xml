@@ -131,13 +131,21 @@
 		</dependency>-->
 		
 		<!-- 아임포트 REST API연동 모듈 -->
-		<!--<dependency>
+		<dependency>
 		    <groupId>com.github.iamport</groupId>
 		    <artifactId>iamport-rest-client-java</artifactId>
-		    <version>0.2.14</version>
-		</dependency>-->
+		    <version>0.2.22</version>
+		</dependency>
 
 	</dependencies>
+
+	<repositories>
+    		<repository>
+        	<id>jitpack.io</id>
+        	<url>https://jitpack.io</url>
+    		</repository>
+		</repositories>
+		
 
 	<build>
 		<plugins>

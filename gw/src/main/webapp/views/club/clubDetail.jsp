@@ -17,17 +17,18 @@
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '동호회 가입 및 회비 결제',
 		    amount : 10000, //판매가격
-		    buyer_email : 'rlacodud4456@naver.com',
-		    buyer_name : '차은우',
-		    buyer_tel : '010-2222-2222',
-		    buyer_addr : '서울',
-		    buyer_postcode : '110-888'
+		    buyer_email : email,
+		    buyer_name : name,
+		    buyer_tel : hp,
+		    buyer_addr : address,
+		    buyer_postcode : zipcode
 		   // m_redirect_url: "{http://localhost:9091/gw/club/clubDetail?clubNo=27}"
 		}, function(rsp) { //call back
 		    if ( rsp.success ) {
+		    	var msg = "결제 완료. 가입되었습니다.";
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-		    	jQuery.ajax({
-		    		url: '/payments/complete', //cross-domain error가 발생하지 않도록 주의해주세요
+		    	$.ajax({
+		    		url: '/club/PaymentClub', //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {
@@ -80,7 +81,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Introduce CLUB</title>
+    <title>Payment Club</title>
 
  
   	<body>
@@ -160,8 +161,30 @@
 	            </div>
           </div>
 	</form>
-    
+    <!-- ********************************모달 시작****************************** -->
+	<input class="sessionuserEMPNO" type="hidden" value="${sessionScope.emp_No}">
+	<input class="amountValue" type="text">
+	<div class="popup">  <!-- 팝업처럼 하기 위한 배경 -->
+		<div class="pwrap">  <!-- 실제 팝업창 -->
+   			<div class="row flex-between-center">
+				<h1>가입하기</h1><span>동호회 가입 비용은 10,000원입니다.</span>
+			</div>
+			<table>
+			<tr>
+				<td><a href="#" onclick="kakaopay()"><img src="/resources/img/user/iconKakao.svg"></a></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+   		</div>
+   </div>
+   <!-- ****************************모달 끝 *******************************-->
+   
+   
     </body>
     </html>
-    
 <%@ include file="../inc/bottom.jsp" %>
+    

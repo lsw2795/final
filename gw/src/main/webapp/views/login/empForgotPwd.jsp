@@ -75,9 +75,10 @@
           
           /* 임시 비밀번호 메일로 보내기 */
           $(function(){
-			$("#btnSend").click(function(){
+        	  
+			$("form[name=frmPwd]").submit(function(){
 				
-				if($("#email").val()==null){
+				if($("#email").val()==""){
 					alert("이메일을 입력해주세요.");
 					$("#email").focus;
 				}else if($("#empNo").val()==0){
@@ -86,7 +87,7 @@
 				}
 				
 				$.ajax({
-					url : "<c:url value='/login/findPwd'/>",
+					url : "<c:url value='/login/empForgotPwd'/>",
 					type : "GET",
 					data : {
 						email : $("#email").val()
@@ -97,7 +98,7 @@
 			                swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) = > {
 								if(OK){
 									$.ajax({
-										url : "<c:url value='/login/sendEmail'/>",
+										url : "<c:url value='/login/pwdSendEmail'/>",
 										type : "POST",
 										data : {
 											email : $("#email").val()
@@ -134,7 +135,7 @@
                   <div class="card-body p-4">
                     <div class="text-center">
                       <h4 class="mb-0"> Forgot your password?</h4><small>Enter your email and we'll send you email.</small>
-                      <form name="frmPwd" method="post" action="<c:url value='/login/empLogin'/>" class="mb-3 mt-4">
+                      <form name="frmPwd" method="post" action="<c:url value='/login/pwdSendEmail'/>" class="mb-3 mt-4">
                         <input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
                         <div class="mb-3"></div>
