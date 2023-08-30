@@ -28,20 +28,8 @@ $(function(){
             $('#dept_level1').focus();
             return false;
          }
-         
-	/*     if (!validate_hp($('#upper_dept1').val())
-        		 || !validate_hp($('#dept_level1').val())) {
-            alert("상위 부서와 부서등급은 숫자만 입력 가능합니다.");
-            
-            if(!validate_hp($('#upper_dept1').val()){
-            	$('#upper_dept1').focus();
-            }else if(!validate_hp($('#dept_level1').val())){
-            	$('#dept_level1').focus();
-            }
-            return false;
-         } */
-		
-		$.ajax({
+
+         $.ajax({
             url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
             type:'post',
             data: $('#insertDept').serializeArray(),
@@ -62,9 +50,11 @@ $(function(){
      $('#name2').change(function(){
  		var selectedValue=$('#name2').val();
  		//alert(selectedValue);
- 		if(selectedValue=""){
- 			$('#staticBackdrop2').modal('hide');
- 			location.href="<c:url value='/admin/employee/employeeList'/>";
+ 		if(selectedValue<1){
+ 		 	$('#deptNameDiv').empty();
+           	$('#managerDiv').empty();
+           	$('#upperDeptDiv').empty();
+           	$('#deptLevelDiv').empty();
  			return false;
  		}
  		
