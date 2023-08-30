@@ -1,10 +1,8 @@
-<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "java.util.List" %>
 <%@ page import = "com.ez.gw.calendar.model.CalendarVO" %>
-<%@ include file="../inc/top.jsp"%>
 
 <link href="<c:url value='/lib/fullcalendar/main.css'/>"
 	rel='stylesheet' />
@@ -16,8 +14,10 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
+			
 			initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 			locale : 'ko',//한국어 설정
+			navLinks : true,
 			headerToolbar : { // 헤더에 표시할 툴 바
 				start : 'prev next today',
 				center : 'title',
@@ -28,25 +28,33 @@
 			},
 			//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
 			selectable : true, // 달력 일자 드래그 설정가능
+			select : true,
 			droppable : false,
-			editable : false,
+			editable : true,
 			nowIndicator : true,
-			events : [ 
-	    	    <%List<Map<String, Object>> calendarList = (List<Map<String, Object>>)request.getAttribute("map");%>
+	        dayMaxEventRows: 3, // 각 날짜에 표시할 최대 이벤트 행 수	
+	        displayEventTime: false,
+	        events : [ 
+	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
 	            <%if (calendarList != null) {%>
-	            <%for (Map<String, Object> list : calendarList) {%>
+	            <%for (CalendarVO vo : calendarList) {%>
 	            {
-	            	title : '<%=list.get("TITLE")%>', 
-	                start : '<%=list.get("BEGINDATE")%>',
-	                end : '<%=list.get("ENDDATE")%>',
-	            	<%if(list.get("CATEGORY_NO").equals(1)){%>
+	            	title : '<%=vo.getTitle()%>',
+		            allDaySlot : false,
+	                start : '<%=vo.getBegindate()%>',
+	                end : '<%=vo.getEnddate()%>',
+	                extendedProps : {
+	                	calendarNo : '<%= vo.getCalendarNo()%>'
+	                },
+	            	<%if(vo.getCategoryNo() == 1){%>
 	            		color: '#DD6F66'
-	            	<%}else if(list.get("CATEGORY_NO").equals(2)){%>
+	            	<%}else if(vo.getCategoryNo() == 2){%>
 	            		color : '#A9D18E'
-	            	<%}else if(list.get("CATEGORY_NO").equals(3)){%>
+	            	<%}else if(vo.getCategoryNo() == 3){%>
 	            		color : '#5889F0'
+	            	<%}else if(vo.getCategoryNo() == 4){%>
+	            		color : '#FFD966'
 	            	<%}%>
-	            	
 	             },
 		<%}
 	}%>
@@ -75,5 +83,3 @@
 
 
 <div id='calendar'></div>
-
-<%@ include file="../inc/bottom.jsp"%>
