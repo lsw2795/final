@@ -12,4 +12,5 @@ public interface AddressBookDAO {
 	int gTRSearchCount(EmpSearchVO searchVo);
 	int insertAddr(AddressBookVO vo);
 	AddressBookVO selAddrByAddrNo(int addrbookNo);
+	int updateAddr(AddressBookVO vo);
 }

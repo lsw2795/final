@@ -15,7 +15,6 @@
 			}
 		});
 		
-		
 		$('#btnAddrWrite').click(function(){
 			var tel1=$('#addrbookTel1').val();
 			var tel2=$('#addrbookTel2').val();
@@ -116,6 +115,7 @@
 			            	$('#addrbookNameDiv').empty();
 			            	$('#addrbookTelDiv').empty();
 			            	$('#addrbookEmailDiv').empty();
+			            	$('#addrbookEmailDiv2').empty();
 			            	$('#addrbookComnameDiv').empty();
 			            	$('#addrbookDeptDiv').empty();
 			            	$('#addrbookRankDiv').empty();
@@ -160,6 +160,7 @@
 			            	
 			            	if(email2=='naver.com'||email2=='hanmail.net'||email2=='nate.com'||email2=='gmail.com'){
 			            		$('#2addrbookEmail2').val(email2);
+			            		$('#2addrbookEmail3').css('visibility', 'hidden');
 			            	}else{
 			            		$('#2addrbookEmail2').val('etc');
 			            		$('#2addrbookEmail3').css('visibility', 'visible');
@@ -175,7 +176,8 @@
 			            	var result6="<input class='form-control' value='"+addrbookRank+"' id='addrbookRank2' name='addrbookRank' type='text'/>"
 			            	+"<input type='hidden' value='"+addrbookNo+"' id='addrbookNo2'>";
 			            	$('#addrbookRankDiv').append(result6);
-			            	
+				            	
+			            
 			            },
 			            error:function(xhr, status, error){
 			               alert(status+" : "+error);
@@ -189,7 +191,90 @@
 			}
 		});
 		
-		
+		$('#btnAddrEdit').click(function(){
+			var tel1=$('#2addrbookTel1').val();
+			var tel2=$('#2addrbookTel2').val();
+			var tel3=$('#2addrbookTel3').val();
+			
+			var tel="";
+			if(tel1!=="" && tel2!=="" && tel3!==""){
+				tel=tel1+"-"+tel2+"-"+tel3;
+			}
+			$('#addrbookTel').attr('value',tel);
+			
+			var email1=$('#2addrbookEmail1').val();
+			var email2=$('#2addrbookEmail2').val();
+			var email3=$('#2addrbookEmail3').val();
+			
+			var email="";
+			if(email1!==""){
+				if(email2==="etc"){
+					if(email3!==""){
+					email=email1+"@"+email3;
+					}
+				}else{
+					email=email1+"@"+email2;
+				}	
+			}
+			$('#addrbookEmail').attr('value',email);
+			
+			if($('#addrbookName2').val().length<1){
+	            alert("이름을 입력하세요.");
+	            $('#addrbookName2').focus();
+	            return false;
+	         }
+			
+			if ($('#addrbookTel').val().length < 1) {
+				alert("전화번호를 입력하세요.");
+				if($('#2addrbookTel1').val().length<1){
+					$('#2addrbookTel1').focus();
+				}else if($('#2addrbookTel2').val().length<1){
+					$('#2addrbookTel2').focus();
+				}else if($('#2addrbookTel3').val().length<1){
+					$('#2addrbookTel3').focus();
+				}
+				return false;
+			}
+			
+			if ($('#addrbookEmail').val().length < 1) {
+				alert("이메일을 입력하세요.");
+				$('#2addrbookEmail1').focus();
+				return false;
+			}
+			
+			var addrbookNo=$('#addrbookNo2').val();
+			var addrbookName=$('#addrbookName2').val();
+			var addrbookTel=$('#addrbookTel').val();
+			var addrbookEmail=$('#addrbookEmail').val();
+			var addrbookComname=$('#addrbookComname2').val();
+			var addrbookDept=$('#addrbookDept2').val();
+			var addrbookRank=$('#addrbookRank2').val();
+			
+			$.ajax({
+	            url : "<c:url value='/mypage/ajaxAddrUpdate'/>",
+	            type:'get',
+	            data: {
+	            	addrbookNo: addrbookNo,
+	            	addrbookName: addrbookName,
+	            	addrbookTel: addrbookTel,
+	            	addrbookEmail: addrbookEmail,
+	            	addrbookComname: addrbookComname,
+	            	addrbookDept: addrbookDept,
+	            	addrbookRank: addrbookRank
+	            },
+	            dataType : 'json',
+	            success: function(res){
+	            	if(res>0){
+		            	alert("주소록 수정이 완료되었습니다.");
+		            	$('#staticBackdrop5').modal('hide'); 
+	               		location.href="<c:url value='/mypage/addressBook'/>";
+	            	}
+	            },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax 
+		});
 		
 	});
 

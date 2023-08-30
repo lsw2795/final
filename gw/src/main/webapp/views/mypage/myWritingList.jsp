@@ -129,6 +129,14 @@
                           	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                          <c:if test="${map['BOARDLIST_NO']==4000}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/board/faqList'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/board/faqList'/>">${map['TITLE']}</a></td>
+                          </c:if>
+                           <c:if test="${map['BOARDLIST_NO']==5000}">	                          
+                          	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['TITLE']}</a></td>
+                          </c:if>
                           <td class="align-middle">${map['READCOUNT']}</td>
                           <td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
                         </tr>

@@ -74,4 +74,15 @@ public class AddressBookController {
 		return addressbookVo;
 	}
 
+	@ResponseBody
+	@RequestMapping("/ajaxAddrUpdate")
+	public int updateAddr(@ModelAttribute AddressBookVO vo,HttpSession session) {
+		int empNo=(int)session.getAttribute("empNo");
+		vo.setEmpNo(empNo);
+		logger.info("ajax 이용 - 주소록 수정처리 파라미터 vo={}", vo);
+		int cnt=addressBookService.updateAddr(vo);
+		logger.info("ajax 이용 - 주소록 수정처리 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
 }
