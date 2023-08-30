@@ -63,7 +63,6 @@
 		$('#btCancel').click(function(){
 			location.href="<c:url value='/admin/employee/employeeList'/>";
 		});
-		
 	});
 </script>
 <c:if test="${!empty param.empNo}">
