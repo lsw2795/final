@@ -155,14 +155,15 @@
 			            	+"<option value='etc'>직접입력</option></select>";
 			            	$('#addrbookEmailDiv').append(result3);
 			            	
-			            	var result0="<input type='text' id='addrbookEmail3' class='form-control' title='직접입력인 경우 이메일주소 뒷자리' style='visibility: hidden;'>";
+			            	var result0="<input type='text' id='2addrbookEmail3' class='form-control' title='직접입력인 경우 이메일주소 뒷자리' style='visibility: hidden;'>";
 			            	$('#addrbookEmailDiv2').prepend(result0);
 			            	
 			            	if(email2=='naver.com'||email2=='hanmail.net'||email2=='nate.com'||email2=='gmail.com'){
 			            		$('#2addrbookEmail2').val(email2);
 			            	}else{
-			            		$('2addrbookEmail3').css('visibility', 'visible');
-			            		$('2addrbookEmail3').val(email2);
+			            		$('#2addrbookEmail2').val('etc');
+			            		$('#2addrbookEmail3').css('visibility', 'visible');
+			            		$('#2addrbookEmail3').val(email2);
 			            	}
 			            
 			            	var result4="<input class='form-control' value='"+addrbookComname+"' id='addrbookComname2' name='addrbookComname' type='text' />";
