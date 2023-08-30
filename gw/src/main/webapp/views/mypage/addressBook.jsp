@@ -191,6 +191,16 @@
 			}
 		});
 		
+		$("#2addrbookEmail2").change(function() {
+			if ($("#2addrbookEmail2").val() == "etc") {
+				$("#2addrbookEmail3").val("");
+				$("#2addrbookEmail3").css("visibility", "visible");
+				$("#2addrbookEmail3").focus();
+			}else {
+				$("#2addrbookEmail3").css("visibility", "hidden");
+			}
+		});
+		
 		$('#btnAddrEdit').click(function(){
 			var tel1=$('#2addrbookTel1').val();
 			var tel2=$('#2addrbookTel2').val();
