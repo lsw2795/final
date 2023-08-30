@@ -29,7 +29,7 @@ $(function(){
             return false;
          }
          
-/*          if (!validate_hp($('#upper_dept1').val())
+	/*     if (!validate_hp($('#upper_dept1').val())
         		 || !validate_hp($('#dept_level1').val())) {
             alert("상위 부서와 부서등급은 숫자만 입력 가능합니다.");
             
