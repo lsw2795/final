@@ -7,5 +7,10 @@ public interface CommentsService {
 	int insertQnaReply(CommentsVO vo); // qna 답변 등록 메서드
 	List<Map<String, Object>> selectQnaReplys(int boardNo); // 해당 게시글에 답변들 조회 메서드
 	int selectCountReply(int boardNo); //해당 게시글 답변 갯수 조회 메서드
-	
+	int insertAnonymousReply(CommentsVO vo);
+	List<CommentsVO> anonymousAllReply();
+	int reply(CommentsVO vo);
+	int updateAnonymousComments(CommentsVO vo); //익명게시판 댓글 수정
+	int deleteAnonymousComments(int commentNo); //익명게시판 댓글 삭제
+	List<Map<String, Object>> countComment();
 }

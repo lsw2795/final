@@ -21,5 +21,57 @@
 		select count(*) from qnaCommentsView
 		where board_no = #{boardNo}
 	</select>
+	
+	<insert id="insertAnonymousReply" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
+			select comments_seq.nextval from dual
+		</selectKey>
+		insert into comments(comment_no, content, emp_no, groupno, boardList_no, board_no)
+		values(#{commentNo}, #{content}, #{empNo}, #{commentNo}, 5000, #{boardNo})
+	</insert>
+	
+	<update id="updateSortNo" parameterType="commentsVo">
+		update comments
+		set sortno=sortno+1
+		where groupno=#{groupNo} and sortno>#{sortNo}	
+	</update>
+	
+	<insert id="insertReply" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
+			select comments_seq.nextval from dual
+		</selectKey>
+		insert into comments(comment_no, content, emp_no, groupno, step, sortno, boardList_no, board_no)
+		values(#{commentNo}, #{content}, #{empNo}, #{groupNo}, #{step}+1, #{sortNo}+1, 5000, #{boardNo})
+	</insert>
+	
+	<select id="anonymousAllReply" resultType="commentsVo">
+		select * from comments
+		where boardlist_no=5000
+		order by board_no desc, groupno desc, sortno
+	</select>
+	
+	<update id="updateAnonymousComments" parameterType="commentsVo">
+		update comments
+		set content=#{content}
+		where boardlist_no=5000
+		and comment_no=#{commentNo}
+	</update>
+	
+	<delete id="deleteAnonymousComments" parameterType="int"> 
+		delete from comments
+		where boardlist_no=5000
+		and comment_no=#{commentNo}
+	</delete>
+	
+	<select id="countComment" resultType="map">
+		select board_no, count(*) as cnt from comments
+		where boardlist_no=5000
+		and board_no in(select board_no from board
+		                where delflag='N'
+		                and boardlist_no=5000
+		                and regdate>=sysdate-1)
+		group by board_no
+		order by board_no desc
+	</select>
 
 </mapper>

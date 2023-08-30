@@ -31,7 +31,9 @@ public interface BoardService {
 	int insertAnonumous(BoardVO vo); //익명게시판 글등록 메서드
 	int updateFAQ(BoardVO vo); //관리자 FAQ 글수정 메서드
 	BoardVO selectFAQByBoardNo(int boardNo); //관리자 글 수정전 게시글 보여주기 메서드
-	List<BoardVO> select24List();
+	List<Map<String, Object>> select24List();
+	int updateAnonymousBoard(BoardVO vo);
+	int deleteAnonymousBoard(int boardNo);
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);

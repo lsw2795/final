@@ -171,4 +171,11 @@
 		and regdate>= sysdate -1
 		order by regdate desc
 	</select>
+	
+	<delete id="deleteAnonymousImg" parameterType="pdsVo">
+		delete from pds
+		where board_no=#{boardNo}
+		and boardList_no=5000
+		and filename=#{fileName}
+	</delete>
 </mapper>

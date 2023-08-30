@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,5 +28,38 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsDao.selectCountReply(boardNo);
 	}
 
+	@Override
+	public int insertAnonymousReply(CommentsVO vo) {
+		return commentsDao.insertAnonymousReply(vo);
+	}
+
+	@Override
+	public List<CommentsVO> anonymousAllReply() {
+		return commentsDao.anonymousAllReply();
+	}
+	
+	@Override
+	@Transactional
+	public int reply(CommentsVO vo) {
+		int cnt=commentsDao.updateSortNo(vo);
+		cnt=commentsDao.insertReply(vo);
+		
+		return cnt;
+	}
+
+	@Override
+	public int updateAnonymousComments(CommentsVO vo) {
+		return commentsDao.updateAnonymousComments(vo);
+	}
+
+	@Override
+	public int deleteAnonymousComments(int commentNo) {
+		return commentsDao.deleteAnonymousComments(commentNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> countComment() {
+		return commentsDao.countComment();
+	}
 	
 }
