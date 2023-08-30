@@ -83,7 +83,7 @@
               	<span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
               </button>
             </div> 토글 버튼 봉인-->
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="<c:url value='/admin/main'/>">
               <div class="d-flex align-items-center py-3">
               	<img src="<c:url value='/adminfinallogo.png'/>" alt="" width="150" />
               </div>

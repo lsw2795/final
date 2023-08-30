@@ -51,7 +51,7 @@ public class PaymentClubController {
 	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session
 			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{	
 		
-		int clubNo=Integer.parseInt(session.getAttribute("clubNo"));
+		//int clubNo=Integer.parseInt(session.getAttribute("clubNo"));
 		
 			return api.paymentByImpUid(imp_uid);
 	}
