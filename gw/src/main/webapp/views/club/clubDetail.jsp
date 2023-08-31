@@ -21,7 +21,7 @@
 		    name : '동호회 가입 및 회비 결제',
 		    amount : 10000, //판매가격
 		    custom_data{
-		    	emp_no : ${patam}
+		    	emp_no : ${param.empNo}
 		    	club_no : ${param.clubNo}
 		    }
 		    buyer_emp_no : ${sessionScope.empNo},
@@ -35,7 +35,7 @@
 		    	var msg = "결제 완료! 가입 되었습니다.";
 		    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 		    	$.ajax({
-		    		url: '/club/ajaxPaymentClub', //cross-domain error가 발생하지 않도록 주의해주세요
+		    		url: "<c:url value:'club/ajaxPaymentClub'/>", //cross-domain error가 발생하지 않도록 주의해주세요
 		    		type: 'POST',
 		    		dataType: 'json',
 		    		data: {

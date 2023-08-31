@@ -144,7 +144,7 @@
 		where boardList_no=2000 and board_No=#{boardNo}
 	</update>
 	
-	<delete id="deleteNotice" parameterType="boardVo">
+	<delete id="deleteNotice" parameterType="int">
 		update board
 		set delflag='Y'
 		where boardList_no=2000 and board_no=#{boardNo}

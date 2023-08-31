@@ -7,6 +7,11 @@
   <table class="table table-hover table-striped overflow-hidden">
     <thead>
       <tr>
+      	<th>
+      		<div class="check d-flex align-items-center">
+                <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
+            </div>
+      	</th>
         <th scope="col">Name</th>
         <th scope="col">Club Title</th>
         <th scope="col">Date</th>
@@ -17,6 +22,11 @@
     </thead>
     <tbody>
       <tr class="align-middle">
+      	<td class="align-middle fs-0 py-3">
+	  		<div class="form-check mb-0">
+		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+			</div>
+		</td>
         <td class="text-nowrap">
           <div class="d-flex align-items-center">
             <div class="avatar avatar-xl">

@@ -24,6 +24,7 @@
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
 		</form>
   		  <div class="card-body py-2">
               <div class="card" id="allContactTable">

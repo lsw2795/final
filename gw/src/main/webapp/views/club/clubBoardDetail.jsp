@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file='../inc/top.jsp'%>
-<!DOCTYPE html>
 <script type="text/javascript">
 	function deleteClubBoard() {
 		if(confirm("해당 게시물을 삭제하시겠습니까?")){
 			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
+	
+	$(function() {
+		$('#clubReportBtn').click(function() {
+			if(confirm('해당 게시글을 신고하시겠습니까?')){
+				location.href = 
+					"<c:url value='/admin/adminclub/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"				
+			}
+		});
+	});
 </script>
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
@@ -17,11 +25,11 @@
 			</span>
 		</button>
 	</a>
-		<button class="btn btn-falcon-default btn-sm" type="button">
-			<span class="fas fa-exclamation">
-				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"></a>
-			</span>
+	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
+		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
+			<span class="fas fa-exclamation"></span>
 		</button>
+	</a>
 		<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
         <c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	        <a href="<c:url value='/club/editClubBoard?clubNo=${param.clubNo }&boardNo=${param.boardNo}'/>">
