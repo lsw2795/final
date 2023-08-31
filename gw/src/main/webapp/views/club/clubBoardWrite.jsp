@@ -87,7 +87,7 @@
                 <div class="card-body">
                   <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
-                      <input name="imageURL" type="file" multiple="multiple" id="fileInput"/>
+                      <input name="imageURL" type="file" multiple="multiple" id="fileInput" required/>
                     </div>
                     <div class="dz-message" data-dz-message=""> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
