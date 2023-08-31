@@ -280,8 +280,6 @@
 		$('#btnDel').click(function(){
 			var count= $('input[type=checkbox]:checked').length;
 			var addrbookNo=$('input[name=addrbookNo]').val();
-		
-			alert(count+":"+addrbookNo);
 			
 			if(count<1){
 				alert('삭제하고 싶은 주소록을 먼저 체크하세요');
@@ -439,7 +437,7 @@
 	                          <td class="align-middle">${addressBookVo.addrbookDept }</td>
 	                          <td class="align-middle">${addressBookVo.addrbookRank }</td>
 	                        </tr>
-                        <c:set var="idx" value="${i+1 }"/>
+                        <c:set var="idx" value="${idx+1 }"/>
                         </c:forEach>
                      	</form>
                          </c:if>
