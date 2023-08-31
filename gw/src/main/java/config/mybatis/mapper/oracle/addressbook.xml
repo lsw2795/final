@@ -53,4 +53,10 @@
 		where emp_no=#{empNo} and addrbook_no=#{addrbookNo}
 	</update>
 	
+	<delete id="deleteAddr" parameterType="int">
+		delete from address_book
+		where addrbook_no=#{addrbookNo}
+	</delete>
+	
+	
 </mapper>
