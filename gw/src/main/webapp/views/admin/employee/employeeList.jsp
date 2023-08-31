@@ -28,7 +28,7 @@ $(function(){
             $('#dept_level1').focus();
             return false;
          }
-
+         //alert($.param($('#insertDept').serializeArray()));
          $.ajax({
             url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
             type:'post',
@@ -92,9 +92,11 @@ $(function(){
      		 $('#manager2').val(manager);
 			
      		var result2="<select class='form-select admindefault' id='upper_dept2' name='upper_dept'>"
-     			 +"<option value='1'>없음</option>"
+     			 +"<option value='0'>없음</option>"
+     			 +"<c:forEach var='deptVo2' items='${deptList2}'>"
+       			 +"<option value='${deptVo2.deptNo}'>${deptVo2.name}</option>"
+       			 +"</c:forEach>"
      			 +"</select><input type='hidden' id='dept_no2' name='dept_no' value='"+deptNo+"'/>";
-        	     
         	     
 			$('#upperDeptDiv').append(result2);	
 			$('#upper_dept2').val(upperDept);
