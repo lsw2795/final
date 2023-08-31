@@ -16,6 +16,7 @@
 		  <label class="col-sm-3 col-form-label" for="name1">부서 이름</label>
 		  <div class="col-sm-8">
 			  <input class="form-control admindefault" id="name1" name="name" type="text"/>
+			  <div id="checkNameDiv"></div>
 			  <div class="mb-3 row" id="checkDept1"></div>
 		  </div>
 		  <label class="col-sm-3 col-form-label" for="manager1">부서장</label>
@@ -30,12 +31,17 @@
 		 	</div>
 		   <label class="col-sm-3 col-form-label" for="upper_dept1">상위 부서</label>
 		  	<div class="col-sm-8">
-		    	<input class="form-control admindefault" id="upper_dept1" name="upper_dept" type="text" />
+		  		<select class="form-select admindefault" id="upper_dept1" name="upperDept">
+			      	<option value="0">없음</option>
+		      		<c:forEach var="deptVo2" items="${deptList2}">
+						<option value="${deptVo2.deptNo}">${deptVo2.name}</option>
+					</c:forEach>
+			    </select>
 		    	<div class="mb-3 row"></div>
 		 	</div>
 		 	 <label class="col-sm-3 col-form-label" for="dept_level1">부서 등급</label>
 		  	<div class="col-sm-8">
-		    	<input class="form-control admindefault" id="dept_level1" name="dept_level" type="text" />
+		    	<input class="form-control admindefault" id="dept_level1" name="deptLevel" type="text" />
 		 	</div>
 		</div>
       </div>

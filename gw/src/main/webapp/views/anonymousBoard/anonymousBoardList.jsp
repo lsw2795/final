@@ -6,21 +6,10 @@
 <link href="<c:url value='/css/anonymousBoard.css'/>" rel="stylesheet">
 <script type="text/javascript">
 $(function (){
-	/* $('form[name=frmBoardWrite]').submit(function(){
-		
-	}); */
+	
 });
 
-function uploadSet(bt){
-	var form = bt.closest('form[name=frmBoardWrite]');
-	var cnt = $(form).find('input[type=file]').length;
-	
-	if(cnt==0){
-		$('input[name=upfile]').attr('type','file');
-	}else{
-		$('input[name=upfile]').attr('type','hidden');
-	}
-}
+
 </script>
 <div class="row g-3">
 	<div class="col-lg-10 m-auto mt-3">
@@ -37,7 +26,7 @@ function uploadSet(bt){
             	<form name="frmBoardWrite" method="post" enctype="multipart/form-data" action="<c:url value='/anonymous/boardWrite'/>">
 					<input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." >
                 	<textarea name="content" class="shadow-none form-control rounded-0 resize-none px-x1 border-y-0 border-200" placeholder="내용을 입력하세요." rows="4"></textarea>
-					<input name="upfile" type="hidden" class="form-control" accept="image/*" multiple="multiple" required>
+					<input name="upfile" type="hidden" class="form-control" accept="image/*" multiple="multiple">
                     <div class="row g-0 justify-content-between mt-3 px-x1 pb-3">
                     	<div class="col">
 	                        <button onclick="uploadSet(this)" class="btn btn-light btn-sm rounded-pill shadow-none d-inline-flex align-items-center fs--1 mb-0 me-1" type="button">
@@ -53,17 +42,32 @@ function uploadSet(bt){
             </div>
         </div>
         <c:if test="${!empty anonymousList }">
-        <c:forEach var="boardVo" items="${anonymousList }">
+        <c:set var="no" value="0"/>
+        <c:set var="imgCnt" value="0"/>
+        <c:set var="divCnt" value="0"/>
+        <c:forEach var="map" items="${anonymousList }">
+	        <c:if test="${no==map['BOARD_NO'] }">
+				
+			</c:if>
+			<c:if test="${no!=map['BOARD_NO'] }">
 	        <div class="card mb-3">
+	        <form name="frmBoardEdit" method="post" enctype="multipart/form-data" action="<c:url value='/anonymous/boardEdit'/>">
 	        	<div class="card-header bg-light">
-	            	<div class="row justify-content-between">
+	            	<div class="row justify-content-between" id="boardInfo">
 	                	<div class="col">
 	                    	<div class="d-flex">
 		                        <div class="flex-1 align-self-center ms-2">
-		                        	<p class="mb-1 lh-1">익명 ${boardVo.boardNo }번째 글입니다.</p>
-		                          	<p class="mb-0 fs--1"><fmt:formatDate value="${boardVo.regdate }" pattern="yy-MM-dd hh-mm"/></p>
+		                        	<b><p class="mb-2 lh-1">익명 ${map['BOARD_NO'] }번째 글</p></b>
+		                        	<input type="hidden" name="boardNo" value="${map['BOARD_NO'] }">
+		                        	<p class="mt-3 mb-1 lh-1" id="titleP">${map['TITLE'] }</p>
+		                        	<input type="text" name="title" id="editTitle" class="form-control" value="${map['TITLE'] }" style="display: none;">
+		                          	<p class="mb-0 fs--1"><fmt:formatDate value="${map['REGDATE'] }" pattern="yy-MM-dd HH:mm"/></p>
 		                        </div>
 	                      	</div>
+	                    </div>
+	                    <div class="col-auto" id="editBtDiv" style="display: none;">
+	                        <button class="btn btn-primary btn-sm " id="editBoradBt" type="submit" style="width: 80px;">수정</button>
+	                        <button class="btn btn-primary btn-sm " id="editCancelBt" type="button" onclick="editReturn(this)" style="width: 80px;">취소</button>
 	                    </div>
 	                    <div class="col-auto">
 	                    	<div class="dropdown font-sans-serif btn-reveal-trigger">
@@ -71,54 +75,99 @@ function uploadSet(bt){
 	                        		<span class="fas fa-ellipsis-h fs--1"></span>
 	                        	</button>
 		                        <div class="dropdown-menu dropdown-menu-end py-3" aria-labelledby="post-album-action">
-		                        	<a class="dropdown-item" href="#!">수정하기</a>
-		                          	<a class="dropdown-item text-danger" href="#!">삭제하기</a>
-		                        	<input type="hidden" value="${boardVo.boardNo }">
+	                        	<c:if test="${map['EMP_NO']==sessionScope.empNo }">
+		                        	<a class="dropdown-item" href="#!" onclick="editSet(this)">수정하기</a>
+		                          	<a class="dropdown-item text-danger" onclick="deleteBoard(${map['BOARD_NO'] })" href="#!">삭제하기</a>
+	                        	</c:if>
+	                        	<c:if test="${map['EMP_NO']!=sessionScope.empNo }">
+		                          	<a class="dropdown-item text-danger" href="#!">신고하기</a>
+	                        	</c:if>
+		                        	<input type="hidden" value="${map['BOARD_NO'] }">
 		                        </div>
 	                      	</div>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="card-body overflow-hidden">
-	            	<p>${boardVo.content}</p>
-	            	<c:if test="${!empty imageList}">
-	            		<c:forEach var="pdsVo" items="${imageList }" >
-	            			<c:if test="${pdsVo.boardNo == boardVo.boardNo}">
-				                <div class="row mx-n1 img-slider">
-									<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
-					                	<button class="btn" id="leftBt" style="width: 50px">
-					                		<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
-					                	</button>
-					                </div>
-									<div class="col-8" id="centerDiv" align="center" >
-					                	<div class="col img-div slideActive" style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
-					                	</div>
-					                	<div class="col img-div" style="background-image:url(<c:url value='/images/IMG_5495_20230821003756826.jpg'/>)">
-					                	</div>
-					                	<div class="col img-div " style="background-image:url(<c:url value='/images/CHUCK%2070%20HI3_20230822202225523.PNG'/>)">
-					                	</div>
-					                	<div class="col img-div " style="background-image:url(<c:url value='/images/IMG_5487_20230820233730762.jpg'/>)">
-					                	</div>
-					                </div>
-									<div class="col-2 p-1 m-auto" id="rightBtDiv">
-					                	<button class="btn" id="rightBt" style="width: 50px">
-					                		<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
-					                	</button>
-					                </div>
-				            	</div>
-					            <div class="col-12 page-nav" align="center">
-									<div class="slideActive"></div>
-								    <div></div>
-								    <div></div>
-								    <div></div>
-								</div>
-							</c:if>
-	            		</c:forEach>
+	            	<p id="contentP">${map['CONTENT'] }</p>
+	            	<textarea name="content" id="editContent" class="shadow-none form-control rounded-0 resize-none px-x1 border-y-0 border-200" rows="4" style="display: none;">${map['CONTENT'] }</textarea>
+	            	<input name="upfile" type="hidden" class="form-control" accept="image/*" multiple="multiple">
+	            	<c:if test="${!empty map['FILENAME'] }">
+				    	<div class="row mx-n1 img-slider">
+							<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
+					        	<button class="btn" type="button" id="leftBt" style="width: 50px">
+					            	<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
+					            </button>
+					        </div>
+							<div class="col-8" id="centerDiv" align="center" >
+				            	<c:forEach var="pdsVo" items="${imageList }" >
+				            		<c:if test="${pdsVo.boardNo == map['BOARD_NO']}">
+						            	<c:if test="${imgCnt == 0}">
+							            	<div class="col img-div slideActive" style="background-image:url(<c:url value='/images/${pdsVo.fileName }'/>)"></div>
+										</c:if>
+						            	<c:if test="${imgCnt > 0}">
+							            <div class="col img-div" style="background-image:url(<c:url value='/images/${pdsVo.fileName }'/>)"></div>
+										</c:if>
+							            <c:set var="imgCnt" value="${imgCnt+1 }"/>
+									</c:if>
+				            	</c:forEach>
+					        </div>
+							<div class="col-2 p-1 m-auto" id="rightBtDiv">
+					        	<button class="btn" type="button" id="rightBt" style="width: 50px">
+					            	<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
+					        	</button>
+					  		</div>
+				      	</div>
+					    <div class="col-12 page-nav" align="center">
+				        	<c:forEach var="pdsVo" items="${imageList }" >
+				            	<c:if test="${pdsVo.boardNo == map['BOARD_NO']}">
+				            		<c:if test="${divCnt == 0}">	
+										<div class="slideActive"></div>
+									</c:if>
+				            		<c:if test="${divCnt > 0}">	
+									    <div></div>
+									</c:if>
+									<c:set var="divCnt" value="${divCnt+1 }"/>
+								</c:if>
+				            </c:forEach>
+						</div>
+						<div class="col-12" id="editImgDiv" style="display: none;">
+							<c:forEach var="pdsVo" items="${imageList }" >
+					        	<c:if test="${pdsVo.boardNo == map['BOARD_NO']}">
+					        	<div>
+					        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
+										${pdsVo.fileName }
+									<a href="#!" onclick="deleteImg('${pdsVo.fileName }',this)">
+										<span class="badge rounded-pill text-bg-primary">
+				                        	삭제
+				                        </span>
+			                        </a>
+			                    </div>
+					        	</c:if>
+					        </c:forEach>
+						</div>
 	            	</c:if>
 	          	</div>
+	        </form>
             <div class="card-footer bg-light pt-0" id="datgeulInfo">
             	<div class="border-bottom border-200 fs--1 py-3">
-            		<a class="text-700" href="#!">34개의 댓글이 있습니다.</a>
+	            	<c:choose>
+					    <c:when test="${!empty commentCntList}">
+					        <c:set var="commentCnt" value="0" />
+					        <c:forEach var="cntMap" items="${commentCntList}">
+					            <c:if test="${cntMap['BOARD_NO'] == map['BOARD_NO']}">
+					                <a class="text-700" href="#!">${cntMap['CNT']}개의 댓글이 있습니다.</a>
+					                <c:set var="commentCnt" value="1" />
+					            </c:if>
+					        </c:forEach>
+					        <c:if test="${commentCnt == 0}">
+					            <a class="text-700" href="#!">댓글이 없습니다.</a>
+					        </c:if>
+					    </c:when>
+					    <c:otherwise>
+					        <a class="text-700" href="#!">댓글이 없습니다.</a>
+					    </c:otherwise>
+					</c:choose>
                 </div>
                 <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
                     <div class="col-auto">
@@ -129,35 +178,98 @@ function uploadSet(bt){
                     </div>
                 </div>
                 <div class="col-12" id="datgeulWriteDiv" style="display: none;">
-		            <form class="d-flex align-items-center border-top border-200 pt-3">
-		                <input class="form-control rounded-pill ms-2 fs--1" type="text" placeholder="내용을 입력하세요." />
+		            <form name="frmDatgeulForm" class="d-flex align-items-center border-top border-200 pt-3" method="post" action="<c:url value='/anonymous/datgeulWrite'/>"/>
+		                <input class="form-control rounded-pill ms-2 fs--1" type="text" name="content" placeholder="내용을 입력하세요." />
+		                <input type="hidden" name="boardNo" value="${map['BOARD_NO']}" />
 		            </form>
                 </div>
-                <div class="row mt-3" id="datgeulViewDiv" style="display: none;">
-                	<div class="col-1 fs--1" style="width: 20px;">
-	                	<div class="avatar avatar-xl">
-	                    	<img class="rounded-circle" src="<c:url value='/assets/img/team/4.jpg'/>" alt="" />
-	                    </div>
-	                </div>
-                    <div class="col flex-1 ms-2 fs--1">
-                    	<p class="mb-1 bg-200 rounded-3 p-2">
-                      	익명 :
-                      	내용</p>
-                      	<div class="row">
-	                      	<div class="col px-3">
-	                      		시간 
-	                      		&bull;<a href="#!">답글달기</a>  
-	                      		&bull;<a href="#!">신고하기</a> 
-	                      	</div>
-	                      	<div class="col-auto px-3">
-	                      		<a href="#!">수정</a>&bull;  
-	                      		<a href="#!">삭제</a>  
-		                    </div>
-                      	</div>
-                    </div>
-				</div>
+                <c:if test="${!empty commentsList }">
+                	<c:forEach var="commentVo" items="${commentsList }">
+	                	<c:if test="${commentVo.boardNo==map['BOARD_NO'] and commentVo.step==0}">
+                		<div class="row mt-1" id="datgeulViewDiv" style="display: none;">
+		                	<div class="col-1 fs--1" style="width: 20px;">
+			                	<div class="avatar avatar-xl">
+			                    	<img class="rounded-circle" src="<c:url value='/images/anonymous.png'/>" alt="" />
+			                    </div>
+			                </div>
+		                    <div class="col flex-1 ms-2 fs--1" id="datgeulEditDiv">
+		                    <form name="frmDatgeulEditForm" method="post" >
+		                    	<p class="mb-1 bg-200 rounded-3 p-2" id="datguelP">
+		                      	익명 :
+		                      	${commentVo.content}</p>
+		                      	<input class="form-control" type="hidden" name="content" value="${commentVo.content}">
+			                    <input type="hidden" name="commentNo"value="${commentVo.commentNo }">  
+		                    </form>  	
+		                      	<div class="row">
+			                      	<div class="col px-3">
+			                      		<fmt:formatDate value="${commentVo.regdate}" pattern="yy-MM-dd HH:mm"/>
+			                      		&bull;<a href="#!" onclick="replyShow(this)">답글</a>  
+			                      		&bull;<a href="#!" onclick="reply(this)">답글달기</a>
+			                      		<c:if test="${commentVo.empNo!=sessionScope.empNo }">
+				                      		&bull;<a href="#!">신고하기</a> 
+			                      		</c:if>
+			                      	</div>
+			                      	<div class="col-auto px-3" >
+			                      		<a href="#!" id="editDatguelA" onclick="editDatguel(this)">수정</a>&bull;  
+			                      		<a href="#!" onclick="deleteDatguel(this)">삭제</a>  
+				                    </div>
+				                    <div class="col-12 px-3" id="replyDiv" style="display: none;">
+					                    <form name="frmReplyForm" class="d-flex align-items-center pt-3" method="post" action="<c:url value='/anonymous/replyWrite'/>">
+					               			<input class="form-control rounded-pill ms-2 fs--1" name="content" type="text" placeholder="내용을 입력하세요." />
+					            			<input type="hidden" name="boardNo"value="${commentVo.boardNo}">  
+					            			<input type="hidden" name="groupNo"value="${commentVo.groupNo}">  
+					            			<input type="hidden" name="step"value="${commentVo.step}">  
+					            			<input type="hidden" name="sortNo"value="${commentVo.sortNo}">  
+					            		</form>
+				            		</div>
+		                      	</div>
+		                   	</div>
+		                   	<c:forEach var="commentVo2" items="${commentsList }">
+		                   		<c:if test="${commentVo2.groupNo==commentVo.groupNo and commentVo2.step>0}">
+				               	<div class="col-12 mt-2" id="replyInfo" style="display: none; margin-left: 20px;">
+					           		<div class="row">
+						            	<div class="col-1 fs--1" style="width: 20px;">
+							            	<div class="avatar avatar-xl">
+							                	<img class="rounded-circle" src="<c:url value='/images/anonymous.png'/>" alt="" />
+							                </div>
+							            </div>
+							            <div class="col flex-1 ms-2 fs--1">
+							            	<form name="frmReplyEditForm" method="post" >
+							            	<p class="mb-1 bg-200 rounded-3 p-2" id="replyP">
+							                	익명 :
+							                    ${commentVo2.content}</p>
+							                <input class="form-control" type="hidden" name="content" value="${commentVo2.content}">
+			                   		 		<input type="hidden" name="commentNo" value="${commentVo2.commentNo }">
+			                   		 		</form>
+							                <div class="row">
+									        	<div class="col px-3">
+									        		<fmt:formatDate value="${commentVo2.regdate}" pattern="yy-MM-dd HH:mm"/>
+									            </div>
+									            <div class="col-auto px-3" id="editReplyDiv">
+									            <c:if test="${commentVo2.empNo==sessionScope.empNo }">
+									            	<a href="#!" onclick="editReply(this)">수정</a>&bull;  
+									            	<a href="#!" onclick="deleteReply(this)">삭제</a>  
+									            </c:if>
+									            <c:if test="${commentVo2.empNo!=sessionScope.empNo }">
+									            	<a href="#!">신고하기</a> 
+									            </c:if>
+										        </div>
+									        </div>
+							            </div>
+						            </div>
+					            </div>
+		                   		</c:if>
+		                   	</c:forEach>
+						</div>
+	                   	</c:if>
+                	</c:forEach>
+                </c:if>
 			</div>
 		</div>
+		<c:set var="no" value="${map['BOARD_NO'] }"/>
+		<c:set var="imgCnt" value="0"/>
+		<c:set var="divCnt" value="0"/>
+        </c:if>
         </c:forEach>
         </c:if>
 	</div>

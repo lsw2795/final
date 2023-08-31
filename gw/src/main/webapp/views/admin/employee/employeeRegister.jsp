@@ -58,7 +58,7 @@
 	               alert(status+" : "+error);
 	            }
 	         });//ajax
-		});
+		}); 
 		
 		$('#btCancel').click(function(){
 			location.href="<c:url value='/admin/employee/employeeList'/>";

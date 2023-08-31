@@ -274,10 +274,26 @@
 		where boardList_no=4000 and board_no=#{boardNo}
 	</update>
 	
-	<select id="select24List" resultType="boardVo">
-		select * from board
-		where boardlist_no = 5000
-		and regdate>= sysdate -1
-		and delflag='N'
+	<select id="select24List" resultType="map">
+		select b.*,p.filename,p.originalfilename from 
+		board b left outer JOIN pds p
+		on b.board_no = p.board_no
+		where b.boardlist_no = 5000
+		and b.regdate>= sysdate -1
+		and b.delflag='N'
+		order by b.regdate desc
 	</select>
+	
+	<update id="updateAnonymousBoard" parameterType="boardVo">
+		update board
+		set title=#{title}, content=#{content}
+		where boardList_no=5000
+		and board_no=#{boardNo}
+	</update>
+	
+	<update id="deleteAnonymousBoard" parameterType="int">
+		update board
+		set delflag='Y'
+		where boardList_no=5000 and board_no=#{boardNo}
+	</update>
 </mapper>

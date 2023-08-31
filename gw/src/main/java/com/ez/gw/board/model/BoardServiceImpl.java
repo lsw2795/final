@@ -177,8 +177,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> select24List() {
+	public List<Map<String, Object>> select24List() {
 		return boardDao.select24List();
+	}
+
+	@Override
+	public int updateAnonymousBoard(BoardVO vo) {
+		return boardDao.updateAnonymousBoard(vo);
+	}
+
+	@Override
+	public int deleteAnonymousBoard(int boardNo) {
+		return boardDao.deleteAnonymousBoard(boardNo);
 	}
 	
 	

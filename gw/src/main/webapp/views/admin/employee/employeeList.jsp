@@ -4,14 +4,44 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
 $(function(){
+	var bool=false;
+	$('#name1').keyup(function(){
+		 $.ajax({
+			url:"<c:url value='/admin/employee/checkDeptName'/>",
+			type:"get",
+			dataType:"JSON",
+			data:{deptName:$('#name1').val()},
+			success:function(res){
+				$('#checkNameDiv').empty();
+				var str = "";
+				if(res==0){
+					str += "<span style='font-weight : bold; color :green'>사용가능한 부서이름 입니다.</span>"
+					bool = true;
+				}else if(res>0){
+					str += "<span style='font-weight : bold; color :red'>중복되는 부서이름 입니다.</span>"
+					bool = false;
+				}
+				$('#checkNameDiv').append(str);
+			},
+			error:function(xhr, status, error){
+				alert(status + " : " + error);
+			}
+		});//ajax 
+	});
+	
 	$('#btnDeptWrite').click(function(){
 		if($('#name1').val().length<1){
             alert("부서이름을 입력하세요.");
             $('#name1').focus();
             return false;
          }
-         
-         if($('#manager1').val().length<1){
+        if(!bool){
+        	alert('부서이름을 변경해주세요.');
+       	    $('#name1').focus();
+        	return false;
+        } 
+
+		if($('#manager1').val().length<1){
             alert("부서장을 선택하세요.");
             $('#manager1').focus();
             return false;
@@ -28,7 +58,7 @@ $(function(){
             $('#dept_level1').focus();
             return false;
          }
-
+         alert($.param($('#insertDept').serializeArray()));
          $.ajax({
             url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
             type:'post',
@@ -76,6 +106,7 @@ $(function(){
            	var upperDept=receivedData.upperDept;
            	var deptLevel=receivedData.deptLevel;
            	
+           	
            	var result="<input class='form-control admindefault' id='newname2' name='newname2' type='text' value='"+name+"'/>";
            	$('#deptNameDiv').append(result);
            	
@@ -85,13 +116,20 @@ $(function(){
    			 +"<option value='${managerMap['EMP_NO']}'>${managerMap['NAME']}</option>"
    			 +"</c:forEach>"
    			 +"</select><input type='hidden' id='dept_no2' name='dept_no' value='"+deptNo+"'/>";
-           	
+
    			 $('#managerDiv').append(result1);
            	
      		 $('#manager2').val(manager);
-					
-			var result2="<input class='form-control admindefault' id='upper_dept2' name='upper_dept' type='text' value='"+upperDept+"' />";
-			$('#upperDeptDiv').append(result2);		
+			
+     		var result2="<select class='form-select admindefault' id='upper_dept2' name='upper_dept'>"
+     			 +"<option value='0'>없음</option>"
+     			 +"<c:forEach var='deptVo2' items='${deptList2}'>"
+       			 +"<option value='${deptVo2.deptNo}'>${deptVo2.name}</option>"
+       			 +"</c:forEach>"
+     			 +"</select><input type='hidden' id='dept_no2' name='dept_no' value='"+deptNo+"'/>";
+        	     
+			$('#upperDeptDiv').append(result2);	
+			$('#upper_dept2').val(upperDept);
 			
 			var result3="<input class='form-control admindefault' id='dept_level2' name='dept_level' type='text' value='"+deptLevel+"'/>";
 			$('#deptLevelDiv').append(result3);

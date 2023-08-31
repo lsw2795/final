@@ -192,8 +192,6 @@
 			}
 		});
 		
-	
-		
 		$('#btnAddrEdit').click(function(){
 			var tel1=$('#2addrbookTel1').val();
 			var tel2=$('#2addrbookTel2').val();
@@ -277,6 +275,22 @@
 	               alert(status+" : "+error);
 	            }
 	         });//ajax 
+		});
+		
+		$('#btnDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			var addrbookNo=$('input[name=addrbookNo]').val();
+			
+			if(count<1){
+				alert('삭제하고 싶은 주소록을 먼저 체크하세요');
+			}
+			
+			if(count>0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/mypage/addressBook/DeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
 		});
 		
 	});
@@ -363,7 +377,7 @@
 											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">연락처 수정</span>
 									</button>
 									<button class="btn btn-falcon-default btn-sm"
-										type="button">
+										type="button" id="btnDel">
 										<span class="fas fa-file-import" data--transform="shrink-3"></span><span
 											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">연락처 삭제</span>
 									</button>
@@ -406,11 +420,14 @@
                       	</tr>
                       </c:if>
                       <c:if test="${!empty list }">
+                       <c:set var="idx" value="0"/>
+                       	<form name="frmList">
                       <c:forEach var="addressBookVo" items="${list }">
 	                        <tr class="mypageemptr">
 	                          <td class="align-middle fs-0 py-3 align-middle">
 	                            <div class="form-check mb-0">
-	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox" />
+	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
+	                             	 name="addrItems[${idx}].addrbookNo"/>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle">${addressBookVo.addrbookName }</td>
@@ -420,7 +437,9 @@
 	                          <td class="align-middle">${addressBookVo.addrbookDept }</td>
 	                          <td class="align-middle">${addressBookVo.addrbookRank }</td>
 	                        </tr>
+                        <c:set var="idx" value="${idx+1 }"/>
                         </c:forEach>
+                     	</form>
                          </c:if>
                       </tbody>
                     </table>

@@ -160,6 +160,8 @@ public class FileUploadUtil {
 		String fName = originName.substring(0,idx); //ab
 		String ext = originName.substring(idx); //.txt
 		
+		fName = fName.replaceAll(" ", "_");
+		
 		String result = fName+"_"+getDateTimeStamp()+ ext;
 		logger.info("변경된 파일명 : {}", result);
 		
