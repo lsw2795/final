@@ -37,7 +37,7 @@
 		    datasets: [{
 		      label: '월별 근태 통계',
 		      data: [3, 3, 2],
-		      borderWidth: 2
+		      borderWidth: 1
 		    }]
 		  },
 		  options: {
