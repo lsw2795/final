@@ -136,6 +136,15 @@
 			    			var addrbookDept=receivedData.addrbookDept;
 			    			var addrbookRank=receivedData.addrbookRank;
 			    			
+			    			if(addrbookComname==null){
+			    				addrbookComname="";
+			    			}
+			    			if(addrbookDept==null){
+			    				addrbookDept="";
+			    			}
+			    			if(addrbookRank==null){
+			    				addrbookRank="";	
+			    			}
 			            	//모달 수정창
 							var result="<input class='form-control' value='"+addrbookName+"' id='addrbookName2' name='addrbookName' type='text'/>";
 							$('#addrbookNameDiv').append(result);
@@ -169,15 +178,17 @@
 			        		});
 			            	
 			            	var result4="<input class='form-control' value='"+addrbookComname+"' id='addrbookComname2' name='addrbookComname' type='text' />";
+			            	
 			            	$('#addrbookComnameDiv').append(result4);
+			            	
 			            	
 			            	var result5="<input class='form-control' value='"+addrbookDept+"' id='addrbookDept2' name='addrbookDept' type='text' />";
 			            	$('#addrbookDeptDiv').append(result5);
 			            	
 			            	var result6="<input class='form-control' value='"+addrbookRank+"' id='addrbookRank2' name='addrbookRank' type='text'/>"
 			            	+"<input type='hidden' value='"+addrbookNo+"' id='addrbookNo2'>";
+			            	
 			            	$('#addrbookRankDiv').append(result6);
-				            	
 			            
 			            },
 			            error:function(xhr, status, error){
@@ -294,7 +305,6 @@
 		});
 		
 	});
-
 
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);

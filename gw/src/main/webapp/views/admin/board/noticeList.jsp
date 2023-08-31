@@ -4,10 +4,20 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
 	$(function(){
-		$('#btnDel').click(function(){
-			if(confirm('정말 삭제하시겠습니까?')){
-				location.href="<c:url value=''/>";
+		$('#btnNoticeDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			var boardNo=$('input[name=boardNo]').val();
+		
+			if(count<1){
+				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
 			}
+			
+			if(count>0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/admin/board/noticeDeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
 		});
 	});
 		
@@ -90,7 +100,7 @@
                       <div class="d-flex align-items-center">
                       	<a href="<c:url value='/admin/board/noticeWrite'/>" class="btn btn-primary">등록</a>
 						<span class="adminhyphen"></span>
-						<input type="button" value="삭제" id="btnDel" class="btn btn-danger"/>
+						<input type="button" value="삭제" id="btnNoticeDel" class="btn btn-danger"/>
                       </div>
                     </div>
 			</div>
@@ -124,6 +134,8 @@
 					</thead>
 					<tbody class="list" id="table-contact-body">
 						<!-- 반복 시작  -->
+						<c:set var="idx" value="0"/>
+						<form name="frmList">
 						<c:forEach var="map" items="${list}">
 							<tr>
 								<td class="align-middle fs-0 py-3">
@@ -131,7 +143,7 @@
 										<input class="form-check-input" type="checkbox"
 											id="all-contact-0"
 											data-bulk-select-row="data-bulk-select-row"
-											value="${map['BOARD_NO']}"/>
+											value="${map['BOARD_NO']}" name="boardItems[${idx}].boardNo"/>
 									</div>
 								</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">
@@ -169,7 +181,9 @@
 								</div>
 								</td>
 							</tr>
+							 <c:set var="idx" value="${idx+1 }"/>
 						</c:forEach>
+						</form>
 						<!-- 반복 끝 -->
 					</tbody>
 				</table>
