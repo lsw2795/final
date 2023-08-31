@@ -4,25 +4,18 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 	$(document).ready(function() {
-	    // 페이지가 로드되면 실행될 함수
-	    function setDefaultMonth() {
-	        var currentDate = new Date();
-	        var year = currentDate.getFullYear();
-	        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-	        var defaultMonth = year + "-" + month;
-	        
-	        // input 요소의 값을 설정
-	        $("#nowMonth").val(defaultMonth);
-	        
-/* 	        if (!$("#searchForm").hasClass("submitted")) {
-	            $("#searchForm").addClass("submitted");
-	            $("#searchForm").submit();
-	        }  */
-	        
+	    var savedDate = localStorage.getItem("savedSearchDate");
+	    if (savedDate) {
+	        $("#nowMonth").val(savedDate);
 	    }
+
+	    // 검색 버튼 클릭 이벤트
+	    $("#searchForm").submit(function(event) {
+	        // 검색 일자를 로컬 스토리지에 저장
+	        var searchDate = $("#nowMonth").val();
+	        localStorage.setItem("savedSearchDate", searchDate);
+	    });
 	    
-	    // 페이지가 로드되면 기본 값 설정 함수 호출
-	    setDefaultMonth();
 	});
 	    
 
