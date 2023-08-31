@@ -17,6 +17,11 @@
 		order by SECURITY_LEVEL desc
 	</select>
 	
+	<select id="AllForm" parameterType="documentFormVo" resultType="documentFormVo">
+		select * from document_form
+		order by SECURITY_LEVEL desc
+	</select>
+	
 	<select id="selectFormByNo" parameterType="int" resultType="documentFormVo">
 		select * from document_form
 		where document_no = #{documentNo}
@@ -73,6 +78,7 @@
 	<select id="searchName" parameterType="string" resultType="int">
 		select count(*) from document_form
 		where form_name = #{formName}
+		and form_delflag='N'
 	</select>
 	
 </mapper>

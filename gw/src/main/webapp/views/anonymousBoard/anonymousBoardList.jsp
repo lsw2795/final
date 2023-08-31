@@ -186,7 +186,7 @@
 			                    </div>
 			                </div>
 		                    <div class="col flex-1 ms-2 fs--1" id="datgeulEditDiv">
-		                    <form name="frmDatgeulEditForm" method="post" >
+		                    <form name="frmDatgeulEditForm" >
 		                    	<p class="mb-1 bg-200 rounded-3 p-2" id="datguelP">
 		                      	익명 :
 		                      	${commentVo.content}</p>
@@ -199,7 +199,7 @@
 			                      		&bull;<a href="#!" onclick="replyShow(this)">답글</a>  
 			                      		&bull;<a href="#!" onclick="reply(this)">답글달기</a>
 			                      		<c:if test="${commentVo.empNo!=sessionScope.empNo }">
-				                      		&bull;<a href="#!">신고하기</a> 
+				                      		&bull;<a href="#!" onclick="commentReport(${commentVo.commentNo },${commentVo.boardNo})">신고하기</a> 
 			                      		</c:if>
 			                      	</div>
 			                      	<div class="col-auto px-3" >
@@ -229,7 +229,7 @@
 							                </div>
 							            </div>
 							            <div class="col flex-1 ms-2 fs--1">
-							            	<form name="frmReplyEditForm" method="post" >
+							            	<form name="frmReplyEditForm">
 							            	<p class="mb-1 bg-200 rounded-3 p-2" id="replyP">
 							                	익명 :
 							                    ${commentVo2.content}</p>
@@ -246,7 +246,7 @@
 									            	<a href="#!" onclick="deleteReply(this)">삭제</a>  
 									            </c:if>
 									            <c:if test="${commentVo2.empNo!=sessionScope.empNo }">
-									            	<a href="#!">신고하기</a> 
+									            	<a href="#!" onclick="commentReport(${commentVo2.commentNo },${commentVo2.boardNo })">신고하기</a> 
 									            </c:if>
 										        </div>
 									        </div>
