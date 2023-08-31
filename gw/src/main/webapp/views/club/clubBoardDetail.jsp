@@ -8,6 +8,15 @@
 			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
+	
+	$(function() {
+		$('#clubReportBtn').click(function() {
+			if(confirm('해당 게시글을 신고하시겠습니까?')){
+				location.href = 
+					"<c:url value='/admin/adminclub/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"				
+			}
+		});
+	});
 </script>
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
@@ -17,9 +26,9 @@
 			</span>
 		</button>
 	</a>
-		<button class="btn btn-falcon-default btn-sm" type="button">
+		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
 			<span class="fas fa-exclamation">
-				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"></a>
+				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&boardNo=${param.clubboardNo}'/>"></a>
 			</span>
 		</button>
 		<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
