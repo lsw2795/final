@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.board.model.ListBoardVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
@@ -361,20 +362,20 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/admin/board/noticeDelete")
-	public String noticeDelete(@ModelAttribute BoardVO vo,
+	public String noticeDelete(@RequestParam(defaultValue = "0") int boardNo,
 			HttpServletRequest request, Model model) {
 		//1
-		logger.info("관리자 - 공지사항 삭제 파라미터, vo={}", vo);
+		logger.info("관리자 - 공지사항 삭제 파라미터, boardNo={}", boardNo);
 		
-		if(vo.getBoardNo()==0) {
+		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
-			model.addAttribute("url", "/pds/list");
+			model.addAttribute("url", "/admin/board/noticeList");
 
 			return "common/message";
 		}
 		
 		//2
-		List<PdsVO> fileList = pdsService.selFilesByNotice(vo.getBoardNo());
+		List<PdsVO> fileList = pdsService.selFilesByNotice(boardNo);
 		logger.info("게시글 삭제 - 파일 삭제 전 파일 갯수 조회 fileList.size={}", fileList.size());
 		
 		if(fileList.size()>0) {
@@ -391,8 +392,8 @@ public class NoticeController {
 			}//for
 		}
 		
-		int cnt = boardService.deleteNotice(vo);
-		String msg = "공지사항 삭제에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + vo.getBoardNo();
+		int cnt = boardService.deleteNotice(boardNo);
+		String msg = "공지사항 삭제에 실패했습니다.", url = "/admin/board/noticeEdit?boardNo=" + boardNo;
 		if(cnt>0) {
 			msg = "공지사항 삭제가 완료되었습니다.";
 			url = "/admin/board/noticeList";
@@ -430,6 +431,23 @@ public class NoticeController {
 		ModelAndView mav = new ModelAndView("pdsDownloadView", map); //첫글자 소문자
 		return mav;
 
+	}
+
+	@RequestMapping("/admin/board/noticeDeleteMulti")
+	public String deleteFaqMulti(@ModelAttribute ListBoardVO listVo,Model model) {
+		logger.info("관리자 - 선택한 공지사항 게시글 멀티삭제, 파라미터 listVo={}", listVo);
+		
+		List<BoardVO> list = listVo.getBoardItems();
+		int cnt = boardService.noticeDeleteMulti(list);
+		logger.info("관리자 - 공지사항 게시글 멀티삭제 결과, cnt={}", cnt);
+		String msg="공지사항 게시글 삭제에 실패했습니다.",url="/admin/board/noticeList";
+		if(cnt>0) {
+			msg="공지사항 게시글 삭제에 성공했습니다.";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4
+		return "common/message";
 	}
 
 	
