@@ -140,8 +140,9 @@
            <h5 class="mb-0" data-anchor="data-anchor"></h5>
          </div>
          <div class="col-auto ms-auto">
-         	
-         여기에 버튼 필요하면 쓰세영 빼도되는기능임
+         	<a href="<c:url value='/calendar/fullCalendar'/>">
+				캘린더   	
+         	</a>	
          </div>
        </div>
      </div>
