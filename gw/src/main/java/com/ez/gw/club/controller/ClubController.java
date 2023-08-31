@@ -242,9 +242,12 @@ public class ClubController {
 		return "common/message";
 	}
 	
-	@RequestMapping("/admin/adminclub/clubReport")
-	public String insertReport(@ModelAttribute ReportVO reportVo, Model model) {
+	@RequestMapping("/club/clubReport")
+	public String insertReport(@ModelAttribute ReportVO reportVo,
+			HttpSession session ,Model model) {
 		//1.
+		int empNo = (int)session.getAttribute("empNo");
+		reportVo.setEmpNo(empNo);
 		logger.info("동호회 신고하기 reportVo={}",reportVo);
 		
 		//2.
