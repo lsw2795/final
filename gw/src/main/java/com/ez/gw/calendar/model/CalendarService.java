@@ -8,4 +8,6 @@ public interface CalendarService {
 	List<CalendarVO> calendarList(int empNo);
 	List<Map<String, Object>> calendarAllDept(int deptNo);
 	CalendarVO selectCalendarByNo(int calendarNo);
+	int updateCalendar(CalendarVO calVo);
+	int deleteCalendar(int calendarNo);
 }

@@ -150,7 +150,7 @@
         <div class="tab-content">
           <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" style="width:100%;">
             <div class="input-group flex-nowrap" >
-            	<%@ include file = "calendar/indexCalendar.jsp" %>
+            	<c:import url="/indexCalendar"></c:import>
             </div>
           </div>
         </div>

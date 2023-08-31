@@ -22,4 +22,15 @@
 	<select id="selectCalendarByNo" resultType="calendarVo" parameterType="int">
 		select * from calendar where calendar_No = #{calendarNo}
 	</select>
+	
+	<update id="updateCalendar" parameterType="calendarVo">
+		update calendar
+		set title = #{title}, begindate = #{begindate}, enddate = #{enddate}, begintime = #{begintime}, endtime = #{endtime},
+		allday_flag = #{alldayFlag}', place= #{place}, content=#{content}, category_no = #{categoryNo}
+		where emp_no = #{empNo} and calendar_no = #{calendarNo}
+	</update>
+	
+	<delete id="deleteCalendar" parameterType="int">
+		delete from calendar where calendar_no = #{calendarNo}
+	</delete>
 </mapper>

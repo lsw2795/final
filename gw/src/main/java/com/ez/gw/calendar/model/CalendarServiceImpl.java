@@ -32,4 +32,14 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarDao.selectCalendarByNo(calendarNo);
 	}
 
+	@Override
+	public int updateCalendar(CalendarVO calVo) {
+		return calendarDao.updateCalendar(calVo);
+	}
+
+	@Override
+	public int deleteCalendar(int calendarNo) {
+		return calendarDao.deleteCalendar(calendarNo);
+	}
+
 }
