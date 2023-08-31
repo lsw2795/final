@@ -3,7 +3,18 @@
 <%@ include file = "../inc/top.jsp" %>
 <script type="text/javascript">
 	$(function(){
-		
+		$('form[name=frmMessageWrite]').submit(function(){
+			if($('#readerDiv').find('#reader').length==0){
+				alert("쪽지를 보낼 사람을 선택하세요.");
+				return false;
+			}
+			
+			if($('#messageContent').val().length==0){
+				alert("쪽지 보낼 내용을 입력하세요.");
+				$('#messageContent').focus();
+				return false;
+			}
+		});
 	});
 		function setReader(no, name){
 			var bool=true;
@@ -82,7 +93,7 @@
 		</div>
 		<div class="col-lg-8 pe-lg-2 mb-3">
 			<div class="card h-lg-100 overflow-hidden">
-				<form class="card" method="post" action="<c:url value='/message/messageWrite'/>">
+				<form class="card" name="frmMessageWrite" method="post" action="<c:url value='/message/messageWrite'/>">
 					<div class="card-header bg-light">
 						<div class="row align-items-center">
 		                    <div class="col pl-2">
@@ -107,7 +118,7 @@
 							</div>
 						</div>
 						<label class="form-label">내용</label>
-				        <textarea rows="19" cols="20" class="form-control" name="messageContent" placeholder="내용을 입력하세요."></textarea>
+				        <textarea rows="19" cols="20" class="form-control" id="messageContent" name="messageContent" placeholder="내용을 입력하세요."></textarea>
 					</div>
 				    <div class="card-footer border-top border-200 ">
 						<div class="align-items-center" align="right">
