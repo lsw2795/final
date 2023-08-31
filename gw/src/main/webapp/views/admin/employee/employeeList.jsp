@@ -4,14 +4,44 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
 $(function(){
+	var bool=false;
+	$('#name1').keyup(function(){
+		 $.ajax({
+			url:"<c:url value='/admin/employee/checkDeptName'/>",
+			type:"get",
+			dataType:"JSON",
+			data:{deptName:$('#name1').val()},
+			success:function(res){
+				$('#checkNameDiv').empty();
+				var str = "";
+				if(res==0){
+					str += "<span style='font-weight : bold; color :green'>사용가능한 부서이름 입니다.</span>"
+					bool = true;
+				}else if(res>0){
+					str += "<span style='font-weight : bold; color :red'>중복되는 부서이름 입니다.</span>"
+					bool = false;
+				}
+				$('#checkNameDiv').append(str);
+			},
+			error:function(xhr, status, error){
+				alert(status + " : " + error);
+			}
+		});//ajax 
+	});
+	
 	$('#btnDeptWrite').click(function(){
 		if($('#name1').val().length<1){
             alert("부서이름을 입력하세요.");
             $('#name1').focus();
             return false;
          }
-         
-         if($('#manager1').val().length<1){
+        if(!bool){
+        	alert('부서이름을 변경해주세요.');
+       	    $('#name1').focus();
+        	return false;
+        } 
+
+		if($('#manager1').val().length<1){
             alert("부서장을 선택하세요.");
             $('#manager1').focus();
             return false;

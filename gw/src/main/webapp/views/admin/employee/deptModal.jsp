@@ -16,6 +16,7 @@
 		  <label class="col-sm-3 col-form-label" for="name1">부서 이름</label>
 		  <div class="col-sm-8">
 			  <input class="form-control admindefault" id="name1" name="name" type="text"/>
+			  <div id="checkNameDiv"></div>
 			  <div class="mb-3 row" id="checkDept1"></div>
 		  </div>
 		  <label class="col-sm-3 col-form-label" for="manager1">부서장</label>
