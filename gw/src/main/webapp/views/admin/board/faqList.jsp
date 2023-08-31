@@ -35,8 +35,6 @@
 				} // if
 			} 
 		});
-		
-		
 	});
 	
 	function pageFunc(curPage){
@@ -146,7 +144,7 @@
               </div>
             </div>
           </div>
-          <c:set var="idx" value="${i+1 }"/>
+          <c:set var="idx" value="${idx+1 }"/>
 		</c:forEach>
 	</form>
 		</c:if>
@@ -160,7 +158,6 @@
 				<img src="<c:url value='/images/first.JPG'/>">
 			</a>
 		</c:if>	
-						
 		<!-- [1][2][3][4][5][6][7][8][9][10] -->
 		<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
 			<c:if test="${i == pagingInfo.currentPage }">		
@@ -170,7 +167,6 @@
 		        <a href="<c:url value='/admin/board/noticeList?currentPage=${i}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>" id="otherPage">${i}</a>
 		    </c:if>   		
 		</c:forEach>
-		
 		<!-- 다음 블럭으로 이동 -->
 		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
 	         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">

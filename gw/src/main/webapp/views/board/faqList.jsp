@@ -60,7 +60,6 @@
 		</div>
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
-          <c:set var="idx" value="0"/>
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class=" accordion-item border-0">
@@ -83,7 +82,6 @@
               </div>
             </div>
           </div>
-          <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
 		</c:if>
 		</div>

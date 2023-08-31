@@ -10,4 +10,5 @@ public interface AddressBookService {
 	int insertAddr(AddressBookVO vo);
 	AddressBookVO selAddrByAddrNo(int addrbookNo);
 	int updateAddr(AddressBookVO vo);
+	int deleteMulti(List<AddressBookVO> list);
 }

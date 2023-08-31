@@ -192,8 +192,6 @@
 			}
 		});
 		
-	
-		
 		$('#btnAddrEdit').click(function(){
 			var tel1=$('#2addrbookTel1').val();
 			var tel2=$('#2addrbookTel2').val();
@@ -279,6 +277,22 @@
 	         });//ajax 
 		});
 		
+		$('#btnDel').click(function(){
+			var count= $('input[type=checkbox]:checked').length;
+			var addrbookNo=$('input[name=addrbookNo]').val();
+			
+			if(count<1){
+				alert('삭제하고 싶은 주소록을 먼저 체크하세요');
+			}
+			
+			if(count>0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmList]').prop('action', "<c:url value='/mypage/addressBook/DeleteMulti'/>");
+					$('form[name=frmList]').submit();
+				} // if
+			} 
+		});
+		
 	});
 
 
@@ -297,6 +311,7 @@
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo}"> 		
 		</form>  
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
@@ -313,19 +328,19 @@
 							<form name="frmSearch" method="post" action="<c:url value='/mypage/addressBook'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 ">
-										<select class=" mypageempborder mypageempsel">
-											 <option value="addrbookName"
-				                            	<c:if test="${param.searchCondition=='addrbookName'}">
+										<select class=" mypageempborder mypageempsel" name="searchCondition">
+											 <option value="addrbook_name"
+				                            	<c:if test="${param.searchCondition=='addrbook_name'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >이름</option>
-				                            <option value="addrbookComname"
-				                            	<c:if test="${param.searchCondition=='addrbookComname'}">
+				                            <option value="addrbook_comname"
+				                            	<c:if test="${param.searchCondition=='addrbook_comname'}">
 				                            		selected= "selected"
 				                            	</c:if>
 				                            >회사명</option>		
-				                            <option value="addrbookTel"
-			                       		        <c:if test="${param.searchCondition=='addrbookTel'}">
+				                            <option value="addrbook_tel"
+			                       		        <c:if test="${param.searchCondition=='addrbook_tel'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >전화번호</option>
@@ -334,7 +349,7 @@
 									<div class="col-auto">
 										<div class="input-group input-search-width ">
 											<input class="form-control shadow-none search "
-												type="search" placeholder="검색어 입력" aria-label="search" />
+												type="search" placeholder="검색어 입력" aria-label="search" value="${param.searchKeyword}" name="searchKeyword"/>
 											<button
 												class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
 												<span class="fa fa-search fs--1"></span>
@@ -363,7 +378,7 @@
 											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">연락처 수정</span>
 									</button>
 									<button class="btn btn-falcon-default btn-sm"
-										type="button">
+										type="button" id="btnDel">
 										<span class="fas fa-file-import" data--transform="shrink-3"></span><span
 											class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">연락처 삭제</span>
 									</button>
@@ -388,7 +403,7 @@
                         <tr style="text-align: center;">
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
                             </div>
                           </th>
                           <th class="sort align-middle" scope="col">이름</th>
@@ -406,11 +421,14 @@
                       	</tr>
                       </c:if>
                       <c:if test="${!empty list }">
+                       <c:set var="idx" value="0"/>
+                       	<form name="frmList">
                       <c:forEach var="addressBookVo" items="${list }">
 	                        <tr class="mypageemptr">
 	                          <td class="align-middle fs-0 py-3 align-middle">
 	                            <div class="form-check mb-0">
-	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox" />
+	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
+	                             	 name="addrItems[${idx}].addrbookNo" data-bulk-select-row="data-bulk-select-row"/>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle">${addressBookVo.addrbookName }</td>
@@ -420,17 +438,16 @@
 	                          <td class="align-middle">${addressBookVo.addrbookDept }</td>
 	                          <td class="align-middle">${addressBookVo.addrbookRank }</td>
 	                        </tr>
+                        <c:set var="idx" value="${idx+1 }"/>
                         </c:forEach>
+                     	</form>
                          </c:if>
                       </tbody>
                     </table>
-                    <div class="text-center d-none" id="contact-table-fallback">
-                      <p class="fw-bold fs-1 mt-3">No contact found</p>
-                    </div>
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                  <div class="divPage" id="divPage">
+               	<div class="divPage" id="divPage">
 				<!-- 페이지 번호 추가 -->		
 				<!-- 이전 블럭으로 이동 -->
 				<c:if test="${pagingInfo.firstPage>1 }">

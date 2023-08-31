@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file='../inc/top.jsp'%>
-<!DOCTYPE html>
 <script type="text/javascript">
 	function deleteClubBoard() {
 		if(confirm("해당 게시물을 삭제하시겠습니까?")){
@@ -13,7 +12,7 @@
 		$('#clubReportBtn').click(function() {
 			if(confirm('해당 게시글을 신고하시겠습니까?')){
 				location.href = 
-					"<c:url value='/admin/adminclub/clubReport?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"				
+					"<c:url value='/admin/adminclub/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"				
 			}
 		});
 	});
@@ -26,7 +25,7 @@
 			</span>
 		</button>
 	</a>
-	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.clubBoardNo}'/>">
+	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
 			<span class="fas fa-exclamation"></span>
 		</button>

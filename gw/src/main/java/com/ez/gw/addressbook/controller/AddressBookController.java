@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.addressbook.model.AddressBookListVO;
 import com.ez.gw.addressbook.model.AddressBookService;
 import com.ez.gw.addressbook.model.AddressBookVO;
+import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.board.model.ListBoardVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.PaginationInfo;
@@ -84,5 +87,22 @@ public class AddressBookController {
 		logger.info("ajax 이용 - 주소록 수정처리 결과 cnt={}", cnt);
 		return cnt;
 	}
+	
+	@RequestMapping("/addressBook/DeleteMulti")
+	public String deleteAddrMulti(@ModelAttribute AddressBookListVO listVo,Model model) {
+		logger.info("사원 - 선택한 주소록 게시글 멀티삭제, 파라미터 listVo={}", listVo);
+		List<AddressBookVO> list = listVo.getAddrItems();
+		int cnt = addressBookService.deleteMulti(list);
+		logger.info("사원 - 주소록 멀티삭제 결과, cnt={}", cnt);
+		String msg="선택한 주소록 삭제에 실패했습니다.",url="/mypage/addressBook";
+		if(cnt>0) {
+			msg="선택한 주소록 삭제에 성공했습니다.";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4
+		return "common/message";
+	}
+
 	
 }

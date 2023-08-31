@@ -3,6 +3,23 @@
 <%@ include file="../inc/top.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+	$(document).ready(function() {
+	    // 페이지가 로드되면 실행될 함수
+	    function setDefaultMonth() {
+	      var currentDate = new Date();
+	      var year = currentDate.getFullYear();
+	      var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+	      var defaultMonth = year + "-" + month;
+	      
+	      // input 요소의 값을 설정
+	      $("#nowMonth").val(defaultMonth);
+	    }
+	    
+	    // 페이지가 로드되면 기본 값 설정 함수 호출
+	    setDefaultMonth();
+	  });
+
+
 	window.onload = function() {
 		const ctx = document.getElementById('myChart');
 		

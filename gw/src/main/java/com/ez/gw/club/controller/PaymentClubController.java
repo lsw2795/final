@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.employee.model.EmployeeService;
@@ -61,7 +62,11 @@ public class PaymentClubController {
 	//결제 완료시 ajax
 	@ResponseBody
 	@GetMapping("/club/ajaxPaymentClub")
-	public String ajaxPaymentClub() {
+	public String ajaxPaymentClub(@RequestParam Map<String, Object> payment,
+			@RequestParam(defaultValue = "0") int clubNo,
+			HttpSession session) {
+		logger.info("ajax 이용 - payment={},clubNo={}",payment,clubNo); 
+		clubNo=(int)session.getAttribute("clubNo");
 		
 		return "";
 	}

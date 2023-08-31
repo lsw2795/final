@@ -32,7 +32,7 @@
 		    pg : 'kakaopay',
 		    pay_method : 'card', 
 		    merchant_uid : ${param.clubNo}+"_"+${param.empNo} + new Date().getTime(),
-		    name : '동호회 가입 및 회비 결제',
+		    name : ${clubVo.title}+"동호회 가입 및 회비 결제",
 		    amount : 10000, //판매가격
 		    custom_data{
 		    	emp_no : ${param.empNo}
@@ -165,9 +165,11 @@
 	                <div class="col-auto mb-0">
 	                <div class="col-auto">
 	                  <button class="btn btn-sm btn-primary me-2" id="paymentPop" name="payment" onclick="kakaopay()" type="button">가입</button>
-	                  <button class="btn btn-falcon-default btn-sm me-2" type="submit">
-	                  	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">게시판 바로가기</a>
-	                  </button>
+	                  	<button class="btn btn-falcon-default btn-sm me-2" type="submit">
+		                  <a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
+	                  		게시판 바로가기
+                	  	  </a>	
+	                  	</button>
                 	</div>
 	               </div>
               </div>
@@ -177,27 +179,56 @@
           </div>
 	</form>
     <!-- ********************************모달 시작****************************** -->
-	<input class="sessionuserEMPNO" type="hidden" value="${sessionScope.emp_No}">
-	<input class="amountValue" type="text">
-	<div class="popupModal" id="popupModal">  <!-- 팝업처럼 하기 위한 배경 -->
-		<div class="pwrap" id="pwrap">  <!-- 실제 팝업창 -->
-   			<div class="row flex-between-center">
-				<h5>카카오 페이 결제만 가능합니다.</h5><span>동호회 가입 비용은 10,000원입니다.</span>
-			</div>
-			<table>
-			<tr>
-				<td><a href="#" onclick="kakaopay()">
-					<img style="size: 50px" src="<c:url value='/kakaopay.jpg'/>"></a>
-				</td>
-				<td><button class="btn btn-sm btn-falcon-default me-2" id="closeBtn" name="closeBtn" type="button">취소</button></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
-   		</div>
-   </div>
+	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header admindefault">
+        <h5 class="modal-title fs-2 admindefault" align="center" id="staticBackdropLabel1">${clubVo.title} 가입</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="insertDept">
+      <div class="modal-body admindefault">
+        <div class="mb-3 row">
+		  <label class="col-sm-3 col-form-label" for="name1">부서 이름</label>
+		  <div class="col-sm-8">
+			  <input class="form-control admindefault" id="name1" name="name" type="text"/>
+			  <div id="checkNameDiv"></div>
+			  <div class="mb-3 row" id="checkDept1"></div>
+		  </div>
+		  <label class="col-sm-3 col-form-label" for="manager1">부서장</label>
+		  	<div class="col-sm-8">
+		    	<select class="form-select admindefault" id="manager1" name="manager">
+			      	<option value="">선택하세요</option>
+		      		<c:forEach var="managerMap" items="${managerList}">
+						<option value="${managerMap['EMP_NO']}">${managerMap['NAME']}</option>
+					</c:forEach>
+			    </select>
+		    	<div class="mb-3 row"></div>
+		 	</div>
+		   <label class="col-sm-3 col-form-label" for="upper_dept1">상위 부서</label>
+		  	<div class="col-sm-8">
+		  		<select class="form-select admindefault" id="upper_dept1" name="upperDept">
+			      	<option value="0">없음</option>
+		      		<c:forEach var="deptVo2" items="${deptList2}">
+						<option value="${deptVo2.deptNo}">${deptVo2.name}</option>
+					</c:forEach>
+			    </select>
+		    	<div class="mb-3 row"></div>
+		 	</div>
+		 	 <label class="col-sm-3 col-form-label" for="dept_level1">부서 등급</label>
+		  	<div class="col-sm-8">
+		    	<input class="form-control admindefault" id="dept_level1" name="deptLevel" type="text" />
+		 	</div>
+		</div>
+      </div>
+      </form>
+      <div class="modal-footer admindefault">
+        <button type="button" id="btnDeptWrite" class="btn btn-primary">등록</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
    <!-- ****************************모달 끝 *******************************-->
    
    
