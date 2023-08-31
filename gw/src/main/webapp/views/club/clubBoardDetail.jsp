@@ -25,7 +25,7 @@
 			</span>
 		</button>
 	</a>
-	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
+	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.clubBoardNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
 			<span class="fas fa-exclamation"></span>
 		</button>

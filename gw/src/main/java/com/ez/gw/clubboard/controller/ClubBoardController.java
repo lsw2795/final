@@ -30,6 +30,7 @@ import com.ez.gw.common.Utility;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
 import com.ez.gw.report.model.ReportService;
+import com.ez.gw.report.model.ReportVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -43,6 +44,8 @@ public class ClubBoardController {
 	private final ClubBoardService clubBoardService;
 	private final ClubBoardCommentService cbcService;
 	private final PdsService pdsService;
+	private final ReportService reportService;
+	
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -289,8 +292,30 @@ public class ClubBoardController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/clubReport")
+	public String insertReport(@ModelAttribute ReportVO reportVo,HttpSession session , Model model) {
+		//1.
+		int empNo = (int)session.getAttribute("empNo");
+		reportVo.setEmpNo(empNo);
+		logger.info("동호회 신고하기 reportVo={}",reportVo);
+		
+		//2.
+		int cnt=reportService.insertReport(reportVo);
+		logger.info("신고등록 결과 cnt={}",cnt);
+		
+		String msg="신고글 등록 실패", url="/club/clubBoardDetail?clubNo="+reportVo.getClubNo()+"&boardNo="+reportVo.getClubBoardNo();
+		if(cnt>0) {
+			msg="신고 등록 성공";
+		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4.
+		return "common/message";
+	}
 	
-	//신고함 다중 삭제
+	
+	//관리자 - 신고함 다중 삭제
 	@RequestMapping("/admin/adminclub/deleteMulti")
 	public String deleteMulti(@ModelAttribute ListClubBoardVO clubBoardItems, Model model) {
 		//1.

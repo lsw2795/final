@@ -241,30 +241,7 @@ public class ClubController {
 		//4.
 		return "common/message";
 	}
-	
-	@RequestMapping("/club/clubReport")
-	public String insertReport(@ModelAttribute ReportVO reportVo,
-			HttpSession session ,Model model) {
-		//1.
-		int empNo = (int)session.getAttribute("empNo");
-		reportVo.setEmpNo(empNo);
-		logger.info("동호회 신고하기 reportVo={}",reportVo);
-		
-		//2.
-		int cnt=reportService.insertReport(reportVo);
-		logger.info("신고등록 결과 cnt={}",cnt);
-		
-		String msg="신고글 등록 실패", url="";
-		if(cnt>0) {
-			msg="신고 등록 성공";
-		}
-		//3.
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		//4.
-		return "common/message";
-	}
-	
+
 	@GetMapping("/admin/adminclub/adminClubReport")
 	public String adminReport(Model model) {
 		//1.
