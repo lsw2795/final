@@ -8,9 +8,8 @@
 		<selectKey keyProperty="reportNo" order="BEFORE" resultType="int">
 			select report_seq.nextval from dual
 		</selectKey>
-		insert into report(REPORT_NO, REPORT_STATUS, EMP_NO, BOARDLIST_NO,
-    						BOARD_NO, COMMENT_NO, CLUB_NO)
-		value(#{reportNo},#{reportStatus},#{empNo},200,#{boardNo},#{commentNo},#{clubNo})
+		insert into report(REPORT_NO,REPORT_STATUS,EMP_NO,BOARDLIST_NO,BOARD_NO,CLUB_NO,CLUBBOARD_NO)
+		values(#{reportNo},#{reportStatus},#{empNo},200,#{boardNo},#{clubNo},#{clubBoardNo})
 	</insert>
 	
 	<select id="selectReportClub" resultType="map" parameterType="int">

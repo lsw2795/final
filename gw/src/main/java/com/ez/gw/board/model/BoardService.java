@@ -20,7 +20,7 @@ public interface BoardService {
 	int gTRSearchNotice(SearchVO searchVo); //공지사항 글 리스트 검색 전체 레코드
 	Map<String, Object> selectNotice(int boardNo); //공지사항 글 1개 디테일 조회 메서드
 	int updateNotice(BoardVO vo); //관리자 공지사항 글수정 메서드
-	int deleteNotice(BoardVO vo); //관리자 공지사항 삭제 메서드
+	int deleteNotice(int boardNo); //관리자 공지사항 삭제 메서드
 	List<Map<String, Object>> selectByEmpNo(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 목록 조회 메서드
 	int gTRSearchBoard(EmpSearchVO searchVo); //사원 - 내가쓴 게시글 검색 전체 레코드
 	Map<String, Object> selectPrevNotice(int boardNo); //공지사항 - 이전글 보기
@@ -39,5 +39,7 @@ public interface BoardService {
 	int deleteMulti(List<BoardVO> list);
 	//FAQ 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
 	int faqDeleteMulti(List<BoardVO> list);
+	//공지사항 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
+	int noticeDeleteMulti(List<BoardVO> list);
 	
 }

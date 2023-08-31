@@ -1,9 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
+<script type="text/javascript">	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/board/faqList'/>" 
-	name="frmPage" method="get">
+	name="frmPage" method="post">
 	<input type="hidden" name="currentPage" value=${param.currentPage }>
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
@@ -60,7 +71,6 @@
 		</div>
         <div class="accordion border rounded overflow-hidden" id="accordionFaq">
           <c:if test="${!empty faqList }">
-          <c:set var="idx" value="0"/>
           <c:forEach var="boardVo" items="${faqList }">
           <div class="card shadow-none rounded-bottom-0 border-bottom">
             <div class=" accordion-item border-0">
@@ -83,7 +93,6 @@
               </div>
             </div>
           </div>
-          <c:set var="idx" value="${i+1 }"/>
 		</c:forEach>
 		</c:if>
 		</div>
@@ -103,7 +112,7 @@
 				<span id="curPage">${i}</span>
 	        	</c:if>
 			<c:if test="${i != pagingInfo.currentPage }">		
-		        <a href="<c:url value='/board/noticeList?currentPage=${i}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>" id="otherPage">${i}</a>
+		         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
 		    </c:if>   		
 		</c:forEach>
 		

@@ -97,10 +97,13 @@
 }
 #admina{
 	text-decoration: none;
-	color:black;
 }
 .admina{
 	color: white;
+}
+#admina2{
+	text-decoration: none;
+	color: black;
 }
 .adminempdiv14 {
     margin: 4px 0 0 120px;

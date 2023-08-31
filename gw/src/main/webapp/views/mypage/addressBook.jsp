@@ -136,6 +136,15 @@
 			    			var addrbookDept=receivedData.addrbookDept;
 			    			var addrbookRank=receivedData.addrbookRank;
 			    			
+			    			if(addrbookComname==null){
+			    				addrbookComname="";
+			    			}
+			    			if(addrbookDept==null){
+			    				addrbookDept="";
+			    			}
+			    			if(addrbookRank==null){
+			    				addrbookRank="";	
+			    			}
 			            	//모달 수정창
 							var result="<input class='form-control' value='"+addrbookName+"' id='addrbookName2' name='addrbookName' type='text'/>";
 							$('#addrbookNameDiv').append(result);
@@ -169,15 +178,17 @@
 			        		});
 			            	
 			            	var result4="<input class='form-control' value='"+addrbookComname+"' id='addrbookComname2' name='addrbookComname' type='text' />";
+			            	
 			            	$('#addrbookComnameDiv').append(result4);
+			            	
 			            	
 			            	var result5="<input class='form-control' value='"+addrbookDept+"' id='addrbookDept2' name='addrbookDept' type='text' />";
 			            	$('#addrbookDeptDiv').append(result5);
 			            	
 			            	var result6="<input class='form-control' value='"+addrbookRank+"' id='addrbookRank2' name='addrbookRank' type='text'/>"
 			            	+"<input type='hidden' value='"+addrbookNo+"' id='addrbookNo2'>";
+			            	
 			            	$('#addrbookRankDiv').append(result6);
-				            	
 			            
 			            },
 			            error:function(xhr, status, error){
@@ -280,8 +291,6 @@
 		$('#btnDel').click(function(){
 			var count= $('input[type=checkbox]:checked').length;
 			var addrbookNo=$('input[name=addrbookNo]').val();
-		
-			alert(count+":"+addrbookNo);
 			
 			if(count<1){
 				alert('삭제하고 싶은 주소록을 먼저 체크하세요');
@@ -296,7 +305,6 @@
 		});
 		
 	});
-
 
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
@@ -313,6 +321,7 @@
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo}"> 		
 		</form>  
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
@@ -329,19 +338,19 @@
 							<form name="frmSearch" method="post" action="<c:url value='/mypage/addressBook'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 ">
-										<select class=" mypageempborder mypageempsel">
-											 <option value="addrbookName"
-				                            	<c:if test="${param.searchCondition=='addrbookName'}">
+										<select class=" mypageempborder mypageempsel" name="searchCondition">
+											 <option value="addrbook_name"
+				                            	<c:if test="${param.searchCondition=='addrbook_name'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >이름</option>
-				                            <option value="addrbookComname"
-				                            	<c:if test="${param.searchCondition=='addrbookComname'}">
+				                            <option value="addrbook_comname"
+				                            	<c:if test="${param.searchCondition=='addrbook_comname'}">
 				                            		selected= "selected"
 				                            	</c:if>
 				                            >회사명</option>		
-				                            <option value="addrbookTel"
-			                       		        <c:if test="${param.searchCondition=='addrbookTel'}">
+				                            <option value="addrbook_tel"
+			                       		        <c:if test="${param.searchCondition=='addrbook_tel'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >전화번호</option>
@@ -350,7 +359,7 @@
 									<div class="col-auto">
 										<div class="input-group input-search-width ">
 											<input class="form-control shadow-none search "
-												type="search" placeholder="검색어 입력" aria-label="search" />
+												type="search" placeholder="검색어 입력" aria-label="search" value="${param.searchKeyword}" name="searchKeyword"/>
 											<button
 												class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
 												<span class="fa fa-search fs--1"></span>
@@ -404,7 +413,7 @@
                         <tr style="text-align: center;">
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
                             </div>
                           </th>
                           <th class="sort align-middle" scope="col">이름</th>
@@ -429,7 +438,7 @@
 	                          <td class="align-middle fs-0 py-3 align-middle">
 	                            <div class="form-check mb-0">
 	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
-	                             	 name="addrItems[${idx}].addrbookNo"/>
+	                             	 name="addrItems[${idx}].addrbookNo" data-bulk-select-row="data-bulk-select-row"/>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle">${addressBookVo.addrbookName }</td>
@@ -439,19 +448,16 @@
 	                          <td class="align-middle">${addressBookVo.addrbookDept }</td>
 	                          <td class="align-middle">${addressBookVo.addrbookRank }</td>
 	                        </tr>
-                        <c:set var="idx" value="${i+1 }"/>
+                        <c:set var="idx" value="${idx+1 }"/>
                         </c:forEach>
                      	</form>
                          </c:if>
                       </tbody>
                     </table>
-                    <div class="text-center d-none" id="contact-table-fallback">
-                      <p class="fw-bold fs-1 mt-3">No contact found</p>
-                    </div>
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                  <div class="divPage" id="divPage">
+               	<div class="divPage" id="divPage">
 				<!-- 페이지 번호 추가 -->		
 				<!-- 이전 블럭으로 이동 -->
 				<c:if test="${pagingInfo.firstPage>1 }">

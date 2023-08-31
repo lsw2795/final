@@ -30,14 +30,17 @@
                         $("#calendarModal").modal("show"); // modal 나타내기
 
                         $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                            var content = $("#content").val();
+                            var title = $('#title').val();
+                        	var content = $("#content").val();
                             var start_date = $("#begindate").val();
                             var end_date = $("#enddate").val();
                             var currentDate = new Date();
                             var categoryNo = $("#categoryNo").val();
                             
                             //내용 입력 여부 확인
-                            if(content == null || content == ""){
+                            if(title == null || title == ""){
+                            	alert("제목을 입력하세요.");	
+                            }else if(content == null || content == ""){
                                 alert("내용을 입력하세요.");
                             }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
                                 alert("종료일이 시작일보다 먼저입니다.");
@@ -97,22 +100,47 @@
 		<%}
 	}%>
 					],
-			eventClick: function(info) {
-				 var calendarNum = $("#calendarNo").val(info.event.extendedProps.calendarNo);
-				 
-				 $.ajax({
-					 url : '<c:url value="/calendar/DetailCalendar"/>?calendarNo='+ calendarNum,
-					 type: 'GET',
-					 dataType : 'JSON',
-					 data : {calendarNo : calendarNum},
-					 success:function(result){
-						  showModalForm(info.event.result); // info.event 객체를 사용하여 모달 폼을 표시하세요.
-					 },error:function(xht, status, error){
-						 alert(status + " : " + error);
-					 }
-				 });
-				 $("#modalDetail").modal("show"); // modal 나타내기 
-				 // 이벤트 클릭 시, 이벤트 수정 모달 폼을 표시하세요.
+				eventClick: function(info) {
+				    var calendarNum = info.event.extendedProps.calendarNo;
+				    
+				    $.ajax({
+				        url: '<c:url value="/calendar/DetailCalendar"/>',
+				        type:'GET',
+				        dataType: 'JSON',
+				        data: { calendarNo: calendarNum },
+				        success: function(result) {
+				        	$('#modalDetail').modal("show");
+				        	$('#calendarNo').val(result.calendarNo);
+				        	$('#modalTitle').val(result.title);
+				        	if(result.categoryNo==1){
+				        		$('#modalCategoryNo').val("1");
+				        	}else if(result.categoryNo ==2){
+				        		$('#modalCategoryNo').val("2");
+				        	}else if(result.categoryNo ==3){
+				        		$('#modalCategoryNo').val("3");
+				        	}else if(result.categoryNo == 4){
+				        		$('#modalCategoryNo').val("4");
+				        	}
+				        	
+				        	$('#modalPlace').val(result.place);
+				        	$('#modalContent').val(result.content);
+				        	$('#modalBegindate').val(result.begindate);
+				        	$('#modalEnddate').val(result.enddate);
+				        	
+				        	if(result.alldayFlag === "Y"){
+				        		$('#modalAlldayFlag').prop("checked", true);
+				        	}else{
+				        		$('#modalAlldayFlag').prop("checked", false);
+				        	}
+				        },
+				        error: function(xhr, status, error) {
+				            alert(status + " : " + error);
+				        }
+				    });
+
+					 $("#modalDetail").modal("show"); // modal 나타내기 
+					 // 이벤트 클릭 시, 이벤트 수정 모달 폼을 표시하세요.
+				}
 		});
 		calendar.render();
 	});
@@ -130,9 +158,79 @@
 			$(".modal-backdrop").remove(); // 모달 배경 제거
 		});
 		
-		$('#x2')
+		$('#x2').on("click", function(){
+			$('#modalDetail').modal("hide");
+			$('body').removeClass("modal-open");
+			$('.modal-backdrop').remove();
+		});
 		
+		$('#sprintSettingModalClose2').click(function(){
+			$("#modalDetail").modal("hide"); // 모달 숨기기
+			$("body").removeClass("modal-open"); // 부모 창 활성화 클래스 제거
+			$(".modal-backdrop").remove(); // 모달 배경 제거
+		});
+		
+		$('#editCalendar').click(function(){
+			var title = $('#modalTitle').val();
+			var content = $("#modalContent").val();
+            var start_date = $("#modalBegindate").val();
+            var end_date = $("#modalEnddate").val();
+            var currentDate = new Date();
+            var categoryNo = $("#modalCategoryNo").val();
+			
+            /* if(title == null || title == ""){
+            	alert("제목을 입력하세요.");
+            }else if(content == null || content == ""){
+            	alert("내용을 입력하세요.");
+            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+                alert("종료일이 시작일보다 먼저입니다.");
+            }else if(start_date == null || start_date == ""){
+            	alert("날짜를 선택해주세요.");
+            }else if(new Date(start_date) - currentDate<0){
+            	alert("과거 날짜를 선택할 수 없습니다.");
+            }else if(categoryNo.length <1){
+            	alert("일정 종류를 선택해주세요.");
+            }else{ // 정상적인 입력 시
+                var obj = {
+                        "title" : content,
+                        "start" : start_date,
+                        "end" : end_date
+                    }//전송할 객체 생성
+
+                    console.log(obj); */
+			$('#editEventForm').submit();
+		});
+			
+			/* 
+            
+            //내용 입력 여부 확인
+            if(content == null || content == ""){
+                alert("내용을 입력하세요.");
+            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+                alert("종료일이 시작일보다 먼저입니다.");
+            }else if(start_date == null || start_date == ""){
+            	alert("날짜를 선택해주세요.");
+            }else if(new Date(start_date) - currentDate<0){
+            	alert("과거 날짜를 선택할 수 없습니다.");
+            }else if(categoryNo.length <1){
+            	alert("일정 종류를 선택해주세요.");
+            }else{ // 정상적인 입력 시
+                var obj = {
+                    "title" : content,
+                    "start" : start_date,
+                    "end" : end_date
+                }//전송할 객체 생성
+
+                console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능 */
 	});
+	
+	function delFunc(calendarNo){
+		var calendarNo = $('#calendarNo').val();
+	
+		if(confirm("이 일정을 삭제하시겠습니까?")){
+			window.location.href = '<c:url value="/calendar/delCalendar?calendarNo="/>'+calendarNo;
+		}
+	}
 </script>
 <style type="text/css">
 	#calendar{
@@ -153,7 +251,6 @@
 
 
 <div id='calendar'></div>
-<input type = "text" name = "calendarNo" id = "calendarNo">
 
  <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -173,10 +270,10 @@
                         <label class="fs-0" for="eventLabel">구분</label>
                     	<select class="form-select" id="categoryNo" name="categoryNo">
 	                      <option value="" selected="selected">선택</option>
-	                      <option value="1">회의</option>
-	                      <option value="2">출장</option>
-	                      <option value="3">일정마감</option>
-	                      <option value = "4">기타</option>
+	                      <option value="1" id = "meeting">회의</option>
+	                      <option value="2" id = "out">출장</option>
+	                      <option value="3" id = "deadline">일정마감</option>
+	                      <option value = "4" id = "other">기타</option>
 	                    </select>
 	                    <label for="taskId" class="col-form-label">장소</label>
                         <input type="text" class="form-control" id="place" name="place">
@@ -203,7 +300,7 @@
     <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-        	<form id = "editEventForm" autocomplete="on" action="<c:url value='/calendar/addCalendar'/>" method = "post" >
+        	<form id = "editEventForm" autocomplete="on" action="<c:url value='/calendar/editCalendar'/>" method = "post" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">일정 내용</h5>
@@ -214,9 +311,10 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="taskId" class="col-form-label">제목</label>
-                        <input type="text" class="form-control" id="title" name="title" value="${result.title }">
+                        <input type = "hidden" id="calendarNo" name="calendarNo">
+                        <input type="text" class="form-control" id="modalTitle" name="title" value="">
                         <label class="fs-0" for="eventLabel">구분</label>
-                    	<select class="form-select" id="categoryNo2" name="categoryNo">
+                    	<select class="form-select" id="modalCategoryNo" name="categoryNo">
 	                      <option value="" selected="selected">선택</option>
 	                      <option value="1">회의</option>
 	                      <option value="2">출장</option>
@@ -224,20 +322,20 @@
 	                      <option value = "4">기타</option>
 	                    </select>
 	                    <label for="taskId" class="col-form-label">장소</label>
-                        <input type="text" class="form-control" id="place" name="place">
+                        <input type="text" class="form-control" id="modalPlace" name="place">
                         <label for="taskId" class="col-form-label">일정 내용</label>
-                        <textarea type="text" class="form-control" id="content" name="content" rows="3"></textarea>
+                        <textarea type="text" class="form-control" id="modalContent" name="content" rows="3"></textarea>
                         <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="datetime-local" class="form-control" id="begindate" name="begindate">
+                        <input type="datetime-local" class="form-control" id="modalBegindate" name="begindate">
                         <label for="taskId" class="col-form-label">종료 날짜</label>
-                        <input type="datetime-local" class="form-control" id="enddate" name="enddate">
+                        <input type="datetime-local" class="form-control" id="modalEnddate" name="enddate">
 	                    <label class="form-check-label" for="eventAllDay" >종일 여부</label>
-	                    <input class="form-check-input" type="checkbox" id="alldayFlag" name="alldayFlag" />
+	                    <input class="form-check-input" type="checkbox" id="modalAlldayFlag" name="alldayFlag" />
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary px-4" id="editCalendar" type="submit">수정</button>
-                    <button type="button" class="btn btn-primary px-4" id="deleteCalendar" type="submit">삭제</button>
+                    <button type="button" class="btn btn-primary px-4" id="deleteCalendar" onclick="delFunc(calendarNo)">삭제</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose2">취소</button>
                 </div>
     
