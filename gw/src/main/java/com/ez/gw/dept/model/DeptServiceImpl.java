@@ -64,4 +64,6 @@ public class DeptServiceImpl implements DeptService{
 		return deptDao.deleteDept(deptNo);
 	}
 
+
+
 }

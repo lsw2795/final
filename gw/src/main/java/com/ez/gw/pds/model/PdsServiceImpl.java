@@ -171,6 +171,11 @@ public class PdsServiceImpl implements PdsService {
 	public List<PdsVO> select24AnonymousImage() {
 		return pdsDao.select24AnonymousImage();
 	}
+
+	@Override
+	public int deleteAnonymousImg(PdsVO vo) {
+		return pdsDao.deleteAnonymousImg(vo);
+	}
 	
 	@Override
 	public int clubFiles(PdsVO pdsVo) {
