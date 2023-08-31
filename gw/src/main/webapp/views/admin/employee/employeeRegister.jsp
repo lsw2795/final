@@ -7,8 +7,22 @@
 <script type="text/javascript">
 	$(function(){
 		$("#empWrite").hide();
+		
+		$('#updateRetiredate').click(function(){
+			var ConfirmFormCheck=false;
+			if ($('#retiredate').val().length!=10) {
+				alert("퇴사일자의 형식이 올바르지 않습니다. 퇴사일 형식 예시)2023-05-20");
+				$('#retiredate').focus();
+				return false;
+			}
+			$('#authentication-modal').modal('show'); 
+			
+		});
+		
 		$('#btnadminPwd').click(function(){ //모달에 있는 클릭버튼
-			 $.ajax({
+			var empNo=$('#empNoSpan').text();
+			//alert(empNo);
+			$.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
 	            dataType : "text",
@@ -46,9 +60,9 @@
 	            				}
 	            			}
 	                  	  }else{
-		                  	 $('#authentication-modal').modal('hide'); 
-		                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
-		                     $('#empWrite').show();    // empWrite 버튼 보이기
+	                  		 alert("사원정보 수정 처리가 완료되었습니다.");
+		                  	 $('#authentication-modal').modal('hide');
+		                  	location.href="<c:url value='/admin/employee/employeeEdit?empNo='/>"+empNo;
 	                  	  }
 	               }else{
 	                  alert('관리자 비밀번호가 일치하지 않습니다.');
@@ -93,7 +107,7 @@
 					        <label class="col-form-label adminemplabel" for="name">사원 번호</label>
 					    </div>
 					    <div class="col-md-6">
-					    	<span class="adminempspan">${map['EMP_NO']}</span>
+					    	<span class="adminempspan" id="empNoSpan">${map['EMP_NO']}</span>
 					    </div>
 					</div>
 					</c:if>				
@@ -323,13 +337,14 @@
 							<label class="col-form-label adminemplabel" for="basic-form-gender">퇴사</label>
 						</div>
 						<div class="col-md-6 adminspan">
-							<input type="button" id="btnDeleteEmp" value="퇴사 처리하기" class="btn btn-danger"/>
+							<input type="button" id="btnDeleteEmp" value="퇴사 처리하기" class="btn btn-danger"
+								data-bs-toggle="modal" data-bs-target="#deleteEmp-modal"/>
 						</div>
 					</div>
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
+						<%-- <input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/> --%>
 						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
@@ -350,6 +365,5 @@
 		</div>
 	</div>
 </div>
-<%@ include file='employeeDelete.jsp' %>
-<%@ include file='adminPwdConfirm.jsp' %>
+<%@ include file='employeeModal.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
