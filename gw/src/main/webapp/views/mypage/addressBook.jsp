@@ -402,7 +402,7 @@
                         <tr style="text-align: center;">
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
+                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
                             </div>
                           </th>
                           <th class="sort align-middle" scope="col">이름</th>
@@ -427,7 +427,7 @@
 	                          <td class="align-middle fs-0 py-3 align-middle">
 	                            <div class="form-check mb-0">
 	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
-	                             	 name="addrItems[${idx}].addrbookNo"/>
+	                             	 name="addrItems[${idx}].addrbookNo" data-bulk-select-row="data-bulk-select-row"/>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle">${addressBookVo.addrbookName }</td>
