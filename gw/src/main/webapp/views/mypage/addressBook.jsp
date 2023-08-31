@@ -311,6 +311,7 @@
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo}"> 		
 		</form>  
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
@@ -327,19 +328,19 @@
 							<form name="frmSearch" method="post" action="<c:url value='/mypage/addressBook'/>">
 								<div class="row flex-between-center gy-2 px-x1">
 									<div class="col-auto pe-0 ">
-										<select class=" mypageempborder mypageempsel">
-											 <option value="addrbookName"
-				                            	<c:if test="${param.searchCondition=='addrbookName'}">
+										<select class=" mypageempborder mypageempsel" name="searchCondition">
+											 <option value="addrbook_name"
+				                            	<c:if test="${param.searchCondition=='addrbook_name'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >이름</option>
-				                            <option value="addrbookComname"
-				                            	<c:if test="${param.searchCondition=='addrbookComname'}">
+				                            <option value="addrbook_comname"
+				                            	<c:if test="${param.searchCondition=='addrbook_comname'}">
 				                            		selected= "selected"
 				                            	</c:if>
 				                            >회사명</option>		
-				                            <option value="addrbookTel"
-			                       		        <c:if test="${param.searchCondition=='addrbookTel'}">
+				                            <option value="addrbook_tel"
+			                       		        <c:if test="${param.searchCondition=='addrbook_tel'}">
 				                            		selected = "selected"
 				                            	</c:if>
 				                            >전화번호</option>
@@ -348,7 +349,7 @@
 									<div class="col-auto">
 										<div class="input-group input-search-width ">
 											<input class="form-control shadow-none search "
-												type="search" placeholder="검색어 입력" aria-label="search" />
+												type="search" placeholder="검색어 입력" aria-label="search" value="${param.searchKeyword}" name="searchKeyword"/>
 											<button
 												class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
 												<span class="fa fa-search fs--1"></span>
@@ -443,13 +444,10 @@
                          </c:if>
                       </tbody>
                     </table>
-                    <div class="text-center d-none" id="contact-table-fallback">
-                      <p class="fw-bold fs-1 mt-3">No contact found</p>
-                    </div>
                   </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                  <div class="divPage" id="divPage">
+               	<div class="divPage" id="divPage">
 				<!-- 페이지 번호 추가 -->		
 				<!-- 이전 블럭으로 이동 -->
 				<c:if test="${pagingInfo.firstPage>1 }">
