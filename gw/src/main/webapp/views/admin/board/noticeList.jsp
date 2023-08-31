@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btnDel').click(function(){
-			if(confirm('정말 삭제하시겠습니까?'){
+			if(confirm('정말 삭제하시겠습니까?')){
 				location.href="<c:url value=''/>";
 			}
 		});
@@ -26,8 +26,8 @@
 </script>
   <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/admin/board/noticeList'/>" 
-			name="frmPage" method="get">
-			<input type="hidden" name="currentPage" value=${param.currentPage }>
+			name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 		</form>
@@ -194,7 +194,7 @@
 						<span id="curPage">${i}</span>
 			        	</c:if>
 					<c:if test="${i != pagingInfo.currentPage }">		
-				        <a href="<c:url value='/admin/board/noticeList?currentPage=${i}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>" id="otherPage">${i}</a>
+				         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
 				    </c:if>   		
 				</c:forEach>
 				
@@ -206,6 +206,7 @@
 				</c:if>
 				<!--  페이지 번호 끝 -->
 			</div>
+		</div>
 		</div>
 	</div>
 </div>
