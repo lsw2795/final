@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
+<script type="text/javascript">	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function submitForm() {
+	    document.getElementById('frmSearch').submit();
+	}
+</script>
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/board/faqList'/>" 
 	name="frmPage" method="post">
