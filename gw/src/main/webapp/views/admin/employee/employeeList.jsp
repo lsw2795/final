@@ -28,7 +28,7 @@ $(function(){
             $('#dept_level1').focus();
             return false;
          }
-         //alert($.param($('#insertDept').serializeArray()));
+         alert($.param($('#insertDept').serializeArray()));
          $.ajax({
             url : "<c:url value='/admin/employee/ajaxDeptInsert'/>",
             type:'post',

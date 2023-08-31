@@ -30,7 +30,7 @@
 		 	</div>
 		   <label class="col-sm-3 col-form-label" for="upper_dept1">상위 부서</label>
 		  	<div class="col-sm-8">
-		  		<select class="form-select admindefault" id="upper_dept1" name="upper_dept">
+		  		<select class="form-select admindefault" id="upper_dept1" name="upperDept">
 			      	<option value="0">없음</option>
 		      		<c:forEach var="deptVo2" items="${deptList2}">
 						<option value="${deptVo2.deptNo}">${deptVo2.name}</option>
@@ -40,7 +40,7 @@
 		 	</div>
 		 	 <label class="col-sm-3 col-form-label" for="dept_level1">부서 등급</label>
 		  	<div class="col-sm-8">
-		    	<input class="form-control admindefault" id="dept_level1" name="dept_level" type="text" />
+		    	<input class="form-control admindefault" id="dept_level1" name="deptLevel" type="text" />
 		 	</div>
 		</div>
       </div>
