@@ -36,7 +36,7 @@
 		    labels: ['출근', '지각', '조퇴'],
 		    datasets: [{
 		      label: '월별 근태 통계',
-		      data: [3, 3, 2],
+		      data: [${attendance}, ${late}, ${ealry}],
 		      borderWidth: 1
 		    }]
 		  },
@@ -60,8 +60,7 @@
 	font-size: 14px;
 	text-align: center;
 	border-collapse: collapse;
-	border-top: 2px solid rgb(200, 200, 200);
-	border-bottom: 2px solid rgb(200, 200, 200);
+	border: 2px solid rgb(200, 200, 200);
 }
 
 .t-List tr {
@@ -109,8 +108,7 @@
 	font-size: 14px;
 	text-align: center;
 	border-collapse: collapse;
-	border-top: 2px solid rgb(200, 200, 200);
-	border-bottom: 2px solid rgb(200, 200, 200);
+	border: 2px solid rgb(200, 200, 200);
 }
 
 .t-List2 tr {
@@ -237,6 +235,7 @@
 .s-container {
 	background: white;
 	width: 1170px;
+	padding: 10px;
 	
 }
 
@@ -248,6 +247,7 @@
 
 .divSearch {
     float: right;
+    width: 40%;
 }
 
 .list1 {
@@ -268,6 +268,13 @@ table.t-List2 {
     width: 669px !important;
 }
 
+table.t-List.width1 {
+    width: 431px;
+}
+
+.search {
+    padding-top: 155px;
+}
 </style>
 
 
@@ -278,38 +285,41 @@ table.t-List2 {
 			<canvas id="myChart"></canvas>
 		</div>
 		
-		<div class="divSearch">
-			<form id="searchForm" action="<c:url value='/commute/statistics'/>" method="post">
-				<table class="t-search">
+		<div class="search">
+			<div class="divSearch">
+				<form id="searchForm" action="<c:url value='/commute/statistics'/>" method="post">
+					<table class="t-search">
+						<tr>
+							<td class="t-search-title">검색일</td>
+							<td><input type="month" id="nowMonth" name="date"> <input
+								type="submit" value="검색"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			
+			<div class="list1">
+				<table class="t-List width1">
 					<tr>
-						<td class="t-search-title">검색일</td>
-						<td><input type="month" id="nowMonth" name="date"> <input
-							type="submit" value="검색"></td>
+						<th colspan="4">통계</th>
+					</tr>
+					<tr>
+						<th class="th-1">출근</th>
+						<th class="th-1">지각</th>
+						<th class="th-1">조퇴</th>
+						<th class="th-1">총 근무시간</th>
+					</tr>
+					<tr>
+						<td>${attendance}</td>
+						<td>${late}</td>
+						<td>${ealry}</td>
+						<td>${TotalWorkTimeOfMonth}<c:if
+								test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
 					</tr>
 				</table>
-			</form>
+			</div>
 		</div>
 		
-		<div class="list1">
-			<table class="t-List width1">
-				<tr>
-					<th colspan="4">통계</th>
-				</tr>
-				<tr>
-					<th class="th-1">출근</th>
-					<th class="th-1">지각</th>
-					<th class="th-1">조퇴</th>
-					<th class="th-1">총 근무시간</th>
-				</tr>
-				<tr>
-					<td>${attendance}</td>
-					<td>${late}</td>
-					<td>${ealry}</td>
-					<td>${TotalWorkTimeOfMonth}<c:if
-							test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
-				</tr>
-			</table>
-		</div>
 		
 		<div class="list2">
 			<table class="t-List2">
