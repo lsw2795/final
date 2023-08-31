@@ -26,11 +26,11 @@
 			</span>
 		</button>
 	</a>
+	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.clubBoardNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
-			<span class="fas fa-exclamation">
-				<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&boardNo=${param.clubboardNo}'/>"></a>
-			</span>
+			<span class="fas fa-exclamation"></span>
 		</button>
+	</a>
 		<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
         <c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	        <a href="<c:url value='/club/editClubBoard?clubNo=${param.clubNo }&boardNo=${param.boardNo}'/>">
