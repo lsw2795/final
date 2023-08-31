@@ -16,14 +16,9 @@ $(function(){
 		}
 	});
 	
-	$('form[name=frmDatgeulForm]').submit(function(){
-		content=$(this).find('input[name=content]');
-		
-		if(content.val().length==0){
-			alert("내용을 입력하세요.");
-			content.focus();
-			return false;
-		}
+	
+	$('form[name=frmDatgeulEditForm]').submit(function(){
+		event.preventDefault();
 	});
 	
 	$('form[name=frmReplyForm]').submit(function(){
@@ -123,12 +118,15 @@ $(function(){
 	
 	function replyShow(a){
 		var parent=$(a).closest('#datgeulViewDiv');
-		var div=$(parent).find('#replyInfo');
-		if (div.css("display") == "none") {
-        	div.show();
-    	} else {
-        	div.hide();
-    	}
+		var div=$(parent).children('#replyInfo');
+		$(div).each(function(){
+			if ($(this).css("display") == "none") {
+	        	$(this).show();
+	    	} else {
+	        	$(this).hide();
+	    	}
+			
+		});
 	}
 	
 	function reply(a){
@@ -236,14 +234,39 @@ $(function(){
 		var parent=$(a).closest('#datgeulEditDiv');
 		var form = $(parent).find('form[name=frmDatgeulEditForm]');
 		var editContent=$(form).find('input[name=content]');
+		var commentNo=$(form).find('input[name=commentNo]');
+		var str="<a href='#!' id='editDatguelA' onclick='editDatguel(this)'>수정</a>&bull;";  
+		str+="<a href='#!' onclick='deleteDatguel(this)'>삭제</a>";  
 		
 		if(editContent.val().length==0){
 			alert("내용을 입력하세요.");
 			editContent.focus();
 		}else{
-			form.prop('action',contextPath+'/anonymous/replyEdit');
-			form.submit();
+			$.ajax({
+			    url:contextPath+"/anonymous/replyEditAjax",
+			   	type:"post",
+			   	dataType:"text",
+			 	data:$(form).serialize(),
+			   	success:function(res){
+			   		alert(res);
+			   		form.html(datguelSet(editContent.val(),commentNo.val()));
+					$(a).parent().html(str);
+			   	},error:function(xhr, status, error){
+			   		alert(status+" : "+error);
+		   		}
+	   		});
+	   		
 		}
+	}
+	
+	function datguelSet(content,no){
+		var str="<p class='mb-1 bg-200 rounded-3 p-2' id='datguelP'>";
+		str+="익명 :";
+		str+=content+"</p>";
+		str+="<input class='form-control' type='hidden' name='content' value='"+content+"'>";
+		str+="<input type='hidden' name='commentNo' value="+no+">";
+		
+		return str;
 	}
 	
 	function editDatguelCancel(a){
@@ -318,5 +341,23 @@ $(function(){
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			form.prop('action',contextPath+'/anonymous/replyDelete');
 			form.submit();
+		}
+	}
+	
+	function boardReport(no){
+		if(confirm(no+"번 게시글을 신고하시겠습니까?")){
+			$.ajax({
+		    	url:contextPath+"/report/reportBoardAjax",
+		   		type:"post",
+		   		dataType:"text",
+		   		data:{
+		   			boardNo:no
+		   		},
+		   		success:function(res){
+		   			alert(res);
+		    	},error:function(xhr, status, error){
+		    		alert(status+" : "+error);
+		   		}
+	   		});
 		}
 	}

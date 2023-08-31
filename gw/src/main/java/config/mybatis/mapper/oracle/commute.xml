@@ -64,15 +64,15 @@
 
  	<select id="selectCommuteLateCount" parameterType="map" resultType="int">
 		select count(*) from commute
-		where emp_no = 230001
-		and substr(work_in, 1, 7) = '2023-08'
+		where emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
 		and to_number(substr(work_in, 12, 2)) >= 9
 	</select> 
 	
  	<select id="selectCommuteEarlyleaveCount" parameterType="map" resultType="int">
 		select count(*) from commute
-		where emp_no = 230001
-		and substr(work_in, 1, 7) = '2023-08'
+		where emp_no = #{empNo}
+		and substr(work_in, 1, 7) = #{date}
 		<![CDATA[
 			and to_number(substr(work_out, 12, 2)) <=18
 		]]>

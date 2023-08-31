@@ -6,30 +6,37 @@
 	$(document).ready(function() {
 	    // 페이지가 로드되면 실행될 함수
 	    function setDefaultMonth() {
-	      var currentDate = new Date();
-	      var year = currentDate.getFullYear();
-	      var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-	      var defaultMonth = year + "-" + month;
-	      
-	      // input 요소의 값을 설정
-	      $("#nowMonth").val(defaultMonth);
+	        var currentDate = new Date();
+	        var year = currentDate.getFullYear();
+	        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+	        var defaultMonth = year + "-" + month;
+	        
+	        // input 요소의 값을 설정
+	        $("#nowMonth").val(defaultMonth);
+	        
+/* 	        if (!$("#searchForm").hasClass("submitted")) {
+	            $("#searchForm").addClass("submitted");
+	            $("#searchForm").submit();
+	        }  */
+	        
 	    }
 	    
 	    // 페이지가 로드되면 기본 값 설정 함수 호출
 	    setDefaultMonth();
-	  });
+	});
+	    
 
-
+	
 	window.onload = function() {
 		const ctx = document.getElementById('myChart');
 		
 		new Chart(ctx, {
 		  type: 'bar',
 		  data: {
-		    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+		    labels: ['출근', '지각', '조퇴'],
 		    datasets: [{
-		      label: '# of Votes',
-		      data: [12, 19, 3, 5, 2, 3],
+		      label: '월별 근태 통계',
+		      data: [3, 3, 2],
 		      borderWidth: 1
 		    }]
 		  },
@@ -240,17 +247,25 @@
 }
 
 .divSearch {
-    float: left;
+    float: right;
 }
 
 .list1 {
-    float: left;
+    float: right;
     width: 40%;
 }
 
 .list2 {
     clear: both;
-    /* width: 100%; */
+}
+
+table.t-List2 {
+    width: 100%;
+}
+
+#myChart {
+    height: 421px !important;
+    width: 669px !important;
 }
 
 </style>
@@ -264,7 +279,7 @@
 		</div>
 		
 		<div class="divSearch">
-			<form action="<c:url value='/commute/statistics'/>" method="post">
+			<form id="searchForm" action="<c:url value='/commute/statistics'/>" method="post">
 				<table class="t-search">
 					<tr>
 						<td class="t-search-title">검색일</td>

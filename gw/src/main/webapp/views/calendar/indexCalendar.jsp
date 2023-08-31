@@ -22,10 +22,10 @@
 				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
 			},
 			//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
-			selectable : true, // 달력 일자 드래그 설정가능
+			selectable : false, // 달력 일자 드래그 설정가능
 			select : true,
 			droppable : false,
-			editable : true,
+			editable : false,
 			nowIndicator : true,
 	        dayMaxEventRows: 3, // 각 날짜에 표시할 최대 이벤트 행 수	
 	        displayEventTime: false,

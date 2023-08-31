@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -140,7 +142,7 @@ public class CalendarController {
 	
 	@RequestMapping("/DetailCalendar")
 	@ResponseBody
-	public Model detail(@RequestParam(defaultValue = "0")int calendarNo,Model model ) {
+	public ResponseEntity<CalendarVO> detail(@RequestParam(defaultValue = "0")int calendarNo,Model model ) {
 		//1
 		logger.info("캘린더 디테일, 파라미터 calendarNo={}", calendarNo);
 		
@@ -149,8 +151,80 @@ public class CalendarController {
 		logger.info("캘린더 정보 cal = {}", cal);
 		
 		//3
-		model.addAttribute("cal", cal);
+		model.addAttribute("result", cal);
 		//4
-		return model;
+		return new ResponseEntity<>(cal, HttpStatus.OK);
 	}
+	
+	@RequestMapping("/editCalendar")
+	public String edit(@RequestParam(defaultValue = "0")int calendarNo, HttpSession session, @ModelAttribute CalendarVO calendarVo, Model model) {
+		//1
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("수정 페이지, 수정된 값 calendarVo={}, empNo={}", calendarVo, empNo);
+		
+		String getbegindate = calendarVo.getBegindate();
+		String getenddate = calendarVo.getEnddate();
+		String begindate = "", begintime = "";
+		String enddate = "", endtime = "";
+		String alldayFlag = "";
+		if(getbegindate!=null && !getbegindate.isEmpty()) {
+			begindate = getbegindate.substring(0,10);
+			begintime = getbegindate.substring(11);
+			logger.info("begindate={}, begintime={}", begindate, begintime);
+			
+		}
+		
+		if(getenddate !=null && !getenddate.isEmpty()) {
+			enddate = getenddate.substring(0,10);
+			endtime = getenddate.substring(11);
+		}
+		
+		alldayFlag = calendarVo.getAlldayFlag();
+		
+		if(alldayFlag==null || alldayFlag.isEmpty()) {
+			alldayFlag = "N";
+		}else {
+			alldayFlag = "Y";
+			begintime = "00";
+			endtime = "24";
+		}
+		
+		calendarVo.setBegindate(begindate);
+		calendarVo.setBegintime(begintime);
+		calendarVo.setEnddate(enddate);
+		calendarVo.setEndtime(endtime);
+		calendarVo.setEmpNo(empNo);
+		
+		calendarVo.setAlldayFlag(alldayFlag);
+		//2
+		int cnt = calendarService.updateCalendar(calendarVo);
+		logger.info("일정 수정 결과, cnt={}", cnt);
+		
+		String msg = "수정 실패", url = "/calendar/fullCalendar";
+		if(cnt>0) {
+			msg = "수정 성공했습니다.";
+		}
+		//3
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
+	
+	@RequestMapping("/delCalendar")
+	public String delete_cal(@RequestParam(defaultValue = "0")int calendarNo) {
+		//
+		logger.info("일정 삭제, 파라미터 calendarNo={}", calendarNo);
+		
+		//
+		int cnt = calendarService.deleteCalendar(calendarNo);
+		logger.info("삭제 결과, cnt = {}", cnt);
+		
+		//
+		//
+		return "redirect:/calendar/fullCalendar";
+	}
+	
 }

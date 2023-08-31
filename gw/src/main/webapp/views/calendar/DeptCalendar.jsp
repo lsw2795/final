@@ -45,8 +45,9 @@
 	            		color : '#A9D18E'
 	            	<%}else if(list.get("CATEGORY_NO").equals(3)){%>
 	            		color : '#5889F0'
+	            	<%}else if(list.get("CATEGORY_NO").equals(4)){%>
+	            		color : '#FFD966'
 	            	<%}%>
-	            	
 	             },
 		<%}
 	}%>
