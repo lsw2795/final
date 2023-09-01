@@ -13,4 +13,5 @@ public class DocumentFormVO extends SearchVO {
 	private String formName; /* 양식명 */
 	private String securityLevel; /* 보안수준 */
 	private String deadline; /* 보존기한 */
+	private String formDelFlag;
 }

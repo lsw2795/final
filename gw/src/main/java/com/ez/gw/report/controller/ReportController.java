@@ -22,14 +22,14 @@ public class ReportController {
 
 	@ResponseBody
 	@RequestMapping("/reportBoardAjax")
-	public String reportView(@RequestParam(defaultValue = "0") int boardNo,HttpSession session) {
+	public String reportBoardAjax(@RequestParam(defaultValue = "0") int boardNo,HttpSession session) {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("게시글 신고 Ajax 파라미터 boardNo={}"+boardNo);
 		
 		ReportVO vo = new ReportVO();
 		vo.setEmpNo(empNo);
 		vo.setBoardNo(boardNo);
-		int cnt=reportService.searchEmpNo(vo);
+		int cnt=reportService.searchAnonymousBoardReport(vo);
 
 		String msg="게시글 신고 중 에러가 발생했습니다.";
 		if(cnt>0) {
@@ -38,6 +38,32 @@ public class ReportController {
 			cnt=reportService.anonymousBoardReport(vo);
 			if(cnt>0) {
 				msg="게시글을 신고했습니다.";
+			}
+		}
+		
+		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/reportCommentAjax")
+	public String reportCommentAjax(@RequestParam(defaultValue = "0") int commentNo,
+			@RequestParam(defaultValue = "0") int boardNo, HttpSession session) {
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("댓글 신고 Ajax 파라미터 boardNo={},commentNo={}"+boardNo,commentNo);
+		
+		ReportVO vo = new ReportVO();
+		vo.setEmpNo(empNo);
+		vo.setBoardNo(boardNo);
+		vo.setCommentNo(commentNo);
+		int cnt=reportService.searchAnonymousCommentReport(vo);
+		
+		String msg="댓글 신고 중 에러가 발생했습니다.";
+		if(cnt>0) {
+			msg="해당 댓글을 이미 신고했습니다.";
+		}else {
+			cnt=reportService.anonymousBoardReport(vo);
+			if(cnt>0) {
+				msg="댓글을 신고했습니다.";
 			}
 		}
 		

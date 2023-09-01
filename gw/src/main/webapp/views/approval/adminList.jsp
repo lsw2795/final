@@ -105,7 +105,14 @@
 							    		<c:if test="${formVo.documentNo==confirmVO.documentNo }">
 							    		selected="selected"
 							    		</c:if>
-							    	>${formVo.formName }</option>
+							    	>
+							    	<c:if test="${formVo.formDelFlag=='N' }">
+							    		${formVo.formName }
+							    	</c:if>
+							    	<c:if test="${formVo.formDelFlag=='Y' }">
+							    		(삭제된 양식)${formVo.formName }
+							    	</c:if>
+							    	</option>
 					    		</c:forEach>
 					    	</c:if>
 						</select>

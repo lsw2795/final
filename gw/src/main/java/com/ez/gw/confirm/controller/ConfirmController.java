@@ -302,7 +302,7 @@ public class ConfirmController {
     	logger.info("결재 리스트 페이지 파라미터 empNo={}",empNo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -340,7 +340,7 @@ public class ConfirmController {
     	
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -355,7 +355,7 @@ public class ConfirmController {
     	List<Map<String, Object>> list = confirmService.selectAllByAdmin(vo);
     	logger.info("결재문서 조회결과, list.size={}",list.size());
     	
-    	int totalRecord = confirmService.getTotalRecord(vo);
+    	int totalRecord = confirmService.getTotalRecordAdmin(vo);
     	logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
     	pagingInfo.setTotalRecord(totalRecord);
     	
@@ -377,7 +377,7 @@ public class ConfirmController {
     	logger.info("결재 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -414,7 +414,7 @@ public class ConfirmController {
     	logger.info("결재완료 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -451,7 +451,7 @@ public class ConfirmController {
     	logger.info("합의함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -488,7 +488,7 @@ public class ConfirmController {
     	logger.info("참조함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
@@ -525,7 +525,7 @@ public class ConfirmController {
     	logger.info("반려함 리스트 페이지 파라미터 empNo={},vo={}",empNo,vo);
     	
     	//2
-    	List<DocumentFormVO> formList = documentFormService.selectAllForm();
+    	List<DocumentFormVO> formList = documentFormService.AllForm();
     	List<StateVO> stateList = StateService.selectAllState();
     	
     	PaginationInfo pagingInfo=new PaginationInfo();
