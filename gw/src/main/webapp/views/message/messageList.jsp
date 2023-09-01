@@ -25,9 +25,11 @@
 			
 			$('.LastMessage').each(function(){
 				var Listreader=$(this).find('#reader').val();
+				if(messageContent.length>10){
+					messageContent=messageContent.substr(0,10)+"...";
+				}
 				if(reader==Listreader){
-					$(this).find('.chat-contact-content').html("받음 : "+
-							messageContent.substr(0,10)+"...");
+					$(this).find('.chat-contact-content').html("보냄 : "+messageContent);
 				}
 			});
 			

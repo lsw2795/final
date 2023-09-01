@@ -30,6 +30,7 @@ import com.ez.gw.common.Utility;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
 import com.ez.gw.report.model.ReportService;
+import com.ez.gw.report.model.ReportVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -43,6 +44,8 @@ public class ClubBoardController {
 	private final ClubBoardService clubBoardService;
 	private final ClubBoardCommentService cbcService;
 	private final PdsService pdsService;
+	private final ReportService reportService;
+	
 	
 	@GetMapping("/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -181,7 +184,7 @@ public class ClubBoardController {
 		
 		if(clubNo==0 || boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
-			model.addAttribute("url", "/club/clubBoardList");
+			model.addAttribute("url", "/club/clubBoard?clubNo="+clubNo);
 
 			return "common/message";
 		}
@@ -276,7 +279,7 @@ public class ClubBoardController {
 		logger.info("동게 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", 
-				url="/club/clubBoardDetail?clubNo="+clubNo+"&boardNo="+boardNo;
+				url="/club/clubBoardDetail?clubNo="+clubNo+"&cluboardNo="+boardNo;
 		if(clubNo==0 || boardNo==0) {
 			msg="게시물 삭제 완료 되었습니다.";
 		}
@@ -289,8 +292,31 @@ public class ClubBoardController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/clubReport")
+	public String insertReport(@ModelAttribute ReportVO reportVo,
+			HttpSession session ,Model model) {
+		//1.
+		int empNo = (int)session.getAttribute("empNo");
+		reportVo.setEmpNo(empNo);
+		logger.info("동호회 신고하기 reportVo={}",reportVo);
+		
+		//2.
+		int cnt=reportService.insertReport(reportVo);
+		logger.info("신고등록 결과 cnt={}",cnt);
+		
+		String msg="신고글 등록 실패", url="/club/clubBoard?clubNo="+reportVo.getClubNo();
+		if(cnt>0) {
+			msg="신고 완료되었습니다.";
+		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4.
+		return "common/message";
+	}
 	
-	//신고함 다중 삭제
+	
+	//관리자 - 신고함 다중 삭제
 	@RequestMapping("/admin/adminclub/deleteMulti")
 	public String deleteMulti(@ModelAttribute ListClubBoardVO clubBoardItems, Model model) {
 		//1.
@@ -301,7 +327,7 @@ public class ClubBoardController {
 		int cnt=clubBoardService.deleteMulti(list);
 		logger.info("다중 삭제 결과 cnt={}",cnt);
 		
-		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubREport";
+		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubReport";
 		if(cnt>0) {
 			msg="신고 게시글 삭제 성공했습니다.";
 		}

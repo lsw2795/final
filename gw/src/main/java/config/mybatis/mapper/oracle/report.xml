@@ -17,4 +17,33 @@
 		where BOARDLIST_NO=200 
 	</select>
 	
+	<insert id="anonymousBoardReport" parameterType="reportVo">
+		<selectKey keyProperty="reportNo" order="BEFORE" resultType="int">
+			select report_seq.nextval from dual
+		</selectKey>
+		insert into report(REPORT_NO, EMP_NO, BOARDLIST_NO, BOARD_NO)
+		values(#{reportNo},#{empNo},5000,#{boardNo})
+	</insert>
+	
+	<insert id="anonymousCommentReport" parameterType="reportVo">
+		<selectKey keyProperty="reportNo" order="BEFORE" resultType="int">
+			select report_seq.nextval from dual
+		</selectKey>
+		insert into report(REPORT_NO, EMP_NO, BOARDLIST_NO, BOARD_NO,COMMENT_NO)
+		values(#{reportNo},#{empNo},5000,#{boardNo},#{commentNo})
+	</insert>
+	
+	<select id="searchAnonymousBoardReport" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no=#{empNo}
+		and board_no=#{boardNo}
+		and comment_no is null
+	</select>
+	
+	<select id="searchAnonymousCommentReport" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no=#{empNo}
+		and board_no=#{boardNo}
+		and comment_no =#{commentNo}
+	</select>
 </mapper>

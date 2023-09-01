@@ -87,7 +87,7 @@
                 <div class="card-body">
                   <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" method="post" action="<c:url value='/market/addMarket'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
-                      <div class="col-12 mb-3"s>
+                      <div class="col-12 mb-3">
                         <label class="form-label" for="product-name">제목</label>
                         <input class="form-control" id="product-name" name="title" type="text" value="${secondVo.title }"/>
                       </div>

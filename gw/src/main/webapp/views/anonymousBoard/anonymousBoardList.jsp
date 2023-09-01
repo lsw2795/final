@@ -4,13 +4,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="<c:url value='/js/anonymousBoard.js'/>"></script>
 <link href="<c:url value='/css/anonymousBoard.css'/>" rel="stylesheet">
-<script type="text/javascript">
-$(function (){
-	
-});
-
-
-</script>
 <div class="row g-3">
 	<div class="col-lg-10 m-auto mt-3">
 		<div class="card mb-3">
@@ -80,7 +73,7 @@ $(function (){
 		                          	<a class="dropdown-item text-danger" onclick="deleteBoard(${map['BOARD_NO'] })" href="#!">삭제하기</a>
 	                        	</c:if>
 	                        	<c:if test="${map['EMP_NO']!=sessionScope.empNo }">
-		                          	<a class="dropdown-item text-danger" href="#!">신고하기</a>
+		                          	<a class="dropdown-item text-danger" href="#!" onclick="boardReport(${map['BOARD_NO'] })">신고하기</a>
 	                        	</c:if>
 		                        	<input type="hidden" value="${map['BOARD_NO'] }">
 		                        </div>
@@ -193,7 +186,7 @@ $(function (){
 			                    </div>
 			                </div>
 		                    <div class="col flex-1 ms-2 fs--1" id="datgeulEditDiv">
-		                    <form name="frmDatgeulEditForm" method="post" >
+		                    <form name="frmDatgeulEditForm" >
 		                    	<p class="mb-1 bg-200 rounded-3 p-2" id="datguelP">
 		                      	익명 :
 		                      	${commentVo.content}</p>
@@ -206,12 +199,14 @@ $(function (){
 			                      		&bull;<a href="#!" onclick="replyShow(this)">답글</a>  
 			                      		&bull;<a href="#!" onclick="reply(this)">답글달기</a>
 			                      		<c:if test="${commentVo.empNo!=sessionScope.empNo }">
-				                      		&bull;<a href="#!">신고하기</a> 
+				                      		&bull;<a href="#!" onclick="commentReport(${commentVo.commentNo },${commentVo.boardNo})">신고하기</a> 
 			                      		</c:if>
 			                      	</div>
 			                      	<div class="col-auto px-3" >
+			                      	<c:if test="${commentVo.empNo==sessionScope.empNo }">
 			                      		<a href="#!" id="editDatguelA" onclick="editDatguel(this)">수정</a>&bull;  
-			                      		<a href="#!" onclick="deleteDatguel(this)">삭제</a>  
+			                      		<a href="#!" onclick="deleteDatguel(this)">삭제</a>
+			                      	</c:if>  
 				                    </div>
 				                    <div class="col-12 px-3" id="replyDiv" style="display: none;">
 					                    <form name="frmReplyForm" class="d-flex align-items-center pt-3" method="post" action="<c:url value='/anonymous/replyWrite'/>">
@@ -225,7 +220,7 @@ $(function (){
 		                      	</div>
 		                   	</div>
 		                   	<c:forEach var="commentVo2" items="${commentsList }">
-		                   		<c:if test="${commentVo2.groupNo==commentVo.groupNo and commentVo2.step>0}">
+		                   		<c:if test="${commentVo2.groupNo==commentVo.groupNo and commentVo2.step==1}">
 				               	<div class="col-12 mt-2" id="replyInfo" style="display: none; margin-left: 20px;">
 					           		<div class="row">
 						            	<div class="col-1 fs--1" style="width: 20px;">
@@ -234,7 +229,7 @@ $(function (){
 							                </div>
 							            </div>
 							            <div class="col flex-1 ms-2 fs--1">
-							            	<form name="frmReplyEditForm" method="post" >
+							            	<form name="frmReplyEditForm">
 							            	<p class="mb-1 bg-200 rounded-3 p-2" id="replyP">
 							                	익명 :
 							                    ${commentVo2.content}</p>
@@ -251,7 +246,7 @@ $(function (){
 									            	<a href="#!" onclick="deleteReply(this)">삭제</a>  
 									            </c:if>
 									            <c:if test="${commentVo2.empNo!=sessionScope.empNo }">
-									            	<a href="#!">신고하기</a> 
+									            	<a href="#!" onclick="commentReport(${commentVo2.commentNo },${commentVo2.boardNo })">신고하기</a> 
 									            </c:if>
 										        </div>
 									        </div>

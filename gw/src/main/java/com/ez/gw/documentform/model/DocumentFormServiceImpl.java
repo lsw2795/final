@@ -68,4 +68,9 @@ public class DocumentFormServiceImpl implements DocumentFormService {
 		return documentFormDao.formUpdate(vo);
 	}
 
+	@Override
+	public List<DocumentFormVO> AllForm() {
+		return documentFormDao.AllForm();
+	}
+
 }

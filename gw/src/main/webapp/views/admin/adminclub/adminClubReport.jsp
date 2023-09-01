@@ -10,10 +10,16 @@
 		}
 	}
 	
+	function deleteClubBoard() {
+		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+			location.href="<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"
+		}
+	}
+	
 	$(function() {
 		$('#btnDel').click(function() {
-			confrm('해당 신고 게시물을 삭제하시겠습니까?');
-			location.href="<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
+			if(confrm('해당 신고 게시물을 삭제하시겠습니까?')){
+			}
 		});
 	});
 
@@ -40,33 +46,39 @@
     <c:forEach var="map" items="${list }">
       <tr class="align-middle">
       	<td class="align-middle fs-0 py-3">
-		   <div class="form-check mb-0">
-		      <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
-		   </div>
+	  		<div class="form-check mb-0">
+		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+			</div>
 		</td>
-        <td class="text-nowrap">
+      	<td class="text-nowrap">
           <div class="d-flex align-items-center">
             <div class="avatar avatar-xl">
-              <div class="avatar-name rounded-circle"><span>${map['IMAGE']}</span></div>
+              <div class="avatar-name rounded-circle" >
+              	<img src="<c:url value='/images/${map["IMAGE"]}'/>">
+              </div>
             </div>
             <div class="ms-2">${map['NAME']}</div>
           </div>
+        </td>  
+        <td class="text-nowrap">
+        	<a href="<c:url value='/club/clubBoardDetail?clubNo=${map.CLUB_NO}&boardNo=${map.BOARD_NO }'/>">
+        		${map['TITLE']}
+        	</a>
         </td>
-        <td class="text-nowrap">${map['TITLE']}</td>
         <td class="text-nowrap"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
         <td>
-        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
-        	<c:if test="${map['REPORT_STATUS']==1}">
-	        	<td>
-		        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
-		        		대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
-		        	</span>
-		        </td>
-        	</c:if>
-        		<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+	        	<c:if test="${map['REPORT_STATUS']==0}">
+			        <span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+			        	대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+			        </span>
+	        	</c:if>
         	</span>
+		</td>
         <td>
-          <button class="btn btn-falcon-primary btn-sm" id="btnDel" type="button">삭제</button>
+          <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard()" id="btnDel" type="button">
+          	<span class="fas fa-trash-alt"></span>
+          </button>
         </td>
       </tr>
     </c:forEach>
@@ -82,8 +94,9 @@
            <ul class="pagination mb-0"></ul>
         <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
     </div>
+    
+    
 <%@ include file='../../inc/adminBottom.jsp'%>
-
 
 
 

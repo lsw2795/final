@@ -2,6 +2,7 @@ package com.ez.gw.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -214,38 +215,39 @@ public class AnonymousBoardController {
 		return "common/message";
 	}
 	
-	@RequestMapping("/replyEdit")
-	public String replyEdit(@ModelAttribute CommentsVO vo, Model model) {
+	@ResponseBody
+	@RequestMapping("/replyEditAjax")
+	public String replyEdit(@ModelAttribute CommentsVO vo) {
 		logger.info("익명게시판 댓글 수정 처리 파라미터 vo={}",vo);
 		
 		int cnt=commentService.updateAnonymousComments(vo);
 		
-		String msg="댓글 수정 중 에러가 발생했습니다.",url="/anonymous/boardList";
+		String msg="댓글 수정 중 에러가 발생했습니다.";
 		if(cnt>0) {
 			msg="댓글이 수정되었습니다.";
 		}
 		
-		model.addAttribute("url",url);
-		model.addAttribute("msg",msg);
-		
-		return "common/message";
+		return msg;
 	}
 	
-	@RequestMapping("/replyDelete")
-	public String replyDelete(@ModelAttribute CommentsVO vo, Model model) {
+	@ResponseBody
+	@RequestMapping("/replyDeleteAjax")
+	public Map<String, Object> replyDelete(@ModelAttribute CommentsVO vo, Model model) {
 		logger.info("익명게시판 댓글 삭제 처리 파라미터 vo={}",vo);
 		
 		int cnt=commentService.deleteAnonymousComments(vo.getCommentNo());
 		
-		String msg="댓글 삭제 중 에러가 발생했습니다.",url="/anonymous/boardList";
+		String msg="댓글 삭제 중 에러가 발생했습니다.";
 		if(cnt>0) {
 			msg="댓글이 삭제되었습니다.";
 		}
 		
-		model.addAttribute("url",url);
-		model.addAttribute("msg",msg);
+		Map<String, Object> map = new HashMap<>();
 		
-		return "common/message";
+		map.put("cnt",cnt);
+		map.put("msg",msg);
+		
+		return map;
 	}
 	
 	@RequestMapping("/deleteAnonymousBoard")

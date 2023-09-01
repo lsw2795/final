@@ -11,4 +11,7 @@ public interface ReportService {
 	int insertReport(ReportVO reportVo); //동호회 신고
 	List<Map<String, Object>> selectReportClub(); //관리자 동호회 신고함
 	int reportStatus(int reportStatus); //동호회 신고 상태
+	int anonymousBoardReport(ReportVO reportVo);
+	int searchAnonymousBoardReport(ReportVO reportVo);
+	int searchAnonymousCommentReport(ReportVO reportVo);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public interface DocumentFormService {
 	List<DocumentFormVO> selectAllFormPage(DocumentFormVO vo);
 	List<DocumentFormVO> selectAllForm();
+	List<DocumentFormVO> AllForm();
 	int getTotalRecord(DocumentFormVO vo);
 	int formInsert(DocumentFormVO vo);
 	int formUpdate(DocumentFormVO vo);

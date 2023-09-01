@@ -6,7 +6,17 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#empWrite").hide();
+		
+		$('#updateRetiredate').click(function(){
+			var ConfirmFormCheck=false;
+			if ($('#retiredate').val().length!=10) {
+				alert("퇴사일자의 형식이 올바르지 않습니다. 퇴사일 형식 예시)2023-05-20");
+				$('#retiredate').focus();
+				return false;
+			}
+			$('#authentication-modal').modal('show'); 
+		});
+		
 		$('#btnadminPwd').click(function(){ //모달에 있는 클릭버튼
 			 $.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
@@ -14,9 +24,7 @@
 	            dataType : "text",
 	            data:"pwd="+$('#adminPwd').val(),
 	            success: function(res){
-	               $('#adminPwdChkFlag').val(res);
-	               
-	               if($('#adminPwdChkFlag').val()>0){
+	               if(res>0){
 	                  	 alert("관리자 확인이 완료되었습니다.");
 	                  	 if($('#retiredate').val().length==10){
 	                     	ConfirmFormCheck=true;
@@ -45,10 +53,6 @@
 	            			         });//ajax
 	            				}
 	            			}
-	                  	  }else{
-		                  	 $('#authentication-modal').modal('hide'); 
-		                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
-		                     $('#empWrite').show();    // empWrite 버튼 보이기
 	                  	  }
 	               }else{
 	                  alert('관리자 비밀번호가 일치하지 않습니다.');
@@ -59,6 +63,29 @@
 	            }
 	         });//ajax
 		}); 
+		
+		
+		$('#btnadminPwd2').click(function(){ //모달에 있는 클릭버튼
+			 $.ajax({
+	            url : "<c:url value='/ajaxPwdCheck'/>",
+	            type:"get",
+	            dataType : "text",
+	            data:"pwd="+$('#adminPwd2').val(),
+	            success: function(res){
+	               if(res>0){
+	                  	 alert("관리자 확인이 완료되었습니다.");
+	                  	 $('#authentication-modal2').modal('hide');
+	                  	 $('#frmWrite').submit();
+	                 
+	               }else{
+		                alert('관리자 비밀번호가 일치하지 않습니다.');
+	               }
+	            },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax
+		});
 		
 		$('#btCancel').click(function(){
 			location.href="<c:url value='/admin/employee/employeeList'/>";
@@ -85,7 +112,7 @@
 				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>${pageTitle }</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
-				<form name="frmWrite" method="post" enctype="multipart/form-data"
+				<form id="frmWrite" name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url }'/>">
 					<c:if test="${!empty param.empNo}">
 					<div class="row mb-3 d-flex align-items-center">
@@ -93,7 +120,7 @@
 					        <label class="col-form-label adminemplabel" for="name">사원 번호</label>
 					    </div>
 					    <div class="col-md-6">
-					    	<span class="adminempspan">${map['EMP_NO']}</span>
+					    	<span class="adminempspan" id="empNoSpan">${map['EMP_NO']}</span>
 					    </div>
 					</div>
 					</c:if>				
@@ -323,13 +350,13 @@
 							<label class="col-form-label adminemplabel" for="basic-form-gender">퇴사</label>
 						</div>
 						<div class="col-md-6 adminspan">
-							<input type="button" id="btnDeleteEmp" value="퇴사 처리하기" class="btn btn-danger"/>
+							<input type="button" id="btnDeleteEmp" value="퇴사 처리하기" class="btn btn-danger"
+								data-bs-toggle="modal" data-bs-target="#deleteEmp-modal"/>
 						</div>
 					</div>
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
 						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
@@ -344,12 +371,10 @@
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
 					 <input type="hidden" id="authority" value="${map['AUTHORITY']}"/>	
-					 <input type="hidden" id="adminPwdChkFlag"/>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-<%@ include file='employeeDelete.jsp' %>
-<%@ include file='adminPwdConfirm.jsp' %>
+<%@ include file='employeeModal.jsp' %>
 <%@ include file='../../inc/adminBottom.jsp'%>
