@@ -26,7 +26,7 @@
 	<update id="updateCalendar" parameterType="calendarVo">
 		update calendar
 		set title = #{title}, begindate = #{begindate}, enddate = #{enddate}, begintime = #{begintime}, endtime = #{endtime},
-		allday_flag = #{alldayFlag}', place= #{place}, content=#{content}, category_no = #{categoryNo}
+		allday_flag = #{alldayFlag}, place= #{place}, content=#{content}, category_no = #{categoryNo}
 		where emp_no = #{empNo} and calendar_no = #{calendarNo}
 	</update>
 	

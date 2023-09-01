@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.common.JustSearchRemanVO;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.position.controller.PositionController;
 import com.ez.gw.reman.model.ListRemanVO;
@@ -60,10 +61,10 @@ public class RemanController {
 	}
 
 	@RequestMapping("/admin/officeProduct/officeProductList")
-	public String productList(@RequestParam(required = false) String category, Model model) {
-		logger.info("자원목록 페이지, 파라미터 category={}", category);
+	public String productList(@ModelAttribute JustSearchRemanVO searchRemanVo, Model model) {
+		logger.info("자원목록 페이지, 파라미터 searchRemanVo={}", searchRemanVo);
 		
-		  List<RemanVO> list = remanService.selectOfficeProductByCategory(category);
+		  List<RemanVO> list = remanService.selectOfficeProductByCategory(searchRemanVo);
 		  logger.info("list.size={}", list);
 		  
 		  model.addAttribute("list", list);
