@@ -41,16 +41,15 @@
                     <h5 class="mb-0" data-anchor="data-anchor">공지사항</h5>
                   </div>
                   <div class="col-auto ms-auto">
-                   여기에 버튼 필요하면 쓰세영 빼도되는기능임
+                   <a href="<c:url value='/board/noticeList'/>" 
+                   	style="color: black; font-size: 14px;">더보기 ▶</a>
                   </div>
                 </div>
               </div>
               <div class="card-body bg-light">
                 <div class="tab-content">
                   <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-c5b10b85-baad-4da8-b18b-2973cbe42fac" id="dom-c5b10b85-baad-4da8-b18b-2973cbe42fac">
-					 여기가 본문들어감
-
-
+					<c:import url="/board/noticeList5"></c:import>
                   </div>
                   </div>
                 </div>

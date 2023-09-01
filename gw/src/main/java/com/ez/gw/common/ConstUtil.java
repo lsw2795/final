@@ -74,5 +74,6 @@ public interface ConstUtil {
 	//자원예약
 	int BOOK_NOTOK = 1;	//조회시간에 예약 있는 경우
 	int BOOK_OK = 2;	//예약 가능
+	int ADMIN_ASK = 3; //관리자 문의
 	
 }

@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
     <link rel="icon" type="image/png" sizes="16x16" href="<c:url value='/assets/img/favicons/favicon-16x16.png'/>">
-    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/assets/img/favicons/favicon.ico'/>">
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/planet_icon.ico'/>">
     <link rel="manifest" href="<c:url value='/assets/img/favicons/manifest.json'/>">
  	<meta name="msapplication-TileImage" content="<c:url value='/assets/img/favicons/mstile-150x150.png'/>">
     <meta name="theme-color" content="#ffffff">
@@ -337,6 +337,15 @@
 	                    		<span class="nav-link-text ps-1">신고글 관리</span>
 	                    	</div>
 	                  	</a>
+	                  	<ul class="nav collapse show" id="g">
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/report/anonymousReportList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">익명게시판 신고함</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    	</ul>
                   	</li>
 			</div>
 		  </div>

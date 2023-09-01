@@ -210,6 +210,11 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return cnt;
 	}
+
+	@Override
+	public List<Map<String, Object>> selRegdateDesc5() {
+		return boardDao.selRegdateDesc5();
+	}
 	
 	
 

@@ -99,18 +99,18 @@
 					method="post" action="<c:url value='/admin/officeProduct/editOfficeProduct'/>">
 					<div class="row gx-2">
 						<label class="form-label" for="product-name">종류</label> 
-						<select class="form-select" aria-label="Default select example" name = "category" value="${remanVo.category}">
+						<select class="form-select" aria-label="Default select example" name = "category" >
 							<option selected>선택하세요.</option>
 							<option value="meetingRoom"
-								<c:if test="${remanVo.category =='회의실' }">
+								<c:if test="${remanVo.category =='meetingRoom' }">
 									selected="selected"
 								</c:if>>회의실</option>
 							<option value="noteBook"
-								<c:if test = "${remanVo.category =='노트북' }">
+								<c:if test = "${remanVo.category =='noteBook' }">
 									selected = "selected"
 								</c:if>>노트북</option>
 							<option value="rentCar"
-								<c:if test = "${remanVo.category == '차량' }">
+								<c:if test = "${remanVo.category == 'rentCar' }">
 									selected = "selected"
 								</c:if>>차량</option>
 						</select>
@@ -163,8 +163,8 @@
 				<div class="row justify-content-between align-items-center">
 					<div class="col-auto">
 						<button class="btn btn-link text-secondary p-0 me-3 fw-medium"
-							role="button" style="color:#0E1726;">취소</button>
-						<button class="btn btn-primary" id="bt1" >수정</button>
+							role="button" style="color:#0E1726;" id="cancle">취소</button>
+						<button class="btn btn-primary" id="bt1">수정</button>
 					</div>
 				</div>
 			</div>

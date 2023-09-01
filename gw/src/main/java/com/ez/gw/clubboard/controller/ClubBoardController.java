@@ -184,7 +184,7 @@ public class ClubBoardController {
 		
 		if(clubNo==0 || boardNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
-			model.addAttribute("url", "/club/clubBoardList");
+			model.addAttribute("url", "/club/clubBoard?clubNo="+clubNo);
 
 			return "common/message";
 		}
@@ -279,7 +279,7 @@ public class ClubBoardController {
 		logger.info("동게 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", 
-				url="/club/clubBoardDetail?clubNo="+clubNo+"&boardNo="+boardNo;
+				url="/club/clubBoardDetail?clubNo="+clubNo+"&cluboardNo="+boardNo;
 		if(clubNo==0 || boardNo==0) {
 			msg="게시물 삭제 완료 되었습니다.";
 		}
@@ -293,7 +293,8 @@ public class ClubBoardController {
 	}
 	
 	@RequestMapping("/clubReport")
-	public String insertReport(@ModelAttribute ReportVO reportVo,HttpSession session , Model model) {
+	public String insertReport(@ModelAttribute ReportVO reportVo,
+			HttpSession session ,Model model) {
 		//1.
 		int empNo = (int)session.getAttribute("empNo");
 		reportVo.setEmpNo(empNo);
@@ -303,9 +304,9 @@ public class ClubBoardController {
 		int cnt=reportService.insertReport(reportVo);
 		logger.info("신고등록 결과 cnt={}",cnt);
 		
-		String msg="신고글 등록 실패", url="/club/clubBoardDetail?clubNo="+reportVo.getClubNo()+"&boardNo="+reportVo.getClubBoardNo();
+		String msg="신고글 등록 실패", url="/club/clubBoard?clubNo="+reportVo.getClubNo();
 		if(cnt>0) {
-			msg="신고 등록 성공";
+			msg="신고 완료되었습니다.";
 		}
 		//3.
 		model.addAttribute("msg", msg);
@@ -326,7 +327,7 @@ public class ClubBoardController {
 		int cnt=clubBoardService.deleteMulti(list);
 		logger.info("다중 삭제 결과 cnt={}",cnt);
 		
-		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubREport";
+		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubReport";
 		if(cnt>0) {
 			msg="신고 게시글 삭제 성공했습니다.";
 		}

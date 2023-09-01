@@ -23,6 +23,10 @@
 		select * from reservationview
 	</select>
 	
+	<select id="todayReservation" resultType="reservationVo" parameterType="reservationVo">
+		select * from reservation where to_date(#{bookDate}, 'YYYY-MM-DD') = trunc(sysdate)
+		and emp_No = #{empNo}
+	</select>
 	
 
 </mapper>

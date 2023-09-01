@@ -50,4 +50,19 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.searchAnonymousCommentReport(reportVo);
 	}
 
+	@Override
+	public int anonymousCommentReport(ReportVO reportVo) {
+		return reportDao.anonymousCommentReport(reportVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> anonymousReportList(ReportVO reportVo) {
+		return reportDao.anonymousReportList(reportVo);
+	}
+
+	@Override
+	public int getTotalAnonymousReport(ReportVO reportVo) {
+		return reportDao.getTotalAnonymousReport(reportVo);
+	}
+
 }

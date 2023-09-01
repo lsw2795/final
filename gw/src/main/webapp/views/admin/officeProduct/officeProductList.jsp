@@ -135,26 +135,31 @@
 		<div class="card-header border-bottom border-200 px-0 admindefault">
 			<div class="d-lg-flex justify-content-between">
 				<div class="row flex-between-center gy-2 px-x1">
-					<form name="frmList" method="post" action='<c:url value='/admin/'/>' >
+					<form name="frmList" method="post" action='<c:url value='/admin/officeProduct/officeProductList'/>' >
 						<input type="hidden" id="category" name="category" value="${param.category}"/>
 						<div class="row flex-between-center gy-2 px-x1">
 						<div class="col-auto pe-0">
 								 <select name="searchCondition" class="form-select admindefault">
-		                            <option value="title"
-		                            	<c:if test="${param.searchCondition=='title'}">
+		                            <option value="name"
+		                            	<c:if test="${param.searchCondition=='name'}">
 		                            		selected = "selected"
 		                            	</c:if>
 		                            >제목</option>
-		                            <option value="name"
-	                       		        <c:if test="${param.searchCondition=='name'}">
+		                            <option value="manager"
+	                       		        <c:if test="${param.searchCondition=='manager'}">
 		                            		selected = "selected"
 		                            	</c:if>
-		                            >작성자</option>
-		                            <option value="content"
-		                            	<c:if test="${param.searchCondition=='content'}">
+		                            >담당자</option>
+		                            <option value="discription"
+		                            	<c:if test="${param.searchCondition=='discription'}">
 		                            		selected = "selected"
 		                            	</c:if>
 		                            >내용</option>
+		                            <option value="state"
+		                            	<c:if test="${param.searchCondition=='state'}">
+		                            		selected = "selected"
+		                            	</c:if>
+		                            >상태</option>
 	                          </select>
 						</div>
 						<div class="col-auto">
@@ -176,10 +181,6 @@
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                      	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
-						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/officeProduct/editOfficeProduct'/>" class="btn btn-primary">수정</a>
-						<span class="adminhyphen"></span>
 						<input type="button" value="삭제" id="btnDel" class="btn btn-primary" onclick = "delFunc()"/>
                       </div>
                     </div>

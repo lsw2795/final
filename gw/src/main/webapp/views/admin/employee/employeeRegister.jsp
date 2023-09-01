@@ -6,7 +6,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#empWrite").hide();
 		
 		$('#updateRetiredate').click(function(){
 			var ConfirmFormCheck=false;
@@ -25,9 +24,7 @@
 	            dataType : "text",
 	            data:"pwd="+$('#adminPwd').val(),
 	            success: function(res){
-	               $('#adminPwdChkFlag').val(res);
-	               
-	               if($('#adminPwdChkFlag').val()>0){
+	               if(res>0){
 	                  	 alert("관리자 확인이 완료되었습니다.");
 	                  	 if($('#retiredate').val().length==10){
 	                     	ConfirmFormCheck=true;
@@ -75,13 +72,11 @@
 	            dataType : "text",
 	            data:"pwd="+$('#adminPwd2').val(),
 	            success: function(res){
-	               $('#adminPwdChkFlag').val(res);
-	               
-	               if($('#adminPwdChkFlag').val()>0){
+	               if(res>0){
 	                  	 alert("관리자 확인이 완료되었습니다.");
-	                  	 $('#authentication-modal2').modal('hide'); 
-	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
-	                     $('#empWrite').show();    // empWrite 버튼 보이기
+	                  	 $('#authentication-modal2').modal('hide');
+	                  	 $('#frmWrite').submit();
+	                 
 	               }else{
 		                alert('관리자 비밀번호가 일치하지 않습니다.');
 	               }
@@ -117,7 +112,7 @@
 				<h5 class="mb-0 admindefault"><span class="fas fa-user" style="margin: 0 10px;"></span>${pageTitle }</h5>
 			</div>
 			<div class="card-body py-2 admindefault">
-				<form name="frmWrite" method="post" enctype="multipart/form-data"
+				<form id="frmWrite" name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='${url }'/>">
 					<c:if test="${!empty param.empNo}">
 					<div class="row mb-3 d-flex align-items-center">
@@ -362,7 +357,6 @@
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
 						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					
@@ -377,7 +371,6 @@
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
 					 <input type="hidden" id="email" name="email" value="${map['EMAIL']}"/>
 					 <input type="hidden" id="authority" value="${map['AUTHORITY']}"/>	
-					 <input type="hidden" id="adminPwdChkFlag"/>
 				</form>
 			</div>
 		</div>
