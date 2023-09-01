@@ -181,10 +181,6 @@
 				<div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center">
-                      	<a href="<c:url value='/admin/officeProduct/addOfficeProduct'/>" class="btn btn-primary">등록</a>
-						<span class="adminhyphen"></span>
-						<a href="<c:url value='/admin/officeProduct/editOfficeProduct'/>" class="btn btn-primary">수정</a>
-						<span class="adminhyphen"></span>
 						<input type="button" value="삭제" id="btnDel" class="btn btn-primary" onclick = "delFunc()"/>
                       </div>
                     </div>

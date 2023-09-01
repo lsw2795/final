@@ -91,10 +91,18 @@ public class ReservationController {
 		//2
 		int result = 0;
 		int cnt = reservationService.checkIsBooked(reservationVo);
+		RemanVO remanVo = remanService.selectRemanByNo(reservationVo.getRemanNo());
+		int state = remanVo.getState();
 		if(cnt>0) {
 			result =ConstUtil.BOOK_NOTOK;	//1
 		}else {
-			result = ConstUtil.BOOK_OK;		//2
+			if(state == 1) {
+				result = ConstUtil.BOOK_OK;		//2
+			}else if(state == 2) {
+				result = ConstUtil.BOOK_NOTOK; //예약 불가
+			}else if(state == 3) {
+				result = ConstUtil.ADMIN_ASK; //관리자 문의
+			}
 		}
 		//3
 		//4

@@ -31,42 +31,50 @@
 	               		$('#noteBookBox').hide();
 	               		$('#rentCarBox').hide();
 	               		
-	               		var selectedCategory = "";
-		           		var selectedResource = "";
-	               		
 		           		
                         $("#addReservation").on("click",function(){  // modal의 추가 버튼 클릭 시
                             var bookDate = $("#bookDate").val();
-                        	var startTime = $('#startTime').val();
-                        	var endtime = $('#endtime').val();
+                            var startTime = parseInt($('#startTime').val());
+                            var endtime = parseInt($('#endtime').val());
                             var currentDate = new Date();
-                            selectedCategory = $('#category option:selected');
+                   	     	var currentMillis = currentDate.getTime();
                             
+                            var selectedCategory = $('#category').val();
+                            var selectedResource = "";
+                            var checkResult = $('#checkResult').val();
                    			 
-                   		 	if (selectedCategory === 'meetingRoom') {
-                   	            selectedResource = $('#meetingRoom option:selected');
-                   	        } else if (selectedCategory === 'noteBook') {
-                   	            selectedResource = $('#noteBook option:selected');
-                   	        } else if (selectedCategory === 'rentCar') {
-                   	            selectedResource = $('#rentCar option:selected').val();
+                   		 	if(selectedCategory === 'meetingRoom') {
+                   		 		selectedResource = $('#meetingRoom').val();
+                   	        }else if(selectedCategory === 'noteBook') {
+                   	        	selectedResource = $('#noteBook').val();
+                   	        }else if (selectedCategory === 'rentCar') {
+                   	        	selectedResource = $('#rentCar').val();
+                   	        }
 
                             console.log(selectedCategory);
                    	        console.log(selectedResource);
-                   	        }
+                   	        console.log(startTime - currentMillis);
+                   	        console.log(currentMillis);
+                   	        
+                   	        
+	                   	    if (currentDate.getDate() === bookDate.getDate() && currentDate.getHours() > startTime) {
+	                   	        alert("과거 시간을 선택할 수 없습니다.");
+	                   	    }
+                   	        
                             if(selectedCategory == null || selectedCategory == ""){
                             	alert("자원 종류를 선택해주세요.");
                             }else if(selectedResource == null || selectedResource == ""){
-								alert("자원을 선택해주세요.");                            	
+								alert("자원을 선택해주세요.");  
                             }else if(bookDate == null || bookDate == ""){
                             	alert("예약 날짜가 없습니다.");
-                            }else if(new Date(endtime) - new Date(startTime)){
-                            	alert("종료시간이 시작시간보다 앞일 수 없습니다.");
                             }else if(startTime == null || startTime == ""){
                             	alert("예약 시작 시간을 선택해주세요.");
                             }else if(endtime == null || endtime == ""){
                             	alert("예약 종료 시간을 선택해주세요.");
-                            }else if(new Date(bookDate) - currentDate<0){
-                            	alert("과거 날짜를 선택할 수 없습니다.");
+                            }else if(dateTime - currentDate<0){
+                            	alert("과거 날짜를 선택할 수 없습니다. ");
+                            }else if(checkResult === 'N'){
+                            	alert("예약 가능 여부를 확인해주세요.");
                             }else{
                             	var obj = {
                             			"title" : selectedCategory,
@@ -75,31 +83,6 @@
                             	console.log(obj);
                             	$('#addReservationForm').submit();
                             }
-                            
-                         /*    
-                            
-                            //내용 입력 여부 확인
-                            if(title == null || title == ""){
-                            	alert("제목을 입력하세요.");	
-                            }else if(content == null || content == ""){
-                                alert("내용을 입력하세요.");
-                            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                                alert("종료일이 시작일보다 먼저입니다.");
-                            }else if(start_date == null || start_date == ""){
-                            	alert("날짜를 선택해주세요.");
-                            }else if(new Date(start_date) - currentDate<0){
-                            	alert("과거 날짜를 선택할 수 없습니다.");
-                            }else if(categoryNo.length <1){
-                            	alert("일정 종류를 선택해주세요.");
-                            }else{ // 정상적인 입력 시
-                                var obj = {
-                                    "title" : content,
-                                    "start" : start_date,
-                                    "end" : end_date
-                                }//전송할 객체 생성 
-
-                            }
-                                console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능  */
                         });
                     }
                 }
@@ -112,6 +95,11 @@
 			droppable : true,
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
+			dateClick:function(info){
+				$("#reservationModal").modal("show");
+				
+				$('#bookDate').val(info.dateStr);
+			},
 			events : [ 
 	    	    <%List<Map<String, Object>> reservationList = (List<Map<String, Object>>)request.getAttribute("reservationList");%>
 	            <%if (reservationList != null) {%>
@@ -129,6 +117,18 @@
 	});
 	
 	$(function(){
+		var selectedCategory = $('#category').val();
+        var selectedResource = "";
+        var checkResult = $('#checkResult').val();
+			 
+		 	if(selectedCategory === 'meetingRoom') {
+		 		selectedResource = $('#meetingRoom').val();
+	        }else if(selectedCategory === 'noteBook') {
+	        	selectedResource = $('#noteBook').val();
+	        }else if (selectedCategory === 'rentCar') {
+	        	selectedResource = $('#rentCar').val();
+	        }
+		
 		$('#category').change(function(){
 			 	selectedCategory = $('#category option:selected').val();
 				console.log(selectedCategory);
@@ -165,22 +165,43 @@
 		});
 		
 		$('#checkTime').click(function(){
+			var selectedCategory = $('#category').val();
+	        var selectedResource = "";
+	        var checkResult = $('#checkResult').val();
+				 
+			 	if(selectedCategory === 'meetingRoom') {
+			 		selectedResource = $('#meetingRoom').val();
+		        }else if(selectedCategory === 'noteBook') {
+		        	selectedResource = $('#noteBook').val();
+		        }else if (selectedCategory === 'rentCar') {
+		        	selectedResource = $('#rentCar').val();
+		        }
+			 	
 			$.ajax({
 				url : "<c:url value='/reservation/ajaxCheckBook'/>",
 				type: "get",
 				dataType : "JSON",
 				data : {startTime : $('#startTime').val(),
-						endTime : $('#endTime').val(),
-						remanNo : $('#selectedResource').val(),
+						endTime : $('#endtime').val(),
+						remanNo : selectedResource,
 						bookDate : $('#bookDate').val()},
-				success:function(){
-					
+				success:function(result){
+					if(result == 1){
+						$('#message').text("예약이 존재합니다.");
+						event.preventDefault();
+					}else if(result ==2){
+						$('#bookOk').text("예약 가능합니다.");
+					}else if(result == 3){
+						$('#message').text("관리자에게 문의하세요.");
+					}
+					$('#checkResult').val('Y');
 				},
 				error:function(xhr, status, error){
 					alert(status + " : " + error);
 				}
 			});
 		});
+		
 	});
 </script>
 <style type="text/css">
@@ -204,6 +225,7 @@
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="form-group">
                     	<label class="form-label" for="product-name">종류</label> 
@@ -218,10 +240,11 @@
 						<select class="form-select" aria-label="Default select example" id = "meetingRoom" name = "remanNo" style="width:55%">
 							<option value="" disabled> 선택하세요.</option>
 						<c:forEach var = "mr" items="${meetingRoom }"> 
-							<option value="${mr.remanNo }">${mr.name }</option>
+							<option value="${mr.remanNo}">${mr.name }</option>
 						</c:forEach>
 						</select>
 						</div>
+						
 						<div id = "noteBookBox">
 						<label class="form-label" for="product-name" >자원</label>
 						<select class="form-select" aria-label="Default select example" id = "noteBook" name = "remanNo" style="width:55%">
@@ -266,7 +289,7 @@
 							</select>
 	                  	</div>
 	                  	<input type="button" id="checkTime" value = "예약 가능 여부 확인">
-	                  	<input type = "text" id = "checkResult">
+	                  	<input type = "text" id = "checkResult" value="N">
 	                  	</div>
 	                  	 <div id = "message"></div>
 	                	 <div id = "bookOk"></div>
