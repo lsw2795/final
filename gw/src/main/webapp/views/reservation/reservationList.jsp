@@ -54,7 +54,7 @@
                    	        console.log(selectedResource);
                    	        
                    	        
-	                   	    if (bookDate.getTime() < currentDate.getTime()) {
+	                   	    if (bookDate.getDate() == currentDate.getDate() && currentDate.getHours() > startTime) {
 	                   	    	alert("과거 시간을 선택할 수 없습니다.");
 	                   	  	}
                    	        
@@ -68,7 +68,7 @@
                             	alert("예약 시작 시간을 선택해주세요.");
                             }else if(endtime == null || endtime == ""){
                             	alert("예약 종료 시간을 선택해주세요.");
-                            }else if(dateTime - currentDate<0){
+                            }else if(bookDate - currentDate>0){
                             	alert("과거 날짜를 선택할 수 없습니다. ");
                             }else if(checkResult === 'N'){
                             	alert("예약 가능 여부를 확인해주세요.");
