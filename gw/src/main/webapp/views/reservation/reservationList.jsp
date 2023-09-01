@@ -34,8 +34,32 @@
 		           		
                         $("#addReservation").on("click",function(){  // modal의 추가 버튼 클릭 시
                         	var currentDate = new Date();
-                        	var bookDate = new Date($("#bookDate").val() + "T" + $("#startTime").val() + ":00");
-                        	var startTime = parseInt($('#startTime').val());
+                        	var bookDateStr = $("#bookDate").val(); // 예: "2023-09-01"
+                        	var startTimeNumber = parseInt($("#startTime").val()); // 예: 9
+
+                        	console.log("Book Date String:", bookDateStr);
+                        	console.log("Start Time Number:", startTimeNumber);
+
+                        	// 시간을 올바른 형식으로 변환 (09:00:00 형태로)
+                        	var startTimeStr = startTimeNumber < 10 ? "0" + startTimeNumber + ":00:00" : startTimeNumber + ":00:00";
+
+                        	console.log("Start Time String:", startTimeStr);
+
+                        	// VARCHAR2 형식의 날짜와 NUMBER 형식의 시간을 조합
+                        	var isoDateTime = bookDateStr + "T" + startTimeStr;
+
+                        	console.log("ISO DateTime:", isoDateTime);
+
+                        	var bookDate = new Date(isoDateTime);
+
+                        	console.log("Book Date:", bookDate);
+
+                        	if (isNaN(bookDate.getTime())) {
+                        	    alert("올바른 날짜 및 시간 형식이 아닙니다.");
+                        	} else if (bookDate.getTime() < currentDate.getTime()) {
+                        	    alert("과거 시간을 선택할 수 없습니다.");
+                        	}
+                        	
                             var endtime = parseInt($('#endtime').val());
                             
                             var selectedCategory = $('#category').val();
@@ -52,11 +76,6 @@
 
                             console.log(selectedCategory);
                    	        console.log(selectedResource);
-                   	        
-                   	        
-	                   	    if (bookDate.getTime() < currentDate.getTime()) {
-	                   	    	alert("과거 시간을 선택할 수 없습니다.");
-	                   	  	}
                    	        
                             if(selectedCategory == null || selectedCategory == ""){
                             	alert("자원 종류를 선택해주세요.");
