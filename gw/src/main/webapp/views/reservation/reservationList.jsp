@@ -33,11 +33,10 @@
 	               		
 		           		
                         $("#addReservation").on("click",function(){  // modal의 추가 버튼 클릭 시
-                            var bookDate = $("#bookDate").val();
-                            var startTime = parseInt($('#startTime').val());
+                        	var currentDate = new Date();
+                        	var bookDate = new Date($("#bookDate").val() + "T" + $("#startTime").val() + ":00");
+                        	var startTime = parseInt($('#startTime').val());
                             var endtime = parseInt($('#endtime').val());
-                            var currentDate = new Date();
-                   	     	var currentMillis = currentDate.getTime();
                             
                             var selectedCategory = $('#category').val();
                             var selectedResource = "";
@@ -53,13 +52,11 @@
 
                             console.log(selectedCategory);
                    	        console.log(selectedResource);
-                   	        console.log(startTime - currentMillis);
-                   	        console.log(currentMillis);
                    	        
                    	        
-	                   	    if (currentDate.getDate() === bookDate.getDate() && currentDate.getHours() > startTime) {
-	                   	        alert("과거 시간을 선택할 수 없습니다.");
-	                   	    }
+	                   	    if (bookDate.getTime() < currentDate.getTime()) {
+	                   	    	alert("과거 시간을 선택할 수 없습니다.");
+	                   	  	}
                    	        
                             if(selectedCategory == null || selectedCategory == ""){
                             	alert("자원 종류를 선택해주세요.");
