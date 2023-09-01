@@ -150,6 +150,18 @@
 		where boardList_no=2000 and board_no=#{boardNo}
 	</delete>
 	
+	<select id="selRegdateDesc5" resultType="map">
+		select rownum, A.* from
+			(
+			    select * from noticeListview
+			    where delflag='N'
+			    order by regdate desc
+		    )A
+		<![CDATA[    
+		where rownum<=5
+		]]>	
+	</select>
+	
 	<select id="selectByEmpNo" parameterType="empSearchVo" resultType="map">
 		select *
 		from
