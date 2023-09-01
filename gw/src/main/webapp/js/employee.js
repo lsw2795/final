@@ -251,7 +251,7 @@
 		ConfirmFormCheck=true;
 		
 		if(ConfirmFormCheck){
-			$('#authentication-modal').modal('show'); 
+			$('#authentication-modal2').modal('show'); 
 		}
 		
 	});

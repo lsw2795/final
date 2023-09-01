@@ -4,25 +4,18 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 	$(document).ready(function() {
-	    // 페이지가 로드되면 실행될 함수
-	    function setDefaultMonth() {
-	        var currentDate = new Date();
-	        var year = currentDate.getFullYear();
-	        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-	        var defaultMonth = year + "-" + month;
-	        
-	        // input 요소의 값을 설정
-	        $("#nowMonth").val(defaultMonth);
-	        
-/* 	        if (!$("#searchForm").hasClass("submitted")) {
-	            $("#searchForm").addClass("submitted");
-	            $("#searchForm").submit();
-	        }  */
-	        
+	    var savedDate = localStorage.getItem("savedSearchDate");
+	    if (savedDate) {
+	        $("#nowMonth").val(savedDate);
 	    }
+
+	    // 검색 버튼 클릭 이벤트
+	    $("#searchForm").submit(function(event) {
+	        // 검색 일자를 로컬 스토리지에 저장
+	        var searchDate = $("#nowMonth").val();
+	        localStorage.setItem("savedSearchDate", searchDate);
+	    });
 	    
-	    // 페이지가 로드되면 기본 값 설정 함수 호출
-	    setDefaultMonth();
 	});
 	    
 
@@ -36,7 +29,7 @@
 		    labels: ['출근', '지각', '조퇴'],
 		    datasets: [{
 		      label: '월별 근태 통계',
-		      data: [3, 3, 2],
+		      data: [${attendance}, ${late}, ${ealry}],
 		      borderWidth: 1
 		    }]
 		  },
@@ -60,8 +53,7 @@
 	font-size: 14px;
 	text-align: center;
 	border-collapse: collapse;
-	border-top: 2px solid rgb(200, 200, 200);
-	border-bottom: 2px solid rgb(200, 200, 200);
+	border: 2px solid rgb(200, 200, 200);
 }
 
 .t-List tr {
@@ -109,8 +101,7 @@
 	font-size: 14px;
 	text-align: center;
 	border-collapse: collapse;
-	border-top: 2px solid rgb(200, 200, 200);
-	border-bottom: 2px solid rgb(200, 200, 200);
+	border: 2px solid rgb(200, 200, 200);
 }
 
 .t-List2 tr {
@@ -237,6 +228,7 @@
 .s-container {
 	background: white;
 	width: 1170px;
+	padding: 10px;
 	
 }
 
@@ -248,6 +240,7 @@
 
 .divSearch {
     float: right;
+    width: 40%;
 }
 
 .list1 {
@@ -268,6 +261,13 @@ table.t-List2 {
     width: 669px !important;
 }
 
+table.t-List.width1 {
+    width: 431px;
+}
+
+.search {
+    padding-top: 155px;
+}
 </style>
 
 
@@ -278,38 +278,41 @@ table.t-List2 {
 			<canvas id="myChart"></canvas>
 		</div>
 		
-		<div class="divSearch">
-			<form id="searchForm" action="<c:url value='/commute/statistics'/>" method="post">
-				<table class="t-search">
+		<div class="search">
+			<div class="divSearch">
+				<form id="searchForm" action="<c:url value='/commute/statistics'/>" method="post">
+					<table class="t-search">
+						<tr>
+							<td class="t-search-title">검색일</td>
+							<td><input type="month" id="nowMonth" name="date"> <input
+								type="submit" value="검색"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			
+			<div class="list1">
+				<table class="t-List width1">
 					<tr>
-						<td class="t-search-title">검색일</td>
-						<td><input type="month" id="nowMonth" name="date"> <input
-							type="submit" value="검색"></td>
+						<th colspan="4">통계</th>
+					</tr>
+					<tr>
+						<th class="th-1">출근</th>
+						<th class="th-1">지각</th>
+						<th class="th-1">조퇴</th>
+						<th class="th-1">총 근무시간</th>
+					</tr>
+					<tr>
+						<td>${attendance}</td>
+						<td>${late}</td>
+						<td>${ealry}</td>
+						<td>${TotalWorkTimeOfMonth}<c:if
+								test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
 					</tr>
 				</table>
-			</form>
+			</div>
 		</div>
 		
-		<div class="list1">
-			<table class="t-List width1">
-				<tr>
-					<th colspan="4">통계</th>
-				</tr>
-				<tr>
-					<th class="th-1">출근</th>
-					<th class="th-1">지각</th>
-					<th class="th-1">조퇴</th>
-					<th class="th-1">총 근무시간</th>
-				</tr>
-				<tr>
-					<td>${attendance}</td>
-					<td>${late}</td>
-					<td>${ealry}</td>
-					<td>${TotalWorkTimeOfMonth}<c:if
-							test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
-				</tr>
-			</table>
-		</div>
 		
 		<div class="list2">
 			<table class="t-List2">

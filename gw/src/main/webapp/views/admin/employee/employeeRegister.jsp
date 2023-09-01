@@ -16,13 +16,10 @@
 				return false;
 			}
 			$('#authentication-modal').modal('show'); 
-			
 		});
 		
 		$('#btnadminPwd').click(function(){ //모달에 있는 클릭버튼
-			var empNo=$('#empNoSpan').text();
-			//alert(empNo);
-			$.ajax({
+			 $.ajax({
 	            url : "<c:url value='/ajaxPwdCheck'/>",
 	            type:"get",
 	            dataType : "text",
@@ -59,10 +56,6 @@
 	            			         });//ajax
 	            				}
 	            			}
-	                  	  }else{
-	                  		 alert("사원정보 수정 처리가 완료되었습니다.");
-		                  	 $('#authentication-modal').modal('hide');
-		                  	location.href="<c:url value='/admin/employee/employeeEdit?empNo='/>"+empNo;
 	                  	  }
 	               }else{
 	                  alert('관리자 비밀번호가 일치하지 않습니다.');
@@ -73,6 +66,31 @@
 	            }
 	         });//ajax
 		}); 
+		
+		
+		$('#btnadminPwd2').click(function(){ //모달에 있는 클릭버튼
+			 $.ajax({
+	            url : "<c:url value='/ajaxPwdCheck'/>",
+	            type:"get",
+	            dataType : "text",
+	            data:"pwd="+$('#adminPwd2').val(),
+	            success: function(res){
+	               $('#adminPwdChkFlag').val(res);
+	               
+	               if($('#adminPwdChkFlag').val()>0){
+	                  	 alert("관리자 확인이 완료되었습니다.");
+	                  	 $('#authentication-modal2').modal('hide'); 
+	                  	 $('#confirmForm').hide(); // confirmForm 버튼 숨기기
+	                     $('#empWrite').show();    // empWrite 버튼 보이기
+	               }else{
+		                alert('관리자 비밀번호가 일치하지 않습니다.');
+	               }
+	            },
+	            error:function(xhr, status, error){
+	               alert(status+" : "+error);
+	            }
+	         });//ajax
+		});
 		
 		$('#btCancel').click(function(){
 			location.href="<c:url value='/admin/employee/employeeList'/>";
@@ -344,7 +362,7 @@
 					</c:if>
 					<div style="text-align: center;">
 						<input type="button" id="confirmForm" value="${btLabel}" class="btn btn-primary"/>
-						<%-- <input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/> --%>
+						<input type="submit" id="empWrite" value="${btLabel}" class="btn btn-primary"/>
 						<input type="button" value="취소" id="btCancel" class="btn btn-secondary"/>
 					</div>
 					

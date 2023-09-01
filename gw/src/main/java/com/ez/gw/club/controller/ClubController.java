@@ -241,9 +241,7 @@ public class ClubController {
 		//4.
 		return "common/message";
 	}
-	
 
-	
 	@GetMapping("/admin/adminclub/adminClubReport")
 	public String adminReport(Model model) {
 		//1.

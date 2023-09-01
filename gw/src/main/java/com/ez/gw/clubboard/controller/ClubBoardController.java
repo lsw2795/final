@@ -279,7 +279,7 @@ public class ClubBoardController {
 		logger.info("동게 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", 
-				url="/club/clubBoardDetail?clubNo="+clubNo+"&clubBoardNo="+boardNo;
+				url="/club/clubBoardDetail?clubNo="+clubNo+"&cluboardNo="+boardNo;
 		if(clubNo==0 || boardNo==0) {
 			msg="게시물 삭제 완료 되었습니다.";
 		}

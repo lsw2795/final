@@ -26,6 +26,8 @@
 		});
 		
 		  $("#fileInput").on("change", function() {
+			  var imagePreview = $(".dz-message");
+			  imagePreview.empty();
 			  
 			  var files = $(this)[0].files;
               for (var i = 0; i < files.length; i++) {
@@ -89,7 +91,7 @@
                     <div class="fallback">
                       <input name="imageURL" type="file" multiple="multiple" id="fileInput" required/>
                     </div>
-                    <div class="dz-message" data-dz-message=""> 
+                    <div class="dz-message" data-dz-message="data-dz-message"> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
 	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
                     </div>

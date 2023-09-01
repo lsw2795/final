@@ -18,6 +18,7 @@
 	<select id="selectEmpByDeptNo" parameterType="int" resultType="map">
         select * from organizationChartView
         where dept_no = #{deptNo}
+        and retiredate is null
         order by position_rank desc
     </select>
 	

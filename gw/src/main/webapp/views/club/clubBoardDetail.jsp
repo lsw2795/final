@@ -98,17 +98,20 @@
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
 		             </div>
 		             
-		              <!-- 글 줄바꿈 처리  -->
-	                  <% pageContext.setAttribute("newLine", "\r\n"); %>
-	            	  <c:set var="content" value="${fn:replace(commtMap['CONTENT'], newLine, '<br>')}" />
-	                  
-	                  <div id="content">
-	                  	 ${content}
+		             <div class="border-bottom mb-5 pb-5">
+			              <!-- 글 줄바꿈 처리  -->
+		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
+		            	  <c:set var="content" value="${fn:replace(commtMap['CONTENT'], newLine, '<br>')}" />
+		                  
+		                  <div id="content">
+		                  	 ${content}
+		                  </div>
 	                  </div>
 	            </c:forEach>
-            </div>
             <!-- 답변 반복 끝 -->
             
+            </div>
+
             <!-- 답변 등록 -->
             <form id="commtentFrm" name="commtentFrm" action="<c:url value='/club/clubComment'/>" method="post">
 	            <input name="empNo" type="hidden" value="${sessionScope.empNo}">
