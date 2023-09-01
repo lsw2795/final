@@ -39,4 +39,5 @@ public interface BoardDAO {
 	List<Map<String, Object>> select24List(); //익명게시판 24시간 이내 글
 	int updateAnonymousBoard(BoardVO vo);
 	int deleteAnonymousBoard(int boardNo);
+	List<Map<String, Object>> selRegdateDesc5(); //공지사항 최신글 5건 조회
 }

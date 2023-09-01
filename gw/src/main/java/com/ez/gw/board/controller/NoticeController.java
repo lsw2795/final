@@ -450,5 +450,14 @@ public class NoticeController {
 		return "common/message";
 	}
 
-	
+	@RequestMapping("/board/noticeList5")
+	public String selRegdateDesc5(Model model) {
+		logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회");
+		List<Map<String, Object>> noticeList=boardService.selRegdateDesc5();
+		logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회 결과 noticeList={}", noticeList);
+		
+		model.addAttribute("noticeList", noticeList);
+		
+		return "board/noticeList5";
+	}
 }
