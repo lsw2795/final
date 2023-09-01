@@ -337,6 +337,15 @@
 	                    		<span class="nav-link-text ps-1">신고글 관리</span>
 	                    	</div>
 	                  	</a>
+	                  	<ul class="nav collapse show" id="g">
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/report/anonymousReportList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">익명게시판 신고함</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    	</ul>
                   	</li>
 			</div>
 		  </div>

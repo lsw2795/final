@@ -1,13 +1,15 @@
 package com.ez.gw.report.model;
 
-import java.sql.Timestamp;
+import com.ez.gw.common.SearchVO;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class ReportVO { /* 신고 */
+@Setter
+@Getter
+public class ReportVO extends SearchVO { /* 신고 */
 	private int reportNo; /* 신고번호 */
-	private Timestamp reportDate; /* 신고일 */
+	private String reportDate; /* 신고일 */
 	private int reportStatus; /* 처리상태 0:대기 1:처리 */
 	private int empNo; /* 신고자(사원번호) */
 	private int boardListNo; /* 게시판 번호 */

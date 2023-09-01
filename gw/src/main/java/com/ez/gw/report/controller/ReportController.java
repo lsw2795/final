@@ -1,12 +1,19 @@
 package com.ez.gw.report.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
 
@@ -49,24 +56,51 @@ public class ReportController {
 	public String reportCommentAjax(@RequestParam(defaultValue = "0") int commentNo,
 			@RequestParam(defaultValue = "0") int boardNo, HttpSession session) {
 		int empNo=(int)session.getAttribute("empNo");
-		logger.info("댓글 신고 Ajax 파라미터 boardNo={},commentNo={}"+boardNo,commentNo);
+		logger.info("댓글 신고 Ajax 파라미터 boardNo={},commentNo={}",boardNo,commentNo);
 		
 		ReportVO vo = new ReportVO();
 		vo.setEmpNo(empNo);
 		vo.setBoardNo(boardNo);
 		vo.setCommentNo(commentNo);
+		logger.info("vo={}",vo);
 		int cnt=reportService.searchAnonymousCommentReport(vo);
 		
 		String msg="댓글 신고 중 에러가 발생했습니다.";
 		if(cnt>0) {
 			msg="해당 댓글을 이미 신고했습니다.";
 		}else {
-			cnt=reportService.anonymousBoardReport(vo);
+			cnt=reportService.anonymousCommentReport(vo);
 			if(cnt>0) {
 				msg="댓글을 신고했습니다.";
 			}
 		}
 		
 		return msg;
+	}
+	
+	@RequestMapping("/anonymousReportList")
+	public String anoymousReportList(@ModelAttribute ReportVO vo, Model model) {
+		logger.info("익명게시판 신고 리스트 파라미터 vo={}",vo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+   		pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    			
+    	vo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	List<Map<String, Object>> reportList = reportService.anonymousReportList(vo);
+    	logger.info("익명게시판 신고함 조회결과, list.size={}",reportList.size());
+    	
+    	int totalRecord = reportService.getTotalAnonymousReport(vo);
+		logger.info("익명게시판 신고함 조회결과, totalRecord={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("reportList",reportList);
+    	model.addAttribute("pagingInfo",pagingInfo);
+	
+		return "anonymousBoard/report/anonymousReportList";
 	}
 }

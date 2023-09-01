@@ -12,6 +12,9 @@ public interface ReportService {
 	List<Map<String, Object>> selectReportClub(); //관리자 동호회 신고함
 	int reportStatus(int reportStatus); //동호회 신고 상태
 	int anonymousBoardReport(ReportVO reportVo);
+	int anonymousCommentReport(ReportVO reportVo);
 	int searchAnonymousBoardReport(ReportVO reportVo);
 	int searchAnonymousCommentReport(ReportVO reportVo);
+	List<Map<String, Object>> anonymousReportList(ReportVO reportVo);
+	int getTotalAnonymousReport(ReportVO reportVo);
 }
