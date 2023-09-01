@@ -11,8 +11,25 @@
 			values(#{remanNo}, #{category}, #{name}, #{discription}, #{state}, #{empNo}, #{manager})
 	</insert>
 	
-	<select id="selectOfficeProductByCategory" parameterType="string" resultType="remanVo">
-		select * from reman where category = #{category} order by reman_no
+	<select id="selectOfficeProductByCategory" parameterType="justSearchRemanVO" resultType="remanVo">
+		select * from reman 
+		where category = #{category} 
+		<if test="searchKeyword!=null and searchKeyword !=''">
+			and(
+			<choose>
+				<when test = "searchCondition == 'total'">
+					name like '%' || #{searchKeyword} || '%' or 
+					discription like '%' || #{searchKeyword} || '%' or 
+					manager like '%' || #{searchKeyword} || '%' or 
+					state like '%' || #{searchKeyword} || '%'
+				</when>
+				<otherwise>
+					${searchCondition} like '%' || #{searchKeyword} || '%'
+				</otherwise>
+			</choose>
+			)
+		</if>
+		order by reman_no
 	</select>
 	
 	<delete id="deleteReman" parameterType="int">
@@ -23,7 +40,7 @@
 	 	select * from reman where reman_no = #{remanNo}
 	</select>
 	
-	<select id="selectAllReman">
+	<select id="selectAllReman" resultType="remanVo">
 		select * from reman
 	</select>
 	

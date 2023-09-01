@@ -190,6 +190,15 @@
           	$('.new-list').append(str);
           
     	}
+    	
+    	function reservation(){
+    		var str="";
+        	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+        	
+        	if(cnt>0){
+        		
+        	}
+    	}
     </script>
   </head>
   <body>
@@ -377,7 +386,7 @@
                       			</a>
                     		</li>
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link " href="<c:url value='/reservation/reservationList'/>">
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">자원 예약 내역</span>
                         			</div> 

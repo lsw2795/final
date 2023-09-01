@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import lombok.Data;
+import com.ez.gw.common.JustSearchRemanVO;
 
 @Mapper
 public interface RemanDAO {
 	int insertOfficeProduct(RemanVO remanVo);
-	List<RemanVO> selectOfficeProductByCategory(String category);
+	List<RemanVO> selectOfficeProductByCategory(JustSearchRemanVO searchRemanVo);
 	int deleteReman(int remanNo);
 	RemanVO selectRemanByNo(int remanNo);
 	int updateReman(RemanVO remanVo);

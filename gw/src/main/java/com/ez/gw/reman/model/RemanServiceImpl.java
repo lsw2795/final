@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.ez.gw.common.JustSearchRemanVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,8 +22,8 @@ public class RemanServiceImpl implements RemanService{
 	}
 
 	@Override
-	public List<RemanVO> selectOfficeProductByCategory(String category) {
-		return remanDao.selectOfficeProductByCategory(category);
+	public List<RemanVO> selectOfficeProductByCategory(JustSearchRemanVO searchRemanVo) {
+		return remanDao.selectOfficeProductByCategory(searchRemanVo);
 	}
 
 	@Override
