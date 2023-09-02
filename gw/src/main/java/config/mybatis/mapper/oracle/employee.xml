@@ -111,6 +111,12 @@
        	order by position_rank desc, position_name
 	</select>
 	
+	<select id="selEmpExportExcel" resultType="map">
+		select * from organizationChartView
+		where retiredate is null
+		order by position_rank desc, dept_no asc
+	</select>
+	
 	<select id="selectEmpByEmpNo" parameterType="int" resultType="map">
 		select * from organizationChartView
 		where emp_no=#{empNo}
