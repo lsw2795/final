@@ -38,12 +38,12 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/commute")
+@RequestMapping
 public class CommuteController {
 	private static final Logger logger = LoggerFactory.getLogger(CommuteController.class);
 	private final CommuteService commuteService;
 
-	@GetMapping("/status")
+	@GetMapping("/commute/status")
 	public String CommutingStatus(HttpServletRequest request, Model model) {
 		int empNo = (int) request.getSession().getAttribute("empNo");
 
@@ -58,7 +58,7 @@ public class CommuteController {
 	}
 
 
-	@RequestMapping("/workIn")
+	@RequestMapping("/commute/workIn")
 	@ResponseBody
 	public int ajaxWorkIn(@RequestParam(defaultValue = "0") int empNo) {
 		//1
@@ -95,7 +95,7 @@ public class CommuteController {
 
 	}
 
-	@RequestMapping("/workOut")
+	@RequestMapping("/commute/workOut")
 	@ResponseBody
 	public int ajaxWorkOut(@RequestParam(defaultValue = "0") int empNo) {
 		//1
@@ -143,7 +143,7 @@ public class CommuteController {
 		return result;
 	}
 
-	@RequestMapping("/statistics")
+	@RequestMapping("/commute/statistics")
 	public String statistics(HttpSession session, @RequestParam(required = false) String date
 			,Model model) {
 		int empNo = (int)session.getAttribute("empNo");
@@ -227,7 +227,7 @@ public class CommuteController {
 		return "commute/statistics";
 	}
 	
-	@GetMapping("/exportToExcel")
+	@GetMapping("/commute/exportToExcel")
 	public void exportToExcel(HttpServletResponse response, HttpSession session) throws IOException {
 		int empNo = (int)session.getAttribute("empNo");
 		
@@ -268,7 +268,7 @@ public class CommuteController {
 	}
 	
 	
-	@PostMapping("/importFromExcel")
+	@PostMapping("/commute/importFromExcel")
 	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
 	    
 		// 원본 파일명이 .xlsx로 끝나지 않으면 
@@ -299,6 +299,15 @@ public class CommuteController {
 
 	    workbook.close();
 	    return "redirect:/commute/status?importSuccess=Data imported successfully";
+	}
+	
+	//--------------------------ADMIN------------------------
+	
+	@RequestMapping("/admin/commute/allCommute")
+	public String allCommute() {
+		logger.info("전사원 근태 현황, 파라미터");
+		
+		return "admin/commute/allCommute";
 	}
 	
 	

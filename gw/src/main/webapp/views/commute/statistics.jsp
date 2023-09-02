@@ -102,6 +102,7 @@
 	text-align: center;
 	border-collapse: collapse;
 	border: 2px solid rgb(200, 200, 200);
+	margin-top: 10px;
 }
 
 .t-List2 tr {
@@ -228,7 +229,7 @@
 .s-container {
 	background: white;
 	width: 1170px;
-	padding: 10px;
+	padding: 20px;
 	
 }
 
@@ -250,6 +251,7 @@
 
 .list2 {
     clear: both;
+    padding-top: 30px;
 }
 
 table.t-List2 {
@@ -267,11 +269,14 @@ table.t-List.width1 {
 
 .search {
     padding-top: 155px;
+    margin-left: 50px;
 }
 </style>
 
 
 <div class="s-container">
+		<h2 style="margin-left: 20px;">근태 통계</h1>
+		<hr>
 	<!-- 검색일<input type="text" id="searchDate">  -->
 		<!--차트가 그려질 부분-->
 		<div class="chart">
@@ -291,7 +296,7 @@ table.t-List.width1 {
 				</form>
 			</div>
 			
-			<div class="list1">
+			<div  class="list1">
 				<table class="t-List width1">
 					<tr>
 						<th colspan="4">통계</th>
@@ -325,9 +330,11 @@ table.t-List.width1 {
 			</div>
 		</div>
 		
-		
 		<div class="list2">
-			<table class="t-List2">
+			<c:if test="${!empty commuteList}">
+				<div>조회된 결과 ${commuteList.size()}건</div>
+			</c:if>
+			<table  class="t-List2">
 				<tr>
 					<th class="th-1">날짜</th>
 					<th class="th-1">출근시간</th>
@@ -337,7 +344,7 @@ table.t-List.width1 {
 				</tr>
 				<c:if test="${empty commuteList}">
 					<tr>
-						<td colspan="5">근태 데이터가 존재하지 않습니다.</td>
+						<td colspan="5">조회된 근무이력이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${!empty commuteList}">
