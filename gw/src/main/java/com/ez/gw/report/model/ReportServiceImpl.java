@@ -65,4 +65,19 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.getTotalAnonymousReport(reportVo);
 	}
 
+	@Override
+	public Map<String, Object> selectByReportNo(int reportNo) {
+		return reportDao.selectByReportNo(reportNo);
+	}
+
+	@Override
+	public int updateAnonymousReport(int reportNo) {
+		return reportDao.updateAnonymousReport(reportNo);
+	}
+
+	@Override
+	public int updateAnonymousReportPostpone(int reportNo) {
+		return reportDao.updateAnonymousReportPostpone(reportNo);
+	}
+
 }

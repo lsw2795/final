@@ -35,6 +35,7 @@ public interface BoardService {
 	int updateAnonymousBoard(BoardVO vo);
 	int deleteAnonymousBoard(int boardNo);
 	List<Map<String, Object>> selRegdateDesc5(); //공지사항 최신글 5건 조회
+	Map<String, Object> AnonymousBoardByBoardNo(int boardNo);
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);

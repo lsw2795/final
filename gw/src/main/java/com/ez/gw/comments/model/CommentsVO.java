@@ -16,4 +16,5 @@ public class CommentsVO {
 	private int empNo; //사원번호
 	private int boardlistNo; //게시판번호
 	private int boardNo; //게시글번호
+	private int reportStatus; //신고상태
 }

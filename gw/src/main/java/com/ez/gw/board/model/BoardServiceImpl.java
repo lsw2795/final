@@ -215,6 +215,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selRegdateDesc5() {
 		return boardDao.selRegdateDesc5();
 	}
+
+	@Override
+	public Map<String, Object> AnonymousBoardByBoardNo(int boardNo) {
+		return boardDao.AnonymousBoardByBoardNo(boardNo);
+	}
 	
 	
 

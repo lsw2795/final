@@ -18,4 +18,13 @@ public class ReportVO extends SearchVO { /* 신고 */
 	private int clubNo; /* 동호회 번호 */
 	
 	private int clubBoardNo; /* clubboard의 게시글 번호 */
+
+	@Override
+	public String toString() {
+		return "ReportVO [reportNo=" + reportNo + ", reportDate=" + reportDate + ", reportStatus=" + reportStatus
+				+ ", empNo=" + empNo + ", boardListNo=" + boardListNo + ", boardNo=" + boardNo + ", commentNo="
+				+ commentNo + ", clubNo=" + clubNo + ", clubBoardNo=" + clubBoardNo + ", toString()=" + super.toString()
+				+ "]";
+	}
+
 }
