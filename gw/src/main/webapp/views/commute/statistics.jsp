@@ -269,6 +269,7 @@ table.t-List.width1 {
 
 .search {
     padding-top: 155px;
+    margin-left: 50px;
 }
 </style>
 
