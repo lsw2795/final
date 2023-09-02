@@ -2,10 +2,18 @@ package com.ez.gw.employee.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +39,7 @@ import com.ez.gw.position.model.PositionService;
 import com.ez.gw.position.model.PositionVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -332,6 +341,51 @@ public class EmployeeController {
 	    model.addAttribute("msg", msg);
 	    model.addAttribute("url", url);
 	    return "common/message";
+	}
+	
+	@GetMapping("/admin/employee/exportToExcel")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+		logger.info("엑셀로 저장");
+		
+		List<Map<String, Object>> list=employeeService.selEmpExportExcel();
+		logger.info("사원 전체목록 조회 결과, list.size()={}", list.size());
+	    Workbook workbook = new XSSFWorkbook();
+	    Sheet sheet = workbook.createSheet("사원 목록");
+
+	    Row headerRow = sheet.createRow(0);
+	    headerRow.createCell(0).setCellValue("사원번호");
+	    headerRow.createCell(1).setCellValue("사원이름");
+	    headerRow.createCell(2).setCellValue("부서");
+	    headerRow.createCell(3).setCellValue("직위");
+	    headerRow.createCell(4).setCellValue("내선번호");
+	    headerRow.createCell(5).setCellValue("입사일");
+
+	    int rowNum = 1;
+	    for (Map<String, Object> empMap : list) {
+	        Row row = sheet.createRow(rowNum++);
+	        row.createCell(0).setCellValue(empMap.get("EMP_NO") != null ? empMap.get("EMP_NO").toString() : "");
+	        row.createCell(1).setCellValue(empMap.get("NAME") != null ? empMap.get("NAME").toString() : "");
+	        row.createCell(2).setCellValue(empMap.get("DEPT_NAME") != null ? empMap.get("DEPT_NAME").toString() : "");
+	        row.createCell(3).setCellValue(empMap.get("POSITION_NAME") != null ? empMap.get("POSITION_NAME").toString() : "");
+	        row.createCell(4).setCellValue(empMap.get("EXTENSION_NO") != null ? empMap.get("EXTENSION_NO").toString() : "");
+
+	        if (empMap.get("HIREDATE") != null) {
+	            Date hiredate = (Date) empMap.get("HIREDATE");
+	            Cell hiredateCell = row.createCell(5);
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            hiredateCell.setCellValue(dateFormat.format(hiredate));
+	        } else {
+	            row.createCell(5).setCellValue("");
+	        }
+	    }
+
+	    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	    response.setHeader("Content-Disposition", "attachment; filename=employeeList_data.xlsx");
+
+	    OutputStream outputStream = response.getOutputStream();
+	    workbook.write(outputStream);
+	    workbook.close();
+	    outputStream.close();
 	}
 	
 	
