@@ -80,6 +80,13 @@
 		background: white;
 	}
 </style>
+
+<a href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+
+<form action="<c:url value='/commute/importFromExcel'/>" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".xlsx">
+    <input type="submit" value="엑셀 파일 업로드">
+</form>
 		
 <div id='calendar'></div>
 

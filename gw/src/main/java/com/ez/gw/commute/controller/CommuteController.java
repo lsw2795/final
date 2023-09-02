@@ -1,5 +1,7 @@
 package com.ez.gw.commute.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -9,19 +11,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ez.gw.commute.model.CommuteService;
 import com.ez.gw.commute.model.CommuteVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -212,6 +221,86 @@ public class CommuteController {
 
 		return "commute/statistics";
 	}
+	
+	@GetMapping("/exportToExcel")
+	public void exportToExcel(HttpServletResponse response, HttpSession session) throws IOException {
+		int empNo = (int)session.getAttribute("empNo");
+		
+		logger.info("엑셀로 저장 파라미터, empNo={}", empNo);
+		
+	    List<CommuteVO> commuteList = commuteService.selectCommuteByEmpNo(empNo); // 근태 출퇴근 정보를 DB에서 가져옴
+
+	    // Create a new Excel workbook and sheet
+	    Workbook workbook = new XSSFWorkbook();
+	    Sheet sheet = workbook.createSheet("개인별 근태기록");
+
+	    // 컬럼 셋팅
+	    Row headerRow = sheet.createRow(0);
+	    headerRow.createCell(0).setCellValue("사원번호");
+	    headerRow.createCell(1).setCellValue("출근 시간");
+	    headerRow.createCell(2).setCellValue("퇴근 시간");
+	    headerRow.createCell(3).setCellValue("근태 상태");
+
+	    // Populate data rows
+	    int rowNum = 1;
+	    for (CommuteVO commute : commuteList) {
+	        Row row = sheet.createRow(rowNum++);
+	        row.createCell(0).setCellValue(commute.getEmpNo());
+	        row.createCell(1).setCellValue(commute.getWorkIn()); // 출근 시간 필드에 따라 변경
+	        row.createCell(2).setCellValue(commute.getWorkOut()); // 퇴근 시간 필드에 따라 변경
+	        row.createCell(3).setCellValue(commute.getCommuteState()); // 근태 상태 필드에 따라 변경
+	    }
+
+	    // Set response headers
+	    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	    response.setHeader("Content-Disposition", "attachment; filename=" + empNo + "_commute_data.xlsx");
+
+	    // Write workbook data to response output stream
+	    OutputStream outputStream = response.getOutputStream();
+	    workbook.write(outputStream);
+	    workbook.close();
+	    outputStream.close();
+	}
+	
+	
+	@PostMapping("/importFromExcel")
+	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
+	    
+		// 원본 파일명이 .xlsx로 끝나지 않으면 
+	    if (!file.getOriginalFilename().endsWith(".xlsx")) {
+	        return "redirect:/commute/status";
+	    }
+
+	    // Create a new Excel workbook from the uploaded file
+	    Workbook workbook = new XSSFWorkbook(file.getInputStream());
+	    Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
+
+	    // Iterate through rows and insert data into the database
+	    for (Row row : sheet) {
+	        // Skip the header row
+	        if (row.getRowNum() == 0) {
+	            continue;
+	        }
+
+
+	        CommuteVO commute = new CommuteVO();
+	        commute.setEmpNo((int) row.getCell(0).getNumericCellValue());
+	        commute.setWorkIn(row.getCell(1).getStringCellValue());
+	        commute.setWorkOut(row.getCell(2).getStringCellValue());
+	        commute.setCommuteState((int) row.getCell(3).getNumericCellValue());
+
+	        commuteService.insertWorkIn((int) row.getCell(0).getNumericCellValue()); // DB에 데이터 입력
+	        
+	    }
+
+	    workbook.close();
+	    return "redirect:/commute/status?importSuccess=Data imported successfully";
+	}
+	
+	
+	
+	
+	
 
 
 }
