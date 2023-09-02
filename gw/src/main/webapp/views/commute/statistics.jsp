@@ -302,13 +302,25 @@ table.t-List.width1 {
 						<th class="th-1">조퇴</th>
 						<th class="th-1">총 근무시간</th>
 					</tr>
-					<tr>
-						<td>${attendance}</td>
-						<td>${late}</td>
-						<td>${ealry}</td>
-						<td>${TotalWorkTimeOfMonth}<c:if
-								test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
-					</tr>
+					<c:choose>
+						<c:when test="${empty attendance}">
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</c:when>
+					 	<c:otherwise>
+					 		<tr>
+								<td>${attendance}</td>
+								<td>${late}</td>
+								<td>${ealry}</td>
+								<td>${TotalWorkTimeOfMonth}<c:if
+										test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
+							</tr>
+					 	</c:otherwise>
+					</c:choose>
 				</table>
 			</div>
 		</div>
@@ -323,19 +335,31 @@ table.t-List.width1 {
 					<th class="th-1">근무시간</th>
 					<th class="th-1">근무상태</th>
 				</tr>
-				<c:forEach var="map" items="${commuteList}">
+				<c:if test="${empty commuteList}">
 					<tr>
-						<td>${map['workDate']}</td>
-						<td>${map['workInTime']}</td>
-						<td>${map['workOutTime']}</td>
-						<td>${map['workTime']}</td>
-						<td>${map['state']}</td>
+						<td colspan="5">근태 데이터가 존재하지 않습니다.</td>
 					</tr>
-				</c:forEach>
+				</c:if>
+				<c:if test="${!empty commuteList}">
+					<c:forEach var="map" items="${commuteList}">
+						<tr>
+							<td>${map['workDate']}</td>
+							<td>${map['workInTime']}</td>
+							<td>${map['workOutTime']}</td>
+							<td>${map['workTime']}</td>
+							<c:choose>
+								<c:when test="${map['state']!='정상근무'}">
+									<td style="color: red;">${map['state']}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${map['state']}</td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+					</c:forEach>
+				</c:if>
 			</table>
 		</div>
-
-
 </div>
 
 

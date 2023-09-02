@@ -80,8 +80,10 @@
 		background: white;
 	}
 </style>
-		
-<div id='calendar'></div>
+
+<a style="float: right;" href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+
+<div style="clear: both;" id='calendar'></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -108,7 +110,7 @@
 						<%for(CommuteVO vo : commuteList){ %>
 							<%if(vo.getCommuteState()==1){%>
 								{
-									title : '출근:지각',
+									title : '지각',
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
@@ -121,16 +123,16 @@
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else if(vo.getCommuteState()==3){%>
 								{
-									title : '출근:지각' ,
+									title : '지각' ,
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else{%>
