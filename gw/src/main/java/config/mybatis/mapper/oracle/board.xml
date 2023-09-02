@@ -315,5 +315,54 @@
 		on b.emp_no=e.emp_no
 		where board_no=#{boardNo}
 	</select>
+
+	<select id="searchDeptBoard" parameterType="empSearchVo" resultType="map">
+	select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from deptboardlistView
+				where boardlist_no=#{boardlistNo}
+				<if test="searchKeyword!=null and searchKeyword!=''">
+	 			and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+		   		</if>
+				and delflag='N'
+				order by regdate desc
+			)A
+		)
+		<![CDATA[
+		where rnum > #{firstRecordIndex}
+		and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>	
+	</select>
+	
+	<select id="gTRCountDeptBoard" parameterType="empSearchVo" resultType="int">
+		select count(*) from deptboardlistView
+		where boardlist_no=#{boardlistNo}
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+   		</if>
+		and delflag='N'
+		order by regdate desc
+	</select>
+	
+	<insert id="insertDeptBoard" parameterType="boardVo">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			select board_seq.nextval from dual
+		</selectKey>
+		
+		insert into board(board_no, emp_no, boardList_no, title, content)
+		values(#{boardNo}, #{empNo}, #{boardlistNo}, #{title}, #{content})
+	</insert>
+	
+	<select id="selectdeptBoard" parameterType="boardVo" resultType="map">
+		select * from deptboardlistView
+		where boardList_no =#{boardlistNo}
+		<if test="boardNo!=null and boardNo!=''">
+			and board_no=#{boardNo}
+		</if>
+	</select>
 	
 </mapper>

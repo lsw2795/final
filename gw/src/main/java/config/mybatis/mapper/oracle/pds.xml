@@ -188,4 +188,9 @@
 			200, #{clubBoardNo}, 0)
 	</insert>
 	
+	<select id="selFilesByDeptBoard" parameterType="boardVo" resultType="pdsVo">
+		select * from pds
+		where boardList_no=#{boardlistNo} and board_no=#{boardNo}
+	</select>
+	
 </mapper>

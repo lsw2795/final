@@ -25,7 +25,7 @@ public interface PdsService {
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
 	List<PdsVO> select24AnonymousImage();
 	int deleteAnonymousImg(PdsVO vo); //익명게시판 이미지 삭제
-	
+	List<PdsVO> selFilesByDeptBoard(BoardVO boardVo); //부서 게시판 파일 등록
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int editNoticeFile(int pdsNo);
 	int deleteMulti(List<PdsVO> list); //관리자 - 파일 다중 삭제

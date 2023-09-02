@@ -62,4 +62,10 @@
 	<delete id="deleteboardList" parameterType="int">
 		delete boardlist where boardlist_no=#{boardlistNo}
 	</delete>
+	
+	<select id="seldeptBoard" resultType="boardListVo">
+		select * from boardList
+		where boardlist_no not in(100,200,1000,2000,3000,4000,5000)
+	</select>
+	
 </mapper>
