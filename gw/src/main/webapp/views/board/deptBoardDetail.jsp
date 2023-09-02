@@ -6,7 +6,7 @@
 	$(function(){
 		$('#btnDelNotice').click(function(){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href="<c:url value='/admin/board/noticeDelete?boardNo=${param.boardNo }'/>";
+				location.href="<c:url value='/mypage/board/noticeDelete?boardNo=${param.boardNo }'/>";
 			}
 		});
 	});
@@ -22,7 +22,7 @@
         			href="<c:url value='/board/deptBoard?boardlistNo=${boardlistVo.boardlistNo}'/>">
               	 	<span class="fas fa-arrow-left"></span>
               	 </a>
-              	 <span class="adminhyphen"></span>
+              	 <span class="mypagehyphen"></span>
               	 <h5 class="mb-0 "><span class="fas fa-file" style="margin: 0 10px;"></span>${boardlistVo.boardName} 게시판</h5>
               </div>
             </div>
@@ -44,22 +44,22 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
-	                	<a href="<c:url value='/admin/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
-	               		<span class="adminhyphen"></span>
+	                	<a href="<c:url value='/mypage/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
+	               		<span class="mypagehyphen"></span>
 	               		<button id="btnDelNotice" class="btn btn-outline-danger">삭제</button>
 	               		</c:if>
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
-                	<span class="adminhyphen"></span>
+                	<span class="mypagehyphen"></span>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
-               		<span class="adminhyphen"></span>
+               		<span class="mypagehyphen"></span>
                 </div>
               </div>
             </div>
             <div class="card-body " style="background: #f9fafd;">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 ">
-                    <div class="card-body adminempdiv15">
+                    <div class="card-body mypageempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>

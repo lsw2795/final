@@ -27,7 +27,7 @@ public interface PdsDAO {
 	int editNoticeFile(int pdsNo); //공지사항 수정시 파일 삭제
 	List<PdsVO> select24AnonymousImage(); //익명게시판 24시간 이내 이미지
 	int deleteAnonymousImg(PdsVO vo); //익명게시판 이미지 삭제
-	
+	List<PdsVO> selFilesByDeptBoard(BoardVO boardVo); //부서 게시판 파일 등록
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int deleteAdminFile(int pdsNo); // 관리자 - 파일 db 삭제 메서드
 	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드

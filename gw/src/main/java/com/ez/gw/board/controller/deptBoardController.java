@@ -1,5 +1,8 @@
 package com.ez.gw.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +22,13 @@ import com.ez.gw.boardlist.model.BoardListService;
 import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.EmpSearchVO;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
+import com.ez.gw.common.Utility;
+import com.ez.gw.pds.model.PdsService;
+import com.ez.gw.pds.model.PdsVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +38,8 @@ public class deptBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(deptBoardController.class);
 	private final BoardService boardService;
 	private final BoardListService boardListService;
+	private final PdsService pdsService;
+	private final FileUploadUtil fileuploadUtil;
 	
 	@RequestMapping("/board/deptBoard")
 	public String deptBoardList(@ModelAttribute EmpSearchVO searchVo,Model model){
@@ -69,16 +79,56 @@ public class deptBoardController {
 	
 	@PostMapping("/board/deptBoardWrite")
 	public String deptBoardWrite_post(HttpSession session,
+			HttpServletRequest request,@ModelAttribute PdsVO pdsVo,
 			@ModelAttribute BoardVO vo, Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		vo.setEmpNo(empNo);
 		logger.info("부서 게시판 글쓰기 처리 파라미터 vo={}", vo);
 		int cnt=boardService.insertDeptBoard(vo);
 		logger.info("부서 게시판 글쓰기 처리 결과 cnt={}", cnt);
+		
+		//2
+		//다중파일 업로드 처리
+		String fileName="", originalFileName="",filePath = "";
+		long fileSize=0;
+		logger.info("관리자 - 공지사항 글 등록 결과, cnt={}", cnt);
+		
+		int result=0;
+		try {
+			List<Map<String, Object>> list
+			=fileuploadUtil.fileupload(request,ConstUtil.UPLOAD_NOTICE_FLAG);
+			
+			for(Map<String, Object> map:list) {
+				fileName=(String) map.get("fileName");
+				originalFileName=(String) map.get("originalFileName");
+				fileSize=(long) map.get("fileSize");
+				filePath = (String) map.get("uploadPath") + File.separator + fileName;
+				
+				logger.info("파일명:{}", fileName);
+				
+				pdsVo.setBoardListNo(vo.getBoardlistNo()); //공지사항 게시판 번호임
+				pdsVo.setBoardNo(vo.getBoardNo()); //게시글 번호
+				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
+				pdsVo.setFileName(fileName); //서버저장 파일명
+				pdsVo.setFileSize(fileSize); //파일크기
+				pdsVo.setOriginalFileName(originalFileName); //원본 파일명
+				pdsVo.setPath(filePath); //파일 경로
+				
+				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
+					result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
+					logger.info("다중 파일 등록 결과 result = {}", result);
+				}
+			}//for
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		String msg="게시글 등록에 실패했습니다.",url="/board/deptBoardWrite?"+vo.getBoardlistNo();
 		if(cnt>0) {
 			msg="게시글 등록을 완료했습니다.";
-			url="/board/deptBoard"; //디테일뷰 열면 바꾸기
+			url="/board/deptBoardDetail?boardlistNo="+vo.getBoardlistNo()+"&boardNo="+vo.getBoardNo();
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -90,9 +140,23 @@ public class deptBoardController {
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
+		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
+		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
+		logger.info("부서 게시글 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
+		
+		List<String> fileInfoArr=new ArrayList<>();
+		for(PdsVO pdsVo: pdsList) {
+			long fileSize=pdsVo.getFileSize();
+			String fileName=pdsVo.getOriginalFileName();
+			fileInfoArr.add(Utility.getFileInfo(fileSize, fileName));
+		}
+		
 		model.addAttribute("map", map);
 		model.addAttribute("boardlistVo", boardlistVo);
+		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("fileInfoArr",fileInfoArr);
+		
 		return "board/deptBoardDetail";
 	}
 	
