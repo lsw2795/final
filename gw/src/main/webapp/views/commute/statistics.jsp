@@ -337,7 +337,7 @@ table.t-List.width1 {
 				</tr>
 				<c:if test="${empty commuteList}">
 					<tr>
-						<td colspan="5">이번달 근태 데이터가 존재하지 않습니다.</td>
+						<td colspan="5">근태 데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${!empty commuteList}">
