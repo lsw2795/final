@@ -133,7 +133,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">부서별 근태 통계</span>
+                        				<span class="nav-link-text ps-1">전사원 근태 관리</span>
                         			</div> 
                       			</a>
                     		</li>

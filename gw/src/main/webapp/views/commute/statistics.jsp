@@ -229,7 +229,7 @@
 .s-container {
 	background: white;
 	width: 1170px;
-	padding: 10px;
+	padding: 20px;
 	
 }
 
