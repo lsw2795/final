@@ -26,6 +26,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Map<String, Object>> selectAllReservation() {
 		return reservationDao.selectAllReservation();
 	}
+
+	@Override
+	public Map<String, Object> detailReservation(int reservationNo) {
+		return reservationDao.detailReservation(reservationNo);
+	}
 	
 	
 }

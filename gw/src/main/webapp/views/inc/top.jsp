@@ -371,28 +371,12 @@
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#c" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/reservation/reservationList'/>" role="button">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-plug"></span></span>
 	                    		<span class="nav-link-text ps-1">자원관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="c">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/reservation/addReservation'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">자원 예약</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/reservation/reservationList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">자원 예약 내역</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#d" role="button" data-bs-toggle="collapse">
