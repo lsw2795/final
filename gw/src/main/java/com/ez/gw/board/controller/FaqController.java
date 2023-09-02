@@ -1,7 +1,12 @@
 package com.ez.gw.board.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
@@ -20,6 +26,7 @@ import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
+import com.ez.gw.commute.model.CommuteVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -129,5 +136,35 @@ public class FaqController {
 		return "board/faqList";
 	}
 	
-	
+	@PostMapping("/admin/board/importFromExcel")
+	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
+	    
+		// 원본 파일명이 .xlsx로 끝나지 않으면 
+	    if (!file.getOriginalFilename().endsWith(".xlsx")) {
+	        return "redirect:/admin/board/faqList";
+	    }
+
+	    // Create a new Excel workbook from the uploaded file
+	    Workbook workbook = new XSSFWorkbook(file.getInputStream());
+	    Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
+
+	    // Iterate through rows and insert data into the database
+	    for (Row row : sheet) {
+	        // Skip the header row
+	        if (row.getRowNum() == 0) {
+	            continue;
+	        }
+
+	        BoardVO boardVo=new BoardVO();	
+	        boardVo.setEmpNo((int) row.getCell(0).getNumericCellValue());
+	        boardVo.setBoardlistNo((int)row.getCell(1).getNumericCellValue());
+	        boardVo.setTitle(row.getCell(2).getStringCellValue());
+	        boardVo.setContent(row.getCell(3).getStringCellValue());
+	        
+	        boardService.insertFAQ(boardVo);
+	    }
+
+	    workbook.close();
+	    return "redirect:/admin/board/faqList?importSuccess=Data imported successfully";
+	}
 }

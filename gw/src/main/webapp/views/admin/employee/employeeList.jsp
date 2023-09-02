@@ -388,19 +388,14 @@ function messageWrite(empNo) {
 						사원 데이터</h5>
 					</div>
 					<div class="card-body pt-3 admindefault">
-				         <a class="btn btn-primary" href="<c:url value='/admin/employee/exportToExcel'/>">엑셀로 저장</a>
-				         <form action="<c:url value='/admin/employee/importFromExcel'/>" method="POST" enctype="multipart/form-data">
-						    <input type="file" name="file" accept=".xlsx">
-						    <input type="submit" value="엑셀 파일 업로드">
-						</form>
+				         <a class="btn btn-dark" href="<c:url value='/admin/employee/exportToExcel'/>">엑셀로 저장하기</a>
 					</div>
 				</div>
 			</div>
 
 	<div class="col-md-12 mb-3">
 		<div class="card font-sans-serif h-100 admindefault">
-			<div class="card admindefault">
-				<div class="card-header admindefault">
+				<div class="card-header pb-0 admindefault">
 					<h5 class="mb-0 admindefault">
 						<span class="fas fa-users" style="margin: 0 10px;"></span>조직도관리
 					</h5>
@@ -431,8 +426,8 @@ function messageWrite(empNo) {
 								</div>
 							</c:forEach>
 							</c:if>
+						</div>
 					</div>
-				</div>
 				<div class="border-top border-200 py-x1">
 					<div
 						class="d-flex align-items-center justify-content-between px-x1 admindefault">
@@ -458,8 +453,7 @@ function messageWrite(empNo) {
 					</div>
 				</div>
 			</div>
-		</div>
-	  </div>
+	  	</div>
 	</div>
 </div>
 <%@ include file='deptModal.jsp' %>
