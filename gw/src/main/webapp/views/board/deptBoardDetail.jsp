@@ -4,9 +4,10 @@
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
 <script type="text/javascript">
 	$(function(){
-		$('#btnDelNotice').click(function(){
+		
+		$('#btnDelDeptBoard').click(function(){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href="<c:url value='/mypage/board/noticeDelete?boardNo=${param.boardNo }'/>";
+				location.href="<c:url value=''/>";
 			}
 		});
 	});
@@ -47,10 +48,16 @@
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
+                	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
+                		<a href="#" id="heart" style="float: right;">
+							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+						</a>
+						<span class="mypagehyphen"></span>
+                	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
-	                	<a href="<c:url value='/mypage/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
+	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
 	               		<span class="mypagehyphen"></span>
-	               		<button id="btnDelNotice" class="btn btn-outline-danger">삭제</button>
+	               		<button id="btnDelDeptBoard" class="btn btn-outline-danger">삭제</button>
 	               		</c:if>
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
