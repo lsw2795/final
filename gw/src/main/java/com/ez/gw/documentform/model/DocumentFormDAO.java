@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface DocumentFormDAO {
 	List<DocumentFormVO> selectAllFormPage(DocumentFormVO vo);
 	List<DocumentFormVO> selectAllForm();
+	List<DocumentFormVO> AllForm();
 	int getTotalRecord(DocumentFormVO vo);
 	int formInsert(DocumentFormVO vo);
 	int formUpdate(DocumentFormVO vo);

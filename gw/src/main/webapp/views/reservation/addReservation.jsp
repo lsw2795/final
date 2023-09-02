@@ -66,7 +66,7 @@
 			 }
 	 	});
 		 
-		 $('#meetingRoom, #noteBook, #rentCar').change(function(){
+		 /* $('#meetingRoom, #noteBook, #rentCar').change(function(){
 			 
 		 	if (selectedCategory === 'meetingRoom') {
 	            selectedResource = $('#meetingRoom option:selected').val();
@@ -77,7 +77,7 @@
 	        }
 
 	        console.log(selectedResource);
-		 });
+		 }); */
 		 
 		 
 			 

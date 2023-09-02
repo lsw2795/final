@@ -1,27 +1,38 @@
 package com.ez.gw.commute.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ez.gw.commute.model.CommuteService;
 import com.ez.gw.commute.model.CommuteVO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -151,6 +162,8 @@ public class CommuteController {
 			logger.info("월별 근태기록 전체 조회 결과 commuteList.size={}", commuteList.size());
 
 			long totalHours = 0;
+			long totalMinutes = 0;
+			
 			
 			for(Map<String, Object> map : commuteList) {
 				// 시간 추출
@@ -166,15 +179,18 @@ public class CommuteController {
 
 				// 근무 시간 계산
 				Duration workDuration = Duration.between(workInTime, workOutTime);
-				long workTime = workDuration.toHours();
+				long workHours = workDuration.toHours();
+			    long workMinutes = (workDuration.toMinutes() % 60);
 				
-				totalHours += workTime; // 월 총 근무시간
+				totalHours += workHours; // 월 총 근무시간
+				totalMinutes += workDuration.toMinutes(); // 월 총 근무시간 (분 단위)
 
-				// 날짜에서 년도, 월, 일 추출
+				// 날짜에서 년도, 월, 일, 요일 추출
 				LocalDate workDate = workInTime.toLocalDate();
 				int year = workDate.getYear();
 				int month = workDate.getMonthValue();
 				int day = workDate.getDayOfMonth();
+				String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
 				
 				//근태상태 조회 
 				BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
@@ -192,10 +208,10 @@ public class CommuteController {
 				}
 
 				map.put("state", stateResult);
-				map.put("workDate", String.format("%04d-%02d-%02d", year, month, day)); // 년도, 월, 일 저장
+				map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
 				map.put("workInTime", workInTimeOnly); //출근 시간
 				map.put("workOutTime", workOutTimeOnly); //퇴근 시간
-				map.put("workTime", workTime); // 근무 시간
+				map.put("workTime", String.format("%02d:%02d", workHours, workMinutes)); // 근무 시간
 				
 				
 			}
@@ -208,10 +224,87 @@ public class CommuteController {
 
 		}
 
-
-
 		return "commute/statistics";
 	}
+	
+	@GetMapping("/exportToExcel")
+	public void exportToExcel(HttpServletResponse response, HttpSession session) throws IOException {
+		int empNo = (int)session.getAttribute("empNo");
+		
+		logger.info("엑셀로 저장 파라미터, empNo={}", empNo);
+		
+	    List<CommuteVO> commuteList = commuteService.selectCommuteByEmpNo(empNo); // 근태 출퇴근 정보를 DB에서 가져옴
+
+	    // Create a new Excel workbook and sheet
+	    Workbook workbook = new XSSFWorkbook();
+	    Sheet sheet = workbook.createSheet("개인별 근태기록");
+
+	    // 컬럼 셋팅
+	    Row headerRow = sheet.createRow(0);
+	    headerRow.createCell(0).setCellValue("사원번호");
+	    headerRow.createCell(1).setCellValue("출근 시간");
+	    headerRow.createCell(2).setCellValue("퇴근 시간");
+	    headerRow.createCell(3).setCellValue("근태 상태");
+
+	    // Populate data rows
+	    int rowNum = 1;
+	    for (CommuteVO commute : commuteList) {
+	        Row row = sheet.createRow(rowNum++);
+	        row.createCell(0).setCellValue(commute.getEmpNo());
+	        row.createCell(1).setCellValue(commute.getWorkIn()); // 출근 시간 필드에 따라 변경
+	        row.createCell(2).setCellValue(commute.getWorkOut()); // 퇴근 시간 필드에 따라 변경
+	        row.createCell(3).setCellValue(commute.getCommuteState()); // 근태 상태 필드에 따라 변경
+	    }
+
+	    // Set response headers
+	    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	    response.setHeader("Content-Disposition", "attachment; filename=" + empNo + "_commute_data.xlsx");
+
+	    // Write workbook data to response output stream
+	    OutputStream outputStream = response.getOutputStream();
+	    workbook.write(outputStream);
+	    workbook.close();
+	    outputStream.close();
+	}
+	
+	
+	@PostMapping("/importFromExcel")
+	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
+	    
+		// 원본 파일명이 .xlsx로 끝나지 않으면 
+	    if (!file.getOriginalFilename().endsWith(".xlsx")) {
+	        return "redirect:/commute/status";
+	    }
+
+	    // Create a new Excel workbook from the uploaded file
+	    Workbook workbook = new XSSFWorkbook(file.getInputStream());
+	    Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
+
+	    // Iterate through rows and insert data into the database
+	    for (Row row : sheet) {
+	        // Skip the header row
+	        if (row.getRowNum() == 0) {
+	            continue;
+	        }
+
+	        CommuteVO commute = new CommuteVO();
+	        commute.setEmpNo((int) row.getCell(0).getNumericCellValue());
+	        commute.setWorkIn(row.getCell(1).getStringCellValue());
+	        commute.setWorkOut(row.getCell(2).getStringCellValue());
+	        commute.setCommuteState((int) row.getCell(3).getNumericCellValue());
+
+	        commuteService.insertWorkIn((int) row.getCell(0).getNumericCellValue()); // DB에 데이터 입력
+	        
+	    }
+
+	    workbook.close();
+	    return "redirect:/commute/status?importSuccess=Data imported successfully";
+	}
+	
+	
+	
+	
+	
 
 
 }

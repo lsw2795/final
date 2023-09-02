@@ -7,11 +7,15 @@ package com.ez.gw.common;
 */
 
 public class SearchVO {
+
 	/** 검색조건 */
 	private String searchCondition = "";
 	
 	/** 검색키워드 */
 	private String searchKeyword = "";
+	private String searchName = "";
+	private String searchComment = "";
+	private String searchContent = "";
     
 	/** 검색 사용여부 */
 	private String searchUseYn = "";
@@ -41,6 +45,9 @@ public class SearchVO {
     	this.searchCondition = bean.getSearchCondition();
     	this.searchKeyword = bean.getSearchKeyword();
     	this.searchUseYn = bean.getSearchUseYn();
+    	this.searchComment = bean.getSearchComment();
+    	this.searchContent = bean.getSearchContent();
+    	this.searchName = bean.getSearchName();
     	this.blockSize = bean.blockSize;
     	this.firstRecordIndex = bean.firstRecordIndex;
     	this.lastRecordIndex = bean.lastRecordIndex;
@@ -112,17 +119,38 @@ public class SearchVO {
 		this.recordCountPerPage = recordCountPerPage;
 	}
 
-	@Override
-	public String toString() {
-		return "SearchVO [searchCondition=" + searchCondition
-				+ ", searchKeyword=" + searchKeyword + ", searchUseYn="
-				+ searchUseYn + ", currentPage=" + currentPage
-				+ ", blockSize=" + blockSize + ", firstRecordIndex="
-				+ firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
-				+ ", recordCountPerPage=" + recordCountPerPage + "]";
+	public String getSearchName() {
+		return searchName;
 	}
 
-	
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+
+	public String getSearchComment() {
+		return searchComment;
+	}
+
+	public void setSearchComment(String searchComment) {
+		this.searchComment = searchComment;
+	}
+
+	public String getSearchContent() {
+		return searchContent;
+	}
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchVO [searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", searchName="
+				+ searchName + ", searchComment=" + searchComment + ", searchContent=" + searchContent
+				+ ", searchUseYn=" + searchUseYn + ", currentPage=" + currentPage + ", blockSize=" + blockSize
+				+ ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
+				+ ", recordCountPerPage=" + recordCountPerPage + "]";
+	}
 
 	
 }
