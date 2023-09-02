@@ -81,9 +81,9 @@
 	}
 </style>
 
-<a href="<c:url value='/commute/exportToExcel'/>">근태 데이터 엑셀로 저장</a>
+<a style="float: right;" href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
 
-<div id='calendar'></div>
+<div style="clear: both;" id='calendar'></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
