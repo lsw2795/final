@@ -347,14 +347,19 @@ table.t-List.width1 {
 							<td>${map['workInTime']}</td>
 							<td>${map['workOutTime']}</td>
 							<td>${map['workTime']}</td>
-							<td>${map['state']}</td>
+							<c:choose>
+								<c:when test="${map['state']!='정상근무'}">
+									<td style="color: red;">${map['state']}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${map['state']}</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</c:if>
 			</table>
 		</div>
-
-
 </div>
 
 

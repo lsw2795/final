@@ -287,7 +287,6 @@ public class CommuteController {
 	            continue;
 	        }
 
-
 	        CommuteVO commute = new CommuteVO();
 	        commute.setEmpNo((int) row.getCell(0).getNumericCellValue());
 	        commute.setWorkIn(row.getCell(1).getStringCellValue());

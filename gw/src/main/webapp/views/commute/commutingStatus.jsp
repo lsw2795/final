@@ -81,13 +81,8 @@
 	}
 </style>
 
-<a href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+<a href="<c:url value='/commute/exportToExcel'/>">근태 데이터 엑셀로 저장</a>
 
-<form action="<c:url value='/commute/importFromExcel'/>" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept=".xlsx">
-    <input type="submit" value="엑셀 파일 업로드">
-</form>
-		
 <div id='calendar'></div>
 
 <script>
@@ -115,7 +110,7 @@
 						<%for(CommuteVO vo : commuteList){ %>
 							<%if(vo.getCommuteState()==1){%>
 								{
-									title : '출근:지각',
+									title : '지각',
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
@@ -128,16 +123,16 @@
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else if(vo.getCommuteState()==3){%>
 								{
-									title : '출근:지각' ,
+									title : '지각' ,
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else{%>
