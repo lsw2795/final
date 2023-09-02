@@ -13,4 +13,5 @@ public interface ReportService {
 	int reportStatus(int reportStatus); //동호회 신고 상태
 	int anonymousBoardReport(ReportVO reportVo);
 	int searchEmpNo(ReportVO reportVo);
+	int dupClubBoardReport(ReportVO reportVo); //동호회 
 }

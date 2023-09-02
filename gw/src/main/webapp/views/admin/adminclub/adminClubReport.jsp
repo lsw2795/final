@@ -6,13 +6,13 @@
 
 	function deleteReport() {
 		if(confirm("신고 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/admin/adminclub/deleteMulti?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
+			location.href = "<c:url value='/admin/adminclub/deleteMulti?clubNo=${map.CLUB_NO}&boardNo=${map.BOARD_NO }'/>"
 		}
 	}
 	
 	function deleteClubBoard() {
 		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
-			location.href="<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"
+			location.href="<c:url value='/admin/adminclub/adminDeleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo }'/>"
 		}
 	}
 	
@@ -65,15 +65,13 @@
         		${map['TITLE']}
         	</a>
         </td>
-        <td class="text-nowrap"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
+        <td class="text-nowrap"><fmt:formatDate value="${map['REPORT_DATE']}" pattern="yyyy-MM-dd"/></td>
         <td>
-        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
-	        	<c:if test="${map['REPORT_STATUS']==0}">
-			        <span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
-			        	대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
-			        </span>
-	        	</c:if>
-        	</span>
+	       <c:if test="${map['REPORT_STATUS']==0}">
+			   <span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+			       대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+			   </span>
+	       </c:if>
 		</td>
         <td>
           <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard()" id="btnDel" type="button">

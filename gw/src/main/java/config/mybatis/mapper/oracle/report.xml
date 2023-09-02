@@ -14,7 +14,8 @@
 	
 	<select id="selectReportClub" resultType="map" parameterType="int">
 		select * from CLUBREPORTVIEW
-		where BOARDLIST_NO=200 
+		where BOARDLIST_NO=200
+		order by report_date desc  
 	</select>
 	
 	<insert id="anonymousBoardReport" parameterType="reportVo">
@@ -30,5 +31,10 @@
 		where emp_no=#{empNo}
 		and board_no=#{boardNo}
 		and comment_no is null
+	</select>
+	
+	<select id="dupClubBoardReport" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
 	</select>
 </mapper>

@@ -45,4 +45,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.searchEmpNo(reportVo);
 	}
 
+	@Override
+	public int dupClubBoardReport(ReportVO reportVo) {
+		return reportDao.dupClubBoardReport(reportVo);
+	}
+
 }

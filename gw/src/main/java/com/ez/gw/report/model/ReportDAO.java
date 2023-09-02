@@ -11,4 +11,5 @@ public interface ReportDAO {
 	List<Map<String, Object>> selectReportClub(); //관리자 동호회 신고함
 	int anonymousBoardReport(ReportVO reportVo);
 	int searchEmpNo(ReportVO reportVo);
+	int dupClubBoardReport(ReportVO reportVo); //동호회 
 }
