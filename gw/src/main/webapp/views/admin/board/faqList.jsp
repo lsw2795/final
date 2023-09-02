@@ -103,6 +103,12 @@
 						</div>
 						</div>
 						</form>
+						<div class="ms-8">
+						<form action="<c:url value='/admin/board/importFromExcel'/>" method="POST" enctype="multipart/form-data">
+						    <input type="submit" value="엑셀 파일 업로드" class="btn btn-outline-dark mt-3">
+						    <input type="file" name="file" accept=".xlsx" class="form-control admindefault mt-3">
+						</form>
+						</div>
 					</div>
 				</div>
 			</div>
