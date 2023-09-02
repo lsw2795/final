@@ -11,7 +11,7 @@
                         <h6 class="mb-0">Club Board</h6>
                       </div>
                       <div class="col-auto">
-                        <form action='<c:url value='/club/clubList'/>'>
+                        <form action='<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>'>
 		                    <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
 			                       <option value="title"
 			                          	<c:if test="${param.searchCondition=='title'}">
@@ -22,7 +22,7 @@
 		                       		    <c:if test="${param.searchCondition=='name'}">
 			                            	selected = "selected"
 			                            </c:if>
-			                         >이름</option>
+			                         >작성자</option>
 			                         <option value="content"
 			                            <c:if test="${param.searchCondition=='content'}">
 			                            	selected = "selected"

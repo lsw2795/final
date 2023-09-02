@@ -65,4 +65,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.getTotalAnonymousReport(reportVo);
 	}
 
+	@Override
+	public int dupClubBoardReport(ReportVO reportVo) {
+		return reportDao.dupClubBoardReport(reportVo);
+	}
+
 }

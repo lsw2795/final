@@ -17,4 +17,6 @@ public interface ReportService {
 	int searchAnonymousCommentReport(ReportVO reportVo);
 	List<Map<String, Object>> anonymousReportList(ReportVO reportVo);
 	int getTotalAnonymousReport(ReportVO reportVo);
+	int searchEmpNo(ReportVO reportVo);
+	int dupClubBoardReport(ReportVO reportVo); //동호회 
 }

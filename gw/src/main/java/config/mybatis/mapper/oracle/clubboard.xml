@@ -10,7 +10,7 @@
 		<if test="searchVo.searchKeyword!=null and searchVo.searchKeyword!=''">
 			where ${searchVo.searchCondition} like '%' || #{searchVo.searchKeyword} ||'%'
 		</if>
-		order by regDate desc
+		order by regdate desc
 	</select>
 	
 	<insert id="insertClubBoard" parameterType="clubBoardVo">
@@ -38,7 +38,7 @@
 		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
 	</select>
 	
-	<delete id="deleteClubBoard">
+	<delete id="deleteClubBoard" parameterType="int">
 		delete from clubBoard
 		where CLUB_NO=#{clubNo} and board_no=#{boardNo} 
 	</delete>
