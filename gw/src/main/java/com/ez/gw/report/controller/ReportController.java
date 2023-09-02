@@ -51,7 +51,6 @@ public class ReportController {
 		return msg;
 	}
 	
-<<<<<<< HEAD
 	//클럽
 	@RequestMapping("/reportClubBoardAjax")
 	public String ajaxReportClub(@RequestParam(defaultValue = "0") int clubBoardNo,
@@ -61,10 +60,10 @@ public class ReportController {
 		ReportVO reVo = new ReportVO();
 		reVo.setEmpNo(empNo);
 		reVo.setClubBoardNo(clubBoardNo);
-		logger.info("게시글 신고 Ajax 파라미터 clubBoardNo={}"+clubBoardNo);
+		logger.info("게시글 신고 Ajax 파라미터 clubBoardNo={}",clubBoardNo);
 		
 		//2.
-		int cnt=reportService.dupClubBoardReport(reVo);
+		int cnt=reportService.insertReport(reVo);
 		logger.info("신고등록 결과 cnt={}",cnt);
 		
 		//3.
@@ -72,7 +71,8 @@ public class ReportController {
 		if(cnt>0) {
 			msg="이미 신고한 게시물입니다.";
 		}else {
-			cnt=reportService.insertReport(reVo);
+			
+			cnt=reportService.dupClubBoardReport(reVo);
 			if(cnt>0) {
 				msg="해당 게시물이 신고되었습니다.";
 			}
@@ -80,7 +80,7 @@ public class ReportController {
 		//4.
 		return msg;
 	}
-
+	
 	@ResponseBody
 	@RequestMapping("/reportCommentAjax")
 	public String reportCommentAjax(@RequestParam(defaultValue = "0") int commentNo,

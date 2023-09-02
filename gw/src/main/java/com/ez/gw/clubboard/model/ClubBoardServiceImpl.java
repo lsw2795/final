@@ -55,7 +55,7 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 			for(ClubBoardVO vo : list) {
 				int boardNo = vo.getBoardNo();
 				if(boardNo!=0) { //체크된 질문만 삭제
-					cnt = clubboardDao.deleteClubBoard(cnt, boardNo);
+					cnt = clubboardDao.deleteClubBoard(vo.getClubNo(), boardNo);
 				}
 			} //for
 		}catch (RuntimeException e) {

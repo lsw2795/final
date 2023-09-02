@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#AddBoardList').click(function(){
@@ -486,17 +487,65 @@
 				<div class="card h-100 admindefault">
 					<div class="card-header py-2 admindefault">
 						<div class="row flex-between-center g-0 admindefault">
-							<div class="card-header pb-0 admindefault">
+							<div class="col-auto pb-0 admindefault">
 								<h5 class="mb-0 admindefault">게시판별 이용 통계</h5>
 							</div>
-						</div>
+							 <div class="col-auto d-flex">
+		                      <select class="form-select form-select-sm select-month me-2 admindefault">
+		                        <option value="0">January</option>
+		                        <option value="1">February</option>
+		                        <option value="2">March</option>
+		                        <option value="3">April</option>
+		                        <option value="4">May</option>
+		                        <option value="5">Jun</option>
+		                        <option value="6">July</option>
+		                        <option value="7">August</option>
+		                        <option value="8">September</option>
+		                        <option value="9">October</option>
+		                        <option value="10">November</option>
+		                        <option value="11">December</option>
+		                      </select>
+                      <div class="dropdown font-sans-serif btn-reveal-trigger">
+                        <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-total-sales" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                        <span class="fas fa-ellipsis-h fs--2"></span>
+                        </button>
+                      </div>
+                    </div>
+				   </div>
 					</div>
-						<div class="card-body pb-0 admindefault">
-						<div class="table-responsive scrollbar admindefault">
-							
-							
-						</div>
-					</div>
+						
+                <div class="card-body h-100 pe-0">
+                 <canvas id="myBarChart" width="400" height="150"></canvas>
+                
+                <script type="text/javascript">
+					    // 막대 그래프 데이터 생성 (예제)
+					    var barChartData = {
+					        labels: ['1월', '2월', '3월', '4월', '5월'],
+					        datasets: [{
+					            label: '월별 판매량',
+					            data: [120, 200, 150, 80, 90],
+					            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+					            borderColor: 'blue',
+					            borderWidth: 1
+					        }]
+					    };
+					
+					    // 막대 그래프 생성
+					    var ctx = document.getElementById('myBarChart').getContext('2d');
+					    var myBarChart = new Chart(ctx, {
+					        type: 'bar',  // 막대 그래프
+					        data: barChartData,
+					        options: {
+					            scales: {
+					                y: {
+					                    beginAtZero: true
+					                }
+					            }
+					        }
+					    });
+					</script>
+                </div>
+					
 				</div>
 			</div>
 		</div>

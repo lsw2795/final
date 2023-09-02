@@ -70,4 +70,10 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.dupClubBoardReport(reportVo);
 	}
 
+	@Override
+	public int searchEmpNo(ReportVO reportVo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

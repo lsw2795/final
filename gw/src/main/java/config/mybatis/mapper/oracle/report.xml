@@ -98,6 +98,6 @@
 	<select id="getTotalAnonymousReport" parameterType="reportVo">
 		select count(*) from anonymousReportView
 		<include refid="search"></include>
->>>>>>> branch 'main' of https://github.com/lsw2795/final.git
-	</select>
+	</select>	
+	
 </mapper>
