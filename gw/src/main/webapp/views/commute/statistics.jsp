@@ -274,7 +274,7 @@ table.t-List.width1 {
 
 
 <div class="s-container">
-		<h2 style="margin-left: 20px;">내 근태 현황</h1>
+		<h2 style="margin-left: 20px;">근태 통계</h1>
 		<hr>
 	<!-- 검색일<input type="text" id="searchDate">  -->
 		<!--차트가 그려질 부분-->

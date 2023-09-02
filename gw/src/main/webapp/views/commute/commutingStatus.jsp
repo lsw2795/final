@@ -79,11 +79,21 @@
 	.div-wrap{
 		background: white;
 	}
+	
+	.main{
+		padding: 20px;
+	}
 </style>
+<div class="main" style="background: white;">	
+	<h2 style="margin-left: 20px; padding-top: 10px;">출/퇴근 현황</h1>
+	<a class="btn btn-dark" style="position:relative;  bottom:30px; right:20px; float: right;" href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+	<hr>
 
-<a style="float: right;" href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+	<div style="clear: both;" id='calendar'></div>
 
-<div style="clear: both;" id='calendar'></div>
+</div>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
