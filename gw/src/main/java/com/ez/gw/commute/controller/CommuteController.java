@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -36,12 +38,12 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/commute")
+@RequestMapping
 public class CommuteController {
 	private static final Logger logger = LoggerFactory.getLogger(CommuteController.class);
 	private final CommuteService commuteService;
 
-	@GetMapping("/status")
+	@GetMapping("/commute/status")
 	public String CommutingStatus(HttpServletRequest request, Model model) {
 		int empNo = (int) request.getSession().getAttribute("empNo");
 
@@ -56,7 +58,7 @@ public class CommuteController {
 	}
 
 
-	@RequestMapping("/workIn")
+	@RequestMapping("/commute/workIn")
 	@ResponseBody
 	public int ajaxWorkIn(@RequestParam(defaultValue = "0") int empNo) {
 		//1
@@ -93,7 +95,7 @@ public class CommuteController {
 
 	}
 
-	@RequestMapping("/workOut")
+	@RequestMapping("/commute/workOut")
 	@ResponseBody
 	public int ajaxWorkOut(@RequestParam(defaultValue = "0") int empNo) {
 		//1
@@ -141,7 +143,7 @@ public class CommuteController {
 		return result;
 	}
 
-	@RequestMapping("/statistics")
+	@RequestMapping("/commute/statistics")
 	public String statistics(HttpSession session, @RequestParam(required = false) String date
 			,Model model) {
 		int empNo = (int)session.getAttribute("empNo");
@@ -183,11 +185,12 @@ public class CommuteController {
 				totalHours += workHours; // 월 총 근무시간
 				totalMinutes += workDuration.toMinutes(); // 월 총 근무시간 (분 단위)
 
-				// 날짜에서 년도, 월, 일 추출
+				// 날짜에서 년도, 월, 일, 요일 추출
 				LocalDate workDate = workInTime.toLocalDate();
 				int year = workDate.getYear();
 				int month = workDate.getMonthValue();
 				int day = workDate.getDayOfMonth();
+				String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
 				
 				//근태상태 조회 
 				BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
@@ -205,7 +208,7 @@ public class CommuteController {
 				}
 
 				map.put("state", stateResult);
-				map.put("workDate", String.format("%04d-%02d-%02d", year, month, day)); // 년도, 월, 일 저장
+				map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
 				map.put("workInTime", workInTimeOnly); //출근 시간
 				map.put("workOutTime", workOutTimeOnly); //퇴근 시간
 				map.put("workTime", String.format("%02d:%02d", workHours, workMinutes)); // 근무 시간
@@ -224,7 +227,7 @@ public class CommuteController {
 		return "commute/statistics";
 	}
 	
-	@GetMapping("/exportToExcel")
+	@GetMapping("/commute/exportToExcel")
 	public void exportToExcel(HttpServletResponse response, HttpSession session) throws IOException {
 		int empNo = (int)session.getAttribute("empNo");
 		
@@ -265,7 +268,7 @@ public class CommuteController {
 	}
 	
 	
-	@PostMapping("/importFromExcel")
+	@PostMapping("/commute/importFromExcel")
 	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
 	    
 		// 원본 파일명이 .xlsx로 끝나지 않으면 
@@ -284,7 +287,6 @@ public class CommuteController {
 	            continue;
 	        }
 
-
 	        CommuteVO commute = new CommuteVO();
 	        commute.setEmpNo((int) row.getCell(0).getNumericCellValue());
 	        commute.setWorkIn(row.getCell(1).getStringCellValue());
@@ -297,6 +299,15 @@ public class CommuteController {
 
 	    workbook.close();
 	    return "redirect:/commute/status?importSuccess=Data imported successfully";
+	}
+	
+	//--------------------------ADMIN------------------------
+	
+	@RequestMapping("/admin/commute/allCommute")
+	public String allCommute() {
+		logger.info("전사원 근태 현황, 파라미터");
+		
+		return "admin/commute/allCommute";
 	}
 	
 	

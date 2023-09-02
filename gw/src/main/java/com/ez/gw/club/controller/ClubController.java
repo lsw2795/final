@@ -242,21 +242,8 @@ public class ClubController {
 		return "common/message";
 	}
 
-	@GetMapping("/admin/adminclub/adminClubReport")
-	public String adminReport(Model model) {
-		//1.
-		logger.info("관리자 - 동호회 신고 목록 페이지");
-		
-		//2.
-		List<Map<String, Object>> list = reportService.selectReportClub();
-		logger.info("관리자 - 동호회 신고 목록 개수 list.size={}",list.size());
-		
-		//3.
-		model.addAttribute("list", list);
-		
-		//4.
-		return "admin/adminclub/adminClubReport";
-	}
+	
+	
 	
 	
 }

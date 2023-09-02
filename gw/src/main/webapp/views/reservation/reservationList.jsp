@@ -87,8 +87,6 @@
                             	alert("예약 시작 시간을 선택해주세요.");
                             }else if(endtime == null || endtime == ""){
                             	alert("예약 종료 시간을 선택해주세요.");
-                            }else if(dateTime - currentDate<0){
-                            	alert("과거 날짜를 선택할 수 없습니다. ");
                             }else if(checkResult === 'N'){
                             	alert("예약 가능 여부를 확인해주세요.");
                             }else{
@@ -202,15 +200,17 @@
 						remanNo : selectedResource,
 						bookDate : $('#bookDate').val()},
 				success:function(result){
+					$('#message').text("");
+					$('#bookOk').text("");
 					if(result == 1){
 						$('#message').text("예약이 존재합니다.");
 						event.preventDefault();
 					}else if(result ==2){
 						$('#bookOk').text("예약 가능합니다.");
+						$('#checkResult').val('Y');
 					}else if(result == 3){
 						$('#message').text("관리자에게 문의하세요.");
 					}
-					$('#checkResult').val('Y');
 				},
 				error:function(xhr, status, error){
 					alert(status + " : " + error);
