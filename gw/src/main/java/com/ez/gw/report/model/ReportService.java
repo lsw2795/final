@@ -20,4 +20,6 @@ public interface ReportService {
 	Map<String, Object> selectByReportNo(int reportNo);
 	int updateAnonymousReport(int reportNo);
 	int updateAnonymousReportPostpone(int reportNo);
+	int searchEmpNo(ReportVO reportVo);
+	int dupClubBoardReport(ReportVO reportVo); //동호회 
 }

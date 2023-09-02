@@ -4,16 +4,29 @@
 <script type="text/javascript">
 	function deleteClubBoard() {
 		if(confirm("해당 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
+			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"
 		}
 	}
 	
-	$(function() {
+	$(function(clubBoardNo) {
+		var empNo=${sessionScope.empNo!=map['EMP_NO']};
+		
 		$('#clubReportBtn').click(function() {
 			if(confirm('해당 게시글을 신고하시겠습니까?')){
-				location.href = 
-					"<c:url value='/admin/adminclub/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"				
-			}
+				$.ajax({
+			    	url:contextPath+"/report/reportClubBoardAjax",
+			   		type:"post",
+			   		dataType:"text",
+			   		data:{
+			   			clubBoardNo=clubBoardNo
+			   		},
+			   		success:function(res){
+			   			alert(res);
+			    	},error:function(xhr, status, error){
+			    		alert(status+" : "+error);
+			   		}
+		   		}); //ajax
+			} //if
 		});
 	});
 </script>
@@ -25,11 +38,13 @@
 			</span>
 		</button>
 	</a>
-	<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
-		<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
-			<span class="fas fa-exclamation"></span>
-		</button>
-	</a>
+	<c:if test="${sessionScope.empNo!=map['EMP_NO']}">
+		<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
+			<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
+				<span class="fas fa-exclamation"></span>
+			</button>
+		</a>
+	</c:if>
 		<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
         <c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	        <a href="<c:url value='/club/editClubBoard?clubNo=${param.clubNo }&boardNo=${param.boardNo}'/>">
@@ -70,7 +85,7 @@
 	                  </div>
                     <div class="p-x1 bg-light rounded-3 mt-3">
                       <div class="row flex-between-center gx-4 gy-2">
-                      	<img src="<c:url value='/pds_upload/${map["ORIGINALFILENAME"]}'/>">
+                      	<img src="<c:url value='/pds_upload/${map["FILENAME"] }'/>">
                       </div>
                     </div>
                   </div>

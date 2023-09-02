@@ -4,93 +4,110 @@
 
 <mapper namespace="com.ez.gw.commute.model.CommuteDAO">
 
-	<select id="selectCommuteByEmpNo" parameterType="int" resultType="commuteVo">
+	<select id="selectCommuteByEmpNo" parameterType="int"
+		resultType="commuteVo">
 		select * from commute
 		where emp_no=#{empNo}
 	</select>
-	
+
 	<insert id="insertWorkIn" parameterType="int">
-	    insert into commute(commute_no, work_in, commute_state, emp_no)
-	    values(commute_seq.nextval, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'), 0, #{empNo})
+		insert into commute(commute_no, work_in, commute_state, emp_no)
+		values(commute_seq.nextval, to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'),
+		0, #{empNo})
 	</insert>
-	
+
 	<update id="updateWorkOut" parameterType="int">
-	  	UPDATE commute
-	    SET work_out = TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss')
-	    WHERE emp_no = #{empNo}
-	    AND work_in IS NOT NULL
-	    AND TO_CHAR(TO_DATE(work_in, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		UPDATE commute
+		SET work_out = TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss')
+		WHERE emp_no = #{empNo}
+		AND work_in IS NOT NULL
+		AND TO_CHAR(TO_DATE(work_in, 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd') =
+		TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 	</update>
-	
+
 	<select id="selectIsWorkIn" parameterType="int" resultType="int">
 		select count(*)
 		from commute
-		where work_in like '%' || to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
+		where work_in like '%' || to_char(sysdate,
+		'yyyy-mm-dd') || '%' and emp_no = #{empNo}
 	</select>
-	
-	<select id="selectIsWorkOut" parameterType="int" resultType="int">
+
+	<select id="selectIsWorkOut" parameterType="int"
+		resultType="int">
 		select count(*)
 		from commute
-		where work_out like '%' || to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
+		where work_out like '%' ||
+		to_char(sysdate, 'yyyy-mm-dd') || '%' and emp_no = #{empNo}
 	</select>
-	
+
 	<update id="updateCommuteState" parameterType="commuteVo">
 		UPDATE commute
-		SET commute_state = 1
+		SET
+		commute_state = 1
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND TO_DATE(work_in,
+		'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
-	
+
 	<update id="updateCommuteStateEalry" parameterType="int">
-		UPDATE commute
+		UPDATE
+		commute
 		SET commute_state = 2
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND
+		TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
-	
+
 	<update id="updateCommuteStateTotal" parameterType="int">
-		UPDATE commute
+		UPDATE
+		commute
 		SET commute_state = 3
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND
+		TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
 	</update>
-	
-	<select id="selectLateState" parameterType="int" resultType="int">
-		select commute_state from commute 
+
+	<select id="selectLateState" parameterType="int"
+		resultType="int">
+		select commute_state from commute
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >=
+		TRUNC(SYSDATE)
 	</select>
 
 	<!-- 지각 횟수 조회 -->
-	<select id="selectCommuteLateCount" parameterType="map" resultType="int">
-	    SELECT COUNT(*) FROM commute
-	    WHERE emp_no = #{empNo}
-	      AND SUBSTR(work_in, 1, 7) = #{date}
-	      AND TO_TIMESTAMP(work_in, 'YYYY-MM-DD HH24:MI:SS') > TO_TIMESTAMP(#{date} || ' 09:00:00', 'YYYY-MM-DD HH24:MI:SS')
+	<select id="selectCommuteLateCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM commute
+		WHERE emp_no = #{empNo}
+		AND SUBSTR(work_in, 1, 7) = #{date}
+		AND COMMUTE_STATE IN(1, 3)
 	</select>
-	
+
 	<!-- 조퇴 횟수 조회 -->
-	<select id="selectCommuteEarlyleaveCount" parameterType="map" resultType="int">
-	    SELECT COUNT(*) FROM commute
-	    WHERE emp_no = #{empNo}
-	      AND SUBSTR(work_in, 1, 7) = #{date}
-	      AND TO_TIMESTAMP(work_out, 'YYYY-MM-DD HH24:MI:SS') 
-	      <![CDATA[
-	      	< TO_TIMESTAMP(#{date} || ' 18:00:00', 'YYYY-MM-DD HH24:MI:SS')
-	      ]]>
+	<select id="selectCommuteEarlyleaveCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM commute
+		WHERE emp_no = #{empNo}
+		AND SUBSTR(work_in, 1, 7) = #{date}
+		AND COMMUTE_STATE IN(2, 3)
 	</select>
-	
-	 <select id="selectCommuteAttendanceCount" parameterType="map" resultType="int">
+
+	<select id="selectCommuteAttendanceCount" parameterType="map"
+		resultType="int">
 		select count(*) from commute
 		where emp_no = #{empNo}
-		and substr(work_in, 1, 7) = #{date}
-	</select> 
-	
-	<select id="selectCommuteMonthByEmpNo" parameterType="map" resultType="map">
+		and
+		substr(work_in, 1, 7) = #{date}
+	</select>
+
+	<select id="selectCommuteMonthByEmpNo" parameterType="map"
+		resultType="map">
 		select * from commute
 		where emp_no=#{empNo}
-		and substr(work_in, 1, 7) = #{date}
+		and
+		substr(work_in, 1, 7) = #{date}
 	</select>
-	
-	
+
+
 </mapper>

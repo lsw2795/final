@@ -171,6 +171,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 	}
 
+	@Override
+	public List<Map<String, Object>> selEmpExportExcel() {
+		return employeeDao.selEmpExportExcel();
+	}
+
 }
 
 

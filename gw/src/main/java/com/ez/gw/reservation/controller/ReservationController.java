@@ -5,11 +5,14 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.common.ConstUtil;
@@ -34,23 +37,36 @@ public class ReservationController {
 	private final RemanService remanService;
 	private final EmployeeService employeeService;
 
-	@RequestMapping("/addReservation")
-	public String get_addRes(Model model) {
-		logger.info("예약 작성 페이지 띄우기");
+	
+	  @RequestMapping("/modalReservation") 
+	  public String get_addRes(@ModelAttribute JustSearchRemanVO searchRemanVo, Model model, HttpServletRequest request) {
+		  logger.info("자원예약 페이지 보기");
+			//List<Map<String, Object>> reservationList = null;
 
-		//List<RemanVO> remanVo = remanService.selectAllReman();
-		//List<RemanVO> meetingRoom = remanService.selectOfficeProductByCategory("meetingRoom");
-		//List<RemanVO> noteBook = remanService.selectOfficeProductByCategory("noteBook");
-		//List<RemanVO> rentCar = remanService.selectOfficeProductByCategory("rentCar");
-
-		//model.addAttribute("remanVo", remanVo);
-		//model.addAttribute("meetingRoom", meetingRoom);
-		//model.addAttribute("noteBook", noteBook);
-		//model.addAttribute("rentCar", rentCar);
-
-		return "reservation/addReservation";  
-
-	}
+			//reservationList = reservationService.selectAllReservation();
+			//logger.info("자원예약 내역 reservationList.size()={}", reservationList.size());
+			
+			
+			  List<RemanVO> remanVo = remanService.selectAllReman();
+			  searchRemanVo.setCategory("meetingRoom"); List<RemanVO> meetingRoom =
+			  remanService.selectOfficeProductByCategory(searchRemanVo);
+			  
+			  searchRemanVo.setCategory("noteBook"); List<RemanVO> noteBook =
+			  remanService.selectOfficeProductByCategory(searchRemanVo);
+			  searchRemanVo.setCategory("rentCar"); List<RemanVO> rentCar =
+			  remanService.selectOfficeProductByCategory(searchRemanVo);
+			  
+			  model.addAttribute("remanVo", remanVo); model.addAttribute("meetingRoom",
+			  meetingRoom); model.addAttribute("noteBook", noteBook);
+			  model.addAttribute("rentCar", rentCar);
+			 
+			
+			//model.addAttribute("reservationList", reservationList);
+		  
+		  return "reservation/modalReservation";
+	  
+	  }
+	 
 
 	@PostMapping("/addReservation")
 	public String post_addRes(@ModelAttribute ReservationVO reservationVo, Model model, HttpSession session) {
@@ -86,11 +102,12 @@ public class ReservationController {
 	@ResponseBody
 	public int check(@ModelAttribute ReservationVO reservationVo) {
 		//1
-		logger.info("ajax 확인 파라미터 reservationVo={}", reservationVo);
+		logger.info("예약 여부 ajax 확인 파라미터 reservationVo={}", reservationVo);
 
 		//2
 		int result = 0;
 		int cnt = reservationService.checkIsBooked(reservationVo);
+		logger.info("해당시간 예약 존재 여부 cnt={}", cnt);
 		RemanVO remanVo = remanService.selectRemanByNo(reservationVo.getRemanNo());
 		int state = remanVo.getState();
 		if(cnt>0) {
@@ -99,7 +116,7 @@ public class ReservationController {
 			if(state == 1) {
 				result = ConstUtil.BOOK_OK;		//2
 			}else if(state == 2) {
-				result = ConstUtil.BOOK_NOTOK; //예약 불가
+				result = ConstUtil.REMAN_NOTOK; //4 
 			}else if(state == 3) {
 				result = ConstUtil.ADMIN_ASK; //관리자 문의
 			}
@@ -108,32 +125,42 @@ public class ReservationController {
 		//4
 		return result;
 	}
-
+	
 	@RequestMapping("/reservationList")
-	public String reservationList(@ModelAttribute JustSearchRemanVO searchRemanVo, Model model, HttpServletRequest request){
+	public String reservationList(Model model, HttpServletRequest request){
 		logger.info("자원예약 보기");
 		List<Map<String, Object>> reservationList = null;
 
 		reservationList = reservationService.selectAllReservation();
 		logger.info("자원예약 내역 reservationList.size()={}", reservationList.size());
 		
-		List<RemanVO> remanVo = remanService.selectAllReman();
-		searchRemanVo.setCategory("meetingRoom");
-		List<RemanVO> meetingRoom = remanService.selectOfficeProductByCategory(searchRemanVo);
-		
-		searchRemanVo.setCategory("noteBook");
-		List<RemanVO> noteBook = remanService.selectOfficeProductByCategory(searchRemanVo);
-		searchRemanVo.setCategory("rentCar");
-		List<RemanVO> rentCar = remanService.selectOfficeProductByCategory(searchRemanVo);
-
-		model.addAttribute("remanVo", remanVo);
-		model.addAttribute("meetingRoom", meetingRoom);
-		model.addAttribute("noteBook", noteBook);
-		model.addAttribute("rentCar", rentCar);
-		
 		model.addAttribute("reservationList", reservationList);
 
 		return "reservation/reservationList";
+	}
+	
+	
+	/**
+	 * 모달창에 디테일 뿌리기
+	 * @param reservationNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/DetailReservation")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> detail(@RequestParam(defaultValue = "0")int reservationNo, Model model) {
+		//1
+		logger.info("자원예약 디테일, 파라미터 reservationNo={}", reservationNo);
+		
+		//2
+		Map<String, Object> map = reservationService.detailReservation(reservationNo);
+		logger.info("map={}", map);
+		
+		//3
+		model.addAttribute("map", map);
+		
+		//4
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 
 

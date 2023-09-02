@@ -12,7 +12,7 @@
 <style>
 	div#calendar {
 		background: white;
-		padding: 20px;
+		padding: 10px;
 	}
 	
 	.fc-event-time {
@@ -79,9 +79,21 @@
 	.div-wrap{
 		background: white;
 	}
+	
+	.main{
+		padding: 20px;
+	}
 </style>
-		
-<div id='calendar'></div>
+<div class="main" style="background: white;">	
+	<h2 style="margin-left: 20px; padding-top: 10px;">출/퇴근 현황</h1>
+	<a class="btn btn-dark" style="position:relative;  bottom:30px; right:10px; float: right;" href="<c:url value='/commute/exportToExcel'/>">엑셀로 저장</a>
+	<hr>
+
+	<div style="clear: both;" id='calendar'></div>
+
+</div>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -108,7 +120,7 @@
 						<%for(CommuteVO vo : commuteList){ %>
 							<%if(vo.getCommuteState()==1){%>
 								{
-									title : '출근:지각',
+									title : '지각',
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
@@ -121,16 +133,16 @@
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else if(vo.getCommuteState()==3){%>
 								{
-									title : '출근:지각' ,
+									title : '지각' ,
 									start : '<%=vo.getWorkIn()%>'
 								},
 								{
-									title : '퇴근:조퇴',
+									title : '조퇴',
 									start : '<%=vo.getWorkOut()%>'
 								},
 							<%}else{%>

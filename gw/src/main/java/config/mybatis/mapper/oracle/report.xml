@@ -41,7 +41,8 @@
 	
 	<select id="selectReportClub" resultType="map" parameterType="int">
 		select * from CLUBREPORTVIEW
-		where BOARDLIST_NO=200 
+		where BOARDLIST_NO=200
+		order by report_date desc  
 	</select>
 	
 	<insert id="anonymousBoardReport" parameterType="reportVo">
@@ -92,6 +93,11 @@
 	<select id="getTotalAnonymousReport" parameterType="reportVo">
 		select count(*) from anonymousReportView
 		<include refid="search"></include>
+	</select>	
+
+	<select id="dupClubBoardReport" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
 	</select>
 	
 	<select id="selectByReportNo" parameterType="int" resultType="map">

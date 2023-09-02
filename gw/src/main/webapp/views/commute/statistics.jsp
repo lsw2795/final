@@ -102,6 +102,7 @@
 	text-align: center;
 	border-collapse: collapse;
 	border: 2px solid rgb(200, 200, 200);
+	margin-top: 10px;
 }
 
 .t-List2 tr {
@@ -228,7 +229,7 @@
 .s-container {
 	background: white;
 	width: 1170px;
-	padding: 10px;
+	padding: 20px;
 	
 }
 
@@ -250,6 +251,7 @@
 
 .list2 {
     clear: both;
+    padding-top: 30px;
 }
 
 table.t-List2 {
@@ -267,11 +269,14 @@ table.t-List.width1 {
 
 .search {
     padding-top: 155px;
+    margin-left: 50px;
 }
 </style>
 
 
 <div class="s-container">
+		<h2 style="margin-left: 20px;">근태 통계</h1>
+		<hr>
 	<!-- 검색일<input type="text" id="searchDate">  -->
 		<!--차트가 그려질 부분-->
 		<div class="chart">
@@ -291,7 +296,7 @@ table.t-List.width1 {
 				</form>
 			</div>
 			
-			<div class="list1">
+			<div  class="list1">
 				<table class="t-List width1">
 					<tr>
 						<th colspan="4">통계</th>
@@ -302,20 +307,34 @@ table.t-List.width1 {
 						<th class="th-1">조퇴</th>
 						<th class="th-1">총 근무시간</th>
 					</tr>
-					<tr>
-						<td>${attendance}</td>
-						<td>${late}</td>
-						<td>${ealry}</td>
-						<td>${TotalWorkTimeOfMonth}<c:if
-								test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
-					</tr>
+					<c:choose>
+						<c:when test="${empty attendance}">
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</c:when>
+					 	<c:otherwise>
+					 		<tr>
+								<td>${attendance}</td>
+								<td>${late}</td>
+								<td>${ealry}</td>
+								<td>${TotalWorkTimeOfMonth}<c:if
+										test="${!empty TotalWorkTimeOfMonth}">h</c:if></td>
+							</tr>
+					 	</c:otherwise>
+					</c:choose>
 				</table>
 			</div>
 		</div>
 		
-		
 		<div class="list2">
-			<table class="t-List2">
+			<c:if test="${!empty commuteList}">
+				<div>조회된 결과 ${commuteList.size()}건</div>
+			</c:if>
+			<table  class="t-List2">
 				<tr>
 					<th class="th-1">날짜</th>
 					<th class="th-1">출근시간</th>
@@ -323,19 +342,31 @@ table.t-List.width1 {
 					<th class="th-1">근무시간</th>
 					<th class="th-1">근무상태</th>
 				</tr>
-				<c:forEach var="map" items="${commuteList}">
+				<c:if test="${empty commuteList}">
 					<tr>
-						<td>${map['workDate']}</td>
-						<td>${map['workInTime']}</td>
-						<td>${map['workOutTime']}</td>
-						<td>${map['workTime']}</td>
-						<td>${map['state']}</td>
+						<td colspan="5">조회된 근무이력이 없습니다.</td>
 					</tr>
-				</c:forEach>
+				</c:if>
+				<c:if test="${!empty commuteList}">
+					<c:forEach var="map" items="${commuteList}">
+						<tr>
+							<td>${map['workDate']}</td>
+							<td>${map['workInTime']}</td>
+							<td>${map['workOutTime']}</td>
+							<td>${map['workTime']}</td>
+							<c:choose>
+								<c:when test="${map['state']!='정상근무'}">
+									<td style="color: red;">${map['state']}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${map['state']}</td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+					</c:forEach>
+				</c:if>
 			</table>
 		</div>
-
-
 </div>
 
 

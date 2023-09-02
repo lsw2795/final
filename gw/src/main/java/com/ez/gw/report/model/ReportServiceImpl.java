@@ -79,5 +79,15 @@ public class ReportServiceImpl implements ReportService {
 	public int updateAnonymousReportPostpone(int reportNo) {
 		return reportDao.updateAnonymousReportPostpone(reportNo);
 	}
+	
+	@Override
+	public int dupClubBoardReport(ReportVO reportVo) {
+		return reportDao.dupClubBoardReport(reportVo);
+	}
+
+	@Override
+	public int searchEmpNo(ReportVO reportVo) {
+		return reportDao.searchEmpNo(reportVo);
+	}
 
 }

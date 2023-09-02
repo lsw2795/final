@@ -31,5 +31,6 @@ public interface EmployeeDAO {
 	int countManager(String name);
 	int findInfoCheck(EmployeeVO empVo); //비밀번호 찾을때 이메일,사원번호 개수 확인
 	int findPwd(EmployeeVO empVo); //비번 찾기 비번 변경
+	List<Map<String, Object>> selEmpExportExcel(); //사원목록 엑셀로 저장하기용
 }
 
