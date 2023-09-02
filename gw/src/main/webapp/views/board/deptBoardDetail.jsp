@@ -31,15 +31,19 @@
             <div class="card-header ">
               <div class="row">
                 <div class="col-md d-flex">
+               	  <c:if test="${boardlistVo.secflag=='Y'}">
                   <div class="avatar avatar-2xl">
                     <img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지"/>
                   </div>
+                  </c:if>
                   <div class="flex-1 ms-2">
                     <h5 class="mb-0 ">${map['TITLE']}</h5>
+                    <c:if test="${boardlistVo.secflag=='Y'}">
                     <a class="text-800 fs--1" href="#" onclick="empDetail(${map['EMP_NO']});">
 	                    <span class="bold" style="color: black;">${map['NAME']}</span>
 	                    <span class="ms-1 text-500">&lt;${map['EMAIL']}&gt;</span>
                     </a>
+                    </c:if>
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">

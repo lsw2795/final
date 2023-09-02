@@ -141,6 +141,7 @@ public class deptBoardController {
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
+		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
 		logger.info("부서 게시글 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
