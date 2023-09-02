@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -183,11 +185,12 @@ public class CommuteController {
 				totalHours += workHours; // 월 총 근무시간
 				totalMinutes += workDuration.toMinutes(); // 월 총 근무시간 (분 단위)
 
-				// 날짜에서 년도, 월, 일 추출
+				// 날짜에서 년도, 월, 일, 요일 추출
 				LocalDate workDate = workInTime.toLocalDate();
 				int year = workDate.getYear();
 				int month = workDate.getMonthValue();
 				int day = workDate.getDayOfMonth();
+				String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
 				
 				//근태상태 조회 
 				BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
@@ -205,7 +208,7 @@ public class CommuteController {
 				}
 
 				map.put("state", stateResult);
-				map.put("workDate", String.format("%04d-%02d-%02d", year, month, day)); // 년도, 월, 일 저장
+				map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
 				map.put("workInTime", workInTimeOnly); //출근 시간
 				map.put("workOutTime", workOutTimeOnly); //퇴근 시간
 				map.put("workTime", String.format("%02d:%02d", workHours, workMinutes)); // 근무 시간
