@@ -137,7 +137,8 @@ public class FaqController {
 	}
 	
 	@PostMapping("/admin/board/importFromExcel")
-	public String importFromExcel(@RequestParam("file") MultipartFile file) throws IOException {
+	public String importFromExcel(@RequestParam("file") MultipartFile file,
+			HttpSession session) throws IOException {
 	    
 		// 원본 파일명이 .xlsx로 끝나지 않으면 
 	    if (!file.getOriginalFilename().endsWith(".xlsx")) {
@@ -154,13 +155,19 @@ public class FaqController {
 	        if (row.getRowNum() == 0) {
 	            continue;
 	        }
-
-	        BoardVO boardVo=new BoardVO();	
-	        boardVo.setEmpNo((int) row.getCell(0).getNumericCellValue());
-	        boardVo.setBoardlistNo((int)row.getCell(1).getNumericCellValue());
-	        boardVo.setTitle(row.getCell(2).getStringCellValue());
-	        boardVo.setContent(row.getCell(3).getStringCellValue());
 	        
+	        String title = row.getCell(0).getStringCellValue();
+	        String content = row.getCell(1).getStringCellValue();
+	        int empNo=(int)session.getAttribute("empNo");
+	        
+	        if (title == null && content == null) {
+	            continue;
+	        }
+
+	        BoardVO boardVo = new BoardVO();
+	        boardVo.setTitle(title);
+	        boardVo.setContent(content);
+	        boardVo.setEmpNo(empNo);
 	        boardService.insertFAQ(boardVo);
 	    }
 
