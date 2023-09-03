@@ -6,11 +6,13 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html></html>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+
 <head>
 <meta charset="UTF-8">
 <title>전사원 근태 현황</title>
+
+
 <style type="text/css">
 	.s-container {
 		background: white;
@@ -162,7 +164,25 @@
 	
 </style>
 
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+</script>
+
 </head>
+
+
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/admin/commute/allCommute'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="date1" value="${param.date1}"> 
+	<input type="hidden" name="date2" value="${param.date2}">
+	<input type="hidden" name="deptNo" value="${param.deptNo}">
+	<input type="hidden" name="emp" value="${param.emp}">
+</form>
 
 <div class="s-container">
 			<div>
@@ -260,6 +280,36 @@
 					</c:forEach>
 				</c:if>
 			</table>
+			
+			<div  class="mt-3 card-footer d-flex justify-content-center admindefault">
+				<div class="divPage" id="divPage">
+					<!-- 페이지 번호 추가 -->		
+					<!-- 이전 블럭으로 이동 -->
+					<c:if test="${pagingInfo.firstPage>1 }">
+						<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<img src="<c:url value='/images/first.JPG'/>">
+						</a>
+					</c:if>	
+									
+					<!-- [1][2][3][4][5][6][7][8][9][10] -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+						<c:if test="${i == pagingInfo.currentPage }">		
+							<span id="curPage">${i}</span>
+				        	</c:if>
+						<c:if test="${i != pagingInfo.currentPage }">		
+					        <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+					    </c:if>   		
+					</c:forEach>
+					
+					<!-- 다음 블럭으로 이동 -->
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+				         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<img src="<c:url value='/images/last.JPG'/>">
+						</a>
+					</c:if>
+					<!--  페이지 번호 끝 -->
+				</div>
+			</div>
 		</div>
 </div>
 
