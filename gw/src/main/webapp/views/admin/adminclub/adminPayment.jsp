@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file='../inc/top.jsp'%>
+<%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
 
 <div class="table-responsive scrollbar">
@@ -37,7 +37,7 @@
         </td>
         <td class="text-nowrap">club2</td>
         <td class="text-nowrap">2023-08-03</td>
-        <td><span class="badge badge rounded-pill d-block p-2 badge-subtle-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        <td><span class="badge badge rounded-pill d-block p-2 badge-subtle-success">완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
         </td>
         <td>
           <button class="btn btn-falcon-primary btn-sm" type="button">승인</button>
@@ -47,4 +47,4 @@
     </tbody>
   </table>
 </div>
-<%@ include file='../inc/bottom.jsp'%>
+<%@ include file='../../inc/adminBottom.jsp'%>

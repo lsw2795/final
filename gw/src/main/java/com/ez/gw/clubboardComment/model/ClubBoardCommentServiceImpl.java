@@ -26,4 +26,14 @@ public class ClubBoardCommentServiceImpl implements ClubBoardCommentService{
 	public int selectCountComment(int clubNo, int boardNo) {
 		return cludBoardCommentDao.selectCountComment(clubNo, boardNo);
 	}
+
+	@Override
+	public int deletCommet(int commentNo) {
+		return cludBoardCommentDao.deletCommet(commentNo);
+	}
+
+	@Override
+	public int editCommet(ClubBoardCommentVO cbcVo) {
+		return cludBoardCommentDao.editCommet(cbcVo);
+	}
 }

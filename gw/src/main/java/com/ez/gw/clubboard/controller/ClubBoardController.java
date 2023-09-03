@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -292,8 +293,46 @@ public class ClubBoardController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/club/deleteComment")
+	public Map<String, Object> commentDelete(@RequestParam(defaultValue = "0")int commentNo,
+			@RequestParam(defaultValue = "0")int clubNo,
+			@RequestParam(defaultValue = "0")int boardNo,Model model) {
+		//1.
+		logger.info("동게댓글 삭제 commentNo={},clubNo={},boardNo={}",commentNo,clubNo,boardNo);
+		//2.
+		// 실제 댓글 삭제 로직 수행
+		Map<String, Object> response = new HashMap<>();
+		int cnt = cbcService.deletCommet(commentNo);
+		
+		logger.info("동게댓글 삭제 결과 cnt={}",cnt);
+
+	    if (cnt > 0) {
+	      response.put("success", true);
+	      response.put("msg", "댓글 삭제 완료되었습니다.");
+	      response.put("url", "/club/clubBoard?clubNo=" + clubNo); // 성공 시 리다이렉션 URL
+	    } else {
+	      response.put("success", false);
+	      response.put("msg", "댓글 삭제 실패했습니다.");
+	      response.put("url", "/club/clubBoardDetail?clubNo=" + clubNo + "&boardNo=" + boardNo); // 실패 시 URL
+	    }
+	    
+	    return response;
+	}
 	
-	
+	@RequestMapping("/club/editComment")
+	public String commentEdit(@RequestParam(defaultValue = "0")int clubNo,
+			@RequestParam(defaultValue = "0")int boardNo,
+			@RequestParam(defaultValue = "0")int commentNo, Model model) {
+		//1.
+		logger.info("댓글 수정 commentNo={},clubNo={},boardNo={}",commentNo,clubNo,boardNo);
+		
+		//2.
+		
+		//3.
+		
+		//4.
+		
+	}
 	
 	
 	
@@ -356,7 +395,7 @@ public class ClubBoardController {
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";
 		}
-
+		
 		//3.
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

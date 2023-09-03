@@ -23,6 +23,16 @@
 		where club_no=#{clubNo} and board_no = #{boardNo}
 	</select>
 	
+	<delete id="deletCommet" parameterType="int">
+		delete from CLUBBOARDCOMMVIEW
+		where comment_no=#{commentNo}
+	</delete>
+	
+	<update id="editCommet" parameterType="clubBoardCommentVo">
+		update CLUBBOARD_COMMENT
+		set CONTENT=#{content}
+		where COMMENT_NO=#{commentNo} and BOARD_NO=#{boardNo} and CLUB_NO=#{clubNo}
+	</update>
 </mapper>
 
 
