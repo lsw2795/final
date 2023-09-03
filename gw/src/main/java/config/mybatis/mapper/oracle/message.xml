@@ -35,7 +35,7 @@
 		select count(*) from messageView
 		where reader=#{reader} 
 		and read_date is null
-		and delflag='N'
+		and reader_delflag='N'
 	</select>
 
 </mapper>

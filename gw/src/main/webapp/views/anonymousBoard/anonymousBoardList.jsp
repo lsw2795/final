@@ -93,7 +93,7 @@
 	            	<c:if test="${!empty map['FILENAME'] }">
 				    	<div class="row mx-n1 img-slider">
 							<div class="col-2 p-1 m-auto" id="leftBtDiv" align="right">
-					        	<button class="btn" type="button" id="leftBt" style="width: 50px">
+					        	<button class="btn leftBt" type="button" style="width: 50px">
 					            	<img class="img-fluid rounded" src="<c:url value='/images/left.png'/>" alt="" />
 					            </button>
 					        </div>
@@ -111,7 +111,7 @@
 				            	</c:forEach>
 					        </div>
 							<div class="col-2 p-1 m-auto" id="rightBtDiv">
-					        	<button class="btn" type="button" id="rightBt" style="width: 50px">
+					        	<button class="btn rightBt" type="button" style="width: 50px">
 					            	<img class="img-fluid rounded" src="<c:url value='/images/right.png'/>" alt="" />
 					        	</button>
 					  		</div>

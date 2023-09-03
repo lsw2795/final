@@ -59,8 +59,6 @@ public class LoginController {
 			session.setAttribute("empNo", empNo);
 			
 			//직위,권한 세션 저장
-			String authority = (String)map.get("AUTHORITY");
-			session.setAttribute("authority",authority);
 			session.setAttribute("positionRank",map.get("POSITION_RANK"));
 			
 			//cookie
