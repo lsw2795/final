@@ -216,7 +216,8 @@ function btnpwdEdit(empNo){
 									<span class="mypageempspan">미가입</span>
 								</c:if>
 								<c:if test="${!empty map['CLUB_NO']}">
-									<span class="mypageempspan">${map['TITLE']}</span>
+									<span class="mypageempspan">${map['TITLE']}</span>&nbsp;
+									<input type="Button" value="동호회 탈퇴하기" class="btn btn-primary" style="width: 30%;">
 								</c:if>
 							</div>
 						</div>

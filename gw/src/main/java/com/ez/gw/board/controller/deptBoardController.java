@@ -22,6 +22,8 @@ import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
 import com.ez.gw.boardlist.model.BoardListService;
 import com.ez.gw.boardlist.model.BoardListVO;
+import com.ez.gw.comments.model.CommentsService;
+import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.FileUploadUtil;
@@ -45,6 +47,7 @@ public class deptBoardController {
 	private final PdsService pdsService;
 	private final FileUploadUtil fileuploadUtil;
 	private final EmployeeService employeeService;
+	private final CommentsService comService;
 	
 	@RequestMapping("/board/deptBoard")
 	public String deptBoardList(@ModelAttribute EmpSearchVO searchVo,Model model){
@@ -144,7 +147,8 @@ public class deptBoardController {
 	
 	@RequestMapping("/board/deptBoardDetail")
 	public String Detail(HttpSession session,
-			@ModelAttribute BoardVO vo, Model model) {
+			@ModelAttribute BoardVO vo, 
+			@ModelAttribute CommentsVO cmVo, Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
@@ -153,10 +157,12 @@ public class deptBoardController {
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
 		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
+		List<Map<String, Object>> comList=comService.selectDeptBoardCM(cmVo);
 		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
 		logger.info("부서 게시글 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
+		logger.info("부서 게시글 상세보기 댓글 조회 결과 comList.size()={}",comList.size());
 		
 		List<String> fileInfoArr=new ArrayList<>();
 		for(PdsVO pdsVo: pdsList) {
@@ -171,6 +177,7 @@ public class deptBoardController {
 		model.addAttribute("boardlistVo", boardlistVo);
 		model.addAttribute("pdsList", pdsList);
 		model.addAttribute("empVo", empVo);
+		model.addAttribute("comList", comList);
 		model.addAttribute("fileInfoArr",fileInfoArr);
 		
 		return "board/deptBoardDetail";
@@ -344,6 +351,15 @@ public class deptBoardController {
 		
 		//4
 		return "common/message";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/board/ajaxInsertBoardCM")
+	public int insertCM(@ModelAttribute CommentsVO cmVo) {
+		logger.info("ajax - 부서게시판 댓글등록 파라미터 cmVo={}", cmVo);
+		int cnt=comService.insertDeptBoardCM(cmVo);
+		logger.info("ajax - 부서게시판 댓글등록 결과 cnt={}", cnt);
+		return cnt;
 	}
 	
 	

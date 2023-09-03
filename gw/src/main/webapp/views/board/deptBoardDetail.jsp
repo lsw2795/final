@@ -10,10 +10,46 @@
 			}
 		});
 		
+		$('#btnInsertCM').click(function(){
+			if($('#commentContent').val().length<10){
+				alert('댓글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#commentContent').focus();
+				return false;
+			}
+			
+			//alert($.param($('#frmComment').serializeArray())); 
+			$.ajax({
+	            url: "<c:url value='/board/ajaxInsertBoardCM'/>",
+	            type:'post',
+				data: $('#frmComment').serializeArray(),
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 등록이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
+		
 	});
 
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
+	}
+	
+	function btnCmEdit(index){
+		var commentNo=$('#commentNo'+index).val();
+		alert(commentNo);
+		var cmContent=$('#cmContent'+index).text();
+		$('#commentDiv'+index).empty();
+		var result="<textarea class='form-control' id='editCM"+index+"' name='content' rows='3'>"+cmContent+"</textarea>";
+		$('#commentDiv'+index).append(result);
+		$('#editCM'+index).focus();
+	
 	}
 </script>
 <div class="card mb-3">
@@ -121,6 +157,10 @@
                     <div class="position-absolute end-0 top-0 mt-2 me-3 z-1">
                     </div>
                     <div class="row">
+                    <form id="frmComment">
+                    <input type="hidden" value="${empVo.empNo}" name="empNo"/>
+                    <input type="hidden" value="${param.boardlistNo}" name="boardlistNo"/>
+                    <input type="hidden" value="${param.boardNo}" name="boardNo"/>
                       <div class="mb-3">
                 		<div class="col-auto">
 		                  <a href="#" onclick="empDetail(${empVo.empNo});">
@@ -129,30 +169,45 @@
                     	  </a>
                    	   </div>
                       </div>
-                      <div class="col-12">
-                        <textarea class="form-control form-control-sm" id="field-options" rows="3"></textarea>
+                      <div class="row mb-3 d-flex align-items-center">
+                      	<div class="col-md-11 mypageempdiv1">
+                        <textarea class="form-control" id="commentContent" name="content" rows="3"></textarea>
+                      	</div>
+	                      <div class="col-auto mypageempdiv16">
+	            			<input type="submit" id="btnInsertCM" value="등록" class="btn btn-outline-primary" style="height:82px;"/>
+	                      </div>
                       </div>
-                    </div><br>
-                    <div class="d-flex">
-                    <div class="flex-1 position-relative ps-3">
-                      <h6 class="fs-0 mb-0">Big Data Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                      </h6>
-                       <!-- <button class="btn btn-link btn-sm p-0" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button> -->
-                      <p class="mb-1"> <a href="#!">Google</a></p>
-                      <p class="text-1000 mb-0">Apr 2012 - Present &bull; 6 yrs 9 mos</p>
-                      <p class="text-1000 mb-0">California, USA</p>
-                      <div class="border-bottom border-dashed my-3"></div>
-                    </div>
-                  </div>
-                  <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/nike.png" alt="" width="56" /></a>
-                    <div class="flex-1 position-relative ps-3">
-                      <h6 class="fs-0 mb-0">Mobile App Developer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                      </h6>
-                      <p class="mb-1"> <a href="#!">Nike</a></p>
-                      <p class="text-1000 mb-0">Jan 2011 - Apr 2012 &bull; 1 yr 4 mos</p>
-                      <p class="text-1000 mb-0">Beaverton, USA</p>
-                    </div>
-                  </div>
+                      </form>
+                      </div>
+                    <br>
+                   <c:if test="${!empty comList}">
+                   <c:set var="i" value="0"></c:set>
+                   <c:forEach var="comMap" items="${comList }">
+					  <div class="row">
+					    <div class="flex-1 position-relative ps-3">
+					      <a href="#" onclick="empDetail(${comMap['EMP_NO']});">
+					        <h6 class="fs-0 mb-0">${comMap['NAME']}
+					          <span>[${comMap['DEPT_NAME']}]${comMap['POSITION_NAME']}</span>
+					        </h6>
+					      </a>
+					      <span class="mb-1">${comMap['EMAIL']}</span>
+					    </div>
+					    <div class="col-md-6">
+					     <input type="text" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
+					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+					      <button type="button" class="btn btn-primary" onclick="btnCmEdit(${i })">수정</button>
+					      </c:if>
+					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
+					      <button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
+					    </div>
+					    <div class="mb-3 mt-3" id="commentDiv${i }">
+					      <p class="text-1000 mb-0" id="cmContent${i }">${comMap['CONTENT']}</p>
+					    </div>
+					  </div>
+					  <div class="border-bottom border-dashed my-3"></div>
+					  <c:set var="i" value="${i+1 }"/>
+					</c:forEach>
+                  </c:if>
                   </div>
                 </div>
                 </c:if>
