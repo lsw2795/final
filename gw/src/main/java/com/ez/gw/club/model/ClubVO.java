@@ -14,6 +14,7 @@ public class ClubVO {
 	private Timestamp regdate; //등록일
 	private String memLimitflag; //멤버제한 수 여부
 	private String memLimit; //제한인원
+	private String merchantNo; //제한인원
 	private int empNo; //사원 번호
 	
 	

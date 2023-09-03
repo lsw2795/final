@@ -88,8 +88,6 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public int searchEmpNo(ReportVO reportVo) {
 		return reportDao.searchEmpNo(reportVo);
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

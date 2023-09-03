@@ -15,5 +15,6 @@ public interface CommentsService {
 	List<Map<String, Object>> countComment();
 	Map<String, Object> anonymousCommentByCommentNo(int commentNo);
 	int updateCommentReport(int commentNo);
-	
+	int insertDeptBoardCM(CommentsVO vo); //부서게시판 댓글 등록
+	List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo); //부서게시판 댓글 조회
 }
