@@ -188,7 +188,25 @@ public class ClubController {
 		return "club/clubDetail?clubNo="+clubNo;
 	}
 	
-	
+	@RequestMapping("/club/outClub")
+	public String outClub(@RequestParam(defaultValue = "0")int empNo, Model model) {
+		//1.
+		logger.info("동호회 탈퇴 empNo={}",empNo);
+		//2.
+		int cnt=clubService.outClub(empNo);
+		logger.info("동호회 탈퇴 결과 cnt={}",cnt);
+		
+		String msg="탈퇴 실패하였습니다.",url="/mypage/empInfoEdit";
+		if(cnt>0) {
+			msg="탈퇴 완료되었습니다.";
+		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		//4.
+		return "common/message";
+		
+	}
 	
 	
 	

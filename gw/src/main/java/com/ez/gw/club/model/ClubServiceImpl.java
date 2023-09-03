@@ -73,6 +73,11 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.joinClub(merchantNo, parsedClubNo, parsedEmpNo);
 	}
 
+	@Override
+	public int outClub(int empNo) {
+		return clubDao.outClub(empNo);
+	}
+
 	
 
 	
