@@ -187,6 +187,11 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.selFilesByDeptBoard(boardVo);
 	}
 
+	@Override
+	public int editDeptBoardFile(int pdsNo) {
+		return pdsDao.editDeptBoardFile(pdsNo);
+	}
+
 }
 
 
