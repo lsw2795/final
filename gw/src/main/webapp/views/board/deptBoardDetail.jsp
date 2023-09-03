@@ -4,9 +4,10 @@
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
 <script type="text/javascript">
 	$(function(){
-		$('#btnDelNotice').click(function(){
+		
+		$('#btnDelDeptBoard').click(function(){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href="<c:url value='/mypage/board/noticeDelete?boardNo=${param.boardNo }'/>";
+				location.href="<c:url value=''/>";
 			}
 		});
 	});
@@ -47,10 +48,16 @@
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
+                	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
+                		<a href="#" id="heart" style="float: right;">
+							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+						</a>
+						<span class="mypagehyphen"></span>
+                	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
-	                	<a href="<c:url value='/mypage/board/noticeEdit?boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
+	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
 	               		<span class="mypagehyphen"></span>
-	               		<button id="btnDelNotice" class="btn btn-outline-danger">삭제</button>
+	               		<button id="btnDelDeptBoard" class="btn btn-outline-danger">삭제</button>
 	               		</c:if>
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
@@ -83,21 +90,21 @@
                      </c:if>
                   </div>
                   </c:if>
-                 <%--  <div style="font-size: 18px;">
+                  <div style="font-size: 18px;">
                 	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">
 	                 이전 글이 없습니다.
 	                </c:if>
                 	<c:if test="${!empty prevMap['MAX(BOARD_NO)']}">
-	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a>
-	                 <br>
+	                 <a style="color: black;" href="<c:url value='/board/deptBoardDetail?boardlistNo=${prevMap["BOARDLIST_NO"]}&boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a>
 	                </c:if>
+	                <br>
 	                <c:if test="${empty nextMap['MIN(BOARD_NO)']}">
 	                 다음 글이 없습니다.
 	                </c:if>
 	                <c:if test="${!empty nextMap['MIN(BOARD_NO)']}">
-                 	  <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${nextMap["MIN(BOARD_NO)"]}'/>">다음 글&nbsp;&nbsp;|&nbsp;&nbsp;${nextMap['TITLE']}</a>
+                 	  <a style="color: black;" href="<c:url value='/board/deptBoardDetail?boardlistNo=${nextMap["BOARDLIST_NO"]}&boardNo=${nextMap["MIN(BOARD_NO)"]}'/>">다음 글&nbsp;&nbsp;|&nbsp;&nbsp;${nextMap['TITLE']}</a>
                		</c:if>
-                </div> --%>
+                </div>
                   <div class="text-center">
                      <a class="btn btn-falcon-default" href="<c:url value='/board/deptBoard?boardlistNo=${boardlistVo.boardlistNo}'/>">
               	 	목록 가기

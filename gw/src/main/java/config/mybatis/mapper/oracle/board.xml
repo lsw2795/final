@@ -208,6 +208,7 @@
 		    <![CDATA[
 		    where board_no<#{boardNo}
 		    ]]>
+		    and delflag='N'
 		    group by title
 		    order by max(board_no) desc
 			)
@@ -222,6 +223,7 @@
 		    <![CDATA[
 		    where board_no>#{boardNo}
 		    ]]>
+		    and delflag='N'
 		    group by title
 		    order by min(board_no) asc
 		    )
@@ -363,6 +365,38 @@
 		<if test="boardNo!=null and boardNo!=''">
 			and board_no=#{boardNo}
 		</if>
+	</select>
+	
+	<select id="selPrevDeptBoard" parameterType="boardVo" resultType="map">
+		select * from
+			(
+		    select title,boardlist_no,max(board_no)
+		    from deptboardlistview
+		    <![CDATA[
+		    where board_no<#{boardNo}
+		    ]]>
+		    and boardlist_no=#{boardlistNo}
+		    and delflag='N'
+		    group by title,boardlist_no
+		    order by max(board_no) desc
+			)
+		where rownum=1
+	</select>
+	
+	<select id="selNextDeptBoard" parameterType="boardVo" resultType="map">
+		select * from
+			(
+		    select title,boardlist_no,min(board_no)
+		    from deptboardlistview
+		    <![CDATA[
+		    where board_no>#{boardNo}
+		    ]]>
+		    and boardlist_no=#{boardlistNo}
+		    and delflag='N'
+		    group by title,boardlist_no
+		    order by min(board_no) asc
+		    )
+		where rownum=1
 	</select>
 	
 </mapper>

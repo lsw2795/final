@@ -45,4 +45,6 @@ public interface BoardDAO {
 	int gTRCountDeptBoard(EmpSearchVO searchVo); //부서 게시판 검색 총 레코드값 조회
 	int insertDeptBoard(BoardVO vo); //부서 게시판 글쓰기
 	Map<String, Object> selectdeptBoard(BoardVO vo); //부서 게시판 상세보기
+	Map<String, Object> selPrevDeptBoard(BoardVO vo); // 부서 게시판 - 이전글 보기
+	Map<String, Object> selNextDeptBoard(BoardVO vo); // 부서 게시판 - 다음글 보기
 }
