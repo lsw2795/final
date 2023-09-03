@@ -311,6 +311,13 @@
 		where boardList_no=5000 and board_no=#{boardNo}
 	</update>
 	
+	<select id="AnonymousBoardByBoardNo" parameterType="int" resultType="map">
+		select b.*,e.name from board b
+		join employee e
+		on b.emp_no=e.emp_no
+		where board_no=#{boardNo}
+	</select>
+
 	<select id="searchDeptBoard" parameterType="empSearchVo" resultType="map">
 	select *
 		from

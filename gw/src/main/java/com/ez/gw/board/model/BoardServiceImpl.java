@@ -217,6 +217,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public Map<String, Object> AnonymousBoardByBoardNo(int boardNo) {
+		return boardDao.AnonymousBoardByBoardNo(boardNo);
+	}
+	
+	
 	public List<Map<String, Object>> searchDeptBoard(EmpSearchVO searchVo) {
 		return boardDao.searchDeptBoard(searchVo);
 	}

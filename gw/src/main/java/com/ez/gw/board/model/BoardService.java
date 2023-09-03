@@ -35,6 +35,7 @@ public interface BoardService {
 	int updateAnonymousBoard(BoardVO vo);
 	int deleteAnonymousBoard(int boardNo);
 	List<Map<String, Object>> selRegdateDesc5(); //공지사항 최신글 5건 조회
+	Map<String, Object> AnonymousBoardByBoardNo(int boardNo);
 	List<Map<String, Object>> searchDeptBoard(EmpSearchVO searchVo); //부서 게시판 조회
 	int gTRCountDeptBoard(EmpSearchVO searchVo); //부서 게시판 검색 총 레코드값 조회
 	int insertDeptBoard(BoardVO vo); //부서 게시판 글쓰기

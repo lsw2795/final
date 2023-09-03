@@ -28,5 +28,8 @@
 		and emp_No = #{empNo}
 	</select>
 	
+	<select id="detailReservation" parameterType="int" resultType="map">
+		select * from reservationview where reservation_no = #{reservationNo}
+	</select>
 
 </mapper>

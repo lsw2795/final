@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${sessionScope.authority=='N' }">
 <%@ include file = "../inc/top.jsp" %>
-
+</c:if>
+<c:if test="${sessionScope.authority=='Y' }">
+<%@ include file = "../inc/adminTop.jsp" %>
+</c:if>
 <script type="text/javascript">
 	$(function(){
 		$('#frmMessageSend').submit(function(){
@@ -88,7 +93,7 @@
 			var delflag= vo.delflag;
 			var readerDelflag = vo.readerDelflag;
 			
-			if(i==0){
+			if(i==0 && delflag=="N" && readerDelflag=="N"){
 				str+="<div class='text-center fs--2 text-500'>";
 				str+="<span>"+formatDate(sendDate)+"</span>";
 				str+="</div>";
@@ -327,4 +332,9 @@
 		</div>
 	</div>
 </div>
+<c:if test="${sessionScope.authority=='N' }">
 <%@ include file = "../inc/bottom.jsp" %>
+</c:if>
+<c:if test="${sessionScope.authority=='Y' }">
+<%@ include file = "../inc/adminBottom.jsp" %>
+</c:if>

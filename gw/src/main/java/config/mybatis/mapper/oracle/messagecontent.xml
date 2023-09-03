@@ -33,8 +33,9 @@
 		and m1.send_date = (
     		select max(m2.send_date)
     		from messageView m2
-    		where (m2.emp_no = m1.emp_no and m2.reader = m1.reader and m2.delflag='N')
-    		or (m2.emp_no = m1.reader and m2.reader = m1.emp_no and m2.reader_delflag='N')
+    		where ((m2.emp_no = m1.emp_no and m2.reader = m1.reader )
+    		or (m2.emp_no = m1.reader and m2.reader = m1.emp_no ))
+            and delflag='N' and reader_delflag='N'
 		)
 		order by m1.send_date desc
 	</select>

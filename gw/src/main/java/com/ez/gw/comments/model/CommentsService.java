@@ -13,4 +13,7 @@ public interface CommentsService {
 	int updateAnonymousComments(CommentsVO vo); //익명게시판 댓글 수정
 	int deleteAnonymousComments(int commentNo); //익명게시판 댓글 삭제
 	List<Map<String, Object>> countComment();
+	Map<String, Object> anonymousCommentByCommentNo(int commentNo);
+	int updateCommentReport(int commentNo);
+	
 }

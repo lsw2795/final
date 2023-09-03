@@ -61,5 +61,15 @@ public class CommentsServiceImpl implements CommentsService{
 	public List<Map<String, Object>> countComment() {
 		return commentsDao.countComment();
 	}
+
+	@Override
+	public Map<String, Object> anonymousCommentByCommentNo(int commentNo) {
+		return commentsDao.anonymousCommentByCommentNo(commentNo);
+	}
+
+	@Override
+	public int updateCommentReport(int commentNo) {
+		return commentsDao.updateCommentReport(commentNo);
+	}
 	
 }
