@@ -67,7 +67,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-body " style="background: #f9fafd;">
+            <div class="card-body" style="background: #f9fafd;">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 ">
                     <div class="card-body mypageempdiv15">
@@ -112,5 +112,33 @@
                   </div>
                 </div>
             </div>
-          </div>
+            	<c:if test="${boardlistVo.commentFlag=='Y'}">
+                <div class="card-header">
+                  <h5 class="mb-0">댓글</h5>
+                </div>
+                <div class="card-body bg-light">
+                  <div class="d-flex">
+                    <div class="flex-1 position-relative ps-3">
+                      <h6 class="fs-0 mb-0">Big Data Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
+                      </h6>
+                      <p class="mb-1"> <a href="#!">Google</a></p>
+                      <p class="text-1000 mb-0">Apr 2012 - Present &bull; 6 yrs 9 mos</p>
+                      <p class="text-1000 mb-0">California, USA</p>
+                      <div class="border-bottom border-dashed my-3"></div>
+                    </div>
+                  </div>
+                  <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/nike.png" alt="" width="56" /></a>
+                    <div class="flex-1 position-relative ps-3">
+                      <h6 class="fs-0 mb-0">Mobile App Developer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
+                      </h6>
+                      <p class="mb-1"> <a href="#!">Nike</a></p>
+                      <p class="text-1000 mb-0">Jan 2011 - Apr 2012 &bull; 1 yr 4 mos</p>
+                      <p class="text-1000 mb-0">Beaverton, USA</p>
+                    </div>
+                  </div>
+                </div>
+                </c:if>
+		  </div>
+                  
+         
 <%@ include file="../inc/bottom.jsp"%>
