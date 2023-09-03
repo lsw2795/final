@@ -11,4 +11,7 @@ public interface ReservationDAO {
 	int checkIsBooked(ReservationVO reservationVo);
 	List<Map<String, Object>> selectAllReservation();
 	Map<String, Object> detailReservation(int reservationNo);
+	int delReservation(int reservationNo);
+	ReservationVO showReservationByNo(int reservationNo);
+	int updateReservation(ReservationVO resVo);
 }
