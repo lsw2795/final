@@ -110,4 +110,12 @@
 	</select>
 
 
+
+	<!-- admin -->
+	<select id="selectAllCommute" resultType="map">
+		select * from allcommuteview
+		order by work_in desc
+	</select>
+	
+
 </mapper>

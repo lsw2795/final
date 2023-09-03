@@ -11,54 +11,16 @@
 <script type="text/javascript" src="<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#bt1').click(function(){
-			
-			if($('#name').val().length<1){
-				alert("자원 이름을 입력하세요.");
-				$('#product-name').focus();
-				
-				return false;
-			}
-			
-			if($('#category').val().length<1){
-				alert("자원 종류를 선택하세요.");
-				$('#category').focus();
-				
-				return false;
-			}
-			
-			if(!$('input[name=state]').is(':checked')){
-				alert("자원 상태를 선택해주세요.");
-				
-				return false;
-			}
-			
-			if($('#product-manager').val().length<1){
-				alert("담당자를 기재해주세요.");
-				$('#product-manager').focus();
-				
-				return false;
-			}
-			
-			if($('#product-description').val().length<1){
-				alert("자원 내용을 입력해주세요.");
-				$('#product-description').focus();
-				
-				return false;
-			}
-			
-		});
-		
-		$('#bt1').submit(function(event){
+		$('#update').submit(function(event){
 			event.preventDefault();
 			
 			if(confirm("수정하시겠습니까?")){
-				
+		
 				$.ajax({
-					url:$('#bt1').attr("action"),
+					url:$('#update').attr("action"),
 					type:"post",
 					datatype:"json",
-					data:$('#bt1').serialize(),
+					data:$('#update').serialize(),
 					success:function(result){
 						
 						if(result >0){
@@ -71,24 +33,18 @@
 						console.error("실패 :", status, error)
 					}
 				});
+				
 			}
-			
 		});
 			
 		$('#cancle').click(function(){
 			window.close();
 		});
+		
+		
 	});
 		
 	
-	function editEnd(){
-		var closeWindow = ${closeWindow};
-
-		if(closeWindow){
-			alert("수정 완료했습니다.");
-			window.close();
-		}
-	}
 </script>
 <style type="text/css">
 	.mb-2 {
@@ -122,11 +78,10 @@
 		<div class="card mb-3">
 			<div class="card-body">
 				<form class="dropzone dropzone-multiple p-0" name = "editList"
-					id="update" data-dropzone="data-dropzone"
-					method="post" action="<c:url value='/admin/officeProduct/editOfficeProduct?remanNo=${remanVo.remanNo }'/>">
+					id="update" data-dropzone="data-dropzone" method="post" action="<c:url value='/admin/officeProduct/editOfficeProduct?remanNo=${remanVo.remanNo }'/>">
 					<div class="row gx-2">
 						<label class="form-label" for="product-name">종류</label> 
-						<select class="form-select" aria-label="Default select example" name = "category" >
+						<select class="form-select" id="category" aria-label="Default select example" name = "category" >
 							<option selected>선택하세요.</option>
 							<option value="meetingRoom"
 								<c:if test="${remanVo.category =='meetingRoom' }">
@@ -191,12 +146,12 @@
 					<div class="col-auto">
 						<button class="btn btn-primary" id="bt1" type="submit">수정</button>
 						<button class="btn btn-link text-secondary p-0 me-3 fw-medium"
-							role="button" style="color:#0E1726;" id="cancle">취소</button>
+							role="button" style="color:#0E1726;" id="cancle" type="button">취소</button>
 					</div>
-				</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+</form>
 <%@ include file="../../inc/adminBottom.jsp"%>
