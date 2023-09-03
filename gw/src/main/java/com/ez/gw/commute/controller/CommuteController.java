@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ez.gw.commute.model.CommuteService;
 import com.ez.gw.commute.model.CommuteVO;
+import com.ez.gw.commute.model.SearchCommuteVO;
+import com.ez.gw.dept.model.DeptService;
+import com.ez.gw.dept.model.DeptVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +46,8 @@ import lombok.RequiredArgsConstructor;
 public class CommuteController {
 	private static final Logger logger = LoggerFactory.getLogger(CommuteController.class);
 	private final CommuteService commuteService;
-
+	private final DeptService deptService;
+	
 	@GetMapping("/commute/status")
 	public String CommutingStatus(HttpServletRequest request, Model model) {
 		int empNo = (int) request.getSession().getAttribute("empNo");
@@ -304,13 +309,17 @@ public class CommuteController {
 	//--------------------------ADMIN------------------------
 	
 	@RequestMapping("/admin/commute/allCommute")
-	public String allCommute(Model model) {
-		logger.info("전사원 근태 현황, 파라미터");
+	public String allCommute(@ModelAttribute SearchCommuteVO searchCommuteVo, Model model) {
+		logger.info("관리자 - 전사원 근태 현황, 파라미터 searchCommuteVo={}", searchCommuteVo);
 		
-		List<Map<String, Object>> commuteList = commuteService.selectAllCommute();
-		logger.info("전사원 근태 기록 조회 commuteList.size={}", commuteList.size());
+		List<Map<String, Object>> commuteList = commuteService.selectAllCommute(searchCommuteVo);
+		logger.info("관리자 - 전사원 근태 기록 조회 commuteList.size={}", commuteList.size());
+		
+		List<DeptVO> deptList = deptService.selectAllDept();
+		logger.info("관리자 - 부서 전체 조회 deptList.size={}", deptList.size());
 		
 		model.addAttribute("commuteList", commuteList);
+		model.addAttribute("deptList", deptList);
 		
 		
 		return "admin/commute/allCommute";

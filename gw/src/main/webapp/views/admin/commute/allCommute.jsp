@@ -28,7 +28,7 @@
 	
 	.t-search {
 		margin: 20px 0 10px;
-		width: 90%;
+		width: 85%;
 		margin-right: auto;
 		text-align: center;
 		border-collapse: collapse;
@@ -188,20 +188,27 @@
 			</div>	
 
 		<div class="search">
-			<span style="margin-top:35px; float: left;">조회결과 1건</span>
-			<form action="/leave/searchDate.sw" method="post" class="form-search">
+			<span style="margin-top:35px; float: left;">조회결과 ${commuteList.size()}건</span>
+			<form action="<c:url value='/admin/commute/allCommute'/>" method="post" class="form-search">
 				<table class="t-search">
 			    	<tr>
 			    		<td class="t-search-title">
 			    			검색일
 			    		</td>
 			    		<td class="searchTD">
-			    			<input type="date" name="date1"> ~
-			    			<input type="date" name="date2">
-			    			<select name="dept">
+			    			<input type="date" name="date1" value="${param.date1}"> ~
+			    			<input type="date" name="date2" value="${param.date2}">
+			    			<select name="deptNo">
 			    				<option value="">모든부서</option>
+			    				<c:forEach var="vo" items="${deptList}">
+				    				<option value="${vo.deptNo}"  
+				    					<c:if test="${vo.deptNo==param.deptNo}">
+				    						selected="selected"
+				    					</c:if>
+				    				>${vo.name}</option>
+			    				</c:forEach>
 			    			</select>
-			    			<input type="text" name="emp" placeholder="사번/사원명 검색">
+			    			<input type="text" name="emp" placeholder="사번/사원명 검색" value="${param.emp}">
 				      		<input type="submit" value="검색" style="color: black;">
 				      	</td>
 				     </tr>
@@ -254,7 +261,6 @@
 				</c:if>
 			</table>
 		</div>
-	</form>
 </div>
 
 <%@ include file="../../inc/adminBottom.jsp"%>   

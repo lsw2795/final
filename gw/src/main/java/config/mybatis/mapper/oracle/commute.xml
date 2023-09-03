@@ -112,8 +112,29 @@
 
 
 	<!-- admin -->
-	<select id="selectAllCommute" resultType="map">
+	<select id="selectAllCommute" parameterType="searchCommuteVO" resultType="map">
 		select * from allcommuteview
+		<where>
+			<if test="date1!=null and date1!='' and date2!=null and date2!=''">
+				<![CDATA[
+					trunc(to_date(work_in, 'yyyy-mm-dd hh24:mi:ss')) >= trunc(to_date(#{date1}, 'yyyy-mm-dd hh24:mi:ss')) 
+					and
+					trunc(to_date(work_in, 'yyyy-mm-dd hh24:mi:ss')) < trunc(to_date(#{date2}, 'yyyy-mm-dd hh24:mi:ss')) +1
+				]]>
+			</if>
+			
+ 			<if test="deptNo!=null and deptNo!=''">
+				and dept_no = #{deptNo}
+			</if> 
+			
+ 	       <if test="emp != null and emp.matches('^\\d+$')">
+		    and (emp_no = #{emp})
+			</if>
+			<if test="emp != null and !emp.matches('^\\d+$')">
+		    and (name like '%' || #{emp} || '%')
+			</if>
+			
+		</where>
 		order by work_in desc
 	</select>
 	
