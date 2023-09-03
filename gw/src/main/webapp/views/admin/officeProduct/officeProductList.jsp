@@ -329,7 +329,11 @@
 											value="${pd.remanNo }"/>
 									</div>
 								</td>
-								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle">
+									<a href="#" onclick="editFunc(${pd.remanNo})">
+									${pd.name}
+									</a>
+								</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">
 									<div class="d-flex align-items-center gap-2 position-relative">
 										${pd.discription}
@@ -401,7 +405,11 @@
 											value="${pd.remanNo }"/>
 									</div>
 								</td>
-								<td class="align-middle">${pd.name}</td>
+								<td class="align-middle">
+									<a href="#" onclick="editFunc(${pd.remanNo})">
+									${pd.name}
+									</a>
+								</td>
 								<td class="align-middle name white-space-nowrap pe-5 ps-2">
 									<div class="d-flex align-items-center gap-2 position-relative">
 										${pd.discription}

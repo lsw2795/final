@@ -47,18 +47,45 @@
 				return false;
 			}
 			
-			if(confirm('수정하시겠습니까?')){
-				$('form[name=editList]').prop('action', "<c:url value='/admin/officeProduct/editOfficeProduct'/>");
-				$('form[name=editList]').submit();
-				editEnd();
+		});
+		
+		$('#bt1').submit(function(event){
+			event.preventDefault();
+			
+			if(confirm("수정하시겠습니까?")){
+				
+				$.ajax({
+					url:$('#bt1').attr("action"),
+					type:"post",
+					datatype:"json",
+					data:$('#bt1').serialize(),
+					success:function(result){
+						
+						if(result >0){
+							self.close();
+							
+							opener.location.reload();
+						}
+					},
+					error:function(xhr, status, error){
+						console.error("실패 :", status, error)
+					}
+				});
 			}
+			
+		});
+			
+		$('#cancle').click(function(){
+			window.close();
 		});
 	});
 		
+	
 	function editEnd(){
 		var closeWindow = ${closeWindow};
 
 		if(closeWindow){
+			alert("수정 완료했습니다.");
 			window.close();
 		}
 	}
@@ -96,7 +123,7 @@
 			<div class="card-body">
 				<form class="dropzone dropzone-multiple p-0" name = "editList"
 					id="update" data-dropzone="data-dropzone"
-					method="post" action="<c:url value='/admin/officeProduct/editOfficeProduct'/>">
+					method="post" action="<c:url value='/admin/officeProduct/editOfficeProduct?remanNo=${remanVo.remanNo }'/>">
 					<div class="row gx-2">
 						<label class="form-label" for="product-name">종류</label> 
 						<select class="form-select" aria-label="Default select example" name = "category" >
@@ -162,14 +189,14 @@
 			<div class="card-body">
 				<div class="row justify-content-between align-items-center">
 					<div class="col-auto">
+						<button class="btn btn-primary" id="bt1" type="submit">수정</button>
 						<button class="btn btn-link text-secondary p-0 me-3 fw-medium"
 							role="button" style="color:#0E1726;" id="cancle">취소</button>
-						<button class="btn btn-primary" id="bt1">수정</button>
 					</div>
+				</form>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
 </div>
 <%@ include file="../../inc/adminBottom.jsp"%>

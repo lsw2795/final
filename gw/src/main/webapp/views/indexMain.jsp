@@ -7,6 +7,25 @@
     padding: 20px;
     width: 100%;
 }
+
+	div#dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7 {
+	    display: flex;
+	    justify-content: space-between;
+	}
+
+	#weather {
+	    background: white;
+	    text-align: center;
+	    padding: 15px;
+	    border-radius: 16px;
+	    margin-right: 23px;
+	    font-weight: bold;
+	    font-size: 15px;
+	}
+	
+	div#weather h4 {
+	    font-weight: bold;
+	}
 </style>
    <div class="card mb-3">
      <div class="card-header">
@@ -22,11 +41,12 @@
       <div class="card-body bg-light">
         <div class="tab-content">
           <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
-            <div class="input-group flex-nowrap">
-            여기가 본문들어감
-            
-            
-            </div>
+            	<div id="commute">
+            		여기다 근태 넣어주세요.
+            	</div>
+            	<div id="weather">
+            		<c:import url="inc/weather.jsp"></c:import>
+            	</div>
           </div>
         </div>
       </div>

@@ -19,12 +19,7 @@
     <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
     <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
     <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
-<style type="text/css">
-	.content {
-	    padding-bottom: 3.9875rem;
-	    padding: 50px;
-	}
-</style>  
+    
 <script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
 
@@ -56,7 +51,7 @@
 				 }
 		 	});
    		
-   		$("#addReservation").on("click",function(){  // modal의 추가 버튼 클릭 시
+   		$("#editReservation").on("click",function(){  // modal의 추가 버튼 클릭 시
         	var currentDate = new Date();
         	var bookDateStr = $("#bookDate").val(); // 예: "2023-09-01"
         	var startTimeNumber = parseInt($("#startTime").val()); // 예: 9
@@ -178,20 +173,24 @@
 				}
 			});
 		});
-   		$('#addReservationForm').submit(function(event){
+   		
+   		$('#editReservation').submit(function(event){
    		 	event.preventDefault(); // 기본 제출 동작 방지
    			
    		 $.ajax({
-   	        url: $("#addReservationForm").attr("action"), // 제출할 URL
+   	        url: $("#editReservation").attr("action"), // 제출할 URL
    	        type: "POST", // 또는 "GET" 등 HTTP 메서드 선택
-   	        data: $("#addReservationForm").serialize(), // 폼 데이터 직렬화
+   	        data: $("#editReservation").serialize(), // 폼 데이터 직렬화
    	        success: function (response) {
    	            // 서버로의 제출이 성공한 경우에만 아래 코드 실행
    	            // 자식 창 닫기
-   	            window.close();
+   	            if(response == 1){
+	   	            self.close();
+   	            	
+	   	            // 부모 창 새로 고치기
+	   	            opener.location.reload();
+   	            }
 
-   	            // 부모 창 새로 고치기
-   	            opener.location.reload();
    	        },
    	        error: function (xhr, status, error) {
    	            // 서버로의 제출이 실패한 경우에 대한 처리
@@ -202,18 +201,18 @@
 	});
 </script>
 <body>
-	<div class="col-12 mb-3" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	<div class="" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="content" role="document">
-        <form id = "addReservationForm" autocomplete="on" action="<c:url value='/reservation/addReservation'/>" method = "post" >
+        <div class="modal-dialog" role="document">
+        <form id = "addReservationForm" autocomplete="on" action="<c:url value='/reservation/editReservation?reservationNo=${resVo.reservationNo}'/>" method = "post" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
                 </div>
 
-                <div class="card-body">
-                    <div class="col-12 mb-3">
-                    	<label class="col-form-label" for="product-name"> 자원 종류</label> 
+                <div class="modal-body">
+                    <div class="form-group">
+                    	<label class="form-label" for="product-name"> 자원 종류</label> 
 						<select class="form-select" aria-label="Default select example" id = "category" name = "category" style="width:40%">
 							<option value="">선택하세요.</option>
 							<option value="meetingRoom">회의실</option>
@@ -221,7 +220,7 @@
 							<option value="rentCar">차량</option>
 						</select>
 						<div id = "meetingRoomBox">
-						<label class="col-form-label" for="product-name" >자원</label>
+						<label class="form-label" for="product-name" >자원</label>
 						<select class="form-select" aria-label="Default select example" id = "meetingRoom" style="width:55%">
 							<option value="" disabled> 선택하세요.</option>
 						<c:forEach var = "mr" items="${meetingRoom }"> 
@@ -252,7 +251,8 @@
                   			<div class = "mb-3">
                   			  <input type="hidden" id="hiddenRemanNo" name="remanNo">
 		                  	  <label class="fs-0" for="eventStartDate">예약 날짜</label>
-		                   	  <input class="form-control datetimepicker" id="bookDate" type="date" required="required" name="bookDate"  data-options='{"static":"true","enableTime":"true","dateFormat":"Y-m-d H:i"}' />
+		                   	  <input class="form-control datetimepicker" id="bookDate" type="date" required="required" name="bookDate"  
+		                   	  	data-options='{"static":"true","enableTime":"true","dateFormat":"Y-m-d H:i"}' value="${resVo.bookDate}" />
 		                  	</div>
 		                  </div>
 		                  <div class="divDay">
@@ -282,7 +282,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary px-4" id="addReservation">등록</button>
+                    <button type="button" class="btn btn-primary px-4" id="editReservation">수정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
                 </div>
     
