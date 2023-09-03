@@ -3,6 +3,7 @@ package com.ez.gw.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +61,9 @@ public class deptBoardController {
 		int totalRecord = boardService.gTRCountDeptBoard(searchVo);
 		pagingInfo.setTotalRecord(totalRecord);
 		logger.info("부서게시판 검색 결과 - deptBoardList.size()={}", deptBoardList.size());
-
+		for(Map<String, Object> map : boardList) {
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
 		model.addAttribute("deptBoardList", deptBoardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingInfo", pagingInfo);

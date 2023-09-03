@@ -85,6 +85,21 @@ public class DeptController {
     	return result;
     }
     
+    @ResponseBody
+    @RequestMapping("/admin/employee/checkDeptName2")
+    public int checkDeptName2(@RequestParam (required = false)String deptName,
+    		@RequestParam(required = false)String oldDeptName) {
+    	logger.info("ajax 이용 - 부서 수정 중 부서 이름 중복확인 파라미터 deptName={}, oldDeptName={}",deptName, oldDeptName);
+    	int cnt=0;
+    	if(deptName.equals(oldDeptName)) {
+    		cnt=0;
+    	}else {
+    		cnt=deptService.checkDeptName(deptName);
+    	}
+    	logger.info("ajax 이용 - 부서 수정 중 부서 이름 중복확인 결과 cnt={}", cnt);
+    	return cnt;
+    }
+    
     
 }
 	
