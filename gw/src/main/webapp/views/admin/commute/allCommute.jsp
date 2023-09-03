@@ -179,10 +179,10 @@
 						<th class="th-1">총 근무시간</th>
 					</tr>
 						<tr>
-							<td>${tLeaveCount}</td>
-							<td>${uLeaveCount}</td>
-							<td>${rLeaveCount}</td>
-							<td>${rLeaveCount}</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
 						</tr>	
 				</table> 
 			</div>	
@@ -213,9 +213,6 @@
 			
 			
 		<div class="list2">
-			<c:if test="${!empty commuteList}">
-				<div>조회된 결과 ${commuteList.size()}건</div>
-			</c:if>
 			<table  class="t-List2">
 				<tr>
 					<th class="th-1">사번</th>
@@ -236,10 +233,14 @@
 				<c:if test="${!empty commuteList}">
 					<c:forEach var="map" items="${commuteList}">
 						<tr>
-							<td>${map['workDate']}</td>
-							<td>${map['workInTime']}</td>
-							<td>${map['workOutTime']}</td>
-							<td>${map['workTime']}</td>
+							<td>${map['EMP_NO']}</td>
+							<td>${map['DEPT_NAME']}</td>
+							<td>${map['POSITION_NAME']}</td>
+							<td>${map['NAME']}</td>
+							<td>${map['WORK_IN']}</td>
+							<td>출근시간</td>
+							<td>퇴근시간</td>
+							<td>근무시간</td>
 							<c:choose>
 								<c:when test="${map['state']!='정상근무'}">
 									<td style="color: red;">${map['state']}</td>

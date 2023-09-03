@@ -304,8 +304,14 @@ public class CommuteController {
 	//--------------------------ADMIN------------------------
 	
 	@RequestMapping("/admin/commute/allCommute")
-	public String allCommute() {
+	public String allCommute(Model model) {
 		logger.info("전사원 근태 현황, 파라미터");
+		
+		List<Map<String, Object>> commuteList = commuteService.selectAllCommute();
+		logger.info("전사원 근태 기록 조회 commuteList.size={}", commuteList.size());
+		
+		model.addAttribute("commuteList", commuteList);
+		
 		
 		return "admin/commute/allCommute";
 	}
