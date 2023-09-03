@@ -27,6 +27,8 @@ import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.Utility;
+import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
 
@@ -42,6 +44,7 @@ public class deptBoardController {
 	private final BoardListService boardListService;
 	private final PdsService pdsService;
 	private final FileUploadUtil fileuploadUtil;
+	private final EmployeeService employeeService;
 	
 	@RequestMapping("/board/deptBoard")
 	public String deptBoardList(@ModelAttribute EmpSearchVO searchVo,Model model){
@@ -140,13 +143,16 @@ public class deptBoardController {
 	}
 	
 	@RequestMapping("/board/deptBoardDetail")
-	public String Detail(@ModelAttribute BoardVO vo,Model model) {
+	public String Detail(HttpSession session,
+			@ModelAttribute BoardVO vo, Model model) {
+		int empNo=(int)session.getAttribute("empNo");
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
 		Map<String, Object> prevMap=boardService.selPrevDeptBoard(vo);
 		Map<String, Object> nextMap=boardService.selNextDeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
+		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
 		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
@@ -164,6 +170,7 @@ public class deptBoardController {
 		model.addAttribute("nextMap", nextMap);
 		model.addAttribute("boardlistVo", boardlistVo);
 		model.addAttribute("pdsList", pdsList);
+		model.addAttribute("empVo", empVo);
 		model.addAttribute("fileInfoArr",fileInfoArr);
 		
 		return "board/deptBoardDetail";

@@ -120,9 +120,14 @@
                   <div class="position-relative rounded-1 border bg-white dark__bg-1100 p-3">
                     <div class="position-absolute end-0 top-0 mt-2 me-3 z-1">
                     </div>
-                    <div class="row gx-2">
-                      <div class="col-sm-6 mb-3">
-                        <input class="form-control" value="${sessionScope.empNo}" type="text" style="width: 100px;" readonly/>
+                    <div class="row">
+                      <div class="mb-3">
+                		<div class="col-auto">
+		                  <a href="#" onclick="empDetail(${empVo.empNo});">
+		                    <span class="bold" style="color: black;">${empVo.name}</span>
+		                    <span class="text-500">&lt;${empVo.email}&gt;</span>
+                    	  </a>
+                   	   </div>
                       </div>
                       <div class="col-12">
                         <textarea class="form-control form-control-sm" id="field-options" rows="3"></textarea>
