@@ -24,7 +24,7 @@
 			<if test="searchComment!=null and searchComment!=''">
 				and comment_content like '%' || #{searchComment} || '%'
 			</if>
-			<if test="reportStatus!=null and reportStatus!='' and reportStatus!=-1">
+			<if test="reportStatus!=-1">
 				and report_status = #{reportStatus}
 			</if>
 		</trim>
@@ -68,6 +68,12 @@
 		and comment_no is null
 	</select>
 	
+	<select id="dupClubBoardReport" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
+	</select>
+	
+	
 	<select id="searchAnonymousCommentReport" resultType="int" parameterType="reportVo">
 		select count(*) from report
 		where emp_no=#{empNo}
@@ -95,9 +101,22 @@
 		<include refid="search"></include>
 	</select>	
 
-	<select id="dupClubBoardReport" resultType="int" parameterType="reportVo">
-		select count(*) from report
-		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
+	
+	<select id="selectByReportNo" parameterType="int" resultType="map">
+		select * from anonymousReportView
+		where report_no=#{reportNo}
 	</select>
+	
+	<update id="updateAnonymousReportPostpone" parameterType="int">
+		update anonymousreportview
+		set report_status='2'
+		where report_no=#{reportNo}
+	</update>
+	
+	<update id="updateAnonymousReport" parameterType="int">
+		update anonymousreportview
+		set report_status='1'
+		where report_no=#{reportNo}
+	</update>
 	
 </mapper>

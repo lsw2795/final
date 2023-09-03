@@ -72,6 +72,9 @@ public class AdminController {
 				HttpSession session=request.getSession();
 				session.setAttribute("empNo", empNo);
 				
+				String authority = (String)map.get("AUTHORITY");
+				session.setAttribute("authority",authority);
+				
 				//cookie
 				String empNo2=Integer.toString(empNo);
 				Cookie ck = new Cookie("ck_empNo", empNo2);

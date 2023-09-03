@@ -1,5 +1,7 @@
 package com.ez.gw.report.controller;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.board.model.BoardService;
+import com.ez.gw.board.model.BoardVO;
+import com.ez.gw.comments.model.CommentsService;
+import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.report.model.ReportService;
@@ -26,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class ReportController {
 	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 	private final ReportService reportService;
+	private final BoardService boardService;
+	private final CommentsService commentService;
 
 	@ResponseBody
 	@RequestMapping("/reportBoardAjax")
@@ -51,6 +59,35 @@ public class ReportController {
 		return msg;
 	}
 	
+	//클럽
+	@RequestMapping("/reportClubBoardAjax")
+	public String ajaxReportClub(@RequestParam(defaultValue = "0") int clubBoardNo,
+			HttpSession session) {
+		//1.
+		int empNo=(int)session.getAttribute("empNo");
+		ReportVO reVo = new ReportVO();
+		reVo.setEmpNo(empNo);
+		reVo.setClubBoardNo(clubBoardNo);
+		logger.info("게시글 신고 Ajax 파라미터 clubBoardNo={}"+clubBoardNo);
+		
+		//2.
+		int cnt=reportService.dupClubBoardReport(reVo);
+		logger.info("신고등록 결과 cnt={}",cnt);
+		
+		//3.
+		String msg="알 수 없는 문제가 발생하였습니다.";
+		if(cnt>0) {
+			msg="이미 신고한 게시물입니다.";
+		}else {
+			cnt=reportService.insertReport(reVo);
+			if(cnt>0) {
+				msg="해당 게시물이 신고되었습니다.";
+			}
+		}
+		//4.
+		return msg;
+	}
+
 	@ResponseBody
 	@RequestMapping("/reportCommentAjax")
 	public String reportCommentAjax(@RequestParam(defaultValue = "0") int commentNo,
@@ -103,32 +140,81 @@ public class ReportController {
 	
 		return "anonymousBoard/report/anonymousReportList";
 	}
-	//클럽
-	@RequestMapping("/reportClubBoardAjax")
-	public String ajaxReportClub(@RequestParam(defaultValue = "0") int clubBoardNo,
-			HttpSession session) {
-		//1.
-		int empNo=(int)session.getAttribute("empNo");
-		ReportVO reVo = new ReportVO();
-		reVo.setEmpNo(empNo);
-		reVo.setClubBoardNo(clubBoardNo);
-		logger.info("게시글 신고 Ajax 파라미터 clubBoardNo={}"+clubBoardNo);
+	
+	@RequestMapping("/anonymousReportDetail")
+	public String anoymousReportList(@RequestParam(required = true) int reportNo,
+			Model model) {
+		logger.info("익명게시판 신고글 상세보기 파라미터 reportNo={}",reportNo);
 		
-		//2.
-		int cnt=reportService.dupClubBoardReport(reVo);
-		logger.info("신고등록 결과 cnt={}",cnt);
+		Map<String, Object> reportMap = reportService.selectByReportNo(reportNo);
+		Object obj=reportMap.get("BOARD_NO");
+    	int boardNo = ((BigDecimal) obj).intValue();
+    	
+    	
+    	Map<String, Object> boardMap=boardService.AnonymousBoardByBoardNo(boardNo);
+		logger.info("익명게시판 신고글 조회결과 boardMap={}",boardMap);
 		
-		//3.
-		String msg="알 수 없는 문제가 발생하였습니다.";
-		if(cnt>0) {
-			msg="이미 신고한 게시물입니다.";
-		}else {
-			cnt=reportService.insertReport(reVo);
-			if(cnt>0) {
-				msg="해당 게시물이 신고되었습니다.";
-			}
+		Map<String, Object> commentMap = new HashMap<>();
+		
+		obj=reportMap.get("COMMENT_NO");
+		if(obj!=null) {
+			int commentNo = ((BigDecimal) obj).intValue();
+			commentMap = commentService.anonymousCommentByCommentNo(commentNo);
+			logger.info("익명게시판 신고댓글 조회결과 commentVo={}",commentMap);
 		}
-		//4.
+		
+		model.addAttribute("reportMap",reportMap);
+		model.addAttribute("boardMap",boardMap);
+		model.addAttribute("commentMap",commentMap);
+		
+		return "anonymousBoard/report/anonymousReportDetail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/anonymous/statusPostponeAjax")
+	public String statusPostponeAjax(@RequestParam(defaultValue = "0") int reportNo,
+		HttpSession session) {
+		logger.info("신고 보류 처리 Ajax 파라미터 reportNo={}",reportNo);
+		
+		int cnt=reportService.updateAnonymousReportPostpone(reportNo);
+		logger.info("신고 보류 처리 결과 cnt={}",cnt);
+		
+		String msg="신고 보류 처리 중 에러가 발생했습니다.";
+		if(cnt>0) {
+			msg="신고 보류 처리했습니다.";
+		}
+		
 		return msg;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/anonymous/UpdateAjax")
+	public String anonymousUpdateAjax(@RequestParam(defaultValue = "0") int reportNo,
+			HttpSession session) {
+		logger.info("신고 처리 Ajax 파라미터 reportNo={}",reportNo);
+		
+		Map<String, Object> reportMap = reportService.selectByReportNo(reportNo);
+		
+		Object obj=reportMap.get("COMMENT_NO");
+		
+		int cnt=reportService.updateAnonymousReport(reportNo);
+		logger.info("신고 처리 결과 cnt={}",cnt);
+		
+		if(obj==null && cnt>0) {
+			obj=reportMap.get("BOARD_NO");
+			int boardNo = ((BigDecimal) obj).intValue();
+			
+			cnt=boardService.deleteAnonymousBoard(boardNo);
+			logger.info("게시글 삭제 처리 결과 cnt={}",cnt);
+		}
+		
+		String msg="신고 처리 중 에러가 발생했습니다.";
+		if(cnt>0) {
+			msg="신고 처리됐습니다.";
+		}
+		
+		return msg;
+	}
+		
+	
 }

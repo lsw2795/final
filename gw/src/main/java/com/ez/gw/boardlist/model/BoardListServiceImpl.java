@@ -52,4 +52,9 @@ public class BoardListServiceImpl implements BoardListService {
 	public int deleteboardList(int boardlistNo) {
 		return boardListDao.deleteboardList(boardlistNo);
 	}
+
+	@Override
+	public List<BoardListVO> seldeptBoard() {
+		return boardListDao.seldeptBoard();
+	}
 }

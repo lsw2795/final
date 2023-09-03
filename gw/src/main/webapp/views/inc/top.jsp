@@ -484,6 +484,12 @@
 	                    		<span class="nav-link-text ps-1">FAQ</span>
 	                    	</div>
 	                  	</a>
+	                  	<a class="nav-link" href="<c:url value='/board/deptBoard'/>" role="button">
+	                    	<div class="d-flex align-items-center">
+	                    		<span class="nav-link-text"><span class="fas fa-file"></span></span>
+	                    		<span class="nav-link-text ps-1">부서 게시판</span>
+	                    	</div>
+	                  	</a>
                   	</li>
                   	<!-- label-->
                   	<div class="row navbar-vertical-label-wrapper mt-3 mb-2">

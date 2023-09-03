@@ -2,26 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../../inc/adminTop.jsp" %>
 <script type="text/javascript">
-	$(function(){
-		$('input[name=allCheck]').click(function(){
-			$('td input[type=checkbox]').prop('checked',this.checked);
-		});
-		
-		$('#deleteConfirm').click(function(){
-			$('td input[type=checkbox]:checked').each(function(){
-				$(this).trigger('change');
-			});
-			
-			var cnt=$('td input[type=checkbox]:checked').length;
-			if(cnt==0){
-				alert("삭제 할 문서를 선택하세요");
-				return false;
-			}
-			
-			$('form[name=frmList]').submit();
-		});
-	});
-	
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmSearch"]').submit();
@@ -32,20 +12,8 @@
 		$('form[name="frmSearch"]').submit();
 	}
 	
-	function delOk(chk,no,create,deadLine){
-		var today = new Date();
-		var create = new Date(create);
-		var deadLine = parseInt(deadLine);
-		
-		today.setHours(0, 0, 0, 0);
-		create.setHours(0, 0, 0, 0);
-		create.setFullYear(create.getFullYear() + deadLine);
-		
-		if(today<create){
-			alert(no+"문서는 보존기한이 남아있는 문서입니다.");
-			$(chk).prop('checked',false);
-		}	
-		
+	function statusUpdate(reportNo,status,tr){
+		window.open("<c:url value='/report/anonymousReportDetail?reportNo="+reportNo+"'/>","_blank","width=500,height=520 left=500 top=300")
 	}
 	
 </script>
@@ -105,15 +73,18 @@
 					    <label class="form-label" for="reportStatus">처리상태</label>
 					    <select class="form-select" name="reportStatus" id="reportStatus">
 							<option value="-1"
-							<c:if test="${reportVO.reportStatus==-1}">
 								selected="selected"
-							</c:if>
-							>선택하세요</option>
+							>전체</option>
 							<option value="0"
 							<c:if test="${reportVO.reportStatus==0}">
 								selected="selected"
 							</c:if>
 							>대기</option>
+							<option value="2"
+							<c:if test="${reportVO.reportStatus==2}">
+								selected="selected"
+							</c:if>
+							>보류</option>
 							<option value="1"
 							<c:if test="${reportVO.reportStatus==1}">
 								selected="selected"
@@ -125,7 +96,6 @@
 			</div>
 		</div>
 	</div>
-	<form name="frmList" method="post" action="<c:url value=''/>" >
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-body table-responsive scrollbar">
@@ -133,24 +103,18 @@
 					<table class="table table-hover table-striped overflow-hidden" style="width: 100%">
 						<thead>
 					    	<tr class="align-middle" align="center">
-							    <th width="5%" scope="col">
-							      	<input type="checkbox" name="allCheck">
-							    </th>
-						      	<th width="25%" scope="col">신고유형</th>
-						      	<th width="15%" scope="col">신고자</th>
-						      	<th width="15%" scope="col">게시글</th>
-						        <th width="15%" scope="col">댓글</th>
-						        <th width="15%" scope="col">신고일</th>
+						      	<th width="20%" scope="col">신고유형</th>
+						      	<th width="10%" scope="col">신고자</th>
+						      	<th width="25%" scope="col">게시글</th>
+						        <th width="25%" scope="col">댓글</th>
+						        <th width="10%" scope="col">신고일</th>
 						        <th width="10%" scope="col">처리상태</th>
 					      	</tr>
 					    </thead>
 					    <tbody>
 					    	<c:if test="${!empty reportList }">
 					    		<c:forEach var="map" items="${reportList }">
-					    			<tr class="align-middle" align="center">
-					    				<td>
-											<input type="checkbox" onchange="delOk()" name="deleteNo" value="${map['REPORT_NO']}">
-										</td>
+					    			<tr class="align-middle" align="center" onclick="statusUpdate(${map['REPORT_NO']},${map['REPORT_STATUS']},this)">
 					    				<td>
 					    					<c:if test="${empty map['COMMENT_NO']}">
 					    						게시글에 대한 신고
@@ -160,21 +124,40 @@
 					    					</c:if>
 					    				</td>
 					    				<td>${map['NAME']}</td>
-					    				<td>${map['CONTENT']}</td>
-					    				<td>${map['COMMENT_CONTENT']}</td>
+					    				<td>
+					    					<c:if test="${map['CONTENT'].length()>15 }">
+											 	${fn:substring(map['CONTENT'],0,15) }...
+											</c:if>
+											<c:if test="${map['CONTENT'].length()<=15 }">
+					                    		${map['CONTENT']}
+											</c:if>
+					    				</td>
+					    				<td>
+					    					<c:if test="${map['COMMENT_CONTENT'].length()>15 }">
+											 	${fn:substring(map['COMMENT_CONTENT'],0,15) }...
+											</c:if>
+											<c:if test="${map['COMMENT_CONTENT'].length()<=15 }">
+					                    		${map['COMMENT_CONTENT']}
+											</c:if>
+					    				</td>
 					    				<td>
 					    					<fmt:formatDate value="${map['REPORT_DATE']}" pattern="yy-MM-dd"/>
 					    				</td>
 					    				<td>
 						    				<c:if test="${map['REPORT_STATUS']==0}">
 									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
-									        		<b class="state">대기</b><span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
+									        		<b class="state">대기</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
 									        	</span>
 									        </c:if> 
 									        <c:if test="${map['REPORT_STATUS']==1}">
 									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
 										        	<b class="state">완료</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
 											    </span>
+									        </c:if>
+									        <c:if test="${map['REPORT_STATUS']==2}">
+									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
+							        				<b class="state">보류</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
+							        			</span>
 									        </c:if>
 					    				</td>
 					    			</tr>
@@ -206,9 +189,7 @@
      			</button>
      		</c:if>
    			</div>
-	   		<button class="btn btn-sm btn-falcon-default text-primary" type="button" id="deleteConfirm">삭제</button>
 		</div>
 	</div>
-	</form>
 </div>
 <%@ include file = "../../inc/adminBottom.jsp" %>
