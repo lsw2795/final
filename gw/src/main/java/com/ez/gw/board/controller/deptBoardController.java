@@ -139,6 +139,8 @@ public class deptBoardController {
 	public String Detail(@ModelAttribute BoardVO vo,Model model) {
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
+		Map<String, Object> prevMap=boardService.selPrevDeptBoard(vo);
+		Map<String, Object> nextMap=boardService.selNextDeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
 		boardService.updateReadcount(vo.getBoardNo());
@@ -154,6 +156,8 @@ public class deptBoardController {
 		}
 		
 		model.addAttribute("map", map);
+		model.addAttribute("prevMap", prevMap);
+		model.addAttribute("nextMap", nextMap);
 		model.addAttribute("boardlistVo", boardlistVo);
 		model.addAttribute("pdsList", pdsList);
 		model.addAttribute("fileInfoArr",fileInfoArr);
