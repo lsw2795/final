@@ -88,7 +88,6 @@ public class ReportController {
 		//4.
 		return msg;
 	}
-
 	
 	@ResponseBody
 	@RequestMapping("/reportCommentAjax")

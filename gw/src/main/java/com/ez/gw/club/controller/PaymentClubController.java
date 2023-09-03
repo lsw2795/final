@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.gw.club.model.ClubService;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.google.gson.Gson;
@@ -37,56 +38,28 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class PaymentClubController {
 	private static final Logger logger = LoggerFactory.getLogger(PaymentClubController.class);
-	
-	private IamportClient api;
-	
-	// REST API 키와 REST API secret
-	public PaymentClubController() {
-		this.api = new IamportClient("7871557686804568", "fMREUiqxkt0zCAGipySwDeaAjk4dH5Dgm9hBC2NnoYpqS7GZhpMKOa34b1wPzISRZhOJUAfFpBUS3DLU");
-	}
-	
-	//검증에 필요 imp_uid(거래 고유번호)
-	@ResponseBody
-	@RequestMapping(value="/verifyiamport/{imp_uid}", method=RequestMethod.POST)
-	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session
-			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{	
-		
-		//int clubNo=Integer.parseInt(session.getAttribute("clubNo"));
-		
-			return api.paymentByImpUid(imp_uid);
-	}
-	
+	private final ClubService clubService;
 	
 	//결제 완료시 ajax
 	@ResponseBody
 	@GetMapping("/club/ajaxPaymentClub")
-	public String ajaxPaymentClub(@RequestParam Map<String, Object> payment,
-			@RequestParam(defaultValue = "0") int clubNo,
-			HttpSession session) {
-		logger.info("ajax 이용 - payment={},clubNo={}",payment,clubNo); 
-		clubNo=(int)session.getAttribute("clubNo");
+	public void ajaxPaymentClub(@RequestParam Map<String, Object> payment) {
+		logger.info("ajax 이용 - payment={}",payment); 
+		logger.info("ajax 이용 - payment={}",payment); 
+		logger.info("ajax 이용 - payment={}",payment); 
 		
-		return "";
+		String uid = String.valueOf(payment.get("merchant_uid"));
+		String clubNo = String.valueOf(payment.get("custom_data[club_no]"));
+		String empNo = String.valueOf(payment.get("custom_data[buyer_emp_no]"));
+		logger.info("클럽 가입 결과, uid = {}, clubNo = {}, empNo = {}",uid, clubNo, empNo); 
+		int cnt = clubService.joinClub(uid, clubNo, empNo);
+		logger.info("클럽 가입 결과, cnt = {}",cnt); 
+		
+		
 	}
-	
-	
-	@RequestMapping("/paymentSuccess")
-	public String paymentSuccess(@ModelAttribute EmployeeVO empVo,
-			String amount) {
-		logger.info("결제완료시 empVo={},amount={}",empVo,amount);
-		int amt=Integer.parseInt(amount);
-		
-		
-		return "";
-	}
-	
-	
-	
-	
-	
-	
 	/*
 	 * public String getToken() throws IOException {
 	 * 
