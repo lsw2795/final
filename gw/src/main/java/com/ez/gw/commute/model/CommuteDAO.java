@@ -27,5 +27,9 @@ public interface CommuteDAO {
 	
 	//--------------admin----------------
 	List<Map<String, Object>> selectAllCommute(SearchCommuteVO searchCommuteVO); // 전사원 근태 조회
+	int getAllCommuteTotalCount(SearchCommuteVO searchCommuteVO); //전사원 근태 조회 갯수
+	int selectAllCommuteLateCount(SearchCommuteVO searchCommuteVO); //전사원 지각횟수 갯수 조회
+	int selectAllCommuteEalryLeaveCount(SearchCommuteVO searchCommuteVO); //전사원 조퇴횟수 갯수 조회
+	int selectAllCommuteAttendanceCount(SearchCommuteVO searchCommuteVO); //전사원 출근횟수 갯수 조회
 	
 }

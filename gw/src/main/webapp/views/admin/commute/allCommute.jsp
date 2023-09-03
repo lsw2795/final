@@ -199,16 +199,19 @@
 						<th class="th-1">총 근무시간</th>
 					</tr>
 						<tr>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
+							<td>${attendance}</td>
+							<td>${late}</td>
+							<td>${ealry}</td>
+							<td>${TotalWorkTimeOfMonth}
+								<c:if test="${!empty TotalWorkTimeOfMonth}">h</c:if>
+							</td>
+							</tr>
 						</tr>	
 				</table> 
 			</div>	
 
 		<div class="search">
-			<span style="margin-top:35px; float: left;">조회결과 ${commuteList.size()}건</span>
+			<span style="margin-top:35px; float: left;">조회결과 ${totalRecord}건</span>
 			<form action="<c:url value='/admin/commute/allCommute'/>" method="post" class="form-search">
 				<table class="t-search">
 			    	<tr>
@@ -264,10 +267,10 @@
 							<td>${map['DEPT_NAME']}</td>
 							<td>${map['POSITION_NAME']}</td>
 							<td>${map['NAME']}</td>
-							<td>${map['WORK_IN']}</td>
-							<td>출근시간</td>
-							<td>퇴근시간</td>
-							<td>근무시간</td>
+							<td>${map['workDate']}</td>
+							<td>${map['workInTime']}</td>
+							<td>${map['workOutTime']}</td>
+							<td>${map['workTime']}</td>
 							<c:choose>
 								<c:when test="${map['state']!='정상근무'}">
 									<td style="color: red;">${map['state']}</td>
