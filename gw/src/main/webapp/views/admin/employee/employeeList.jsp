@@ -107,7 +107,9 @@ $(function(){
            	var deptLevel=receivedData.deptLevel;
            	
            	
-           	var result="<input class='form-control admindefault' id='newname2' name='newname2' type='text' value='"+name+"'/>";
+           	var result="<input type='hidden' id='oldDeptName' value='"+name+"'>"
+           		+"<input class='form-control admindefault' id='newname2' name='newname2' type='text' value='"+name+"'/>"
+           		+"<div id='checkNameDiv2'></div>";
            	$('#deptNameDiv').append(result);
            	
           	var result1="<select class='form-select admindefault' id='manager2'>"
@@ -134,12 +136,42 @@ $(function(){
 			var result3="<input class='form-control admindefault' id='dept_level2' name='dept_level' type='text' value='"+deptLevel+"'/>";
 			$('#deptLevelDiv').append(result3);
 			
+			
+			$('#newname2').keyup(function(){
+		    	$.ajax({
+					url:"<c:url value='/admin/employee/checkDeptName2'/>",
+					type:"get",
+					dataType:"JSON",
+					data:{
+						deptName:$('#newname2').val(),
+						oldDeptName: $('#oldDeptName').val()		
+					},
+					success:function(res){
+						$('#checkNameDiv2').empty();
+						var str = "";
+						if(res==0){
+							str += "<span style='font-weight : bold; color :green'>사용가능한 부서이름 입니다.</span>"
+							bool = true;
+						}else if(res>0){
+							str += "<span style='font-weight : bold; color :red'>중복되는 부서이름 입니다.</span>"
+							bool = false;
+						}
+						$('#checkNameDiv2').append(str);
+					},
+					error:function(xhr, status, error){
+						alert(status + " : " + error);
+					}
+				});//ajax 
+		    }); 
+		     
+			
            },
            error:function(xhr,status,error){
                alert(status+" : "+error);
            } 
        });//ajax
  	});
+     
      
     $('#btnDeptEdit').click(function(){
     	if($('#newname2').val().length<1){
@@ -153,6 +185,12 @@ $(function(){
             $('#manager2').focus();
             return false;
 	     }
+         
+         if(!bool){
+         	alert('부서이름을 변경해주세요.');
+        	    $('#name1').focus();
+         	return false;
+         } 
          
     	var deptNo=$('#dept_no2').val();
     	var name=$('#newname2').val();

@@ -4,12 +4,12 @@
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
 <script type="text/javascript">
 	$(function(){
-		
-		$('#btnDelDeptBoard').click(function(){
+		$('#btnDelete').click(function(){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href="<c:url value=''/>";
+				location.href="<c:url value='/board/deptBoardDelete?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>";
 			}
 		});
+		
 	});
 
 	function empDetail(empNo) {
@@ -57,7 +57,7 @@
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
 	               		<span class="mypagehyphen"></span>
-	               		<button id="btnDelDeptBoard" class="btn btn-outline-danger">삭제</button>
+	               		<button type="button" id="btnDelete" class="btn btn-outline-danger">삭제</button>
 	               		</c:if>
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}

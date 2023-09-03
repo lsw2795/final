@@ -358,7 +358,7 @@
 		insert into board(board_no, emp_no, boardList_no, title, content)
 		values(#{boardNo}, #{empNo}, #{boardlistNo}, #{title}, #{content})
 	</insert>
-	
+		
 	<select id="selectdeptBoard" parameterType="boardVo" resultType="map">
 		select * from deptboardlistView
 		where boardList_no =#{boardlistNo}
@@ -398,5 +398,17 @@
 		    )
 		where rownum=1
 	</select>
+	
+	<update id="updateDeptBoard" parameterType="boardVo">
+		update board
+		set title=#{title}, content=#{content}
+		where boardList_no=#{boardlistNo} and board_No=#{boardNo}
+	</update>
+	
+	<delete id="deleteDeptBoard" parameterType="boardVo">
+		update board
+		set delflag='Y'
+		where boardList_no=#{boardlistNo} and board_no=#{boardNo}
+	</delete>
 	
 </mapper>
