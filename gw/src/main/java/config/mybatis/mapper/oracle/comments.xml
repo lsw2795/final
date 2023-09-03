@@ -111,4 +111,10 @@
 		and comment_no=#{commentNo}
 	</update>
 	
+	<delete id="deleteDeptBoardCM" parameterType="commentsVo"> 
+		delete from comments
+		where boardlist_no=#{boardlistNo}
+		and comment_no=#{commentNo}
+	</delete>
+	
 </mapper>

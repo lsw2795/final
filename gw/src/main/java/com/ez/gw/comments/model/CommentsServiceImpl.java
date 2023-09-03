@@ -86,5 +86,10 @@ public class CommentsServiceImpl implements CommentsService{
 	public int updateDeptBoardCM(CommentsVO vo) {
 		return commentsDao.updateDeptBoardCM(vo);
 	}
+
+	@Override
+	public int deleteDeptBoardCM(CommentsVO vo) {
+		return commentsDao.deleteDeptBoardCM(vo);
+	}
 	
 }
