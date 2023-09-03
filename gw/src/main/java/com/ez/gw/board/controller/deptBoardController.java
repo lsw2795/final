@@ -362,5 +362,13 @@ public class deptBoardController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/board/ajaxUpdateBoardCM")
+	public int updateCM(@ModelAttribute CommentsVO cmVo) {
+		logger.info("ajax - 부서게시판 댓글수정 파라미터 cmVo={}", cmVo);
+		int cnt=comService.updateDeptBoardCM(cmVo);
+		logger.info("ajax - 부서게시판 댓글수정 결과 cnt={}", cnt);
+		return cnt;
+	}
 	
 }

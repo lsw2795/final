@@ -21,4 +21,5 @@ public interface CommentsDAO {
 	int updateCommentReport(int commentNo);
 	int insertDeptBoardCM(CommentsVO vo); //부서게시판 댓글 등록
 	List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo); //부서게시판 댓글 조회
+	int updateDeptBoardCM(CommentsVO vo); //부서게시판 댓글 수정
 }

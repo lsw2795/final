@@ -104,5 +104,11 @@
 		order by regdate desc
 	</select>
 	
+	<update id="updateDeptBoardCM" parameterType="commentsVo">
+		update comments
+		set content=#{content}
+		where boardlist_no=#{boardlistNo}
+		and comment_no=#{commentNo}
+	</update>
 	
 </mapper>

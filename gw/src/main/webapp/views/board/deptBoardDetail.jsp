@@ -35,6 +35,10 @@
 	        });//ajax
 		});
 		
+		$('.btnCancelCM').click(function(){
+			location.reload();
+		});
+		
 	});
 
 	function empDetail(empNo) {
@@ -43,20 +47,50 @@
 	
 	function btnCmEdit(index){
 		var commentNo=$('#commentNo'+index).val();
-		alert(commentNo);
+		//alert(commentNo);
 		var cmContent=$('#cmContent'+index).text();
-		alert(cmContent);
+		//alert(cmContent);
 		$('#commentDiv'+index).empty();
-		$('#btnDiv'+index).empty();
 		var result="<textarea class='form-control' id='editCM"+index+"' name='content' rows='3'>"+cmContent+"</textarea>";
 		$('#commentDiv'+index).append(result);
 		$('#editCM'+index).focus();
 		$('#btnCmEdit'+index).hide();
-		var result2="<input type='button' class='btn btn-primary' value='수정'/>"
-			+"<span class='mypagehyphen'></span><input type='button' class='btn btn-secondary' value='취소'/>"
-		$('#btnDiv'+index).append(result2);
-	
+		$('#realEditCM'+index).css("visibility", "visible");
+		$('#btnCancel'+index).css("visibility","visible");
+		
+		$('#realEditCM'+index).click(function(){
+			if($('#editCM'+index).val().length<10){
+				alert('댓글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#editCM'+index).focus();
+				return false;
+			}
+			var content=$('#editCM'+index).val();
+			var boardlistNo='<%= request.getParameter("boardlistNo") %>';
+			var commentNo=$('#commentNo'+index).val();
+			alert(content+" : "+boardlistNo+" : "+commentNo);
+			
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateBoardCM'/>",
+	            type:'get',
+				data:{
+					content: content,
+					boardlistNo: boardlistNo,
+					commentNo: commentNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 수정이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
 	}
+	
 </script>
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between ">
@@ -164,9 +198,9 @@
                     </div>
                     <div class="row">
                     <form id="frmComment">
-                    <input type="hidden" value="${empVo.empNo}" name="empNo"/>
-                    <input type="hidden" value="${param.boardlistNo}" name="boardlistNo"/>
-                    <input type="hidden" value="${param.boardNo}" name="boardNo"/>
+                    <input type="hidden" value="${empVo.empNo}" id="empNo" name="empNo"/>
+                    <input type="hidden" value="${param.boardlistNo}" id="boardlistNo" name="boardlistNo"/>
+                    <input type="hidden" value="${param.boardNo}" id="boardNo" name="boardNo"/>
                       <div class="mb-3">
                 		<div class="col-auto">
 		                  <a href="#" onclick="empDetail(${empVo.empNo});">
@@ -190,6 +224,7 @@
                    <c:set var="i" value="0"></c:set>
                    <c:forEach var="comMap" items="${comList }">
 					  <div class="row">
+						<c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
 					    <div class="flex-1 position-relative ps-3">
 					      <a href="#" onclick="empDetail(${comMap['EMP_NO']});">
 					        <h6 class="fs-0 mb-0">${comMap['NAME']}
@@ -198,10 +233,18 @@
 					      </a>
 					      <span class="mb-1">${comMap['EMAIL']}</span>
 					    </div>
+					    </c:if>
+					    <c:if test="${comMap['EMP_NO']!=sessionScope.empNo}">
+					    <div class="flex-1 position-relative ps-3">
+					    익명
+					    </div>
+					    </c:if>
 					    <div class="col-md-6">
 					     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
 					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
-					      <div id="btnDiv${i }"></div>
+					      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
+						  <span class='mypagehyphen'></span>
+						  <input type="button" id="btnCancel${i }" class="btn btn-secondary btnCancelCM" value="취소" style="visibility: hidden;"/>
 					      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
 					      </c:if>
 					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>

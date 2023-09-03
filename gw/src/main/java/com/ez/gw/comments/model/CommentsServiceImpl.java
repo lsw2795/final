@@ -81,5 +81,10 @@ public class CommentsServiceImpl implements CommentsService{
 	public List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo) {
 		return commentsDao.selectDeptBoardCM(vo);
 	}
+
+	@Override
+	public int updateDeptBoardCM(CommentsVO vo) {
+		return commentsDao.updateDeptBoardCM(vo);
+	}
 	
 }
