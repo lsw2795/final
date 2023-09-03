@@ -42,7 +42,7 @@
 		where emp_no=#{empNo}
 	</update>
 
-	<update id="outClub" parameterType="int">
+	<update id="outClub">
 		update employee
 		set club_no=null
 		where emp_no=#{empNo}
