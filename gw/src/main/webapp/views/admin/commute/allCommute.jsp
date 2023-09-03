@@ -165,6 +165,31 @@
 </style>
 
 <script type="text/javascript">
+	$(function() {
+	    // date1 input 요소에 값이 변경될 때
+	    $("input[name='date1']").on("change", function() {
+	        var date1Value = $(this).val();
+	        $("input[name='date1']").val(date1Value);
+	    });
+
+	    // date2 input 요소에 값이 변경될 때
+	    $("input[name='date2']").on("change", function() {
+	        var date2Value = $(this).val();
+	        $("input[name='date2']").val(date2Value);
+	    });
+		
+	    $("#searchForm").submit(function(event) {
+	        var date1 = $("input[name='date1']").val();
+	        var date2 = $("input[name='date2']").val();
+	        
+	        // 두 날짜 중 하나만 선택되었을 때
+	        if ((date1.length > 1 && date2.length < 1) || (date2.length > 1 && date1.length < 1)) {
+	            event.preventDefault(); // 폼 제출 방지
+	            alert('두 날짜 중 하나만 선택되었습니다. 다른 하나를 선택하세요.');
+	        }
+	    });
+	});
+
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
@@ -212,7 +237,7 @@
 
 		<div class="search">
 			<span style="margin-top:35px; float: left;">조회결과 ${totalRecord}건</span>
-			<form action="<c:url value='/admin/commute/allCommute'/>" method="post" class="form-search">
+			<form id="searchForm" action="<c:url value='/admin/commute/allCommute'/>" method="post" class="form-search">
 				<table class="t-search">
 			    	<tr>
 			    		<td class="t-search-title">
