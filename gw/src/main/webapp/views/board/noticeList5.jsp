@@ -17,8 +17,8 @@
 					<tr>
 						<td>
 							<img src="<c:url value='/images/last.JPG'/>">
-							<a href="<c:url value='/board/noticeDetail?boardNo=${map["BOARD_NO"]}'/>"
-								style="text-decoration: none; color:#5e6e82;">
+							<a href="#" style="text-decoration: none; color:#5e6e82;"
+								onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${title }')">
 							${map['TITLE']}</a>
 						</td>
 					</tr>

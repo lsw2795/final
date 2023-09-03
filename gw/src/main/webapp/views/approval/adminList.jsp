@@ -37,20 +37,7 @@
 			alert("문서를 볼 수 있는 권한이 없습니다.");
 			return false;
 		}
-		$.ajax({
-	    	url:"<c:url value='/approval/updateStateAjax'/>",
-	   		type:"post",
-	   		dataType:"text",
-	   		data:{
-	   			confirmDocumentNo:no,
-	   			confirmState:state
-	   		},
-	   		success:function(res){
-	   			$(a).parent().parent().find('.state').text(res);
-	    	},error:function(xhr, status, error){
-	    		alert(status+" : "+error);
-	   		}
-	   	});
+		
 		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
 	}
 	

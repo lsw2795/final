@@ -372,4 +372,13 @@
 		select count(*) from confirm
 		where document_no=#{documentNo}
 	</select>
+	
+	<select id="selectConfirmList5" parameterType="int" resultType="map">
+		select * from confirmsview
+    	where emp_no=#{empNo}
+    	<![CDATA[
+    	and rownum<6
+    	]]>
+    	order by create_date desc
+	</select>
 </mapper>

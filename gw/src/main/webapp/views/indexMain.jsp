@@ -65,15 +65,15 @@
                       <h5 class="mb-0" data-anchor="data-anchor">결재</h5>
                     </div>
                     <div class="col-auto ms-auto">
-                      여기에 버튼 필요하면 쓰세영 빼도되는기능임
+                      <a href="<c:url value='/approval/confirmList'/>" 
+                   	style="color: black; font-size: 14px;">더보기 ▶</a>
                     </div>
                   </div>
                 </div>
                 <div class="card-body bg-light">
                   <div class="tab-content">
                     <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-5535483d-5d29-436e-9b70-bcac05102f58" id="dom-5535483d-5d29-436e-9b70-bcac05102f58">
-
-						본문자리
+						<c:import url="/approval/confirmList5"></c:import>
                     </div>
                   </div>
                 </div>
