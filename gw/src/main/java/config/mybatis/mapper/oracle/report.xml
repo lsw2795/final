@@ -73,6 +73,7 @@
 		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
 	</select>
 	
+	
 	<select id="searchAnonymousCommentReport" resultType="int" parameterType="reportVo">
 		select count(*) from report
 		where emp_no=#{empNo}
@@ -100,10 +101,6 @@
 		<include refid="search"></include>
 	</select>	
 
-	<select id="dupClubBoardReport" resultType="int" parameterType="reportVo">
-		select count(*) from report
-		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
-	</select>
 	
 	<select id="selectByReportNo" parameterType="int" resultType="map">
 		select * from anonymousReportView
@@ -121,4 +118,5 @@
 		set report_status='1'
 		where report_no=#{reportNo}
 	</update>
+	
 </mapper>
