@@ -91,5 +91,16 @@ public class CommentsServiceImpl implements CommentsService{
 	public int deleteDeptBoardCM(CommentsVO vo) {
 		return commentsDao.deleteDeptBoardCM(vo);
 	}
+
+	@Override
+	@Transactional
+	public int reply2(CommentsVO vo) {
+		int cnt=commentsDao.updateSortNo(vo);
+		cnt=commentsDao.insertReply2(vo);
+		
+		return cnt;
+	}
+
+	
 	
 }

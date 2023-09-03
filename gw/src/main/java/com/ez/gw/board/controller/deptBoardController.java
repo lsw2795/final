@@ -380,4 +380,12 @@ public class deptBoardController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/board/ajaxReplyRCM")
+	public int reply(@ModelAttribute CommentsVO cmVo){
+		logger.info("ajax - 부서게시판 답글등록 파라미터 cmVo={}", cmVo);
+		int cnt=comService.reply2(cmVo);
+		logger.info("ajax - 부서게시판 답글등록 결과 cnt={}", cnt);
+		return cnt;
+	}
 }

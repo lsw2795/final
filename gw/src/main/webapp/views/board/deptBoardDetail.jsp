@@ -95,7 +95,7 @@
 		if(confirm('댓글을 삭제하시겠습니까?')){
 		var boardlistNo='<%= request.getParameter("boardlistNo") %>';
 		var commentNo=$('#commentNo'+index).val();
-			alert(boardlistNo+" : "+commentNo);
+			//alert(boardlistNo+" : "+commentNo);
 			$.ajax({
 	            url: "<c:url value='/board/ajaxDeleteBoardCM'/>",
 	            type:'get',
@@ -118,6 +118,73 @@
 		}
 	}
 	
+	function insertRCM(index){
+		var email=$('#email').val();
+		var name=$('#name').val();
+		
+		$('#textAreaDiv'+index).empty();
+		$('#btnInsertRCMDiv'+index).empty();
+		$('#empDiv'+index).empty();
+		
+		var result="<textarea class='form-control' id='commentRContent"+index+"' rows='3'></textarea>";
+		$('#textAreaDiv'+index).append(result);
+		
+		var result2="<input type='button' id='btnInsertRCM"+index+"' value='등록' class='btn btn-outline-primary' style='height:82px; visibility: hidden;'/>"
+     		+"&nbsp;<input type='button' id='btnCancelRCM"+index+"' value='취소' class='btn btn-outline-secondary btnCancelRCM' style='height:82px; visibility: hidden;'/>";
+		$('#btnInsertRCMDiv'+index).append(result2);
+		
+		var result3="<span class='bold' style='color: black;'>"+name+"</span>&nbsp;"
+        			+"<span class='text-500'>&lt;"+email+"&gt;</span>";
+		$('#empDiv'+index).append(result3);
+		$('#insertRCM'+index).hide();
+		$('#btnInsertRCM'+index).css("visibility", "visible");
+		$('#btnCancelRCM'+index).css("visibility","visible");
+		
+		
+		$('.btnCancelRCM').click(function(){
+			location.reload();
+		});
+		
+		$('#btnInsertRCM'+index).click(function(){
+			var content=$('#commentRContent'+index).val();
+			var boardlistNo=$('#boardlistNo').val();
+			var boardNo=$('#boardNo').val();
+			var empNo=$('#empNo').val();
+			var groupNo=$('#groupNo'+index).val();
+			var sortNo=$('#sortNo'+index).val();
+		//alert(content+" : "+boardlistNo+" : "+boardNo+" : "+empNo+" : "+groupNo+" : "+sortNo);
+		
+			if($('#commentRContent'+index).val().length<10){
+				alert('답글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#editCM'+index).focus();
+				return false;
+			}
+		
+			$.ajax({
+	            url: "<c:url value='/board/ajaxReplyRCM'/>",
+	            type:'get',
+				data:{
+					content: content,
+					boardlistNo: boardlistNo,
+					boardNo: boardNo,
+					empNo: empNo,
+					groupNo: groupNo,
+					sortNo: sortNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("답글 등록이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
+		
+	}
 </script>
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between ">
@@ -228,6 +295,8 @@
                     </div>
                     <div class="row">
                     <form id="frmComment">
+                    <input type="hidden" value="${empVo.name}" id="name" name="name"/>
+                    <input type="hidden" value="${empVo.email}" id="email" name="email"/>
                     <input type="hidden" value="${empVo.empNo}" id="empNo" name="empNo"/>
                     <input type="hidden" value="${param.boardlistNo}" id="boardlistNo" name="boardlistNo"/>
                     <input type="hidden" value="${param.boardNo}" id="boardNo" name="boardNo"/>
@@ -269,7 +338,9 @@
 					    익명
 					    </div>
 					    </c:if>
-					    <div class="col-md-6 text-end">
+					    <div class="col-md-7 text-end">
+					    <input type="hidden" id="groupNo${i }" name="groupNo" value="${comMap['GROUPNO']}"/>
+					    <input type="hidden" id="sortNo${i }" name="sortNo" value="${comMap['SORTNO']}"/>
 					     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
 					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
 					      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
@@ -277,6 +348,7 @@
 						  <input type="button" id="btnCancel${i }" class="btn btn-secondary btnCancelCM" value="취소" style="visibility: hidden;"/>
 					      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
 					      </c:if>
+					      <input onclick="insertRCM(${i })" id="insertRCM${i }" class="btn btn-outline-warning" type="button" value="답글달기">
 					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
 					       <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
 					      	<button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
@@ -287,6 +359,17 @@
 					    </div>
 					  </div>
 					  <div class="border-bottom border-dashed my-3"></div>
+                  	<div class="row mb-3 d-flex align-items-center">
+                       <div class="mb-3">
+                		<div class="col-auto" id="empDiv${i }"></div>
+                      </div>
+                      <div class="col-md-10 mypageempdiv1">
+                     	<div id="textAreaDiv${i }"></div>
+                      </div>
+	                  <div class="col-auto mypageempdiv16">
+	                  	<div id="btnInsertRCMDiv${i }"></div>
+	                  </div>
+                     </div>
 					  <c:set var="i" value="${i+1 }"/>
 					</c:forEach>
                   </c:if>
