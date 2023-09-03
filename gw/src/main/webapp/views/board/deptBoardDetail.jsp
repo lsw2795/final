@@ -45,10 +45,16 @@
 		var commentNo=$('#commentNo'+index).val();
 		alert(commentNo);
 		var cmContent=$('#cmContent'+index).text();
+		alert(cmContent);
 		$('#commentDiv'+index).empty();
+		$('#btnDiv'+index).empty();
 		var result="<textarea class='form-control' id='editCM"+index+"' name='content' rows='3'>"+cmContent+"</textarea>";
 		$('#commentDiv'+index).append(result);
 		$('#editCM'+index).focus();
+		$('#btnCmEdit'+index).hide();
+		var result2="<input type='button' class='btn btn-primary' value='수정'/>"
+			+"<span class='mypagehyphen'></span><input type='button' class='btn btn-secondary' value='취소'/>"
+		$('#btnDiv'+index).append(result2);
 	
 	}
 </script>
@@ -193,9 +199,10 @@
 					      <span class="mb-1">${comMap['EMAIL']}</span>
 					    </div>
 					    <div class="col-md-6">
-					     <input type="text" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
+					     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
 					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
-					      <button type="button" class="btn btn-primary" onclick="btnCmEdit(${i })">수정</button>
+					      <div id="btnDiv${i }"></div>
+					      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
 					      </c:if>
 					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
 					      <button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>

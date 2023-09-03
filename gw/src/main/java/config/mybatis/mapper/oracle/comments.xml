@@ -101,7 +101,7 @@
 	<select id="selectDeptBoardCM" parameterType="commentsVo" resultType="map">
 		select * from deptboardcommentview
 		where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
-		order by regdate
+		order by regdate desc
 	</select>
 	
 	
