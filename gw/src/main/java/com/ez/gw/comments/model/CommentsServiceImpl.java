@@ -71,5 +71,15 @@ public class CommentsServiceImpl implements CommentsService{
 	public int updateCommentReport(int commentNo) {
 		return commentsDao.updateCommentReport(commentNo);
 	}
+
+	@Override
+	public int insertDeptBoardCM(CommentsVO vo) {
+		return commentsDao.insertDeptBoardCM(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo) {
+		return commentsDao.selectDeptBoardCM(vo);
+	}
 	
 }
