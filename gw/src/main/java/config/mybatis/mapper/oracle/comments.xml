@@ -44,6 +44,14 @@
 		values(#{commentNo}, #{content}, #{empNo}, #{groupNo}, #{step}+1, #{sortNo}+1, 5000, #{boardNo})
 	</insert>
 	
+	<insert id="insertReply2" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
+			select comments_seq.nextval from dual
+		</selectKey>
+		insert into comments(comment_no, content, emp_no, groupno, step, sortno, boardList_no, board_no)
+		values(#{commentNo}, #{content}, #{empNo}, #{groupNo}, #{step}+1, #{sortNo}+1, #{boardlistNo}, #{boardNo})
+	</insert>
+	
 	<select id="anonymousAllReply" resultType="commentsVo">
 		select c.*,r.report_status from comments c
 		left join report r 
@@ -101,7 +109,7 @@
 	<select id="selectDeptBoardCM" parameterType="commentsVo" resultType="map">
 		select * from deptboardcommentview
 		where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
-		order by regdate desc
+		order by groupno desc, sortno asc
 	</select>
 	
 	<update id="updateDeptBoardCM" parameterType="commentsVo">

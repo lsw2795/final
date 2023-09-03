@@ -19,4 +19,5 @@ public interface CommentsService {
 	List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo); //부서게시판 댓글 조회
 	int updateDeptBoardCM(CommentsVO vo); //부서게시판 댓글 수정
 	int deleteDeptBoardCM(CommentsVO vo); //부서게시판 댓글 삭제
+	int reply2(CommentsVO vo); //부서게시판 답글 
 }
