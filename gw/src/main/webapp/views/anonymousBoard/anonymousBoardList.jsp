@@ -34,6 +34,11 @@
                 </form>
             </div>
         </div>
+        <c:if test="${empty anonymousList }">
+        	<div class="card mb-3 p-5" align="center">
+        		작성된 게시글이 없습니다.
+        	</div>
+        </c:if>
         <c:if test="${!empty anonymousList }">
         <c:set var="no" value="0"/>
         <c:set var="imgCnt" value="0"/>
@@ -189,7 +194,13 @@
 		                    <form name="frmDatgeulEditForm" >
 		                    	<p class="mb-1 bg-200 rounded-3 p-2" id="datguelP">
 		                      	익명 :
-		                      	${commentVo.content}</p>
+			                      	<c:if test="${commentVo.reportStatus==1}">
+			                      		신고된 댓글입니다.
+			                      	</c:if>
+			                      	<c:if test="${commentVo.reportStatus!=1}">
+			                      		${commentVo.content}
+			                      	</c:if>
+		                      	</p>
 		                      	<input class="form-control" type="hidden" name="content" value="${commentVo.content}">
 			                    <input type="hidden" name="commentNo"value="${commentVo.commentNo }">  
 		                    </form>  	
@@ -232,7 +243,13 @@
 							            	<form name="frmReplyEditForm">
 							            	<p class="mb-1 bg-200 rounded-3 p-2" id="replyP">
 							                	익명 :
-							                    ${commentVo2.content}</p>
+							                	<c:if test="${commentVo2.reportStatus==1}">
+						                      		신고된 댓글입니다.
+						                      	</c:if>
+						                      	<c:if test="${commentVo2.reportStatus!=1}">
+						                      		${commentVo2.content}
+						                      	</c:if>
+							                </p>
 							                <input class="form-control" type="hidden" name="content" value="${commentVo2.content}">
 			                   		 		<input type="hidden" name="commentNo" value="${commentVo2.commentNo }">
 			                   		 		</form>

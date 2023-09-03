@@ -290,6 +290,8 @@ public class NoticeController {
 
 		String upPath = fileuploadUtil.getUploadPath(request, ConstUtil.UPLOAD_NOTICE_FLAG);
 		File file = new File(upPath, oldFileName);
+		logger.info("file={}, file.exists()={}", file, file.exists());
+		
 		if (file.exists()) {
 			boolean bool = file.delete();
 			logger.info("기존 파일 삭제 여부 bool={}", bool);

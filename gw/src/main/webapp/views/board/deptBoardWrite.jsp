@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file='../../inc/adminTop.jsp'%>
-<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+<%@ include file="../inc/top.jsp"%>
+<link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
 <script src="<c:url value='/vendors/ckeditor/lang/ko.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#title').focus();
 		
-		$('#btnCancel').click(function(){
+/* 		$('#btnCancel').click(function(){
 			location.href	= "<c:url value='/admin/board/noticeList'/>";
-		});
+		}); */
 		
 		$('input[type=submit]').click(function(){
 			if($('input[name=title]').val().trim().length<1){
@@ -50,7 +50,7 @@
 	    //alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
 	    
 	    $.ajax({
-            url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
+            url: "<c:url value='/board/ajaxDeptBoardFileDelete'/>",
             type: "get",
             data: { 
             	pdsNo: pdsNo,
@@ -69,36 +69,38 @@
 </script>
 <c:if test="${!empty param.boardNo}">
 	<c:set var="btLabel" value="수정" />
-	<c:set var="url" value="/admin/board/noticeEdit" />
+	<c:set var="url" value="/board/deptBoardEdit" />
 	<c:set var="no" value="${param.boardNo}" />	
 </c:if>
 <c:if test="${empty param.boardNo}">
 	<c:set var="btLabel" value="등록" />
-	<c:set var="url" value="/admin/board/noticeWrite" />
+	<c:set var="url" value="/board/deptBoardWrite" />
 	<c:set var="no" value="0" />	
 </c:if>
 <div class="card mb-3">
-	<div class="card-body position-relative admindefault">
+	<div class="card-body position-relative">
 		<div class="row">
 			<div class="col-lg-8">
-			<a class="btn btn-falcon-default admindefault" data-bs-toggle="tooltip" 
-				data-bs-placement="top" href="<c:url value='/admin/board/noticeList'/>">
+			<a class="btn btn-falcon-default" data-bs-toggle="tooltip" 
+				data-bs-placement="top" href="<c:url value='/board/deptBoard?boardlistNo=${boardlistVo.boardlistNo}'/>">
 				<span class="fas fa-arrow-left"></span>
 			</a>&nbsp;&nbsp;&nbsp;
-			<span class="admindefault" style="font-size: 23px; font-weight: bold;">공지사항</span>
+			<span style="font-size: 23px; font-weight: bold;">
+			${boardlistVo.boardName} 게시판</span>
 			</div>
 		</div>
 	</div>
 </div>
-            <div class="card-body py-2 admindefault">
+            <div class="card-body py-2" style="background: white;">
 				<form name="frmWrite" method="post" enctype="multipart/form-data"
-				action="<c:url value='${url}'/>">	
+				action="<c:url value='${url}'/>">
+				<input type="hidden" name="boardlistNo" value="${boardlistVo.boardlistNo}"/>
 				<!-- 수정 처리시 no,oldFileName가 필요하므로 hidden 필드에 넣어서 보내준다 -->
 				<c:if test="${!empty param.boardNo}">
-				<input type="hidden" name="boardNo" value="${map['BOARD_NO']}">
+				<input type="hidden" name="boardNo" value="${map['BOARD_NO']}"/>
 				</c:if>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv6">
+					    <div class="col-md-auto mypageempdiv6">
 					        <label class="form-label" for="title">제목</label>
 					    </div>
 					    <div class="col-md-10">
@@ -106,15 +108,16 @@
 					    </div>
 					</div>
 					<div class="row mb-3 d-flex align-items-center">
-					    <div class="col-md-auto adminempdiv6">
+					    <div class="col-md-auto mypageempdiv6">
 							<label class="form-label" for="content">내용</label>
 						</div>
 						<div class="col-md-auto col-md-10">
 							<textarea id="editor" name="content">${map['CONTENT']}</textarea>
 						</div>
 					</div>
+					<c:if test="${boardlistVo.uploadFlag=='Y'}">
 					<div class="row mb-3 d-flex align-items-center">
-						<div class="col-md-auto adminempdiv3">
+						<div class="col-md-auto mypageempdiv3">
 							<label class="form-label">첨부 파일</label>
 						</div>
 						<div class="col-md-5" style="margin-left: 7px;">
@@ -139,13 +142,15 @@
 							<input type="button" id="btnDelFile" value="제거" class="btn btn-outline-danger">
 						</div>
 					</div>
+					</c:if>
 					<div class="row mb-3 d-flex align-items-center">
 						<div class="col-md-auto adminempdiv19"></div>
 						<div class="col-md-4" id="inputFiles" style="margin-left: 7px;"></div>
 					</div>
 					<div style="text-align: center;">
 						<input type="submit" value="${btLabel}" class="btn btn-primary"/>
-						<input type="button" id="btnCancel" value="취소" class="btn btn-secondary"/>
+						<a href="<c:url value='/board/deptBoard?boardlistNo=${boardlistVo.boardlistNo}'/>" 
+							class="btn btn-secondary">취소</a>
 					</div>
 				</form>
 			</div>
@@ -154,4 +159,4 @@
 		filebrowserUploadUrl: '<c:url value="/admin/board/fileupload"/>'
 	});
 </script>
-<%@ include file='../../inc/adminBottom.jsp'%>
+<%@ include file="../inc/bottom.jsp"%>

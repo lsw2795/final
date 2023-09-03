@@ -36,17 +36,16 @@
 		where CLUB_NO=#{clubNo}
 	</update>
 	
-	<update id="joinClub" parameterType="int">
+	<update id="joinClub">
 		update employee
-		set club_no=#{clubNo}
-		where emp_no=#{empNo};
-		
+		set club_no=#{clubNo}, merchant_no=#{merchantNo}
+		where emp_no=#{empNo}
 	</update>
 
 	<update id="outClub" parameterType="int">
 		update employee
 		set club_no=null
-		where emp_no=#{empNo};
+		where emp_no=#{empNo}
 	</update>
 	
 </mapper>

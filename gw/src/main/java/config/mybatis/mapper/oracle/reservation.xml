@@ -28,5 +28,22 @@
 		and emp_No = #{empNo}
 	</select>
 	
+	<select id="detailReservation" parameterType="int" resultType="map">
+		select * from reservationview where reservation_no = #{reservationNo}
+	</select>
+	
+	<delete id="delReservation" parameterType="int">
+		delete from reservation where reservation_no = #{reservaionNo}
+	</delete>
+	
+	<select id="showReservationByNo" parameterType="int" resultType="reservationVo">
+		select * from reservation where reservation_no= #{reservationNo}
+	</select>
+	
+	<update id="updateReservation" parameterType="reservationVo" >
+		update reservation set reman_no = #{remanNo}, bookdate=#{bookDate}, 
+		starttime=#{startTime}, endtime=#{endTime}
+		where reservation_no = #{reservationNo}
+	</update>
 
 </mapper>

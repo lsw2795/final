@@ -182,6 +182,16 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.clubFiles(pdsVo);
 	}
 
+	@Override
+	public List<PdsVO> selFilesByDeptBoard(BoardVO boardVo) {
+		return pdsDao.selFilesByDeptBoard(boardVo);
+	}
+
+	@Override
+	public int editDeptBoardFile(int pdsNo) {
+		return pdsDao.editDeptBoardFile(pdsNo);
+	}
+
 }
 
 

@@ -66,14 +66,28 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	public Map<String, Object> selectByReportNo(int reportNo) {
+		return reportDao.selectByReportNo(reportNo);
+	}
+
+	@Override
+	public int updateAnonymousReport(int reportNo) {
+		return reportDao.updateAnonymousReport(reportNo);
+	}
+
+	@Override
+	public int updateAnonymousReportPostpone(int reportNo) {
+		return reportDao.updateAnonymousReportPostpone(reportNo);
+	}
+	
+	@Override
 	public int dupClubBoardReport(ReportVO reportVo) {
 		return reportDao.dupClubBoardReport(reportVo);
 	}
 
 	@Override
 	public int searchEmpNo(ReportVO reportVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reportDao.searchEmpNo(reportVo);
 	}
 
 }

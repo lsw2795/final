@@ -215,7 +215,52 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selRegdateDesc5() {
 		return boardDao.selRegdateDesc5();
 	}
+
+	@Override
+	public Map<String, Object> AnonymousBoardByBoardNo(int boardNo) {
+		return boardDao.AnonymousBoardByBoardNo(boardNo);
+	}
 	
 	
+	public List<Map<String, Object>> searchDeptBoard(EmpSearchVO searchVo) {
+		return boardDao.searchDeptBoard(searchVo);
+	}
+
+	@Override
+	public int gTRCountDeptBoard(EmpSearchVO searchVo) {
+		return boardDao.gTRCountDeptBoard(searchVo);
+	}
+
+	@Override
+	public int insertDeptBoard(BoardVO vo) {
+		return boardDao.insertDeptBoard(vo);
+	}
+
+	@Override
+	public Map<String, Object> selectdeptBoard(BoardVO vo) {
+		return boardDao.selectdeptBoard(vo);
+	}
+
+	@Override
+	public Map<String, Object> selPrevDeptBoard(BoardVO vo) {
+		return boardDao.selPrevDeptBoard(vo);
+	}
+
+	@Override
+	public Map<String, Object> selNextDeptBoard(BoardVO vo) {
+		return boardDao.selNextDeptBoard(vo);
+	}
+
+	@Override
+	public int updateDeptBoard(BoardVO vo) {
+		return boardDao.updateDeptBoard(vo);
+	}
+
+	@Override
+	public int deleteDeptBoard(BoardVO vo) {
+		return boardDao.deleteDeptBoard(vo);
+	}
+
+
 
 }

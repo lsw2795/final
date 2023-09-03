@@ -17,4 +17,7 @@ public interface ReportDAO {
 	int searchAnonymousCommentReport(ReportVO reportVo);
 	List<Map<String, Object>> anonymousReportList(ReportVO reportVo);
 	int getTotalAnonymousReport(ReportVO reportVo);
+	Map<String, Object> selectByReportNo(int reportNo);
+	int updateAnonymousReport(int reportNo);
+	int updateAnonymousReportPostpone(int reportNo);
 }

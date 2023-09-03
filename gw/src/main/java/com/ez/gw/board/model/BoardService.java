@@ -35,6 +35,15 @@ public interface BoardService {
 	int updateAnonymousBoard(BoardVO vo);
 	int deleteAnonymousBoard(int boardNo);
 	List<Map<String, Object>> selRegdateDesc5(); //공지사항 최신글 5건 조회
+	Map<String, Object> AnonymousBoardByBoardNo(int boardNo);
+	List<Map<String, Object>> searchDeptBoard(EmpSearchVO searchVo); //부서 게시판 조회
+	int gTRCountDeptBoard(EmpSearchVO searchVo); //부서 게시판 검색 총 레코드값 조회
+	int insertDeptBoard(BoardVO vo); //부서 게시판 글쓰기
+	Map<String, Object> selectdeptBoard(BoardVO vo); //부서 게시판 상세보기
+	Map<String, Object> selPrevDeptBoard(BoardVO vo); // 부서 게시판 - 이전글 보기
+	Map<String, Object> selNextDeptBoard(BoardVO vo); // 부서 게시판 - 다음글 보기
+	int updateDeptBoard(BoardVO vo); //부서 게시판 수정하기
+	int deleteDeptBoard(BoardVO vo); //부서 게시판 삭제하기(delflag='Y'로 변경)
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);

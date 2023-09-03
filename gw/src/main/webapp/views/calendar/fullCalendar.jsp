@@ -178,50 +178,9 @@
             var currentDate = new Date();
             var categoryNo = $("#modalCategoryNo").val();
 			
-            /* if(title == null || title == ""){
-            	alert("제목을 입력하세요.");
-            }else if(content == null || content == ""){
-            	alert("내용을 입력하세요.");
-            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                alert("종료일이 시작일보다 먼저입니다.");
-            }else if(start_date == null || start_date == ""){
-            	alert("날짜를 선택해주세요.");
-            }else if(new Date(start_date) - currentDate<0){
-            	alert("과거 날짜를 선택할 수 없습니다.");
-            }else if(categoryNo.length <1){
-            	alert("일정 종류를 선택해주세요.");
-            }else{ // 정상적인 입력 시
-                var obj = {
-                        "title" : content,
-                        "start" : start_date,
-                        "end" : end_date
-                    }//전송할 객체 생성
-
-                    console.log(obj); */
 			$('#editEventForm').submit();
 		});
 			
-			/* 
-            
-            //내용 입력 여부 확인
-            if(content == null || content == ""){
-                alert("내용을 입력하세요.");
-            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                alert("종료일이 시작일보다 먼저입니다.");
-            }else if(start_date == null || start_date == ""){
-            	alert("날짜를 선택해주세요.");
-            }else if(new Date(start_date) - currentDate<0){
-            	alert("과거 날짜를 선택할 수 없습니다.");
-            }else if(categoryNo.length <1){
-            	alert("일정 종류를 선택해주세요.");
-            }else{ // 정상적인 입력 시
-                var obj = {
-                    "title" : content,
-                    "start" : start_date,
-                    "end" : end_date
-                }//전송할 객체 생성
-
-                console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능 */
 	});
 	
 	function delFunc(calendarNo){
