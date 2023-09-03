@@ -215,7 +215,7 @@ public class ReservationController {
 		return "reservation/editReservation";
 	}
 	
-	@PostMapping("/editReservation")
+	@RequestMapping("/ajaxeditReservation")
 	@ResponseBody
 	public int post_edit(@ModelAttribute ReservationVO resVo) {
 		//1
