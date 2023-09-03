@@ -371,4 +371,13 @@ public class deptBoardController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/board/ajaxDeleteBoardCM")
+	public int deleteCM(@ModelAttribute CommentsVO cmVo) {
+		logger.info("ajax - 부서게시판 댓글삭제 파라미터 cmVo={}", cmVo);
+		int cnt=comService.deleteDeptBoardCM(cmVo);
+		logger.info("ajax - 부서게시판 댓글삭제 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
 }

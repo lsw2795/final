@@ -67,7 +67,7 @@
 			var content=$('#editCM'+index).val();
 			var boardlistNo='<%= request.getParameter("boardlistNo") %>';
 			var commentNo=$('#commentNo'+index).val();
-			alert(content+" : "+boardlistNo+" : "+commentNo);
+			//alert(content+" : "+boardlistNo+" : "+commentNo);
 			
 			$.ajax({
 	            url: "<c:url value='/board/ajaxUpdateBoardCM'/>",
@@ -89,6 +89,33 @@
 	            } 
 	        });//ajax
 		});
+	}
+	
+	function btnCmDel(index){
+		if(confirm('댓글을 삭제하시겠습니까?')){
+		var boardlistNo='<%= request.getParameter("boardlistNo") %>';
+		var commentNo=$('#commentNo'+index).val();
+			alert(boardlistNo+" : "+commentNo);
+			$.ajax({
+	            url: "<c:url value='/board/ajaxDeleteBoardCM'/>",
+	            type:'get',
+				data:{
+					boardlistNo: boardlistNo,
+					commentNo: commentNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 삭제가 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+			
+		}
 	}
 	
 </script>
@@ -114,7 +141,10 @@
                   </div>
                   </c:if>
                   <div class="flex-1 ms-2">
-                    <h5 class="mb-0 ">${map['TITLE']}</h5>
+                    <h5 class="mb-0">${map['TITLE']}</h5>
+                    <c:if test="${boardlistVo.secflag=='N'}">
+                    익명
+                    </c:if>
                     <c:if test="${boardlistVo.secflag=='Y'}">
                     <a class="text-800 fs--1" href="#" onclick="empDetail(${map['EMP_NO']});">
 	                    <span class="bold" style="color: black;">${map['NAME']}</span>
@@ -224,7 +254,7 @@
                    <c:set var="i" value="0"></c:set>
                    <c:forEach var="comMap" items="${comList }">
 					  <div class="row">
-						<c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+						<c:if test="${boardlistVo.secflag=='Y'}">
 					    <div class="flex-1 position-relative ps-3">
 					      <a href="#" onclick="empDetail(${comMap['EMP_NO']});">
 					        <h6 class="fs-0 mb-0">${comMap['NAME']}
@@ -234,12 +264,12 @@
 					      <span class="mb-1">${comMap['EMAIL']}</span>
 					    </div>
 					    </c:if>
-					    <c:if test="${comMap['EMP_NO']!=sessionScope.empNo}">
+					    <c:if test="${boardlistVo.secflag=='N'}">
 					    <div class="flex-1 position-relative ps-3">
 					    익명
 					    </div>
 					    </c:if>
-					    <div class="col-md-6">
+					    <div class="col-md-6 text-end">
 					     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
 					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
 					      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
@@ -248,7 +278,9 @@
 					      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
 					      </c:if>
 					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
-					      <button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
+					       <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+					      	<button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
+					    	</c:if>
 					    </div>
 					    <div class="mb-3 mt-3" id="commentDiv${i }">
 					      <p class="text-1000 mb-0" id="cmContent${i }">${comMap['CONTENT']}</p>
