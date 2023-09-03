@@ -116,28 +116,23 @@
                 <div class="card-header">
                   <h5 class="mb-0">댓글</h5>
                 </div>
-                
-                
-                
                 <div class="card-body bg-light">
                   <div class="position-relative rounded-1 border bg-white dark__bg-1100 p-3">
                     <div class="position-absolute end-0 top-0 mt-2 me-3 z-1">
-                      <button class="btn btn-link btn-sm p-0" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
                     </div>
                     <div class="row gx-2">
                       <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="field-name">사원 이름</label>
-                        <input class="form-control form-control-sm" id="field-name" type="text" placeholder="Name (e.g. T-shirt)" />
+                        <input class="form-control" value="${sessionScope.empNo}" type="text" style="width: 100px;" readonly/>
                       </div>
-          
                       <div class="col-12">
                         <textarea class="form-control form-control-sm" id="field-options" rows="3"></textarea>
                       </div>
-                    </div>
+                    </div><br>
                     <div class="d-flex">
                     <div class="flex-1 position-relative ps-3">
                       <h6 class="fs-0 mb-0">Big Data Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
                       </h6>
+                       <!-- <button class="btn btn-link btn-sm p-0" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button> -->
                       <p class="mb-1"> <a href="#!">Google</a></p>
                       <p class="text-1000 mb-0">Apr 2012 - Present &bull; 6 yrs 9 mos</p>
                       <p class="text-1000 mb-0">California, USA</p>
@@ -155,16 +150,8 @@
                   </div>
                   </div>
                 </div>
-            </div>
-                
-                
-                
-                
-                
-                
-                
                 </c:if>
-		  </div>
+            </div>
                   
          
 <%@ include file="../inc/bottom.jsp"%>
