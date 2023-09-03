@@ -90,4 +90,31 @@
 		where comment_no=#{commentNo}
 	</update>
 	
+	<insert id="insertDeptBoardCM" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" order="BEFORE" resultType="int">
+			select comments_seq.nextval from dual
+		</selectKey>
+		insert into comments(comment_no, content, emp_no, groupno, boardList_no, board_no)
+		values(#{commentNo}, #{content}, #{empNo}, #{commentNo},#{boardlistNo}, #{boardNo})
+	</insert>
+	
+	<select id="selectDeptBoardCM" parameterType="commentsVo" resultType="map">
+		select * from deptboardcommentview
+		where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
+		order by regdate desc
+	</select>
+	
+	<update id="updateDeptBoardCM" parameterType="commentsVo">
+		update comments
+		set content=#{content}
+		where boardlist_no=#{boardlistNo}
+		and comment_no=#{commentNo}
+	</update>
+	
+	<delete id="deleteDeptBoardCM" parameterType="commentsVo"> 
+		delete from comments
+		where boardlist_no=#{boardlistNo}
+		and comment_no=#{commentNo}
+	</delete>
+	
 </mapper>

@@ -31,6 +31,22 @@ public class ReservationServiceImpl implements ReservationService {
 	public Map<String, Object> detailReservation(int reservationNo) {
 		return reservationDao.detailReservation(reservationNo);
 	}
+
+	@Override
+	public int delReservation(int reservationNo) {
+		return reservationDao.delReservation(reservationNo);
+	}
+
+	@Override
+	public ReservationVO showReservationByNo(int reservationNo) {
+		return reservationDao.showReservationByNo(reservationNo);
+	}
+
+	@Override
+	public int updateReservation(ReservationVO resVo) {
+		return reservationDao.updateReservation(resVo);
+	}
+
 	
 	
 }

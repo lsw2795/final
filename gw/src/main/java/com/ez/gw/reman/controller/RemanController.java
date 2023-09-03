@@ -113,27 +113,22 @@ public class RemanController {
 	}
 	
 	@PostMapping("/admin/officeProduct/editOfficeProduct")
-	public String post_edit(@ModelAttribute RemanVO remanVo, Model model) {
+	@ResponseBody
+	public int post_edit(@ModelAttribute RemanVO remanVo, Model model) {
 		//1
 		logger.info("remanVo = {}", remanVo);
 		
 		//2
+		int result=0;
 		int cnt = remanService.updateReman(remanVo);
 		logger.info("자원 수정 결과, cnt = {}", cnt);
 		
-		String msg = "자원 수정 실패!", url = "/admin/officeProduct/editOfficeProduct";
 		if(cnt>0) {
-			msg = "수정 성공했습니다.";
-			
-			model.addAttribute("closeWindow", true);
+			result = 1;
 		}
 		//3
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
 		//4
-		return "common/message";
+		return result;
 	}
 	
 	@RequestMapping("/admin/officeProduct/ajaxManagerCheck")

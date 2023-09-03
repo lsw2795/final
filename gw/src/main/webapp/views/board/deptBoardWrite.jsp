@@ -46,7 +46,7 @@
 	    //alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
 	    
 	    $.ajax({
-            url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
+            url: "<c:url value='/board/ajaxDeptBoardFileDelete'/>",
             type: "get",
             data: { 
             	pdsNo: pdsNo,

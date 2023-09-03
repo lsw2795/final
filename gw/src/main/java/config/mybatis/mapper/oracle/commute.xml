@@ -3,6 +3,29 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ez.gw.commute.model.CommuteDAO">
+	<sql id="searchAllCommute">
+		<where>
+			<if test="date1!=null and date1!='' and date2!=null and date2!=''">
+				<![CDATA[
+					trunc(to_date(work_in, 'yyyy-mm-dd hh24:mi:ss')) >= trunc(to_date(#{date1}, 'yyyy-mm-dd hh24:mi:ss')) 
+					and
+					trunc(to_date(work_in, 'yyyy-mm-dd hh24:mi:ss')) < trunc(to_date(#{date2}, 'yyyy-mm-dd hh24:mi:ss')) +1
+				]]>
+			</if>
+			
+ 			<if test="deptNo!=null and deptNo!=''">
+				and dept_no = #{deptNo}
+			</if> 
+			
+ 	       <if test="emp != null and emp.matches('^\\d+$')">
+		    and (emp_no = #{emp})
+			</if>
+			<if test="emp != null and !emp.matches('^\\d+$')">
+		    and (name like '%' || #{emp} || '%')
+			</if>
+		</where>
+	</sql>
+	
 
 	<select id="selectCommuteByEmpNo" parameterType="int"
 		resultType="commuteVo">
@@ -109,5 +132,53 @@
 		substr(work_in, 1, 7) = #{date}
 	</select>
 
+
+
+	<!-- admin -->
+	<select id="selectAllCommute" parameterType="searchCommuteVO" resultType="map">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(	
+				select * from allcommuteview
+				<include refid="searchAllCommute"></include>
+				order by work_in desc
+			)A
+		)
+		<![CDATA[
+			where rnum > #{firstRecordIndex}
+			and rnum <=  #{firstRecordIndex}+ #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="getAllCommuteTotalCount" parameterType="searchCommuteVO" resultType="int">
+		select count(*) from allcommuteview
+		<include refid="searchAllCommute"></include>
+		order by work_in desc
+	</select>
+	
+	<!-- 전체 지각횟수 조회 -->
+	<select id="selectAllCommuteLateCount" parameterType="searchCommuteVO" resultType="int">
+		SELECT COUNT(*) FROM allcommuteview
+		<include refid="searchAllCommute"></include>
+		AND COMMUTE_STATE IN(1, 3)
+	</select>
+	
+	<!-- 전체 조퇴횟수 조회 -->
+	<select id="selectAllCommuteEalryLeaveCount" parameterType="searchCommuteVO" resultType="int">
+		SELECT COUNT(*) FROM allcommuteview
+		<include refid="searchAllCommute"></include>
+		AND COMMUTE_STATE IN(2, 3)
+	</select>
+	
+	<!-- 전체 출근횟수  -->
+	<select id="selectAllCommuteAttendanceCount" parameterType="searchCommuteVO"
+		resultType="int">
+		select count(*) from allcommuteview
+		<include refid="searchAllCommute"></include>
+	</select>
+	
 
 </mapper>

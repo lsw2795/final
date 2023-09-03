@@ -4,18 +4,23 @@
 <script type="text/javascript">
 	function deleteClubBoard() {
 		if(confirm("해당 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>"
+			location.href = "<c:url value='/club/deleteClubBoard?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
 	
+	function deleteComment() {
+		if(confirm("해당 게시물을 삭제하시겠습니까?")){
+			location.href = "<c:url value='/club/deleteComment?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
+		}
+	}
 	$(function(clubBoardNo) {
 		var empNo=${sessionScope.empNo!=map['EMP_NO']};
 		
 		$('#clubReportBtn').click(function() {
 			if(confirm('해당 게시글을 신고하시겠습니까?')){
 				$.ajax({
-			    	url:contextPath+"/report/reportClubBoardAjax",
-			   		type:"post",
+			    	url:"<c:url value='/report/reportClubBoardAjax'/>",
+			   		type:"get",
 			   		dataType:"text",
 			   		data:{
 			   			clubBoardNo=clubBoardNo
@@ -29,6 +34,34 @@
 			} //if
 		});
 	});
+	
+	$(function() {
+		$("#delComment").click(function() {
+		    var commentNo = $(this).data("comment_no");
+		    
+		    // Ajax 요청 보내기
+		    $.ajax({
+		      url: '/club/deleteComment',
+		      method: 'POST', // HTTP 요청 메서드 (GET, POST 등)
+		      data: {
+		        commentNo: commentNo
+		      },
+		      success: function(response) {
+		        // 서버 응답을 처리
+		        alert(response.msg); // 서버에서 반환한 메시지를 출력
+		        if (response.success) {
+		          // 삭제 성공 시 추가 작업 수행
+		          // 예를 들어, 페이지 새로고침 또는 리다이렉트
+		          window.location.href = response.url; // 리다이렉션
+		        }
+		      },
+		      error: function(xhr, status, error) {
+		        // 에러 처리
+		        console.error("에러 발생: " + error);
+		      }
+		    });
+		  });
+	});
 </script>
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
@@ -39,7 +72,7 @@
 		</button>
 	</a>
 	<c:if test="${sessionScope.empNo!=map['EMP_NO']}">
-		<a href="<c:url value='/club/clubReport?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
+		<a href="<c:url value='/report/reportClubBoardAjax?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo}'/>">
 			<button class="btn btn-falcon-default btn-sm" id="clubReportBtn" type="button">
 				<span class="fas fa-exclamation"></span>
 			</button>
@@ -69,8 +102,8 @@
 	                       <div class="avatar-name rounded-circle">
 	                          <img src="<c:url value='/images/${map["IMAGE"]}'/>">
 	                       </div>
-	                    </div>
                     	<p class="mb-0">${map['NAME']}</p>
+	                    </div>
                     </div>
                     <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
                     	<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span>
@@ -108,7 +141,17 @@
 			                         <img class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
 			                    </div>
 		                    </c:if>
-		                    <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${commtMap['NAME']}</a>
+		                    <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${commtMap['NAME']}</a>&nbsp;
+		                	<c:if test="${sessionScope.empNo==map['EMP_NO']}">
+							    <a href="<c:url value='/club/editComment?commentNo=${commentNo }&clubNo=${param.clubNo }&boardNo=${param.boardNo}'/>">
+							       <button class="btn btn-falcon-default btn-sm" id="edit" type="button">
+							          <span class="fas fa-pen" ></span>
+							       </button>
+							    </a>
+								<button onclick="deleteComment()" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
+									<span class="fas fa-trash-alt"></span>
+								</button>
+       						</c:if>
 		                </div>
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
 		             </div>

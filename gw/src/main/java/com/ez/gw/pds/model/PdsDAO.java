@@ -31,7 +31,7 @@ public interface PdsDAO {
 	List<Map<String, Object>> selectAdminPdsAll(SearchVO searchVo); // 관리자 - 파일목록 전체 조회
 	int deleteAdminFile(int pdsNo); // 관리자 - 파일 db 삭제 메서드
 	int getAdminTotalFile(SearchVO searchVo); // 파일 총 갯수 구하는 메서드
-	
+	int editDeptBoardFile(int pdsNo); // 부서게시판 - 수정중 파일 삭제 메서드
 	int insertPdsByAnonymous(PdsVO vo);
 	
 	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드

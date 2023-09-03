@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +70,7 @@ public class ReservationController {
 	 
 
 	@PostMapping("/addReservation")
+	@ResponseBody
 	public String post_addRes(@ModelAttribute ReservationVO reservationVo, Model model, HttpSession session) {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
@@ -152,6 +154,7 @@ public class ReservationController {
 		//1
 		logger.info("자원예약 디테일, 파라미터 reservationNo={}", reservationNo);
 		
+		
 		//2
 		Map<String, Object> map = reservationService.detailReservation(reservationNo);
 		logger.info("map={}", map);
@@ -163,5 +166,74 @@ public class ReservationController {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 
-
+	@RequestMapping("/delReservation")
+	public String delReservation(@RequestParam(defaultValue = "0")int reservationNo, Model model) {
+		//1
+		logger.info("자원예약 삭제 페이지, 파라미터 reservationNo={}", reservationNo);
+		//2
+		String msg = "삭제 실패", url = "/reservation/reservationList";
+		int cnt = reservationService.delReservation(reservationNo);
+		
+		if(cnt>0) {
+			msg = "삭제 완료";
+		}
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4
+		return "common/message";
+	}
+	
+	@GetMapping("/editReservation")
+	public String get_edit(@ModelAttribute JustSearchRemanVO searchRemanVo, Model model, HttpServletRequest request, @RequestParam(defaultValue = "0")int reservationNo) {
+		//1
+		logger.info("수정 페이지 열기");
+		
+		List<RemanVO> remanVo = remanService.selectAllReman();
+		  searchRemanVo.setCategory("meetingRoom"); List<RemanVO> meetingRoom =
+		  remanService.selectOfficeProductByCategory(searchRemanVo);
+		  
+		  searchRemanVo.setCategory("noteBook"); List<RemanVO> noteBook =
+		  remanService.selectOfficeProductByCategory(searchRemanVo);
+		  searchRemanVo.setCategory("rentCar"); List<RemanVO> rentCar =
+		  remanService.selectOfficeProductByCategory(searchRemanVo);
+		  
+		  model.addAttribute("remanVo", remanVo); 
+		  model.addAttribute("meetingRoom", meetingRoom); 
+		  model.addAttribute("noteBook", noteBook);
+		  model.addAttribute("rentCar", rentCar);
+		
+		//2
+		ReservationVO resVo = reservationService.showReservationByNo(reservationNo);
+		logger.info("resVo={}", resVo);
+		
+		//3
+		model.addAttribute("resVo", resVo);
+		
+		//4
+		return "reservation/editReservation";
+	}
+	
+	@PostMapping("/editReservation")
+	@ResponseBody
+	public int post_edit(@ModelAttribute ReservationVO resVo) {
+		//1
+		logger.info("수정 post 페이지, 파라미터={}", resVo);
+		
+		//2
+		int result = 0;
+		int cnt = reservationService.updateReservation(resVo);
+		logger.info("수정 결과, cnt = {}", cnt);
+		
+		//3
+		//4
+		if(cnt>0) {
+			result=1;
+		}else {
+			result = 0;
+		}
+		
+		return result;
+	}
 }

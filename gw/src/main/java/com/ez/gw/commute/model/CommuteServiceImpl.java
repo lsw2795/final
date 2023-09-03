@@ -77,6 +77,32 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.selectCommuteMonthByEmpNo(empNo, date);
 	}
 
+
+	@Override
+	public List<Map<String, Object>> selectAllCommute(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.selectAllCommute(searchCommuteVO);
+	}
+
+	@Override
+	public int getAllCommuteTotalCount(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.getAllCommuteTotalCount(searchCommuteVO);
+	}
+
+	@Override
+	public int selectAllCommuteLateCount(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.selectAllCommuteLateCount(searchCommuteVO);
+	}
+
+	@Override
+	public int selectAllCommuteEalryLeaveCount(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.selectAllCommuteEalryLeaveCount(searchCommuteVO);
+	}
+
+	@Override
+	public int selectAllCommuteAttendanceCount(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.selectAllCommuteAttendanceCount(searchCommuteVO);
+	}
+
 	
 	
 }
