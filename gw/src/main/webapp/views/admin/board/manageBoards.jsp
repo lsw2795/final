@@ -128,6 +128,12 @@
 		
 		
 		$('#editBoardList').click(function(){
+			if($('#selboardName').val().length<1){
+				alert('수정할 게시판을 선택해주세요.');
+				$('#selboardName').focus();
+				return false;
+			}
+			
 			if($('#ajaxboardName').val().length<1){
 				alert('게시판 이름을 입력해주세요.');
 				$('#ajaxboardName').focus();
