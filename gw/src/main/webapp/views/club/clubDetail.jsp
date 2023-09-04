@@ -165,12 +165,18 @@
 					</div>
 					<div class="col-auto mb-0">
 						<div class="col-auto">
+						<c:if test="${!empty clubVo.clubNo }">
+							<button class="btn btn-sm btn-primary me-2"
+								data-bs-target="#paymentModal" data-bs-toggle="modal"
+								name="paymentModal" type="button">가입불가</button>
+						</c:if>
+						<c:if test="${empty clubVo.clubNo }">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"
 								name="paymentModal" type="button">가입</button>
+						</c:if>
 							<button class="btn btn-falcon-default btn-sm me-2" type="button">
-								<a
-									href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
+								<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 									게시판 바로가기 </a>
 							</button>
 						</div>

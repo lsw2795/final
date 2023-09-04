@@ -196,27 +196,31 @@
 		var empNo=$('#empNo').val();
 		//alert(boardNo+" : "+empNo);
 		
-		if(confirm('좋아요를 누르시겠습니까?')){
-			$.ajax({
-	            url: "<c:url value='/board/ajaxInsertDeptBoardLike'/>",
-	            type:'get',
-				data:{
-					boardNo: boardNo,
-					empNo: empNo,
-				},
-				dataType:'json',
-	            success: function (res) {
-	            	if(res>0){
-	               		//빨간하트로 바꾸기
-	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
-	               		location.reload();
-	            	}
-	            },
-	            error:function(xhr,status,error){
-	                alert(status+" : "+error);
-	            } 
-	        });//ajax
-		}
+		$.ajax({
+            url: "<c:url value='/board/ajaxInsertDeptBoardLike'/>",
+            type:'get',
+			data:{
+				boardNo: boardNo,
+				empNo: empNo,
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
+            		$('#heartDiv').empty();
+            		$('#heart1').hide();
+            		$('#heart2').hide();
+            	var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+					+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";					
+					$('#heartDiv').append(result);
+					location.reload();
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+		
 	}
 	
 	
@@ -236,8 +240,12 @@
 				dataType:'json',
 	            success: function (res) {
 	            	if(res>0){
-	               		//빈하트로 바꾸기
-	               		$('#heart img').attr('src','<c:url value='/images/heartoff.png'/>');
+	            		$('#heartDiv').empty();
+	            		$('#heart2').hide();
+	            		$('#heart3').hide();
+	               		var result="<a href='#' id='heart3' style='float: right;' onclick='deptBoardLikeOn2();'>"
+	               			+"<img id='heartimg' src='<c:url value='/images/heartoff.png'/>' width='50px' height='50px'></a>";
+	               		$('#heartDiv').append(result);
 	               		location.reload();
 	            	}
 	            },
@@ -252,28 +260,30 @@
 		var boardNo=$('#boardNo').val();
 		var empNo=$('#empNo').val();
 		//alert(boardNo+" : "+empNo);
-		
-		if(confirm('좋아요를 누르시겠습니까?')){
-			$.ajax({
-	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
-	            type:'get',
-				data:{
-					boardNo: boardNo,
-					empNo: empNo,
-				},
-				dataType:'json',
-	            success: function (res) {
-	            	if(res>0){
-	               		//빨간하트로 바꾸기
-	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
-	               		location.reload();
-	            	}
-	            },
-	            error:function(xhr,status,error){
-	                alert(status+" : "+error);
-	            } 
-	        });//ajax
-		}
+		$.ajax({
+            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+            type:'get',
+			data:{
+				boardNo: boardNo,
+				empNo: empNo,
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
+            		$('#heartDiv').empty();
+            		$('#heart3').hide();
+            		$('#heart2').hide();
+               		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+               			+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";
+               		$('#heartDiv').append(result);
+               		location.reload();
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
 	}
 </script>
 <!-- 페이징 처리 관련 form -->
@@ -319,24 +329,23 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
-	                	<c:if test="${empty likeVo}">
-	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn();">
+                		<c:if test="${empty likeVo}">
+	                		<a href="#" id="heart1" style="float: right;" onclick="deptBoardLikeOn();">
 								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
 							</a>
-							<span class="mypagehyphen"></span>
-	                	</c:if>
-	                	<c:if test="${likeVo.likeFlag=='Y'}">
-	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOff();">
+						</c:if>
+						<c:if test="${likeVo.likeFlag=='Y'}">
+	                		<a href="#" id="heart2" style="float: right;" onclick="deptBoardLikeOff();">
 								<img id="heartimg" src="<c:url value='/images/hearton.png'/>" width="50px" height="50px">
 							</a>
-							<span class="mypagehyphen"></span>
-	                	</c:if>
-	                	<c:if test="${likeVo.likeFlag=='N'}">
-	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn2();">
+						</c:if>
+                		<c:if test="${likeVo.likeFlag=='N'}">
+	                		<a href="#" id="heart3" style="float: right;" onclick="deptBoardLikeOn2();">
 								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
 							</a>
-							<span class="mypagehyphen"></span>
-	                	</c:if>
+						</c:if>
+						<div id="heartDiv"></div>
+						<span class="mypagehyphen"></span>
                 	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>

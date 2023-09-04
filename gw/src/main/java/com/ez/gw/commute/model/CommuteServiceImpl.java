@@ -103,6 +103,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.selectAllCommuteAttendanceCount(searchCommuteVO);
 	}
 
+	@Override
+	public int updateWorkTime(CommuteVO commuteVo) {
+		return commuteDao.updateWorkTime(commuteVo);
+	}
+
 	
 	
 }

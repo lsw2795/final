@@ -128,7 +128,7 @@ public class deptBoardController {
 				
 				logger.info("파일명:{}", fileName);
 				
-				pdsVo.setBoardListNo(vo.getBoardlistNo()); //공지사항 게시판 번호임
+				pdsVo.setBoardListNo(vo.getBoardlistNo());
 				pdsVo.setBoardNo(vo.getBoardNo()); //게시글 번호
 				pdsVo.setFileExtension(originalFileName.substring(originalFileName.indexOf(".")+1)); // 확장자
 				pdsVo.setFileName(fileName); //서버저장 파일명
@@ -183,7 +183,6 @@ public class deptBoardController {
 		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
 		List<Map<String, Object>> comList=comService.selectDeptBoardCM(searchVo);
 		SecondhandTradeLikeVO likeVo=likeService.selectLikeFlag(likeVo2);
-		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
 		logger.info("부서 게시글 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
@@ -457,5 +456,15 @@ public class deptBoardController {
 		}
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/board/updateReadCount")
+	public int updateReadCount(@RequestParam (defaultValue = "0")int boardNo) {
+		logger.info("게시판 조회수 증가 파라미터 boardNo={}", boardNo);
+		int cnt=boardService.updateReadcount(boardNo);
+		logger.info("게시판 조회수 증가 결과 cnt={}", cnt);
+		return cnt;
+	}
+	
 	
 }

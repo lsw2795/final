@@ -19,7 +19,6 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("컨트롤러 수행전 preHandler() 호출!");
 		
 		Integer empNo=(Integer)request.getSession().getAttribute("empNo");
 		
@@ -44,14 +43,12 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info("postHandler() 호출!");
 
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		logger.info("afterCompletion() 호출!");
 
 	}
 	

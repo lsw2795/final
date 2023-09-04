@@ -180,5 +180,23 @@
 		<include refid="searchAllCommute"></include>
 	</select>
 	
+<update id="updateWorkTime" parameterType="commuteVo">
+    UPDATE commute
+    SET 
+        work_in = TO_CHAR(TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD') || ' ' || #{editInTime} || ':00',
+        work_out = TO_CHAR(TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD') || ' ' || #{editOutTime} || ':00',
+        commute_state = 
+            CASE
+            <![CDATA[
+                WHEN TO_NUMBER(TO_CHAR(TO_DATE(#{editInTime}, 'HH24:MI'), 'HH24')) >= 9 AND TO_NUMBER(TO_CHAR(TO_DATE(#{editOutTime}, 'HH24:MI'), 'HH24')) < 18 THEN 3
+                WHEN TO_NUMBER(TO_CHAR(TO_DATE(#{editInTime}, 'HH24:MI'), 'HH24')) >= 9 THEN 1
+                WHEN TO_NUMBER(TO_CHAR(TO_DATE(#{editOutTime}, 'HH24:MI'), 'HH24')) < 18 THEN 2
+                WHEN TO_NUMBER(TO_CHAR(TO_DATE(#{editInTime}, 'HH24:MI'), 'HH24')) < 9 AND TO_NUMBER(TO_CHAR(TO_DATE(#{editOutTime}, 'HH24:MI'), 'HH24')) > 18 THEN 0
+            	ELSE 0
+            END
+            ]]>
+    WHERE commute_no=#{commuteNo}
+</update>
+	
 
 </mapper>

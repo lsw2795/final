@@ -1,0 +1,232 @@
+@charset "UTF-8";
+.c-left, .c-right { /* 왼쪽, 오른쪽 영역 */
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 50px;
+}
+.c-left { /* 왼쪽 영역 */
+	width: 330px;
+	float: left;
+}
+.c-right { /* 오른쪽 영역 */
+	width: 390px;
+	float: right;
+}
+.c-center { /* 중앙 영역 */
+	display: inline-block;
+	margin: 50px;
+	width: 750px;
+}
+.c-title {
+	display: inline-flex;
+	font-size: 23px;
+	font-weight: bold;
+	color: rgb(51, 51, 51);
+	padding: 23px 23px 13px 23px;
+	width: calc(100% - 46px);
+}
+.box { /* 배경 있는 박스 */
+	background: rgba(224, 224, 224, 0.5);
+	border-radius: 10px;
+}
+.box-t { /* 배경 없는 박스 */
+	border: 1px solid rgba(224, 224, 224);
+	border-radius: 10px;
+}
+.myInfo { /* 내 정보 */
+	width: 100%;
+	height: 401px;
+	margin-bottom: 30px;
+}
+.myInfo img{ /* 내 정보 이미지 */
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 130px;
+	height: 130px;
+	border-radius: 100%;
+	image-rendering: -webkit-optimize-contrast;
+	margin-bottom: 10px;
+	cursor: pointer;
+	object-fit: cover;
+}
+.myInfo div{
+	font-size: 16px;
+	text-align: center;
+}
+.info-list { /* 내 정보 관련 목록 */
+	margin: 25px 0;
+}
+.info-list a{
+	display: block;
+	margin: 14px 0;
+	text-decoration: none;
+	color: rgb(51, 51, 51);
+}
+.info-list span {
+	margin-left: 30px;
+	font-weight: bold;
+	color: rgb(231, 76, 60);
+}
+.attendance { /* 근태 관리 */
+	width: 100%;
+	height: 301px;
+	margin-bottom: 30px;
+}
+.att-time { /* 근태 관리 시간 */
+	font-size: 18px;
+	text-align: center;
+	margin: 20px 0;
+}
+.att-time div {
+	margin: 14px 0;
+}
+.att-time span{
+	margin-left: 30px;
+}
+.att-btn { /* 출퇴근 버튼 영역*/
+	text-align: center;
+}
+.att-btn form {
+	display: inline-block;
+}
+.att-btn button { /* 출퇴근 버튼 */
+	font-size: 18px;
+	background: rgb(117, 144, 194);
+	width: 110px;
+	height: 60px;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+	margin: 15px;
+}
+.calendar { /* 일정 */
+	width: calc(100% - 2px);
+	height: 500px;
+	margin-bottom: 30px;
+}
+.fc-h-event .fc-event-title-container { /* 풀캘린더 내 개별 일정 */
+	height: 5px;
+}
+.calendar-detail { /* 일정 목록 */
+	width: calc(100% - 2px);
+	height: 200px;
+}
+.calendar-detail header { /* 일정 목록 상단 */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 55px
+}
+.s-calHeader { /* 선택 날짜 텍스트 */
+	font-size: 25px;
+	padding: 0 20px;
+}
+.s-moreBtn {
+	float: right;
+	padding: 0 20px;
+}
+.cal-area {
+	width: 100%;
+	height: calc(100% - 75px);
+	overflow: auto;
+	margin-bottom: 20px;
+}
+.cal-area::-webkit-scrollbar {
+    display: none;
+}
+#cal-table { /* 일정 목록 테이블 */
+	width: 100%;
+	border-collapse: collapse;
+}
+.s-moreBtn button { /* 더보기 버튼 */
+	border: none;
+	background: transparent;
+	font-size: 40px;
+	cursor: pointer;
+}
+.circle-color { /* 일정 색 */
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+.tr-cal { /* 목록 */
+	height: 40px;
+}
+.td-color {
+	width: 15px;
+	text-align: center;
+	padding: 0 20px;
+}
+.td-time {
+	width: 70px;
+}
+.td-name {
+	cursor: pointer;
+}
+.notice { /* 공지사항 */
+	width: 100%;
+	height: 351px;
+	margin-bottom: 30px;
+}
+.notice ul {
+	margin: 0 30px;
+}
+.notice li {
+	padding: 14px 0;
+}
+.notice a {
+	display: inline-flex;
+	width: 290px;
+	text-decoration: none;
+	color: rgb(51, 51, 51);
+	font-size: 18px;
+}
+.notice a span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.notice a:hover {
+	text-decoration: underline;
+}
+.project { /* 프로젝트 관리 */
+	width: 100%;
+	height: 351px;
+}
+.p-area {
+	text-align: center;
+	height: 250px;
+	overflow: auto;
+}
+.p-area::-webkit-scrollbar {
+    display: none;
+}
+.p-btn { /* 프로젝트 버튼 */
+	width: 300px;
+	background: white;
+	border: none;
+	border-radius: 5px;
+	text-align: left;
+	padding: 10px;
+	cursor: pointer;
+	margin: 10px 5px;
+}
+.p-btn:hover {
+	background: rgba(145, 168, 210, 0.1);
+}
+.p-btn div {
+	margin: 5px;
+}
+.p-title {
+	font-size: 18px;
+}
+.p-made {
+	font-size: 15px;
+}
+.p-date {
+	font-size: 15px;
+	color: rgb(41, 128, 185);
+}

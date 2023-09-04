@@ -78,6 +78,11 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.outClub(empNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> adminClubList(String merchantNo) {
+		return clubDao.adminClubList(merchantNo);
+	}
+
 	
 
 	

@@ -17,6 +17,25 @@
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
+	
+	function updateReadCount(boardNo){
+		$.ajax({
+            url: "<c:url value='/board/updateReadCount'/>",
+            type:'get',
+			data: {
+				boardNo: boardNo
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		location.href="<c:url value='/board/noticeDetail?boardNo="+boardNo+"'/>"
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 </script>
   <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/board/noticeList'/>" 
@@ -118,7 +137,7 @@
 								<td class="align-middle"><div class="mypageempdiv14">${map['DEPT_NAME']}</div></td>
 								<td class="align-middle">
 									<div class="mypageempdiv14">
-									<a href="<c:url value='/board/noticeDetail?boardNo=${map.BOARD_NO}'/>">
+									<a href="#" onclick="updateReadCount(${map.BOARD_NO});">
 									${map['TITLE']}
 									<c:if test="${map['timeNew']==1}">
 										<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">
