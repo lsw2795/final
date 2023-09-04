@@ -90,4 +90,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.searchEmpNo(reportVo);
 	}
 
+	@Override
+	public Map<String, Object> clubByReportNo(int reportNo) {
+		return reportDao.clubByReportNo(reportNo);
+	}
+
 }

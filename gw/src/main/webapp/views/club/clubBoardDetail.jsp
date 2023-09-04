@@ -17,7 +17,9 @@
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
+		var btnOk=$()
 		
+		$('#')
 		$(contentDiv).find('span').hide();
 		$(contentDiv).find('input[name=content]').attr('type', 'text');
 		
@@ -162,7 +164,7 @@
 								<button onclick="deleteComment(${commtMap['COMMENT_NO']})" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
 									<span class="fas fa-trash-alt"></span>
 								</button>
-								<button class="btn btn-primary btn-sm me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
+								<button class="btn btn-sm me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
        						</c:if>
 		                </div>
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
@@ -180,7 +182,7 @@
 			                  	 <input type="hidden" name="boardNo" value="${commtMap['BOARD_NO']}">
 			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
 			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
-				                  <button class="btn btn-primary btn-sm me-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="확인" data-dismiss="collapse">확인</button>
+				                  <button class="btn btn-primary btn-sm me-2" id="editOk" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="확인" data-dismiss="collapse">확인</button>
 			                  </div>
 		                  </form>
 	                  </div>
