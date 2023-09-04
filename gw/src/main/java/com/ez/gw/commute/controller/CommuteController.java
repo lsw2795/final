@@ -459,6 +459,25 @@ public class CommuteController {
 
 		return "admin/commute/allCommute";
 	}
+	
+	@RequestMapping("/admin/commute/editWorkTime")
+	public String editWorkTime(@ModelAttribute CommuteVO commuteVo, Model model) {
+		
+		logger.info("관리자 - 근무시간 수정 파라미터 commuteVo={}", commuteVo);
+		
+		int cnt = commuteService.updateWorkTime(commuteVo);
+		logger.info("관리자 - 출/퇴근 시간 업데이트 결과 cnt={}", cnt);
+		
+		String msg = "출/퇴근 시간 변경에 실패하였습니다.", url = "/admin/commute/allCommute";
+		if(cnt>0) {
+			msg = "출/퇴근 시간이 변경 되었습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 
 
 

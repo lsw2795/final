@@ -5,6 +5,12 @@
 <script type="text/javascript" src="<c:url value='/js/employee2.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+$(function(){
+	$('#empEditcancel').click(function(){
+		location.reload();
+	});
+});
+
 function btnpwdEdit(empNo){
 	 window.open("<c:url value='/mypage/pwdEdit?empNo='/>"+empNo,'pwdEdit','width=450,height=400,top=200,left=600,location=yes,resizable=yes');
 }
@@ -225,7 +231,7 @@ function btnpwdEdit(empNo){
 						</div>
 					<div style="text-align: center;">
 					<input type="submit" value="수정" id="empWrite" class="btn btn-primary"/>
-					<input type="button" value="취소" class="btn btn-secondary"/>
+					<input type="button" value="취소" id="empEditcancel" class="btn btn-secondary"/>
 					</div>
 					<!-- hidden 처리 인풋태그들 -->
 					 <input type="hidden" id="tel" name="tel" value="${map['TEL']}"/>
