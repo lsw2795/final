@@ -218,7 +218,9 @@
 	<div class="col-xxl-4">
 		<div class="card h-100 admindefault">
 			<div class="card-header d-flex flex-between-center admindefault">
-				<h5 class="mb-0 admindefault">게시판 목록</h5>
+				<h5 class="mb-0 admindefault">
+				<span class="fas fa-file" style="margin: 0 10px;"></span>
+				게시판 목록</h5>
 			</div>
 			<div class="d-lg-flex justify-content-between">
               <form name="frmSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
@@ -312,7 +314,9 @@
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
 					<div class="card-header pb-0 admindefault">
-						<h5 class="mb-0 admindefault">게시판 추가</h5>
+						<h5 class="mb-0 admindefault">
+						<span class="fas fa-file" style="margin: 0 10px;"></span>
+						게시판 추가</h5>
 					</div>
 					<div class="card-body pt-3 admindefault">
 						<div class="table-responsive scrollbar admindefault">
@@ -416,7 +420,9 @@
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
 					<div class="card-header pb-0 admindefault">
-						<h5 class="mb-0 admindefault">게시판 권한 수정</h5>
+						<h5 class="mb-0 admindefault">
+						<span class="fas fa-file" style="margin: 0 10px;"></span>
+						게시판 권한 수정</h5>
 					</div>
 					<div class="ms-2" style="width:200px;"> 
 					<select id="selboardName" name="boardName" class="admindefault adminempborder adminempsel form-select">
@@ -488,7 +494,9 @@
 					<div class="card-header py-2 admindefault">
 						<div class="row flex-between-center g-0 admindefault">
 							<div class="col-auto pb-0 admindefault">
-								<h5 class="mb-0 admindefault">게시판별 이용 통계</h5>
+								<h5 class="mb-0 admindefault">
+								<span class="fas fa-file" style="margin: 0 10px;"></span>
+								게시판별 이용 통계</h5>
 							</div>
 							 <div class="col-auto d-flex">
 		                      <select class="form-select form-select-sm select-month me-2 admindefault">
