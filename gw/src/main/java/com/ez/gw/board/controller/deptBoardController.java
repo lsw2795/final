@@ -69,19 +69,17 @@ public class deptBoardController {
 		
 		pagingInfo.setTotalRecord(totalRecord);
 		logger.info("부서게시판 검색 결과 - deptBoardList.size()={}", deptBoardList.size());
-		int commentCount=0;
 		for(Map<String, Object> map : boardList) {
-			BigDecimal boardNoDecimal=(BigDecimal)map.get("BOARD_NO");
-			int boardNo=boardNoDecimal.intValue();
-			commentCount=comService.selCountDeptBoardReply(boardNo);
+			int boardNo=Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
+			int commentCount=comService.selCountDeptBoardReply(boardNo);
 			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+			map.put("commentCount", commentCount);
 		}
 		
 		model.addAttribute("deptBoardList", deptBoardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("boardlistVo", boardlistVo);
-		model.addAttribute("commentCount", commentCount);
 		
 		return "board/deptBoard";
 	}
