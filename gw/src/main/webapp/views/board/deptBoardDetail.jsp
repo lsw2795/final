@@ -191,8 +191,89 @@
 		$('form[name="frmPage"]').submit();
 	}
 	
-	function deptBoardLike(){
+	function deptBoardLikeOn(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
 		
+		if(confirm('좋아요를 누르시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxInsertDeptBoardLike'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빨간하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
+	
+	
+	function deptBoardLikeOff(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 취소하시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOff'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빈하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/heartoff.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
+	
+	function deptBoardLikeOn2(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 누르시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빨간하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
 	}
 </script>
 <!-- 페이징 처리 관련 form -->
@@ -238,10 +319,24 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
-                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLike()">
-							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
-						</a>
-						<span class="mypagehyphen"></span>
+	                	<c:if test="${empty likeVo}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
+	                	<c:if test="${likeVo.likeFlag=='Y'}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOff();">
+								<img id="heartimg" src="<c:url value='/images/hearton.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
+	                	<c:if test="${likeVo.likeFlag=='N'}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn2();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
                 	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
