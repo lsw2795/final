@@ -3,28 +3,36 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
 <script type="text/javascript">
-
-	function deleteReport() {
-		if(confirm("신고 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/admin/adminclub/deleteMulti?clubNo=${map.CLUB_NO}&boardNo=${map.BOARD_NO }'/>"
-		}
-	}
+	
+	$(function() {
+		$('#delBtn').click(function {
+			var chk=$('tbody input[type=checkbox]:checked').length();
+			if(chk<1){
+				alert('먼저 체크하세요.');
+			}
+			
+			if(chk > 0){
+				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+					$('form[name=frmChk]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
+					$('form[name=frmChk]').submit();
+				} // if
+			} 
+		});
+	});
+	
+	
 	
 	function deleteClubBoard() {
 		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
-			location.href="<c:url value='/admin/adminclub/adminDeleteClubBoard?clubNo=${param.clubNo}&clubBoardNo=${param.boardNo }'/>"
+			location.href="<c:url value='/admin/adminclub/adminDeleteClubBoard?clubNo=${map["CLUB_NO"]}&clubBoardNo=${map["BOARD_NO"]}'/>"
 		}
 	}
 	
-	$(function() {
-		$('#btnDel').click(function() {
-			if(confrm('해당 신고 게시물을 삭제하시겠습니까?')){
-			}
-		});
-	});
+	
 
 </script>
 <div class="table-responsive scrollbar">
+<form name="frmChk" method="post" action="<c:url value='/admin/adminclub/deleteMulti'/>">
   <table class="table table-hover table-striped overflow-hidden">
     <thead>
       <tr>
@@ -38,16 +46,21 @@
         <th scope="col">Date</th>
         <th scope="col">Status</th>
         <th scope="col">Delete</th>
-        <th scope="col"><button onclick="deleteReport()" class="btn btn-falcon-primary btn-sm" type="button">삭제</button></th>
+        <th scope="col"><button id="delBtn" class="btn btn-falcon-primary btn-sm" type="submit">삭제</button></th>
       </tr>
     </thead>
     <tbody>
+    <c:set var="idx" value="0"/>
     <!-- 반복 시작  -->
     <c:forEach var="map" items="${list }">
       <tr class="align-middle">
       	<td class="align-middle fs-0 py-3">
 	  		<div class="form-check mb-0">
-		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" 
+		     data-bulk-select-row="data-bulk-select-row"
+		     name="clubBoardItems[${idx }].boardNo"
+		     value="${map['BOARD_NO']}" />
+		     <input type="hidden" value="${map['CLUB_NO']}" name="clubBoardItems[${idx }].clubNo" >
 			</div>
 		</td>
       	<td class="text-nowrap">
@@ -79,6 +92,7 @@
           </button>
         </td>
       </tr>
+      <c:set var="idx" value="${idx+1}"/>
     </c:forEach>
 	<!-- 반복 끝 -->
     </tbody>
@@ -86,6 +100,7 @@
 	 <div class="text-center d-none" id="tickets-table-fallback">
 	     <p class="fw-bold fs-1 mt-3">신고 게시물이 없습니다.</p>
 	 </div>
+</form>	 
 </div>
 	<div class="card-footer d-flex justify-content-center">
         <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>

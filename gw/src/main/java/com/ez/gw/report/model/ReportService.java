@@ -22,4 +22,5 @@ public interface ReportService {
 	Map<String, Object> selectByReportNo(int reportNo);
 	int updateAnonymousReport(int reportNo);
 	int updateAnonymousReportPostpone(int reportNo);
+	Map<String, Object> clubByReportNo(int reportNo);
 }

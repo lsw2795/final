@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("")
 public class ClubController {
 	private static final Logger logger = LoggerFactory.getLogger(ClubController.class);
 	private final ClubService clubService;
