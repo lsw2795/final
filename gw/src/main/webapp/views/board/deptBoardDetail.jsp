@@ -206,6 +206,7 @@
 			dataType:'json',
             success: function (res) {
             	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
             		$('#heartDiv').empty();
             		$('#heart1').hide();
             		$('#heart2').hide();
@@ -267,6 +268,7 @@
 			dataType:'json',
             success: function (res) {
             	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
             		$('#heartDiv').empty();
             		$('#heart3').hide();
             		$('#heart2').hide();
