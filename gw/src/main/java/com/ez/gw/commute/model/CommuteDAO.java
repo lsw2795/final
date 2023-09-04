@@ -31,5 +31,6 @@ public interface CommuteDAO {
 	int selectAllCommuteLateCount(SearchCommuteVO searchCommuteVO); //전사원 지각횟수 갯수 조회
 	int selectAllCommuteEalryLeaveCount(SearchCommuteVO searchCommuteVO); //전사원 조퇴횟수 갯수 조회
 	int selectAllCommuteAttendanceCount(SearchCommuteVO searchCommuteVO); //전사원 출근횟수 갯수 조회
+	int updateWorkTime(CommuteVO commuteVo); //출퇴근시간 업데이트 메서드
 	
 }

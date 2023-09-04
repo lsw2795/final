@@ -14,6 +14,25 @@
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
+	
+	function updateReadCount(boardlistNo, boardNo){
+		$.ajax({
+            url: "<c:url value='/board/updateReadCount'/>",
+            type:'get',
+			data: {
+				boardNo: boardNo
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		location.href="<c:url value='/board/deptBoardDetail?boardlistNo="+boardlistNo+"&boardNo="+boardNo+"'/>"
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 </script>
 <!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/board/deptBoard'/>" 
@@ -131,23 +150,25 @@
 						</c:if>	
 						<c:if test="${boardlistVo.secflag=='N'}">
 							<c:if test="${boardlistVo.boardLike=='Y'}">
-								<col style="width: 50%;" />
+								<col style="width: 20%;" />
+								<col style="width: 30%;" />
 								<col style="width: 20%;" />
 								<col style="width: 15%;" />
 								<col style="width: 15%;" />
 							</c:if>
 							<c:if test="${boardlistVo.boardLike=='N'}">
-							<col style="width: 50%;" />
+								<col style="width: 20%;" />
 								<col style="width: 30%;" />
 								<col style="width: 20%;" />
+								<col style="width: 15%;" />
 							</c:if>
 						</c:if>	
 					</colgroup>
 					<thead class="mypageempthead">
 						<tr style="text-align: center;">
-							<c:if test="${boardlistVo.secflag=='Y'}">
 							<th class="align-middle py-2 fs-0 pe-2" scope="col" data-sort="name">작성자</th>
-							<th class="align-middle" scope="col" data-sort="dept">부서</th>
+							<c:if test="${boardlistVo.secflag=='Y'}">
+								<th class="align-middle" scope="col" data-sort="dept">부서</th>
 							</c:if>
 							<th class="align-middle" scope="col" data-sort="title">제목</th>
 							<th class="align-middle" scope="col" data-sort="regdate">등록일</th>
@@ -180,9 +201,16 @@
 									</div>
 								</td>
 								</c:if>
+								<c:if test="${boardlistVo.secflag=='N'}">
+								<td class="align-middle fs-0 py-3">
+								 	<div class="d-flex align-items-center gap-2 position-relative">
+										<div class="mypageempdiv17">익명</div>
+									</div>
+								</td>
+								</c:if>
 								<td class="align-middle fs-0 py-3">
 									<div class="mypageempdiv14">
-									<a href="<c:url value='/board/deptBoardDetail?boardlistNo=${map.BOARDLIST_NO}&boardNo=${map.BOARD_NO}'/>">
+									<a href="#" onclick="updateReadCount(${map.BOARDLIST_NO},${map.BOARD_NO});">
 									${map['TITLE']}
 									<c:if test="${map['timeNew']==1}">
 										<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">

@@ -162,6 +162,11 @@
 	    text-align: center;
 	}
 	
+	    /* 잘못된 입력 스타일을 지정합니다. */
+    .invalid-time {
+        border: 1px solid red; /* 잘못된 입력을 강조하기 위한 스타일 */
+    }
+	
 </style>
 
 <script type="text/javascript">
@@ -194,6 +199,36 @@
 				$("#commuteModal").modal("hide");
 			}
 		});
+        
+        // "editInTime" 및 "editOutTime" 입력 필드에 input 이벤트 리스너를 추가합니다.
+        $('#editInTime, #editOutTime').on('input', function() {
+            formatTimeInput($(this));
+            
+        });
+        
+        
+        $("#editSubmit").click(function() {
+            // "editInTime"과 "editOutTime" 입력 값 가져오기
+            var editInTime = $("#editInTime").val();
+            var editOutTime = $("#editOutTime").val();
+
+            // 유효한 시간 형식 (hh:mm)을 위한 정규 표현식
+            var timePattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+            // "editInTime"과 "editOutTime" 입력 값이 유효한지 확인
+            if (!timePattern.test(editInTime)) {
+                alert('출근 시간 형식이 잘못되었습니다. (예: 09:00)');
+                return; // 이벤트 중단
+            }
+
+            if (!timePattern.test(editOutTime)) {
+                alert('퇴근 시간 형식이 잘못되었습니다. (예: 18:00)');
+                return; // 이벤트 중단
+            }
+
+            // 유효성 검사를 통과한 경우 서브밋 실행
+            $("#editWorkForm").submit();
+        });
 
 	    
 	    
@@ -203,6 +238,10 @@
 		$("#workDate").val(workDate);
 		$("#workInTime").val(workInTime);
 		$("#workOutTime").val(workOutTime);
+		$("#editCommuteNo").val(commuteNo);
+		
+		$("#editInTime").val("");
+		$("#editOutTime").val("");
 		$("#commuteModal").modal("show");	
 		
 	}
@@ -213,6 +252,20 @@
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
+	
+	
+    // 시간 입력을 자동으로 포맷팅하는 함수
+    function formatTimeInput(input) {
+        var inputValue = input.val();
+        var formattedValue = inputValue.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+
+        if (formattedValue.length >= 3) {
+            // 입력 값이 3글자 이상인 경우 (예: "123")
+            formattedValue = formattedValue.substring(0, 2) + ':' + formattedValue.substring(2);
+        }
+
+        input.val(formattedValue);
+    }
 	
 	
 </script>
@@ -231,7 +284,7 @@
 </form>
 
 <div class="s-container">
-			<div>
+			<div> 
 				<h2>전사원 근태 관리</h1>
 			</div>
 			<hr>
@@ -239,7 +292,7 @@
 			<div>
 				<table class="stats-List">
 					<tr>
-						<th class="th-1">정상근무</th>
+						<th class="th-1">출근</th>
 						<th class="th-1">지각</th>
 						<th class="th-1">조퇴</th>
 						<th class="th-1">총 근무시간</th>
@@ -369,7 +422,7 @@
 <div class="modal fade" id="commuteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-        	<form id = "addEventForm" autocomplete="on" action="<c:url value='/calendar/addCalendar'/>" method = "post" >
+        	<form id = "editWorkForm" autocomplete="on" action="<c:url value='/admin/commute/editWorkTime'/>" method = "post" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">근무시간 변경</h5>
@@ -390,15 +443,18 @@
                         
                         <hr>
                         
-                        <label for="taskId" class="col-form-label">수정할 출근시간</label>
-                        <input type="text" class="form-control" id="editInTime" name="editInTime">
                         
-                        <label for="taskId" class="col-form-label">수정할 퇴근시간</label>
-                        <input type="text" class="form-control" id="editOutTime" name="editOutTime">
+                   		<input type="hidden" name="commuteNo" id="editCommuteNo" >
+	                    <label for="taskId" class="col-form-label">수정할 출근시간</label>
+	                    <input type="text" class="form-control" id="editInTime" name="editInTime">
+	                    
+	                    <label for="taskId" class="col-form-label">수정할 퇴근시간</label>
+	                    <input type="text" class="form-control" id="editOutTime" name="editOutTime">
+                    
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary px-4" id="addCalendar" type="submit">수정</button>
+                    <button type="button" class="btn btn-primary px-4" id="editSubmit" type="button">수정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
                 </div>
     

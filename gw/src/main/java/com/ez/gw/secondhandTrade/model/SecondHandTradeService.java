@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface SecondHandTradeService {
 	int insertMarket(SecondHandTradeVO secondVo);
 	List<Map<String, Object>> selectAllMarket(SearchVO searchVo);
-	SecondHandTradeVO selectMarketByNo(int tradeNo);
+	Map<String, Object> selectMarketByNo(int tradeNo);
 	int updateReadCount(int tradeNo);
 	int getTotalRecord(SearchVO searchVo);
 	int updateMarket(SecondHandTradeVO secondVo);

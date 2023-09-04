@@ -65,5 +65,8 @@
 		where board_no=#{boardNo}
 	</select>
 	
+	<select id="selectLikeByEmpNo" parameterType="secondhandTradeLikeVo" resultType="secondhandTradeLikeVo">
+		select * from secondhand_trade_like where emp_no = #{empNo} and trade_no = #{tradeNo}
+	</select>
 
 </mapper>

@@ -221,7 +221,6 @@ public class NoticeController {
 		}
 		
 		//2
-		boardService.updateReadcount(boardNo); //사원 공지사항 뷰만 조회수 증가
 		Map<String, Object> map = boardService.selectNotice(boardNo);
 		Map<String, Object> prevMap=boardService.selectPrevNotice(boardNo);
 		Map<String, Object> nextMap=boardService.selectNextNotice(boardNo);
