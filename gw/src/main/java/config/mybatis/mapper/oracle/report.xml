@@ -118,4 +118,9 @@
 		where report_no=#{reportNo}
 	</update>
 	
+	<select id="clubByReportNo" parameterType="int" resultType="map">
+		select * from clubreportview
+		where report_no=#{reportNo}
+	</select>
+	
 </mapper>

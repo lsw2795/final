@@ -16,6 +16,4 @@ public class ClubVO {
 	private String memLimit; //제한인원
 	private int empNo; //사원 번호
 	
-	
-	
 }

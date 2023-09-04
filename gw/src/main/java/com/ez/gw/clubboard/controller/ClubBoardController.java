@@ -80,29 +80,7 @@ public class ClubBoardController {
 			List<MultipartFile> files = multiRequest.getFiles("imageURL");
 			logger.info("files.size={}",files.size());
 			
-			for (MultipartFile f : files) {
-				logger.info("컨텐트 타입, contentType={}, gif={}, png={}, jpg={}", f.getContentType(),
-						f.getContentType().toLowerCase().endsWith("gif"),
-						f.getContentType().toLowerCase().endsWith("png"),
-						f.getContentType().toLowerCase().endsWith("jpg"),
-						f.getContentType().toLowerCase().endsWith("jpeg"));
-				// 이미지 파일만 업로드 가능
-				if (!f.getContentType().toLowerCase().endsWith("png")
-						&& !f.getContentType().toLowerCase().endsWith("jpg")) {
-					msg = "이미지 파일만 등록해주세요.";
-					url = "/pds_upload";
-
-					// 이전에 입력한 폼 데이터 세션에 저장
-					session.setAttribute("clubVo", clubVo);
-					session.setAttribute("pdsVo", pdsVo);
-
-					model.addAttribute("msg", msg);
-					model.addAttribute("url", url);
-
-					return "common/message";
-				}
-			} // for
-			
+						
 			cnt=clubBoardService.insertClubBoard(clubVo);
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
 			
@@ -279,8 +257,8 @@ public class ClubBoardController {
 		logger.info("동게 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", 
-				url="/club/clubBoardDetail?clubNo="+clubNo+"&boardNo="+boardNo;
-		if(clubNo==0 || boardNo==0) {
+			   url="/club/clubBoardDetail?clubNo="+clubNo+"&boardNo="+boardNo;
+		if(cnt>0) {
 			msg="게시물 삭제 완료 되었습니다.";
 			url="/club/clubBoard?clubNo="+clubNo;
 		}
@@ -365,20 +343,19 @@ public class ClubBoardController {
 	
 	//관리자 - 신고함 다중 삭제
 	@RequestMapping("/admin/adminclub/deleteMulti")
-	public String deleteMulti(@ModelAttribute ListClubBoardVO clubBoardItems, Model model) {
+	public String deleteMulti(@ModelAttribute ListClubBoardVO listBoardVo, Model model) {
 		//1.
-		logger.info("관리자 - 동호회 신고리스트 다중삭제 clubBoardItems={}",clubBoardItems);
+		logger.info("관리자 - 동호회 신고리스트 다중삭제 listBoardVo={}",listBoardVo);
 		
 		//2.
-		List<ClubBoardVO> list = clubBoardItems.getClubBoardItems();
+		List<ClubBoardVO> list = listBoardVo.getClubBoardItems();
 		int cnt=clubBoardService.deleteMulti(list);
-		logger.info("다중 삭제 결과 cnt={}",cnt);
+		logger.info("신고 다중 삭제 결과 cnt={}",cnt);
 		
 		String msg="신고 게시글 삭제 실패했습니다.",url="/admin/adminclub/adminClubReport";
 		if(cnt>0) {
 			msg="신고 게시글 삭제 성공했습니다.";
 		}
-		
 		//3.
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -390,15 +367,17 @@ public class ClubBoardController {
 	
 	@RequestMapping("/admin/adminclub/adminDeleteClubBoard")
 	public String adminDeleteClubBoard(@RequestParam(defaultValue = "0")int clubNo,
-			@RequestParam(defaultValue = "0")int boardNo,
+			@RequestParam(defaultValue = "0")int boardNo,@RequestParam(defaultValue = "0")int reportNo,
 			Model model) {
 		//1.
 		logger.info("관리자 - 신고 동호회게시물 삭제 clubNo={},boardNo={}",clubNo,boardNo);
 		
 		//2.
+		Map<String, Object> map = reportService.clubByReportNo(reportNo);
+		logger.info("신고 동호회 게시물 삭제 결과 map={}",map);
 		int cnt=clubBoardService.deleteClubBoard(clubNo, boardNo);
 		logger.info("신고 동호회 게시물 삭제 결과 cnt={}",cnt);
-
+		
 		String msg="삭제 실패했습니다.", url="/admin/adminclub/adminClubReport";
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";

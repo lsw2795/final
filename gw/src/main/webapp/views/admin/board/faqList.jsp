@@ -25,7 +25,7 @@
 			var boardNo=$('input[name=boardNo]').val();
 		
 			if(count<1){
-				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
+				alert('삭제하고 싶은 FAQ 게시글을 먼저 체크 바랍니다');
 			}
 			
 			if(count>0){
@@ -157,15 +157,12 @@
 		</div>
 	<div class="card-footer d-flex justify-content-center admindefault">
 	<div class="divPage" id="divPage">
-	<!-- 페이지 번호 추가 -->		
-	<!-- 이전 블럭으로 이동 -->
 	<c:if test="${pagingInfo.firstPage>1 }">
 		<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
 			<img src="<c:url value='/images/first.JPG'/>">
 		</a>
 	</c:if>	
 					
-	<!-- [1][2][3][4][5][6][7][8][9][10] -->
 	<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
 		<c:if test="${i == pagingInfo.currentPage }">		
 			<span id="curPage">${i}</span>
@@ -175,13 +172,11 @@
 	    </c:if>   		
 	</c:forEach>
 	
-	<!-- 다음 블럭으로 이동 -->
 	<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
          <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
 			<img src="<c:url value='/images/last.JPG'/>">
 		</a>
 	</c:if>
-	<!--  페이지 번호 끝 -->
 </div>
 </div>
 </div>
