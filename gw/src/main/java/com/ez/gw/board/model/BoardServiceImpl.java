@@ -251,6 +251,15 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selNextDeptBoard(vo);
 	}
 
+	@Override
+	public int updateDeptBoard(BoardVO vo) {
+		return boardDao.updateDeptBoard(vo);
+	}
+
+	@Override
+	public int deleteDeptBoard(BoardVO vo) {
+		return boardDao.deleteDeptBoard(vo);
+	}
 
 
 

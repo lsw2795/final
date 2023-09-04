@@ -180,9 +180,9 @@ public class EmployeeController {
 	@GetMapping("/inc/empMain")
 	public String empMain(HttpSession session,Model model) {
 		int empNo=(int)session.getAttribute("empNo");
-		logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
+		//logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
 		Map<String, Object> empMap=employeeService.selectEmpByEmpNo(empNo);
-		logger.info("사원메인 정보 페이지 결과 empMap={}", empMap);
+		//logger.info("사원메인 정보 페이지 결과 empMap={}", empMap);
 		model.addAttribute("empMap", empMap);
 		return "inc/empMain";
 	}

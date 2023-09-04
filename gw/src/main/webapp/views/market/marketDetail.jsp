@@ -2,9 +2,7 @@
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
-
  <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
- <script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
  <script type="text/javascript">
 	function delMarket(){
 		if(confirm("삭제하시겠습니까?")){
@@ -21,7 +19,7 @@
 				data:{tradeNo: $('#tradeNo').val(),
 					  empNo : $('#empNo').val()},
 				success:function(result){
-					if(result==1){//좋아요 누름
+					if(result==1){//좋아요  누름
 						$('#heart').addClass('fa-solid fa-heart')
 					}else if(result==2){//좋아요 한번 더 눌러서 해지
 						$('#heart').addClass('fa-regular fa-heart')
@@ -37,17 +35,47 @@
 	
 </script>
 <style type="text/css">
-div#updateBtn {
+div.updateBtn {
     display: flex; 
     margin: 10px 3px;
     justify-content: flex-end;
 }
+
+.like-container{filter: url('#filter');
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(50%, -50%);
+}
+.like-cnt{  
+  position: absolute; 
+  cursor: pointer;
+  left: 50%; 
+  top: 100%; 
+  transform: translate(50%, -50%);     background: rgba(255,255,255,0.3);     width: 60px; 
+  height: 60px;  
+  border-radius: 50%;
+  text-align: center;
+  line-height: 75px;
+  z-index: 10;
+}
+.like-btn{
+  color: #fff;
+}
+
+.gp-header{font-family: georgia; font-size: 40px; color: #ddca7e; font-style: italic; text-align: center; margin-top: 31px;}
+.gp-footer{position: fixed; color: #fff; bottom: 10px; left: 50%; font-family: georgia; font-style: italic; transform: translateX(-50%);}
+.gp-footer .soc_icons{display: inline-block; color: #ddca7e; margin: 0px 0px;}
+
+
+::-moz-selection { background: transparent;}
+::selection {background: transparent;}
 </style>
 <div class="content">
 		<h2>상세보기</h2>
 		
 		<c:if test="${sessionScope.empNo==emp.empNo }">
-			<div id="updateBtn">
+			<div class="updateBtn">
 				<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
 	              	<button class="btn btn-falcon-default btn-sm" type="button">
 	            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
@@ -57,6 +85,14 @@ div#updateBtn {
 	            <button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
 	                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
 	                 <span class="d-none d-md-inline-block ms-1">삭제</span>
+		        </button>
+	        </div>
+		</c:if>
+		<c:if test="${sessionScope.empNo!=emp.empNo }">
+			<div class="updateBtn">
+				<button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+	                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
+	                 <span class="d-none d-md-inline-block ms-1">게시글 신고</span>
 		        </button>
 	        </div>
 		</c:if>
@@ -79,7 +115,7 @@ div#updateBtn {
                 <div class="swiper-button-next swiper-button-white" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-10d9bcee3454143f0"></div>
                 <div class="swiper-button-prev swiper-button-white" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-10d9bcee3454143f0"></div>
             </div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            <!-- <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span> -->
         </div>
     </div>
 </div>
@@ -88,6 +124,7 @@ div#updateBtn {
                 <div class="col-lg-6">
                   <h4><strong>${vo.title }</strong></h4>
                   <input type="hidden" id="tradeNo" name="tradeNo" value="${vo.tradeNo }">
+                  ${file }
                   <h6 class="fs--1 mb-2 d-block" href="#!">
                   	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
@@ -114,8 +151,19 @@ div#updateBtn {
                     </c:if>
                   </p>
                   <div class="row">
-                    <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-envelope-open"></span><span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span></a></div>
+                    <div class="col-auto px-2 px-md-3">
+                    	<a class="btn btn-sm btn-primary" href="<c:url value='/message/messageWrite?empNo=${emp.empNo}'/>">
+                    		<span class="fas fa-envelope-open"></span>
+                    		<span class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span>
+                   		</a>
+                 	</div>
                     <div class="col-auto px-0">
+                    	<div class="like-container">
+						  <div class="like-cnt unchecked" id="like-cnt">
+						  <i class="like-btn material-icons">thumb_up</i>
+						</div>
+						
+						</div>
                     	<a class="btn btn-sm btn-outline-danger border border-300" href="#" id = "likeit" data-bs-toggle="tooltip" data-bs-placement="top" >
                     		<span class="far fa-heart me-1" id="heart"></span>
                     	</a>

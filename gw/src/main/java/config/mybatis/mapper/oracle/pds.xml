@@ -193,4 +193,8 @@
 		where boardList_no=#{boardlistNo} and board_no=#{boardNo}
 	</select>
 	
+	<delete id="editDeptBoardFile" parameterType="int">
+		delete pds
+		where pds_no=#{pdsNo}
+	</delete>
 </mapper>

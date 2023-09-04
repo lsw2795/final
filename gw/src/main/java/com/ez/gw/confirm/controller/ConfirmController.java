@@ -735,7 +735,7 @@ public class ConfirmController {
     public List<Integer> recordAjax(HttpSession session) {
     	//1
     	int empNo=(int)session.getAttribute("empNo");
-    	logger.info("레코드 조회 사용자 empNo={}",empNo);
+    	//logger.info("레코드 조회 사용자 empNo={}",empNo);
     	
     	//2
     	ConfirmVO vo = new ConfirmVO();
@@ -743,11 +743,11 @@ public class ConfirmController {
     	List<Integer> recordList = new ArrayList<>();
     	
     	int confirm=confirmService.getTotalConfirmRecord(vo);
-    	logger.info("결재 레코드 조회, confirm={}",confirm);
+    	//logger.info("결재 레코드 조회, confirm={}",confirm);
     	int turn=confirmService.getTotalReturnRecord(vo);
-    	logger.info("반려 레코드 조회, turn={}",turn);
+    	//logger.info("반려 레코드 조회, turn={}",turn);
     	int agree=confirmService.getTotalAgreeRecordMain(vo);
-    	logger.info("합의 레코드 조회, agree={}",agree);
+    	//logger.info("합의 레코드 조회, agree={}",agree);
     	
     	recordList.add(confirm);
     	recordList.add(turn);

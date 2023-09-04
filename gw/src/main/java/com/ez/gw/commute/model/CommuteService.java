@@ -22,4 +22,7 @@ public interface CommuteService {
 	int selectCommuteAttendanceCount(@Param("empNo")int empNo, @Param("date")String date); //월별 출근 횟수 조회 메서드
 	
 	List<Map<String, Object>> selectCommuteMonthByEmpNo(@Param("empNo")int empNo, @Param("date")String date); //해당 사원 월별 근태 기록 전체 조회
+	
+	//------------admin-------------
+	List<Map<String, Object>> selectAllCommute(); // 전사원 근태 조회
 }

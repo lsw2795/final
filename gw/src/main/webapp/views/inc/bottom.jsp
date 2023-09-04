@@ -26,7 +26,6 @@
     <script src="<c:url value='/vendors/fontawesome/all.min.js'/>"></script>
     <script src="<c:url value='/vendors/lodash/lodash.min.js'/>"></script>
     <script src="<c:url value='https://polyfill.io/v3/polyfill.min.js?features=window.scroll'/>"></script>
-    <script src="<c:url value='/vendors/list.js/list.min.js'/>"></script>
     <script src="<c:url value='/assets/js/theme.js'/>"></script>
   </body>
 

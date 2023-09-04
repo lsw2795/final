@@ -7,4 +7,6 @@ public interface ClubBoardCommentService {
 	int insertClubCommt(ClubBoardCommentVO cbcVo);
 	List<Map<String, Object>> selectCommClub(int clubNo, int boardNo);
 	int selectCountComment(int clubNo, int boardNo); //답변 개수
+	int deletCommet(int commentNo);
+	int editCommet(ClubBoardCommentVO cbcVo);
 }

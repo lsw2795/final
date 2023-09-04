@@ -174,29 +174,32 @@
 			});
 		});
    		
-   		$('#editReservation').submit(function(event){
+   		$('#addReservationForm').submit(function(event){
    		 	event.preventDefault(); // 기본 제출 동작 방지
    			
-   		 $.ajax({
-   	        url: $("#editReservation").attr("action"), // 제출할 URL
-   	        type: "POST", // 또는 "GET" 등 HTTP 메서드 선택
-   	        data: $("#editReservation").serialize(), // 폼 데이터 직렬화
-   	        success: function (response) {
-   	            // 서버로의 제출이 성공한 경우에만 아래 코드 실행
-   	            // 자식 창 닫기
-   	            if(response == 1){
-	   	            self.close();
-   	            	
-	   	            // 부모 창 새로 고치기
-	   	            opener.location.reload();
-   	            }
-
-   	        },
-   	        error: function (xhr, status, error) {
-   	            // 서버로의 제출이 실패한 경우에 대한 처리
-   	            console.error("서버 제출 실패:", status, error);
-   	        }
-   	    });
+   		 	if(confirm("수정하시겠습니까?")){
+   		 		
+		   		 $.ajax({
+		   	        url: $("#addReservationForm").attr("action"), // 제출할 URL
+		   	        type: "POST", // 또는 "GET" 등 HTTP 메서드 선택
+		   	        data: $("#addReservationForm").serialize(), // 폼 데이터 직렬화
+		   	        success: function (response) {
+		   	            // 서버로의 제출이 성공한 경우에만 아래 코드 실행
+		   	            // 자식 창 닫기
+		   	            if(response == 1){
+			   	            self.close();
+		   	            	
+			   	            // 부모 창 새로 고치기
+			   	            opener.location.reload();
+		   	            }
+		
+		   	        },
+		   	        error: function (xhr, status, error) {
+		   	            // 서버로의 제출이 실패한 경우에 대한 처리
+		   	            console.error("서버 제출 실패:", status, error);
+		   	        }
+		   	    });
+   		 	}
    		});
 	});
 </script>
@@ -282,7 +285,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary px-4" id="editReservation">수정</button>
+                    <button type="button" class="btn btn-primary px-4" id="editReservation" type="submit">수정</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
                 </div>
     

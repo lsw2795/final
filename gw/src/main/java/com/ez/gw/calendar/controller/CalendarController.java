@@ -226,5 +226,4 @@ public class CalendarController {
 		//
 		return "redirect:/calendar/fullCalendar";
 	}
-	
 }

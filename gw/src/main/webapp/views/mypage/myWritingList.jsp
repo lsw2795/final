@@ -77,20 +77,14 @@
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm table-hover">
 						<colgroup>
-							<col style="width:7%;" />
 							<col style="width:20%;" />
-							<col style="width:43%;" />
+							<col style="width:50%;" />
 							<col style="width:15%;" />
 							<col style="width:15%;" />
 						</colgroup>
                       <thead class="adminempthead">
                         <tr style="text-align: center;">
-                          <th class="py-2 fs-0 pe-2" style="width: 28px;">
-                            <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions","replacedElement":"table-contact-replace-element"}' />
-                            </div>
-                          </th>
-                          <th class="sort align-middle" scope="col">게시판 카테고리</th>
+                          <th class="sort align-middle py-2 fs-0 pe-2" scope="col">게시판 카테고리</th>
                           <th class="sort align-middle" scope="col">제목</th>
                           <th class="sort align-middle" scope="col">조회수</th>
                           <th class="sort align-middle" scope="col">작성일</th>
@@ -99,24 +93,23 @@
                       <tbody id="table-contact-body">
                       <c:if test="${empty boardList }">
                       	<tr class="mypageemptr">
-                      	<td class="align-middle fs-0 py-3 align-middle" colspan="6">해당 게시글이 없습니다.</td>
+                      	<td class="align-middle fs-0 py-3 align-middle" colspan="4">해당 게시글이 없습니다.</td>
                       	</tr>
                       </c:if>
                       <c:if test="${!empty boardList }">
                       <c:forEach var="map" items="${boardList }">
                         <tr class="mypageemptr">
-                          <td class="align-middle fs-0 py-3 align-middle">
-                            <div class="form-check mb-0">
-                              <input class="form-check-input" type="checkbox" value="${map['BOARD_NO']}" data-bulk-select-row="data-bulk-select-row" />
-                            </div>
-                          </td>
+                           <c:if test="${map['BOARDLIST_NO']<100}">	                          
+	                         	<td class="align-middle"><a href="<c:url value='/board/deptBoard?boardlistNo=${map["BOARDLIST_NO"]}'/>">${map['BOARD_NAME']}</a></td>
+	                         	<td class="align-middle"><a href="<c:url value='/board/deptBoardDetail?boardlistNo=${map["BOARDLIST_NO"]}&boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          </c:if>
 						  <c:if test="${map['BOARDLIST_NO']==100}">	                          
                           	<td class="align-middle"><a href="<c:url value='/market/marketList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==200}">	                          
-                          	<td class="align-middle"><a href="<c:url value=''/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value=''/>">${map['TITLE']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/club/clubList'/>">${map['BOARD_NAME']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/club/clubList'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==1000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/qna/list'/>">${map['BOARD_NAME']}</a></td>
@@ -138,7 +131,7 @@
                           	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['TITLE']}</a></td>
                           </c:if>
-                          <td class="align-middle">${map['READCOUNT']}</td>
+                          <td class="align-middle fs-0 py-3">${map['READCOUNT']}</td>
                           <td class="align-middle"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
                         </tr>
                         </c:forEach> 

@@ -77,6 +77,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.selectCommuteMonthByEmpNo(empNo, date);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAllCommute() {
+		return commuteDao.selectAllCommute();
+	}
+
 	
 	
 }

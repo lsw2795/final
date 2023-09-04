@@ -241,8 +241,19 @@ public class ClubController {
 		//4.
 		return "common/message";
 	}
-
 	
+	@RequestMapping("/admin/adminclub/adminPayment")
+	public String paymentList() {
+		//1.
+		logger.info("관리자 - 동호회비결제 현황");
+		//2.
+		
+		
+		//3.
+		
+		//4.
+		return "admin/adminclub/adminPayment";
+	}
 	
 	
 	
