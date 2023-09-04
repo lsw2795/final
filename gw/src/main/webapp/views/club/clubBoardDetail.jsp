@@ -192,7 +192,6 @@
             <!-- 답변 등록 -->
             <form id="commtentFrm" name="commtentFrm" action="<c:url value='/club/clubComment'/>" method="post">
 	            <input name="empNo" type="hidden" value="${sessionScope.empNo}">
-	            <input name="commentNo" type="hidden" value="${param.commentNo}">
             	<input name="clubNo" type="hidden" value="${param.clubNo}">
             	<input name="boardNo" type="hidden" value="${param.boardNo}">
 	            

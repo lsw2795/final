@@ -168,6 +168,11 @@
 						<c:if test="${!empty clubVo.clubNo }">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"
+								name="paymentModal" type="button">가입불가</button>
+						</c:if>
+						<c:if test="${empty clubVo.clubNo }">
+							<button class="btn btn-sm btn-primary me-2"
+								data-bs-target="#paymentModal" data-bs-toggle="modal"
 								name="paymentModal" type="button">가입</button>
 						</c:if>
 							<button class="btn btn-falcon-default btn-sm me-2" type="button">
