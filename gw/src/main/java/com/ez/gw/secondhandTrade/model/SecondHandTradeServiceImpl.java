@@ -37,7 +37,7 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public SecondHandTradeVO selectMarketByNo(int tradeNo) {
+	public Map<String, Object> selectMarketByNo(int tradeNo) {
 		return secondHandTradeDao.selectMarketByNo(tradeNo);
 	}
 
