@@ -208,7 +208,8 @@
             	if(res>0){
             		$('#heartDiv').empty();
             		$('#heart1').hide();
-            		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+            		$('#heart2').hide();
+            	var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
 					+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";					
 					$('#heartDiv').append(result);
             	}
@@ -239,6 +240,7 @@
 	            	if(res>0){
 	            		$('#heartDiv').empty();
 	            		$('#heart2').hide();
+	            		$('#heart3').hide();
 	               		var result="<a href='#' id='heart3' style='float: right;' onclick='deptBoardLikeOn2();'>"
 	               			+"<img id='heartimg' src='<c:url value='/images/heartoff.png'/>' width='50px' height='50px'></a>";
 	               		$('#heartDiv').append(result);
@@ -268,10 +270,11 @@
 	            success: function (res) {
 	            	if(res>0){
 	            		$('#heartDiv').empty();
-	            		$('#heart1').hide();
-	            		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
-						+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";					
-						$('#heartDiv').append(result);
+	            		$('#heart3').hide();
+	            		$('#heart2').hide();
+	               		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+	               			+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";
+	               		$('#heartDiv').append(result);			
 	            	}
 	            },
 	            error:function(xhr,status,error){
@@ -329,14 +332,14 @@
 								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
 							</a>
 						</c:if>
-                		<c:if test="${likeVo.likeFlag=='N'}">
-	                		<a href="#" id="heart3" style="float: right;" onclick="deptBoardLikeOn2();">
-								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
-							</a>
-						</c:if>
 						<c:if test="${likeVo.likeFlag=='Y'}">
 	                		<a href="#" id="heart2" style="float: right;" onclick="deptBoardLikeOff();">
 								<img id="heartimg" src="<c:url value='/images/hearton.png'/>" width="50px" height="50px">
+							</a>
+						</c:if>
+                		<c:if test="${likeVo.likeFlag=='N'}">
+	                		<a href="#" id="heart3" style="float: right;" onclick="deptBoardLikeOn2();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
 							</a>
 						</c:if>
 						<div id="heartDiv"></div>
