@@ -44,9 +44,14 @@
 
 	<update id="outClub">
 		update employee
-		set club_no=null
+		set club_no=null, merchant_no=null
 		where emp_no=#{empNo}
 	</update>
+	
+	<select id="adminClubList" resultType="map">
+		select * from ADMINCLUBVIEW
+		where MERCHANT_NO=#{merchantNo}
+	</select>
 	
 </mapper>
 

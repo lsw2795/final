@@ -15,7 +15,7 @@
 	<select id="selectCommClub" parameterType="int" resultType="map">
 		select * from CLUBBOARDCOMMVIEW
 		where club_no=#{clubNo} and board_no=#{boardNo} 
-		order by regdate
+		order by regdate desc
 	</select>
 	
 	<select id="selectCountComment" parameterType="int" resultType="int">
@@ -23,16 +23,18 @@
 		where club_no=#{clubNo} and board_no = #{boardNo}
 	</select>
 	
-	<delete id="deletCommet" parameterType="int">
-		delete from CLUBBOARDCOMMVIEW
-		where comment_no=#{commentNo}
+	<delete id="deletCommet">
+		delete from CLUBBOARD_COMMENT
+		where COMMENT_NO=#{commentNo} and BOARD_NO=#{boardNo} and CLUB_NO=#{clubNo}
 	</delete>
 	
 	<update id="editCommet" parameterType="clubBoardCommentVo">
 		update CLUBBOARD_COMMENT
 		set CONTENT=#{content}
-		where COMMENT_NO=#{commentNo} and BOARD_NO=#{boardNo} and CLUB_NO=#{clubNo}
+		where COMMENT_NO=#{commentNo} and BOARD_NO=#{boardNo} 
+			and CLUB_NO=#{clubNo} and EMP_NO=#{empNo}
 	</update>
+	
 </mapper>
 
 

@@ -8,11 +8,22 @@
 		}
 	}
 	
-	function deleteComment() {
-		if(confirm("해당 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/club/deleteComment?clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
+	function deleteComment(commentNo) {
+		if(confirm("해당 댓글을 삭제하시겠습니까?")){
+			location.href = "<c:url value='/club/deleteComment?commentNo="+commentNo+"&clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
+	
+	function editComment(bt) {
+		var parent=$(bt).closest('#btDiv');
+		var contentDiv=$(parent).next('div');
+		
+		$(contentDiv).find('span').hide();
+		$(contentDiv).find('input[name=content]').attr('type', 'text');
+		
+	}
+	
+	
 	$(function(clubBoardNo) {
 		var empNo=${sessionScope.empNo!=map['EMP_NO']};
 		
@@ -23,7 +34,7 @@
 			   		type:"get",
 			   		dataType:"text",
 			   		data:{
-			   			clubBoardNo=clubBoardNo
+			   			clubBoardNo:clubBoardNo
 			   		},
 			   		success:function(res){
 			   			alert(res);
@@ -35,33 +46,35 @@
 		});
 	});
 	
-	$(function() {
+	/* $(function() {
 		$("#delComment").click(function() {
 		    var commentNo = $(this).data("comment_no");
-		    
-		    // Ajax 요청 보내기
-		    $.ajax({
-		      url: '/club/deleteComment',
-		      method: 'POST', // HTTP 요청 메서드 (GET, POST 등)
-		      data: {
-		        commentNo: commentNo
-		      },
-		      success: function(response) {
-		        // 서버 응답을 처리
-		        alert(response.msg); // 서버에서 반환한 메시지를 출력
-		        if (response.success) {
-		          // 삭제 성공 시 추가 작업 수행
-		          // 예를 들어, 페이지 새로고침 또는 리다이렉트
-		          window.location.href = response.url; // 리다이렉션
-		        }
-		      },
-		      error: function(xhr, status, error) {
-		        // 에러 처리
-		        console.error("에러 발생: " + error);
-		      }
-		    });
-		  });
-	});
+		    if(confirm('해당 댓글을 삭제하시겠습니까?')){
+		    	
+			    // Ajax 요청 보내기
+			    $.ajax({
+			      url: '/club/deleteComment',
+			      method: 'POST', // HTTP 요청 메서드 (GET, POST 등)
+			      data: {
+			        commentNo: commentNo
+			      },
+			      success: function(response) {
+			        // 서버 응답을 처리
+			        alert(response.msg); // 서버에서 반환한 메시지를 출력
+			        if (response.success) {
+			          // 삭제 성공 시 추가 작업 수행
+			          // 예를 들어, 페이지 새로고침 또는 리다이렉트
+			          window.location.href = response.url; // 리다이렉션
+			        }
+			      },
+			      error: function(xhr, status, error) {
+			        // 에러 처리
+			        console.error("에러 발생: " + error);
+			      }
+			    }); //ajax
+		  }//if
+		}); 
+	}); */
 </script>
 <div class="card">
 	<div class="card-header d-flex flex-between-center">
@@ -129,7 +142,7 @@
                   
 				<!-- 답변 반복 시작 -->
 				<c:forEach var="commtMap" items="${commtList}">
-					<div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
+					<div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1" id="btDiv">
 		            	<div class="d-flex align-items-center gap-2">
 		                    <c:if test="${!empty commtMap['IMAGE']}">
 			                    <div class="avatar avatar-2xl">
@@ -142,15 +155,14 @@
 			                    </div>
 		                    </c:if>
 		                    <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${commtMap['NAME']}</a>&nbsp;
-		                	<c:if test="${sessionScope.empNo==map['EMP_NO']}">
-							    <a href="<c:url value='/club/editComment?commentNo=${commentNo }&clubNo=${param.clubNo }&boardNo=${param.boardNo}'/>">
-							       <button class="btn btn-falcon-default btn-sm" id="edit" type="button">
-							          <span class="fas fa-pen" ></span>
-							       </button>
-							    </a>
-								<button onclick="deleteComment()" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
+		                	<c:if test="${sessionScope.empNo==commtMap['EMP_NO']}">
+							    <button class="btn btn-falcon-default btn-sm" onclick='editComment(this)' id="edit" type="button">
+							        <span class="fas fa-pen" ></span>
+							    </button>
+								<button onclick="deleteComment(${commtMap['COMMENT_NO']})" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
 									<span class="fas fa-trash-alt"></span>
 								</button>
+								<button class="btn btn-primary btn-sm me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
        						</c:if>
 		                </div>
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
@@ -160,10 +172,17 @@
 			              <!-- 글 줄바꿈 처리  -->
 		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
 		            	  <c:set var="content" value="${fn:replace(commtMap['CONTENT'], newLine, '<br>')}" />
-		                  
-		                  <div id="content">
-		                  	 ${content}
-		                  </div>
+		                  <form method="post" action="<c:url value='/club/editComment'/>">
+			                  <div id="content">
+			                  	 <span>${content}</span> 
+			                  	 <input type="hidden" name="content" value="${content}">
+			                  	 <input type="hidden" name="commentNo" value="${commtMap['COMMENT_NO']}">
+			                  	 <input type="hidden" name="boardNo" value="${commtMap['BOARD_NO']}">
+			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
+			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
+				                  <button class="btn btn-primary btn-sm me-2" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="확인" data-dismiss="collapse">확인</button>
+			                  </div>
+		                  </form>
 	                  </div>
 	            </c:forEach>
             <!-- 답변 반복 끝 -->
@@ -173,6 +192,7 @@
             <!-- 답변 등록 -->
             <form id="commtentFrm" name="commtentFrm" action="<c:url value='/club/clubComment'/>" method="post">
 	            <input name="empNo" type="hidden" value="${sessionScope.empNo}">
+	            <input name="commentNo" type="hidden" value="${param.commentNo}">
             	<input name="clubNo" type="hidden" value="${param.clubNo}">
             	<input name="boardNo" type="hidden" value="${param.boardNo}">
 	            
