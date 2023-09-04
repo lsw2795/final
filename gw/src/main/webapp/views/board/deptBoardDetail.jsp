@@ -257,31 +257,28 @@
 		var boardNo=$('#boardNo').val();
 		var empNo=$('#empNo').val();
 		//alert(boardNo+" : "+empNo);
-		
-		if(confirm('좋아요를 누르시겠습니까?')){
-			$.ajax({
-	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
-	            type:'get',
-				data:{
-					boardNo: boardNo,
-					empNo: empNo,
-				},
-				dataType:'json',
-	            success: function (res) {
-	            	if(res>0){
-	            		$('#heartDiv').empty();
-	            		$('#heart3').hide();
-	            		$('#heart2').hide();
-	               		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
-	               			+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";
-	               		$('#heartDiv').append(result);			
-	            	}
-	            },
-	            error:function(xhr,status,error){
-	                alert(status+" : "+error);
-	            } 
-	        });//ajax
-		}
+		$.ajax({
+            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+            type:'get',
+			data:{
+				boardNo: boardNo,
+				empNo: empNo,
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		$('#heartDiv').empty();
+            		$('#heart3').hide();
+            		$('#heart2').hide();
+               		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+               			+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";
+               		$('#heartDiv').append(result);			
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
 	}
 </script>
 <!-- 페이징 처리 관련 form -->
