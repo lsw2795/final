@@ -60,5 +60,10 @@
 		where board_no=#{boardNo} and emp_no=#{empNo}
 	</update>
 	
+	<select id="deptBoardLikeCount" parameterType="int">
+		select count(*) from secondhand_trade_like 
+		where board_no=#{boardNo}
+	</select>
+	
 
 </mapper>

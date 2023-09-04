@@ -16,4 +16,5 @@ public interface SecondhandTradeLikeDAO {
 	SecondhandTradeLikeVO selectLikeFlag(SecondhandTradeLikeVO secondLikeVo);
 	int updateLikeOff(SecondhandTradeLikeVO secondLikeVo);
 	int updateLikeOn(SecondhandTradeLikeVO secondLikeVo);
+	int deptBoardLikeCount(int boardNo);
 }

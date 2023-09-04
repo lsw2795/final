@@ -76,8 +76,10 @@ public class deptBoardController {
 		for(Map<String, Object> map : boardList) {
 			int boardNo=Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
 			int commentCount=comService.selCountDeptBoardReply(boardNo);
+			int likeCount=likeService.deptBoardLikeCount(boardNo);
 			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
 			map.put("commentCount", commentCount);
+			map.put("likeCount", likeCount);
 		}
 		
 		model.addAttribute("deptBoardList", deptBoardList);
@@ -420,7 +422,12 @@ public class deptBoardController {
 		logger.info("ajax - 부서게시판 좋아요 누르기 파라미터 likeVo={}", likeVo);
 		int cnt=likeService.insertDeptBoardLike(likeVo);
 		logger.info("ajax - 부서게시판 좋아요 누르기 결과 cnt={}", cnt);
-		return cnt;
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountUp(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountUp 결과 result={}", result);
+		}
+		return result;
 	}
 	
 	@ResponseBody
@@ -429,7 +436,12 @@ public class deptBoardController {
 		logger.info("ajax - 부서게시판 좋아요 취소 파라미터 likeVo={}", likeVo);
 		int cnt=likeService.updateLikeOff(likeVo);
 		logger.info("ajax - 부서게시판 좋아요 취소 결과 cnt={}", cnt);
-		return cnt;
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountDown(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountDown 결과 result={}", result);
+		}
+		return result;
 	}
 	
 	@ResponseBody
@@ -438,7 +450,12 @@ public class deptBoardController {
 		logger.info("ajax - 부서게시판 좋아요 다시누르기 파라미터 likeVo={}", likeVo);
 		int cnt=likeService.updateLikeOn(likeVo);
 		logger.info("ajax - 부서게시판 좋아요 다시누르기 결과 cnt={}", cnt);
-		return cnt;
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountUp(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountUp 결과 result={}", result);
+		}
+		return result;
 	}
 	
 }

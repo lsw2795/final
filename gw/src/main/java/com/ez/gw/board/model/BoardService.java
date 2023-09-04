@@ -44,6 +44,8 @@ public interface BoardService {
 	Map<String, Object> selNextDeptBoard(BoardVO vo); // 부서 게시판 - 다음글 보기
 	int updateDeptBoard(BoardVO vo); //부서 게시판 수정하기
 	int deleteDeptBoard(BoardVO vo); //부서 게시판 삭제하기(delflag='Y'로 변경)
+	int likeCountUp(int boardNo); //게시판 좋아요 수 올리기
+	int likeCountDown(int boardNo); //게시판 좋아요 수 내리기
 	
 	//Q&A 게시글 여러개 삭제 메서드
 	int deleteMulti(List<BoardVO> list);

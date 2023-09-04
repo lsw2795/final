@@ -59,4 +59,9 @@ public class SecondhandTradeLikeServiceImpl implements SecondhandTradeLikeServic
 		return secondLikeDao.updateLikeOn(secondLikeVo);
 	}
 
+	@Override
+	public int deptBoardLikeCount(int boardNo) {
+		return secondLikeDao.deptBoardLikeCount(boardNo);
+	}
+
 }
