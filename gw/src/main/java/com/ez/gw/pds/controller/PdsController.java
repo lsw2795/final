@@ -415,6 +415,19 @@ public class PdsController {
 		return mav;
 
 	}
+	
+	@RequestMapping("/pds/newFiveList")
+	public String newFiveList(Model model) {
+		//1
+		logger.info("자료실 - NEW 5 페이지");
+		
+		List<BoardVO> list = pdsService.selectPdsNew5();
+		logger.info("자료실 - NEW5 게시물 조회 list.size={}", list.size());
+		
+		model.addAttribute("list", list);
+		
+		return "pds/pdsNew5";
+	}
 
 	//-------------------admin------------------------------
 

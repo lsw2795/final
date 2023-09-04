@@ -35,4 +35,6 @@ public interface PdsDAO {
 	int insertPdsByAnonymous(PdsVO vo);
 	
 	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
+	//new 5
+	List<BoardVO> selectPdsNew5(); //자료실 new5 게시글 조회
 }
