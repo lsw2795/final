@@ -78,11 +78,16 @@
 		where trade_no =#{tradeNo}
 	</delete>
 	
-	<update id="updateLike" >
-		update likeview
+	<update id="like" parameterType="int">
+		update secondhand_trade
 		set likecount = likecount + 1
 		where trade_no = #{tradeNo}
-		and emp_no = #{empNo}
+	</update>
+	
+	<update id="dislike" parameterType="int">
+		update secondhand_trade
+		set likecount = likecount - 1
+		where trade_no = #{tradeNo}
 	</update>
 	
 	<select id="showLike">
