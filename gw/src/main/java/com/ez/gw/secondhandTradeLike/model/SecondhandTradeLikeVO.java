@@ -8,4 +8,5 @@ public class SecondhandTradeLikeVO {
 	 private String likeFlag;
 	 private int empNo;
 	 private int tradeNo;
+	 private int boardNo;
 }
