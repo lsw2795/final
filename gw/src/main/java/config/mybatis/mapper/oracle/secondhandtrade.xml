@@ -37,7 +37,7 @@
 	    ]]>
 	</select>
 	
-	<select id="selectMarketByNo" parameterType="int" resultType="secondHandTradeVo">
+	<select id="selectMarketByNo" parameterType="int" resultType="map">
 		select * from secondmarketview
 		where trade_no = #{tradeNo}
 	</select>
@@ -78,10 +78,11 @@
 		where trade_no =#{tradeNo}
 	</delete>
 	
-	<update id="updateLike">
-		update secondhand_trade
+	<update id="updateLike" >
+		update likeview
 		set likecount = likecount + 1
 		where trade_no = #{tradeNo}
+		and emp_no = #{empNo}
 	</update>
 	
 	<select id="showLike">

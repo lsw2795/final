@@ -10,6 +10,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,6 +41,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/market")
 @RequiredArgsConstructor
+@Transactional
 public class SecondHandTradeController {
 	private static final Logger logger = LoggerFactory.getLogger(SecondHandTradeController.class);
 	private final SecondHandTradeService secondHandTradeService;
@@ -216,26 +218,46 @@ public class SecondHandTradeController {
 	}
 
 	@RequestMapping("/marketDetail")
-	public String detail(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
+	public String detail(@RequestParam(defaultValue = "0") int tradeNo, Model model, HttpSession session) {
 
 		// 1
-		logger.info("중고거래 상세보기 페이지, 파라미터={}", tradeNo);
-
+		int empNo = (int)session.getAttribute("empNo");
+		logger.info("중고거래 상세보기 페이지, 파라미터={}, empNo={}", tradeNo, empNo);
+		
 		// 2
-		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
+		Map<String, Object> map = secondHandTradeService.selectMarketByNo(tradeNo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-		EmployeeVO emp = employeeService.selectByEmpNo(secondVo.getEmpNo());
-
-		logger.info("중고거래 상세보기 페이지 결과, secondVo={}, fileList.size={}", secondVo, fileList.size());
-
+		SecondhandTradeLikeVO likeVo = new SecondhandTradeLikeVO();
+		likeVo.setEmpNo(empNo);
+		likeVo.setTradeNo(tradeNo);
+		
+		SecondhandTradeLikeVO secondLikeVo = secondHandLikeService.selectLikeByEmpNo(likeVo);
+		logger.info("좋아요 secondLikeVo={}", secondLikeVo);
+		
+		// 3
+	    // 데이터베이스에서 반환되는 값은 BigDecimal 형식이므로 각 필드에 대해 Integer로 변환해야 합니다.
+	    if(map.get("READCOUNT")!=null && map.get("LIKECOUNT")!=null) {
+	    	Integer price = ((BigDecimal) map.get("PRICE")).intValue();
+	    	Integer readcount = ((BigDecimal) map.get("READCOUNT")).intValue();
+	    	Integer likecount = ((BigDecimal) map.get("LIKECOUNT")).intValue();
+	    	
+	    	// 4
+	    	// 변환한 값을 다시 map에 저장합니다.
+	    	map.put("PRICE", price);
+	    	map.put("READCOUNT", readcount);
+	    	map.put("LIKECOUNT", likecount);
+	    }
+		
+		
+		logger.info("중고거래 상세보기 페이지 결과, map, fileList.size={}", map, fileList.size());
+		
 		int cnt = secondHandTradeService.updateReadCount(tradeNo);
 		logger.info("조회수 증가 결과, cnt ={}", cnt);
 
 		// 3
-		model.addAttribute("vo", secondVo);
+		model.addAttribute("map", map);
 		model.addAttribute("file", fileList);
-		model.addAttribute("emp", emp);
-
+		model.addAttribute("likeVo", secondLikeVo);
 		// 4
 		return "market/marketDetail";
 	}
@@ -251,7 +273,7 @@ public class SecondHandTradeController {
 			return "common/message";
 		}
 		// 2
-		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
+		Map<String, Object> secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
 		logger.info("수정 게시글 조회 결과, secondVo={}", secondVo);
 		logger.info("수정 파일 조회 결과, fileList={}", fileList);
@@ -418,19 +440,6 @@ public class SecondHandTradeController {
 		return "common/message";
 	}
 
-	@RequestMapping("/like")
-	public String like(@RequestParam(defaultValue = "0") int tradeNo) {
-		// 1
-		logger.info("좋아요 누르기!, 파라미터 ={}", tradeNo);
-
-		// 2
-		int cnt = secondHandTradeService.updateLike(tradeNo);
-		logger.info("좋아요 결과 cnt={}", cnt);
-
-		// 3
-		// 4
-		return "redirect:/market/marketList";
-	}
 
 	@RequestMapping("/ajaxCheckPwd")
 	@ResponseBody
@@ -457,7 +466,12 @@ public class SecondHandTradeController {
 		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
 		like.setEmpNo(empNo); //사원번호 셋팅
 		like.setTradeNo(tradeNo); //거래번호 셋팅
-
+		
+		Map<String, Object> secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
+		BigDecimal likeBigDecimal = (BigDecimal)secondVo.get("LIKECOUNT");
+	    int likecount = likeBigDecimal.intValue();
+		
+		
 		//1 해당 회원이 해당글에 좋아요를 누른 적 있는지 조회 count 이용
 		int count = secondHandLikeService.findLikeCount(empNo, tradeNo);
 		int result = 0;
@@ -465,6 +479,7 @@ public class SecondHandTradeController {
 		if(count<1) {
 			secondHandLikeService.insertFirstHeart(like);
 			result = 1;
+			int cnt = secondHandTradeService.updateLike(tradeNo);
 			//3 만약에 else 0보다 크면 좋아요가 N 인지 Y인지 조회
 		}else {
 			String likeflag = secondHandLikeService.findLike(empNo, tradeNo);
@@ -473,14 +488,16 @@ public class SecondHandTradeController {
 				int cnt1 = secondHandLikeService.disLikeHeart(empNo, tradeNo);
 				logger.info("좋아요 취소 성공 여부 cnt1={}", cnt1);
 				result = 2;
+				likecount =- 1;
 				//5 N이면 likeHeart로 Y로 업데이트
 			}else if(likeflag.equals("N")) {
 				int cnt2 = secondHandLikeService.likeHeart(empNo, tradeNo);
 				logger.info("좋아요 성공 여부 cnt2={}", cnt2);
 				result = 1;
+				likecount =+ 1;
 			}
 		}
-
+		secondVo.put("likecount", likecount);
 		return result;
 	}
 

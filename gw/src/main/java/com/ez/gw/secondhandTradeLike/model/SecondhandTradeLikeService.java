@@ -14,4 +14,5 @@ public interface SecondhandTradeLikeService {
 	int updateLikeOff(SecondhandTradeLikeVO secondLikeVo);
 	int updateLikeOn(SecondhandTradeLikeVO secondLikeVo);
 	int deptBoardLikeCount(int boardNo);
+	SecondhandTradeLikeVO selectLikeByEmpNo(SecondhandTradeLikeVO likeVo);
 }

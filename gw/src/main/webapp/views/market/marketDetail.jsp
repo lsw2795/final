@@ -41,42 +41,13 @@ div.updateBtn {
     justify-content: flex-end;
 }
 
-.like-container{filter: url('#filter');
-  position: absolute; 
-  left: 50%; 
-  top: 50%; 
-  transform: translate(50%, -50%);
-}
-.like-cnt{  
-  position: absolute; 
-  cursor: pointer;
-  left: 50%; 
-  top: 100%; 
-  transform: translate(50%, -50%);     background: rgba(255,255,255,0.3);     width: 60px; 
-  height: 60px;  
-  border-radius: 50%;
-  text-align: center;
-  line-height: 75px;
-  z-index: 10;
-}
-.like-btn{
-  color: #fff;
-}
-
-.gp-header{font-family: georgia; font-size: 40px; color: #ddca7e; font-style: italic; text-align: center; margin-top: 31px;}
-.gp-footer{position: fixed; color: #fff; bottom: 10px; left: 50%; font-family: georgia; font-style: italic; transform: translateX(-50%);}
-.gp-footer .soc_icons{display: inline-block; color: #ddca7e; margin: 0px 0px;}
-
-
-::-moz-selection { background: transparent;}
-::selection {background: transparent;}
 </style>
 <div class="content">
 		<h2>상세보기</h2>
 		
 		<c:if test="${sessionScope.empNo==emp.empNo }">
 			<div class="updateBtn">
-				<a href="<c:url value='/market/editMarket?tradeNo=${vo.tradeNo}'/>">
+				<a href="<c:url value='/market/editMarket?tradeNo=${map["TRADE_NO"]}'/>">
 	              	<button class="btn btn-falcon-default btn-sm" type="button">
 	            		<span class="fas fa-ban" data-fa-transform="shrink-2 down-1"></span>
 	   	        		<span class="d-none d-md-inline-block ms-1">수정</span>
@@ -122,31 +93,30 @@ div.updateBtn {
                 
           
                 <div class="col-lg-6">
-                  <h4><strong>${vo.title }</strong></h4>
-                  <input type="hidden" id="tradeNo" name="tradeNo" value="${vo.tradeNo }">
-                  ${file }
+                  <h4><strong>${map["TITLE"] }</strong></h4>
+                  <input type="hidden" id="tradeNo" name="tradeNo" value="${map['TRADE_NO'] }">
                   <h6 class="fs--1 mb-2 d-block" href="#!">
-                  	<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm"/>
+                  	<fmt:formatDate value="${map['REGDATE'] }" pattern="yyyy-MM-dd HH:mm"/>
                  	</h6>
                  	<span><strong> 작성자 :  </strong>
-						  ${emp.name }
+						  ${map['NAME'] }
                  	  </span>
                  	  <input type = "hidden"  id="empNo" name="empNo" value="${sessionScope.empNo}">
                   <hr>
                   <h4 class="d-flex align-items-center"><span class="me-2">
-                  	<fmt:formatNumber value="${vo.price }" pattern="#,###"/>원 
+                  	<fmt:formatNumber value="${map['PRICE'] }" pattern="#,###"/>원 
                   	</span><span class="me-1 fs--1 text-500">
                       </span></h4>
                 
                   	<p class="fs--1 mb-1">
-						♥ 좋아요 : <span id="showLike"><strong>${vo.likeCount }</strong></span>
+						♥ 좋아요 : <span id="showLike"><strong>${map["LIKECOUNT"] }</strong></span>
 					</p>
-                  <p class="fs--1 mb-1"> <span>조회수 : ${vo.readCount } </span></p>
+                  <p class="fs--1 mb-1"> <span>조회수 : ${map["READCOUNT"] } </span></p>
                   <p class="fs--1">Stock: 
-                  	<c:if test="${vo.selFlag=='N' }">
+                  	<c:if test="${map['SELFLAG']=='N' }">
                     	<strong class="text-success">거래가능</strong>
                     </c:if>
-                    <c:if test="${vo.selFlag=='Y' }">
+                    <c:if test="${map['SELFLAG']=='Y' }">
                     	<strong class="text-danger">판매완료</strong>
                     </c:if>
                   </p>
@@ -158,15 +128,26 @@ div.updateBtn {
                    		</a>
                  	</div>
                     <div class="col-auto px-0">
-                    	<div class="like-container">
-						  <div class="like-cnt unchecked" id="like-cnt">
-						  <i class="like-btn material-icons">thumb_up</i>
+                    	<div class="ILikeIt">
+						<div class = "likebox">
+						<c:if test = "${empty likeVo.likeFlag }">
+						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+							<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						</a>
+						</c:if>
+						<c:if test = "${likeVo.likeFlag =='N' }">
+						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+							<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						</a>
+						</c:if>
+						<c:if test = "${likeVo.likeFlag =='Y' }">
+						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+							<img id="heartimg2" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						</a>
+						</c:if>
+						<span class="mypagehyphen"></span>
 						</div>
-						
-						</div>
-                    	<a class="btn btn-sm btn-outline-danger border border-300" href="#" id = "likeit" data-bs-toggle="tooltip" data-bs-placement="top" >
-                    		<span class="far fa-heart me-1" id="heart"></span>
-                    	</a>
+					</div>
                     </div>
                   </div>
                 </div>
@@ -183,7 +164,7 @@ div.updateBtn {
                         
                         <!-- 글 줄바꿈 처리  -->
 		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
-		            	  <c:set var="content" value="${fn:replace(vo.discription, newLine, '<br>')}" />
+		            	  <c:set var="content" value="${fn:replace(map['DISCRIPTION'], newLine, '<br>')}" />
                   	 		${content}
                   	 		
                         </div>
