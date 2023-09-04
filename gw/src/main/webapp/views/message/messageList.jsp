@@ -40,6 +40,13 @@
 			
 			return false;
 		});
+		
+		$('#deleteBt').click(function(){
+			empNo=$('#InfoDiv').find('input[name=empNo]').val();
+			if(confirm("메시지를 전체 삭제 하시겠습니까?")){
+				location.href="<c:url value='/message/allDelete?reader="+empNo+"'/>"
+			}
+		});
 	});
 	
 	function setWrite(a,empNo){
@@ -72,7 +79,9 @@
 	function infoSet(map){
 		var str="<h5 class='mb-0 text-truncate fs-0'>"+map.NAME+"</h5>";
 		str+="<div class='fs--2 text-400'>"+map.DEPT_NAME+" "+map.POSITION_NAME+"</div>";
+		str+="<input type='hidden' name='empNo' value='"+map.EMP_NO+"'>";
 		$('#InfoDiv').html(str);
+		$('#deleteBt').show();
 	}
 	
 	function messageSet(list){
@@ -309,12 +318,13 @@
 			<div class="tab-pane card-chat-pane active" id="chat-0" role="tabpanel" aria-labelledby="chat-link-0">
             	<div class="chat-content-header">
                 	<div class="row flex-between-center">
-                    	<div class="col-6 col-sm-8 d-flex align-items-center">
+                    	<div class="col-4 align-items-center">
 	                        <div id="InfoDiv" class="min-w-0">
 	                        	<h5 class="mb-0 text-truncate fs-0">쪽지를 클릭하세요</h5>
 	                        </div>
                       	</div>
-                    	<div class="col-3 col-sm-4 align-items-center p-0" align="right">
+                    	<div class="col-6 align-items-center p-0" align="right">
+                    		<button class="btn btn-primary btn-sm px-5 me-2" id="deleteBt" style="display: none;" type="button" onclick="allDelete()">전체삭제</button>
                     		<button class="btn btn-primary btn-sm px-5 me-2" type="button" onclick="writePage()">새쪽지</button>
                     	</div>
                     </div>
