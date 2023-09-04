@@ -346,6 +346,10 @@
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
+                	<c:if test="${boardlistVo.boardLike=='Y'}">
+	                	추천수 : ${map['LIKECOUNT']}
+	                	<span class="mypagehyphen"></span>
+                	</c:if>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="mypagehyphen"></span>
                 </div>

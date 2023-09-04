@@ -64,33 +64,43 @@
 	         });//ajax
 		}); 
 		
-		
 		$('#btnadminPwd2').click(function(){ //모달에 있는 클릭버튼
-			 $.ajax({
-	            url : "<c:url value='/ajaxPwdCheck'/>",
-	            type:"get",
-	            dataType : "text",
-	            data:"pwd="+$('#adminPwd2').val(),
-	            success: function(res){
-	               if(res>0){
-	                  	 alert("관리자 확인이 완료되었습니다.");
-	                  	 $('#authentication-modal2').modal('hide');
-	                  	 $('#frmWrite').submit();
-	                 
-	               }else{
-		                alert('관리자 비밀번호가 일치하지 않습니다.');
-	               }
-	            },
-	            error:function(xhr, status, error){
-	               alert(status+" : "+error);
-	            }
-	         });//ajax
+			 ajaxPwdCheck();
+		});
+		
+		$('#adminPwd2').keyup(function(event){
+			if (event.keyCode === 13 || event.key === 'Enter') {
+				 ajaxPwdCheck();
+	        }
 		});
 		
 		$('#btCancel').click(function(){
 			location.href="<c:url value='/admin/employee/employeeList'/>";
 		});
 	});
+	
+	function ajaxPwdCheck(){
+		$.ajax({
+            url : "<c:url value='/ajaxPwdCheck'/>",
+            type:"get",
+            dataType : "text",
+            data:"pwd="+$('#adminPwd2').val(),
+            success: function(res){
+               if(res>0){
+                  	 alert("관리자 확인이 완료되었습니다.");
+                  	 $('#authentication-modal2').modal('hide');
+                  	 $('#frmWrite').submit();
+                 
+               }else{
+	                alert('관리자 비밀번호가 일치하지 않습니다.');
+               }
+            },
+            error:function(xhr, status, error){
+               alert(status+" : "+error);
+            }
+         });//ajax
+	}
+	
 </script>
 <c:if test="${!empty param.empNo}">
 	<c:set var="pageTitle" value="사원 정보 수정"/>
