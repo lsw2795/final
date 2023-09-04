@@ -64,6 +64,20 @@ public class ClubServiceImpl implements ClubService{
 		return cnt;
 	}
 
+	@Override
+	public int joinClub(String merchantNo, String clubNo, String empNo) {
+		
+		int parsedClubNo = Integer.parseInt(clubNo);
+		int parsedEmpNo = Integer.parseInt(empNo);
+		
+		return clubDao.joinClub(merchantNo, parsedClubNo, parsedEmpNo);
+	}
+
+	@Override
+	public int outClub(int empNo) {
+		return clubDao.outClub(empNo);
+	}
+
 	
 
 	

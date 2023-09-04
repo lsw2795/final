@@ -73,7 +73,6 @@
 		where emp_no=#{empNo} and clubboard_No=#{clubBoardNo}
 	</select>
 	
-	
 	<select id="searchAnonymousCommentReport" resultType="int" parameterType="reportVo">
 		select count(*) from report
 		where emp_no=#{empNo}

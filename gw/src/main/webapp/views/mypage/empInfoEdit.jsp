@@ -216,7 +216,10 @@ function btnpwdEdit(empNo){
 									<span class="mypageempspan">미가입</span>
 								</c:if>
 								<c:if test="${!empty map['CLUB_NO']}">
-									<span class="mypageempspan">${map['TITLE']}</span>
+									<span class="mypageempspan">${map['TITLE']}</span>&nbsp;
+									<a href="<c:url value='/club/outClub?empNo=${map["EMP_NO"]}'/>">
+										<input type="Button" value="탈퇴" class="btn btn-primary btn-sm" style="width: 10%;">
+									</a>
 								</c:if>
 							</div>
 						</div>

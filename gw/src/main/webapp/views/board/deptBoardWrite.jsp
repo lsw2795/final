@@ -8,10 +8,6 @@
 	$(function(){
 		$('#title').focus();
 		
-/* 		$('#btnCancel').click(function(){
-			location.href	= "<c:url value='/admin/board/noticeList'/>";
-		}); */
-		
 		$('input[type=submit]').click(function(){
 			if($('input[name=title]').val().trim().length<1){
 				alert("제목을 입력하세요.");

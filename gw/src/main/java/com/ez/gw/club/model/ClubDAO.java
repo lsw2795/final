@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ez.gw.common.SearchVO;
 
@@ -14,5 +15,6 @@ public interface ClubDAO {
 	ClubVO selectByClubNo(int clubNo);
 	int updateClub(ClubVO vo);
 	int deleteClub(int clubNo);
-	
+	int joinClub(@Param("merchantNo")String merchantNo,@Param("clubNo") int clubNo, @Param("empNo") int empNo);
+	int outClub(int empNo);
 }

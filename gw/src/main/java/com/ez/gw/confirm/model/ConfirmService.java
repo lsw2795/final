@@ -30,4 +30,5 @@ public interface ConfirmService {
 	List<Map<String, Object>> selectAllByAdmin(ConfirmVO vo);
 	int updateConfirmDelFlag(String[] confirmDocumentNo);
 	int searchByDocumentFormNo(int documentNo);
+	List<Map<String, Object>> selectConfirmList5(int empNo);
 }

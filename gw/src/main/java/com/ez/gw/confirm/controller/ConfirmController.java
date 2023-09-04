@@ -317,7 +317,7 @@ public class ConfirmController {
     	List<Map<String, Object>> list = confirmService.selectAllByEmpNo(vo);
     	logger.info("결재문서 조회결과, list.size={}",list.size());
     	
-    	int totalRecord = confirmService.getTotalRecordAdmin(vo);
+    	int totalRecord = confirmService.getTotalRecord(vo);
 		logger.info("결재문서 조회결과, totalRecord={}",totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
     	
@@ -330,6 +330,23 @@ public class ConfirmController {
     	
     	//4
     	return "approval/confirmList";
+    }
+    
+    @RequestMapping("/confirmList5")
+    public String confirmList5(@ModelAttribute ConfirmVO vo, HttpSession session, Model model) {
+    	//1
+    	int empNo=(int)session.getAttribute("empNo");
+    	logger.info("메인 결재 리스트5 empNo={}",empNo);
+    	
+    	//2
+    	List<Map<String, Object>> list = confirmService.selectConfirmList5(empNo);
+    	logger.info("결재문서 조회결과, list.size={}",list.size());
+    	
+    	//3
+    	model.addAttribute("list",list);
+    	
+    	//4
+    	return "approval/confirmList5";
     }
     
     @RequestMapping("/confirmList/admin")

@@ -6,11 +6,13 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html></html>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
+
 <head>
 <meta charset="UTF-8">
 <title>전사원 근태 현황</title>
+
+
 <style type="text/css">
 	.s-container {
 		background: white;
@@ -28,7 +30,7 @@
 	
 	.t-search {
 		margin: 20px 0 10px;
-		width: 90%;
+		width: 85%;
 		margin-right: auto;
 		text-align: center;
 		border-collapse: collapse;
@@ -162,7 +164,50 @@
 	
 </style>
 
+<script type="text/javascript">
+	$(function() {
+	    // date1 input 요소에 값이 변경될 때
+	    $("input[name='date1']").on("change", function() {
+	        var date1Value = $(this).val();
+	        $("input[name='date1']").val(date1Value);
+	    });
+
+	    // date2 input 요소에 값이 변경될 때
+	    $("input[name='date2']").on("change", function() {
+	        var date2Value = $(this).val();
+	        $("input[name='date2']").val(date2Value);
+	    });
+		
+	    $("#searchForm").submit(function(event) {
+	        var date1 = $("input[name='date1']").val();
+	        var date2 = $("input[name='date2']").val();
+	        
+	        // 두 날짜 중 하나만 선택되었을 때
+	        if ((date1.length > 1 && date2.length < 1) || (date2.length > 1 && date1.length < 1)) {
+	            event.preventDefault(); // 폼 제출 방지
+	            alert('두 날짜 중 하나만 선택되었습니다. 다른 하나를 선택하세요.');
+	        }
+	    });
+	});
+
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+</script>
+
 </head>
+
+
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/admin/commute/allCommute'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+	<input type="hidden" name="date1" value="${param.date1}"> 
+	<input type="hidden" name="date2" value="${param.date2}">
+	<input type="hidden" name="deptNo" value="${param.deptNo}">
+	<input type="hidden" name="emp" value="${param.emp}">
+</form>
 
 <div class="s-container">
 			<div>
@@ -179,29 +224,39 @@
 						<th class="th-1">총 근무시간</th>
 					</tr>
 						<tr>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
+							<td>${attendance}</td>
+							<td>${late}</td>
+							<td>${ealry}</td>
+							<td>${TotalWorkTimeOfMonth}
+								<c:if test="${!empty TotalWorkTimeOfMonth}">h</c:if>
+							</td>
+							</tr>
 						</tr>	
 				</table> 
 			</div>	
 
 		<div class="search">
-			<span style="margin-top:35px; float: left;">조회결과 1건</span>
-			<form action="/leave/searchDate.sw" method="post" class="form-search">
+			<span style="margin-top:35px; float: left;">조회결과 ${totalRecord}건</span>
+			<form id="searchForm" action="<c:url value='/admin/commute/allCommute'/>" method="post" class="form-search">
 				<table class="t-search">
 			    	<tr>
 			    		<td class="t-search-title">
 			    			검색일
 			    		</td>
 			    		<td class="searchTD">
-			    			<input type="date" name="date1"> ~
-			    			<input type="date" name="date2">
-			    			<select name="dept">
+			    			<input type="date" name="date1" value="${param.date1}"> ~
+			    			<input type="date" name="date2" value="${param.date2}">
+			    			<select name="deptNo">
 			    				<option value="">모든부서</option>
+			    				<c:forEach var="vo" items="${deptList}">
+				    				<option value="${vo.deptNo}"  
+				    					<c:if test="${vo.deptNo==param.deptNo}">
+				    						selected="selected"
+				    					</c:if>
+				    				>${vo.name}</option>
+			    				</c:forEach>
 			    			</select>
-			    			<input type="text" name="emp" placeholder="사번/사원명 검색">
+			    			<input type="text" name="emp" placeholder="사번/사원명 검색" value="${param.emp}">
 				      		<input type="submit" value="검색" style="color: black;">
 				      	</td>
 				     </tr>
@@ -237,10 +292,10 @@
 							<td>${map['DEPT_NAME']}</td>
 							<td>${map['POSITION_NAME']}</td>
 							<td>${map['NAME']}</td>
-							<td>${map['WORK_IN']}</td>
-							<td>출근시간</td>
-							<td>퇴근시간</td>
-							<td>근무시간</td>
+							<td>${map['workDate']}</td>
+							<td>${map['workInTime']}</td>
+							<td>${map['workOutTime']}</td>
+							<td>${map['workTime']}</td>
 							<c:choose>
 								<c:when test="${map['state']!='정상근무'}">
 									<td style="color: red;">${map['state']}</td>
@@ -253,8 +308,37 @@
 					</c:forEach>
 				</c:if>
 			</table>
+			
+			<div  class="mt-3 card-footer d-flex justify-content-center admindefault">
+				<div class="divPage" id="divPage">
+					<!-- 페이지 번호 추가 -->		
+					<!-- 이전 블럭으로 이동 -->
+					<c:if test="${pagingInfo.firstPage>1 }">
+						<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<img src="<c:url value='/images/first.JPG'/>">
+						</a>
+					</c:if>	
+									
+					<!-- [1][2][3][4][5][6][7][8][9][10] -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+						<c:if test="${i == pagingInfo.currentPage }">		
+							<span id="curPage">${i}</span>
+				        	</c:if>
+						<c:if test="${i != pagingInfo.currentPage }">		
+					        <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+					    </c:if>   		
+					</c:forEach>
+					
+					<!-- 다음 블럭으로 이동 -->
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+				         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<img src="<c:url value='/images/last.JPG'/>">
+						</a>
+					</c:if>
+					<!--  페이지 번호 끝 -->
+				</div>
+			</div>
 		</div>
-	</form>
 </div>
 
 <%@ include file="../../inc/adminBottom.jsp"%>   

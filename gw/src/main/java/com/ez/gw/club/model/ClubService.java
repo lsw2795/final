@@ -13,4 +13,6 @@ public interface ClubService {
 	int updateClub(ClubVO vo);
 	int deleteClub(int clubNo);
 	int deleteMulti(List<ClubVO> list); //관리자 다중 삭제
+	int joinClub(String merchantNo, String clubNo, String empNo);
+	int outClub(int empNo);
 }

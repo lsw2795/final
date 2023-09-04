@@ -261,6 +261,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteDeptBoard(vo);
 	}
 
+	@Override
+	public int likeCountUp(int boardNo) {
+		return boardDao.likeCountUp(boardNo);
+	}
+
+	@Override
+	public int likeCountDown(int boardNo) {
+		return boardDao.likeCountDown(boardNo);
+	}
+
 
 
 }

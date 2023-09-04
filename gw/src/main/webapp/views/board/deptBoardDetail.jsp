@@ -10,12 +10,279 @@
 			}
 		});
 		
+		$('#btnInsertCM').click(function(){
+			if($('#commentContent').val().length<10){
+				alert('댓글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#commentContent').focus();
+				return false;
+			}
+			
+			//alert($.param($('#frmComment').serializeArray())); 
+			$.ajax({
+	            url: "<c:url value='/board/ajaxInsertBoardCM'/>",
+	            type:'post',
+				data: $('#frmComment').serializeArray(),
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 등록이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
+		
+		$('.btnCancelCM').click(function(){
+			location.reload();
+		});
+		
 	});
 
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
+	
+	function btnCmEdit(index){
+		var commentNo=$('#commentNo'+index).val();
+		//alert(commentNo);
+		var cmContent=$('#cmContent'+index).text();
+		//alert(cmContent);
+		$('#commentDiv'+index).empty();
+		var result="<textarea class='form-control' id='editCM"+index+"' name='content' rows='3'>"+cmContent+"</textarea>";
+		$('#commentDiv'+index).append(result);
+		$('#editCM'+index).focus();
+		$('#btnCmEdit'+index).hide();
+		$('#realEditCM'+index).css("visibility", "visible");
+		$('#btnCancel'+index).css("visibility","visible");
+		
+		$('#realEditCM'+index).click(function(){
+			if($('#editCM'+index).val().length<10){
+				alert('댓글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#editCM'+index).focus();
+				return false;
+			}
+			var content=$('#editCM'+index).val();
+			var boardlistNo='<%= request.getParameter("boardlistNo") %>';
+			var commentNo=$('#commentNo'+index).val();
+			//alert(content+" : "+boardlistNo+" : "+commentNo);
+			
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateBoardCM'/>",
+	            type:'get',
+				data:{
+					content: content,
+					boardlistNo: boardlistNo,
+					commentNo: commentNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 수정이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
+	}
+	
+	function btnCmDel(index){
+		if(confirm('댓글을 삭제하시겠습니까?')){
+		var boardlistNo='<%= request.getParameter("boardlistNo") %>';
+		var commentNo=$('#commentNo'+index).val();
+			//alert(boardlistNo+" : "+commentNo);
+			$.ajax({
+	            url: "<c:url value='/board/ajaxDeleteBoardCM'/>",
+	            type:'get',
+				data:{
+					boardlistNo: boardlistNo,
+					commentNo: commentNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("댓글 삭제가 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+			
+		}
+	}
+	
+	function insertRCM(index){
+		var email=$('#email').val();
+		var name=$('#name').val();
+		
+		$('#textAreaDiv'+index).empty();
+		$('#btnInsertRCMDiv'+index).empty();
+		$('#empDiv'+index).empty();
+		
+		var result="<textarea class='form-control' id='commentRContent"+index+"' rows='3'></textarea>";
+		$('#textAreaDiv'+index).append(result);
+		
+		var result2="<input type='button' id='btnInsertRCM"+index+"' value='등록' class='btn btn-outline-primary' style='height:82px; visibility: hidden;'/>"
+     		+"&nbsp;<input type='button' id='btnCancelRCM"+index+"' value='취소' class='btn btn-outline-secondary btnCancelRCM' style='height:82px; visibility: hidden;'/>";
+		$('#btnInsertRCMDiv'+index).append(result2);
+		
+		var result3="<span class='bold' style='color: black;'>"+name+"</span>&nbsp;"
+        			+"<span class='text-500'>&lt;"+email+"&gt;</span>";
+		$('#empDiv'+index).append(result3);
+		$('#insertRCM'+index).hide();
+		$('#btnInsertRCM'+index).css("visibility", "visible");
+		$('#btnCancelRCM'+index).css("visibility","visible");
+		
+		
+		$('.btnCancelRCM').click(function(){
+			location.reload();
+		});
+		
+		$('#btnInsertRCM'+index).click(function(){
+			var content=$('#commentRContent'+index).val();
+			var boardlistNo=$('#boardlistNo').val();
+			var boardNo=$('#boardNo').val();
+			var empNo=$('#empNo').val();
+			var groupNo=$('#groupNo'+index).val();
+			var sortNo=$('#sortNo'+index).val();
+		//alert(content+" : "+boardlistNo+" : "+boardNo+" : "+empNo+" : "+groupNo+" : "+sortNo);
+		
+			if($('#commentRContent'+index).val().length<10){
+				alert('답글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
+				$('#editCM'+index).focus();
+				return false;
+			}
+		
+			$.ajax({
+	            url: "<c:url value='/board/ajaxReplyRCM'/>",
+	            type:'get',
+				data:{
+					content: content,
+					boardlistNo: boardlistNo,
+					boardNo: boardNo,
+					empNo: empNo,
+					groupNo: groupNo,
+					sortNo: sortNo
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+                   		alert("답글 등록이 완료되었습니다.");
+                   		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		});
+		
+	}
+	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function deptBoardLikeOn(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 누르시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxInsertDeptBoardLike'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빨간하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
+	
+	
+	function deptBoardLikeOff(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 취소하시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOff'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빈하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/heartoff.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
+	
+	function deptBoardLikeOn2(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 누르시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	               		//빨간하트로 바꾸기
+	               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
+	               		location.reload();
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
 </script>
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/board/deptBoardDetail'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage" value=${param.currentPage }>
+	<input type="hidden" name="boardlistNo" value=${param.boardlistNo }>
+	<input type="hidden" name="boardNo" value=${param.boardNo }>
+</form>	
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between ">
                <div class="d-lg-flex">
@@ -38,7 +305,10 @@
                   </div>
                   </c:if>
                   <div class="flex-1 ms-2">
-                    <h5 class="mb-0 ">${map['TITLE']}</h5>
+                    <h5 class="mb-0">${map['TITLE']}</h5>
+                    <c:if test="${boardlistVo.secflag=='N'}">
+                    익명
+                    </c:if>
                     <c:if test="${boardlistVo.secflag=='Y'}">
                     <a class="text-800 fs--1" href="#" onclick="empDetail(${map['EMP_NO']});">
 	                    <span class="bold" style="color: black;">${map['NAME']}</span>
@@ -49,10 +319,24 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
-                		<a href="#" id="heart" style="float: right;">
-							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
-						</a>
-						<span class="mypagehyphen"></span>
+	                	<c:if test="${empty likeVo}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
+	                	<c:if test="${likeVo.likeFlag=='Y'}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOff();">
+								<img id="heartimg" src="<c:url value='/images/hearton.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
+	                	<c:if test="${likeVo.likeFlag=='N'}">
+	                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLikeOn2();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+							<span class="mypagehyphen"></span>
+	                	</c:if>
                 	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
 	                	<a href="<c:url value='/board/deptBoardEdit?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>" class="btn btn-outline-warning">수정</a>
@@ -62,6 +346,10 @@
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
+                	<c:if test="${boardlistVo.boardLike=='Y'}">
+	                	추천수 : ${map['LIKECOUNT']}
+	                	<span class="mypagehyphen"></span>
+                	</c:if>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="mypagehyphen"></span>
                 </div>
@@ -112,6 +400,8 @@
                   </div>
                 </div>
             </div>
+            
+            
             	<c:if test="${boardlistVo.commentFlag=='Y'}">
                 <div class="card-header">
                   <h5 class="mb-0">댓글</h5>
@@ -120,34 +410,132 @@
                   <div class="position-relative rounded-1 border bg-white dark__bg-1100 p-3">
                     <div class="position-absolute end-0 top-0 mt-2 me-3 z-1">
                     </div>
-                    <div class="row gx-2">
-                      <div class="col-sm-6 mb-3">
-                        <input class="form-control" value="${sessionScope.empNo}" type="text" style="width: 100px;" readonly/>
+                    <div class="row">
+                    <form id="frmComment">
+                    <input type="hidden" value="${empVo.name}" id="name" name="name"/>
+                    <input type="hidden" value="${empVo.email}" id="email" name="email"/>
+                    <input type="hidden" value="${empVo.empNo}" id="empNo" name="empNo"/>
+                    <input type="hidden" value="${param.boardlistNo}" id="boardlistNo" name="boardlistNo"/>
+                    <input type="hidden" value="${param.boardNo}" id="boardNo" name="boardNo"/>
+                      <div class="mb-3">
+                		<div class="col-auto">
+		                  <a href="#" onclick="empDetail(${empVo.empNo});">
+		                    <span class="bold" style="color: black;">${empVo.name}</span>
+		                    <span class="text-500">&lt;${empVo.email}&gt;</span>
+                    	  </a>
+                   	   </div>
                       </div>
-                      <div class="col-12">
-                        <textarea class="form-control form-control-sm" id="field-options" rows="3"></textarea>
+                      <div class="row mb-3 d-flex align-items-center">
+                      	<div class="col-md-11 mypageempdiv1">
+                        <textarea class="form-control" id="commentContent" name="content" rows="3"></textarea>
+                      	</div>
+	                      <div class="col-auto mypageempdiv16">
+	            			<input type="submit" id="btnInsertCM" value="등록" class="btn btn-outline-primary" style="height:82px;"/>
+	                      </div>
                       </div>
-                    </div><br>
-                    <div class="d-flex">
-                    <div class="flex-1 position-relative ps-3">
-                      <h6 class="fs-0 mb-0">Big Data Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                      </h6>
-                       <!-- <button class="btn btn-link btn-sm p-0" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button> -->
-                      <p class="mb-1"> <a href="#!">Google</a></p>
-                      <p class="text-1000 mb-0">Apr 2012 - Present &bull; 6 yrs 9 mos</p>
-                      <p class="text-1000 mb-0">California, USA</p>
-                      <div class="border-bottom border-dashed my-3"></div>
-                    </div>
-                  </div>
-                  <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/nike.png" alt="" width="56" /></a>
-                    <div class="flex-1 position-relative ps-3">
-                      <h6 class="fs-0 mb-0">Mobile App Developer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                      </h6>
-                      <p class="mb-1"> <a href="#!">Nike</a></p>
-                      <p class="text-1000 mb-0">Jan 2011 - Apr 2012 &bull; 1 yr 4 mos</p>
-                      <p class="text-1000 mb-0">Beaverton, USA</p>
-                    </div>
-                  </div>
+                      </form>
+                      </div>
+                    <br>
+                   <c:if test="${!empty comList}">
+                   <c:set var="i" value="0"></c:set>
+                   <c:forEach var="comMap" items="${comList }">
+					<div class="row">
+					<!-- 댓/답구분 --> 
+						<c:if test="${comMap['SORTNO']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+							<!-- 1일때 10번 스페이스바 -->
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+						</c:if>
+						<c:if test="${boardlistVo.secflag=='Y'}">
+					    <div class="flex-1 position-relative ps-3">
+					      <a href="#" onclick="empDetail(${comMap['EMP_NO']});">
+					        <h6 class="fs-0 mb-0">${comMap['NAME']}
+					          <span>[${comMap['DEPT_NAME']}]${comMap['POSITION_NAME']}</span>
+					        </h6>
+					      </a>
+					      <span class="mb-1">${comMap['EMAIL']}</span>
+					    </div>
+					    </c:if>
+					    <c:if test="${boardlistVo.secflag=='N'}">
+					    <div class="flex-1 position-relative ps-3">
+					    익명
+					    </div>
+					    </c:if>
+						    <div class="col-md-7 text-end">
+						    <input type="hidden" id="groupNo${i }" name="groupNo" value="${comMap['GROUPNO']}"/>
+						    <input type="hidden" id="sortNo${i }" name="sortNo" value="${comMap['SORTNO']}"/>
+						     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
+						      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+						      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
+							  <span class='mypagehyphen'></span>
+							  <input type="button" id="btnCancel${i }" class="btn btn-secondary btnCancelCM" value="취소" style="visibility: hidden;"/>
+						      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
+						      </c:if>
+						      <input onclick="insertRCM(${i })" id="insertRCM${i }" class="btn btn-outline-warning" type="button" value="답글달기">
+						      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
+						       <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+						      	<button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
+						    	</c:if>
+						    </div>
+						<div class="mb-3 mt-3" id="commentDiv${i }">
+						<!-- 댓/답구분 --> 
+						<c:if test="${comMap['SORTNO']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+							<!-- 1일때 10번 스페이스바 -->
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+						</c:if>
+					      <span class="text-1000 mb-0" id="cmContent${i }">${comMap['CONTENT']}</span>
+					    </div>
+					  </div>
+					  <div class="border-bottom border-dashed my-3"></div>
+                  	<div class="row mb-3 d-flex align-items-center">
+                       <div class="mb-3">
+                		<div class="col-auto" id="empDiv${i }"></div>
+                      </div>
+                      <div class="col-md-10 mypageempdiv1">
+                     	<div id="textAreaDiv${i }"></div>
+                      </div>
+	                  <div class="col-auto mypageempdiv16">
+	                  	<div id="btnInsertRCMDiv${i }"></div>
+	                  </div>
+                     </div>
+					  <c:set var="i" value="${i+1 }"/>
+					</c:forEach>
+                  </c:if>
+                 <!-- 댓글 페이징처리 구간 -->
+                 <div class="card-footer d-flex justify-content-center">
+					<div class="divPage" id="divPage">
+						<!-- 페이지 번호 추가 -->		
+						<!-- 이전 블럭으로 이동 -->
+						<c:if test="${pagingInfo.firstPage>1 }">
+							<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								<img src="<c:url value='/images/first.JPG'/>">
+							</a>
+						</c:if>	
+										
+						<!-- [1][2][3][4][5][6][7][8][9][10] -->
+						<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+							<c:if test="${i == pagingInfo.currentPage }">		
+								<span id="curPage">${i}</span>
+					        	</c:if>
+							<c:if test="${i != pagingInfo.currentPage }">		
+						         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+						    </c:if>   		
+						</c:forEach>
+						
+						<!-- 다음 블럭으로 이동 -->
+						<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								<img src="<c:url value='/images/last.JPG'/>">
+							</a>
+						</c:if>
+						<!--  페이지 번호 끝 -->
+					</div>
+				</div>
+                 
+                 
                   </div>
                 </div>
                 </c:if>

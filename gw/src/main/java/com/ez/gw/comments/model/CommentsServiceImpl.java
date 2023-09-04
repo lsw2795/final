@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ez.gw.common.EmpSearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -71,5 +73,46 @@ public class CommentsServiceImpl implements CommentsService{
 	public int updateCommentReport(int commentNo) {
 		return commentsDao.updateCommentReport(commentNo);
 	}
+
+	@Override
+	public int insertDeptBoardCM(CommentsVO vo) {
+		return commentsDao.insertDeptBoardCM(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectDeptBoardCM(EmpSearchVO searchVo) {
+		return commentsDao.selectDeptBoardCM(searchVo);
+	}
+
+	@Override
+	public int updateDeptBoardCM(CommentsVO vo) {
+		return commentsDao.updateDeptBoardCM(vo);
+	}
+
+	@Override
+	public int deleteDeptBoardCM(CommentsVO vo) {
+		return commentsDao.deleteDeptBoardCM(vo);
+	}
+
+	@Override
+	@Transactional
+	public int reply2(CommentsVO vo) {
+		int cnt=commentsDao.updateSortNo(vo);
+		cnt=commentsDao.insertReply2(vo);
+		
+		return cnt;
+	}
+
+	@Override
+	public int selCountDeptBoardReply(int boardNo) {
+		return commentsDao.selCountDeptBoardReply(boardNo);
+	}
+
+	@Override
+	public int gTRCommentCount(EmpSearchVO searchVo) {
+		return commentsDao.gTRCommentCount(searchVo);
+	}
+
+	
 	
 }

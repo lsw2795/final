@@ -411,4 +411,16 @@
 		where boardList_no=#{boardlistNo} and board_no=#{boardNo}
 	</delete>
 	
+	<update id="likeCountUp" parameterType="int">
+		update board
+		set likecount=likecount+1
+		where board_no=#{boardNo}
+	</update>
+	
+	<update id="likeCountDown" parameterType="int">
+		update board
+		set likecount=likecount-1
+		where board_no=#{boardNo}
+	</update>
+	
 </mapper>
