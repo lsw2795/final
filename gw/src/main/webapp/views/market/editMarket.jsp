@@ -8,23 +8,54 @@
 <script type="text/javascript" src = "<c:url value='/js/market.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#bt1').click(function() {
-
-	        // 선택된 파일의 확장자 확인
+		$('#bt1').click(function(){
+			// 선택된 파일의 확장자 확인
 	        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // 허용할 확장자 목록
 	        var fileInput = $('#uploadfile');
-	        if (!allowedExtensions.exec(fileInput.val())) {
-	            alert('이미지 파일(.jpg, .jpeg, .png, .gif)만 업로드 가능합니다.');
+	        
+	        // 여기에서 다른 유효성 검사 로직을 추가할 수 있습니다.
+	        if($('#product-name').val().length<1){
+				alert("제목을 입력하세요.");
+				$('#product-name').focus();
+				
+				return false;
+			}else if($('#identification-no').val().length<1){
+				alert("상품명을 입력하세요.");
+				$('#identification-no').focus();
+				
+				return false;
+			}else if($('#product-summary').val().length<1){
+				alert("가격을 입력하세요.");
+				$('#product-summary').focus();
+				
+				return false;
+			}else if(!validate_price($("#product-summary").val())){
+				alert("가격은 숫자만 입력해주세요.");
+				$('#product-summary').focus();
+				
+				return false;
+			}else if($('#password').val().length<1){
+				alert("비밀번호를 입력해주세요.");
+				$('#password').focus();
+				
+				return false;
+			}else if($('#pwdCheck').val() ==='N'){
+				alert("비밀번호가 다릅니다.");
+				return false;
+			}/* else if (!allowedExtensions.exec(fileInput.val())) {
+	            alert('이미지 파일(.jpg, .jpeg, .png)만 업로드 가능합니다.');
 	            fileInput.val(''); // 파일 선택 창 비우기
 	            return false;
-	        }
-
-	        // 여기에서 다른 유효성 검사 로직을 추가할 수 있습니다.
-	    });
-		
-		$('#uploadfile').click(function(){
-			$('.dz-message').empty();
+	        } */
+	        
+	        if($('#soldout').is(':checked')){
+	        	$('#soldout').val('Y');
+	        }    
 		});
+	        
+		/* $('#uploadfile').click(function(){
+			$('.dz-message').empty();
+		}); */
 
 		 $("#uploadfile").on("change", function() {
 			  var imagePreview = $(".dz-message");
@@ -48,51 +79,6 @@
 		  }
 	  });
 		
-		$('#bt1').click(function(){
-			
-			if($('#product-name').val().length<1){
-				alert("제목을 입력하세요.");
-				$('#product-name').focus();
-				
-				return false;
-			}
-			
-			if($('#identification-no').val().length<1){
-				alert("상품명을 입력하세요.");
-				$('#identification-no').focus();
-				
-				return false;
-			}
-			
-			if($('#product-summary').val().length<1){
-				alert("가격을 입력하세요.");
-				$('#product-summary').focus();
-				
-				return false;
-			}
-			
-			if(!validate_price($("#product-summary").val())){
-				alert("가격은 숫자만 입력해주세요.");
-				$('#product-summary').focus();
-				
-				return false;
-			}
-			
-			if($('#pwd').val().length<1){
-				alert("비밀번호를 입력해주세요.");
-				$('#pwd').focus();
-				
-				return false;
-			}
-			
-			/* if($('#product-description').val().length<50){
-				alert("상품 상세 설명은 50자 이상 입력해주세요.");
-				$('#product-description').focus();
-				
-				return false;
-			} */
-		});
-		
 		$('#password').keyup(function(){
 			$.ajax({
 				url:"<c:url value='/market/ajaxCheckPwd'/>",  
@@ -104,9 +90,10 @@
 					var str = "";
 					if(res!=1){
 						str+= "<span style='font-weight : bold; color :red'>비밀번호가 일치하지 않습니다.</span>";
-						alert("비밀번호가 일치하지 않습니다.");
+						$('#pwdCheck').val('N');
 					}else{
 						str+= "<span style='font-weight : bold; color :green'>비밀번호 확인 완료</span>";
+						$('#pwdCheck').val('Y');
 					}
 					$('#check').append(str);
 				},
@@ -116,7 +103,6 @@
 			});
 		});  
 	});
-		
 </script>
 <style type="text/css">
 .mypageempdiv4 {
@@ -177,6 +163,7 @@ input[type="file"].default-style {
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">비밀번호</label>
                         <input class="form-control" id="password" name = "pwd" type="password"/>
+                        <input type="hidden" id="pwdCheck">
                         <label id="check"></label>
                       </div>
                       <div class="col-12 mb-3">
@@ -186,7 +173,7 @@ input[type="file"].default-style {
 						<div class="col-md-6 mypagespan">
 					        <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagY">거래완료</label>
-		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selflag" value="Y"/>
+		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selFlag" value="Y"/>
 	                       </div>
 	                       <span class="mypagehyphen"></span>
 				    	</div>
@@ -215,6 +202,7 @@ input[type="file"].default-style {
 	                <c:forEach var="file" items="${fileList }">
 	               	 <img src = "<c:url value='/market/upload/${file.imageURL }'/>"
 	               	 	style="max-width:240px; max-height:200px">
+	               	 <input type="text" name="imageURL" value="${file.imageURL}">|	
                     </c:forEach>
                     </div>
                     <span class="mb-0">첨부파일 ${fileList.size() } 개</span>

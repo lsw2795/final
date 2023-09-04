@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ez.gw.common.EmpSearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -78,8 +80,8 @@ public class CommentsServiceImpl implements CommentsService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectDeptBoardCM(CommentsVO vo) {
-		return commentsDao.selectDeptBoardCM(vo);
+	public List<Map<String, Object>> selectDeptBoardCM(EmpSearchVO searchVo) {
+		return commentsDao.selectDeptBoardCM(searchVo);
 	}
 
 	@Override
@@ -99,6 +101,16 @@ public class CommentsServiceImpl implements CommentsService{
 		cnt=commentsDao.insertReply2(vo);
 		
 		return cnt;
+	}
+
+	@Override
+	public int selCountDeptBoardReply(int boardNo) {
+		return commentsDao.selCountDeptBoardReply(boardNo);
+	}
+
+	@Override
+	public int gTRCommentCount(EmpSearchVO searchVo) {
+		return commentsDao.gTRCommentCount(searchVo);
 	}
 
 	

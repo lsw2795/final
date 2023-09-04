@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//클라이언트의 요청을 컨트롤러에 전달하기 전에 호출됨
 		
 		Integer empNo=(Integer)request.getSession().getAttribute("empNo");
-		logger.info("preHandle() 호출!, empNo={}", empNo);
+		//logger.info("preHandle() 호출!, empNo={}", empNo);
 
 		//로그인되지 않은 경우 처리
 		if(empNo==null) {
@@ -43,13 +43,13 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info("postHandle() 호출!");
+		//logger.info("postHandle() 호출!");
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		logger.info("afterCompletion() 호출!");
+		//logger.info("afterCompletion() 호출!");
 	}
 
 }

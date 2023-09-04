@@ -116,7 +116,7 @@ public class RemanController {
 	@ResponseBody
 	public int post_edit(@ModelAttribute RemanVO remanVo, Model model) {
 		//1
-		logger.info("remanVo = {}", remanVo);
+		logger.info("ajax remanVo = {}", remanVo);
 		
 		//2
 		int result=0;

@@ -192,6 +192,12 @@ public class PdsServiceImpl implements PdsService {
 		return pdsDao.editDeptBoardFile(pdsNo);
 	}
 
+	@Override
+	public List<BoardVO> selectPdsNew5() {
+		return pdsDao.selectPdsNew5();
+	}
+
+
 }
 
 

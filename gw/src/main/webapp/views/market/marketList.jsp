@@ -31,8 +31,33 @@ ul#navbarVerticalNav {
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
-	}
-
+	}	
+	
+	$(function(){
+		console.log(12);
+		$('#iLikeIt').click(function(){
+			$.ajax({
+				url:"<c:url value='/market/ajaxlikeit'/>",
+				type:"post",
+				dataType:"JSON",
+				data:{
+					/* tradeNo: ${map["TRADE_NO"]}
+					empNo:${map["EMP_NO"]} */
+				},
+				success:function(result){
+					if(result==1){//좋아요 누름
+						$('#heart').addClass('fa-solid fa-heart')
+					}else if(result==2){//좋아요 한번 더 눌러서 해지
+						$('#heart').addClass('fa-regular fa-heart')
+					}	
+				},
+				error:function(xhr, status, error){
+					alert(status + ":" + error);
+				}
+			});
+		});
+	});
+	
 </script>
 <div class="card-body">
 <form action="<c:url value='/market/marketList'/>" 
@@ -167,13 +192,15 @@ ul#navbarVerticalNav {
 															<div class="mt-2">
 																<a
 																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="<c:url value='/market/like?tradeNo=${map["TRADE_NO"] }'/>">
+																	id = "iLikeIt" href="#">
 																	<span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
-																<a
-																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
-																	href="#!"><span class="fas fa-envelope-open">
-																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>
+																	class="ms-2 d-none d-md-inline-block">좋아요</span>
+																</a>
+																<a class="btn btn-sm btn-primary d-lg-block mt-lg-2"
+																	href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>" id = "message" >
+																	<span class="fas fa-envelope-open"></span>
+																	<span class="ms-2 d-none d-md-inline-block">쪽지하기</span>
+																</a>
 															</div>
 														</div>
 													</div>
@@ -280,7 +307,7 @@ ul#navbarVerticalNav {
 																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
 																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
-																	href="#!"><span class="fas fa-envelope-open">
+																	href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>"><span class="fas fa-envelope-open">
 																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>
 															</div>
 														</div>

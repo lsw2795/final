@@ -197,4 +197,18 @@
 		delete pds
 		where pds_no=#{pdsNo}
 	</delete>
+	
+	<select id="selectPdsNew5" resultType="boardVo">
+		select *
+		from
+		(
+		    select * from board
+		    where boardList_no = 3000
+		    order by regdate desc
+		)
+		<![CDATA[
+			where rownum<=5
+		]]>
+	</select>
+	
 </mapper>

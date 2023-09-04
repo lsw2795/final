@@ -106,10 +106,33 @@
 		values(#{commentNo}, #{content}, #{empNo}, #{commentNo},#{boardlistNo}, #{boardNo})
 	</insert>
 	
-	<select id="selectDeptBoardCM" parameterType="commentsVo" resultType="map">
-		select * from deptboardcommentview
+	<select id="selectDeptBoardCM" parameterType="empSearchVo" resultType="map">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from deptboardcommentview
+				where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
+				order by groupno asc, sortno asc
+			)A
+		)
+		<![CDATA[
+			where rnum>#{firstRecordIndex}
+			and rnum<=#{firstRecordIndex} + #{recordCountPerPage}
+		]]>		
+	</select>
+	
+	<select id="gTRCommentCount" parameterType="empSearchVo">
+		select count(*) from deptboardcommentview
 		where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
-		order by groupno desc, sortno asc
+		order by groupno asc, sortno asc
+	</select>
+	
+	<select id="selCountDeptBoardReply" parameterType="empSearchVo" resultType="int">
+		select count(*) from deptboardcommentview
+		where board_no = #{boardNo}
 	</select>
 	
 	<update id="updateDeptBoardCM" parameterType="commentsVo">

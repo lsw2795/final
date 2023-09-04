@@ -34,4 +34,7 @@ public interface PdsService {
 	int editDeptBoardFile(int pdsNo); // 부서게시판 - 수정중 파일 삭제 메서드
 	int insertPdsByAnonymous(PdsVO vo);
 	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
+	
+	//NEW5
+	List<BoardVO> selectPdsNew5(); //자료실 new5 게시글 조회
 }
