@@ -154,16 +154,26 @@ public class deptBoardController {
 	@RequestMapping("/board/deptBoardDetail")
 	public String Detail(HttpSession session,
 			@ModelAttribute BoardVO vo, 
-			@ModelAttribute CommentsVO cmVo, Model model) {
+			@ModelAttribute EmpSearchVO searchVo, Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		int totalRecord=comService.gTRCommentCount(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
 		Map<String, Object> prevMap=boardService.selPrevDeptBoard(vo);
 		Map<String, Object> nextMap=boardService.selNextDeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
 		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
-		List<Map<String, Object>> comList=comService.selectDeptBoardCM(cmVo);
+		List<Map<String, Object>> comList=comService.selectDeptBoardCM(searchVo);
 		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
@@ -185,6 +195,7 @@ public class deptBoardController {
 		model.addAttribute("empVo", empVo);
 		model.addAttribute("comList", comList);
 		model.addAttribute("fileInfoArr",fileInfoArr);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "board/deptBoardDetail";
 	}

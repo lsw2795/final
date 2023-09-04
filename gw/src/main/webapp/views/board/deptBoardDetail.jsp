@@ -185,7 +185,23 @@
 		});
 		
 	}
+	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function deptBoardLike(){
+		
+	}
 </script>
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/board/deptBoardDetail'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage" value=${param.currentPage }>
+	<input type="hidden" name="boardlistNo" value=${param.boardlistNo }>
+	<input type="hidden" name="boardNo" value=${param.boardNo }>
+</form>	
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between ">
                <div class="d-lg-flex">
@@ -222,7 +238,7 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
-                		<a href="#" id="heart" style="float: right;">
+                		<a href="#" id="heart" style="float: right;" onclick="deptBoardLike()">
 							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
 						</a>
 						<span class="mypagehyphen"></span>
@@ -285,6 +301,8 @@
                   </div>
                 </div>
             </div>
+            
+            
             	<c:if test="${boardlistVo.commentFlag=='Y'}">
                 <div class="card-header">
                   <h5 class="mb-0">댓글</h5>
@@ -387,6 +405,38 @@
 					  <c:set var="i" value="${i+1 }"/>
 					</c:forEach>
                   </c:if>
+                 <!-- 댓글 페이징처리 구간 -->
+                 <div class="card-footer d-flex justify-content-center">
+					<div class="divPage" id="divPage">
+						<!-- 페이지 번호 추가 -->		
+						<!-- 이전 블럭으로 이동 -->
+						<c:if test="${pagingInfo.firstPage>1 }">
+							<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								<img src="<c:url value='/images/first.JPG'/>">
+							</a>
+						</c:if>	
+										
+						<!-- [1][2][3][4][5][6][7][8][9][10] -->
+						<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+							<c:if test="${i == pagingInfo.currentPage }">		
+								<span id="curPage">${i}</span>
+					        	</c:if>
+							<c:if test="${i != pagingInfo.currentPage }">		
+						         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+						    </c:if>   		
+						</c:forEach>
+						
+						<!-- 다음 블럭으로 이동 -->
+						<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								<img src="<c:url value='/images/last.JPG'/>">
+							</a>
+						</c:if>
+						<!--  페이지 번호 끝 -->
+					</div>
+				</div>
+                 
+                 
                   </div>
                 </div>
                 </c:if>
