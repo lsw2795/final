@@ -112,6 +112,11 @@
 		order by groupno asc, sortno asc
 	</select>
 	
+	<select id="selCountDeptBoardReply" parameterType="empSearchVo" resultType="int">
+		select count(*) from deptboardcommentview
+		where board_no = #{boardNo}
+	</select>
+	
 	<update id="updateDeptBoardCM" parameterType="commentsVo">
 		update comments
 		set content=#{content}

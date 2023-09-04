@@ -187,6 +187,9 @@
 									<c:if test="${map['timeNew']==1}">
 										<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">
 									</c:if>
+									<c:if test="${commentCount>0}">
+									[${commentCount}]
+									</c:if>
 									</a>
 									</div>
 								</td>

@@ -323,7 +323,7 @@
                    <c:set var="i" value="0"></c:set>
                    <c:forEach var="comMap" items="${comList }">
 					<div class="row">
-					<!-- 댓/답구분마진 --> 
+					<!-- 댓/답구분 --> 
 						<c:if test="${comMap['SORTNO']>0}">
 							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
 							<!-- 1일때 10번 스페이스바 -->
@@ -362,7 +362,7 @@
 						    	</c:if>
 						    </div>
 						<div class="mb-3 mt-3" id="commentDiv${i }">
-						<!-- 댓/답구분마진 --> 
+						<!-- 댓/답구분 --> 
 						<c:if test="${comMap['SORTNO']>0}">
 							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
 							<!-- 1일때 10번 스페이스바 -->

@@ -11,8 +11,7 @@ public class EmpSearchVO extends SearchVO{
 	
 	@Override
 	public String toString() {
-		return "EmpSearchVO [empNo=" + empNo + ", boardlistNo=" + boardlistNo + ", toString()=" + super.toString()
-				+ "]";
+		return "EmpSearchVO [empNo=" + empNo + ", boardlistNo=" + boardlistNo + ", toString()=" + super.toString() + "]";
 	}
 	
 }

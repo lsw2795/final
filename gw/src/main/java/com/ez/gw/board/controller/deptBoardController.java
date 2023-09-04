@@ -2,6 +2,7 @@ package com.ez.gw.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,24 +58,31 @@ public class deptBoardController {
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
 		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(searchVo.getBoardlistNo());
 		List<BoardListVO> deptBoardList=boardListService.seldeptBoard();
 		List<Map<String, Object>> boardList=boardService.searchDeptBoard(searchVo);
 		int totalRecord = boardService.gTRCountDeptBoard(searchVo);
+		
 		pagingInfo.setTotalRecord(totalRecord);
 		logger.info("부서게시판 검색 결과 - deptBoardList.size()={}", deptBoardList.size());
+		int commentCount=0;
 		for(Map<String, Object> map : boardList) {
+			BigDecimal boardNoDecimal=(BigDecimal)map.get("BOARD_NO");
+			int boardNo=boardNoDecimal.intValue();
+			commentCount=comService.selCountDeptBoardReply(boardNo);
 			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
 		}
+		
 		model.addAttribute("deptBoardList", deptBoardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("boardlistVo", boardlistVo);
-
+		model.addAttribute("commentCount", commentCount);
+		
 		return "board/deptBoard";
 	}
 	
