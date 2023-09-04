@@ -59,7 +59,7 @@
 	</update>
 	
 	<select id="deptEmpCount" parameterType="int">
-		select count(*) from organizationchartview where dept_no=#{deptNo}
+		select count(*) from organizationchartview where dept_no=#{deptNo} and retiredate is null
 	</select>
 
 	<delete id="deleteDept" parameterType="int">

@@ -56,7 +56,7 @@
 	</select>
 	
 	<select id="boardlistCount" parameterType="int">
-		select count(*) from boardlistview where boardlist_no=#{boardlistNo}
+		select count(*) from boardlistview where boardlist_no=#{boardlistNo} and delflag='N'
 	</select>
 	
 	<delete id="deleteboardList" parameterType="int">
