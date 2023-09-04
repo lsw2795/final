@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,8 @@ import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.pds.model.PdsService;
 import com.ez.gw.pds.model.PdsVO;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeService;
+import com.ez.gw.secondhandTradeLike.model.SecondhandTradeLikeVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -49,6 +52,7 @@ public class deptBoardController {
 	private final FileUploadUtil fileuploadUtil;
 	private final EmployeeService employeeService;
 	private final CommentsService comService;
+	private final SecondhandTradeLikeService likeService;
 	
 	@RequestMapping("/board/deptBoard")
 	public String deptBoardList(@ModelAttribute EmpSearchVO searchVo,Model model){
@@ -69,19 +73,19 @@ public class deptBoardController {
 		
 		pagingInfo.setTotalRecord(totalRecord);
 		logger.info("부서게시판 검색 결과 - deptBoardList.size()={}", deptBoardList.size());
-		int commentCount=0;
 		for(Map<String, Object> map : boardList) {
-			BigDecimal boardNoDecimal=(BigDecimal)map.get("BOARD_NO");
-			int boardNo=boardNoDecimal.intValue();
-			commentCount=comService.selCountDeptBoardReply(boardNo);
+			int boardNo=Integer.parseInt(String.valueOf(map.get("BOARD_NO")));
+			int commentCount=comService.selCountDeptBoardReply(boardNo);
+			int likeCount=likeService.deptBoardLikeCount(boardNo);
 			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+			map.put("commentCount", commentCount);
+			map.put("likeCount", likeCount);
 		}
 		
 		model.addAttribute("deptBoardList", deptBoardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("boardlistVo", boardlistVo);
-		model.addAttribute("commentCount", commentCount);
 		
 		return "board/deptBoard";
 	}
@@ -156,21 +160,35 @@ public class deptBoardController {
 	@RequestMapping("/board/deptBoardDetail")
 	public String Detail(HttpSession session,
 			@ModelAttribute BoardVO vo, 
-			@ModelAttribute CommentsVO cmVo, Model model) {
+			@ModelAttribute EmpSearchVO searchVo,
+			@ModelAttribute SecondhandTradeLikeVO likeVo2,Model model) {
 		int empNo=(int)session.getAttribute("empNo");
+		likeVo2.setEmpNo(empNo);
 		logger.info("부서 게시글 상세보기 파라미터 vo={}",vo);
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		int totalRecord=comService.gTRCommentCount(searchVo);
+		pagingInfo.setTotalRecord(totalRecord);
 		Map<String, Object> map=boardService.selectdeptBoard(vo);
 		Map<String, Object> prevMap=boardService.selPrevDeptBoard(vo);
 		Map<String, Object> nextMap=boardService.selNextDeptBoard(vo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(vo.getBoardlistNo());
 		List<PdsVO> pdsList=pdsService.selFilesByDeptBoard(vo);
 		EmployeeVO empVo=employeeService.selectByEmpNo(empNo);
-		List<Map<String, Object>> comList=comService.selectDeptBoardCM(cmVo);
+		List<Map<String, Object>> comList=comService.selectDeptBoardCM(searchVo);
+		SecondhandTradeLikeVO likeVo=likeService.selectLikeFlag(likeVo2);
 		boardService.updateReadcount(vo.getBoardNo());
 		
 		logger.info("부서 게시글 상세보기 결과 map={}, boardlistVo={}", map, boardlistVo);
 		logger.info("부서 게시글 등록한 파일 리스트 조회 pdsList.size()={}", pdsList.size());
 		logger.info("부서 게시글 상세보기 댓글 조회 결과 comList.size()={}",comList.size());
+		logger.info("부서 게시글 상세보기 좋아요 체크 여부 확인결과 likeVo={}", likeVo);
 		
 		List<String> fileInfoArr=new ArrayList<>();
 		for(PdsVO pdsVo: pdsList) {
@@ -187,7 +205,8 @@ public class deptBoardController {
 		model.addAttribute("empVo", empVo);
 		model.addAttribute("comList", comList);
 		model.addAttribute("fileInfoArr",fileInfoArr);
-		
+		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("likeVo", likeVo);
 		return "board/deptBoardDetail";
 	}
 	
@@ -396,4 +415,47 @@ public class deptBoardController {
 		logger.info("ajax - 부서게시판 답글등록 결과 cnt={}", cnt);
 		return cnt;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/board/ajaxInsertDeptBoardLike")
+	public int deptBoardLike(@ModelAttribute SecondhandTradeLikeVO likeVo) {
+		logger.info("ajax - 부서게시판 좋아요 누르기 파라미터 likeVo={}", likeVo);
+		int cnt=likeService.insertDeptBoardLike(likeVo);
+		logger.info("ajax - 부서게시판 좋아요 누르기 결과 cnt={}", cnt);
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountUp(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountUp 결과 result={}", result);
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/board/ajaxUpdateDeptBoardLikeOff")
+	public int deptBoardLikeOff(@ModelAttribute SecondhandTradeLikeVO likeVo) {
+		logger.info("ajax - 부서게시판 좋아요 취소 파라미터 likeVo={}", likeVo);
+		int cnt=likeService.updateLikeOff(likeVo);
+		logger.info("ajax - 부서게시판 좋아요 취소 결과 cnt={}", cnt);
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountDown(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountDown 결과 result={}", result);
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/board/ajaxUpdateDeptBoardLikeOn")
+	public int deptBoardLikeOn(@ModelAttribute SecondhandTradeLikeVO likeVo) {
+		logger.info("ajax - 부서게시판 좋아요 다시누르기 파라미터 likeVo={}", likeVo);
+		int cnt=likeService.updateLikeOn(likeVo);
+		logger.info("ajax - 부서게시판 좋아요 다시누르기 결과 cnt={}", cnt);
+		int result=0;
+		if(cnt>0) {
+			result=boardService.likeCountUp(likeVo.getBoardNo());
+			logger.info("ajax - 게시판 likeCountUp 결과 result={}", result);
+		}
+		return result;
+	}
+	
 }

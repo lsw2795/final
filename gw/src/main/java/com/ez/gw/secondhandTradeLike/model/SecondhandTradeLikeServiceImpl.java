@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.board.model.BoardVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,6 +37,31 @@ public class SecondhandTradeLikeServiceImpl implements SecondhandTradeLikeServic
 	@Override
 	public int likeHeart(int empNo, int tradeNo) {
 		return secondLikeDao.likeHeart(empNo, tradeNo);
+	}
+
+	@Override
+	public int insertDeptBoardLike(SecondhandTradeLikeVO secondLikeVo) {
+		return secondLikeDao.insertDeptBoardLike(secondLikeVo);
+	}
+
+	@Override
+	public SecondhandTradeLikeVO selectLikeFlag(SecondhandTradeLikeVO secondLikeVo) {
+		return secondLikeDao.selectLikeFlag(secondLikeVo);
+	}
+
+	@Override
+	public int updateLikeOff(SecondhandTradeLikeVO secondLikeVo) {
+		return secondLikeDao.updateLikeOff(secondLikeVo);
+	}
+
+	@Override
+	public int updateLikeOn(SecondhandTradeLikeVO secondLikeVo) {
+		return secondLikeDao.updateLikeOn(secondLikeVo);
+	}
+
+	@Override
+	public int deptBoardLikeCount(int boardNo) {
+		return secondLikeDao.deptBoardLikeCount(boardNo);
 	}
 
 }

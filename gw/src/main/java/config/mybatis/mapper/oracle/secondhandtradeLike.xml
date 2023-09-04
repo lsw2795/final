@@ -35,7 +35,35 @@
 		where emp_no=#{empNo} and trade_no = #{tradeNo}
 	</select>
 	
+	<insert id="insertDeptBoardLike" parameterType="secondhandTradeLikeVo">
+		<selectKey keyProperty="likeNo" order="BEFORE" resultType="int">
+			select secondhand_trade_like_seq.nextval from dual
+		</selectKey>
+		insert into secondhand_trade_like(like_no, likeflag, emp_no, board_no)
+		values(#{likeNo}, 'Y', #{empNo}, #{boardNo})
+	</insert>
 
+	<select id="selectLikeFlag" parameterType="secondhandTradeLikeVo" resultType="secondhandTradeLikeVo">
+		select * from secondhand_trade_like 
+		where board_no=#{boardNo} and emp_no=#{empNo}
+	</select>
 
+	<update id="updateLikeOff" parameterType="secondhandTradeLikeVo">
+		update secondhand_trade_like 
+		set likeFlag='N'
+		where board_no=#{boardNo} and emp_no=#{empNo}
+	</update>
+	
+	<update id="updateLikeOn" parameterType="secondhandTradeLikeVo">
+		update secondhand_trade_like 
+		set likeFlag='Y'
+		where board_no=#{boardNo} and emp_no=#{empNo}
+	</update>
+	
+	<select id="deptBoardLikeCount" parameterType="int">
+		select count(*) from secondhand_trade_like 
+		where board_no=#{boardNo}
+	</select>
+	
 
 </mapper>

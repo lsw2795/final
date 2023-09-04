@@ -261,13 +261,15 @@ public class ClubController {
 	}
 	
 	@RequestMapping("/admin/adminclub/adminPayment")
-	public String paymentList() {
+	public String paymentList(@RequestParam(required = false)String merchantNo, Model model) {
 		//1.
 		logger.info("관리자 - 동호회비결제 현황");
 		//2.
-		
+		List<Map<String, Object>> list = clubService.adminClubList(merchantNo);
+		logger.info("관리자 - 동호회 가입 list.size={}",list.size());
 		
 		//3.
+		model.addAttribute("list", list);
 		
 		//4.
 		return "admin/adminclub/adminPayment";

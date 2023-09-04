@@ -32,7 +32,7 @@ public class EmployeeVO {
     private String combinedEmpNo;
     private int combinedEmpNoInt;
     
-    private int merchantUid; //결제 고유 번호
+    private String merchantNo; //동호회비 
 
     public void generateCombinedEmpNo(int sequenceValue) {
         Date today = new Date();

@@ -16,8 +16,13 @@
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			
-			initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+			
+			//initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+			nextDayThreshold          : "09:00:00",
+			allDaySlot                : true,
+			displayEventTime          : true,
 			locale : 'ko',//한국어 설정
+			timeZone:'UTC',
 			navLinks : true,
 			headerToolbar : { // 헤더에 표시할 툴 바
 				start : 'prev next today',
@@ -81,7 +86,6 @@
 	            <%for (CalendarVO vo : calendarList) {%>
 	            {
 	            	title : '<%=vo.getTitle()%>',
-		            allDaySlot : false,
 	                start : '<%=vo.getBegindate()%>',
 	                end : '<%=vo.getEnddate()%>',
 	                extendedProps : {

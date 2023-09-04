@@ -94,9 +94,15 @@
         var left = (window.innerWidth - width) / 2;
         var top = (window.innerHeight - height) / 2;
         
-     // 새 창을 엽니다.
+     	// 새 창을 엽니다.
         var newWindow = window.open(editUrl, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
-	}
+     
+		}
+	
+	
+		
+		
+	
 </script>
 <style type="text/css">
 	   h6.mb-0 {

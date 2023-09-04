@@ -49,16 +49,18 @@ public class SecondHandTradeController {
 
 	@GetMapping("/addMarket")
 	public String get_addMarket(Model model, HttpSession session) {
-		// 세션에서 저장한 폼 데이터 불러오기
-		SecondHandTradeVO secondVo = (SecondHandTradeVO) session.getAttribute("secondVo");
-		SecondhandTradeFileVO secondFileVo = (SecondhandTradeFileVO) session.getAttribute("secondFileVo");
-
+		/*
+		 * // 세션에서 저장한 폼 데이터 불러오기 SecondHandTradeVO secondVo = (SecondHandTradeVO)
+		 * session.getAttribute("secondVo"); SecondhandTradeFileVO secondFileVo =
+		 * (SecondhandTradeFileVO) session.getAttribute("secondFileVo");
+		 */
 		logger.info("중고거래 등록 화면 보여주기");
 		// 세션에서 데이터를 불러왔으면 해당 데이터를 모델에 추가하여 폼에 미리 채워진 상태로 보여줌
-		if (secondVo != null && secondFileVo != null) {
-			model.addAttribute("secondVo", secondVo);
-			model.addAttribute("secondFileVo", secondFileVo);
-		}
+		/*
+		 * if (secondVo != null && secondFileVo != null) {
+		 * model.addAttribute("secondVo", secondVo); model.addAttribute("secondFileVo",
+		 * secondFileVo); }
+		 */
 		return "market/addMarket";
 	}
 
@@ -91,8 +93,9 @@ public class SecondHandTradeController {
 						f.getContentType().toLowerCase().endsWith("jpeg"));
 				// 이미지 파일만 업로드 가능
 				if (!f.getContentType().toLowerCase().endsWith("png")
-						&& !f.getContentType().toLowerCase().endsWith("jpg")) {
-					msg = "이미지 파일만 등록해주세요.";
+						&& !f.getContentType().toLowerCase().endsWith("jpg")
+						&& !f.getContentType().toLowerCase().endsWith("jpeg")) {
+					msg = "jpg, png, jpeg 파일만 등록 가능합니다.";
 					url = "/market/addMarket";
 
 					// 이전에 입력한 폼 데이터 세션에 저장
@@ -189,7 +192,7 @@ public class SecondHandTradeController {
 			    
 				if (f.getTradeNo() == tradeNo && f.getImageURL().contains("_0.")) {
 					fg.put("thumbnail", f.getImageURL()); // 썸네일 파일명 저장
-					logger.info("썸네일 파일명={}", fg.get("thumbnail"));
+					//logger.info("썸네일 파일명={}", fg.get("thumbnail"));
 					break; // 매칭되는 파일을 찾았으면 더 이상 검색하지 않고 반복문을 종료
 				}
 			}
@@ -200,7 +203,7 @@ public class SecondHandTradeController {
 			//String name = (String)fg.get("NAME");
 			emp = employeeService.selectByEmpNo(empNo);
 			String name = (String)fg.put("NAME", emp.getName());
-			logger.info("작성자 이름 ={}", (String)fg.put("NAME", emp.getName()));
+			//logger.info("작성자 이름 ={}", (String)fg.put("NAME", emp.getName()));
 			fg.put("timeNew", Utility.displayNew((Date)fg.get("REGDATE"))); // 게시글별로 24시간이내 글등록 확인 여부 저장
 		}
 
@@ -250,8 +253,8 @@ public class SecondHandTradeController {
 		// 2
 		SecondHandTradeVO secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-		logger.info("조회 결과, secondVo={}", secondVo);
-		logger.info("조회 결과, fileList={}", fileList);
+		logger.info("수정 게시글 조회 결과, secondVo={}", secondVo);
+		logger.info("수정 파일 조회 결과, fileList={}", fileList);
 
 		// 3
 		model.addAttribute("vo", secondVo);
@@ -266,69 +269,97 @@ public class SecondHandTradeController {
 	public String post_editMarket(@RequestParam(defaultValue = "0")int tradeNo, @ModelAttribute SecondHandTradeVO secondVo, 
 			@ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) { 
 		//1
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+		
+		List<MultipartFile> file2 = multiRequest.getFiles("imageURL2");
+		
+		
 		int empNo = (int)session.getAttribute("empNo");
-		logger.info("수정 게시판, 파라미터 tradeNo={}", tradeNo);
+		logger.info("수정 게시판(post), 파라미터 tradeNo={}", tradeNo);
 		logger.info("secondVo={}", secondVo);
 		logger.info("secondFileVo={}", secondFileVo);
+		logger.info("file2.size()={}", file2.size());
 
 		//2
 		String msg="", url="";
 		int cnt = 0, result = 0;
-		String fileName="", originalFileName="";
+		String originalFileName = "", inputFileName="";
 		long fileSize=0;
 		try {
-			//1. 파일선택 시 기존파일 삭제
-			List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-
-			if(list.size()>0) {
-				for(SecondhandTradeFileVO f: list) {
-					fileName = f.getImageURL();
-					String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-					File file = new File(path, fileName);
-					if(file.exists()) {
-						boolean del = file.delete();
-						logger.info("파일 삭제 여부 - del={}", del);
-					}
-
-					cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
-					logger.info("파일 DB 삭제여부 - cnt={}", cnt);
+			
+			//1. 파일새로 선택 안할 경우 기존 파일 그대로 저장
+			//만약 tradeNo_숫자.확장명으로 들어오는 파일이 있는 경우
+			String fileName = secondFileVo.getImageURL();
+			if(fileName!=null || file2!=null) {
+				//파일들 조회
+				List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
+				logger.info(tradeNo+"번 업로드 파일 list={}", list);
+				
+				boolean delFile = true; //파일 삭제 여부
+				
+				//DB에 게시글 번호로 저장된 파일들 조회
+				for(SecondhandTradeFileVO file : list) {
+						if(file.getImageURL().equals(inputFileName)) {
+							delFile = false;
+							logger.info("파일 삭제? file={}, delFile={}", file.getImageURL(), delFile);
+							break;
+						}
+						
+				}//for
+				
+				//2. 파일명에 파일번호_가 없다면 기존파일 삭제
+				if(file2.size()>0) {
+					for(SecondhandTradeFileVO f:list) {
+						fileName = f.getImageURL();
+						String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+						String filePath = request.getSession().getServletContext().getRealPath(path);
+						
+						File file = new File(filePath, fileName);
+						
+						if(file.exists()) {
+							boolean del = file.delete();
+							logger.info("파일 삭제 여부 - del={}", del);
+						}
+						//db에서도 삭제
+						cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
+						logger.info("파일 DB 삭제여부 - cnt={}", cnt);
+						
+						//3. 새로운 파일 등록
+						logger.info("파일 지운다음 새로 저장!!");
+						
+						cnt = secondHandTradeService.updateMarket(secondVo);
+						logger.info("중고거래 수정 완료, cnt={}", cnt);
+						
+						int i=0;
+						for(MultipartFile f2:file2) {
+							originalFileName=f2.getOriginalFilename();
+							int cut = originalFileName.indexOf(".");
+							String cutFileName = originalFileName.substring(cut);
+							
+							fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
+							fileSize = (long)f2.getSize();
+							
+							
+							File files = new File(filePath, fileName);
+							f2.transferTo(files);
+							
+							logger.info("파일명 fileName={}", fileName);
+							secondFileVo.setImageURL(fileName);
+							result = secondHandTradeFileService.insertFile(secondFileVo);
+							logger.info("파일 등록 결과, result={}", result);
+						}
+					}//for
+				}else {
+					cnt = secondHandTradeService.updateMarket(secondVo);
+					logger.info("중고거래 수정 완료, cnt={}", cnt);
+					result = 1;
 				}
 			}
-
-
-			//2. 새로운 파일 등록
-			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-
-			List<MultipartFile> file = multiRequest.getFiles("imageURL2");
-
-			cnt = secondHandTradeService.updateMarket(secondVo);
-			logger.info("중고거래 수정 완료, cnt={}", cnt);
-
-			int i=0;
-			for(MultipartFile f:file) {
-				originalFileName=f.getOriginalFilename();
-				int cut = originalFileName.indexOf(".");
-				String cutFileName = originalFileName.substring(cut);
-
-				fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
-				fileSize = (long)f.getSize();
-
-				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-				File files = new File(path, fileName);
-				f.transferTo(files);
-
-				logger.info("파일명 fileName={}", fileName);
-				secondFileVo.setImageURL(fileName);
-				result = secondHandTradeFileService.insertFile(secondFileVo);
-				logger.info("파일 등록 결과, result={}", result);
-			}
-
 		}catch(IllegalStateException e) {
 			e.printStackTrace();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-
 
 		if(cnt>0 && result>0) {
 			msg="중고거래 수정이 완료되었습니다.";
@@ -405,15 +436,17 @@ public class SecondHandTradeController {
 	@ResponseBody
 	public int checkPwd(@RequestParam(required = false)String pwd, HttpSession session) {
 		int empNo = (int)session.getAttribute("empNo");
-		logger.info("비밀번호 확인 ajax - pwd={}", pwd);
+		logger.info("비밀번호 확인 ajax - pwd={}, empNo={}", pwd, empNo);
 
-		String checkPwd = employeeService.selectPwd(empNo);
+		int checkPwd = employeeService.loginCheck(pwd, empNo);
 		int result = 0;
-		if(checkPwd.equals(pwd)) {
-			result=EmployeeService.LOGIN_OK;	//비밀번호 일치
-		}else {
-			result=EmployeeService.PWD_DISAGREE;	//비밀번호 불일치
+		if(checkPwd==employeeService.LOGIN_OK) {
+			result=1;	//비밀번호 일치
+		}else if(checkPwd == employeeService.PWD_DISAGREE){
+			result=0;	//비밀번호 불일치
 		}
+		
+		logger.info("ajax이용 - 비밀번호 일치 결과 result={}", result);
 		return result;
 	}
 

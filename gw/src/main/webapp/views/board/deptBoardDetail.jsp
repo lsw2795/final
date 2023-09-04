@@ -185,7 +185,111 @@
 		});
 		
 	}
+	
+	function pageFunc(curPage){
+		$('input[name="currentPage"]').val(curPage);
+		$('form[name="frmPage"]').submit();
+	}
+	
+	function deptBoardLikeOn(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		$.ajax({
+            url: "<c:url value='/board/ajaxInsertDeptBoardLike'/>",
+            type:'get',
+			data:{
+				boardNo: boardNo,
+				empNo: empNo,
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
+            		$('#heartDiv').empty();
+            		$('#heart1').hide();
+            		$('#heart2').hide();
+            	var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+					+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";					
+					$('#heartDiv').append(result);
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+		
+	}
+	
+	
+	function deptBoardLikeOff(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		
+		if(confirm('좋아요를 취소하시겠습니까?')){
+			$.ajax({
+	            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOff'/>",
+	            type:'get',
+				data:{
+					boardNo: boardNo,
+					empNo: empNo,
+				},
+				dataType:'json',
+	            success: function (res) {
+	            	if(res>0){
+	            		$('#heartDiv').empty();
+	            		$('#heart2').hide();
+	            		$('#heart3').hide();
+	               		var result="<a href='#' id='heart3' style='float: right;' onclick='deptBoardLikeOn2();'>"
+	               			+"<img id='heartimg' src='<c:url value='/images/heartoff.png'/>' width='50px' height='50px'></a>";
+	               		$('#heartDiv').append(result);
+	            	}
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+		}
+	}
+	
+	function deptBoardLikeOn2(){
+		var boardNo=$('#boardNo').val();
+		var empNo=$('#empNo').val();
+		//alert(boardNo+" : "+empNo);
+		$.ajax({
+            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+            type:'get',
+			data:{
+				boardNo: boardNo,
+				empNo: empNo,
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		alert('좋아요 등록이 완료되었습니다.');
+            		$('#heartDiv').empty();
+            		$('#heart3').hide();
+            		$('#heart2').hide();
+               		var result="<a href='#' id='heart2' style='float: right;' onclick='deptBoardLikeOff();'>"
+               			+"<img id='heartimg' src='<c:url value='/images/hearton.png'/>' width='50px' height='50px'></a>";
+               		$('#heartDiv').append(result);			
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 </script>
+<!-- 페이징 처리 관련 form -->
+<form action="<c:url value='/board/deptBoardDetail'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage" value=${param.currentPage }>
+	<input type="hidden" name="boardlistNo" value=${param.boardlistNo }>
+	<input type="hidden" name="boardNo" value=${param.boardNo }>
+</form>	
 <div class="card mb-3">
             <div class="card-body d-flex justify-content-between ">
                <div class="d-lg-flex">
@@ -222,9 +326,22 @@
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
-                		<a href="#" id="heart" style="float: right;">
-							<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
-						</a>
+                		<c:if test="${empty likeVo}">
+	                		<a href="#" id="heart1" style="float: right;" onclick="deptBoardLikeOn();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+						</c:if>
+						<c:if test="${likeVo.likeFlag=='Y'}">
+	                		<a href="#" id="heart2" style="float: right;" onclick="deptBoardLikeOff();">
+								<img id="heartimg" src="<c:url value='/images/hearton.png'/>" width="50px" height="50px">
+							</a>
+						</c:if>
+                		<c:if test="${likeVo.likeFlag=='N'}">
+	                		<a href="#" id="heart3" style="float: right;" onclick="deptBoardLikeOn2();">
+								<img id="heartimg" src="<c:url value='/images/heartoff.png'/>" width="50px" height="50px">
+							</a>
+						</c:if>
+						<div id="heartDiv"></div>
 						<span class="mypagehyphen"></span>
                 	</c:if>
                 		<c:if test="${sessionScope.empNo==map['EMP_NO']}">
@@ -235,6 +352,10 @@
                		&nbsp;
                 	조회수 : ${map['READCOUNT']}
                 	<span class="mypagehyphen"></span>
+                	<c:if test="${boardlistVo.boardLike=='Y'}">
+	                	추천수 : ${map['LIKECOUNT']}
+	                	<span class="mypagehyphen"></span>
+                	</c:if>
                 	등록일 : <fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
                		<span class="mypagehyphen"></span>
                 </div>
@@ -285,6 +406,8 @@
                   </div>
                 </div>
             </div>
+            
+            
             	<c:if test="${boardlistVo.commentFlag=='Y'}">
                 <div class="card-header">
                   <h5 class="mb-0">댓글</h5>
@@ -387,6 +510,38 @@
 					  <c:set var="i" value="${i+1 }"/>
 					</c:forEach>
                   </c:if>
+                 <!-- 댓글 페이징처리 구간 -->
+                 <div class="card-footer d-flex justify-content-center">
+					<div class="divPage" id="divPage">
+						<!-- 페이지 번호 추가 -->		
+						<!-- 이전 블럭으로 이동 -->
+						<c:if test="${pagingInfo.firstPage>1 }">
+							<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								<img src="<c:url value='/images/first.JPG'/>">
+							</a>
+						</c:if>	
+										
+						<!-- [1][2][3][4][5][6][7][8][9][10] -->
+						<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+							<c:if test="${i == pagingInfo.currentPage }">		
+								<span id="curPage">${i}</span>
+					        	</c:if>
+							<c:if test="${i != pagingInfo.currentPage }">		
+						         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+						    </c:if>   		
+						</c:forEach>
+						
+						<!-- 다음 블럭으로 이동 -->
+						<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								<img src="<c:url value='/images/last.JPG'/>">
+							</a>
+						</c:if>
+						<!--  페이지 번호 끝 -->
+					</div>
+				</div>
+                 
+                 
                   </div>
                 </div>
                 </c:if>

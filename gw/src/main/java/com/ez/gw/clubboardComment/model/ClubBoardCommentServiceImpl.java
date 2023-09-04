@@ -28,8 +28,8 @@ public class ClubBoardCommentServiceImpl implements ClubBoardCommentService{
 	}
 
 	@Override
-	public int deletCommet(int commentNo) {
-		return cludBoardCommentDao.deletCommet(commentNo);
+	public int deletCommet(int commentNo,int clubNo, int boardNo) {
+		return cludBoardCommentDao.deletCommet(commentNo, clubNo, boardNo);
 	}
 
 	@Override

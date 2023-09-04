@@ -67,6 +67,9 @@
 	<update id="updateMarket" parameterType="secondHandTradeVo" >
 		update secondhand_trade
 		set title = #{title}, product = #{product}, price= #{price}, discription=#{discription}
+		<if test="selFlag!=null and selFlag!=''">
+		,selflag=#{selFlag}
+		</if>
 		where trade_no=#{tradeNo}
 	</update>
 	
