@@ -257,7 +257,7 @@ public class ClubBoardController {
 		int comment = cbcService.insertClubCommt(cbcVo);
 		logger.info("동게 답변 결과 comment={}",comment);
 		
-		String msg="등록 실패",
+		String msg="답변 등록 실패",
 			   url="/club/clubBoardDetail?clubNo="+cbcVo.getClubNo()+"&boardNo="+cbcVo.getBoardNo();
 		if(comment>0) {
 			msg="답변 등록 완료되었습니다.";

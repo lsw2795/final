@@ -17,7 +17,6 @@
         <th scope="col">부서</th>
         <th scope="col">가입일</th>
         <th scope="col">결제확인</th>
-        
       </tr>
     </thead>
     <tbody>
