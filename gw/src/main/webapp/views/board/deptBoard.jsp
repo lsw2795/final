@@ -150,23 +150,25 @@
 						</c:if>	
 						<c:if test="${boardlistVo.secflag=='N'}">
 							<c:if test="${boardlistVo.boardLike=='Y'}">
-								<col style="width: 50%;" />
+								<col style="width: 20%;" />
+								<col style="width: 30%;" />
 								<col style="width: 20%;" />
 								<col style="width: 15%;" />
 								<col style="width: 15%;" />
 							</c:if>
 							<c:if test="${boardlistVo.boardLike=='N'}">
-							<col style="width: 50%;" />
+								<col style="width: 20%;" />
 								<col style="width: 30%;" />
 								<col style="width: 20%;" />
+								<col style="width: 15%;" />
 							</c:if>
 						</c:if>	
 					</colgroup>
 					<thead class="mypageempthead">
 						<tr style="text-align: center;">
-							<c:if test="${boardlistVo.secflag=='Y'}">
 							<th class="align-middle py-2 fs-0 pe-2" scope="col" data-sort="name">작성자</th>
-							<th class="align-middle" scope="col" data-sort="dept">부서</th>
+							<c:if test="${boardlistVo.secflag=='Y'}">
+								<th class="align-middle" scope="col" data-sort="dept">부서</th>
 							</c:if>
 							<th class="align-middle" scope="col" data-sort="title">제목</th>
 							<th class="align-middle" scope="col" data-sort="regdate">등록일</th>
@@ -196,6 +198,13 @@
 								<td class="align-middle">
 									<div class="mypageempdiv14">
 									${map['DEPT_NAME']}
+									</div>
+								</td>
+								</c:if>
+								<c:if test="${boardlistVo.secflag=='N'}">
+								<td class="align-middle fs-0 py-3">
+								 	<div class="d-flex align-items-center gap-2 position-relative">
+										<div class="mypageempdiv17">익명</div>
 									</div>
 								</td>
 								</c:if>
