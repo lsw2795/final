@@ -188,12 +188,33 @@
 	            alert('두 날짜 중 하나만 선택되었습니다. 다른 하나를 선택하세요.');
 	        }
 	    });
-	});
+	    
+	    $("#sprintSettingModalClose").click(function() {
+			if(confirm("수정을 취소하시겠습니까?")){
+				$("#commuteModal").modal("hide");
+			}
+		});
+
+	    
+	    
+	});//jquery
+	
+	function modal(commuteNo, workDate, workInTime, workOutTime) { // 출/퇴근 시간 수정을 위한 모달 띄우기
+		$("#workDate").val(workDate);
+		$("#workInTime").val(workInTime);
+		$("#workOutTime").val(workOutTime);
+		$("#commuteModal").modal("show");	
+		
+	}
+	
+	
 
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
+	
+	
 </script>
 
 </head>
@@ -287,7 +308,7 @@
 				</c:if>
 				<c:if test="${!empty commuteList}">
 					<c:forEach var="map" items="${commuteList}">
-						<tr>
+						<tr onclick="modal(${map['COMMUTE_NO']}, '${map['workDate']}', '${map['workInTime']}', '${map['workOutTime']}')">
 							<td>${map['EMP_NO']}</td>
 							<td>${map['DEPT_NAME']}</td>
 							<td>${map['POSITION_NAME']}</td>
@@ -340,5 +361,50 @@
 			</div>
 		</div>
 </div>
+
+
+
+
+<!-- modal  -->
+<div class="modal fade" id="commuteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        	<form id = "addEventForm" autocomplete="on" action="<c:url value='/calendar/addCalendar'/>" method = "post" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">근무시간 변경</h5>
+                    <button type="button" onclick="$('#commuteModal').modal('hide');" class="close" data-dismiss="modal" aria-label="Close" id ="x">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskId" class="col-form-label">수정할 날짜</label>
+                        <input  readonly="readonly" type="text" class="form-control" id="workDate" name="workDate" size="5px;">
+                        
+                        <label for="taskId" class="col-form-label">지정 출근시간</label>
+                        <input readonly="readonly" type="text" class="form-control" id="workInTime" name="workInTime">
+                        
+                        <label for="taskId" class="col-form-label">지정 퇴근시간</label>
+                        <input readonly="readonly" type="text" class="form-control" id="workOutTime" name="workOutTime">
+                        
+                        <hr>
+                        
+                        <label for="taskId" class="col-form-label">수정할 출근시간</label>
+                        <input type="text" class="form-control" id="editInTime" name="editInTime">
+                        
+                        <label for="taskId" class="col-form-label">수정할 퇴근시간</label>
+                        <input type="text" class="form-control" id="editOutTime" name="editOutTime">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary px-4" id="addCalendar" type="submit">수정</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="sprintSettingModalClose">취소</button>
+                </div>
+    
+            </div>
+            </form>
+        </div>
+    </div>
 
 <%@ include file="../../inc/adminBottom.jsp"%>   
