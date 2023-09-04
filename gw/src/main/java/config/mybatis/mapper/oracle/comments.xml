@@ -109,7 +109,7 @@
 	<select id="selectDeptBoardCM" parameterType="commentsVo" resultType="map">
 		select * from deptboardcommentview
 		where board_No=#{boardNo} and boardlist_no=#{boardlistNo}
-		order by groupno desc, sortno asc
+		order by groupno asc, sortno asc
 	</select>
 	
 	<update id="updateDeptBoardCM" parameterType="commentsVo">

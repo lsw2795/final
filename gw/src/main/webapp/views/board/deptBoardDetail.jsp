@@ -322,7 +322,14 @@
                    <c:if test="${!empty comList}">
                    <c:set var="i" value="0"></c:set>
                    <c:forEach var="comMap" items="${comList }">
-					  <div class="row">
+					<div class="row">
+					<!-- 댓/답구분마진 --> 
+						<c:if test="${comMap['SORTNO']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+							<!-- 1일때 10번 스페이스바 -->
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+						</c:if>
 						<c:if test="${boardlistVo.secflag=='Y'}">
 					    <div class="flex-1 position-relative ps-3">
 					      <a href="#" onclick="empDetail(${comMap['EMP_NO']});">
@@ -338,24 +345,31 @@
 					    익명
 					    </div>
 					    </c:if>
-					    <div class="col-md-7 text-end">
-					    <input type="hidden" id="groupNo${i }" name="groupNo" value="${comMap['GROUPNO']}"/>
-					    <input type="hidden" id="sortNo${i }" name="sortNo" value="${comMap['SORTNO']}"/>
-					     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
-					      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
-					      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
-						  <span class='mypagehyphen'></span>
-						  <input type="button" id="btnCancel${i }" class="btn btn-secondary btnCancelCM" value="취소" style="visibility: hidden;"/>
-					      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
-					      </c:if>
-					      <input onclick="insertRCM(${i })" id="insertRCM${i }" class="btn btn-outline-warning" type="button" value="답글달기">
-					      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
-					       <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
-					      	<button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
-					    	</c:if>
-					    </div>
-					    <div class="mb-3 mt-3" id="commentDiv${i }">
-					      <p class="text-1000 mb-0" id="cmContent${i }">${comMap['CONTENT']}</p>
+						    <div class="col-md-7 text-end">
+						    <input type="hidden" id="groupNo${i }" name="groupNo" value="${comMap['GROUPNO']}"/>
+						    <input type="hidden" id="sortNo${i }" name="sortNo" value="${comMap['SORTNO']}"/>
+						     <input type="hidden" id="commentNo${i }" name="commentNo" value="${comMap['COMMENT_NO']}"/>
+						      <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+						      <input type="button" id="realEditCM${i }" class="btn btn-primary" value="수정" style="visibility: hidden;"/>
+							  <span class='mypagehyphen'></span>
+							  <input type="button" id="btnCancel${i }" class="btn btn-secondary btnCancelCM" value="취소" style="visibility: hidden;"/>
+						      <button type="button" class="btn btn-primary" id="btnCmEdit${i }" onclick="btnCmEdit(${i })">수정</button>
+						      </c:if>
+						      <input onclick="insertRCM(${i })" id="insertRCM${i }" class="btn btn-outline-warning" type="button" value="답글달기">
+						      등록일자 : <fmt:formatDate value="${comMap['REGDATE']}" pattern="yyyy-MM-dd a hh:mm:ss"/>
+						       <c:if test="${comMap['EMP_NO']==sessionScope.empNo}">
+						      	<button class="btn btn-link" onclick="btnCmDel(${i })" type="button"><span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1"></span></button>
+						    	</c:if>
+						    </div>
+						<div class="mb-3 mt-3" id="commentDiv${i }">
+						<!-- 댓/답구분마진 --> 
+						<c:if test="${comMap['SORTNO']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+							<!-- 1일때 10번 스페이스바 -->
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+						</c:if>
+					      <span class="text-1000 mb-0" id="cmContent${i }">${comMap['CONTENT']}</span>
 					    </div>
 					  </div>
 					  <div class="border-bottom border-dashed my-3"></div>
