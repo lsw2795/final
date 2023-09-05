@@ -3,9 +3,9 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
 <script type="text/javascript">
-	$(function () {
+/*$(function () {
 		
-		$('#delBt').click(function(){
+		 $('#delBt').click(function(){
 			var count = $('tbody input[type=checkbox]:checked').length;
 			if(count<1){
 				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
@@ -18,11 +18,11 @@
 				}
 			});
 		});
-	});
+	}); */
 	
-	function adminClubDel() {
+	function adminClubDel(clubNo) {
 		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
-			location.href="<c:url value='/admin/adminclub/adminClubDelete?clubNo=${map["CLUB_NO"]}'/>"
+			location.href="<c:url value='/admin/adminclub/adminClubDelete?clubNo=" + clubNo + "'/>"
 		}
 	}
 </script>
@@ -124,7 +124,7 @@
 			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small> 
 			                        </td>
 			                        <td>
-			                        	<button class="btn btn-falcon-default btn-sm" id="delBt" onclick="adminClubDel()" type="button">
+			                        	<button class="btn btn-falcon-default btn-sm" id="delBt" onclick="adminClubDel(${map['CLUB_NO']})" type="button">
                        					<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
 			                      	</td>
 			                      </tr>

@@ -3,10 +3,9 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
 <script type="text/javascript">
-	
 	$(function() {
-		$('#delBtn').click(function {
-			var chk=$('tbody input[type=checkbox]:checked').length();
+		$('#delBtn').click(function(){
+			var chk=$('tbody input[type=checkbox]:checked').length;
 			if(chk<1){
 				alert('삭제할 게시물를 선택하세요.');
 			}
@@ -22,10 +21,10 @@
 	
 	
 	
-	function deleteClubBoard() {
+	function deleteClubBoard(clubBoardNo) {
 		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
-			location.href="<c:url value='/admin/adminclub/adminDeleteClubBoard?clubNo=${map["CLUB_NO"]}&clubBoardNo=${map["BOARD_NO"]}'/>"
-		}
+			location.href = "<c:url value='/admin/adminclub/adminDeleteClubBoard?boardNo=" + clubBoardNo + "'/>";
+		} 
 	}
 	
 	
@@ -46,7 +45,7 @@
         <th scope="col">Date</th>
         <th scope="col">Status</th>
         <th scope="col">Delete</th>
-        <th scope="col"><button id="delBtn" class="btn btn-falcon-primary btn-sm" type="submit">삭제</button></th>
+        <th scope="col"><button id="delBtn" class="btn btn-falcon-primary btn-sm" type="button">삭제</button></th>
       </tr>
     </thead>
     <tbody>
@@ -87,7 +86,7 @@
 	       </c:if>
 		</td>
         <td>
-          <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard()" type="button">
+          <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard(${map['BOARD_NO']})" type="button">
           	<span class="fas fa-trash-alt"></span>
           </button>
         </td>

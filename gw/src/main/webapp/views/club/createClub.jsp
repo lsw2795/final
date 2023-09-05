@@ -106,7 +106,7 @@
 			                        <option value="N">제한없음</option>
 			                   </select>
 			              </div>
-			              </div>
+			          </div>
                       <div class="col-sm-4 mb-3">
                         <label class="form-label" for="memLimit"><strong>모집 회원 수</strong></label>
                         <input class="form-control" id="memLimit" name="memLimit" type="text"/>
