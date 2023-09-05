@@ -5,6 +5,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		  function setDates(startMonth) {
+		        var startDate = new Date();
+		        var lastDate = new Date(); // 오늘 날짜
+		        var startDateValue = startDate.toISOString().split('T')[0];
+		        var lastDateValue = lastDate.toISOString().split('T')[0];
+		        $('#startDate').val(startDateValue);
+		        $('#lastDate').val(lastDateValue);
+		    }
+		    //첫 페이지 로딩 시, startDate와 lastDate에 값이 있는 경우에는 해당 값을 유지
+		    var startDateValue = $('#startDate').val();
+		    var lastDateValue = $('#lastDate').val();
+		    if (!startDateValue || !lastDateValue) {
+		        setDates(1);
+		    }
+		
 		$('#AddBoardList').click(function(){
 			if($('#boardName').val().length<1){
 				alert('게시판 이름을 입력해주세요.');
@@ -190,6 +205,10 @@
 	
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
+	}
+	
+	function submitForm2() {
+	    document.getElementById('frmDateSearch').submit();
 	}
 	
 	function deleteBoard(boardlistNo){
@@ -505,14 +524,15 @@
 								게시판별 이용 통계</h5>
 							</div>
 							 <div class="col-auto d-flex">
-		                      <select class="form-select form-select-sm select-month me-2 admindefault">
-		                        <option value="">선택하세요</option>
-		                        <option value="">일간</option>
-		                        <option value="">주간</option>
-		                        <option value="">월간</option>
-		                      </select>
-                    </div>
-				   </div>
+							<%-- 	<form name="frmDateSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
+								 	<input type="date" id="startDate" name="startDate" value="${param.startDate }" class="form-control-sm admindefault"/>
+								 	<span class="adminhyphen">~</span>
+									<input type="date" id="lastDate" name="lastDate" value="${param.lastDate }" class="form-control-sm admindefault"/>
+									<span class="adminhyphen"></span>
+									<button class="btn btn-primary" onclick="submitForm2()">조회</button>
+	                    		</form> --%>
+                    		</div>
+				  		 </div>
 					</div>
 						
                 <div class="card-body h-100 pe-0">
