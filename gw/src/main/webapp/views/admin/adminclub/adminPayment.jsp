@@ -12,6 +12,7 @@
                 <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
             </div>
       	</th>
+        <th scope="col">동호회장</th>
         <th scope="col">동호회명</th>
         <th scope="col">이름</th>
         <th scope="col">부서</th>
@@ -27,6 +28,7 @@
 		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
 			</div>
 		</td>
+        <td class="text-nowrap">${map['MANAGER']}</td>
         <td class="text-nowrap">${map['TITLE']}</td>
         <td class="text-nowrap">
           <div class="d-flex align-items-center">

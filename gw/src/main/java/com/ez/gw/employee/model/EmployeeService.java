@@ -16,6 +16,10 @@ public interface EmployeeService {
 	int NOT_ADMIN=2; //관리자 권한 없음
 	int	ADMIN_NONE=3; //해당 관리자 없음
 	
+	//동회회비 결제 유무
+	int CLUB_PAID=1;
+	int CLUB_NOT_PAID=2;
+	
 	EmployeeVO selectByEmpNo(int empNo); //사원번호로 사원정보 조회 메서드
 	List<Map<String, Object>> selectAllEmp();
 	int loginCheck(String pwd,int empNo); //로그인 성공여부
