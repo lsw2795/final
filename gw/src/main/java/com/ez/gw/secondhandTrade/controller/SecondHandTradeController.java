@@ -196,6 +196,8 @@ public class SecondHandTradeController {
 		// 1
 		logger.info("중고마켓 화면 보여주기 searchVo={}", searchVo);
 		EmployeeVO emp = null;
+		String likeFlag = "";
+		
 		// 2
 		// 페이징
 		PaginationInfo pagingInfo = new PaginationInfo();
@@ -209,7 +211,8 @@ public class SecondHandTradeController {
 
 		List<Map<String, Object>> list= secondHandTradeService.selectAllMarket(searchVo);
 		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
-
+		
+		
 		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
 		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
 		pagingInfo.setTotalRecord(totalRecord);
@@ -237,6 +240,18 @@ public class SecondHandTradeController {
 			String name = (String)fg.put("NAME", emp.getName());
 			//logger.info("작성자 이름 ={}", (String)fg.put("NAME", emp.getName()));
 			fg.put("timeNew", Utility.displayNew((Date)fg.get("REGDATE"))); // 게시글별로 24시간이내 글등록 확인 여부 저장
+			
+			BigDecimal tradeNoBigDecimal = (BigDecimal)fg.get("TRADE_NO");
+			int tradeNo = tradeNoBigDecimal.intValue();
+			likeFlag = secondHandLikeService.findLike(empNo, tradeNo);
+			
+			BigDecimal likeCountBigDecimal = (BigDecimal)fg.get("LIKECOUNT");
+			int likeCount = 0; // 기본값으로 0 설정
+			    if (likeCountBigDecimal != null) {
+			        likeCount = likeCountBigDecimal.intValue();
+			    }
+			fg.put("likeFlag", likeFlag);
+			fg.put("likeCount", likeCount);
 		}
 
 		// 3
@@ -263,6 +278,7 @@ public class SecondHandTradeController {
 		
 		SecondhandTradeLikeVO secondLikeVo = secondHandLikeService.selectLikeByEmpNo(likeVo);
 		logger.info("좋아요 secondLikeVo={}", secondLikeVo);
+		String likeFlag = secondHandLikeService.findLike(empNo, tradeNo);
 		
 		// 3
 	    // 데이터베이스에서 반환되는 값은 BigDecimal 형식이므로 각 필드에 대해 Integer로 변환해야 합니다.
@@ -276,6 +292,7 @@ public class SecondHandTradeController {
 	    	map.put("PRICE", price);
 	    	map.put("READCOUNT", readcount);
 	    	map.put("LIKECOUNT", likecount);
+	    	map.put("LIKEFLAG", likeFlag);
 	    }
 		
 		

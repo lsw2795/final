@@ -9,7 +9,63 @@
 			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
 	}
+	function insertLikeOn1(){
+		var empNo = ${sessionScope.empNo}
+		var tradeNo = $('#tradeNo1').val();
+		$.ajax({
+            url: "<c:url value='/market/ajaxlikeit'/>",
+            type:'get',
+			dataType:'json',
+			data:{
+				empNo: empNo,
+				tradeNo : tradeNo
+			},
+            success: function (res) {
+            	if(res==1){
+               		//빨간하트로 바꾸기
+               		var likecount1 = $('#likecount1').val();
+               		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+               		$('#likecount1').val(likecount1 +1);
+            	}else if(res ==2){
+            		var likecount1 = $('#likecount1').val();
+            		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+            		$('#likecount1').val(likecount1 -1);
+            	}	
+        	},
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 	
+        function insertLikeOn2(){
+    		var empNo = ${sessionScope.empNo}
+    		var tradeNo = $('#tradeNo2').val();
+    		$.ajax({
+                url: "<c:url value='/market/ajaxlikeit'/>",
+                type:'get',
+    			dataType:'json',
+    			data:{
+    				empNo: empNo,
+    				tradeNo : tradeNo
+    			},
+                success: function (res) {
+                	if(res==1){
+                   		//빨간하트로 바꾸기
+                   		var likecount2 = $('#likecount2').val();
+                   		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+                   		$('#likecount2').val(likecount2 +1);
+                	}else if(res ==2){
+                		var likecount2 = $('#likecount2').val();
+                		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+                		$('#likecount2').val(likecount2 -1);
+                	}
+                },
+                error:function(xhr,status,error){
+                    alert(status+" : "+error);
+                } 
+            });//ajax
+    	}
 	$(function(){
 		$('#likeit').click(function(){
 			$.ajax({

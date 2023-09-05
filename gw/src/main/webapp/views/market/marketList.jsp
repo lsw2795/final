@@ -47,22 +47,6 @@ div#selflagbox {
 	        document.frmPage.submit();
 	    }
 	
-	/* function handleCheckboxChange(){
-		// 체크박스의 선택 여부 확인
-        var isChecked = $('#checkSelflag').prop('checked');
-		
-	     // 동적으로 URL 생성
-        var url = '/market/marketList?checkSelflag=' + isChecked;
-
-	     // URL을 window.location.href에 할당하여 페이지 이동
-	     window.location.href = url;
-     
-    }
-
-    // 체크박스 변경 이벤트에 함수 연결
-    $('#checkSelflag').change(handleCheckboxChange); */
-	
-	
 	function insertLikeOn1(){
 		var empNo = ${sessionScope.empNo}
 		var tradeNo = $('#tradeNo1').val();
@@ -128,7 +112,7 @@ div#selflagbox {
 	<input type="hidden" name="currentPage">
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
-	<input type = "text" name = "checkSelflag" value="${param.checkSelflag }">
+	<input type = "hidden" name = "checkSelflag" value="${param.checkSelflag }">
 </form>
  <div class="row gx-3">
 	<h2>중고거래 게시판</h2>
@@ -238,7 +222,7 @@ div#selflagbox {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong id = "likecount1">${map['LIKECOUNT'] }</strong>
+																		♥ 좋아요 : <strong id = "likecount1">${map['likeCount'] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		<span class="fa-solid fa-eye"></span>
@@ -261,17 +245,17 @@ div#selflagbox {
 															<div class="mt-2">
 																<div class="ILikeIt">
 																	<div class = "likebox">
-																	<c:if test = "${empty map['LiKEFLAG'] }">
+																	<c:if test = "${empty map['likeFlag'] }">
 																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
 																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
-																	<c:if test = "${map['LiKEFLAG'] =='N' }">
+																	<c:if test = "${map['likeFlag'] =='N'}">
 																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
 																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
-																	<c:if test = "${map['LIKEFLAG']=='Y' }">
+																	<c:if test = "${map['likeFlag'] =='Y' }">
 																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
 																		<img id="heartimg1" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
@@ -364,7 +348,7 @@ div#selflagbox {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong id = "likecount2">${map["LIKECOUNT"]}</strong>
+																		♥ 좋아요 : <strong id = "likecount2">${map['likeCount'] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${map["READCOUNT"] }</strong>
@@ -386,17 +370,17 @@ div#selflagbox {
 															<div class="mt-2">
 																<div class="ILikeIt">
 																	<div class = "likebox">
-																	<c:if test = "${empty map['LiKEFLAG'] }">
+																	<c:if test = "${empty map['likeFlag'] }">
 																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
 																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 																	</a>
 																	</c:if>
-																	<c:if test = "${map['LiKEFLAG'] =='N' }">
+																	<c:if test = "${map['likeFlag'] =='N' }">
 																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
 																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 																	</a>
 																	</c:if>
-																	<c:if test = "${map['LIKEFLAG']=='Y' }">
+																	<c:if test = "${map['likeFlag'] =='Y' }">
 																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
 																		<img id="heartimg2" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 																	</a>
