@@ -59,11 +59,13 @@ div#selflagbox {
             success: function (res) {
             	 if (res == 1) {
                      // 빨간하트로 바꾸기
+                     var likecount = $('#likecount' + tradeNo).val();
                      $('#' + imageId).attr('src', '<c:url value="/images/배경지운풀하트.png"/>');
-                    // $('#' + tradeNo).val(${map['likeCount']});
+                     $('#likecount' + tradeNo).val(likecount + 1);
                  } else if (res == 2) {
+                     var likecount = $('#likecount' + tradeNo).val();
                      $('#' + imageId).attr('src', '<c:url value="/images/배경지운빈하트.png"/>');
-                  //   $('#likecount' + tradeNo).val(${map['likeCount']});
+                     $('#likecount' + tradeNo).val(likecount - 1);
                  }
         	},
             error:function(xhr,status,error){
@@ -212,19 +214,18 @@ div#selflagbox {
 																	<div class = "likebox">
 																	<!-- 고유한 ID 할당 -->
                  												   <c:set var="imageId" value="heartimg${loopStatus.index + 1}" />
-                 												   <c:set var="tradeNo" value="tradeNo${loopStatus.index +1}"/>
 																	<c:if test = "${empty map['likeFlag'] }">
-																	<a href="#" style="float: right;" onclick="insertLikeOn1(${tradeNo}, ${map['EMP_NO']}, '${imageId}')">
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																		<img id="${imageId}" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<c:if test = "${map['likeFlag'] =='N'}">
-																	<a href="#" style="float: right;" onclick="insertLikeOn1(${tradeNo}, ${map['EMP_NO']}, '${imageId}')">
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																		<img id="${imageId}" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<c:if test = "${map['likeFlag'] =='Y' }">
-																	<a href="#" style="float: right;" onclick="insertLikeOn1(${tradeNo}, ${map['EMP_NO']}, '${imageId}')">
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																		<img id="${imageId}" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
@@ -244,7 +245,6 @@ div#selflagbox {
 										</div>
 										
 										<c:set var="idx" value="${idx+1 }"/>
-										
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
