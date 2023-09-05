@@ -26,7 +26,7 @@
 	}
 	
 	
-	$(function(clubBoardNo) {
+	$(function(clubBoardNo,clubNo) {
 		var empNo=${sessionScope.empNo!=map['EMP_NO']};
 		
 		$('#clubReportBtn').click(function() {
@@ -34,9 +34,9 @@
 				$.ajax({
 			    	url:"<c:url value='/report/reportClubBoardAjax'/>",
 			   		type:"get",
-			   		dataType:"text",
 			   		data:{
-			   			clubBoardNo:clubBoardNo
+			   			clubBoardNo:$('#clubboardNo').val(),
+			   			clubNo:$('#clubNo').val()
 			   		},
 			   		success:function(res){
 			   			alert(res);
@@ -79,6 +79,8 @@
 	}); */
 </script>
 <div class="card">
+<input type="hidden" id="clubboardNo" value="${map['BOARD_NO'] }">
+<input type="hidden" id="clubNo" value="${map['CLUB_NO'] }">
 	<div class="card-header d-flex flex-between-center">
 	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" type="button">
