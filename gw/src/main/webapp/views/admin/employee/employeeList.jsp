@@ -174,6 +174,12 @@ $(function(){
      
      
     $('#btnDeptEdit').click(function(){
+    	if($('#name2').val().length<1){
+    		alert('수정할 부서를 선택하세요.');
+    		$('#name2').focus();
+    		return false;
+    	}
+    	
     	if($('#newname2').val().length<1){
             alert("부서이름을 입력하세요.");
             $('#newname2').focus();
@@ -225,6 +231,12 @@ $(function(){
      
 	
 	$('#btnDeptDelete').click(function(){
+		if($('#name3').val().length<1){
+			alert('삭제할 부서를 선택하세요.');
+			$('#name3').focus();
+			return false;
+		}
+		
 		var deptNo=$('#name3').val();
 		//alert(deptNo);
 		 if(confirm('해당 부서를 삭제하시겠습니까?')){

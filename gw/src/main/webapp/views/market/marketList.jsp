@@ -26,37 +26,92 @@
 ul#navbarVerticalNav {
    		font-size: 17px;
 	}	
+	
+	.likebox a {
+    margin-right: 83px;
+}
 </style>
+<<script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}	
 	
-	$(function(){
-		console.log(12);
-		$('#iLikeIt').click(function(){
-			$.ajax({
-				url:"<c:url value='/market/ajaxlikeit'/>",
-				type:"post",
-				dataType:"JSON",
-				data:{
-					/* tradeNo: ${map["TRADE_NO"]}
-					empNo:${map["EMP_NO"]} */
-				},
-				success:function(result){
-					if(result==1){//좋아요 누름
-						$('#heart').addClass('fa-solid fa-heart')
-					}else if(result==2){//좋아요 한번 더 눌러서 해지
-						$('#heart').addClass('fa-regular fa-heart')
-					}	
-				},
-				error:function(xhr, status, error){
-					alert(status + ":" + error);
-				}
-			});
-		});
-	});
+	function insertLikeOn1(){
+		var empNo = ${sessionScope.empNo}
+		var tradeNo = $('#tradeNo1').val();
+		$.ajax({
+            url: "<c:url value='/market/ajaxlikeit'/>",
+            type:'get',
+			dataType:'json',
+			data:{
+				empNo: empNo,
+				tradeNo : tradeNo
+			},
+            success: function (res) {
+            	if(res==1){
+               		//빨간하트로 바꾸기
+               		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+            	}else if(res ==2){
+            		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+            	}	
+        	},
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
+	
+        function insertLikeOn2(){
+    		var empNo = ${sessionScope.empNo}
+    		var tradeNo = $('#tradeNo2').val();
+    		$.ajax({
+                url: "<c:url value='/market/ajaxlikeit'/>",
+                type:'get',
+    			dataType:'json',
+    			data:{
+    				empNo: empNo,
+    				tradeNo : tradeNo
+    			},
+                success: function (res) {
+                	if(res==1){
+                   		//빨간하트로 바꾸기
+                   		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+                	}else if(res ==2){
+                		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+                	}
+                },
+                error:function(xhr,status,error){
+                    alert(status+" : "+error);
+                } 
+            });//ajax
+    	}
+	/* function LikeOn2(){
+		//var boardNo=100;
+		var empNo=${sessionScope.empNo};
+		$.ajax({
+            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
+            type:'get',
+			data:{
+				empNo: empNo
+				tradeNo : tradeNo
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+               		//빨간하트로 바꾸기
+               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
+               		location.reload();
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax 
+	}*/
+	
+	
 	
 </script>
 <div class="card-body">
@@ -145,6 +200,7 @@ ul#navbarVerticalNav {
 													<div class="row">
 														<div class="col-lg-8">
 															<h5 class="mt-3 mt-sm-0">
+																<input type="hidden" id = "tradeNo1" value="${map['TRADE_NO']}">
 																<a class="text-dark fs-0 fs-lg-1"
 																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
 																	${map["TITLE"] } </a>
@@ -190,12 +246,26 @@ ul#navbarVerticalNav {
 																</div>
 															</div>
 															<div class="mt-2">
-																<a
-																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	id = "iLikeIt" href="#">
-																	<span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">좋아요</span>
-																</a>
+																<div class="ILikeIt">
+																	<div class = "likebox">
+																	<c:if test = "${empty map['LiKEFLAG'] }">
+																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
+																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																	</a>
+																	</c:if>
+																	<c:if test = "${map['LiKEFLAG'] =='N' }">
+																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
+																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																	</a>
+																	</c:if>
+																	<c:if test = "${map['LIKEFLAG']=='Y' }">
+																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
+																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																	</a>
+																	</c:if>
+																	<span class="mypagehyphen"></span>
+																	</div>
+																</div>
 																<a class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>" id = "message" >
 																	<span class="fas fa-envelope-open"></span>
@@ -257,6 +327,7 @@ ul#navbarVerticalNav {
 													<div class="row">
 														<div class="col-lg-8">
 															<h5 class="mt-3 mt-sm-0">
+																<input type="hidden" id = "tradeNo2" value="${map['TRADE_NO']}">
 																<a class="text-dark fs-0 fs-lg-1"
 																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
 																	${map["TITLE"] } </a>
@@ -280,7 +351,7 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong>${map["LIKECOUNT"] }</strong>
+																		♥ 좋아요 : <strong>${map["LIKECOUNT"]}</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${map["READCOUNT"] }</strong>
@@ -300,11 +371,26 @@ ul#navbarVerticalNav {
 																</div>
 															</div>
 															<div class="mt-2">
-																<a
-																	class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0"
-																	href="<c:url value='/market/like?tradeNo=${map["TRADE_NO"] }'/>">
-																	<span class="far fa-heart"></span><span
-																	class="ms-2 d-none d-md-inline-block">좋아요</span></a>
+																<div class="ILikeIt">
+																	<div class = "likebox">
+																	<c:if test = "${empty map['LiKEFLAG'] }">
+																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+																	</a>
+																	</c:if>
+																	<c:if test = "${map['LiKEFLAG'] =='N' }">
+																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+																	</a>
+																	</c:if>
+																	<c:if test = "${map['LIKEFLAG']=='Y' }">
+																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
+																		<img id="heartimg2" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+																	</a>
+																	</c:if>
+																	<span class="mypagehyphen"></span>
+																	</div>
+																</div>
 																<a
 																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 																	href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>"><span class="fas fa-envelope-open">
