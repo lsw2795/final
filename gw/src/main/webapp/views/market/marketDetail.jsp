@@ -9,9 +9,8 @@
 			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
 	}
-	function insertLikeOn1(){
+	function insertLikeOn(empNo, tradeNo){
 		var empNo = ${sessionScope.empNo}
-		var tradeNo = $('#tradeNo1').val();
 		$.ajax({
             url: "<c:url value='/market/ajaxlikeit'/>",
             type:'get',
@@ -23,13 +22,13 @@
             success: function (res) {
             	if(res==1){
                		//빨간하트로 바꾸기
-               		var likecount1 = $('#likecount1').val();
-               		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
-               		$('#likecount1').val(likecount1 +1);
+               		var likecount = $('#likecount').val();
+               		$('#heartimg').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+               		$('#likecount').val(likecount +1);
             	}else if(res ==2){
-            		var likecount1 = $('#likecount1').val();
-            		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
-            		$('#likecount1').val(likecount1 -1);
+            		var likecount = $('#likecount').val();
+            		$('#heartimg').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+            		$('#likecount').val(likecount -1);
             	}	
         	},
             error:function(xhr,status,error){
@@ -37,57 +36,6 @@
             } 
         });//ajax
 	}
-	
-        function insertLikeOn2(){
-    		var empNo = ${sessionScope.empNo}
-    		var tradeNo = $('#tradeNo2').val();
-    		$.ajax({
-                url: "<c:url value='/market/ajaxlikeit'/>",
-                type:'get',
-    			dataType:'json',
-    			data:{
-    				empNo: empNo,
-    				tradeNo : tradeNo
-    			},
-                success: function (res) {
-                	if(res==1){
-                   		//빨간하트로 바꾸기
-                   		var likecount2 = $('#likecount2').val();
-                   		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
-                   		$('#likecount2').val(likecount2 +1);
-                	}else if(res ==2){
-                		var likecount2 = $('#likecount2').val();
-                		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
-                		$('#likecount2').val(likecount2 -1);
-                	}
-                },
-                error:function(xhr,status,error){
-                    alert(status+" : "+error);
-                } 
-            });//ajax
-    	}
-	$(function(){
-		$('#likeit').click(function(){
-			$.ajax({
-				url:"<c:url value='/market/ajaxlikeit'/>",
-				type:"post",
-				dataType:"JSON",
-				data:{tradeNo: $('#tradeNo').val(),
-					  empNo : $('#empNo').val()},
-				success:function(result){
-					if(result==1){//좋아요  누름
-						$('#heart').addClass('fa-solid fa-heart')
-					}else if(result==2){//좋아요 한번 더 눌러서 해지
-						$('#heart').addClass('fa-regular fa-heart')
-					}
-					
-				},
-				error:function(xhr, status, error){
-					alert(status + ":" + error);
-				}
-			});
-		});
-	});
 	
 </script>
 <style type="text/css">
@@ -186,19 +134,19 @@ div.updateBtn {
                     <div class="col-auto px-0">
                     	<div class="ILikeIt">
 						<div class = "likebox">
-						<c:if test = "${empty likeVo.likeFlag }">
-						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-							<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						<c:if test = "${empty map['likeFlag']}">
+						<a href="#" id="heart" style="float: right;" onclick="insertLikeOn(empNo, ${map['TRADE_NO']})">
+							<img id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 						</a>
 						</c:if>
-						<c:if test = "${likeVo.likeFlag =='N' }">
-						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-							<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						<c:if test = "${map['likeFlag'] =='N' }">
+						<a href="#" id="heart" style="float: right;" onclick="insertLikeOn(empNo, ${map['TRADE_NO']})">
+							<img id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 						</a>
 						</c:if>
-						<c:if test = "${likeVo.likeFlag =='Y' }">
-						<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-							<img id="heartimg2" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
+						<c:if test = "${map['likeFlag'] =='Y' }">
+						<a href="#" id="heart" style="float: right;" onclick="insertLikeOn(empNo, ${map['TRADE_NO']})">
+							<img id="heartimg" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
 						</a>
 						</c:if>
 						<span class="mypagehyphen"></span>

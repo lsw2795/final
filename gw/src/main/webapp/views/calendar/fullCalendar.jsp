@@ -85,7 +85,7 @@
 	            <%if (calendarList != null) {%>
 	            <%for (CalendarVO vo : calendarList) {%>
 	            {
-	            	title : '<%=vo.getTitle()%>',
+	            	title : '2023-09-07 16:00:00',
 	                start : '<%=vo.getBegindate()%>',
 	                end : '<%=vo.getEnddate()%>',
 	                extendedProps : {
