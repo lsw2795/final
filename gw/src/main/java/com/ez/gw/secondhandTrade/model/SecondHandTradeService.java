@@ -19,6 +19,6 @@ public interface SecondHandTradeService {
 	int getTotalRecord(SearchVO searchVo);
 	int updateMarket(SecondHandTradeVO secondVo);
 	int deleteMarket(int tradeNo);
-	int updateLike(int tradeNo);
-	int showLike(int tradeNo);
+	int like(int tradeNo);
+	int dislike(int tradeNo);
 }

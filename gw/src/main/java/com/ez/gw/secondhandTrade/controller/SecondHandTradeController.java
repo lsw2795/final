@@ -464,48 +464,48 @@ public class SecondHandTradeController {
 	public int likeit(@RequestParam(defaultValue = "0")int tradeNo,
 			@RequestParam(defaultValue = "0")int empNo, @ModelAttribute SecondhandTradeLikeVO like) {
 		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
-		like.setEmpNo(empNo); //사원번호 셋팅
+		/*like.setEmpNo(empNo); //사원번호 셋팅
 		like.setTradeNo(tradeNo); //거래번호 셋팅
 		
-		Map<String, Object> secondVo = secondHandTradeService.selectMarketByNo(tradeNo);
-		BigDecimal likeBigDecimal = (BigDecimal)secondVo.get("LIKECOUNT");
-	    int likecount = likeBigDecimal.intValue();
+		
+		 * Map<String, Object> secondVo =
+		 * secondHandTradeService.selectMarketByNo(tradeNo); BigDecimal likeBigDecimal =
+		 * (BigDecimal)secondVo.get("LIKECOUNT"); int likecount =
+		 * likeBigDecimal.intValue();
+		 */
 		
 		
 		//1 해당 회원이 해당글에 좋아요를 누른 적 있는지 조회 count 이용
 		int count = secondHandLikeService.findLikeCount(empNo, tradeNo);
+		logger.info("count={}", count);
 		int result = 0;
+		int cnt = 0;
 		//2 count가 0이면 새로 좋아요 인서트
 		if(count<1) {
 			secondHandLikeService.insertFirstHeart(like);
 			result = 1;
-			int cnt = secondHandTradeService.updateLike(tradeNo);
+			cnt = secondHandTradeService.like(tradeNo);
+			logger.info("좋아요 수 증가 결과 cnt={}", cnt);
 			//3 만약에 else 0보다 크면 좋아요가 N 인지 Y인지 조회
 		}else {
 			String likeflag = secondHandLikeService.findLike(empNo, tradeNo);
 			//4 Y면 dislike로 N으로 업데이트
 			if(likeflag.equals("Y")) {
 				int cnt1 = secondHandLikeService.disLikeHeart(empNo, tradeNo);
-				logger.info("좋아요 취소 성공 여부 cnt1={}", cnt1);
 				result = 2;
-				likecount =- 1;
+				cnt = secondHandTradeService.dislike(tradeNo);
+				logger.info("좋아요 취소 성공 여부 cnt1={}", cnt1);
+				logger.info("좋아요 수 감소 결과 cnt={}", cnt);
 				//5 N이면 likeHeart로 Y로 업데이트
 			}else if(likeflag.equals("N")) {
 				int cnt2 = secondHandLikeService.likeHeart(empNo, tradeNo);
-				logger.info("좋아요 성공 여부 cnt2={}", cnt2);
 				result = 1;
-				likecount =+ 1;
+				cnt = secondHandTradeService.like(tradeNo);
+				logger.info("좋아요 성공 여부 cnt2={}", cnt2);
+				logger.info("좋아요 수 증가 결과 cnt={}", cnt);
 			}
 		}
-		secondVo.put("likecount", likecount);
 		return result;
 	}
-
-
-
-	//2
-
-
-
 
 }
