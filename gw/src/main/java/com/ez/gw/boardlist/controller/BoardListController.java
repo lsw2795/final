@@ -45,19 +45,6 @@ public class BoardListController {
 	logger.info("관리자 - 게시판관리 boardList.size()={}", boardList.size());
 	
 	List<Map<String, Object>> boardListCount=boardListService.selBoardlistWriteCount(searchVo);
-	
-	/* 막대그래프
-	for(Map<String, Object> map : boardListCount) {
-		int boardlistNo=Integer.parseInt(String.valueOf(map.get("BOARDLIST_NO")));
-		String boardName=String.valueOf(map.get("BOARD_NAME"));
-		int count=Integer.parseInt(String.valueOf(map.get("CNT")));
-		map.put("boardlistNo",boardlistNo);
-		map.put("boardName", boardName);
-		map.put("count", count);
-		
-		logger.info("boardlistNo={},boardName={},count={}", boardlistNo,boardName,count);
-	} */
-
 
 	model.addAttribute("boardList",boardList);
 	model.addAttribute("boardListCount",boardListCount);
