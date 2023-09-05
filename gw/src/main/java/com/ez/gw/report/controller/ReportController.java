@@ -60,31 +60,36 @@ public class ReportController {
 	}
 	
 	//클럽
+	@ResponseBody
 	@RequestMapping("/reportClubBoardAjax")
 	public String ajaxReportClub(@RequestParam(defaultValue = "0") int clubBoardNo,
-			HttpSession session) {
+			@RequestParam(defaultValue = "0") int clubNo,HttpSession session) {
 		//1.
 		int empNo=(int)session.getAttribute("empNo");
 		ReportVO reVo = new ReportVO();
 		reVo.setEmpNo(empNo);
 		reVo.setClubBoardNo(clubBoardNo);
-		logger.info("게시글 신고 Ajax 파라미터 clubBoardNo={}",clubBoardNo);
+		reVo.setClubNo(clubNo);
+		logger.info("게시글 신고 Ajax 파라미터 clubNo={},clubBoardNo={}",clubNo,clubBoardNo);
 		
 		//2.
-		int cnt=reportService.insertReport(reVo);
+		String msg="알 수 없는 문제가 발생하였습니다.";
+		int cnt=reportService.dupClubBoardReport(reVo);
 		logger.info("신고등록 결과 cnt={}",cnt);
 		
-		//3.
-		String msg="알 수 없는 문제가 발생하였습니다.";
 		if(cnt>0) {
 			msg="이미 신고한 게시물입니다.";
 		}else {
-			
-			cnt=reportService.dupClubBoardReport(reVo);
-			if(cnt>0) {
+			int cnt2=reportService.insertReport(reVo);
+			if(cnt2>0){
 				msg="해당 게시물이 신고되었습니다.";
 			}
+			
 		}
+		
+		
+		//3.
+			
 		//4.
 		return msg;
 	}
