@@ -94,10 +94,11 @@
 						<h5 class="mb-2 mb-md-0">동호회 소개</h5>
 					</div>
 					<div class="col-auto">
+					<a href="<c:url value='/club/clubList'/>">
 						<button class="btn btn-falcon-default btn-sm mx-2" type="button">
-							<a href="<c:url value='/club/clubList'/>"><span
-								class="fas fa-arrow-left"></span> </a>
+								<span class="fas fa-arrow-left"></span> 
 						</button>
+					</a>
 						<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
 						<c:if test="${sessionScope.empNo==clubVo.empNo}">
 							<a

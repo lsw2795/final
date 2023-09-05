@@ -85,9 +85,8 @@ public class ClubBoardController {
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
 			
 			int i=0;
-			if(originalFileName!=null) {
+			if(files.size()>0) {
 				for(MultipartFile f : files){
-						
 					originalFileName = f.getOriginalFilename();
 					int idx=originalFileName.indexOf(".");
 					logger.info("idx={}",idx);
@@ -114,7 +113,7 @@ public class ClubBoardController {
 					int res=pdsService.clubFiles(pdsVo);
 					logger.info("파일 db저장 결과 res={}",res);		
 				}//for
-			}
+			}//if
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -240,7 +240,7 @@ public class ClubController {
 		return "admin/adminclub/clubList";
 	}
 	
-	@RequestMapping("/admin/adminclub")
+	@RequestMapping("/admin/adminclub/adminClubDelete")
 	public String adminDeleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
 		logger.info("관리자 - 동호회 삭제");
@@ -261,7 +261,7 @@ public class ClubController {
 		return "common/message";
 	}
 	
-	//관리자 - 동호회 다중 삭제
+	//관리자 - 동호회 다중 삭제 안됌
 		@RequestMapping("/admin/adminclub/clubDeleteMulti")
 		public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
 			//1.

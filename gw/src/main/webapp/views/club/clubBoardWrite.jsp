@@ -57,6 +57,11 @@
                   <h5 class="mb-2 mb-md-0">Club Board</h5>
                 </div>
                 <div class="col-auto">
+                	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
+						<button class="btn btn-falcon-default btn-sm mx-2" type="button">
+								<span class="fas fa-arrow-left"></span> 
+						</button>
+					</a>
                 </div>
               </div>
             </div>
