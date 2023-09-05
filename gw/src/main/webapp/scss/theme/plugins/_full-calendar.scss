@@ -3,12 +3,12 @@
 
 }
 .fc {
-  .fc-button{
+  /*.fc-button{
     .fc-icon{
       line-height: 1rem;
       font-size: 1.2em;
     }
-  }
+  }*/
   .fc-scrollgrid{
     border-color: var(--#{$prefix}gray-200);
   }
@@ -82,9 +82,9 @@
   .fc-event-title {
     font-weight: normal !important;
   }
-  .fc-daygrid-event-dot {
-    border-color: var(--#{$prefix}gray-300) !important;
-  }
+  /*.fc-daygrid-event-dot {
+    border-color: var(--#{$prefix}gray-300);
+  }*/
   .fc-day-today:not(.fc-popover) {
     background-color: transparent !important;
     .fc-daygrid-day-frame {
@@ -142,7 +142,7 @@
     }
   }
   .fc-daygrid-dot-event {
-    color: var(--#{$prefix}gray-500) !important;
+    color: var(--#{$prefix}gray-500);
     @include hover-focus {
       background-color: var(--#{$prefix}gray-200) !important;
     }

@@ -80,6 +80,22 @@
 			nowIndicator : true,
 	        dayMaxEventRows: 3, // 각 날짜에 표시할 최대 이벤트 행 수	
 	        displayEventTime: false,
+	        eventBackgroundColor:function(info){
+	        	console.log('Event ID:', info.event.id);
+	        	<%-- console.log('Category No:', '<%= vo.getCategoryNo() %>'); --%>
+	        	
+	        	if(info.event.id == 1){
+	        		 info.el.querySelector('.fc .fc-daygrid-event-dot').attr('.fc-daygrid-event-dot');
+	        	}else if(info.event.id == 2){
+	        		  info.el.querySelector('.fc .fc-daygrid-event-dot').style.backgroundColor = '#A9D18E';
+	        	}else if(info.event.id == 3){
+	        		 info.el.querySelector('.fc .fc-daygrid-event-dot').style.backgroundColor = '#5889F0';
+	        	}else if(info.event.id == 4){
+	        		  info.el.querySelector('.fc .fc-daygrid-event-dot').attr('.red');
+	        	}else{
+	        		info.el.style.backgroundColor = '';
+	        	}
+	        },
 	        events : [ 
 	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
 	            <%if (calendarList != null) {%>
@@ -88,17 +104,18 @@
 	            	title : '<%=vo.getTitle() + " " + vo.getBegintime()%>',
 	                start : '<%=vo.getBegindate()%>',
 	                end : '<%=vo.getEnddate()%>',
+	                id: '<%= vo.getCategoryNo() %>',
 	                extendedProps : {
 	                	calendarNo : '<%= vo.getCalendarNo()%>'
 	                },
 	            	<%if(vo.getCategoryNo() == 1){%>
-	            		color: '#DD6F66'
+	            	backgroundColor: '#DD6F66'
 	            	<%}else if(vo.getCategoryNo() == 2){%>
-	            		color : '#A9D18E'
+	            	backgroundColor : '#A9D18E'
 	            	<%}else if(vo.getCategoryNo() == 3){%>
-	            		color : '#5889F0'
+	            	backgroundColor : '#5889F0'
 	            	<%}else if(vo.getCategoryNo() == 4){%>
-	            		color : '#FFD966'
+	            	backgroundColor : '#FFD966'
 	            	<%}%>
 	             },
 		<%}
@@ -210,6 +227,10 @@
 	  color: red !important;
 	  text-decoration: none !important;
 	}
+	
+	 .red {
+    	border-color: red !important;
+	} 
 	
 </style>
 

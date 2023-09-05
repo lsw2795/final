@@ -284,14 +284,11 @@ public class SecondHandTradeController {
 	    if(map.get("READCOUNT")!=null && map.get("LIKECOUNT")!=null) {
 	    	Integer price = ((BigDecimal) map.get("PRICE")).intValue();
 	    	Integer readcount = ((BigDecimal) map.get("READCOUNT")).intValue();
-	    	Integer likecount = ((BigDecimal) map.get("LIKECOUNT")).intValue();
-	    	logger.info("likecount={}", likecount);
 	    	
 	    	// 4
 	    	// 변환한 값을 다시 map에 저장합니다.
 	    	map.put("PRICE", price);
 	    	map.put("READCOUNT", readcount);
-	    	map.put("LIKECOUNT", likecount);
 	    	map.put("LIKEFLAG", likeFlag);
 	    }
 		
