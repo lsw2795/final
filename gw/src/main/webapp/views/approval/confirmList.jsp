@@ -74,7 +74,6 @@
 		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
 	}
 	
-	
 </script>
 <div class="container p-0">
 	<div class="col-12-lg pe-lg-2 mb-3">

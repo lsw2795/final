@@ -12,19 +12,15 @@
 			}
 			
 			if(count > 0){
-				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
-					$('form[name=frmList]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
-					$('form[name=frmList]').submit();
+				if(confirm('선택한 동호회를 삭제하시겠습니까?')){
+					$('form[name=frmClub]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
+					$('form[name=frmClub]').submit();
 				}
 				
 			
 		});
 		
-		$('input[type=checkbox]').each(function (index) {
-			if($(this).is(":checked")==true){
-		    	$(this).val();
-		    }
-		}		
+		
 	});
 </script>
 		<div class="row gx-3">
@@ -67,9 +63,10 @@
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
+                <form name="frmClub" method="post" action="<c:url value='/admin/adminclub/clubDeleteMulti'/>">
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                       <a href="<c:url value='/club/deleteClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm" id="delBt" type="button"><span class="fas fa-trash" data-fa-transform="shrink-3"></span>
-                       <span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button></a>
+                       	<button class="btn btn-falcon-default btn-sm" id="delBt" type="submit">
+                       	<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
                       </div>
                   </div>
                 </div>
@@ -80,23 +77,30 @@
                         <tr>
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="check d-flex align-items-center">
-                              <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
+                              <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" 
+                              data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' 
+                              />
                             </div>
                           </th>
                           <th class="sort align-middle ps-2" data-sort="Name">Manager</th>
-                          <th class="sort align-middle" data-sort="Club Title" style="min-width:15.625rem">Title</th>
+                          <th class="sort align-middle" data-sort="Club Title" style="min-width:14rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
                           <th class="sort align-middle" data-sort="Date">Date</th>
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">
+	                      <c:set var="idx" value="0"/>
                           <!-- 반복 시작 -->
                           <c:forEach var="map" items="${list }">
                           	<c:if test="${map['SECFLAG']=='Y' }">
 		                        <tr>
 		                          <td class="align-middle fs-0 py-3">
 		                            <div class="form-check mb-0">
-		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0"
+		                               data-bulk-select-row="data-bulk-select-row" 
+		                               name="clubItems[${idx }].clubNo"
+		     							value="${map['CLUB_NO']}"/>
+		     						<input type="hidden" value="${map['CLUB_NO']}" name="clubItems[${idx }].clubNo" >
 		                            </div>
 		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
@@ -119,6 +123,7 @@
 			                        </td>
 			                      </tr>
                           	</c:if>
+                          	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
                       </tbody>
                     </table>
@@ -127,6 +132,7 @@
                     </div>
                   </div>
                 </div>
+               </form>
                 <div class="card-footer">
                   <div class="d-flex justify-content-center">
                     <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>

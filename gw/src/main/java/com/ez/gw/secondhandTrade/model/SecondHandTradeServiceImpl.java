@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ez.gw.common.SearchSellVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
@@ -32,7 +33,7 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllMarket(SearchVO searchVo) {
+	public List<Map<String, Object>> selectAllMarket(SearchSellVO searchVo) {
 		return secondHandTradeDao.selectAllMarket(searchVo);
 	}
 
@@ -47,7 +48,7 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public int getTotalRecord(SearchVO searchVo) {
+	public int getTotalRecord(SearchSellVO searchVo) {
 		return secondHandTradeDao.getTotalRecord(searchVo);
 	}
 
@@ -62,13 +63,13 @@ public class SecondHandTradeServiceImpl implements SecondHandTradeService{
 	}
 
 	@Override
-	public int updateLike(int tradeNo) {
-		return secondHandTradeDao.updateLike(tradeNo);
+	public int like(int tradeNo) {
+		return secondHandTradeDao.like(tradeNo);
 	}
 
 	@Override
-	public int showLike(int tradeNo) {
-		return secondHandTradeDao.showLike(tradeNo);
+	public int dislike(int tradeNo) {
+		return secondHandTradeDao.dislike(tradeNo);
 	}
 
 	

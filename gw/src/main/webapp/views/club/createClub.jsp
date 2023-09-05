@@ -26,6 +26,23 @@
 				$('#introduce').focus();
 				return false;
 			}
+			
+			$("#memLimitflag").change(function() {
+				var selectedOption = $(this).val();
+				var count = $("#memberCnt");
+				var errorElement = $("#memLimitError");
+				
+				if(selectedOption==='Y'){
+					// "제한" 옵션이 선택된 경우 필드 활성화
+		            count.prop("disabled", false);
+		            errorElement.text(""); // 오류 메시지를 지웁니다.
+				}else{
+					// "제한" 옵션이 선택되지 않은 경우 필드 비활성화 및 오류 메시지 표시
+		            count.prop("disabled", true);
+		            count.val(""); // 필드 값을 지웁니다.
+		            errorElement.text("제한을 선택한 경우에만 입력하세요.");
+				}
+			});
 
 			/* if($('#secflag').val().length<1){
 				alert('동호회 공개여부를 선택해주세요.');
@@ -82,25 +99,35 @@
                 </div>
                 <div class="card-body bg-light">
                     <div class="row gx-2">
-                    <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="managr">동호회장</label>
+                    <div class="col-sm-9 mb-3">
+                        <label class="form-label" for="managr"><strong>동호회장</strong></label>
                         <input class="form-control" id="manager" name="manager"  type="text" placeholder="Manager" />
                       </div>
                       <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="memberCnt">모집 회원 수</label>
-                        <input class="form-control" id="memberCnt" name="memLimit" type="text" />
+                      <label class="col-auto" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
+			              <div class="col-auto">
+			                   <select class="form-select form-select" name="memLimitflag" id="memLimitflag">
+			                        <option value="Y">제한</option>
+			                        <option value="N">제한없음</option>
+			                   </select>
+			              </div>
+			              </div>
+                      <div class="col-sm-4 mb-3">
+                        <label class="form-label" for="memberCnt"><strong>모집 회원 수</strong></label>
+                        <input class="form-control" id="memberCnt" name="memLimit" type="text" disabled/>
+                        <span id="memLimitError" style="color: red;"></span>
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="title">동호희 이름</label>
+                        <label class="form-label" for="title"><strong>동호희 이름</strong></label>
                         <input class="form-control" id="title" name="title" type="text" placeholder="Club Title" />
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="introduce">동호회 소개</label>
+                        <label class="form-label" for="introduce"><strong>동호회 소개</strong></label>
                         <textarea class="form-control" id="introduce" name="introduce" type="textarea" placeholder="Introduce"
                         	style="height:300px"></textarea>	
                       </div>
                       <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="secflag">공개 여부</label>
+                        <label class="form-label" for="secflag"><strong>공개 여부</strong></label>
                         <select class="form-select form-select-sm" name="secflag" id="secflag">
                           <option value="Y">공개</option>
                           <option value="N">비공개</option>
@@ -119,13 +146,6 @@
               <div class="col-md">
                 <h5 class="mb-2 mb-md-0"></h5>
               </div>
-              <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
-              <div class="col-auto">
-                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
-                        <option value="Y">제한</option>
-                        <option value="N">제한없음</option>
-                   </select>
-                </div>
                 <div class="col-auto">
                   <button class="btn btn-primary btn-sm me-2" type="submit">저장</button>
                 </div>

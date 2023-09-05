@@ -133,6 +133,20 @@ public class MessageContentController {
 		return "message/messageList";
 	}
 	
+	@RequestMapping("/messageList5")
+	public String messageList5(HttpSession session,Model model){
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("마지막 받은 메시지 empNo={}",empNo);
+		
+		
+		List<MessageViewVO> list = messageContentService.selectLastMessage5(empNo);
+		logger.info("마지막 받은 메시지 5개 조회 list={}",list.size());
+		
+		model.addAttribute("list",list);
+		
+		return "message/messageList5";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/messageListClickAjax")
 	public Map<String, Object> messageListClickAjax(@RequestParam(defaultValue = "0") int reader,
@@ -191,6 +205,62 @@ public class MessageContentController {
 		logger.info("새로운 메시지 조회 결과 cnt={}",cnt);
 		
 		return cnt;
+	}
+	
+	@RequestMapping("/allDelete")
+	public String messageAllDelete(@RequestParam(defaultValue = "0") int reader,
+			Model model,HttpSession session){
+		int empNo=(int)session.getAttribute("empNo");
+		logger.info("메시지 전체삭제  reader={},empNo={}",reader,empNo);
+		
+		MessageViewVO vo = new MessageViewVO();
+		vo.setEmpNo(empNo);
+		vo.setReader(reader);
+		
+		List<Integer> sendNoList = messageContentService.searchSendMessageNo(vo);
+		List<Integer> readNoList = messageContentService.searchReadMessageNo(vo);
+		
+		int cnt=0;
+		String msg="쪽지 삭제 처리 중 에러가 발생했습니다.",url="/message/messageList";
+		
+		if(sendNoList.size()!=0) {
+			for(int i=0;i<sendNoList.size();i++) {
+				vo.setMessageNo(sendNoList.get(i));
+				logger.info("보낸쪽지 삭제 처리 vo={}",vo);
+				
+				cnt=messageContentService.updateDelFlagOrDelete(vo);
+				logger.info("삭제 처리 결과 cnt={}",cnt);	
+				if(cnt>0) {
+					msg="쪽지가 삭제되었습니다.";
+				}else {
+					model.addAttribute("msg",msg);
+					model.addAttribute("url",url);
+					return "common/message";
+				}
+			}
+		}
+		
+		if(readNoList.size()!=0) {
+			for(int i=0;i<readNoList.size();i++) {
+				vo.setMessageNo(readNoList.get(i));
+				logger.info("받은쪽지 삭제 처리 vo={}",vo);
+				
+				cnt=messageService.updateDelFlagOrDelete(vo);
+				logger.info("삭제 처리 결과 cnt={}",cnt);	
+				if(cnt>0) {
+					msg="쪽지가 삭제되었습니다.";
+				}else {
+					model.addAttribute("msg",msg);
+					model.addAttribute("url",url);
+					return "common/message";
+				}
+			}
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
 	}
 	
 	

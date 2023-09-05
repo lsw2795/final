@@ -25,28 +25,29 @@
 		
 	}
 	
-	
-	$(function(clubBoardNo) {
-		var empNo=${sessionScope.empNo!=map['EMP_NO']};
-		
-		$('#clubReportBtn').click(function() {
-			if(confirm('해당 게시글을 신고하시겠습니까?')){
-				$.ajax({
-			    	url:"<c:url value='/report/reportClubBoardAjax'/>",
-			   		type:"get",
-			   		dataType:"text",
-			   		data:{
-			   			clubBoardNo:clubBoardNo
-			   		},
-			   		success:function(res){
-			   			alert(res);
-			    	},error:function(xhr, status, error){
-			    		alert(status+" : "+error);
-			   		}
-		   		}); //ajax
-			} //if
-		});
+	$(function() {
+	    $('#clubReportBtn').click(function() {
+	    	event.preventDefault(); // 기본 동작 중단
+	        if (confirm('해당 게시글을 신고하시겠습니까?')) {
+	            $.ajax({
+	                url: "<c:url value='/report/reportClubBoardAjax'/>",
+	                type: "GET",
+	                data: {
+	                    clubBoardNo: $('#clubboardNo').val(),
+	                    clubNo: $('#clubNo').val()
+	                },
+	                success: function(res) {
+	                    alert(res); // 신고 요청이 성공하면 서버에서 반환한 메시지를 경고창으로 표시
+	                    // 신고 후 추가로 필요한 동작 수행
+	                },
+	                error: function(xhr, status, error) {
+	                    alert(status + " : " + error); // 에러 메시지 표시
+	                }
+	            });
+	        }
+	    });
 	});
+
 	
 	/* $(function() {
 		$("#delComment").click(function() {
@@ -79,6 +80,8 @@
 	}); */
 </script>
 <div class="card">
+<input type="hidden" id="clubboardNo" value="${map['BOARD_NO'] }">
+<input type="hidden" id="clubNo" value="${map['CLUB_NO'] }">
 	<div class="card-header d-flex flex-between-center">
 	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" type="button">

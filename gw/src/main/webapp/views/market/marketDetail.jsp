@@ -9,7 +9,63 @@
 			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
 		}
 	}
+	function insertLikeOn1(){
+		var empNo = ${sessionScope.empNo}
+		var tradeNo = $('#tradeNo1').val();
+		$.ajax({
+            url: "<c:url value='/market/ajaxlikeit'/>",
+            type:'get',
+			dataType:'json',
+			data:{
+				empNo: empNo,
+				tradeNo : tradeNo
+			},
+            success: function (res) {
+            	if(res==1){
+               		//빨간하트로 바꾸기
+               		var likecount1 = $('#likecount1').val();
+               		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+               		$('#likecount1').val(likecount1 +1);
+            	}else if(res ==2){
+            		var likecount1 = $('#likecount1').val();
+            		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+            		$('#likecount1').val(likecount1 -1);
+            	}	
+        	},
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 	
+        function insertLikeOn2(){
+    		var empNo = ${sessionScope.empNo}
+    		var tradeNo = $('#tradeNo2').val();
+    		$.ajax({
+                url: "<c:url value='/market/ajaxlikeit'/>",
+                type:'get',
+    			dataType:'json',
+    			data:{
+    				empNo: empNo,
+    				tradeNo : tradeNo
+    			},
+                success: function (res) {
+                	if(res==1){
+                   		//빨간하트로 바꾸기
+                   		var likecount2 = $('#likecount2').val();
+                   		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+                   		$('#likecount2').val(likecount2 +1);
+                	}else if(res ==2){
+                		var likecount2 = $('#likecount2').val();
+                		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+                		$('#likecount2').val(likecount2 -1);
+                	}
+                },
+                error:function(xhr,status,error){
+                    alert(status+" : "+error);
+                } 
+            });//ajax
+    	}
 	$(function(){
 		$('#likeit').click(function(){
 			$.ajax({
@@ -74,7 +130,7 @@ div.updateBtn {
               
 <div class="col-lg-6 mb-4 mb-lg-0">
     <div class="product-slider" id="galleryTop">
-        <div class="swiper-container theme-slider position-lg-absolute all-0 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-autoheight" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+    	<div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
             <div class="swiper-wrapper h-100">
                 <c:forEach var="file" items="${file}" varStatus="loopStatus">
                     <div class="swiper-slide h-100" data-swiper-slide-index="${loopStatus.index}">

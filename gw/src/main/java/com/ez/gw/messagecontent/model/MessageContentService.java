@@ -10,4 +10,7 @@ public interface MessageContentService {
 	List<MessageViewVO> selectAllMyMessage(MessageViewVO mViewVo);
 	int updateReadDate(MessageViewVO vo);
 	int updateDelFlagOrDelete(MessageViewVO vo);
+	List<MessageViewVO> selectLastMessage5(int empNo);
+	List<Integer> searchSendMessageNo(MessageViewVO vo);
+	List<Integer> searchReadMessageNo(MessageViewVO vo);
 }

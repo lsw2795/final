@@ -38,6 +38,15 @@
 		order by m1.send_date desc
 	</select>
 	
+	<select id="selectLastMessage5" parameterType="int" resultType="messageViewVo">
+		select * from messageView m1
+		where reader=#{empNo}
+		and send_date = (select max(m2.send_date) from messageView m2
+                		where m2.reader=#{empNo} and m2.emp_no=m1.emp_no
+                        and m2.reader_delflag='N')
+		order by m1.send_date desc
+	</select>
+	
 	<select id="selectAllMyMessage" parameterType="messageViewVo" resultType="messageViewVo">
 		select * from messageView 
 	    where (emp_no =#{empNo} or reader=#{empNo})
@@ -70,5 +79,15 @@
 		delete from message_content
 		where message_no = #{messageNo}
 	</delete>
+	
+	<select id="searchSendMessageNo" parameterType="messageViewVo" resultType="int">
+		select message_no from messageView
+		where (emp_no = #{empNo} and reader = #{reader})
+	</select>
+	
+	<select id="searchReadMessageNo" parameterType="messageViewVo" resultType="int">
+		select message_no from messageView
+		where (reader = #{empNo} and emp_no = #{reader})
+	</select>
 
 </mapper>
