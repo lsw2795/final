@@ -9,8 +9,8 @@ public class EmpSearchVO extends SearchVO{
 	private int empNo; //사원번호 
 	private int boardlistNo; //게시판 번호
 	private int boardNo; //게시글 번호
-	private int startDate; //조회 시작일자
-	private int lastDate; //조회 끝일자
+	private String startDate; //조회 시작일자
+	private String lastDate; //조회 끝일자
 	
 	@Override
 	public String toString() {
