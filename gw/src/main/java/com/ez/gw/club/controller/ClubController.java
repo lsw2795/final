@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.gw.club.model.ClubService;
 import com.ez.gw.club.model.ClubVO;
+import com.ez.gw.club.model.ListClubVo;
+import com.ez.gw.clubboard.model.ClubBoardVO;
+import com.ez.gw.clubboard.model.ListClubBoardVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
@@ -258,6 +261,32 @@ public class ClubController {
 		//4.
 		return "common/message";
 	}
+	
+	//관리자 - 신고함 다중 삭제
+		@RequestMapping("/admin/adminclub/cludDeleteMulti")
+		public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
+			//1.
+			logger.info("관리자 - 동호회 다중삭제 listVo={}",listVo);
+			
+			//2.
+			List<ClubVO> list = listVo.getClubItems();
+			int cnt=clubService.deleteMulti(list);
+			logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
+			
+			String msg="동호회 삭제 실패했습니다.",url="/admin/adminclub/clubList";
+			if(cnt>0) {
+				msg="선택 동호회 삭제 성공했습니다.";
+			}
+			//3.
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			//4.
+			return "common/message";
+			
+		}
+	
+	
 	
 	@RequestMapping("/admin/adminclub/adminPayment")
 	public String paymentList(@RequestParam(required = false)String merchantNo, Model model) {

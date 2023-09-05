@@ -422,5 +422,5 @@
 		set likecount=likecount-1
 		where board_no=#{boardNo}
 	</update>
-	
+
 </mapper>

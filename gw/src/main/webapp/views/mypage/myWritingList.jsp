@@ -11,6 +11,29 @@
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
+	
+	function updateReadCount(boardlistNo, boardNo){
+		$.ajax({
+            url: "<c:url value='/board/updateReadCount'/>",
+            type:'get',
+			data: {
+				boardNo: boardNo
+			},
+			dataType:'json',
+            success: function (res) {
+            	if(res>0){
+            		if(boardlistNo<100){
+            			location.href="<c:url value='/board/deptBoardDetail?boardlistNo="+boardlistNo+"&boardNo="+boardNo+"'/>";
+            		}else if(boardlistNo==2000){
+            			location.href="<c:url value='/board/noticeDetail?boardNo="+boardNo+"'/>";
+            		}
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
 </script>
 <div class="row g-0">
    <div class="col-lg-12 pe-lg-2 mb-3">
@@ -100,28 +123,28 @@
                       <c:forEach var="map" items="${boardList }">
                         <tr class="mypageemptr">
                            <c:if test="${map['BOARDLIST_NO']<100}">	                          
-	                         	<td class="align-middle"><a href="<c:url value='/board/deptBoard?boardlistNo=${map["BOARDLIST_NO"]}'/>">${map['BOARD_NAME']}</a></td>
-	                         	<td class="align-middle"><a href="<c:url value='/board/deptBoardDetail?boardlistNo=${map["BOARDLIST_NO"]}&boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                         	<td class="align-middle"><a href="<c:url value='/board/deptBoard?boardlistNo=${map["BOARDLIST_NO"]}'/>">${map['BOARD_NAME']}</a></td>
+                          	 <td class="align-middle"><a href="#" onclick="updateReadCount(${map['BOARDLIST_NO']},${map['BOARD_NO']});">${map['TITLE']}</a></td>
                           </c:if>
 						  <c:if test="${map['BOARDLIST_NO']==100}">	                          
                           	<td class="align-middle"><a href="<c:url value='/market/marketList'/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          		<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==200}">	                          
                           	<td class="align-middle"><a href="<c:url value='/club/clubList'/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value='/club/clubList'/>">${map['TITLE']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/club/clubBoard?clubNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==1000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/qna/list'/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value='/qna/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                         	<td class="align-middle"><a href="<c:url value='/qna/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==2000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/board/noticeList'/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value='/board/noticeDetail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          	 <td class="align-middle"><a href="#" onclick="updateReadCount(${map['BOARDLIST_NO']},${map['BOARD_NO']});">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==3000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
-                          	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                         	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
                           <c:if test="${map['BOARDLIST_NO']==4000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/board/faqList'/>">${map['BOARD_NAME']}</a></td>

@@ -7,7 +7,7 @@
 		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=600");
 	}
 </script>
-<div class="card-body" style="background: white; height: 170px;">
+<div class="card-body pt-2" style="background: white; height: 170px;">
 	<table style="width: 100%">
 		<tbody>
 			<c:if test="${empty list }">
@@ -32,20 +32,20 @@
 						</td>
 						<td align="right">
 							<c:if test="${map['STATE']=='반려' }">
-							        <span class="badge badge rounded-pill p-2 badge-subtle-warning">
-							        	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
-							        </span>
-							    </c:if> 
-							    <c:if test="${map['STATE']=='완료' }">
-							        <span class="badge badge rounded-pill p-2 badge-subtle-success">
-								        <b class="state">${map['STATE']}</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
-									</span>
-							    </c:if>
-							    <c:if test="${map['STATE']!='완료' and map['STATE']!='반려' }">
-							        <span class="badge badge rounded-pill p-2 badge-subtle-primary">
-							        	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        </span>
-							    </c:if>
+							    <span class="badge badge rounded-pill p-2 badge-subtle-warning">
+							    	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
+								</span>
+							</c:if> 
+							<c:if test="${map['STATE']=='완료' }">
+							    <span class="badge badge rounded-pill p-2 badge-subtle-success">
+									<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+								</span>
+							</c:if>
+							<c:if test="${map['STATE']!='완료' and map['STATE']!='반려' }">
+								<span class="badge badge rounded-pill p-2 badge-subtle-primary">
+							    	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
+								</span>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>

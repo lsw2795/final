@@ -3,6 +3,10 @@ package com.ez.gw.messagecontent.model;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ez.gw.message.model.MessageDAO;
+import com.ez.gw.message.model.MessageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageContentServiceImpl implements MessageContentService{
 	private final MessageContentDAO messageContentDao;
+	private final MessageService messageService;
 	
 	@Override
 	public int insertMessage(MessageContentVO vo) {
@@ -53,6 +58,21 @@ public class MessageContentServiceImpl implements MessageContentService{
 		}
 		
 		return cnt;
+	}
+
+	@Override
+	public List<MessageViewVO> selectLastMessage5(int empNo) {
+		return messageContentDao.selectLastMessage5(empNo);
+	}
+
+	@Override
+	public List<Integer> searchSendMessageNo(MessageViewVO vo) {
+		return messageContentDao.searchSendMessageNo(vo);
+	}
+	
+	@Override
+	public List<Integer> searchReadMessageNo(MessageViewVO vo) {
+		return messageContentDao.searchReadMessageNo(vo);
 	}
 	
 	

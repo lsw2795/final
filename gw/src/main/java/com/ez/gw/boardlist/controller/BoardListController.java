@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ez.gw.boardlist.model.BoardListService;
 import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.common.SearchVO;
 
@@ -28,8 +30,8 @@ public class BoardListController {
 	private final BoardListService boardListService;
 	
 	@RequestMapping("/admin/board/manageBoards")
-	public String manageBoardList(@ModelAttribute SearchVO searchVo, 
-			Model model) {
+	public String manageBoardList(@ModelAttribute EmpSearchVO searchVo, Model model) {
+		logger.info("관리자 - 게시판관리 파라미터 searchVo={}", searchVo);
 	//[1] PaginationInfo 객체 생성
 	PaginationInfo pagingInfo=new PaginationInfo();
 	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);

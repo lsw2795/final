@@ -1,9 +1,11 @@
 package com.ez.gw.boardlist.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
@@ -56,5 +58,10 @@ public class BoardListServiceImpl implements BoardListService {
 	@Override
 	public List<BoardListVO> seldeptBoard() {
 		return boardListDao.seldeptBoard();
+	}
+
+	@Override
+	public List<Map<String, Object>> selBoardlistWriteCount(EmpSearchVO searchVo) {
+		return boardListDao.selBoardlistWriteCount(searchVo);
 	}
 }

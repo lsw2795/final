@@ -25,6 +25,10 @@
 	$(function(){
 		$('#close').click(function(){
 			window.close();
+		});
+		
+		$('#closeUpdate').click(function(){
+			window.close();
 			window.opener.location.reload();
 		});
 		
@@ -301,7 +305,12 @@
 							</div>
 	                    </div>
 		                <div class="col-sm-2 m-auto mt-3">
-		                    <button class="form-control btn btn-primary" id="close" style="width: 100px">닫기</button>
+		                	<c:if test="${confirmMap['EMP_NO']==sessionScope.empNo}">
+			                    <button class="form-control btn btn-primary" id="close" style="width: 100px">닫기</button>
+		                	</c:if>
+		                	<c:if test="${confirmMap['EMP_NO']!=sessionScope.empNo}">
+			                    <button class="form-control btn btn-primary" id="closeUpdate" style="width: 100px">닫기</button>
+		                	</c:if>
 		                </div>
 	                </div>
 	        	</div>

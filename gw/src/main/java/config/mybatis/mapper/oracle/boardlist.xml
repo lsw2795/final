@@ -68,4 +68,15 @@
 		where boardlist_no not in(100,200,1000,2000,3000,4000,5000)
 	</select>
 	
+	<select id="selBoardlistWriteCount" parameterType="empSearchVo">
+		select boardlist_no,count(*) from boardlistview
+		 <![CDATA[
+		where regdate >=to_date(#{startDate})
+		and regdate< to_date(#{lastDate})+1
+		 ]]>
+		group by boardlist_no
+		order by count(*) desc
+	</select>
+	
+	
 </mapper>
