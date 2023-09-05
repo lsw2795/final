@@ -32,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int loginCheck(String pwd, int empNo) {
 		String dbPwd=employeeDao.selectPwd(empNo);
+		
 		int result=0;
 		if(dbPwd==null || dbPwd.isEmpty()) {
 			result=EmployeeService.EMPNO_NONE;
@@ -174,6 +175,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public List<Map<String, Object>> selEmpExportExcel() {
 		return employeeDao.selEmpExportExcel();
+	}
+
+	@Override
+	public List<Integer> selectRetire() {
+		return employeeDao.selectRetire();
 	}
 
 }

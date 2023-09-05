@@ -61,7 +61,12 @@
 
 	
 	$(function() {
-		$("#memLimitflag").val('Y').prop("selected", true); 
+		if($("#memLimit").val()>=$(this).length){
+			alert("모집인원이 마감되었습니다.");
+			
+		}
+		
+		
 		$("#memLimitflag").val('N').prop("selected", false);
 	});
 	
@@ -195,7 +200,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<span>동호회 가입 비용은 10,000원입니다.</span><br> 
+					<span>동호회 가입 비용은 10,000원입니다.</span><br><br> 
 					<h8><strong>카카오 페이 결제만 가능합니다.</strong></h8><br> 
 					<a href="#" onclick="kakaopay()"> 
 						<img width="70" src="<c:url value='/kakaopay.jpg'/>">

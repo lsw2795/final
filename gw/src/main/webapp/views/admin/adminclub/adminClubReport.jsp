@@ -8,11 +8,11 @@
 		$('#delBtn').click(function {
 			var chk=$('tbody input[type=checkbox]:checked').length();
 			if(chk<1){
-				alert('먼저 체크하세요.');
+				alert('삭제할 게시물를 선택하세요.');
 			}
 			
 			if(chk > 0){
-				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+				if(confirm('선택한 게시물을 삭제하시겠습니까?')){
 					$('form[name=frmChk]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
 					$('form[name=frmChk]').submit();
 				} // if

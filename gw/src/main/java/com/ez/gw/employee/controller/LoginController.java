@@ -1,5 +1,6 @@
 package com.ez.gw.employee.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -35,13 +36,24 @@ public class LoginController {
 	@PostMapping("/empLogin")
 	public String logiEmp_post(@RequestParam int empNo, @RequestParam String pwd, 
 			@RequestParam(required = false)String split_checkbox,
+			@RequestParam(required = false)String retiredate,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
 		//1.
 		logger.info("로그인 처리 페이지,파라미터 empNo={},pwd={},"
 				+ "split_checkbox={}",empNo,pwd,split_checkbox);
 		
 		//2.
-
+		List<Integer> retireList=empService.selectRetire();
+		logger.info("로그인 결과 retireList={}",retireList.size());
+		
+		for(Integer retireNo : retireList) {
+			if(retireNo==empNo) {
+				model.addAttribute("msg", "퇴사자입니다.");				
+				model.addAttribute("url", "/");				
+				return "common/message";
+			}
+		}
+		
 		int result=empService.loginCheck(pwd, empNo);
 		logger.info("로그인 결과 result={}",result);
 		
@@ -77,7 +89,7 @@ public class LoginController {
 		}else if(result==EmployeeService.PWD_DISAGREE) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==EmployeeService.EMPNO_NONE){
-			msg="해당 사원번호는 존재하지 않습니다.";
+			msg="해당 사원번호는 존재하지 않거나 퇴사자입니다.";
 		}
 		
 		//3.

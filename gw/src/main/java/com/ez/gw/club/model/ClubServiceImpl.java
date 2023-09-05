@@ -67,6 +67,8 @@ public class ClubServiceImpl implements ClubService{
 	@Override
 	public int joinClub(String merchantNo, String clubNo, String empNo) {
 		
+		
+		
 		int parsedClubNo = Integer.parseInt(clubNo);
 		int parsedEmpNo = Integer.parseInt(empNo);
 		
@@ -79,8 +81,8 @@ public class ClubServiceImpl implements ClubService{
 	}
 
 	@Override
-	public List<Map<String, Object>> adminClubList(String merchantNo) {
-		return clubDao.adminClubList(merchantNo);
+	public List<Map<String, Object>> adminClubList() {
+		return clubDao.adminClubList();
 	}
 
 	

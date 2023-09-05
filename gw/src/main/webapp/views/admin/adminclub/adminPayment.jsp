@@ -12,8 +12,9 @@
                 <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
             </div>
       	</th>
+        <th scope="col">동호회장</th>
         <th scope="col">동호회명</th>
-        <th scope="col">이름</th>
+        <th scope="col">가입자</th>
         <th scope="col">부서</th>
         <th scope="col">가입일</th>
         <th scope="col">결제확인</th>
@@ -27,6 +28,7 @@
 		     <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
 			</div>
 		</td>
+        <td class="text-nowrap">${map['MANAGER']}</td>
         <td class="text-nowrap">${map['TITLE']}</td>
         <td class="text-nowrap">
           <div class="d-flex align-items-center">
@@ -41,7 +43,12 @@
         <td class="text-nowrap">${map['DEPT_NAME'] }</td>
         <td class="text-nowrap"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></td>
         <td>
-        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        <c:if test="${!empty map['MERCHANT_NO']}">
+        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">가입완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        </c:if>
+        <c:if test="${empty map['MERCHANT_NO']}">
+        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">가입대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        </c:if>
         </td>
       </tr>
     </c:forEach>
