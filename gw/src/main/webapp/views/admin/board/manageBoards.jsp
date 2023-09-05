@@ -204,7 +204,6 @@
 				}else if($('#lastDate').val().length!=10){
 					$('#lastDate').focus();
 				}
-				location.reload();
 				return false;
 			}
 		}); 
