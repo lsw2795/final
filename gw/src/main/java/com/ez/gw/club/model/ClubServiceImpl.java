@@ -67,8 +67,6 @@ public class ClubServiceImpl implements ClubService{
 	@Override
 	public int joinClub(String merchantNo, String clubNo, String empNo) {
 		
-		
-		
 		int parsedClubNo = Integer.parseInt(clubNo);
 		int parsedEmpNo = Integer.parseInt(empNo);
 		

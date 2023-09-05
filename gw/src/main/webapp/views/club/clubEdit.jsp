@@ -5,8 +5,15 @@
 <script type="text/javascript">
 	
 	$(function() {
-		$("#memLimitflag").val('Y').prop("selected", true); 
-		$("#memLimitflag").val('N').prop("selected", false);
+		$("#memLimitflag").change(function() {
+			if ($("#memLimitflag").val() == "Y") {
+				$("#memLimit").val("");
+				$("#memLimit").css("visibility", "visible");
+				$("#memLimit").focus();
+			}else {
+				$("#memLimit").css("visibility", "hidden");
+			}
+		});
 	});
 	
 	function deleteClub() {
@@ -56,20 +63,29 @@
                 <div class="card-body bg-light">
                 	<input type="hidden" name="clubNo" id="clubNo" value="${param.clubNo}">
                     <div class="row gx-2">
-                    <div class="col-sm-6 mb-3">
-                        <label class="form-label" for="managr">동호회장</label>
+                    <div class="col-sm-9 mb-3">
+                        <label class="form-label" for="managr"><strong>동호회장</strong></label>
                         <input class="form-control" id="manager" name="manager"  type="text" value="${vo.manager }"/>
                       </div>
                       <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="memberCnt">모집 회원 수</label>
-                        <input class="form-control" id="memberCnt" name="memLimit" type="text" value="${vo.memLimit }"/>
+                      <label class="col-auto" style="font-weight: bold;font-size: 0.9em" for="memLimitflag"><strong>모집인원 제한</strong></label>
+			              <div class="col-auto">
+			                   <select class="form-select form-select" name="memLimitflag" id="memLimitflag">
+			                        <option value="Y">제한</option>
+			                        <option value="N">제한없음</option>
+			                   </select>
+			              </div>
+			          </div>
+                      <div class="col-sm-4 mb-3">
+                        <label class="form-label" for="memLimit"><strong>모집 회원 수</strong></label>
+                        <input class="form-control" id="memLimit" name="memLimit" type="text" value="${vo.memLimit }"/>
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="title">동호희 이름</label>
+                        <label class="form-label" for="title"><strong>동호희 이름</strong></label>
                         <input class="form-control" id="title" name="title" type="text" value="${vo.title}"/>
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="introduce">동호회 소개</label>
+                        <label class="form-label" for="introduce"><strong>동호회 소개</strong></label>
                         <textarea class="form-control" id="introduce" name="introduce" type="textarea" placeholder="Introduce"
                         	 style="height:300px">${vo.introduce}
                         </textarea>
@@ -87,13 +103,6 @@
 	              <div class="col-md">
 	                  <h5 class="mb-2 mb-md-0"></h5>
 	              </div>
-	              <label class="col-auto mb-0" style="font-weight: bold;font-size: 0.9em" for="memLimitflag">모집인원 제한</label>
-              <div class="col-auto">
-                   <select class="form-select form-select-sm" name="memLimitflag" id="memLimitflag">
-                        <option value="Y">제한</option>
-                        <option value="N">제한없음</option>
-                   </select>
-                </div>
 	                <div class="col-auto mb-0">
 		                <div class="col-auto">
 		                	<button class="btn btn-falcon-default btn-sm me-2" type="submit">저장</button>
