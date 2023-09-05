@@ -95,7 +95,7 @@ public class EmployeeController {
 
 		String msg = "사원 등록에 실패했습니다.", url = "/admin/employee/employeeRegister";
 		if (cnt > 0) {
-			msg = "사원번호 생성이 완료되었습니다.";
+			msg = vo.getName()+"임직원의 사원번호 생성이 완료되었습니다.";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

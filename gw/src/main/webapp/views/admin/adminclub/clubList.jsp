@@ -124,6 +124,7 @@
                           	</c:if>
                           	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
+		               </form>
                       </tbody>
                     </table>
                     <div class="text-center d-none" id="tickets-table-fallback">
@@ -131,7 +132,6 @@
                     </div>
                   </div>
                 </div>
-               </form>
                 <div class="card-footer">
                   <div class="d-flex justify-content-center">
                     <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>

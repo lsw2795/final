@@ -69,13 +69,23 @@
 	</select>
 	
 	<select id="selBoardlistWriteCount" parameterType="empSearchVo">
-		select boardlist_no,count(*) from boardlistview
+		select boardlist_no, board_name, count(*) as cnt from boardlistview
+		 <if test="startDate==null or startDate=='' or lastDate==null or lastDate==''">
 		 <![CDATA[
-		where regdate >=to_date(#{startDate})
-		and regdate< to_date(#{lastDate})+1
+			where regdate >=to_date(sysdate)
+			and regdate< to_date(sysdate)+1
+			and delflag='N'
 		 ]]>
-		group by boardlist_no
-		order by count(*) desc
+		 </if> 
+		 <if test="startDate!=null and startDate!='' and lastDate!=null and lastDate!=''">
+		 <![CDATA[
+			where regdate >=to_date(#{startDate})
+			and regdate< to_date(#{lastDate})+1
+			and delflag='N'
+		 ]]>
+		 </if> 
+		group by boardlist_no, board_name
+		order by cnt desc
 	</select>
 	
 	

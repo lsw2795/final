@@ -269,6 +269,7 @@ public class ClubController {
 			
 			//2.
 			List<ClubVO> list = listVo.getClubItems();
+			
 			int cnt=clubService.deleteMulti(list);
 			logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
 			

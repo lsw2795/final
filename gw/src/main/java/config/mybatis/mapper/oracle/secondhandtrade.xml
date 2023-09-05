@@ -11,7 +11,7 @@
 		values(#{tradeNo}, #{empNo}, #{title}, #{product}, #{price}, #{discription}, 100)
 	</insert>
 	
-	<select id="selectAllMarket" parameterType="searchVo" resultType="map">
+	<select id="selectAllMarket" parameterType="searchSellVo" resultType="map">
     SELECT *
     FROM (
         SELECT ROWNUM AS RNUM, A.*
@@ -27,6 +27,9 @@
                         where ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
                     </otherwise>
                 </choose>
+            </if>
+            <if test = "checkSelflag == true">
+            	and selFlag = 'N';
             </if>
             ORDER BY trade_no DESC
         ) A
@@ -47,7 +50,7 @@
 		where trade_no = #{tradeNo}
 	</update>
 	
-	<select id="getTotalRecord" parameterType="secondHandTradeVo" resultType="int">
+	<select id="getTotalRecord" parameterType="searchSellVo" resultType="int">
 		 select count(*)
     	from secondmarketview
     <where>
@@ -60,6 +63,9 @@
                     ${searchCondition} like '%' || #{searchKeyword} || '%'
                 </otherwise>
             </choose>
+        </if>
+        <if test = "checkSelflag == true">
+            	and selFlag = 'N';
         </if>
     </where>
 	</select>
