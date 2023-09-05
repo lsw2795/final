@@ -74,7 +74,7 @@ div.updateBtn {
               
 <div class="col-lg-6 mb-4 mb-lg-0">
     <div class="product-slider" id="galleryTop">
-        <div class="swiper-container theme-slider position-lg-absolute all-0 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-autoheight" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+    	<div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
             <div class="swiper-wrapper h-100">
                 <c:forEach var="file" items="${file}" varStatus="loopStatus">
                     <div class="swiper-slide h-100" data-swiper-slide-index="${loopStatus.index}">

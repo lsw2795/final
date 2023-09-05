@@ -43,7 +43,7 @@ ul#navbarVerticalNav {
 		var tradeNo = $('#tradeNo1').val();
 		$.ajax({
             url: "<c:url value='/market/ajaxlikeit'/>",
-            type:'get',
+            type:'post',
 			dataType:'json',
 			data:{
 				empNo: empNo,
@@ -68,7 +68,7 @@ ul#navbarVerticalNav {
     		var tradeNo = $('#tradeNo2').val();
     		$.ajax({
                 url: "<c:url value='/market/ajaxlikeit'/>",
-                type:'get',
+                type:'post',
     			dataType:'json',
     			data:{
     				empNo: empNo,

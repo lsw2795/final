@@ -110,16 +110,15 @@
                       <h5 class="mb-0" data-anchor="data-anchor">쪽지함</h5>
                     </div>
                     <div class="col-auto ms-auto">
-                    버튼기능
+                    	<a href="<c:url value='/message/messageList'/>" 
+                   		style="color: black; font-size: 14px;">더보기 ▶</a>
                     </div>
                   </div>
                 </div>
                 <div class="card-body bg-light">
                   <div class="tab-content">
                     <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-c5b10b85-baad-4da8-b18b-2973cbe42fac" id="dom-c5b10b85-baad-4da8-b18b-2973cbe42fac">
-					본문
-
-
+						<c:import url="/message/messageList5"></c:import>
                     </div>
                   </div>
                 </div>

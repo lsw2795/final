@@ -15,4 +15,7 @@ public interface MessageContentDAO {
 	int updateSendDelFlag(MessageViewVO vo);
 	int searchDeleteMessage(MessageViewVO vo);
 	int deleteMessage(int messageNo);
+	List<MessageViewVO> selectLastMessage5(int empNo);
+	List<Integer> searchSendMessageNo(MessageViewVO vo);
+	List<Integer> searchReadMessageNo(MessageViewVO vo);
 }
