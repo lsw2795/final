@@ -98,9 +98,8 @@
 		                            <div class="form-check mb-0">
 		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0"
 		                               data-bulk-select-row="data-bulk-select-row" 
-		                               name="clubItems[${idx }].clubNo"
+		                               name="clubItems[${idx}].clubNo"
 		     							value="${map['CLUB_NO']}"/>
-		     						<input type="hidden" value="${map['CLUB_NO']}" name="clubItems[${idx }].clubNo" >
 		                            </div>
 		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
@@ -125,6 +124,7 @@
                           	</c:if>
                           	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
+		               </form>
                       </tbody>
                     </table>
                     <div class="text-center d-none" id="tickets-table-fallback">
@@ -132,7 +132,6 @@
                     </div>
                   </div>
                 </div>
-               </form>
                 <div class="card-footer">
                   <div class="d-flex justify-content-center">
                     <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
