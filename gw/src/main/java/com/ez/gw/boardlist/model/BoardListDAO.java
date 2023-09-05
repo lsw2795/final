@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 @Mapper
@@ -18,4 +19,5 @@ public interface BoardListDAO {
 	int boardlistCount(int boardlistNo); //자식 레코드 존재하면 게시판 삭제 못하도록 하기위한 메서드
 	int deleteboardList(int boardlistNo); //자식 레코드 없으면 게시판 삭제처리 진행 메서드
 	List<BoardListVO> seldeptBoard(); //부서게시판 조회
+	List<Map<String, Object>> selBoardlistWriteCount(EmpSearchVO searchVo); //기간별 게시판 이용회수 조회
 }
