@@ -50,7 +50,6 @@
 	
 	<select id="adminClubList" resultType="map">
 		select * from ADMINCLUBVIEW
-		where MERCHANT_NO=#{merchantNo}
 	</select>
 	
 </mapper>

@@ -85,33 +85,36 @@ public class ClubBoardController {
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
 			
 			int i=0;
-			for(MultipartFile f : files){
-				originalFileName = f.getOriginalFilename();
-				int idx=originalFileName.indexOf(".");
-				logger.info("idx={}",idx);
-				String cutfile = originalFileName.substring(idx);
-				
-				fileName = clubVo.getClubNo() + "_" + i++ + f.getOriginalFilename();
-				fileSize = (long) f.getSize();
-				
-				String path = ConstUtil.CLUB_UPLOAD_PATH;
-				String filePath = request.getSession().getServletContext().getRealPath(path);
-				
-				File file = new File(filePath, fileName);
-				f.transferTo(file);
-				
-				logger.info("파일명 fileName={}",fileName);
-				pdsVo.setClubBoardNo(clubVo.getBoardNo());
-				pdsVo.setPath(filePath);
-				pdsVo.setFileName(fileName);
-				pdsVo.setFileSize(fileSize);
-				pdsVo.setOriginalFileName(originalFileName);
-				pdsVo.setFileExtension(cutfile);
-				
-				logger.info("board_no={}", clubVo.getBoardNo());
-				int res=pdsService.clubFiles(pdsVo);
-				logger.info("파일 db저장 결과 res={}",res);		
-			}//for
+			if(originalFileName!=null) {
+				for(MultipartFile f : files){
+						
+					originalFileName = f.getOriginalFilename();
+					int idx=originalFileName.indexOf(".");
+					logger.info("idx={}",idx);
+					String cutfile = originalFileName.substring(idx);
+					
+					fileName = clubVo.getClubNo() + "_" + i++ + f.getOriginalFilename();
+					fileSize = (long) f.getSize();
+					
+					String path = ConstUtil.CLUB_UPLOAD_PATH;
+					String filePath = request.getSession().getServletContext().getRealPath(path);
+					
+					File file = new File(filePath, fileName);
+					f.transferTo(file);
+					
+					logger.info("파일명 fileName={}",fileName);
+					pdsVo.setClubBoardNo(clubVo.getBoardNo());
+					pdsVo.setPath(filePath);
+					pdsVo.setFileName(fileName);
+					pdsVo.setFileSize(fileSize);
+					pdsVo.setOriginalFileName(originalFileName);
+					pdsVo.setFileExtension(cutfile);
+					
+					logger.info("board_no={}", clubVo.getBoardNo());
+					int res=pdsService.clubFiles(pdsVo);
+					logger.info("파일 db저장 결과 res={}",res);		
+				}//for
+			}
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

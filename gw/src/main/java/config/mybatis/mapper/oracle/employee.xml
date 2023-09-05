@@ -181,5 +181,9 @@
 	    set pwd=#{pwd}
 	    where emp_no=#{empNo} and email=#{email}
 	</update>
-
+	
+	<select id="selectRetire" resultType="int">
+		select emp_No from employee
+		where retireDate is not null
+	</select>
 </mapper>

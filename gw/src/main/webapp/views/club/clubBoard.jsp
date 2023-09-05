@@ -42,7 +42,6 @@
                     <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      <c:if test="${sessionScope.clubNo==param.clubNo }">
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
                      	 <a href="<c:url value='/club/clubBoardWrite?clubNo=${param.clubNo}'/>">
                        		 <button class="btn btn-falcon-default btn-sm mx-2" type="button">
@@ -51,7 +50,6 @@
                         	</button>
                         </a>
                       </div>
-                      </c:if>
                     </div>
                   </div>
                 </div>
