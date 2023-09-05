@@ -30,20 +30,45 @@ ul#navbarVerticalNav {
 	.likebox a {
     margin-right: 83px;
 }
+
+div#selflagbox {
+    margin-right: 18px;
+    margin-top: 11px;
+}
 </style>
-<<script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
-	}	
+	}
+	
+	 function submitForm() {
+	        document.frmPage.submit();
+	    }
+	
+	/* function handleCheckboxChange(){
+		// 체크박스의 선택 여부 확인
+        var isChecked = $('#checkSelflag').prop('checked');
+		
+	     // 동적으로 URL 생성
+        var url = '/market/marketList?checkSelflag=' + isChecked;
+
+	     // URL을 window.location.href에 할당하여 페이지 이동
+	     window.location.href = url;
+     
+    }
+
+    // 체크박스 변경 이벤트에 함수 연결
+    $('#checkSelflag').change(handleCheckboxChange); */
+	
 	
 	function insertLikeOn1(){
 		var empNo = ${sessionScope.empNo}
 		var tradeNo = $('#tradeNo1').val();
 		$.ajax({
             url: "<c:url value='/market/ajaxlikeit'/>",
-            type:'post',
+            type:'get',
 			dataType:'json',
 			data:{
 				empNo: empNo,
@@ -52,9 +77,13 @@ ul#navbarVerticalNav {
             success: function (res) {
             	if(res==1){
                		//빨간하트로 바꾸기
+               		var likecount1 = $('#likecount1').val();
                		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+               		$('#likecount1').val(likecount1 +1);
             	}else if(res ==2){
+            		var likecount1 = $('#likecount1').val();
             		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+            		$('#likecount1').val(likecount1 -1);
             	}	
         	},
             error:function(xhr,status,error){
@@ -68,7 +97,7 @@ ul#navbarVerticalNav {
     		var tradeNo = $('#tradeNo2').val();
     		$.ajax({
                 url: "<c:url value='/market/ajaxlikeit'/>",
-                type:'post',
+                type:'get',
     			dataType:'json',
     			data:{
     				empNo: empNo,
@@ -77,9 +106,13 @@ ul#navbarVerticalNav {
                 success: function (res) {
                 	if(res==1){
                    		//빨간하트로 바꾸기
+                   		var likecount2 = $('#likecount2').val();
                    		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
+                   		$('#likecount2').val(likecount2 +1);
                 	}else if(res ==2){
+                		var likecount2 = $('#likecount2').val();
                 		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
+                		$('#likecount2').val(likecount2 -1);
                 	}
                 },
                 error:function(xhr,status,error){
@@ -87,31 +120,6 @@ ul#navbarVerticalNav {
                 } 
             });//ajax
     	}
-	/* function LikeOn2(){
-		//var boardNo=100;
-		var empNo=${sessionScope.empNo};
-		$.ajax({
-            url: "<c:url value='/board/ajaxUpdateDeptBoardLikeOn'/>",
-            type:'get',
-			data:{
-				empNo: empNo
-				tradeNo : tradeNo
-			},
-			dataType:'json',
-            success: function (res) {
-            	if(res>0){
-               		//빨간하트로 바꾸기
-               		$('#heart img').attr('src','<c:url value='/images/hearton.png'/>');
-               		location.reload();
-            	}
-            },
-            error:function(xhr,status,error){
-                alert(status+" : "+error);
-            } 
-        });//ajax 
-	}*/
-	
-	
 	
 </script>
 <div class="card-body">
@@ -120,6 +128,7 @@ ul#navbarVerticalNav {
 	<input type="hidden" name="currentPage">
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+	<input type = "text" name = "checkSelflag" value="${param.checkSelflag }">
 </form>
  <div class="row gx-3">
 	<h2>중고거래 게시판</h2>
@@ -157,10 +166,14 @@ ul#navbarVerticalNav {
 									<span class="fa fa-search fs--1"></span>
 								</button>
 							</div>
-							</form>
 						</div>
 					</div>
 					<div class="border-bottom border-200 my-3"></div>
+							<div id="selflagbox">
+							거래 가능 상품만 보기
+							<input type ="checkbox" name="checkSelflag" id="checkSelflag" onchange="submitForm()" ${param.checkSelflag == 'on' ? 'checked' : ''} value="true">
+							</div>
+				</form>
 				</div>
 				</div>
 			
@@ -225,7 +238,7 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong>${map['LIKECOUNT'] }</strong>
+																		♥ 좋아요 : <strong id = "likecount1">${map['LIKECOUNT'] }</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		<span class="fa-solid fa-eye"></span>
@@ -260,7 +273,7 @@ ul#navbarVerticalNav {
 																	</c:if>
 																	<c:if test = "${map['LIKEFLAG']=='Y' }">
 																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
-																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																		<img id="heartimg1" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<span class="mypagehyphen"></span>
@@ -351,7 +364,7 @@ ul#navbarVerticalNav {
 																</div>
 																<div class="d-none d-lg-block">
 																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong>${map["LIKECOUNT"]}</strong>
+																		♥ 좋아요 : <strong id = "likecount2">${map["LIKECOUNT"]}</strong>
 																	</p>
 																	<p class="fs--1 mb-1">
 																		조회수 : <strong>${map["READCOUNT"] }</strong>

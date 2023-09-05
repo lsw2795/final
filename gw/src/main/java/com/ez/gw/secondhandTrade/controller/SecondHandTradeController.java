@@ -1,5 +1,6 @@
 package com.ez.gw.secondhandTrade.controller;
 
+import java.beans.PropertyEditorSupport;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -12,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
-import com.ez.gw.common.SearchVO;
+import com.ez.gw.common.SearchSellVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.employee.model.EmployeeVO;
@@ -161,8 +164,35 @@ public class SecondHandTradeController {
 		return "market/market/List";
 	}
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(int.class, new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String text) throws IllegalArgumentException {
+	            if (text == null || text.isEmpty()) {
+	                setValue(0); // default value for empty or null string.
+	            } else {
+	                setValue(Integer.parseInt(text));
+	            }
+	        }
+	    });
+
+	    binder.registerCustomEditor(boolean.class, new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String text) throws IllegalArgumentException {
+	            if (text == null || text.isEmpty()) {
+	                setValue(false); // default value for empty or null string.
+	            } else {
+	                setValue(Boolean.parseBoolean(text));
+	            }
+	        }
+	    });
+	}
+	
 	@RequestMapping("/marketList")
-	public String marketList(Model model, @ModelAttribute SearchVO searchVo) {
+	public String marketList(Model model, @ModelAttribute SearchSellVO searchVo,
+            @RequestParam(name = "checkSelflag", required = false, defaultValue = "false") boolean checkSelflag
+            ,@RequestParam(defaultValue="1") int currentPage) {
 		// 1
 		logger.info("중고마켓 화면 보여주기 searchVo={}", searchVo);
 		EmployeeVO emp = null;
@@ -464,17 +494,8 @@ public class SecondHandTradeController {
 	public int likeit(@RequestParam(defaultValue = "0")int tradeNo,
 			@RequestParam(defaultValue = "0")int empNo, @ModelAttribute SecondhandTradeLikeVO like) {
 		logger.info("ajax - likeit, 파라미터 tradeNo={}, empNo={}", tradeNo, empNo);
-		/*like.setEmpNo(empNo); //사원번호 셋팅
-		like.setTradeNo(tradeNo); //거래번호 셋팅
-		
-		
-		 * Map<String, Object> secondVo =
-		 * secondHandTradeService.selectMarketByNo(tradeNo); BigDecimal likeBigDecimal =
-		 * (BigDecimal)secondVo.get("LIKECOUNT"); int likecount =
-		 * likeBigDecimal.intValue();
-		 */
-		
-		
+		String Checlike = like.getLikeFlag();
+		logger.info("checkLike={}", Checlike);
 		//1 해당 회원이 해당글에 좋아요를 누른 적 있는지 조회 count 이용
 		int count = secondHandLikeService.findLikeCount(empNo, tradeNo);
 		logger.info("count={}", count);
@@ -491,7 +512,9 @@ public class SecondHandTradeController {
 			String likeflag = secondHandLikeService.findLike(empNo, tradeNo);
 			//4 Y면 dislike로 N으로 업데이트
 			if(likeflag.equals("Y")) {
+				logger.info("확인");
 				int cnt1 = secondHandLikeService.disLikeHeart(empNo, tradeNo);
+				logger.info("cnt1={}", cnt1);
 				result = 2;
 				cnt = secondHandTradeService.dislike(tradeNo);
 				logger.info("좋아요 취소 성공 여부 cnt1={}", cnt1);
