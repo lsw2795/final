@@ -47,9 +47,7 @@ div#selflagbox {
 	        document.frmPage.submit();
 	    }
 	
-	function insertLikeOn1(){
-		var empNo = ${sessionScope.empNo}
-		var tradeNo = $('#tradeNo1').val();
+	function insertLikeOn1(tradeNo, empNo, imageId){
 		$.ajax({
             url: "<c:url value='/market/ajaxlikeit'/>",
             type:'get',
@@ -59,51 +57,22 @@ div#selflagbox {
 				tradeNo : tradeNo
 			},
             success: function (res) {
-            	if(res==1){
-               		//빨간하트로 바꾸기
-               		var likecount1 = $('#likecount1').val();
-               		$('#heartimg1').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
-               		$('#likecount1').val(likecount1 +1);
-            	}else if(res ==2){
-            		var likecount1 = $('#likecount1').val();
-            		$('#heartimg1').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
-            		$('#likecount1').val(likecount1 -1);
-            	}	
+            	 if (res == 1) {
+                     // 빨간하트로 바꾸기
+                     var likecount = $('#likecount' + tradeNo).val();
+                     $('#' + imageId).attr('src', '<c:url value="/images/배경지운풀하트.png"/>');
+                     $('#likecount' + tradeNo).val(likecount + 1);
+                 } else if (res == 2) {
+                     var likecount = $('#likecount' + tradeNo).val();
+                     $('#' + imageId).attr('src', '<c:url value="/images/배경지운빈하트.png"/>');
+                     $('#likecount' + tradeNo).val(likecount - 1);
+                 }
         	},
             error:function(xhr,status,error){
                 alert(status+" : "+error);
             } 
         });//ajax
 	}
-	
-        function insertLikeOn2(){
-    		var empNo = ${sessionScope.empNo}
-    		var tradeNo = $('#tradeNo2').val();
-    		$.ajax({
-                url: "<c:url value='/market/ajaxlikeit'/>",
-                type:'get',
-    			dataType:'json',
-    			data:{
-    				empNo: empNo,
-    				tradeNo : tradeNo
-    			},
-                success: function (res) {
-                	if(res==1){
-                   		//빨간하트로 바꾸기
-                   		var likecount2 = $('#likecount2').val();
-                   		$('#heart2 img').attr('src','<c:url value='/images/배경지운풀하트.png'/>');
-                   		$('#likecount2').val(likecount2 +1);
-                	}else if(res ==2){
-                		var likecount2 = $('#likecount2').val();
-                		$('#heart2 img').attr('src','<c:url value='/images/배경지운빈하트.png'/>');
-                		$('#likecount2').val(likecount2 -1);
-                	}
-                },
-                error:function(xhr,status,error){
-                    alert(status+" : "+error);
-                } 
-            });//ajax
-    	}
 	
 </script>
 <div class="card-body">
@@ -173,8 +142,6 @@ div#selflagbox {
 						<c:otherwise>
 							<c:set var="i" value="0" />
 							<c:forEach var="map" items="${list }" varStatus="loopStatus">
-								<c:choose>
-									<c:when test="${loopStatus.index %2 ==0 }">
 										<div class="col-12 p-x1">
 											<div class="row">
 												<div class="col-sm-5 col-md-4">
@@ -197,7 +164,7 @@ div#selflagbox {
 													<div class="row">
 														<div class="col-lg-8">
 															<h5 class="mt-3 mt-sm-0">
-																<input type="hidden" id = "tradeNo1" value="${map['TRADE_NO']}">
+																<input type="hidden" id = "tradeNo${idx}" value="${map['TRADE_NO']}">
 																<a class="text-dark fs-0 fs-lg-1"
 																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
 																	${map["TITLE"] } </a>
@@ -245,19 +212,21 @@ div#selflagbox {
 															<div class="mt-2">
 																<div class="ILikeIt">
 																	<div class = "likebox">
+																	<!-- 고유한 ID 할당 -->
+                 												   <c:set var="imageId" value="heartimg${loopStatus.index + 1}" />
 																	<c:if test = "${empty map['likeFlag'] }">
-																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
-																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
+																		<img id="${imageId}" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<c:if test = "${map['likeFlag'] =='N'}">
-																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
-																		<img id="heartimg1" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
+																		<img id="${imageId}" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<c:if test = "${map['likeFlag'] =='Y' }">
-																	<a href="#" id="heart1" style="float: right;" onclick="insertLikeOn1()">
-																		<img id="heartimg1" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px">좋아요
+																	<a href="#" style="float: right;" onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
+																		<img id="${imageId}" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px">좋아요
 																	</a>
 																	</c:if>
 																	<span class="mypagehyphen"></span>
@@ -274,132 +243,8 @@ div#selflagbox {
 												</div>
 											</div>
 										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="col-12 p-x1 bg-100">
-											<div class="row">
-												<div class="col-sm-5 col-md-4">
-													<div class="position-relative h-sm-100">
-														<div class="swiper-container theme-slider h-100"
-															data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
-															<div class="swiper-wrapper h-100">
-																<div class="swiper-slide h-100">
-																	<a class="d-block h-sm-100"
-																		href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
-																		<img class="rounded-1 h-100 w-100 object-fit-cover"
-																		style="max-height: 200px; max-weight: 240px;"
-																		src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
-																		alt="" />
-																	</a>
-																</div>
-																<div class="swiper-slide h-100">
-																	<a class="d-block h-sm-100"
-																		href="../../../app/e-commerce/product/product-details.jsp">
-																		<img class="rounded-1 h-100 w-100 object-fit-cover"
-																		src="<c:url value='/assets/img/products/1-2.jpg'/>"
-																		alt="" />
-																	</a>
-																</div>
-																<div class="swiper-slide h-100">
-																	<a class="d-block h-sm-100"
-																		href="../../../app/e-commerce/product/product-details.jsp"><img
-																		class="rounded-1 h-100 w-100 object-fit-cover"
-																		src="<c:url value='/assets/img/products/1-3.jpg'/>"
-																		alt="" /></a>
-																</div>
-															</div>
-															<div class="swiper-nav">
-																<div class="swiper-button-next swiper-button-white"></div>
-																<div class="swiper-button-prev swiper-button-white"></div>
-															</div>
-														</div>
-														<c:if test="${map['timeNew'] == 1 }">
-															<div
-																class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
-																New</div>
-														</c:if>
-													</div>
-												</div>
-												<div class="col-sm-7 col-md-8">
-													<div class="row">
-														<div class="col-lg-8">
-															<h5 class="mt-3 mt-sm-0">
-																<input type="hidden" id = "tradeNo2" value="${map['TRADE_NO']}">
-																<a class="text-dark fs-0 fs-lg-1"
-																	href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
-																	${map["TITLE"] } </a>
-															</h5>
-															<p class="fs--1 mb-2 mb-md-3">
-															<h6 class="text-500">
-																<fmt:formatDate value="${map['REGDATE']}"
-																	pattern="yyyy-MM-dd HH:mm" />
-															</h6>
-															</p>
-														</div>
-														<div
-															class="col-lg-4 d-flex justify-content-between flex-column">
-															<div>
-																<h4 class="fs-1 fs-md-2 mb-0">
-																	<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
-																	원
-																</h4>
-																<div class="mb-2 mt-3">
-																	
-																</div>
-																<div class="d-none d-lg-block">
-																	<p class="fs--1 mb-1">
-																		♥ 좋아요 : <strong id = "likecount2">${map['likeCount'] }</strong>
-																	</p>
-																	<p class="fs--1 mb-1">
-																		조회수 : <strong>${map["READCOUNT"] }</strong>
-																	</p>
-																	<p class="fs--1 mb-1">
-																		작성자 : <strong>${map["NAME"] }</strong>
-																	</p>
-																	<p class="fs--1 mb-1">
-																		Stock:
-																		<c:if test="${map['SELFLAG']=='N' }">
-																			<strong class="text-success">거래가능</strong>
-																		</c:if>
-																		<c:if test="${map['SELFLAG']=='Y'}">
-																			<strong class="text-danger">판매완료</strong>
-																		</c:if>
-																	</p>
-																</div>
-															</div>
-															<div class="mt-2">
-																<div class="ILikeIt">
-																	<div class = "likebox">
-																	<c:if test = "${empty map['likeFlag'] }">
-																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
-																	</a>
-																	</c:if>
-																	<c:if test = "${map['likeFlag'] =='N' }">
-																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-																		<img id="heartimg2" src="<c:url value='/images/배경지운빈하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
-																	</a>
-																	</c:if>
-																	<c:if test = "${map['likeFlag'] =='Y' }">
-																	<a href="#" id="heart2" style="float: right;" onclick="insertLikeOn2()">
-																		<img id="heartimg2" src="<c:url value='/images/배경지운풀하트.png'/>" width="30px" height="30px" value="좋아요">좋아요
-																	</a>
-																	</c:if>
-																	<span class="mypagehyphen"></span>
-																	</div>
-																</div>
-																<a
-																	class="btn btn-sm btn-primary d-lg-block mt-lg-2"
-																	href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>"><span class="fas fa-envelope-open">
-																</span><span class="ms-2 d-none d-md-inline-block">쪽지하기</span></a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</c:otherwise>
-								</c:choose>
+										
+										<c:set var="idx" value="${idx+1 }"/>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
