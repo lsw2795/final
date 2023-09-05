@@ -13,8 +13,8 @@
 			
 			if(count > 0){
 				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
-					$('form[name=frmList]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
-					$('form[name=frmList]').submit();
+					$('form[name=frmClub]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
+					$('form[name=frmClub]').submit();
 				}
 				
 			
@@ -68,19 +68,24 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                       <a href="<c:url value='/club/deleteClub?clubNo=${param.clubNo }'/>"><button class="btn btn-falcon-default btn-sm" id="delBt" type="button"><span class="fas fa-trash" data-fa-transform="shrink-3"></span>
-                       <span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button></a>
+                       <a href="<c:url value='/club/deleteClub?clubNo=${param.clubNo }'/>">
+                       	<button class="btn btn-falcon-default btn-sm" id="delBt" type="button">
+                       	<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
+                       </a>
                       </div>
                   </div>
                 </div>
                 <div class="card-body p-0">
+                <form name="frmClub" method="post" action="<c:url value='/admin/adminclub/cludDeleteMulti'/>">
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm mb-0 fs--1 table-view-tickets">
                       <thead class="text-800 bg-light">
                         <tr>
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="check d-flex align-items-center">
-                              <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
+                              <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" 
+                              data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' 
+                              />
                             </div>
                           </th>
                           <th class="sort align-middle ps-2" data-sort="Name">Manager</th>
@@ -90,13 +95,17 @@
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">
+	                      <c:set var="idx" value="0"/>
                           <!-- 반복 시작 -->
                           <c:forEach var="map" items="${list }">
                           	<c:if test="${map['SECFLAG']=='Y' }">
 		                        <tr>
 		                          <td class="align-middle fs-0 py-3">
 		                            <div class="form-check mb-0">
-		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0"
+		                               data-bulk-select-row="data-bulk-select-row" 
+		                               name="clubItems[${idx }].clubNo"
+		     							value="${map['CLUB_NO']}"/>
 		                            </div>
 		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
@@ -119,12 +128,14 @@
 			                        </td>
 			                      </tr>
                           	</c:if>
+                          	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
                       </tbody>
                     </table>
                     <div class="text-center d-none" id="tickets-table-fallback">
                       <p class="fw-bold fs-1 mt-3">No club found</p>
                     </div>
+                   </form>
                   </div>
                 </div>
                 <div class="card-footer">
