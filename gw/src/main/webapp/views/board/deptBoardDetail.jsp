@@ -169,7 +169,7 @@
 					boardNo: boardNo,
 					empNo: empNo,
 					groupNo: groupNo,
-					sortNo: sortNo
+					sortNo: sortNo,
 				},
 				dataType:'json',
 	            success: function (res) {
@@ -450,8 +450,8 @@
                    <c:forEach var="comMap" items="${comList }">
 					<div class="row">
 					<!-- 댓/답구분 --> 
-						<c:if test="${comMap['SORTNO']>0}">
-							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+						<c:if test="${comMap['STEP']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['STEP']}"> 
 							<!-- 1일때 10번 스페이스바 -->
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:forEach>
@@ -489,8 +489,8 @@
 						    </div>
 						<div class="mb-3 mt-3" id="commentDiv${i }">
 						<!-- 댓/답구분 --> 
-						<c:if test="${comMap['SORTNO']>0}">
-							<c:forEach var="j" begin="1" end="${comMap['SORTNO']}"> 
+						<c:if test="${comMap['STEP']>0}">
+							<c:forEach var="j" begin="1" end="${comMap['STEP']}"> 
 							<!-- 1일때 10번 스페이스바 -->
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:forEach>
