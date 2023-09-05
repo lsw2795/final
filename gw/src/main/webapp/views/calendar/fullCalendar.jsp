@@ -85,7 +85,7 @@
 	            <%if (calendarList != null) {%>
 	            <%for (CalendarVO vo : calendarList) {%>
 	            {
-	            	title : '2023-09-07 16:00:00',
+	            	title : '<%=vo.getTitle() + " " + vo.getBegintime()%>',
 	                start : '<%=vo.getBegindate()%>',
 	                end : '<%=vo.getEnddate()%>',
 	                extendedProps : {
@@ -202,7 +202,8 @@
 	}
 	
 	.fc-event-title {
-	    color: white !important;
+		color: black;
+		font-weight: bold;
 	}
 	
 	.fc-day-sun a {

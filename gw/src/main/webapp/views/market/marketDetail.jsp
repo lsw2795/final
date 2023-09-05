@@ -113,7 +113,7 @@ div.updateBtn {
                       </span></h4>
                 
                   	<p class="fs--1 mb-1">
-						♥ 좋아요 : <span id="showLike"><strong>${map["LIKECOUNT"] }</strong></span>
+						♥ 좋아요 : <span id="showLike"><strong>${map["LIKECOUNT"]}</strong></span>
 					</p>
                   <p class="fs--1 mb-1"> <span>조회수 : ${map["READCOUNT"] } </span></p>
                   <p class="fs--1">Stock: 
