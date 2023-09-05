@@ -196,6 +196,20 @@
 	        });//ajax
 		});
 		
+		$('#boardlistWriteCount').click(function(){			
+			if($('#startDate').val().length!=10 || $('#lastDate').val().length!=10) {
+				alert("시작일자 또는 종료일자의 형식이 올바르지 않습니다. 형식 예시)2023-05-20");
+				if($('#startDate').val().length!=10){
+					$('#startDate').focus();
+				}else if($('#lastDate').val().length!=10){
+					$('#lastDate').focus();
+				}
+				location.reload();
+				return false;
+			}
+		}); 
+		
+		
 	});
 	
 	function pageFunc(curPage){
@@ -205,10 +219,6 @@
 	
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
-	}
-	
-	function submitForm2() {
-	    document.getElementById('frmDateSearch').submit();
 	}
 	
 	function deleteBoard(boardlistNo){
@@ -529,7 +539,7 @@
 								 	<span class="adminhyphen">~</span>
 									<input type="date" id="lastDate" name="lastDate" value="${param.lastDate }" class="form-control-sm admindefault"/>
 									<span class="adminhyphen"></span>
-									<button class="btn btn-primary" onclick="submitForm2()">조회</button>
+									<button type="submit" class="btn btn-primary" id="boardlistWriteCount">조회</button>
                     		</form>
                     		</div>
 				  		 </div>
