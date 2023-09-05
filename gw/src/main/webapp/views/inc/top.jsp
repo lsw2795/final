@@ -258,7 +258,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/mypage/myWritingList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">내가 쓴 글 관리</span>
+                        				<span class="nav-link-text ps-1">내가 쓴 글 조회</span>
                         			</div> 
                       			</a>
                     		</li>

@@ -39,7 +39,7 @@
    <div class="col-lg-12 pe-lg-2 mb-3">
        <div class="card h-lg-100 overflow-hidden">
           <div class="card-header">
-			<a href="<c:url value='/mypage/myWritingList'/>"><h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 관리</h5></a>
+			<a href="<c:url value='/mypage/myWritingList'/>"><h5 class="mb-0"><span class="fas fa-pen" style="margin: 0 10px;"></span>내가 쓴 글 조회</h5></a>
   		  </div>
   		  <!-- 페이징 처리 관련 form -->
 		<form action="<c:url value='/mypage/myWritingList'/>" 
@@ -76,19 +76,6 @@
                     </div>
                   </form>
               	<div class="border-bottom border-200 my-3"></div>
-                    <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
-                      <div class="d-flex align-items-center" id="table-contact-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-minus" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">삭제</span></button>
-                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Export</span></button>
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-file-import" data--transform="shrink-3"></span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">Import</span></button>
-                        <div class="dropdown font-sans-serif ms-2">
-                          <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="preview-dropdown" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="preview-dropdown"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="admindefault searchEmpResult" style="padding: 10px 0 0 25px;">
