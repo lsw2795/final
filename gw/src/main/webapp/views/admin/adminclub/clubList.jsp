@@ -98,9 +98,8 @@
 		                            <div class="form-check mb-0">
 		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0"
 		                               data-bulk-select-row="data-bulk-select-row" 
-		                               name="clubItems[${idx }].clubNo"
+		                               name="clubItems[${idx}].clubNo"
 		     							value="${map['CLUB_NO']}"/>
-		     						<input type="hidden" value="${map['CLUB_NO']}" name="clubItems[${idx }].clubNo" >
 		                            </div>
 		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">

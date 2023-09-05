@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <script type="text/javascript">
 	$(function() {
-		$("#memLimitflag").val('Y').prop("selected", true); 
-		$("#memLimitflag").val('N').prop("selected", false);
+		/* $("#memLimitflag").val('Y').prop("selected", true); 
+		$("#memLimitflag").val('N').prop("selected", false); */
 		
 		$('form[name=createFrm]').submit(function() {
 			
@@ -29,13 +29,14 @@
 			
 			$("#memLimitflag").change(function() {
 				var selectedOption = $(this).val();
-				var count = $("#memberCnt");
-				var errorElement = $("#memLimitError");
+				var count = $("#memLimit").val();
+				var errorElement = $("#memLimitError").val();
 				
-				if(selectedOption==='Y'){
+				if(selectedOption==="Y"){
 					// "제한" 옵션이 선택된 경우 필드 활성화
 		            count.prop("disabled", false);
 		            errorElement.text(""); // 오류 메시지를 지웁니다.
+					count.focus();
 				}else{
 					// "제한" 옵션이 선택되지 않은 경우 필드 비활성화 및 오류 메시지 표시
 		            count.prop("disabled", true);
@@ -43,6 +44,8 @@
 		            errorElement.text("제한을 선택한 경우에만 입력하세요.");
 				}
 			});
+			
+			
 
 			/* if($('#secflag').val().length<1){
 				alert('동호회 공개여부를 선택해주세요.');
@@ -50,10 +53,7 @@
 				return false;
 			} */
 			
-			/* if($('#memLimitflag').val().length<1){
-				alert('동호회 모집인원 제한 여부를 선택해주세요.');
-				$('#memLimitflag').focus();
-			} 
+			/* 
 			if($('#memberCnt').val().length<1){
 				alert('모집 인원수를 입력해주세요.');
 				$('#memberCnt').focus();
@@ -86,7 +86,10 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
-		          <button class="btn btn-falcon-default btn-sm"type="button"><a href="<c:url value='/club/clubList'/>"><span class="fas fa-arrow-left"></span></a></button>
+		          <button class="btn btn-falcon-default btn-sm"type="button">
+		          	<a href="<c:url value='/club/clubList'/>">
+		          	<span class="fas fa-arrow-left"></span></a>
+		          </button>
                   <button class="btn btn-primary btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>
@@ -113,8 +116,8 @@
 			              </div>
 			              </div>
                       <div class="col-sm-4 mb-3">
-                        <label class="form-label" for="memberCnt"><strong>모집 회원 수</strong></label>
-                        <input class="form-control" id="memberCnt" name="memLimit" type="text" disabled/>
+                        <label class="form-label" for="memLimit"><strong>모집 회원 수</strong></label>
+                        <input class="form-control" id="memLimit" name="memLimit" type="text"/>
                         <span id="memLimitError" style="color: red;"></span>
                       </div>
                       <div class="col-12 mb-3">
