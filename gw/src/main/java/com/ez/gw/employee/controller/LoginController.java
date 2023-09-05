@@ -98,6 +98,7 @@ public class LoginController {
 		logger.info("로그아웃시 관리자 여부 조회 isAuthority={}", isAuthority);
 		
 		session.removeAttribute("empNo");
+		session.removeAttribute("positionRank");
 		
 		String url = "";
 		if(isAuthority.equals("Y")) { //관리자면 로그아웃 후
