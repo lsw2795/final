@@ -54,4 +54,6 @@ public interface BoardService {
 	//공지사항 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
 	int noticeDeleteMulti(List<BoardVO> list);
 	
+	int getQnaTotalCount(SearchVO searchVo); // qna게시판 토탈카운트 구하기
+	
 }
