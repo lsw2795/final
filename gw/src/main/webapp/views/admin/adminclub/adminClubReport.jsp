@@ -87,7 +87,7 @@
 	       </c:if>
 		</td>
         <td>
-          <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard()" id="btnDel" type="button">
+          <button class="btn btn-falcon-primary btn-sm" onclick="deleteClubBoard()" type="button">
           	<span class="fas fa-trash-alt"></span>
           </button>
         </td>
