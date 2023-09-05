@@ -1,15 +1,14 @@
 package com.ez.gw.boardlist.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +18,6 @@ import com.ez.gw.boardlist.model.BoardListVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.PaginationInfo;
-import com.ez.gw.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,7 +44,23 @@ public class BoardListController {
 	List<BoardListVO> boardList=boardListService.selAdminBoardList(searchVo);
 	logger.info("관리자 - 게시판관리 boardList.size()={}", boardList.size());
 	
+	List<Map<String, Object>> boardListCount=boardListService.selBoardlistWriteCount(searchVo);
+	
+	/* 막대그래프
+	for(Map<String, Object> map : boardListCount) {
+		int boardlistNo=Integer.parseInt(String.valueOf(map.get("BOARDLIST_NO")));
+		String boardName=String.valueOf(map.get("BOARD_NAME"));
+		int count=Integer.parseInt(String.valueOf(map.get("CNT")));
+		map.put("boardlistNo",boardlistNo);
+		map.put("boardName", boardName);
+		map.put("count", count);
+		
+		logger.info("boardlistNo={},boardName={},count={}", boardlistNo,boardName,count);
+	} */
+
+
 	model.addAttribute("boardList",boardList);
+	model.addAttribute("boardListCount",boardListCount);
 	model.addAttribute("pagingInfo",pagingInfo);
 		
 		return "admin/board/manageBoards";

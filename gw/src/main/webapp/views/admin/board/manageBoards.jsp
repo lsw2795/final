@@ -524,47 +524,54 @@
 								게시판별 이용 통계</h5>
 							</div>
 							 <div class="col-auto d-flex">
-							<%-- 	<form name="frmDateSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
+							<form name="frmDateSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
 								 	<input type="date" id="startDate" name="startDate" value="${param.startDate }" class="form-control-sm admindefault"/>
 								 	<span class="adminhyphen">~</span>
 									<input type="date" id="lastDate" name="lastDate" value="${param.lastDate }" class="form-control-sm admindefault"/>
 									<span class="adminhyphen"></span>
 									<button class="btn btn-primary" onclick="submitForm2()">조회</button>
-	                    		</form> --%>
+                    		</form>
                     		</div>
 				  		 </div>
 					</div>
-						
                 <div class="card-body h-100 pe-0">
                  <canvas id="myBarChart" width="400" height="150"></canvas>
                 
-                <script type="text/javascript">
-					    // 막대 그래프 데이터 생성 (예제)
-					    var barChartData = {
-					        labels: ['1월', '2월', '3월', '4월', '5월'],
-					        datasets: [{
-					            label: '월별 판매량',
-					            data: [120, 200, 150, 80, 90],
-					            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-					            borderColor: 'blue',
-					            borderWidth: 1
-					        }]
-					    };
-					
-					    // 막대 그래프 생성
-					    var ctx = document.getElementById('myBarChart').getContext('2d');
-					    var myBarChart = new Chart(ctx, {
-					        type: 'bar',  // 막대 그래프
-					        data: barChartData,
-					        options: {
-					            scales: {
-					                y: {
-					                    beginAtZero: true
-					                }
-					            }
-					        }
-					    });
-					</script>
+           <script type="text/javascript">
+               var barChartData = {
+			        labels: [
+			        	<c:forEach var="map" items="${boardListCount}">
+	            		"${map['BOARD_NAME']}",
+	            		</c:forEach>
+			        ],
+			        datasets: [{
+		            label: '기간별 게시판 게시글 등록 횟수',
+		            data: [ 
+		            	<c:forEach var="map" items="${boardListCount}">
+		            		${map['CNT']},
+		            	</c:forEach>
+            			],
+			            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+			            borderColor: 'blue',
+			            borderWidth: 1
+			        }]
+			    };
+                
+                
+            // 막대 그래프 생성
+			    var ctx = document.getElementById('myBarChart').getContext('2d');
+			    var myBarChart = new Chart(ctx, {
+			        type: 'bar',  // 막대 그래프
+			        data: barChartData,
+			        options: {
+			            scales: {
+			                y: {
+			                    beginAtZero: true
+			                }
+			            }
+			        }
+			    });
+			</script>
                 </div>
 					
 				</div>
