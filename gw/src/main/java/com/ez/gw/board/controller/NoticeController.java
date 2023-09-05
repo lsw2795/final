@@ -457,6 +457,9 @@ public class NoticeController {
 		List<Map<String, Object>> noticeList=boardService.selRegdateDesc5();
 		logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회 결과 noticeList={}", noticeList);
 		
+		for(Map<String, Object> map : noticeList) {
+			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));
+		}
 		model.addAttribute("noticeList", noticeList);
 		
 		return "board/noticeList5";
