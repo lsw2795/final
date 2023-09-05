@@ -11,14 +11,14 @@
                         <h6 class="mb-0">Club Board</h6>
                       </div>
                       <div class="col-auto">
-                        <form action='<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>'>
+                        <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 		                    <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
 			                       <option value="title"
 			                          	<c:if test="${param.searchCondition=='title'}">
 			                            	selected = "selected"
 			                            </c:if>
 			                        >제목</option>
-			                        <option value="manager"
+			                        <option value="name"
 		                       		    <c:if test="${param.searchCondition=='name'}">
 			                            	selected = "selected"
 			                            </c:if>
@@ -73,12 +73,6 @@
                         <div class="ms-1 ms-sm-3">
                           <p class="fw-semi-bold mb-3 mb-sm-2">
                           	<a href="<c:url value='/club/clubBoardDetail?clubNo=${param.clubNo}&boardNo=${map.BOARD_NO }'/>">
-                          		<div class="col-auto lh-1 me-3">
-	                            <!-- 답변 갯수 표시  -->
-		                        <c:if test="${map['countCommt']>0}">
-		                        	<span style="color: red">[${map['countCommt']}]</span>
-		                        </c:if>
-                            </div>
                           		${map['TITLE']}
                           	</a>
                           	<c:if test="${map['timeNew']==1}">
@@ -91,10 +85,11 @@
 	                              	<span class="fas fa-user" data-fa-transform="shrink-3 up-1"></span>
 	                              	<span>${map['NAME']}</span>
                               </h6>
-                              <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
+                              <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"> </p>
 	                    		<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span>
-	                    	 	<p class="mb-0 text-700">조회수&nbsp;${map['READCOUNT'] }</p>
-	                    	 </p>
+	                    		<p class="mb-0 text-700">조회수&nbsp;${map['READCOUNT'] }</p>
+	                    	</p>
+	                    	
                             </div>
                           </div>
                         </div>

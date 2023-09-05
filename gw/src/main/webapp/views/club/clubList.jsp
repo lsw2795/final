@@ -19,26 +19,27 @@
                       <div class="col-auto pe-0">
                         <h6 class="mb-0">Club List</h6>
                       </div>
-                        <div class="col-auto pe-0">
-		                  <form action='<c:url value='/club/clubList'/>'>
-		                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-			                            <option value="title"
-			                            	<c:if test="${param.searchCondition=='title'}">
-			                            		selected = "selected"
-			                            	</c:if>
-			                            >제목</option>
-			                            <option value="manager"
-		                       		        <c:if test="${param.searchCondition=='manager'}">
-			                            		selected = "selected"
-			                            	</c:if>
-			                            >이름</option>
-			                            <option value="introduce"
-			                            	<c:if test="${param.searchCondition=='introduce'}">
-			                            		selected = "selected"
-			                            	</c:if>
-			                            >소개</option>
-		                          </select>
-		                  </form>
+                       <div class="col-auto pe-0">
+                    <form name="frmSerch" action="<c:url value='/club/clubList'/>" method="post">
+                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+	                            <option value="title"
+	                            	<c:if test="${param.searchCondition=='title'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >제목</option>
+	                            <option value="manager"
+                       		        <c:if test="${param.searchCondition=='manager'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >이름</option>
+	                            <option value="introduce"
+	                            	<c:if test="${param.searchCondition=='introduce'}">
+	                            		selected = "selected"
+	                            	</c:if>
+	                            >소개</option>
+                          </select>
+                  </form>
+                      </div>
                       </div>
                       <div class="col-auto">
                           <div class="input-group input-search-width">
