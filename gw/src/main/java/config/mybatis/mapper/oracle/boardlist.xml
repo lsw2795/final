@@ -70,6 +70,12 @@
 	
 	<select id="selBoardlistWriteCount" parameterType="empSearchVo">
 		select boardlist_no, board_name, count(*) as cnt from boardlistview
+		 <if test="startDate==null or startDate=='' or lastDate==null or lastDate==''">
+		 <![CDATA[
+			where regdate >=to_date(sysdate)
+			and regdate< to_date(sysdate)+1
+		 ]]>
+		 </if> 
 		 <if test="startDate!=null and startDate!='' and lastDate!=null and lastDate!=''">
 		 <![CDATA[
 			where regdate >=to_date(#{startDate})
