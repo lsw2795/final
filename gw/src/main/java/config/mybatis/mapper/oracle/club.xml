@@ -52,6 +52,11 @@
 		select * from ADMINCLUBVIEW
 	</select>
 	
+	<select id="clubCount" resultType="int" parameterType="int">
+		select count(*) from employee
+		where club_no=#{clubNo}
+	</select>
+	
 </mapper>
 
 

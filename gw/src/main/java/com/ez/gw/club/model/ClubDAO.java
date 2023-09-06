@@ -18,4 +18,5 @@ public interface ClubDAO {
 	int joinClub(@Param("merchantNo")String merchantNo,@Param("clubNo") int clubNo, @Param("empNo") int empNo);
 	int outClub(int empNo);
 	List<Map<String, Object>> adminClubList();
+	int clubCount(int clubNo); //인원수 체크
 }
