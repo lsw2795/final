@@ -24,6 +24,7 @@ import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -171,14 +172,11 @@ public class ClubController {
 		logger.info("동호회 인원수 제한여부 cnt={},memlimit={}",cnt,clubVo.getMemLimit());
 		
 		
-		if(cnt>=clubVo.getMemLimit()) {
-			//model.addAttribute("msg", "모집인원이 마감되었습니다.");
-			//model.addAttribute("url", "/club/clubList");
-			return "common/message";
-		}
+		
 		
 		//3.
 		model.addAttribute("clubVo", clubVo);
+		 model.addAttribute("clubCnt", cnt);
 		
 		//4.
 		return "club/clubDetail";

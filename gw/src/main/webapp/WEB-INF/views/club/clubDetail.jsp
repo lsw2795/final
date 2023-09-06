@@ -61,15 +61,12 @@
 
 	
 	$(function() {
-		$("#memLimit").val('Y').prop("selected");
+		
 
-		if($("#button[name=paymentModal]")){
-			alert("모집인원이 마감되었습니다.");
-			
-		}
 		
 		
-		$("#memLimitflag").val('N').prop("selected", false);
+		
+		
 	});
 	
 	function deleteClub() {
@@ -138,7 +135,7 @@
 						<div class="col-sm-4 mb-3">
 							<span><strong>모집 회원 수</strong></span><br>
 							<br>
-							${clubVo.memLimit }
+							${clubVo.memLimit } <strong>/</strong> ${clubCnt} 
 						</div>
 						<div class="col-12 mb-3">
 							<span><strong>동호희 이름</strong></span><br> ${clubVo.title}
@@ -171,6 +168,11 @@
 					</div>
 					<div class="col-auto mb-0">
 						<div class="col-auto">
+						<c:if test="${sessionScope.clubNo==clubVo.clubNo or clubVo.memLimit<=clubCnt}">
+							<button class="btn btn-sm btn-primary me-2"
+								data-bs-target="#paymentModal" data-bs-toggle="modal"
+								name="paymentModal" style="display: none" type="button">가입</button>
+						</c:if>
 						<c:if test="${sessionScope.clubNo!=clubVo.clubNo}">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"

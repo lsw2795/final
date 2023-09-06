@@ -79,9 +79,7 @@ public class LoginController {
 			
 			//직위,권한 세션 저장
 			session.setAttribute("positionRank",map.get("POSITION_RANK"));
-			if(clubNo!=0) {
-				session.setAttribute("clubNo", clubNo); //동호회 번호 저장
-			}
+			session.setAttribute("clubNo", clubNo); //동호회 번호 저장
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);
