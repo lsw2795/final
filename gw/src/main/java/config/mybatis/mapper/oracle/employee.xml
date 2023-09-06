@@ -187,8 +187,10 @@
 		where retireDate is not null
 	</select>
 	
-	<select id="selectByClubNo" parameterType="int">
+	<select id="selectByClubNo" parameterType="int" resultType="Integer">
 		select club_No from employee
 		where emp_No=#{empNo}	
 	</select>
+	
+	
 </mapper>
