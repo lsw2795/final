@@ -43,12 +43,14 @@
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
+                      <c:if test="${sessionScope.clubNo == map.['CLUB_NO'] }">
                      	 <a href="<c:url value='/club/clubBoardWrite?clubNo=${param.clubNo}'/>">
                        		 <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                         		<span class="fas fa-plus" data-fa-transform="shrink-3">
                         		</span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span>
                         	</button>
                         </a>
+                      </c:if>
                       </div>
                     </div>
                   </div>

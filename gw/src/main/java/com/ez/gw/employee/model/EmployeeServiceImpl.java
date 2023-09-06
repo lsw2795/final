@@ -187,6 +187,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectByClubNo(empNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selEmpCountByDeptName(int year) {
+		return employeeDao.selEmpCountByDeptName(year);
+	}
+
+	@Override
+	public List<Map<String, Object>> selEmpCountYear() {
+		return employeeDao.selEmpCountYear();
+	}
+
+
+
 }
 
 
