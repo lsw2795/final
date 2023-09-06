@@ -142,6 +142,16 @@
 		        	selectedResource = $('#rentCar').val();
 		        }
 			 	
+			var startTime = $('#startTime').val();
+			var endTime = $('#endTime').val();
+			if(startTime.length < 1){
+				alert("시작시간을 선택해주세요.");
+				return false;
+			}else if(endTime.length < 1){
+				alert("종료시간을 선택해주세요.");
+				return false;
+			}
+			
 			$.ajax({
 				url : "<c:url value='/reservation/ajaxCheckBook'/>",
 				type: "get",
@@ -203,10 +213,22 @@
    		});
 	});
 </script>
+<style type="text/css">
+	.content {
+	    padding-bottom: 3.9875rem;
+	    padding: 40px;
+	}
+	
+	.card-body label {
+	    font-size: 17px;
+	    font-weight: bold;
+	    margin-top: 10px;
+	}
+</style>
 <body>
 	<div class="" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="content" role="document">
         <form id = "addReservationForm" autocomplete="on" action="<c:url value='/reservation/editReservation?reservationNo=${resVo.reservationNo}'/>" method = "post" >
             <div class="modal-content">
                 <div class="modal-header">
@@ -278,7 +300,7 @@
 							</select>
 	                  	</div>
 	                  	<input type="button" id="checkTime" value = "예약 가능 여부 확인">
-	                  	<input type = "text" id = "checkResult" value="N">
+	                  	<input type = "hidden" id = "checkResult" value="N">
 	                  	</div>
 	                  	 <div id = "message"></div>
 	                	 <div id = "bookOk"></div>

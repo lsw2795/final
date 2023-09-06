@@ -27,8 +27,8 @@
                 addEventButton: { // 추가한 버튼 설정
                     text : "자원 예약",  // 버튼 내용
                     click : function(){ // 버튼 클릭 시 이벤트 추가
-                    	var width = 500; // 창의 가로 크기
-        			    var height = 550; // 창의 세로 크기
+                    	var width = 450; // 창의 가로 크기
+        			    var height = 500; // 창의 세로 크기
         			    var left = (window.screen.width - width) / 2;
         			    var top = (window.screen.height - height) / 2;
                     	
@@ -47,16 +47,20 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			dateClick:function(info){
-			 	var width = 500; // 창의 가로 크기
-			    var height = 550; // 창의 세로 크기
+			 	var width = 450; // 창의 가로 크기
+			    var height = 500; // 창의 세로 크기
 			    var left = (window.screen.width - width) / 2;
 			    var top = (window.screen.height - height) / 2;
 
 			    // 새 창을 열기 위한 윈도우 옵션 설정
 			    var windowFeatures = "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",location=no,menubar=no,toolbar=no,scrollbars=yes";
+				var date = info.date;
 				
-				var newModalReser = window.open('<c:url value="/reservation/modalReservation"/>', '자원 예약', windowFeatures);
+				var newModalReser = window.open('<c:url value="/reservation/modalReservation?date='+date+'"/>', '자원 예약', windowFeatures);
 			    
+			    
+			    //newModalReser.dateFunction(date);
+				
 				//newModalReser.focus(); // 새 창을 포커스로 가져옴
 			},
 			events : [ 
@@ -105,7 +109,7 @@
 								$('#modalDetail').modal("show"); //modal 띄우기
 								$('#reservationNo').val(result.RESERVATION_NO);
 								$('#resempNo').html(result.EMP_NO);
-								$('#resName').html(result.emp_NAME);
+								$('#resName').html(result.EMPNAME);
 								$('#resReman').html(result.NAME);
 								$('#resBookDate').html(result.BOOKDATE);
 								$('#resStartTime').html(result.STARTTIME + ":00");
@@ -247,7 +251,7 @@
 	function editFunc(reservationNo){
 		var reservationNo = $('#reservationNo').val();
 		
-		var width = 500; // 창의 가로 크기
+		var width = 450; // 창의 가로 크기
 	    var height = 500; // 창의 세로 크기
 	    var left = (window.screen.width - width) / 2;
 	    var top = (window.screen.height - height) / 2;
@@ -272,6 +276,11 @@
 	.fc-day-sun a {
 	  color: red !important;
 	  text-decoration: none !important;
+	}
+
+	
+	button#addReservation {
+    	margin-right: 20px;
 	}
 </style>
 
