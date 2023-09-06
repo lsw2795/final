@@ -156,20 +156,30 @@ public class ClubController {
 			Model model) {
 		//1.
 		logger.info("동호회 상세보기, clubNo={}",clubNo);
-
+		
 		if(clubNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
 			model.addAttribute("url", "/club/clubList");
-
+			
 			return "common/message";
 		}
-
+		
 		//2.
 		clubVo=clubService.selectByClubNo(clubNo);
+		int cnt=clubService.clubCount(clubNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
-
+		logger.info("동호회 인원수 확인 cnt={}",cnt);
+		
+		
+		if(cnt>=clubVo.getMemLimit()) {
+			model.addAttribute("msg", "모집인원이 마감되었습니다.");
+			model.addAttribute("url", "/club/clubList");
+			return "common/message";
+		}
+		
 		//3.
 		model.addAttribute("clubVo", clubVo);
+		
 		//4.
 		return "club/clubDetail";
 	}
@@ -213,9 +223,6 @@ public class ClubController {
 	
 	
 	
-	
-	
-	
 
 	
 	//--------------------------------Admin 관리자----------------------------------------
@@ -240,7 +247,7 @@ public class ClubController {
 		return "admin/adminclub/clubList";
 	}
 	
-	@RequestMapping("/admin/adminclub")
+	@RequestMapping("/admin/adminclub/adminClubDelete")
 	public String adminDeleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
 		logger.info("관리자 - 동호회 삭제");
@@ -248,7 +255,7 @@ public class ClubController {
 		int cnt=clubService.deleteClub(clubNo);
 		logger.info("관리자 - 동호회 삭제 결과 cnt={}",cnt);
 
-		String msg="삭제 실패했습니다.", url="admin/adminclub/clubList";
+		String msg="삭제 실패했습니다.", url="/admin/adminclub/clubList";
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";
 		}
@@ -261,7 +268,7 @@ public class ClubController {
 		return "common/message";
 	}
 	
-	//관리자 - 동호회 다중 삭제
+	//관리자 - 동호회 다중 삭제 안됌
 		@RequestMapping("/admin/adminclub/clubDeleteMulti")
 		public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
 			//1.

@@ -61,7 +61,7 @@
 
 	
 	$(function() {
-		if($("#memLimit").val()>=$(this).length){
+		if($("#button[name=paymentModal]")){
 			alert("모집인원이 마감되었습니다.");
 			
 		}
@@ -94,10 +94,11 @@
 						<h5 class="mb-2 mb-md-0">동호회 소개</h5>
 					</div>
 					<div class="col-auto">
+					<a href="<c:url value='/club/clubList'/>">
 						<button class="btn btn-falcon-default btn-sm mx-2" type="button">
-							<a href="<c:url value='/club/clubList'/>"><span
-								class="fas fa-arrow-left"></span> </a>
+								<span class="fas fa-arrow-left"></span> 
 						</button>
+					</a>
 						<!-- 로그인한 사원과 게시글 작성자와 같을 경우에만 수정,삭제 버튼이 보임  -->
 						<c:if test="${sessionScope.empNo==clubVo.empNo}">
 							<a
@@ -133,11 +134,9 @@
 							</div>
 						</div>
 						<div class="col-sm-4 mb-3">
-							<span><strong>모집 회원 수</strong></span><br> <br>
+							<span><strong>모집 회원 수</strong></span><br>
+							<br>
 							${clubVo.memLimit }
-							<div class="col-12">
-								<div class="border-bottom border-dashed my-2"></div>
-							</div>
 						</div>
 						<div class="col-12 mb-3">
 							<span><strong>동호희 이름</strong></span><br> ${clubVo.title}
@@ -170,7 +169,7 @@
 					</div>
 					<div class="col-auto mb-0">
 						<div class="col-auto">
-						<c:if test="${empty sessionScope.clubNo }">
+						<c:if test="${sessionScope.clubNo!=clubVo.clubNo}">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"
 								name="paymentModal" type="button">가입</button>

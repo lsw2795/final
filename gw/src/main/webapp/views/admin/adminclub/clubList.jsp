@@ -3,9 +3,9 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
 <script type="text/javascript">
-	$(function () {
+/*$(function () {
 		
-		$('#delBt').click(function(){
+		 $('#delBt').click(function(){
 			var count = $('tbody input[type=checkbox]:checked').length;
 			if(count<1){
 				alert('삭제하고 싶은 게시글을 먼저 체크하세요');
@@ -16,12 +16,15 @@
 					$('form[name=frmClub]').prop('action', "<c:url value='/admin/adminclub/deleteMulti'/>");
 					$('form[name=frmClub]').submit();
 				}
-				
-			
+			});
 		});
-		
-		
-	});
+	}); */
+	
+	function adminClubDel(clubNo) {
+		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+			location.href="<c:url value='/admin/adminclub/adminClubDelete?clubNo=" + clubNo + "'/>"
+		}
+	}
 </script>
 		<div class="row gx-3">
               <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
@@ -65,8 +68,6 @@
                       
                 <form name="frmClub" method="post" action="<c:url value='/admin/adminclub/clubDeleteMulti'/>">
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                       	<button class="btn btn-falcon-default btn-sm" id="delBt" type="submit">
-                       	<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
                       </div>
                   </div>
                 </div>
@@ -86,6 +87,8 @@
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:14rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
                           <th class="sort align-middle" data-sort="Date">Date</th>
+                          <th class="sort align-middle" data-sort="Date">삭제</th>
+                          
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">
@@ -120,6 +123,10 @@
 			                        <td class="align-middle subscription fs-0 pe-4">
 			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small> 
 			                        </td>
+			                        <td>
+			                        	<button class="btn btn-falcon-default btn-sm" id="delBt" onclick="adminClubDel(${map['CLUB_NO']})" type="button">
+                       					<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
+			                      	</td>
 			                      </tr>
                           	</c:if>
                           	<c:set var="idx" value="${idx+1}"/>

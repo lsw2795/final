@@ -71,7 +71,7 @@
 	    		alert(status+" : "+error);
 	   		}
 	   	});
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=760, left=480, top=100");
 	}
 	
 </script>

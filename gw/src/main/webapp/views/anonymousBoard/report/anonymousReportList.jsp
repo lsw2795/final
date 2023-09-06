@@ -13,7 +13,7 @@
 	}
 	
 	function statusUpdate(reportNo,status,tr){
-		window.open("<c:url value='/report/anonymousReportDetail?reportNo="+reportNo+"'/>","_blank","width=500,height=520 left=500 top=300")
+		window.open("<c:url value='/report/anonymousReportDetail?reportNo="+reportNo+"'/>","_blank","width=500,height=680 left=750 top=150")
 	}
 	
 </script>

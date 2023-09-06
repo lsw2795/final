@@ -85,9 +85,8 @@ public class ClubBoardController {
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
 			
 			int i=0;
-			if(originalFileName!=null) {
+			if(files.size()>0) {
 				for(MultipartFile f : files){
-						
 					originalFileName = f.getOriginalFilename();
 					int idx=originalFileName.indexOf(".");
 					logger.info("idx={}",idx);
@@ -114,7 +113,7 @@ public class ClubBoardController {
 					int res=pdsService.clubFiles(pdsVo);
 					logger.info("파일 db저장 결과 res={}",res);		
 				}//for
-			}
+			}//if
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -256,7 +255,7 @@ public class ClubBoardController {
 		//1.
 		logger.info("동게 삭제 clubNo={},boardNo={}",clubNo,boardNo);
 		//2.
-		int cnt=clubBoardService.deleteClubBoard(clubNo, boardNo);
+		int cnt=clubBoardService.deleteClubBoard(boardNo);
 		logger.info("동게 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", 
@@ -369,16 +368,14 @@ public class ClubBoardController {
 	}
 	
 	@RequestMapping("/admin/adminclub/adminDeleteClubBoard")
-	public String adminDeleteClubBoard(@RequestParam(defaultValue = "0")int clubNo,
-			@RequestParam(defaultValue = "0")int boardNo,@RequestParam(defaultValue = "0")int reportNo,
+	public String adminDeleteClubBoard(@RequestParam(defaultValue = "0")int boardNo,
+			
 			Model model) {
 		//1.
-		logger.info("관리자 - 신고 동호회게시물 삭제 clubNo={},boardNo={}",clubNo,boardNo);
+		logger.info("관리자 - 신고 동호회게시물 삭제 boardNo={},reportNo={}",boardNo);
 		
 		//2.
-		Map<String, Object> map = reportService.clubByReportNo(reportNo);
-		logger.info("신고 동호회 게시물 삭제 결과 map={}",map);
-		int cnt=clubBoardService.deleteClubBoard(clubNo, boardNo);
+		int cnt=clubBoardService.deleteClubBoard(boardNo);
 		logger.info("신고 동호회 게시물 삭제 결과 cnt={}",cnt);
 		
 		String msg="삭제 실패했습니다.", url="/admin/adminclub/adminClubReport";

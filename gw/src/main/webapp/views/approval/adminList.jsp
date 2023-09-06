@@ -38,7 +38,7 @@
 			return false;
 		}
 		
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=700");
+		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=760, left=480, top=100");
 	}
 	
 	function delOk(chk,no,create,deadLine){
@@ -153,7 +153,7 @@
 					    <tbody>
 					    <c:if test="${empty list }">
 					    	<tr>
-					    		<td colspan="6" align="center">작성한 결재 문서가 존재하지 않습니다.</td>
+					    		<td colspan="6" align="center">결재 문서가 존재하지 않습니다.</td>
 					    	</tr>
 					    </c:if>
 					   	<c:if test="${!empty list }">

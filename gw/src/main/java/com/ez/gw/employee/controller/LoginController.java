@@ -60,6 +60,13 @@ public class LoginController {
 		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
 		logger.info("로그인 사원 서열,직급 map={}",map);
 		
+		Integer clubNo=empService.selectByClubNo(empNo);
+		logger.info("동호회 가입번호 clubNo={}",clubNo);
+		
+		if(clubNo==null) {
+			clubNo = 0;
+		}
+		
 		String msg="로그인 처리 실패", url="/"; 
 		if(result==EmployeeService.LOGIN_OK) {
 			msg= map.get("NAME") +" 님이 로그인 하셨습니다";
@@ -72,6 +79,7 @@ public class LoginController {
 			
 			//직위,권한 세션 저장
 			session.setAttribute("positionRank",map.get("POSITION_RANK"));
+			session.setAttribute("clubNo", clubNo); //동호회 번호 저장
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);
@@ -89,7 +97,7 @@ public class LoginController {
 		}else if(result==EmployeeService.PWD_DISAGREE) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==EmployeeService.EMPNO_NONE){
-			msg="해당 사원번호는 존재하지 않거나 퇴사자입니다.";
+			msg="해당 사원번호는 존재하지 않습니다.";
 		}
 		
 		//3.
@@ -110,6 +118,7 @@ public class LoginController {
 		logger.info("로그아웃시 관리자 여부 조회 isAuthority={}", isAuthority);
 		
 		session.removeAttribute("empNo");
+		session.removeAttribute("positionRank");
 		
 		String url = "";
 		if(isAuthority.equals("Y")) { //관리자면 로그아웃 후

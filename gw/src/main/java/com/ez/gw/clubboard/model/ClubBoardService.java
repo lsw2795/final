@@ -11,6 +11,6 @@ public interface ClubBoardService {
 	int updateReadcount(int boardNo); //조회수 증가
 	int updateClubBoard(ClubBoardVO clubVo);
 	Map<String, Object> detailClubBoard(int clubNo, int boardNo);
-	int deleteClubBoard(int clubNo, int boardNo);
+	int deleteClubBoard(int boardNo);
 	int deleteMulti(List<ClubBoardVO> list); //관리자 다중 삭제
 }

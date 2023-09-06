@@ -182,6 +182,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectRetire();
 	}
 
+	@Override
+	public Integer selectByClubNo(int empNo) {
+		return employeeDao.selectByClubNo(empNo);
+	}
+
 }
 
 

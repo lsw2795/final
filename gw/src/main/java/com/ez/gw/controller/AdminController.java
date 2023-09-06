@@ -107,6 +107,7 @@ public class AdminController {
 		logger.info("로그아웃");
 		
 		session.removeAttribute("empNo");
+		session.removeAttribute("authority");
 		
 		return "redirect:/admin/login";
 	}
