@@ -113,6 +113,11 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsDao.gTRCommentCount(searchVo);
 	}
 
+	@Override
+	public int deleteQnaComment(int commentNo) {
+		return commentsDao.deleteQnaComment(commentNo);
+	}
+
 	
 	
 }
