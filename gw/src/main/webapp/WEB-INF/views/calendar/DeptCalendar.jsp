@@ -63,15 +63,20 @@
 	}%>
 					],
 	             eventMouseEnter:function(info){
-						var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
-								        '<div class="avatar-name rounded-circle">' + 
-								        	'<img src="<c:url value=' + info.event.extendedProps.imageSrc +'/>">' +
-								        		info.event.extendedProps.position +" " +  info.event.extendedProps.name +  
-							        	'</div>' +
-								        '<p>' + '</p>' +
-								        '</div>';
-								        
-						$("body").append(tooltip);
+	            	 // 이미지 경로를 변수로 저장
+	            	    var imageSrc = '<c:url value="' + info.event.extendedProps.imageSrc + '"/>';
+	            	    
+	            	 // 툴팁 내용을 생성
+	            	    var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
+	            	        '<div class="avatar-name rounded-circle">' +
+	            	        '<img src="' + imageSrc + '">' +
+	            	        info.event.extendedProps.position + " " + info.event.extendedProps.name +
+	            	        '</div>' +
+	            	        '<p>' + '</p>' +
+	            	        '</div>';
+
+	            	    // 툴팁을 body에 추가
+	            	    $("body").append(tooltip);
 						
 					    $(info.el).mouseover(function(e) {
 					        $(this).css('z-index', 10000);
