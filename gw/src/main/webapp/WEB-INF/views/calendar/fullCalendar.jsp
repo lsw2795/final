@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -145,23 +146,28 @@
 	    	    <%-- <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%> --%>
 	    	    <%	List<Map<String, Object>> mapList = (List<Map<String, Object>>)request.getAttribute("mapList");%>
 	            <%if (mapList != null) {%>
-	            <%for (Map<String, Object> map : mapList) {%>
+	            <%for (Map<String, Object> map : mapList) {
+	            	int categoryNo = 0;
+	            	BigDecimal categoryNoBig = (BigDecimal)map.get("CATEGORY_NO");
+	            	if(categoryNoBig!=null){
+	            	}
+	            %>
 	            {
 	            	title : '<%=(String)map.get("TITLE") %>',
 	                start : '<%= (String)map.get("BEGINDATE") %>',
 	                end : '<%=(String)map.get("ENDDATE")%>',
-	                id: '<%= (int)map.get("CATEGORYNO") %>',
+	                id: '<%= categoryNo %>',
 	                content: '<%= (String)map.get("CONTENT") %>',
 	                extendedProps : {
 	                	calendarNo : '<%= (int)map.get("CALENDARNO")%>'
 	                },
-	            	<%if((int)map.get("CATEGORYNO") == 1){%>
+	            	<%if(categoryNo == 1){%>
 	            	backgroundColor: '#DD6F66'
-	            	<%}else if((int)map.get("CATEGORYNO") == 2){%>
+	            	<%}else if(categoryNo == 2){%>
 	            	backgroundColor : '#A9D18E'
-	            	<%}else if((int)map.get("CATEGORYNO") == 3){%>
+	            	<%}else if(categoryNo == 3){%>
 	            	backgroundColor : '#5889F0'
-	            	<%}else if((int)map.get("CATEGORYNO") == 4){%>
+	            	<%}else if(categoryNo == 4){%>
 	            	backgroundColor : '#FFD966'
 	            	<%}%>
 	             },
