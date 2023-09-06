@@ -54,7 +54,7 @@
                     <div class="border-bottom border-200 my-3"></div>
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      <div class="d-flex align-items-center"ㅁㅂㅁㅁㅂㅁㅂㅁㅂㅁ id="table-ticket-replace-element">
+                      <div class="d-flex align-items-center" id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>">
                         	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
                         		<span class="fas fa-plus" ></span>
