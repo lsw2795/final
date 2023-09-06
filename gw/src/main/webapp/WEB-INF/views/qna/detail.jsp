@@ -30,10 +30,10 @@
 
 	function editComment(textDivId, commentNo) {
 	  // 생성할 form 요소를 jQuery를 사용하여 생성합니다.
-	  var formHtml = '<form name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
+	  var formHtml = '<form id="editComment" name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
 	    '<input type="hidden" name="commentNo" value="' + commentNo + '" />' +
 	    '<input type="text" name="boardNo" value="${map["BOARD_NO"]}" />' +
-	    '<textarea id="editArea" name="content" form="editForm" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
+	    '<textarea id="editArea" name="content" form="editComment" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
 	    '</form>';
 
 	  // moveComment 요소에 formHtml을 추가합니다.
@@ -51,11 +51,16 @@
 	}
 
 	function editCommentOk(formName) {
-	  // formName을 사용하여 폼을 서브밋합니다.
-	  var form = document.forms[formName];
-	  if (form) {
-	    form.submit();
-	  }
+		  // textarea의 값을 가져옵니다.
+		  var textareaValue = $('#editArea').val();
+
+		  // formName을 사용하여 폼을 서브밋합니다.
+		  var form = $('form[name="' + formName + '"]'); // 폼을 jQuery 객체로 가져옵니다.
+		  if (form.length > 0) {
+		    // 폼이 존재하는 경우
+		    form.find('textarea[name="content"]').val(textareaValue); // textarea의 값을 설정합니다.
+		    form.submit(); // 폼을 서브밋합니다.
+		  }
 	}
 
  	
