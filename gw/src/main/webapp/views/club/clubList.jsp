@@ -40,12 +40,12 @@
                           </select>
                   </form>
                       </div>
-                      </div>
                       <div class="col-auto">
                           <div class="input-group input-search-width">
                             <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
                             <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                           </div>
+                      </div>
                       </div>
                     </div>
                     <div class="border-bottom border-200 my-3"></div>
@@ -123,7 +123,7 @@
                     <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
                   </div>
                 </div>
-              </div>
+                </div>
+            </div>
 		</div>
-
 <%@ include file="../inc/bottom.jsp" %>
