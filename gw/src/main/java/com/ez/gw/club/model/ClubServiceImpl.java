@@ -83,6 +83,11 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.adminClubList();
 	}
 
+	@Override
+	public int clubCount(int clubNo) {
+		return clubDao.clubCount(clubNo);
+	}
+
 	
 
 	

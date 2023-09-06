@@ -156,20 +156,30 @@ public class ClubController {
 			Model model) {
 		//1.
 		logger.info("동호회 상세보기, clubNo={}",clubNo);
-
+		
 		if(clubNo==0) {
 			model.addAttribute("msg", "잘못된 경로입니다.");
 			model.addAttribute("url", "/club/clubList");
-
+			
 			return "common/message";
 		}
-
+		
 		//2.
 		clubVo=clubService.selectByClubNo(clubNo);
+		int cnt=clubService.clubCount(clubNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
-
+		logger.info("동호회 인원수 확인 cnt={}",cnt);
+		
+		
+		if(cnt>=clubVo.getMemLimit()) {
+			model.addAttribute("msg", "모집인원이 마감되었습니다.");
+			model.addAttribute("url", "/club/clubList");
+			return "common/message";
+		}
+		
 		//3.
 		model.addAttribute("clubVo", clubVo);
+		
 		//4.
 		return "club/clubDetail";
 	}
@@ -209,9 +219,6 @@ public class ClubController {
 		return "common/message";
 		
 	}
-	
-	
-	
 	
 	
 	

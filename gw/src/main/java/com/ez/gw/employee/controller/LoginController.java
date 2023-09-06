@@ -94,7 +94,7 @@ public class LoginController {
 		}else if(result==EmployeeService.PWD_DISAGREE) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==EmployeeService.EMPNO_NONE){
-			msg="해당 사원번호는 존재하지 않거나 퇴사자입니다.";
+			msg="해당 사원번호는 존재하지 않습니다.";
 		}
 		
 		//3.

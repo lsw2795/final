@@ -16,4 +16,5 @@ public interface ClubService {
 	int joinClub(String merchantNo, String clubNo, String empNo);
 	int outClub(int empNo);
 	List<Map<String, Object>> adminClubList ();
+	int clubCount(int clubNo); //인원수 체크
 }
