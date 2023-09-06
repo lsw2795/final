@@ -42,10 +42,10 @@
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 	<input type="hidden" name="boardlistNo" value="${param.boardlistNo }">
 </form>
-<div class="row g-3 mb-3">
-	<div class="col-xxl-3">
-		<div class="card h-100 ">
-			<div class="card-header d-flex flex-between-center">
+<div class="container p-0">
+	<div class="col-12-lg pe-lg-2 mb-3">
+		<div class="card h-lg-100 overflow-hidden">
+			<div class="card-header bg-light">
 						<h5 class="mb-0">
 						<a style="text-decoration: none; color: black;" 
 							href="<c:url value='/board/deptBoard'/>">
@@ -68,19 +68,21 @@
 					</div>
 				</div>
 			</div>
-				<div class="col-md-9">
-				<div class="card h-100">
+			
+			
+		<div class="col-12-lg pe-lg-2 mb-3">
+		<div class="card h-lg-100 overflow-hidden">
 				<c:if test="${empty param.boardlistNo }">
 					<div style="margin:50px 0px 0 150px;"><h1>부서 게시판을 선택해주세요.</h1></div>
 				</c:if>
 				<c:if test="${!empty param.boardlistNo }">
-					<div class="card-header py-2">
+					<div class="card-header py-2 mt-3">
 					<h5 class="mb-0">
-					<span class="fas fa-file" style="margin: 0 10px;"></span>
+					<span class="fas fa-file" style="margin: 0 10px; font-weight: bold;"></span>
 					${boardlistVo.boardName} 게시판
 					</h5>
 			</div>
-			<div class="card-body py-2 ">
+			<div class="card-body table-responsive scrollbar">
 				<div class="card" id="allContactTable">
 					<div class="card-header border-bottom border-200 px-0 ">
 						<div class="d-lg-flex justify-content-between">
@@ -278,5 +280,8 @@
 			</c:if>
 			</div>
 		</div>
+		
+		
+		
 	</div>
 <%@ include file="../inc/bottom.jsp"%>

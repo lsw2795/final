@@ -46,7 +46,7 @@ public class PaymentClubController {
 	//결제 완료시 ajax
 	@ResponseBody
 	@GetMapping("/club/ajaxPaymentClub")
-	public void ajaxPaymentClub(@RequestParam Map<String, Object> payment) {
+	public void ajaxPaymentClub(@RequestParam Map<String, Object> payment, HttpSession session) {
 		logger.info("ajax 이용 - payment={}",payment); 
 		logger.info("ajax 이용 - payment={}",payment); 
 		logger.info("ajax 이용 - payment={}",payment); 
@@ -58,6 +58,10 @@ public class PaymentClubController {
 		int cnt = clubService.joinClub(uid, clubNo, empNo);
 		logger.info("클럽 가입 결과, cnt = {}",cnt); 
 		
+		if(cnt>0) {
+			session.removeAttribute("clubNo");
+			session.setAttribute("clubNo",clubNo);
+		}
 		
 	}
 	/*
