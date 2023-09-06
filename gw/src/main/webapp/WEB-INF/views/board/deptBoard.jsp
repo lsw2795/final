@@ -73,7 +73,7 @@
 		<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
 				<c:if test="${empty param.boardlistNo }">
-					<div style="margin:50px 0px 0 150px;"><h1>부서 게시판을 선택해주세요.</h1></div>
+					<div class="mypageempdiv18"><h1>부서 게시판을 선택해주세요.</h1></div>
 				</c:if>
 				<c:if test="${!empty param.boardlistNo }">
 					<div class="card-header py-2 mt-3">
@@ -153,13 +153,7 @@
 						<c:if test="${boardlistVo.secflag=='N'}">
 							<c:if test="${boardlistVo.boardLike=='Y'}">
 								<col style="width: 20%;" />
-								<col style="width: 30%;" />
-								<col style="width: 20%;" />
 								<col style="width: 15%;" />
-								<col style="width: 15%;" />
-							</c:if>
-							<c:if test="${boardlistVo.boardLike=='N'}">
-								<col style="width: 20%;" />
 								<col style="width: 30%;" />
 								<col style="width: 20%;" />
 								<col style="width: 15%;" />
@@ -169,9 +163,7 @@
 					<thead class="mypageempthead">
 						<tr style="text-align: center;">
 							<th class="align-middle py-2 fs-0 pe-2" scope="col" data-sort="name">작성자</th>
-							<c:if test="${boardlistVo.secflag=='Y'}">
-								<th class="align-middle" scope="col" data-sort="dept">부서</th>
-							</c:if>
+							<th class="align-middle" scope="col" data-sort="dept">부서</th>
 							<th class="align-middle" scope="col" data-sort="title">제목</th>
 							<th class="align-middle" scope="col" data-sort="regdate">등록일</th>
 							<th class="align-middle" scope="col" data-sort="readcount">조회수</th>
@@ -199,14 +191,19 @@
 								</td>
 								<td class="align-middle">
 									<div class="mypageempdiv14">
-									${map['DEPT_NAME']}
+										${map['DEPT_NAME']}
 									</div>
 								</td>
 								</c:if>
 								<c:if test="${boardlistVo.secflag=='N'}">
-								<td class="align-middle fs-0 py-3">
-								 	<div class="d-flex align-items-center gap-2 position-relative">
+								<td class="align-middle">
+								 	<div class="mypageempdiv14">
 										<div class="mypageempdiv17">익명</div>
+									</div>
+								</td>
+								<td class="align-middle">
+									<div class="mypageempdiv14">
+									알수없음
 									</div>
 								</td>
 								</c:if>
