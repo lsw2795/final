@@ -2,17 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$('#years').change(function(){
-		var year=$('#years').val();
-		if(year=="" || year==null){
-			location.reload();
-		}
-		$('#frmYear').submit();
-	});
-});
-</script>
 <div class="card-header">
        <div class="row flex-between-end">
          <div class="col-auto align-self-center">
