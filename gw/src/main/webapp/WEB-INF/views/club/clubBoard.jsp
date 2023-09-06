@@ -14,17 +14,17 @@
                         <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 		                    <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
 			                       <option value="title"
-			                          	<c:if test="${param.searchCondition=='title'}">
+			                          	<c:if test="${searchVo.searchCondition=='title'}">
 			                            	selected = "selected"
 			                            </c:if>
 			                        >제목</option>
 			                        <option value="name"
-		                       		    <c:if test="${param.searchCondition=='name'}">
+		                       		    <c:if test="${searchVo.searchCondition=='name'}">
 			                            	selected = "selected"
 			                            </c:if>
 			                         >작성자</option>
 			                         <option value="content"
-			                            <c:if test="${param.searchCondition=='content'}">
+			                            <c:if test="${searchVo.searchCondition=='content'}">
 			                            	selected = "selected"
 			                            </c:if>
 			                         >내용</option>

@@ -118,7 +118,7 @@
                     <div class="d-flex align-items-center gap-2">
 	                    <div class="avatar avatar-2xl">
 	                       <div class="avatar-name rounded-circle">
-	                          <img src="<c:url value='/images/${map["IMAGE"]}'/>">
+	                          <img src="<c:url value='/images/${map["IMAGE"]}'/>" class="avatar-name rounded-circle">
 	                       </div>
                     	<p class="mb-0">${map['NAME']}</p>
 	                    </div>

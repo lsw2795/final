@@ -34,7 +34,7 @@
           <div class="d-flex align-items-center">
             <div class="avatar avatar-xl">
               <div class="avatar-name rounded-circle">
-	             <img src="<c:url value='/images/${map["IMAGE"]}'/>">
+	             <img src="<c:url value='/images/${map["IMAGE"]}'/>" class="avatar-name rounded-circle">
 	          </div>
             </div>
             <div class="ms-2">${map['NAME'] }</div>
