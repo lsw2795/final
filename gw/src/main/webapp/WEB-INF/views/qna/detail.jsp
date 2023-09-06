@@ -26,14 +26,39 @@
 		}
 	}
 	
-	function editComment(textDivId) {
-		
-		var content = $('#' + textDivId).html().trim();
-		$('#' + textDivId).html("");
-		
-		$('#' + textDivId).append("<input type='text' id='textComment' name='content' value='" + content +  "'/> ");
-		
+	var clickCount = 0;
+
+	function editComment(textDivId, commentNo) {
+	  // 생성할 form 요소를 jQuery를 사용하여 생성합니다.
+	  var formHtml = '<form name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
+	    '<input type="hidden" name="commentNo" value="' + commentNo + '" />' +
+	    '<input type="text" name="boardNo" value="${map["BOARD_NO"]}" />' +
+	    '<textarea id="editArea" name="content" form="editForm" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
+	    '</form>';
+
+	  // moveComment 요소에 formHtml을 추가합니다.
+	  $('#' + textDivId).html(formHtml);
+
+	  // 클릭 횟수를 증가시킵니다.
+	  clickCount++;
+
+	  if (clickCount === 1) {
+	    // 처음 클릭할 때는 수정 버튼의 click 이벤트를 제거하고, 다음 클릭 시 editCommentOk 함수를 호출합니다.
+	    $('#btEdit').off('click').on('click', function () {
+	      editCommentOk('editForm');
+	    });
+	  }
 	}
+
+	function editCommentOk(formName) {
+	  // formName을 사용하여 폼을 서브밋합니다.
+	  var form = document.forms[formName];
+	  if (form) {
+	    form.submit();
+	  }
+	}
+
+ 	
 </script>
 
  <div class="row g-3">
@@ -140,11 +165,12 @@
 			                    </c:if>
 	                    	</button>
 	                    	
-    	                	<button style="float: right;" onclick="editComment('content${status.index}');" class="btn btn-falcon-default btn-sm" type="button">
+    	                	<button style="float: right;" id="btEdit" onclick="editComment('moveComment${status.index}', ${replyMap['COMMENT_NO']});" class="btn btn-falcon-default btn-sm" type="button">
        	            			<span class="fas fa-pen" data-fa-transform="shrink-2 down-1"></span>
            	        			<span class="d-none d-md-inline-block ms-1">답변 수정</span>
                	    		</button>
 		                  </div>
+			              <div id="moveComment${status.index}"></div>
 	                  </div>
                   </c:forEach>
                 <!-- 답변 반복 끝  -->

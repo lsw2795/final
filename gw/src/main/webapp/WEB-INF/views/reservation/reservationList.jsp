@@ -277,6 +277,7 @@
 	  color: red !important;
 	  text-decoration: none !important;
 	}
+
 	
 	button#addReservation {
     	margin-right: 20px;

@@ -48,8 +48,6 @@ public class PaymentClubController {
 	@GetMapping("/club/ajaxPaymentClub")
 	public void ajaxPaymentClub(@RequestParam Map<String, Object> payment, HttpSession session) {
 		logger.info("ajax 이용 - payment={}",payment); 
-		logger.info("ajax 이용 - payment={}",payment); 
-		logger.info("ajax 이용 - payment={}",payment); 
 		
 		String uid = String.valueOf(payment.get("merchant_uid"));
 		String clubNo = String.valueOf(payment.get("custom_data[club_no]"));
@@ -64,6 +62,7 @@ public class PaymentClubController {
 		}
 		
 	}
+	
 	/*
 	 * public String getToken() throws IOException {
 	 * 

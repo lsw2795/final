@@ -151,9 +151,11 @@
 	                start : '<%= vo.getBegindate() %>',
 	                end : '<%=vo.getEnddate()%>',
 	                id: '<%= vo.getCategoryNo() %>',
-	                content: '<%= vo.getCalendarNo() %>',
+	                content: '<%= vo.getContent() %>',
 	                extendedProps : {
-	                	calendarNo : '<%= vo.getCalendarNo()%>'
+	                	calendarNo : '<%= vo.getCalendarNo()%>',
+	                	starttime : '<%= vo.getBegintime()%>',
+	                	endtime : '<%= vo.getEndtime()%>'
 	                },
 	            	<%if(vo.getCategoryNo() == 1){%>
 	            	backgroundColor: '#DD6F66'
@@ -217,7 +219,7 @@
 				eventMouseEnter:function(info){
 					var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
 							        '<p><strong>' + info.event.title + '</strong></p><hr>' +
-							     '<p>' + "시작  : " +  info.event.start.toLocaleString() + '</p>' + 
+							     '<p>' + "시작 시간  : " +  info.event.extendedProps.starttime + '</p>' + 
 							        '<p>' +info.event.extendedProps.content +'</p>' +
 							        '</div>';
 							        
@@ -303,9 +305,6 @@
 	  text-decoration: none !important;
 	}
 	
-	 .red {
-    	border-color: red !important;
-	} 
 	
 </style>
 

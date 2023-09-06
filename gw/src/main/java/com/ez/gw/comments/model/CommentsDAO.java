@@ -30,6 +30,7 @@ public interface CommentsDAO {
 	int gTRCommentCount(EmpSearchVO searchVo); //댓글 페이징처리 총 레코드
 	
 	int deleteQnaComment(int commentNo); //질문 게시판 답변 삭제 메서드
+	int updateQnaComment(CommentsVO commentsVo); //질문 게시판 답변 수정 메서드
 	
 	
 }
