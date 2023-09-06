@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#chkAll').click(function(){
-			$('#chkItem').children('input[type=checkbox]').prop('checked',this.checked);
+			$('.chkItem').children('input[type=checkbox]').prop('checked',this.checked);
 		});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -440,7 +440,7 @@
                       <c:forEach var="addressBookVo" items="${list }">
 	                        <tr class="mypageemptr">
 	                          <td class="align-middle fs-0 py-3 align-middle">
-	                            <div class="form-check mb-0" id="chkItem">
+	                            <div class="form-check mb-0 chkItem">
 	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
 	                             	 name="addrItems[${idx}].addrbookNo"/>
 	                            </div>
