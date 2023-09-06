@@ -61,6 +61,8 @@
 
 	
 	$(function() {
+		$("#memLimit").val('Y').prop("selected");
+
 		if($("#button[name=paymentModal]")){
 			alert("모집인원이 마감되었습니다.");
 			
