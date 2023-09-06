@@ -68,5 +68,10 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 		return cnt;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectImg(int clubBoardNo) {
+		return clubboardDao.selectImg(clubBoardNo);
+	}
+
 	
 }

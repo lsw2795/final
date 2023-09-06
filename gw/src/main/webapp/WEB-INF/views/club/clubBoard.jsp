@@ -7,50 +7,55 @@
                 <div class="card-header border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
-                      <div class="col-auto pe-0">
+                      <div class="col-12 pe-0">
                         <h6 class="mb-0">Club Board</h6>
                       </div>
-                      <div class="col-auto">
-                        <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
-		                    <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-			                       <option value="title"
-			                          	<c:if test="${searchVo.searchCondition=='title'}">
+                      <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
+						<div class="row pe-0">
+							<div class="col-auto pe-0">
+								<select name="searchCondition"
+									class="form-select form-select-sm" aria-label="Bulk actions">
+									<option value="title"
+										<c:if test="${searchVo.searchCondition=='title'}">
 			                            	selected = "selected"
-			                            </c:if>
-			                        >제목</option>
-			                        <option value="name"
-		                       		    <c:if test="${searchVo.searchCondition=='name'}">
+			                            </c:if>>제목</option>
+									<option value="name"
+										<c:if test="${searchVo.searchCondition=='name'}">
 			                            	selected = "selected"
-			                            </c:if>
-			                         >작성자</option>
-			                         <option value="content"
-			                            <c:if test="${searchVo.searchCondition=='content'}">
+			                            </c:if>>작성자</option>
+									<option value="content"
+										<c:if test="${searchVo.searchCondition=='content'}">
 			                            	selected = "selected"
-			                            </c:if>
-			                         >내용</option>
-		                     </select>
-		                  </form>
-                      </div>
-                      <div class="col-auto">
-                          <div class="input-group input-search-width">
-                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
-                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
-                          </div>
-                      </div>
-                    </div>
+			                            </c:if>>내용</option>
+								</select>
+							</div>
+							<div class="col-auto">
+								<div class="input-group input-search-width">
+									<input class="form-control form-control-sm shadow-none search"
+										type="search" name="searchKeyword"
+										placeholder="Search by name" aria-label="search" />
+									<button
+										class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+										<span class="fa fa-search fs--1"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+                   </div>
                     <div class="border-bottom border-200 my-3"></div>
                     <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                      <c:if test="${sessionScope.clubNo == map.['CLUB_NO'] }">
+                      <c:if test="">
+                      </c:if>
                      	 <a href="<c:url value='/club/clubBoardWrite?clubNo=${param.clubNo}'/>">
                        		 <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                         		<span class="fas fa-plus" data-fa-transform="shrink-3">
                         		</span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span>
                         	</button>
                         </a>
-                      </c:if>
                       </div>
                     </div>
                   </div>
@@ -98,7 +103,7 @@
                       </div>
                     </div>
 	                <div class="text-center d-none" id="tickets-card-fallback">
-	                  <p class="fw-bold fs-1 mt-3">게시글이 존재하지 않습니다.</p>
+	                  <p class="fw-bold fs-1 mt-3">게시물이 존재하지 않습니다.</p>
 	                </div>
                  </c:forEach>
                 </div>
