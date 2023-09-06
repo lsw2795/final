@@ -177,7 +177,7 @@ public class EmployeeController {
 		return "common/message";
 	}
 
-	@GetMapping("/inc/empMain")
+	@RequestMapping("/inc/empMain")
 	public String empMain(HttpSession session,Model model) {
 		int empNo=(int)session.getAttribute("empNo");
 		//logger.info("사원메인 정보 페이지, 파라미터 empNo={}", empNo);
