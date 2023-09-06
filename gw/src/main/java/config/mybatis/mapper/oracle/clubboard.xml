@@ -8,7 +8,7 @@
 		select * from CLUBBOARDVIEW
 		where CLUB_NO=#{clubNo}
 		<if test="searchVo.searchKeyword!=null and searchVo.searchKeyword!=''">
-			where ${searchVo.searchCondition} like '%' || #{searchVo.searchKeyword} ||'%'
+			where ${searchVo.searchCondition} like '%' || #{searchVo.searchKeyword} || '%'
 		</if>
 		order by regdate desc
 	</select>

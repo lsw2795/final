@@ -134,7 +134,7 @@ public class ClubBoardController {
 	}
 	
 	
-	@GetMapping("/club/clubBoard")
+	@RequestMapping("/club/clubBoard")
 	public String clubBoadList(@ModelAttribute SearchVO saerchVo,
 			@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
