@@ -34,7 +34,7 @@
 	</update>
 	
 	<select id="detailClubBoard" resultType="map" parameterType="int">
-		select * from PDSCLUB
+		select * from clubboardview
 		where board_no=#{boardNo} and CLUB_NO=#{clubNo}
 	</select>
 	
@@ -43,7 +43,10 @@
 		where BOARD_NO=#{boardNo} 
 	</delete>
 	
-	 
+	 <select id="selectImg" resultType="map" parameterType="int">
+	 	select filename, originalFilename from pds
+	 	where club_board_no=#{#clubBoardNo}
+	 </select>
 	
 		
 </mapper>

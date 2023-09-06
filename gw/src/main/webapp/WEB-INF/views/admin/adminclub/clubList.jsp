@@ -67,8 +67,7 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
                 <form name="frmClub" method="post" action="<c:url value='/admin/adminclub/clubDeleteMulti'/>">
-                      <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                      </div>
+                      <div class="d-flex align-items-center" id="table-ticket-replace-element"></div>
                   </div>
                 </div>
                 <div class="card-body p-0">

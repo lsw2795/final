@@ -48,8 +48,12 @@
 		where emp_no=#{empNo}
 	</update>
 	
-	<select id="adminClubList" resultType="map">
+	<select id="adminClubList" resultType="map" parameterType="searchVo">
 		select * from ADMINCLUBVIEW
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
+		order by regdate desc
 	</select>
 	
 	<select id="clubCount" resultType="int" parameterType="int">

@@ -17,6 +17,6 @@ public interface ClubDAO {
 	int deleteClub(int clubNo);
 	int joinClub(@Param("merchantNo")String merchantNo,@Param("clubNo") int clubNo, @Param("empNo") int empNo);
 	int outClub(int empNo);
-	List<Map<String, Object>> adminClubList();
+	List<Map<String, Object>> adminClubList(SearchVO searchVo);
 	int clubCount(int clubNo); //인원수 체크
 }

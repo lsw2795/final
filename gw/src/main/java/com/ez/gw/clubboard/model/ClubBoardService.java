@@ -13,4 +13,5 @@ public interface ClubBoardService {
 	Map<String, Object> detailClubBoard(int clubNo, int boardNo);
 	int deleteClubBoard(int boardNo);
 	int deleteMulti(List<ClubBoardVO> list); //관리자 다중 삭제
+	List<Map<String, Object>> selectImg(int clubBoardNo); //이미지만 가져오기
 }

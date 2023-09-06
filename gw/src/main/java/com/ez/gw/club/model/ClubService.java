@@ -15,6 +15,6 @@ public interface ClubService {
 	int deleteMulti(List<ClubVO> list); //관리자 다중 삭제
 	int joinClub(String merchantNo, String clubNo, String empNo);
 	int outClub(int empNo);
-	List<Map<String, Object>> adminClubList ();
+	List<Map<String, Object>> adminClubList(SearchVO searchVo);
 	int clubCount(int clubNo); //인원수 체크
 }
