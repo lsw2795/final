@@ -16,12 +16,12 @@ $(function(){
     });   
     
     $('#btnSearch').click(function(){
-    	$.send(1);
+    	send(1);
     });
     
     $('input[type=search]').keyup(function(event) {
         if (event.keyCode === 13 || event.key === 'Enter') {
-        	$.send(1);
+        	send(1);
         }
     });
     
@@ -35,7 +35,7 @@ function messageWrite(empNo) {
     window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
 }
 
-$.send = function(curPage){
+function send(curPage){
 	$('#currentPage').val(curPage);
 	
 	var searchKeyword= $('input[type=search]').val();
@@ -90,7 +90,7 @@ function pageMake(){
    //이전 블럭으로
    var str="";
    if(firstPage>1){
-	   str+="<a href='#' onclick='$.send("+(firstPage-1)+")'>";
+	   str+="<a href='#' onclick='send("+(firstPage-1)+")'>";
 	   str+="<img src='<c:url value='/images/first.JPG'/>'></a>";
    }
    //페이지 번호 출력
@@ -98,12 +98,12 @@ function pageMake(){
 	   if(i==currentPage){
 		   str+="<span style='font-weight: bold; color: blue; font-size:20px;'>"+ i +"</span>";
 	   }else{
-		   str+="<a href='#' onclick='$.send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
+		   str+="<a href='#' onclick='send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
 	   }
    }//for
    //다음 블럭으로
    if(lastPage < totalPage){
-	   str+="<a href='#' onclick='$.send("+(lastPage+1)+")'>";
+	   str+="<a href='#' onclick='send("+(lastPage+1)+")'>";
 	   str+="<img src='<c:url value='/images/last.JPG'/>'></a>"
    }
    $('#divPage').html(str);
