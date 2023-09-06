@@ -230,6 +230,10 @@
    	        }
    	    });
    		});
+   		
+   		$('#sprintSettingModalClose').click(function(){
+   			self.close();
+   		});
 	});
 </script>
 <body>
