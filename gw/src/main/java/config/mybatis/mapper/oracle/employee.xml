@@ -192,5 +192,24 @@
 		where emp_No=#{empNo}	
 	</select>
 	
+	<select id="selEmpCountByDeptName" parameterType="int" resultType="map">
+		select dept_name, extract(year from hiredate) as year,count(*)
+		from organizationchartview
+		where retiredate is null
+		<if test="year!=null and year!=''">
+			and extract(year from hiredate)=#{year}
+		</if>
+		group by extract(year from hiredate),dept_name
+		order by year asc
+	</select>
+	
+	<select id="selEmpCountYear" resultType="map">
+		select distinct extract(year from hiredate) as year,count(*)
+		from organizationchartview
+		where retiredate is null
+		group by extract(year from hiredate)
+		order by year asc
+	</select>
+	
 	
 </mapper>
