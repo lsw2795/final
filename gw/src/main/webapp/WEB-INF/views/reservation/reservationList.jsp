@@ -54,9 +54,8 @@
 
 			    // 새 창을 열기 위한 윈도우 옵션 설정
 			    var windowFeatures = "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",location=no,menubar=no,toolbar=no,scrollbars=yes";
-				var date = info.date;
 				
-				var newModalReser = window.open('<c:url value="/reservation/modalReservation?date='+date+'"/>', '자원 예약', windowFeatures);
+				var newModalReser = window.open('<c:url value="/reservation/modalReservation"/>', '자원 예약', windowFeatures);
 			    
 			    
 			    //newModalReser.dateFunction(date);
@@ -76,7 +75,7 @@
 	            		}else{
 	            			categoryNo = 3;
 	            		}
-	            		
+	            	String imageSrc = "/gw/images/" + map.get("IMAGE");	
 	            	%>
 	            {
 	            	title : '<%= (String)map.get("NAME") %>',
@@ -85,6 +84,8 @@
 						reservationNo : <%= map.get("RESERVATION_NO")%>,
 						starttime : <%= map.get("STARTTIME")%>,
 						endtime :<%= map.get("ENDTIME")%>,
+						empName:'<%= (String)map.get("EMPNAME")%>',
+						imageSrc : '<%= imageSrc%>'
 					},
 					<%if(categoryNo ==1){%>
 						backgroundColor: '#DD6F66'
@@ -125,8 +126,13 @@
 						
 					},
 					eventMouseEnter:function(info){
+						// 이미지 경로를 변수로 저장
+	            	    var imageSrc = '<c:url value="' + info.event.extendedProps.imageSrc + '"/>';
+	            	    
 						var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
-								        '<p><strong>' + info.event.title + '</strong></p><hr>' +
+								        '<p><strong>' + info.event.title + "   "+'</strong>' +
+								        '<img src="' + imageSrc + '" width="30px" height="30px" class="avatar-name rounded-circle">' +
+								         info.event.extendedProps.empName +'</p><hr>' +
 								     '<p>' + "대여 시간 : "+info.event.extendedProps.starttime + ":00  ~  " + info.event.extendedProps.endtime + ":00" + '</p>' + 
 								        '</div>';
 								        
