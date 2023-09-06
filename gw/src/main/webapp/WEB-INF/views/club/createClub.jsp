@@ -39,11 +39,11 @@
 			
 			
 			
-			/* if($('#secflag').val().length<1){
+			 if($('#secflag').val().length<1){
 				alert('동호회 공개여부를 선택해주세요.');
 				$('#secflag').focus();
 				return false;
-			} */
+			} 
 			
 			/* 
 			if($('#memberCnt').val().length<1){
