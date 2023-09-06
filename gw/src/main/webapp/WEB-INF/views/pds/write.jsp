@@ -137,10 +137,6 @@
 	                        <dt>작성자</dt>
 	                        <dd><input type="text" name="writer" value="${vo.name}" readonly="readonly"></dd>
 	                    </dl>
-	                    <dl>
-	                        <dt>비밀번호</dt>
-	                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
-	                    </dl>
 	                </div>
 	                <div class="cont">
 	                    <textarea id="editor" name="content">${map['CONTENT']}</textarea>
