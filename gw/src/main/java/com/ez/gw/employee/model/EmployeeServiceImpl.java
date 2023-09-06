@@ -183,7 +183,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public int selectByClubNo(int empNo) {
+	public Integer selectByClubNo(int empNo) {
 		return employeeDao.selectByClubNo(empNo);
 	}
 

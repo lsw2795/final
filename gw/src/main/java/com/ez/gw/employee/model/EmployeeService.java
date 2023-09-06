@@ -46,5 +46,5 @@ public interface EmployeeService {
 	int findPwd(EmployeeVO empVo); //비번 찾기 비번 변경
 	List<Map<String, Object>> selEmpExportExcel(); //사원목록 엑셀로 저장하기용
 	List<Integer> selectRetire(); //퇴사자
-	int selectByClubNo(int empNo); 
+	Integer selectByClubNo(int empNo); 
 }

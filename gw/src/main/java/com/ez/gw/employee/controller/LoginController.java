@@ -60,8 +60,12 @@ public class LoginController {
 		Map<String, Object>map=empService.selectEmpByEmpNo(empNo);
 		logger.info("로그인 사원 서열,직급 map={}",map);
 		
-		int clubNo=empService.selectByClubNo(empNo);
+		Integer clubNo=empService.selectByClubNo(empNo);
 		logger.info("동호회 가입번호 clubNo={}",clubNo);
+		
+		if(clubNo==null) {
+			clubNo = 0;
+		}
 		
 		String msg="로그인 처리 실패", url="/"; 
 		if(result==EmployeeService.LOGIN_OK) {
@@ -76,7 +80,6 @@ public class LoginController {
 			//직위,권한 세션 저장
 			session.setAttribute("positionRank",map.get("POSITION_RANK"));
 			session.setAttribute("clubNo", clubNo); //동호회 번호 저장
-			
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);

@@ -30,12 +30,10 @@ public class BoardListController {
 	@RequestMapping("/admin/board/manageBoards")
 	public String manageBoardList(@ModelAttribute EmpSearchVO searchVo, Model model) {
 		logger.info("관리자 - 게시판관리 파라미터 searchVo={}", searchVo);
-	//[1] PaginationInfo 객체 생성
 	PaginationInfo pagingInfo=new PaginationInfo();
 	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
 	pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 	pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
-	//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
 	searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 	searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 
@@ -63,7 +61,7 @@ public class BoardListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/admin/board/ajaxSelectBoardList")
+	@RequestMapping("/admin/board/ajaxSelectBoardList")
 	public BoardListVO selectBoardList(@RequestParam (defaultValue = "0")int boardlistNo) {
 		logger.info("ajax 이용 - 게시판 상세 정보 조회 파라미터, boardlistNo={}", boardlistNo);
 		BoardListVO boardlistVo=boardListService.boardListByboardlistNo(boardlistNo);
