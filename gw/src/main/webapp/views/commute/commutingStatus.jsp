@@ -27,6 +27,10 @@
     	border-color: red !important;
 	}
 	
+	.fc-day-sun a {
+	  color: red !important;
+	  text-decoration: none !important;
+	}
 	
 		.stats-List{
 		font-size: 14px;
