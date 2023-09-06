@@ -192,11 +192,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selEmpCountByDeptName(year);
 	}
 
-	@Override
-	public List<Map<String, Object>> selEmpCountYear() {
-		return employeeDao.selEmpCountYear();
-	}
-
 
 
 }

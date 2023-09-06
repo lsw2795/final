@@ -35,7 +35,6 @@ public interface EmployeeDAO {
 	List<Integer> selectRetire(); //퇴사자
 	Integer selectByClubNo(int empNo); 
 	List<Map<String, Object>> selEmpCountByDeptName(int year); //부서포함 년도별 입사자 수
-	List<Map<String, Object>> selEmpCountYear(); //부서제외 년도별 입사자 수
 	
 }
 
