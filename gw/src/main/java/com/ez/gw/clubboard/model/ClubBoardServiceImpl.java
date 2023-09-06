@@ -42,8 +42,8 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 	}
 
 	@Override
-	public int deleteClubBoard(int clubNo, int boardNo) {
-		return clubboardDao.deleteClubBoard(clubNo, boardNo);
+	public int deleteClubBoard(int boardNo) {
+		return clubboardDao.deleteClubBoard(boardNo);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 			for(ClubBoardVO vo : list) {
 				int boardNo = vo.getBoardNo();
 				if(boardNo!=0) { //체크된 질문만 삭제
-					cnt = clubboardDao.deleteClubBoard(vo.getClubNo(), boardNo);
+					cnt = clubboardDao.deleteClubBoard(boardNo);
 				}
 			} //for
 		}catch (RuntimeException e) {

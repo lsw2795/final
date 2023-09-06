@@ -51,4 +51,6 @@ public interface BoardDAO {
 	int deleteDeptBoard(BoardVO vo); //부서 게시판 삭제하기(delflag='Y'로 변경)
 	int likeCountUp(int boardNo); //게시판 좋아요 수 올리기
 	int likeCountDown(int boardNo); //게시판 좋아요 수 내리기
+	
+	int getQnaTotalCount(SearchVO searchVo); // qna게시판 토탈카운트 구하기
 }

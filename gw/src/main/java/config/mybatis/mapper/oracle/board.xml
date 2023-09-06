@@ -30,11 +30,23 @@
 	</insert>
 
 	<select id="selectQnaAll" parameterType="searchVo" resultType="map">
-		select * from qnaListView
-		<if test="searchKeyword!=null and searchKeyword!=''">
-			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
-		</if>
-		order by regdate desc
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(
+				select * from qnaListView
+				<if test="searchKeyword!=null and searchKeyword!=''">
+					where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+				</if>
+				order by board_no desc
+			)A
+		)
+		<![CDATA[
+			where rnum>#{firstRecordIndex}
+			and rnum<=#{firstRecordIndex} + #{recordCountPerPage}
+		]]>		
 	</select>
 	
 	<select id="selectAdminQnaAll" parameterType="searchVo" resultType="map">
@@ -55,6 +67,14 @@
 			where rnum>#{firstRecordIndex}
 			and rnum<=#{firstRecordIndex} + #{recordCountPerPage}
 		]]>		
+	</select>
+	
+	<select id="getQnaTotalCount" parameterType="searchVo" resultType="int">
+			select count(*) from qnaListView
+			<if test="searchKeyword!=null and searchKeyword!=''">
+				where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+			</if>
+			order by board_no desc
 	</select>
 	
 	<select id="selectAdminQnaTotalRecord" parameterType="searchVo" resultType="int">

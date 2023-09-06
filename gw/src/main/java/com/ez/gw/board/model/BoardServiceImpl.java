@@ -271,6 +271,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.likeCountDown(boardNo);
 	}
 
+	@Override
+	public int getQnaTotalCount(SearchVO searchVo) {
+		return boardDao.getQnaTotalCount(searchVo);
+	}
+
 
 
 }

@@ -48,20 +48,23 @@ public class CalendarController {
 		int empNo = (int)session.getAttribute("empNo");
 		logger.info("일정 등록 파라미터 calVo = {}, empNo={}", calVo, empNo);
 		
-		String getbegindate = calVo.getBegindate();
-		String getenddate = calVo.getEnddate();
-		String begindate = "", begintime = "";
-		String enddate = "", endtime = "";
-		String alldayFlag = "";
-		if(getbegindate!=null && !getbegindate.isEmpty()) {
-			begindate = getbegindate.substring(0,10);
-			begintime = getbegindate.substring(11);
-			logger.info("begindate={}, begintime={}", begindate, begintime);
-			
-		}
+		
+		  String getbegindate = calVo.getBegindate(); 
+		  String getenddate = calVo.getEnddate(); 
+		  String begindate = "", begintime = ""; 
+		  String enddate = "", endtime = ""; 
+		  String alldayFlag = ""; 
+		  
+		  if(getbegindate!=null && !getbegindate.isEmpty()) { 
+			  begindate = getbegindate;
+			  begintime = getbegindate.substring(11);
+		  logger.info("begindate={}, begintime={}", begindate, begintime);
+		  
+		  }
+		 
 		
 		if(getenddate !=null && !getenddate.isEmpty()) {
-			enddate = getenddate.substring(0,10);
+			enddate = getenddate;
 			endtime = getenddate.substring(11);
 		}
 		

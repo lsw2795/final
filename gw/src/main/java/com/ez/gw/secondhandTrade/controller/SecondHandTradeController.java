@@ -246,12 +246,11 @@ public class SecondHandTradeController {
 			likeFlag = secondHandLikeService.findLike(empNo, tradeNo);
 			
 			BigDecimal likeCountBigDecimal = (BigDecimal)fg.get("LIKECOUNT");
-			int likeCount = 0; // 기본값으로 0 설정
 			    if (likeCountBigDecimal != null) {
-			        likeCount = likeCountBigDecimal.intValue();
+			        int likeCount = likeCountBigDecimal.intValue();
+			        fg.put("likeCount", likeCount);
 			    }
 			fg.put("likeFlag", likeFlag);
-			fg.put("likeCount", likeCount);
 		}
 
 		// 3
@@ -286,6 +285,7 @@ public class SecondHandTradeController {
 	    	Integer price = ((BigDecimal) map.get("PRICE")).intValue();
 	    	Integer readcount = ((BigDecimal) map.get("READCOUNT")).intValue();
 	    	Integer likecount = ((BigDecimal) map.get("LIKECOUNT")).intValue();
+	    	logger.info("likecount={}", likecount);
 	    	
 	    	// 4
 	    	// 변환한 값을 다시 map에 저장합니다.

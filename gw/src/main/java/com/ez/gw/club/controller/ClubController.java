@@ -240,7 +240,7 @@ public class ClubController {
 		return "admin/adminclub/clubList";
 	}
 	
-	@RequestMapping("/admin/adminclub")
+	@RequestMapping("/admin/adminclub/adminClubDelete")
 	public String adminDeleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
 		logger.info("관리자 - 동호회 삭제");
@@ -248,7 +248,7 @@ public class ClubController {
 		int cnt=clubService.deleteClub(clubNo);
 		logger.info("관리자 - 동호회 삭제 결과 cnt={}",cnt);
 
-		String msg="삭제 실패했습니다.", url="admin/adminclub/clubList";
+		String msg="삭제 실패했습니다.", url="/admin/adminclub/clubList";
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";
 		}
@@ -261,7 +261,7 @@ public class ClubController {
 		return "common/message";
 	}
 	
-	//관리자 - 동호회 다중 삭제
+	//관리자 - 동호회 다중 삭제 안됌
 		@RequestMapping("/admin/adminclub/clubDeleteMulti")
 		public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
 			//1.
@@ -269,6 +269,7 @@ public class ClubController {
 			
 			//2.
 			List<ClubVO> list = listVo.getClubItems();
+			
 			int cnt=clubService.deleteMulti(list);
 			logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
 			
@@ -288,11 +289,11 @@ public class ClubController {
 	
 	
 	@RequestMapping("/admin/adminclub/adminPayment")
-	public String paymentList(@RequestParam(required = false)String merchantNo, Model model) {
+	public String paymentList( Model model) {
 		//1.
 		logger.info("관리자 - 동호회비결제 현황");
 		//2.
-		List<Map<String, Object>> list = clubService.adminClubList(merchantNo);
+		List<Map<String, Object>> list = clubService.adminClubList();
 		logger.info("관리자 - 동호회 가입 list.size={}",list.size());
 		
 		//3.
