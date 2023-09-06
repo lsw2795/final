@@ -52,6 +52,11 @@
         </div>
       </div>
     </div>
+    
+   <!-- 사원통계 -->
+    <div class="card mb-3 admindefault">
+     <c:import url="/employee/empList"></c:import>
+    </div>
    
   <div class="card mb-3 admindefault">
      <div class="card-header">
