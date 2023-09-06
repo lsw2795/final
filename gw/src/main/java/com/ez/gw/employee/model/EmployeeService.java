@@ -47,4 +47,5 @@ public interface EmployeeService {
 	List<Map<String, Object>> selEmpExportExcel(); //사원목록 엑셀로 저장하기용
 	List<Integer> selectRetire(); //퇴사자
 	Integer selectByClubNo(int empNo); 
+	List<Map<String, Object>> selEmpCountByDeptName(int year); //부서포함 년도별 입사자 수
 }

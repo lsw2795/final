@@ -22,13 +22,36 @@
 <style type="text/css">
 	.content {
 	    padding-bottom: 3.9875rem;
-	    padding: 50px;
+	    padding: 20px;
+	}
+	
+	.card-body label {
+	    font-size: 17px;
+	    font-weight: bold;
+	    margin-top: 10px;
+	}
+	
+	button#addReservation {
+    	margin-right: 20px;
 	}
 </style>  
 <script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
-
+	
+	function getDateFromQueryString() {
+	    const queryString = window.location.search;
+	    const urlParams = new URLSearchParams(queryString);
+	    return urlParams.get('date');
+	}
+	
 	$(function(){
+		
+		 const date = getDateFromQueryString();
+		    if (date) {
+		        $('#bookDate').val(date);
+		    }
+		    
+		    
 		$('#meetingRoomBox').hide();
    		$('#noteBookBox').hide();
    		$('#rentCarBox').hide();
@@ -146,7 +169,15 @@
 		        }else if (selectedCategory === 'rentCar') {
 		        	selectedResource = $('#rentCar').val();
 		        }
-			 	
+		 	var startTime = $('#startTime').val();
+			var endTime = $('#endTime').val();
+			if(startTime.length < 1){
+				alert("시작시간을 선택해주세요.");
+				return false;
+			}else if(endTime.length < 1){
+				alert("종료시간을 선택해주세요.");
+				return false;
+			}
 			$.ajax({
 				url : "<c:url value='/reservation/ajaxCheckBook'/>",
 				type: "get",
@@ -198,6 +229,10 @@
    	            console.error("서버 제출 실패:", status, error);
    	        }
    	    });
+   		});
+   		
+   		$('#sprintSettingModalClose').click(function(){
+   			self.close();
    		});
 	});
 </script>
@@ -274,8 +309,8 @@
 								</c:forEach>
 							</select>
 	                  	</div>
-	                  	<input type="button" id="checkTime" value = "예약 가능 여부 확인">
-	                  	<input type = "text" id = "checkResult" value="N">
+	                  	<input type="button" class="btn btn-secondary" id="checkTime" value = "예약 가능 여부 확인">
+	                  	<input type = "hidden" id = "checkResult" value="N">
 	                  	</div>
 	                  	 <div id = "message"></div>
 	                	 <div id = "bookOk"></div>

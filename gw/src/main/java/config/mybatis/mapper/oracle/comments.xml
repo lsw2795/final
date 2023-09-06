@@ -153,5 +153,10 @@
 		where comment_no = #{commentNo}
 	</delete>
 	
+	<update id="updateQnaComment" parameterType="commentsVo">
+		update comments 
+		set content = #{content}
+		where comment_no = #{commentNo}
+	</update>
 	
 </mapper>

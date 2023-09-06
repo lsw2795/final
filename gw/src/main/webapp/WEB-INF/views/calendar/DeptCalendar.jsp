@@ -37,11 +37,17 @@
 	            <%if (calendarList != null) {%>
 	            <%for (Map<String, Object> list : calendarList) {
 	            	BigDecimal categoryNoBig = (BigDecimal)list.get("CATEGORY_NO");
-	            	int  categoryNo = categoryNoBig.intValue();%>
+	            	int  categoryNo = categoryNoBig.intValue();
+	            	String imageSrc = "/gw/images/" + list.get("IMAGE"); // 이미지 경로 생성%>
 	            {
 	            	title : '<%=list.get("TITLE")%>', 
 	                start : '<%=list.get("BEGINDATE")%>',
 	                end : '<%=list.get("ENDDATE")%>',
+	                extendedProps : {
+	                	name : '<%= list.get("NAME")%>',
+	                	imageSrc : '<%= imageSrc%>',
+	                	position : '<%= list.get("EMPLOYEE_POSITION_NAME")%>'
+	                },
 	                color:
 	            	<%if(categoryNo== 1){%>
 	            		 '#DD6F66'
@@ -55,7 +61,35 @@
 	             },
 		<%}
 	}%>
-					]
+					],
+	             eventMouseEnter:function(info){
+	            	 // 이미지 경로를 변수로 저장
+	            	    var imageSrc = '<c:url value="' + info.event.extendedProps.imageSrc + '"/>';
+	            	    
+	            	 // 툴팁 내용을 생성
+	            	    var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
+	            	        '<div class="avatar-name rounded-circle">' +
+	            	        '<img src="' + imageSrc + '" width="30px" height="30px" class="avatar-name rounded-circle">' +
+	            	        "  "+ '<strong>'+info.event.extendedProps.position +'</strong>' + " " + info.event.extendedProps.name +
+	            	        '</div>' +
+	            	        '</div>';
+
+	            	    // 툴팁을 body에 추가
+	            	    $("body").append(tooltip);
+						
+					    $(info.el).mouseover(function(e) {
+					        $(this).css('z-index', 10000);
+					        $('.tooltipevent').fadeIn('500');
+					        $('.tooltipevent').fadeTo('10', 1.9);
+					    }).mousemove(function(e) {
+					        $('.tooltipevent').css('top', e.pageY + 10);
+					        $('.tooltipevent').css('left', e.pageX + 20);
+					    });
+					},
+					eventMouseLeave: function(info) {
+					    $(this).css('z-index', 8);
+					    $('.tooltipevent').remove();
+					}
 		});
 		calendar.render();
 	});
@@ -68,7 +102,8 @@
 	}
 	
 	.fc-event-title {
-	    color: white !important;
+		color: black;
+		font-weight: bold;
 	}
 	
 	.fc-day-sun a {

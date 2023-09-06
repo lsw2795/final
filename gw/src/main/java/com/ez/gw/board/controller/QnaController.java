@@ -252,6 +252,26 @@ public class QnaController {
 		return "common/message";
 		
 	}
+	
+	@RequestMapping("/qna/editComment")
+	public String editComment(@ModelAttribute CommentsVO commentsVo, Model model) {
+		logger.info("qna - 답변 수정 파라미터 commentsVo={}", commentsVo);
+		
+		int cnt = commentsService.updateQnaComment(commentsVo);
+		logger.info("qna - 답변 수정 결과 cnt={}", cnt);
+			
+		String msg ="답변 수정에 실패하였습니다.", url = "/qna/detail?boardNo=" + commentsVo.getBoardNo();
+			
+		if(cnt>0) {
+			msg = "답변이 수정되었습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
 
 	//-----------------------------admin-----------------------------------
 

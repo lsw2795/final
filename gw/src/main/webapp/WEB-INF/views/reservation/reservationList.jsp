@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ez.gw.reservation.model.ReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,8 +27,8 @@
                 addEventButton: { // 추가한 버튼 설정
                     text : "자원 예약",  // 버튼 내용
                     click : function(){ // 버튼 클릭 시 이벤트 추가
-                    	var width = 500; // 창의 가로 크기
-        			    var height = 550; // 창의 세로 크기
+                    	var width = 450; // 창의 가로 크기
+        			    var height = 500; // 창의 세로 크기
         			    var left = (window.screen.width - width) / 2;
         			    var top = (window.screen.height - height) / 2;
                     	
@@ -45,29 +47,52 @@
 			editable : true,
 			nowIndicator: true, // 현재 시간 마크
 			dateClick:function(info){
-			 	var width = 500; // 창의 가로 크기
-			    var height = 550; // 창의 세로 크기
+			 	var width = 450; // 창의 가로 크기
+			    var height = 500; // 창의 세로 크기
 			    var left = (window.screen.width - width) / 2;
 			    var top = (window.screen.height - height) / 2;
 
 			    // 새 창을 열기 위한 윈도우 옵션 설정
 			    var windowFeatures = "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",location=no,menubar=no,toolbar=no,scrollbars=yes";
+				var date = info.date;
 				
-				var newModalReser = window.open('<c:url value="/reservation/modalReservation"/>', '자원 예약', windowFeatures);
+				var newModalReser = window.open('<c:url value="/reservation/modalReservation?date='+date+'"/>', '자원 예약', windowFeatures);
 			    
+			    
+			    //newModalReser.dateFunction(date);
+				
 				//newModalReser.focus(); // 새 창을 포커스로 가져옴
 			},
 			events : [ 
 	    	    <%List<Map<String, Object>> reservationList = (List<Map<String, Object>>)request.getAttribute("reservationList");%>
 	            <%if (reservationList != null) {%>
-	            <%for (Map<String, Object> map : reservationList) {%>
+	            <%for (Map<String, Object> map : reservationList) {
+	            	String category = (String)map.get("CATEGORY");
+	            	int categoryNo = 0;
+	            	if(category.equals("meetingRoom")){
+	            		categoryNo = 1;
+	            		}else if(category.equals("noteBook")){
+	            			categoryNo = 2;
+	            		}else{
+	            			categoryNo = 3;
+	            		}
+	            		
+	            	%>
 	            {
-	            	title : '<%= (String)map.get("NAME") + (String)map.get("BOOKDATE") %>',
+	            	title : '<%= (String)map.get("NAME") %>',
 	                start : '<%= (String)map.get("BOOKDATE")%>',
 					extendedProps : {
-						reservationNo : <%= map.get("RESERVATION_NO")%>
-					}
-
+						reservationNo : <%= map.get("RESERVATION_NO")%>,
+						starttime : <%= map.get("STARTTIME")%>,
+						endtime :<%= map.get("ENDTIME")%>,
+					},
+					<%if(categoryNo ==1){%>
+						backgroundColor: '#DD6F66'
+					<%}else if(categoryNo == 2){%>
+						backgroundColor : '#5889F0'
+					<%}else if(categoryNo == 3){%>
+						backgroundColor : '#FFD966'
+					<%}%>
 	             },
 		<%}
 	}%>
@@ -84,7 +109,7 @@
 								$('#modalDetail').modal("show"); //modal 띄우기
 								$('#reservationNo').val(result.RESERVATION_NO);
 								$('#resempNo').html(result.EMP_NO);
-								$('#resName').html(result.emp_NAME);
+								$('#resName').html(result.EMPNAME);
 								$('#resReman').html(result.NAME);
 								$('#resBookDate').html(result.BOOKDATE);
 								$('#resStartTime').html(result.STARTTIME + ":00");
@@ -98,7 +123,29 @@
 							}
 						});
 						
+					},
+					eventMouseEnter:function(info){
+						var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
+								        '<p><strong>' + info.event.title + '</strong></p><hr>' +
+								     '<p>' + "대여 시간 : "+info.event.extendedProps.starttime + ":00  ~  " + info.event.extendedProps.endtime + ":00" + '</p>' + 
+								        '</div>';
+								        
+						$("body").append(tooltip);
+						
+					    $(info.el).mouseover(function(e) {
+					        $(this).css('z-index', 10000);
+					        $('.tooltipevent').fadeIn('500');
+					        $('.tooltipevent').fadeTo('10', 1.9);
+					    }).mousemove(function(e) {
+					        $('.tooltipevent').css('top', e.pageY + 10);
+					        $('.tooltipevent').css('left', e.pageX + 20);
+					    });
+					},
+					eventMouseLeave: function(info) {
+					    $(this).css('z-index', 8);
+					    $('.tooltipevent').remove();
 					}
+					
 		});
 		calendar.render();
 	});
@@ -204,7 +251,7 @@
 	function editFunc(reservationNo){
 		var reservationNo = $('#reservationNo').val();
 		
-		var width = 500; // 창의 가로 크기
+		var width = 450; // 창의 가로 크기
 	    var height = 500; // 창의 세로 크기
 	    var left = (window.screen.width - width) / 2;
 	    var top = (window.screen.height - height) / 2;
@@ -219,6 +266,21 @@
 	#calendar{
 		background: white;
 		padding : 20px;
+	}
+	
+	.fc-event-title {
+		color: black;
+		font-weight: bold;
+	}
+	
+	.fc-day-sun a {
+	  color: red !important;
+	  text-decoration: none !important;
+	}
+
+	
+	button#addReservation {
+    	margin-right: 20px;
 	}
 </style>
 

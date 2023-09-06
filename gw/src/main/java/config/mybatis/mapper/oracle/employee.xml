@@ -192,5 +192,11 @@
 		where emp_No=#{empNo}	
 	</select>
 	
+	<select id="selEmpCountByDeptName" resultType="map">
+		select distinct dept_name, count(*) as cnt
+		from organizationchartview
+		where retiredate is null
+		group by dept_name
+	</select>
 	
 </mapper>

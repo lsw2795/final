@@ -26,14 +26,23 @@
 		}
 	}
 	
-	function editComment(textDivId) {
-		
-		var content = $('#' + textDivId).html().trim();
-		$('#' + textDivId).html("");
-		
-		$('#' + textDivId).append("<input type='text' id='textComment' name='content' value='" + content +  "'/> ");
-		
+	var clickCount = 0;
+
+	function editComment(textDivId, commentNo) {
+		$('#btEdit').hide();
+	  // 생성할 form 요소를 jQuery를 사용하여 생성합니다.
+	  var formHtml = '<form id="editComment" name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
+	    '<input type="hidden" name="commentNo" value="' + commentNo + '" />' +
+	    '<input type="hidden" name="boardNo" value="${map["BOARD_NO"]}" />' +
+	    '<textarea id="editArea" name="content" form="editComment" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
+	    '<div><input type="submit" value="수정"></div>' + 
+	    '</form>';
+
+	  // moveComment 요소에 formHtml을 추가합니다.
+	  $('#' + textDivId).html(formHtml);
 	}
+
+ 	
 </script>
 
  <div class="row g-3">
@@ -140,11 +149,12 @@
 			                    </c:if>
 	                    	</button>
 	                    	
-    	                	<button style="float: right;" onclick="editComment('content${status.index}');" class="btn btn-falcon-default btn-sm" type="button">
+    	                	<button style="float: right;" id="btEdit" onclick="editComment('moveComment${status.index}', ${replyMap['COMMENT_NO']});" class="btn btn-falcon-default btn-sm" type="button">
        	            			<span class="fas fa-pen" data-fa-transform="shrink-2 down-1"></span>
            	        			<span class="d-none d-md-inline-block ms-1">답변 수정</span>
                	    		</button>
 		                  </div>
+			              <div id="moveComment${status.index}"></div>
 	                  </div>
                   </c:forEach>
                 <!-- 답변 반복 끝  -->
