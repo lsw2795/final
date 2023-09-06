@@ -126,7 +126,7 @@ function pageMake(){
                             data-dept-no="${deptAllVo.deptVo.deptNo}">
                         <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
                     </button>
-                    <span>${deptAllVo.deptVo.name }</span>
+                    <b>${deptAllVo.deptVo.name }</b>
                 </p>
                 <div class="row">
                     <div class="col">
@@ -134,10 +134,9 @@ function pageMake(){
                             <div class="card card-body">
                                 <div class="list-group" id="empList">
                                 	<c:forEach var="map" items="${deptAllVo.empList }">
-                                   		<button class="list-group-item-action mypageempbtncss" onclick="empDetail(${map.EMP_NO});">
+                                   		<button class="list-group-item-action mypageempbtncss" onclick="empDetail(${map.EMP_NO});" style="margin: 5px;">
                                    			${map['EMP_NO']} ${map['NAME']} ${map['POSITION_NAME']}
                                    		</button>
-                                   		<!--<a href="#" class="list-group-item-action">사원1</a> -->
                                 	</c:forEach>
                                 </div>
                             </div>
