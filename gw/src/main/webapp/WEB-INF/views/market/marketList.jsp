@@ -44,8 +44,8 @@ div#selflagbox {
 	}
 	
 	 function submitForm() {
-	        document.frmPage.submit();
-	    }
+		 $('form[name="frmSearch"]').submit();
+     }
 	
 	function insertLikeOn1(tradeNo, empNo, imageId){
 		$.ajax({
@@ -124,7 +124,11 @@ div#selflagbox {
 					<div class="border-bottom border-200 my-3"></div>
 							<div id="selflagbox">
 							거래 가능 상품만 보기
-							<input type ="checkbox" name="checkSelflag" id="checkSelflag" onchange="submitForm()" ${param.checkSelflag == 'on' ? 'checked' : ''} value="true">
+							<input type ="checkbox" name="checkSelflag" id="checkSelflag" onchange="submitForm()" 
+								<c:if test="${param.checkSelflag==true}">
+									checked="checked"
+								</c:if>
+							 value="true">
 							</div>
 				</form>
 				</div>
