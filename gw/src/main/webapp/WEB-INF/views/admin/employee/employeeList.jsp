@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
 $(function(){
-	var bool=false;
+	var bool=true;
 	$('#name1').keyup(function(){
 		 $.ajax({
 			url:"<c:url value='/admin/employee/checkDeptName'/>",
