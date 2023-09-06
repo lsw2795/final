@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.gw.board.model.BoardService;
 import com.ez.gw.board.model.BoardVO;
@@ -230,7 +231,27 @@ public class QnaController {
 		//4
 		return "redirect:/qna/detail?boardNo=" + vo.getBoardNo();
 	}
+	
+	@RequestMapping("/qna/commentDelete")		
+	public String commentDelete(@RequestParam int commentNo, @RequestParam int boardNo
+			,Model model) {
+		logger.info("qna - 답변 삭제 파라미터 commentNo={}", commentNo);
+		
+		int cnt = commentsService.deleteQnaComment(commentNo);
+		logger.info("qna - 답변삭제 결과 cnt={}", cnt);
+		
+		
+		String msg = "답변 삭제를 실패하였습니다.", url = "/qna/detail?boardNo=" + boardNo;
+		if(cnt>0) {
+			msg = "답변이 삭제되었습니다.";
+		}
 
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
 
 	//-----------------------------admin-----------------------------------
 
