@@ -38,29 +38,32 @@
 	                            	</c:if>
 	                            >소개</option>
                           </select>
-                  </form>
                       </div>
+                  </form>
                       <div class="col-auto">
                           <div class="input-group input-search-width">
                             <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
                             <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                           </div>
                       </div>
-                      </div>
                     </div>
+                   <div class="border-bottom border-200 my-3"></div>
+                   <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
+                   <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
+                      
                     <div class="border-bottom border-200 my-3"></div>
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      
-                      <div class="d-flex align-items-center" id="table-ticket-replace-element">
+                      <div class="d-flex align-items-center"ㅁㅂㅁㅁㅂㅁㅂㅁㅂㅁ id="table-ticket-replace-element">
                         <a href="<c:url value='/club/createClub'/>">
                         	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
                         		<span class="fas fa-plus" ></span>
                         	</button>
                         </a>
+                         </div>
                       </div>
                   </div>
-                </div>
+                
                 <div class="card-body p-0">
                   <div class="table-responsive scrollbar">
                     <table class="table table-sm mb-0 fs--1 table-view-tickets">
@@ -125,5 +128,7 @@
                 </div>
                 </div>
             </div>
-		</div>
+          
+		
+		
 <%@ include file="../inc/bottom.jsp" %>

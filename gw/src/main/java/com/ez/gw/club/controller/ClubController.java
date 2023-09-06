@@ -1,4 +1,3 @@
-package com.ez.gw.club.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -168,12 +167,12 @@ public class ClubController {
 		clubVo=clubService.selectByClubNo(clubNo);
 		int cnt=clubService.clubCount(clubNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
-		logger.info("동호회 인원수 확인 cnt={}",cnt);
+		logger.info("동호회 인원수 제한여부 cnt={},memlimit={}",cnt,clubVo.getMemLimit());
 		
 		
 		if(cnt>=clubVo.getMemLimit()) {
-			model.addAttribute("msg", "모집인원이 마감되었습니다.");
-			model.addAttribute("url", "/club/clubList");
+			//model.addAttribute("msg", "모집인원이 마감되었습니다.");
+			//model.addAttribute("url", "/club/clubList");
 			return "common/message";
 		}
 		

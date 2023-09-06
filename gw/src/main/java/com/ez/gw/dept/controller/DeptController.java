@@ -24,7 +24,7 @@ public class DeptController {
     private static final Logger logger = LoggerFactory.getLogger(DeptController.class);
     private final DeptService deptService;
 
-    @GetMapping("/mypage/organizationChart")
+    @RequestMapping("/mypage/organizationChart")
     public String deptList(@ModelAttribute DeptVO deptVo, Model model) {
         logger.info("조직도 화면 보여주기");
 

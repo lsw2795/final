@@ -63,6 +63,10 @@ public class LoginController {
 		Integer clubNo=empService.selectByClubNo(empNo);
 		logger.info("동호회 가입번호 clubNo={}",clubNo);
 		
+		if(clubNo==null) {
+			clubNo = 0;
+		}
+		
 		String msg="로그인 처리 실패", url="/"; 
 		if(result==EmployeeService.LOGIN_OK) {
 			msg= map.get("NAME") +" 님이 로그인 하셨습니다";
@@ -78,7 +82,6 @@ public class LoginController {
 			if(clubNo!=0) {
 				session.setAttribute("clubNo", clubNo); //동호회 번호 저장
 			}
-			
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);

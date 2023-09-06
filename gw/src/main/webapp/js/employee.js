@@ -157,11 +157,6 @@
 				$('#pwd').focus();
 				return false;
 			}
-			if ($('#hiredate').val().length!=10) {
-				alert("입사일의 형식이 올바르지 않습니다. 입사일 형식 예시)2023-05-20");
-				$('#hiredate').focus();
-				return false;
-			}
 		}
 		if($('#dept').val().length< 1){
 			alert("부서를 선택하세요.");
@@ -204,10 +199,17 @@
 		
 		if ($('#sample4_detailAddress').val().length < 1) {
 			alert("상세주소는 필수 입력사항입니다.");
-			$('#btnsearchAddress').focus();
+			$('#sample4_detailAddress').focus();
 			return false;
 		}
 		
+		if($('#confirmForm').val()==='등록'){
+			if ($('#hiredate').val().length!=10) {
+				alert("입사일의 형식이 올바르지 않습니다. 입사일 형식 예시)2023-05-20");
+				$('#hiredate').focus();
+				return false;
+			}
+		}
 		
 		if ($('#annualSalary').val().length < 1) {
 			alert("연봉을 입력하세요.");
