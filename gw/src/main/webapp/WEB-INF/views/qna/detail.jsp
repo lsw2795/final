@@ -12,6 +12,8 @@
 </style>
 
 <script type="text/javascript">
+	
+
 	function deleteQna() {
 		if(confirm("질문을 삭제하시겠습니까?")){
 			location.href = "<c:url value='/qna/delete?boardNo=${map.BOARD_NO}'/>"
@@ -24,6 +26,14 @@
 		}
 	}
 	
+	function editComment(textDivId) {
+		
+		var content = $('#' + textDivId).html().trim();
+		$('#' + textDivId).html("");
+		
+		$('#' + textDivId).append("<input type='text' id='textComment' name='content' value='" + content +  "'/> ");
+		
+	}
 </script>
 
  <div class="row g-3">
@@ -93,7 +103,7 @@
                   
                   
                   <!-- 답변 반복 시작 -->
-                  <c:forEach var="replyMap" items="${replyList}">
+                  <c:forEach var="replyMap" items="${replyList}" varStatus="status">
 	                  <div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
 	                    <div class="d-flex align-items-center gap-2">
 	                    	<c:if test="${!empty replyMap['IMAGE']}">
@@ -118,17 +128,22 @@
 		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
 		            	  <c:set var="content" value="${fn:replace(replyMap['CONTENT'], newLine, '<br>')}" />
 		                  
-		                  <div id="content">
+		                  <div id="content${status.index}">
 		                  	 ${content}
 		                  </div>
 		                  
 		                  <div style="float: right;">
-		                  	<button onclick="deleteComment(${replyMap['COMMENT_NO']}, ${map['BOARD_NO']});" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
+		                  	<button style="float: right;" onclick="deleteComment(${replyMap['COMMENT_NO']}, ${map['BOARD_NO']});" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
 		                    	<svg class="svg-inline--fa fa-trash-alt fa-w-14" data-fa-transform="shrink-2 down-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.5625em;"><g transform="translate(224 256)"><g transform="translate(0, 32)  scale(0.875, 0.875)  rotate(0 0 0)"><path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z" transform="translate(-224 -256)"></path></g></g></svg><!-- <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span> Font Awesome fontawesome.com -->
 			                    <c:if test="${sessionScope.empNo == replyMap['EMP_NO']}"> 
 				                    <span  class="d-none d-md-inline-block ms-1">삭제</span>
 			                    </c:if>
 	                    	</button>
+	                    	
+    	                	<button style="float: right;" onclick="editComment('content${status.index}');" class="btn btn-falcon-default btn-sm" type="button">
+       	            			<span class="fas fa-pen" data-fa-transform="shrink-2 down-1"></span>
+           	        			<span class="d-none d-md-inline-block ms-1">답변 수정</span>
+               	    		</button>
 		                  </div>
 	                  </div>
                   </c:forEach>
@@ -144,7 +159,7 @@
 	                  <div class="border border-y-0 border-200">
 	                  	<input name="boardNo" type="hidden" value="${param.boardNo}">
 	                  	<input name="empNo" type="hidden" value="${sessionScope.empNo}">
-	                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="15" placeholder="내용" form="replyForm"></textarea>
+	                    <textarea class="form-control" id="commentContent" name="content" cols="50" rows="15" placeholder="내용" form="replyForm"></textarea>
 	                  </div>
 	                  
 	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">

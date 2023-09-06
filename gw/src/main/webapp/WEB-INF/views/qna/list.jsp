@@ -18,6 +18,7 @@
  	.d-flex.align-items-center.gap-2.position-relative {
  	  	margin-left: 10px;
 	}
+	
 </style>
  <!-- 페이징 처리 관련 form -->
 	<form action="<c:url value='/qna/list'/>" 
@@ -29,9 +30,8 @@
 
 
 
- <div class="row gx-3">
             <h2>Q&A 게시판</h2>
-            <div >
+ 			<div class="col-lg-12 pe-lg-2 mb-3">
               <div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":10,"pagination":true,"fallback":"contact-table-fallback"}'>
                 <div class="card-header border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
@@ -173,7 +173,6 @@
                 
                 
               </div>
-            </div>
 
           </div>
         </div>
