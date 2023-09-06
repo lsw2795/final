@@ -62,8 +62,8 @@
 	            <%if (reservationList != null) {%>
 	            <%for (Map<String, Object> map : reservationList) {%>
 	            {
-	            	title : '<%= map.get("NAME") %>',
-	                start : '<%= map.get("BOOKDATE")%>',
+	            	title : '<%= (String)map.get("NAME") + (String)map.get("BOOKDATE") %>',
+	                start : '<%= (String)map.get("BOOKDATE")%>',
 					extendedProps : {
 						reservationNo : <%= map.get("RESERVATION_NO")%>
 					}
