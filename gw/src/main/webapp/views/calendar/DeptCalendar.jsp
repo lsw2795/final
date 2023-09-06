@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -34,19 +35,22 @@
 			events : [ 
 	    	    <%List<Map<String, Object>> calendarList = (List<Map<String, Object>>)request.getAttribute("map");%>
 	            <%if (calendarList != null) {%>
-	            <%for (Map<String, Object> list : calendarList) {%>
+	            <%for (Map<String, Object> list : calendarList) {
+	            	BigDecimal categoryNoBig = (BigDecimal)list.get("CATEGORY_NO");
+	            	int  categoryNo = categoryNoBig.intValue();%>
 	            {
 	            	title : '<%=list.get("TITLE")%>', 
 	                start : '<%=list.get("BEGINDATE")%>',
 	                end : '<%=list.get("ENDDATE")%>',
-	            	<%if(list.get("CATEGORY_NO").equals(1)){%>
-	            		color: '#DD6F66'
-	            	<%}else if(list.get("CATEGORY_NO").equals(2)){%>
-	            		color : '#A9D18E'
-	            	<%}else if(list.get("CATEGORY_NO").equals(3)){%>
-	            		color : '#5889F0'
-	            	<%}else if(list.get("CATEGORY_NO").equals(4)){%>
-	            		color : '#FFD966'
+	                color:
+	            	<%if(categoryNo== 1){%>
+	            		 '#DD6F66'
+	            	<%}else if(categoryNo== 2){%>
+	            		 '#A9D18E'
+	            	<%}else if(categoryNo == 3){%>
+	            		 '#5889F0'
+	            	<%}else if(categoryNo == 4){%>
+	            		 '#FFD966'
 	            	<%}%>
 	             },
 		<%}

@@ -11,7 +11,7 @@
 		values(#{calendarNo}, #{empNo}, #{title}, #{begindate}, #{enddate}, #{begintime}, #{endtime}, #{alldayFlag}, #{place}, #{content}, #{categoryNo})
 	</insert>
 	
-	<select id="calendarList" resultType="calendarVo" parameterType="int">
+	<select id="calendarList" resultType="map" parameterType="int">
 		select * from calendar where emp_no = #{empNo}
 	</select>
 	

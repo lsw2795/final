@@ -49,7 +49,7 @@ div.updateBtn {
 <div class="content">
 		<h2>상세보기</h2>
 		
-		<c:if test="${sessionScope.empNo==emp.empNo }">
+		<c:if test="${sessionScope.empNo == map['EMP_NO'] }">
 			<div class="updateBtn">
 				<a href="<c:url value='/market/editMarket?tradeNo=${map["TRADE_NO"]}'/>">
 	              	<button class="btn btn-falcon-default btn-sm" type="button">
@@ -63,7 +63,7 @@ div.updateBtn {
 		        </button>
 	        </div>
 		</c:if>
-		<c:if test="${sessionScope.empNo!=emp.empNo }">
+		<c:if test="${sessionScope.empNo != map['EMP_NO'] }">
 			<div class="updateBtn">
 				<button onclick="delMarket()" class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block" type="button">
 	                 <span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>

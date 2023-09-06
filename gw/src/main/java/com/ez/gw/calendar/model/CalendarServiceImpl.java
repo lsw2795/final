@@ -18,7 +18,7 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List<CalendarVO> calendarList(int empNo) {
+	public List<Map<String, Object>> calendarList(int empNo) {
 		return calendarDao.calendarList(empNo);
 	}
 

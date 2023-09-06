@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,12 +19,12 @@
 			
 			
 			//initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-			nextDayThreshold          : "09:00:00",
-			allDaySlot                : true,
-			displayEventTime          : true,
+			//nextDayThreshold          : "09:00:00",
+			//allDaySlot                : true,
+			//displayEventTime          : true,
 			locale : 'ko',//한국어 설정
-			timeZone:'UTC',
-			navLinks : true,
+			//timeZone:'UTC',
+			//navLinks : true,
 			headerToolbar : { // 헤더에 표시할 툴 바
 				start : 'prev next today',
 				center : 'title',
@@ -75,9 +76,53 @@
 			//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
 			selectable : true, // 달력 일자 드래그 설정가능
 			select : true,
-			droppable : false,
+			droppable : true,
 			editable : true,
 			nowIndicator : true,
+			dateClick:function(info){
+				 $("#calendarModal").modal("show");
+				 
+                 var clickedDate = info.date;
+                 clickedDate.setDate(clickedDate.getDate() + 1);
+				 var clickedDateString = clickedDate.toISOString().slice(0, 16);
+                 
+                 $('#begindate').val(clickedDateString);
+                 console.log(clickedDateString);
+				 
+				 $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
+                     var title = $('#title').val();
+                 	var content = $("#content").val();
+                     var start_date = $("#begindate").val();
+                     var end_date = $("#enddate").val();
+                     var currentDate = new Date();
+                     var categoryNo = $("#categoryNo").val();
+                     
+                     
+                     //내용 입력 여부 확인
+                     if(title == null || title == ""){
+                     	alert("제목을 입력하세요.");	
+                     }else if(content == null || content == ""){
+                         alert("내용을 입력하세요.");
+                     }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+                         alert("종료일이 시작일보다 먼저입니다.");
+                     }else if(start_date == null || start_date == ""){
+                     	alert("날짜를 선택해주세요.");
+                     }else if(new Date(start_date) - currentDate<0){
+                     	alert("과거 날짜를 선택할 수 없습니다.");
+                     }else if(categoryNo.length <1){
+                     	alert("일정 종류를 선택해주세요.");
+                     }else{ // 정상적인 입력 시
+                         var obj = {
+                             "title" : content,
+                             "start" : start_date,
+                             "end" : end_date
+                         }//전송할 객체 생성
+
+                         console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+                         $("#addEventForm").submit();
+                     }
+                 });
+			},
 	        dayMaxEventRows: 3, // 각 날짜에 표시할 최대 이벤트 행 수	
 	        displayEventTime: false,
 	        eventBackgroundColor:function(info){
@@ -97,24 +142,26 @@
 	        	}
 	        },
 	        events : [ 
-	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
-	            <%if (calendarList != null) {%>
-	            <%for (CalendarVO vo : calendarList) {%>
+	    	    <%-- <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%> --%>
+	    	    <%	List<Map<String, Object>> mapList = (List<Map<String, Object>>)request.getAttribute("mapList");%>
+	            <%if (mapList != null) {%>
+	            <%for (Map<String, Object> map : mapList) {%>
 	            {
-	            	title : '<%=vo.getTitle() + " " + vo.getBegintime()%>',
-	                start : '<%=vo.getBegindate()%>',
-	                end : '<%=vo.getEnddate()%>',
-	                id: '<%= vo.getCategoryNo() %>',
+	            	title : '<%=(String)map.get("TITLE") %>',
+	                start : '<%= (String)map.get("BEGINDATE") %>',
+	                end : '<%=(String)map.get("ENDDATE")%>',
+	                id: '<%= (int)map.get("CATEGORYNO") %>',
+	                content: '<%= (String)map.get("CONTENT") %>',
 	                extendedProps : {
-	                	calendarNo : '<%= vo.getCalendarNo()%>'
+	                	calendarNo : '<%= (int)map.get("CALENDARNO")%>'
 	                },
-	            	<%if(vo.getCategoryNo() == 1){%>
+	            	<%if((int)map.get("CATEGORYNO") == 1){%>
 	            	backgroundColor: '#DD6F66'
-	            	<%}else if(vo.getCategoryNo() == 2){%>
+	            	<%}else if((int)map.get("CATEGORYNO") == 2){%>
 	            	backgroundColor : '#A9D18E'
-	            	<%}else if(vo.getCategoryNo() == 3){%>
+	            	<%}else if((int)map.get("CATEGORYNO") == 3){%>
 	            	backgroundColor : '#5889F0'
-	            	<%}else if(vo.getCategoryNo() == 4){%>
+	            	<%}else if((int)map.get("CATEGORYNO") == 4){%>
 	            	backgroundColor : '#FFD966'
 	            	<%}%>
 	             },
@@ -142,11 +189,16 @@
 				        	}else if(result.categoryNo == 4){
 				        		$('#modalCategoryNo').val("4");
 				        	}
+				        	/* var begindate = result.beginDate;
+				        	begindate = begindate.getDate() + result.beginTime;
+				        	
+				        	var Settingbegindate = begindate.toISOString().slice(0, 16);
+				        	 */
 				        	
 				        	$('#modalPlace').val(result.place);
 				        	$('#modalContent').val(result.content);
-				        	$('#modalBegindate').val(result.begindate);
-				        	$('#modalEnddate').val(result.enddate);
+				        	$('#modalBegindate').val(result.beginDate);
+				        	$('#modalEnddate').val(result.endDate);
 				        	
 				        	if(result.alldayFlag === "Y"){
 				        		$('#modalAlldayFlag').prop("checked", true);
@@ -161,6 +213,28 @@
 
 					 $("#modalDetail").modal("show"); // modal 나타내기 
 					 // 이벤트 클릭 시, 이벤트 수정 모달 폼을 표시하세요.
+				},
+				eventMouseEnter:function(info){
+					var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
+							        '<p><strong>' + info.event.title + '</strong></p><hr>' +
+							     '<p>' + "시작  : " +  info.event.start.toLocaleString() + '</p>' + 
+							        '<p>' +info.event.extendedProps.content +'</p>' +
+							        '</div>';
+							        
+					$("body").append(tooltip);
+					
+				    $(info.el).mouseover(function(e) {
+				        $(this).css('z-index', 10000);
+				        $('.tooltipevent').fadeIn('500');
+				        $('.tooltipevent').fadeTo('10', 1.9);
+				    }).mousemove(function(e) {
+				        $('.tooltipevent').css('top', e.pageY + 10);
+				        $('.tooltipevent').css('left', e.pageX + 20);
+				    });
+				},
+				eventMouseLeave: function(info) {
+				    $(this).css('z-index', 8);
+				    $('.tooltipevent').remove();
 				}
 		});
 		calendar.render();
@@ -211,6 +285,7 @@
 			window.location.href = '<c:url value="/calendar/delCalendar?calendarNo="/>'+calendarNo;
 		}
 	}
+	
 </script>
 <style type="text/css">
 	#calendar{

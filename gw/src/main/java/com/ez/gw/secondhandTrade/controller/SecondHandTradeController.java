@@ -297,6 +297,7 @@ public class SecondHandTradeController {
 		
 		int cnt = secondHandTradeService.updateReadCount(tradeNo);
 		logger.info("조회수 증가 결과, cnt ={}", cnt);
+		logger.info("map={}", map.get("EMP_NO"));
 
 		// 3
 		model.addAttribute("map", map);
@@ -305,6 +306,7 @@ public class SecondHandTradeController {
 		// 4
 		return "market/marketDetail";
 	}
+	
 
 	@GetMapping("/editMarket")
 	public String get_editMarket(@RequestParam(defaultValue = "0") int tradeNo, Model model) {
