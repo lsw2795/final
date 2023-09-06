@@ -3,9 +3,6 @@
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value='/css/PDScss.css'/>">
 <style>
-	ul#navbarVerticalNav {
-   		font-size: 17px;
-	}	
 </style>
 
 <script type="text/javascript">
