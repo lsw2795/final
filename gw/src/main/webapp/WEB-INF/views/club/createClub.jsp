@@ -13,6 +13,7 @@
 				$("#memLimit").css("visibility", "visible");
 				$("#memLimit").focus();
 			}else {
+				$("#memLimit").val(0);
 				$("#memLimit").css("visibility", "hidden");
 			}
 		});
@@ -45,12 +46,8 @@
 				return false;
 			} 
 			
-			/* 
-			if($('#memberCnt').val().length<1){
-				alert('모집 인원수를 입력해주세요.');
-				$('#memberCnt').focus();
-				return false;
-			} */
+			
+			
 		});
 		
 	});
