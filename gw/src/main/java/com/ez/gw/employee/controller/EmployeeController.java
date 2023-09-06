@@ -393,11 +393,9 @@ public class EmployeeController {
 	public String selempCount(@RequestParam (defaultValue = "0") int year,Model model) {
 		logger.info("관리자 - 메인 사원 통계 파라미터 year={}", year);
 		List<Map<String, Object>> empList=employeeService.selEmpCountByDeptName(year);
-		List<Map<String, Object>> empCount=employeeService.selEmpCountYear();
-		logger.info("관리자 - 메인 사원 통계 결과, empList={}, empCount={}", empList, empCount);
+		logger.info("관리자 - 메인 사원 통계 결과, empList={}", empList);
 		
 		model.addAttribute("empList", empList);
-		model.addAttribute("empCount", empCount);
 		
 		return "admin/employee/empList";
 	}
