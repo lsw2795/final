@@ -18,7 +18,7 @@ public class SearchSellVO {
 	private String searchContent = "";
 	
 	/** 거래가능만 보기 체크여부*/
-	private boolean checkSelflag =false;
+	private boolean checkSelflag = false;
     
 	/** 검색 사용여부 */
 	private String searchUseYn = "";
