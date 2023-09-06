@@ -69,10 +69,9 @@
 	            	 // 툴팁 내용을 생성
 	            	    var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
 	            	        '<div class="avatar-name rounded-circle">' +
-	            	        '<img src="' + imageSrc + '">' +
-	            	        info.event.extendedProps.position + " " + info.event.extendedProps.name +
+	            	        '<img src="' + imageSrc + '" width="30px" height="30px" class="avatar-name rounded-circle">' +
+	            	        "  "+ '<strong>'+info.event.extendedProps.position +'</strong>' + " " + info.event.extendedProps.name +
 	            	        '</div>' +
-	            	        '<p>' + '</p>' +
 	            	        '</div>';
 
 	            	    // 툴팁을 body에 추가
