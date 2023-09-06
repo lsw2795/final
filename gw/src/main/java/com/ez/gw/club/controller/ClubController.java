@@ -24,6 +24,7 @@ import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -168,17 +169,14 @@ public class ClubController {
 		clubVo=clubService.selectByClubNo(clubNo);
 		int cnt=clubService.clubCount(clubNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
-		logger.info("동호회 인원수 확인 cnt={}",cnt);
+		logger.info("동호회 인원수 제한여부 cnt={},memlimit={}",cnt,clubVo.getMemLimit());
 		
 		
-		if(cnt>=clubVo.getMemLimit()) {
-			model.addAttribute("msg", "모집인원이 마감되었습니다.");
-			model.addAttribute("url", "/club/clubList");
-			return "common/message";
-		}
+		
 		
 		//3.
 		model.addAttribute("clubVo", clubVo);
+		 model.addAttribute("clubCnt", cnt);
 		
 		//4.
 		return "club/clubDetail";
@@ -277,7 +275,7 @@ public class ClubController {
 			//2.
 			List<ClubVO> list = listVo.getClubItems();
 			
-			int cnt=clubService.deleteMulti(list);
+			Integer cnt=clubService.deleteMulti(list);
 			logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
 			
 			String msg="동호회 삭제 실패했습니다.",url="/admin/adminclub/clubList";
@@ -302,6 +300,7 @@ public class ClubController {
 		//2.
 		List<Map<String, Object>> list = clubService.adminClubList();
 		logger.info("관리자 - 동호회 가입 list.size={}",list.size());
+		
 		
 		//3.
 		model.addAttribute("list", list);

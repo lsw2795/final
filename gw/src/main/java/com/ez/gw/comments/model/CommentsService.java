@@ -24,4 +24,6 @@ public interface CommentsService {
 	int reply2(CommentsVO vo); //부서게시판 답글
 	int selCountDeptBoardReply(int boardNo); //부서게시판 게시글 당 댓글 개수
 	int gTRCommentCount(EmpSearchVO searchVo); //댓글 페이징처리 총 레코드
+	
+	int deleteQnaComment(int commentNo); //질문 게시판 답변 삭제 메서드
 }

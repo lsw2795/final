@@ -44,7 +44,7 @@ public class LoginController {
 		
 		//2.
 		List<Integer> retireList=empService.selectRetire();
-		logger.info("로그인 결과 retireList={}",retireList.size());
+		logger.info("퇴사자 로그인 결과 retireList={}",retireList.size());
 		
 		for(Integer retireNo : retireList) {
 			if(retireNo==empNo) {
