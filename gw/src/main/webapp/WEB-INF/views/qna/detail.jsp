@@ -31,7 +31,6 @@
 		var content = $('#' + textDivId).html().trim();
 		$('#' + textDivId).html("");
 		
-		$('#' + textDivId).append("<input type='text' id='textComment' name='content' value='" + content +  "'/> ");
 		
 	}
 </script>
@@ -145,6 +144,7 @@
            	        			<span class="d-none d-md-inline-block ms-1">답변 수정</span>
                	    		</button>
 		                  </div>
+			                <div id="moveComment"></div>
 	                  </div>
                   </c:forEach>
                 <!-- 답변 반복 끝  -->
