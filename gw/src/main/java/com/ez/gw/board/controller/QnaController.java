@@ -258,6 +258,7 @@ public class QnaController {
 		logger.info("qna - 답변 수정 파라미터 commentsVo={}", commentsVo);
 		
 		int cnt = commentsService.updateQnaComment(commentsVo);
+		logger.info("qna - 답변 수정 결과 cnt={}", cnt);
 			
 		String msg ="답변 수정에 실패하였습니다.", url = "/qna/detail?boardNo=" + commentsVo.getBoardNo();
 			
