@@ -18,19 +18,21 @@
         FROM (
             SELECT *
             FROM secondmarketview
+            <where>
             <if test="searchKeyword!=null and searchKeyword!=''">
                 <choose>
                     <when test="searchCondition == 'total'">
-                        where (title LIKE '%' || #{searchKeyword} || '%' OR NAME LIKE '%' || #{searchkeyword} || '%' OR discription LIKE '%' || #{searchKeyword} || '%')
+                        and (title LIKE '%' || #{searchKeyword} || '%' OR NAME LIKE '%' || #{searchkeyword} || '%' OR discription LIKE '%' || #{searchKeyword} || '%')
                     </when>
                     <otherwise>
-                        where ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
+                        and ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
                     </otherwise>
                 </choose>
             </if>
             <if test = "checkSelflag == true">
-            	and selFlag = 'N';
+            	and selFlag = 'N'
             </if>
+            </where>
             ORDER BY trade_no DESC
         ) A
     ) 
@@ -65,7 +67,7 @@
             </choose>
         </if>
         <if test = "checkSelflag == true">
-            	and selFlag = 'N';
+            	and selFlag = 'N'
         </if>
     </where>
 	</select>
