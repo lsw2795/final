@@ -55,7 +55,7 @@
     
    <!-- 사원통계 -->
     <div class="card mb-3 admindefault">
-     <c:import url="/employee/empList"></c:import>
+     <c:import url="/admin/employee/empList"></c:import>
     </div>
    
   <div class="card mb-3 admindefault">
