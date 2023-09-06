@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.ez.gw.reservation.model.ReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -60,14 +62,33 @@
 			events : [ 
 	    	    <%List<Map<String, Object>> reservationList = (List<Map<String, Object>>)request.getAttribute("reservationList");%>
 	            <%if (reservationList != null) {%>
-	            <%for (Map<String, Object> map : reservationList) {%>
+	            <%for (Map<String, Object> map : reservationList) {
+	            	String category = (String)map.get("CATEGORY");
+	            	int categoryNo = 0;
+	            	if(category.equals("meetingRoom")){
+	            		categoryNo = 1;
+	            		}else if(category.equals("noteBook")){
+	            			categoryNo = 2;
+	            		}else{
+	            			categoryNo = 3;
+	            		}
+	            		
+	            	%>
 	            {
-	            	title : '<%= (String)map.get("NAME") + (String)map.get("BOOKDATE") %>',
+	            	title : '<%= (String)map.get("NAME") %>',
 	                start : '<%= (String)map.get("BOOKDATE")%>',
 					extendedProps : {
-						reservationNo : <%= map.get("RESERVATION_NO")%>
-					}
-
+						reservationNo : <%= map.get("RESERVATION_NO")%>,
+						starttime : <%= map.get("STARTTIME")%>,
+						endtime :<%= map.get("ENDTIME")%>,
+					},
+					<%if(categoryNo ==1){%>
+						backgroundColor: '#DD6F66'
+					<%}else if(categoryNo == 2){%>
+						backgroundColor : '#5889F0'
+					<%}else if(categoryNo == 3){%>
+						backgroundColor : '#FFD966'
+					<%}%>
 	             },
 		<%}
 	}%>
@@ -98,7 +119,29 @@
 							}
 						});
 						
+					},
+					eventMouseEnter:function(info){
+						var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background:#fff;position:absolute;z-index:10001;padding:10px;border:1px solid #ddd;">' +
+								        '<p><strong>' + info.event.title + '</strong></p><hr>' +
+								     '<p>' + "대여 시간 : "+info.event.extendedProps.starttime + ":00  ~  " + info.event.extendedProps.endtime + ":00" + '</p>' + 
+								        '</div>';
+								        
+						$("body").append(tooltip);
+						
+					    $(info.el).mouseover(function(e) {
+					        $(this).css('z-index', 10000);
+					        $('.tooltipevent').fadeIn('500');
+					        $('.tooltipevent').fadeTo('10', 1.9);
+					    }).mousemove(function(e) {
+					        $('.tooltipevent').css('top', e.pageY + 10);
+					        $('.tooltipevent').css('left', e.pageX + 20);
+					    });
+					},
+					eventMouseLeave: function(info) {
+					    $(this).css('z-index', 8);
+					    $('.tooltipevent').remove();
 					}
+					
 		});
 		calendar.render();
 	});
@@ -219,6 +262,16 @@
 	#calendar{
 		background: white;
 		padding : 20px;
+	}
+	
+	.fc-event-title {
+		color: black;
+		font-weight: bold;
+	}
+	
+	.fc-day-sun a {
+	  color: red !important;
+	  text-decoration: none !important;
 	}
 </style>
 
