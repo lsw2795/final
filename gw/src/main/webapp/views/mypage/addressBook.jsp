@@ -4,6 +4,10 @@
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">  
 <script type="text/javascript">
 	$(function(){
+		$('#chkAll').click(function(){
+			$('#chkItem').children('input[type=checkbox]').prop('checked',this.checked);
+		});
+		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
 		$("#addrbookEmail2").change(function() {
 			if ($("#addrbookEmail2").val() == "etc") {
@@ -413,7 +417,7 @@
                         <tr style="text-align: center;">
                           <th class="py-2 fs-0 pe-2" style="width: 28px;">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-tickets-select" type="checkbox" data-bulk-select='{"body":"table-contact-body","actions":"table-contact-actions"}' />
+                              <input class="form-check-input" id="chkAll" type="checkbox"/>
                             </div>
                           </th>
                           <th class="sort align-middle" scope="col">이름</th>
@@ -436,9 +440,9 @@
                       <c:forEach var="addressBookVo" items="${list }">
 	                        <tr class="mypageemptr">
 	                          <td class="align-middle fs-0 py-3 align-middle">
-	                            <div class="form-check mb-0">
+	                            <div class="form-check mb-0" id="chkItem">
 	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
-	                             	 name="addrItems[${idx}].addrbookNo" data-bulk-select-row="data-bulk-select-row"/>
+	                             	 name="addrItems[${idx}].addrbookNo"/>
 	                            </div>
 	                          </td>
 	                          <td class="align-middle">${addressBookVo.addrbookName }</td>
