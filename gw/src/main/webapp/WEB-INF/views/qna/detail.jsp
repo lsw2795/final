@@ -40,21 +40,7 @@
 
 	  // moveComment 요소에 formHtml을 추가합니다.
 	  $('#' + textDivId).html(formHtml);
-
 	}
-
-	function editCommentOk(formName) {
-		  // textarea의 값을 가져옵니다.
-		  var textareaValue = $('#editArea').text();
-
-		  // formName을 사용하여 폼을 서브밋합니다.
-		  var form = $('form[name="' + formName + '"]'); // 폼을 jQuery 객체로 가져옵니다.
-		  if (form.length > 0) {
-		    // 폼이 존재하는 경우
-		    form.find('textarea[name="content"]').text(textareaValue); // textarea의 값을 설정합니다.
-		    form.submit(); // 폼을 서브밋합니다.
-		  }
-		}
 
  	
 </script>
