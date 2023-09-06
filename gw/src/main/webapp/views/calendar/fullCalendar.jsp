@@ -142,26 +142,26 @@
 	        	}
 	        },
 	        events : [ 
-	    	    <%-- <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%> --%>
-	    	    <%	List<Map<String, Object>> mapList = (List<Map<String, Object>>)request.getAttribute("mapList");%>
-	            <%if (mapList != null) {%>
-	            <%for (Map<String, Object> map : mapList) {%>
+	    	    <%List<CalendarVO> calendarList = (List<CalendarVO>)request.getAttribute("calendarList");%>
+	    	    <%-- <%	List<Map<String, Object>> mapList = (List<Map<String, Object>>)request.getAttribute("mapList");%> --%>
+	            <%if (calendarList != null) {%>
+	            <%for (CalendarVO vo : calendarList) {%>
 	            {
-	            	title : '<%=(String)map.get("TITLE") %>',
-	                start : '<%= (String)map.get("BEGINDATE") %>',
-	                end : '<%=(String)map.get("ENDDATE")%>',
-	                id: '<%= (int)map.get("CATEGORYNO") %>',
-	                content: '<%= (String)map.get("CONTENT") %>',
+	            	title : '<%=vo.getTitle() %>',
+	                start : '<%= vo.getBegindate() %>',
+	                end : '<%=vo.getEnddate()%>',
+	                id: '<%= vo.getCategoryNo() %>',
+	                content: '<%= vo.getCalendarNo() %>',
 	                extendedProps : {
-	                	calendarNo : '<%= (int)map.get("CALENDARNO")%>'
+	                	calendarNo : '<%= vo.getCalendarNo()%>'
 	                },
-	            	<%if((int)map.get("CATEGORYNO") == 1){%>
+	            	<%if(vo.getCategoryNo() == 1){%>
 	            	backgroundColor: '#DD6F66'
-	            	<%}else if((int)map.get("CATEGORYNO") == 2){%>
+	            	<%}else if(vo.getCategoryNo() == 2){%>
 	            	backgroundColor : '#A9D18E'
-	            	<%}else if((int)map.get("CATEGORYNO") == 3){%>
+	            	<%}else if(vo.getCategoryNo() == 3){%>
 	            	backgroundColor : '#5889F0'
-	            	<%}else if((int)map.get("CATEGORYNO") == 4){%>
+	            	<%}else if(vo.getCategoryNo() == 4){%>
 	            	backgroundColor : '#FFD966'
 	            	<%}%>
 	             },
