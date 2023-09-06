@@ -549,28 +549,12 @@
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#i" role="button" data-bs-toggle="collapse">
+						<a class="nav-link" href="<c:url value='/anonymous/boardList'/>">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-text"><span class="fas fa-paper-plane"></span></span>
-	                    		<span class="nav-link-text ps-1">피드</span>
+                        		<span class="nav-link-text ps-1">익명게시판</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse" id="i">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link" href="<c:url value='/anonymous/boardList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">익명게시판</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">추가</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
                   	</li>
 				</ul>
 			</div>
