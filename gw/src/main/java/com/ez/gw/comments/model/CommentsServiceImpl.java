@@ -118,6 +118,11 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsDao.deleteQnaComment(commentNo);
 	}
 
+	@Override
+	public int updateQnaComment(CommentsVO commentsVo) {
+		return commentsDao.updateQnaComment(commentsVo);
+	}
+
 	
 	
 }
