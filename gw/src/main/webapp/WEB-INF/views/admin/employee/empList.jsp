@@ -4,14 +4,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('#year').change(function(){
-		var year=$('#year').val();
-		
+	$('#years').change(function(){
+		var year=$('#years').val();
 		if(year=="" || year==null){
 			location.reload();
-		}else{
-		location.href="<c:url value='/admin/employee/empList?year='/>"+year;
 		}
+		$('#frmYear').submit();
 	});
 });
 </script>
@@ -21,17 +19,9 @@ $(function(){
            <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">사원 통계</h5>
          </div>
         <div class="col-auto ms-auto">
-           <select class="form-select form-select admindefault" name="year" id="year">
-             <option value="">선택하세요.</option>
-	             <c:forEach var="empYearMap" items="${empCount }">
-	             	<option value="${empYearMap['YEAR']}"
-	             		<c:if test="${empYearMap['YEAR'] ==param.year}">
-		            		selected="selected"
-		            	</c:if>
-	             	>${empYearMap['YEAR']}</option>
-	             </c:forEach>
-           </select>
-         </div>
+         <a href="<c:url value='/admin/employee/employeeList'/>" 
+         	style="color: black; font-size: 14px;">더보기 ▶</a>
+        </div>
        </div>
      </div>
       <div class="card-body admindefault">
