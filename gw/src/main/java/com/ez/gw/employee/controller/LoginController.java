@@ -44,7 +44,7 @@ public class LoginController {
 		
 		//2.
 		List<Integer> retireList=empService.selectRetire();
-		logger.info("로그인 결과 retireList={}",retireList.size());
+		logger.info("퇴사자 로그인 결과 retireList={}",retireList.size());
 		
 		for(Integer retireNo : retireList) {
 			if(retireNo==empNo) {
@@ -79,7 +79,9 @@ public class LoginController {
 			
 			//직위,권한 세션 저장
 			session.setAttribute("positionRank",map.get("POSITION_RANK"));
-			session.setAttribute("clubNo", clubNo); //동호회 번호 저장
+			if(clubNo!=0) {
+				session.setAttribute("clubNo", clubNo); //동호회 번호 저장
+			}
 			
 			//cookie
 			String empNo2=Integer.toString(empNo);
