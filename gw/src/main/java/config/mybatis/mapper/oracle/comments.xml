@@ -148,4 +148,10 @@
 		and comment_no=#{commentNo}
 	</delete>
 	
+	<delete id="deleteQnaComment" parameterType="int">
+		delete comments
+		where comment_no = #{commentNo}
+	</delete>
+	
+	
 </mapper>

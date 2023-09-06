@@ -151,8 +151,6 @@
 	                      <dd><input type="text" name="name" readonly="readonly" value="${map['NAME']}" ></dd>
 	                  </dl>
 	                  <dl>
-	                      <dt>비밀번호</dt>
-	                      <dd><input type="password" placeholder="비밀번호 입력"></dd>
 	                      <input type="hidden" name="boardNo" value="${map['BOARD_NO']}"/>
 	                  </dl>
 	                  

@@ -101,13 +101,13 @@
 	                              <div class="avatar avatar-xl">
 									  <c:if test="${!empty map['IMAGE']}">
 									    <div class="avatar-name rounded-circle">
-									      <img src="<c:url value='/images/${map["IMAGE"]}'/>" alt="no">
+									      <img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="no">
 									    </div>
 									  </c:if>
 									  
 									  <c:if test="${empty map['IMAGE']}">
 									    <div class="avatar avatar-2xl">
-									      <img style="position:relative; right: 5px;" class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
+									      <img class="rounded-circle" style="position:relative; right: 5px;" class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
 									    </div>
 									  </c:if>
 								 </div>
