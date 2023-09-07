@@ -308,7 +308,20 @@ public class CommuteController {
 		return "redirect:/commute/status?importSuccess=Data imported successfully";
 	}
 	
-	
+	@RequestMapping("/inc/indexCommute")
+	public String indexCommute(HttpSession session, Model model) {
+		int empNo = (int)session.getAttribute("empNo");
+		
+		logger.info("index - 근태 부분 파라미터 empNo={}", empNo);
+		
+		
+		CommuteVO commuteVo = commuteService.selectTodayCommute(empNo);
+		logger.info("index - 오늘의 근태 데이터 commuteVO={}", commuteVo);
+		
+		model.addAttribute("commuteVo", commuteVo);
+		
+		return "inc/indexCommute";
+	}
 
 	
 
