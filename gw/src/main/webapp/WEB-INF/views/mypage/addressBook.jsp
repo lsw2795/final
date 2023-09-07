@@ -301,10 +301,10 @@
 			}
 			
 			if(count>0){
-				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+				if(confirm('선택한 주소록을 삭제하시겠습니까?')){
 					$('form[name=frmList]').prop('action', "<c:url value='/mypage/addressBook/DeleteMulti'/>");
 					$('form[name=frmList]').submit();
-				} // if
+				}
 			} 
 		});
 		
