@@ -48,23 +48,24 @@
 	    var pdsNo = $('#pdsNo' + index).val();
 	    var oldFileName = $('#oldFileName'+ index).val();
 	    //alert("pdsNo: " + pdsNo+", oldFileName: "+oldFileName);
-	    
-	    $.ajax({
-            url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
-            type: "get",
-            data: { 
-            	pdsNo: pdsNo,
-            	oldFileName: oldFileName
-            },
-            success: function (res) {
-                if (res> 0) {                	
-                    alert('파일 삭제 성공');
-                }
-            },
-            error:function(xhr,status,error){
-                alert(status+" : "+error);
-            } 
-        });//ajax
+	    if(confirm('기존 첨부파일을 삭제하시겠습니까?')){
+		    $.ajax({
+	            url: "<c:url value='/admin/board/ajaxNoticeFileDelete'/>",
+	            type: "get",
+	            data: { 
+	            	pdsNo: pdsNo,
+	            	oldFileName: oldFileName
+	            },
+	            success: function (res) {
+	                if (res> 0) {                	
+	                    alert('해당 첨부파일 삭제가 완료되었습니다.');
+	                }
+	            },
+	            error:function(xhr,status,error){
+	                alert(status+" : "+error);
+	            } 
+	        });//ajax
+	    }
 	}
 </script>
 <c:if test="${!empty param.boardNo}">
