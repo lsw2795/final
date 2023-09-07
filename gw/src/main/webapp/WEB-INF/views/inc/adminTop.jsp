@@ -450,86 +450,12 @@
                 </div>
               </li>
               <li class="nav-item dropdown px-1">
-                <a class="nav-link fa-icon-wait nine-dots p-1" id="navbarDropdownMenu" role="button" data-hide-on-body-scroll="data-hide-on-body-scroll" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="43" viewBox="0 0 16 16" fill="none">
-                    <circle cx="2" cy="2" r="2" fill="#6C6E71"></circle>
-                    <circle cx="2" cy="8" r="2" fill="#6C6E71"></circle>
-                    <circle cx="2" cy="14" r="2" fill="#6C6E71"></circle>
-                    <circle cx="8" cy="8" r="2" fill="#6C6E71"></circle>
-                    <circle cx="8" cy="14" r="2" fill="#6C6E71"></circle>
-                    <circle cx="14" cy="8" r="2" fill="#6C6E71"></circle>
-                    <circle cx="14" cy="14" r="2" fill="#6C6E71"></circle>
-                    <circle cx="8" cy="2" r="2" fill="#6C6E71"></circle>
-                    <circle cx="14" cy="2" r="2" fill="#6C6E71"></circle>
-                  </svg></a>
-                <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-caret-bg" aria-labelledby="navbarDropdownMenu">
-                  <div class="card shadow-none">
-                    <div class="scrollbar-overlay nine-dots-dropdown">
-                      <div class="card-body px-3">
-                        <div class="row text-center gx-0 gy-0">
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="https://google.com/" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/google.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Google</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/spotify.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Spotify</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/steam.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Steam</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/github-light.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Github</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/discord.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Discord</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/xbox.png" alt="" width="40" height="40" />
-                             	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">xbox</p>
-                            </a>
-                          </div>
-                          <div class="col-12">
-                            <hr class="my-3 mx-n3 bg-200" />
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/twitter.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Twitter</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/facebook.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Facebook</p>
-                            </a>
-                          </div>
-                          <div class="col-4">
-                          	<a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank">
-                          		<img class="rounded" src="assets/img/nav-icons/instagram.png" alt="" width="40" height="40" />
-                              	<p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Instagram</p>
-                            </a>
-                          </div>
-                          <div class="col-12"><a class="btn btn-outline-primary btn-sm mt-4" href="#!">Show more</a></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <a class="nav-link p-1" role="button" href="<c:url value='/login/logout'/>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+  					<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  					<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+				  </svg>	
+				</a>
               </li>
             </ul>
           </nav>
