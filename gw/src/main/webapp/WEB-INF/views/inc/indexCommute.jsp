@@ -13,7 +13,7 @@
 	
 	.tbC1 {
 	  border-collapse: collapse;
-	  width: 500px;
+	  width: 100%;
 	  margin: 1rem auto;
 	  border-top: 1px solid #ddd;
 	  border-bottom: 1px solid #ddd;
@@ -81,7 +81,7 @@ function printClock() {
     	currentHours = addZeros(currentHours - 12,2);
     }
 
-    clock.innerHTML = currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:35px;'>"+ amPm+"</span>"; //날짜를 출력해 줌
+    clock.innerHTML = currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:27px;'>"+ amPm+"</span>"; //날짜를 출력해 줌
     todayDate.innerHTML = calendar + dayOfWeek + '요일';  // 오늘 날짜와 요일을 출력해 줌
     
     setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
@@ -102,14 +102,14 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
  <table class="tbC1">
     <thead>
       <tr class="trC">
-        <th class="thC" style="font-size: 30px; color: white" colspan="2">현재시간 : 
+        <th class="thC" style="font-size: 27px; color: white" colspan="2">현재시간 : 
         	<span style=" color:white; text-align:center;" id="clock"></span>
         </th>
       </tr>
     </thead>
     <tbody class="tbodyC">
     	<tr>
-    		<td colspan="2" style="text-align:center; font-weight: bold; font-size: 30px;" id="todayDate"></td>
+    		<td colspan="2" style="text-align:center; font-weight: bold; font-size: 27px;" id="todayDate"></td>
     	</tr>
     
       <tr class="trC">
