@@ -59,10 +59,18 @@
 					</c:if>
 					<c:if test="${!empty deptBoardList }">
 						<c:forEach var="deptBoardVo" items="${deptBoardList }">
-						<img src="<c:url value='/images/last.JPG'/>">
-							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo }'/>"
-								style="text-decoration: none; color:#5e6e82;">
-							${deptBoardVo.boardName }</a><br>
+						<c:if test="${deptBoardVo.boardlistNo!=param.boardlistNo }">
+							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo}'/>"
+						     class="dept-board-link">
+						     <span>${deptBoardVo.boardName}</span>
+						   </a>
+						</c:if>
+						<c:if test="${deptBoardVo.boardlistNo==param.boardlistNo }">
+							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo}'/>"
+						     class="dept-board-link" style="background: #fde6d8; color:black;">
+						     <span>${deptBoardVo.boardName}</span>
+						   </a>
+						</c:if>
 						</c:forEach>
 					</c:if>
 					</div>
