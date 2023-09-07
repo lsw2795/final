@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form class="row g-3" name="frmSearch" action="<c:url value='/report/anonymousReportList'/>" >
+				<form class="row g-3" method="post" name="frmSearch" action="<c:url value='/report/anonymousReportList'/>" >
 				<input type="hidden" name="currentPage" value="">
 					<div class="col-md-4">
 						<label class="form-label" for="confirmDocumentNo">신고유형</label>
