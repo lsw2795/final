@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#chkAll').click(function(){
-			$('#chkItem').children('input[type=checkbox]').prop('checked',this.checked);
+			$('.chkItem').children('input[type=checkbox]').prop('checked',this.checked);
 		});
 		
 		//직접입력을 선택하면 email3 텍스트 상자가 보이게
@@ -301,10 +301,10 @@
 			}
 			
 			if(count>0){
-				if(confirm('선택한 게시글을 삭제하시겠습니까?')){
+				if(confirm('선택한 주소록을 삭제하시겠습니까?')){
 					$('form[name=frmList]').prop('action', "<c:url value='/mypage/addressBook/DeleteMulti'/>");
 					$('form[name=frmList]').submit();
-				} // if
+				}
 			} 
 		});
 		
@@ -440,7 +440,7 @@
                       <c:forEach var="addressBookVo" items="${list }">
 	                        <tr class="mypageemptr">
 	                          <td class="align-middle fs-0 py-3 align-middle">
-	                            <div class="form-check mb-0" id="chkItem">
+	                            <div class="form-check mb-0 chkItem">
 	                              <input class="form-check-input" value="${addressBookVo.addrbookNo }" type="checkbox"
 	                             	 name="addrItems[${idx}].addrbookNo"/>
 	                            </div>

@@ -135,7 +135,7 @@
 						<div class="col-sm-4 mb-3">
 							<span><strong>모집 회원 수</strong></span><br>
 							<br>
-							${clubVo.memLimit } <strong>/</strong> ${clubCnt} 
+							 ${clubCnt} <strong>/</strong> ${clubVo.memLimit }
 						</div>
 						<div class="col-12 mb-3">
 							<span><strong>동호희 이름</strong></span><br> ${clubVo.title}

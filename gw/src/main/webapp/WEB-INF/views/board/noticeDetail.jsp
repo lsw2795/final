@@ -6,6 +6,30 @@
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
+	
+	function updateReadCount(boardlistNo, boardNo){
+		$.ajax({
+            url: "<c:url value='/board/updateReadCount'/>",
+            type:'get',
+			data: {
+				boardNo: boardNo
+			},
+			dataType:'json',
+            success: function (res) {
+            	var no='<%= request.getParameter("boardNo")%>';
+            	if(res>0){
+            		if(no>boardNo){
+            			location.href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>";
+            		}else if(no<boardNo){
+            			location.href="<c:url value='/board/noticeDetail?boardNo=${nextMap["MIN(BOARD_NO)"]}'/>";
+            		}
+            	}
+            },
+            error:function(xhr,status,error){
+                alert(status+" : "+error);
+            } 
+        });//ajax
+	}
  </script>
  <div class="card mb-3">
             <div class="card-body d-flex justify-content-between">
@@ -68,13 +92,13 @@
 	                 이전 글이 없습니다.
 	                </c:if>
                 	<c:if test="${!empty prevMap['MAX(BOARD_NO)']}">
-	                 <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${prevMap["MAX(BOARD_NO)"]}'/>">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a><br>
+	                 <a style="color: black;" href="#" onclick="updateReadCount(2000,${prevMap['MAX(BOARD_NO)']});">이전 글&nbsp;&nbsp;|&nbsp;&nbsp;${prevMap['TITLE']}</a><br>
 	                </c:if>
 	                <c:if test="${empty nextMap['MIN(BOARD_NO)']}">
 	                 다음 글이 없습니다.
 	                </c:if>
 	                <c:if test="${!empty nextMap['MIN(BOARD_NO)']}">
-                 	  <a style="color: black;" href="<c:url value='/board/noticeDetail?boardNo=${nextMap["MIN(BOARD_NO)"]}'/>">다음 글&nbsp;&nbsp;|&nbsp;&nbsp;${nextMap['TITLE']}</a>
+                 	  <a style="color: black;" href="#" onclick="updateReadCount(2000,${nextMap['MIN(BOARD_NO)']});">다음 글&nbsp;&nbsp;|&nbsp;&nbsp;${nextMap['TITLE']}</a>
                		</c:if>
                 </div>
                   <div class="text-center">

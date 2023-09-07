@@ -54,7 +54,9 @@ public class ClubController {
 		//2.
 		int cnt=clubService.insertClub(vo);
 		logger.info("동호회 개설 결과 cnt={}",cnt);
-
+		
+		
+		
 		String msg="동호회 개설 실패", url="/club/clubList";
 		if(cnt>0) {
 			msg="동호회 개설 완료";
