@@ -31,4 +31,5 @@ public interface CommuteService {
 	int selectAllCommuteAttendanceCount(SearchCommuteVO searchCommuteVO); //전사원 출근횟수 갯수 조회
 	
 	int updateWorkTime(CommuteVO commuteVo); //출퇴근시간 업데이트 메서드
+	CommuteVO selectTodayCommute(int empNo); // 오늘 근태 데이터 조회 메서드
 }
