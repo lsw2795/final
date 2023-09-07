@@ -109,7 +109,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form class="row g-3" name="frmSearch" action="<c:url value='/approval/confirmList'/>" >
+				<form class="row g-3" method="post" name="frmSearch" action="<c:url value='/approval/confirmList'/>" >
 				<input type="hidden" name="currentPage" value="">
 					<div class="col-md-4">
 						<label class="form-label" for="confirmDocumentNo">문서번호</label>

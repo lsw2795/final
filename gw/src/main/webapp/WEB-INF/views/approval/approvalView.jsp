@@ -22,17 +22,15 @@
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
 <script type="text/javascript">
-	$(function(){
-		$('#close').click(function(){
-			window.close();
-		});
+		function closeUpdate(confirmEmpNo,sessionEmpNo,state){
+			if(confirmEmpNo==sessionEmpNo && state==1){
+				window.close();
+				window.opener.location.reload();
+			}else{
+				window.close();
+			}
+		}
 		
-		$('#closeUpdate').click(function(){
-			window.close();
-			window.opener.location.reload();
-		});
-		
-	});
 		function clickUpdate(){
 			var confirmDocumentNo=$('#confirmDocumentNo').val();
 			var confirmState=$('#confirmState').val();
@@ -305,12 +303,7 @@
 							</div>
 	                    </div>
 		                <div class="col-sm-2 m-auto mt-3">
-		                	<c:if test="${confirmMap['EMP_NO']==sessionScope.empNo}">
-			                    <button class="form-control btn btn-primary" id="close" style="width: 100px">닫기</button>
-		                	</c:if>
-		                	<c:if test="${confirmMap['EMP_NO']!=sessionScope.empNo}">
-			                    <button class="form-control btn btn-primary" id="closeUpdate" style="width: 100px">닫기</button>
-		                	</c:if>
+			            	<button class="form-control btn btn-primary" type="button" onclick='closeUpdate(${confirmMap["EMP_NO"]},${sessionScope.empNo},${confirmMap["CONFIRM_STATE"]})'  style="width: 100px">닫기</button>
 		                </div>
 	                </div>
 	        	</div>
