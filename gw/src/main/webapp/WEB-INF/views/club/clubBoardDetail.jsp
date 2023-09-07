@@ -17,11 +17,10 @@
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
-		var btnOk=$()
 		
-		$('#')
+		$(contentDiv).find('#editOk').show();
 		$(contentDiv).find('span').hide();
-		$(contentDiv).find('input[name=content]').attr('type', 'text');
+		$(contentDiv).find('input[name=content]').attr('type', 'textarea');
 		
 	}
 	
@@ -82,7 +81,7 @@
 <div class="card">
 <input type="hidden" id="clubboardNo" value="${map['BOARD_NO'] }">
 <input type="hidden" id="clubNo" value="${map['CLUB_NO'] }">
-	<div class="card-header d-flex flex-between-center">
+	<div class="card-header me-2 flex-between-center" style="justify-contents:right">
 	<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo}'/>">
 		<button class="btn btn-falcon-default btn-sm" type="button">
 			<span class="fas fa-arrow-left">
@@ -120,8 +119,8 @@
 	                       <div class="avatar-name rounded-circle">
 	                          <img src="<c:url value='/images/${map["IMAGE"]}'/>" class="avatar-name rounded-circle">
 	                       </div>
-                    	<p class="mb-0">${map['NAME']}</p>
 	                    </div>
+                    	<p class="mb-0">${map['NAME']}</p>
                     </div>
                     <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5">
                     	<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span>
@@ -134,11 +133,13 @@
 	                  <div id="content">
 	                  	 ${content}
 	                  </div>
-                    <div class="p-x1 bg-light rounded-3 mt-3">
-                      <div class="row flex-between-center gx-4 gy-2">
-                      	<img src="<c:url value='/pds_upload/${map["FILENAME"] }'/>">
-                      </div>
-                    </div>
+	                  <c:forEach var="imgMap" items="${list }">
+	                    <div class="p-x1 bg-light rounded-3 mt-3">
+	                      <div class="row flex-between-center gx-4 gy-2">
+	                      	<img src="<c:url value='/pds_upload/${imgMap["FILENAME"]}'/>">
+	                      </div>
+	                    </div>
+	                  </c:forEach>
                   </div>
                   <div class="my-5 position-relative text-center">
                     <hr class="position-absolute top-50 border-300 w-100 my-0" /><span class="position-relative bg-white dark__bg-card-dark px-3 z-1">
@@ -185,7 +186,7 @@
 			                  	 <input type="hidden" name="boardNo" value="${commtMap['BOARD_NO']}">
 			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
 			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
-				                  <button class="btn btn-primary btn-sm me-2" id="editOk" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="확인" data-dismiss="collapse">확인</button>
+				                 <button class="btn btn-primary btn-sm me-2" id="editOk" style="display: none;" type="submit" title="확인" >확인</button>
 			                  </div>
 		                  </form>
 	                  </div>

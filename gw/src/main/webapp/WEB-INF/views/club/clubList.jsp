@@ -16,39 +16,39 @@
                 <div class="card-header admindefault border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
-                      <div class="col-auto pe-0">
-                        <h6 class="mb-0">Club List</h6>
-                      </div>
-                       <div class="col-auto pe-0">
-                    <form name="frmSerch" action="<c:url value='/club/clubList'/>" method="post">
-                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-	                            <option value="title"
-	                            	<c:if test="${param.searchCondition=='title'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >제목</option>
-	                            <option value="manager"
-                       		        <c:if test="${param.searchCondition=='manager'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >이름</option>
-	                            <option value="introduce"
-	                            	<c:if test="${param.searchCondition=='introduce'}">
-	                            		selected = "selected"
-	                            	</c:if>
-	                            >소개</option>
-                          </select>
-                  </form>
-                      </div>
-                      <div class="col-auto">
-                          <div class="input-group input-search-width">
-                            <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
-                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
-                          </div>
-                      </div>
-                      </div>
-                      
-                    
+                      	<div class="col-12 pe-0">
+                        	<h6 class="mb-0">Club List</h6>
+                     	 </div>
+		                 <form name="frmSerch" action="<c:url value='/club/clubList'/>" method="post">
+	                     	 <div class="row pe-0">
+	                      	 	<div class="col-auto pe-0">
+		                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+			                            <option value="title"
+			                            	<c:if test="${param.searchCondition=='title'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >제목</option>
+			                            <option value="manager"
+		                       		        <c:if test="${param.searchCondition=='manager'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >이름</option>
+			                            <option value="introduce"
+			                            	<c:if test="${param.searchCondition=='introduce'}">
+			                            		selected = "selected"
+			                            	</c:if>
+			                            >소개</option>
+		                          </select>
+	                     	 	</div>
+			                     <div class="col-auto">
+									<div class="input-group input-search-width">
+			                            <input class="form-control form-control-sm shadow-none search" type="text" name="searchKeyword" placeholder="Search  by name" aria-label="search" />
+			                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+			                        </div>
+			                     </div>
+	                    	 </div>
+		                 </form>
+                    </div>
                     <div class="border-bottom border-200 my-3"></div>
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>

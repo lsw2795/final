@@ -79,8 +79,8 @@ public class ClubServiceImpl implements ClubService{
 	}
 
 	@Override
-	public List<Map<String, Object>> adminClubList() {
-		return clubDao.adminClubList();
+	public List<Map<String, Object>> adminClubList(SearchVO searchVo) {
+		return clubDao.adminClubList(searchVo);
 	}
 
 	@Override

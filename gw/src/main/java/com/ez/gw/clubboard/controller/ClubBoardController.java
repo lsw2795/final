@@ -85,9 +85,9 @@ public class ClubBoardController {
 			logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
 			
 			int i=0;
-			if(files.size()>0) {
-				for(MultipartFile f : files){
-					originalFileName = f.getOriginalFilename();
+			for(MultipartFile f : files){
+				originalFileName = f.getOriginalFilename();
+				if(originalFileName!="") {
 					int idx=originalFileName.indexOf(".");
 					logger.info("idx={}",idx);
 					String cutfile = originalFileName.substring(idx);
@@ -112,8 +112,8 @@ public class ClubBoardController {
 					logger.info("board_no={}", clubVo.getBoardNo());
 					int res=pdsService.clubFiles(pdsVo);
 					logger.info("파일 db저장 결과 res={}",res);		
-				}//for
-			}//if
+				}
+			}//for
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -134,7 +134,7 @@ public class ClubBoardController {
 	}
 	
 	
-	@GetMapping("/club/clubBoard")
+	@RequestMapping("/club/clubBoard")
 	public String clubBoadList(@ModelAttribute SearchVO saerchVo,
 			@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
@@ -158,7 +158,8 @@ public class ClubBoardController {
 	
 	@RequestMapping("/club/clubBoardDetail")
 	public String detailClubBoard(@RequestParam(defaultValue = "0")int clubNo,
-			@RequestParam(defaultValue = "0")int boardNo,Model model) {
+			@RequestParam(defaultValue = "0")int boardNo,
+			Model model) {
 		//1.
 		logger.info("동호회 게시판 상세보기 clubNo={},boardNo={}",clubNo,boardNo);
 		
@@ -169,16 +170,22 @@ public class ClubBoardController {
 			return "common/message";
 		}
 		
-		clubBoardService.updateReadcount(boardNo); //조회수
+		int readcount=clubBoardService.updateReadcount(boardNo); //조회수
+		logger.info("동게 조회수 readcount={}",readcount);
 		
 		//2.
 		Map<String, Object> map = clubBoardService.detailClubBoard(clubNo, boardNo);
 		logger.info("동호회게시글 상세보기 결과 map={}",map);
 		
+		List<Map<String, Object>> list=clubBoardService.selectImg(boardNo);
+		logger.info("동호회게시글 상세보기 이미지 list={}",list.size());
+		
+		
 		List<Map<String, Object>> commtList = cbcService.selectCommClub(clubNo, boardNo);
 		logger.info("해당 동호회게시글 모든 답변 결과 commtList.size={}",commtList.size());
 		//3.
 		model.addAttribute("map", map);
+		model.addAttribute("list", list);
 		model.addAttribute("commtList", commtList);
 		
 		//4.

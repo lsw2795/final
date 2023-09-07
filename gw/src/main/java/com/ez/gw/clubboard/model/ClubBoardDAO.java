@@ -16,5 +16,5 @@ public interface ClubBoardDAO {
 	int updateClubBoard(ClubBoardVO clubVo);
 	Map<String, Object> detailClubBoard(int clubNo, int boardNo);
 	int deleteClubBoard(int boardNo);
-	
+	List<Map<String, Object>> selectImg(int clubBoardNo); //이미지만 가져오기
 }

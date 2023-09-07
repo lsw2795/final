@@ -294,11 +294,11 @@ public class ClubController {
 	
 	
 	@RequestMapping("/admin/adminclub/adminPayment")
-	public String paymentList( Model model) {
+	public String paymentList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1.
 		logger.info("관리자 - 동호회비결제 현황");
 		//2.
-		List<Map<String, Object>> list = clubService.adminClubList();
+		List<Map<String, Object>> list = clubService.adminClubList(searchVo);
 		logger.info("관리자 - 동호회 가입 list.size={}",list.size());
 		
 		

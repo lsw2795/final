@@ -29,33 +29,17 @@
 	var clickCount = 0;
 
 	function editComment(textDivId, commentNo) {
+		$('#btEdit').hide();
 	  // 생성할 form 요소를 jQuery를 사용하여 생성합니다.
-	  var formHtml = '<form name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
+	  var formHtml = '<form id="editComment" name="editForm" method="post" action="<c:url value="/qna/editComment"/> ">' +
 	    '<input type="hidden" name="commentNo" value="' + commentNo + '" />' +
-	    '<input type="text" name="boardNo" value="${map["BOARD_NO"]}" />' +
-	    '<textarea id="editArea" name="content" form="editForm" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
+	    '<input type="hidden" name="boardNo" value="${map["BOARD_NO"]}" />' +
+	    '<textarea id="editArea" name="content" form="editComment" cols="40" rows="5" placeholder="수정할 답변을 입력해주세요."></textarea>' +
+	    '<div><input type="submit" value="수정"></div>' + 
 	    '</form>';
 
 	  // moveComment 요소에 formHtml을 추가합니다.
 	  $('#' + textDivId).html(formHtml);
-
-	  // 클릭 횟수를 증가시킵니다.
-	  clickCount++;
-
-	  if (clickCount === 1) {
-	    // 처음 클릭할 때는 수정 버튼의 click 이벤트를 제거하고, 다음 클릭 시 editCommentOk 함수를 호출합니다.
-	    $('#btEdit').off('click').on('click', function () {
-	      editCommentOk('editForm');
-	    });
-	  }
-	}
-
-	function editCommentOk(formName) {
-	  // formName을 사용하여 폼을 서브밋합니다.
-	  var form = document.forms[formName];
-	  if (form) {
-	    form.submit();
-	  }
 	}
 
  	

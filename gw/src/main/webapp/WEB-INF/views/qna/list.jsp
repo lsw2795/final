@@ -11,14 +11,23 @@
 </script>
 
 <style>
-  .avatar img {
-    size: 10px;
-  }
+	
+	
+	  .avatar img {
+	    size: 10px;
+	  }
   
  	.d-flex.align-items-center.gap-2.position-relative {
  	  	margin-left: 10px;
 	}
 	
+	tbody#table-contact-body {
+   		height: 700px;
+	}
+	
+	.col-lg-12.pe-lg-2.mb-3 {
+    	width: 1200px;
+	}
 </style>
  <!-- 페이징 처리 관련 form -->
 	<form action="<c:url value='/qna/list'/>" 
