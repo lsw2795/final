@@ -76,7 +76,9 @@
             <div class=" accordion-item border-0">
               <div class="card-header p-0 d-flex align-items-center mypageempdiv15" id="faqAccordionHeading${boardVo.boardNo }">
                 <button type="button" class="accordion-button btn btn-link text-decoration-none d-block w-100 py-2 px-3 collapsed border-0 text-start rounded-0 shadow-none"
-                data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }" aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }">
+                data-bs-toggle="collapse" data-bs-target="#collapseFaqAccordion${boardVo.boardNo }"
+                 aria-expanded="false" aria-controls="collapseFaqAccordion${boardVo.boardNo }"
+                 style="background: #dbe2ee;">
                 <span class="fas fa-caret-right accordion-icon me-3" data-fa-transform="shrink-2"></span>
                 <span class="fw-medium font-sans-serif text-900">${boardVo.title }</span>
                 </button>
