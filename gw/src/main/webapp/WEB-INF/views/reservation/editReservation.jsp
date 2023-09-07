@@ -235,9 +235,9 @@
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
                 </div>
 
-                <div class="modal-body">
-                    <div class="form-group">
-                    	<label class="form-label" for="product-name"> 자원 종류</label> 
+                <div class="card-body">
+                    <div class="col-12 mb-3">
+                    	<label class="col-form-label" for="product-name"> 자원 종류</label> 
 						<select class="form-select" aria-label="Default select example" id = "category" name = "category" style="width:40%">
 							<option value="">선택하세요.</option>
 							<option value="meetingRoom">회의실</option>
@@ -245,7 +245,7 @@
 							<option value="rentCar">차량</option>
 						</select>
 						<div id = "meetingRoomBox">
-						<label class="form-label" for="product-name" >자원</label>
+						<label class="col-form-label" for="product-name" >자원</label>
 						<select class="form-select" aria-label="Default select example" id = "meetingRoom" style="width:55%">
 							<option value="" disabled> 선택하세요.</option>
 						<c:forEach var = "mr" items="${meetingRoom }"> 

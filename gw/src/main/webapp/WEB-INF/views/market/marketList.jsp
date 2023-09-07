@@ -76,6 +76,7 @@ div#selflagbox {
 	
 </script>
 <div class="card-body">
+<!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/market/marketList'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
@@ -83,35 +84,36 @@ div#selflagbox {
 	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
 	<input type = "hidden" name = "checkSelflag" value="${param.checkSelflag }">
 </form>
- <div class="row gx-3">
-	<h2>중고거래 게시판</h2>
+<!-- 페이징 처리 관련 form -->
+<h2>중고거래 게시판</h2>
+	<div class="col-lg-12 pe-lg-2 mb-3">
 	  <div class="row flex-between-center">
 		<div class="card" id="allContactTable" data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":10,"pagination":true,"fallback":"contact-table-fallback"}'>
 		  <div class="card-header border-bottom border-200 px-0">
 			<div class="d-lg-flex justify-content-between">
+			  <div class="row flex-between-center gy-2 px-x1">
 				<form name = "frmSearch" action='<c:url value='/market/marketList'/>'>
-					<div class="row flex-between-center gy-2 px-x1">
-						<div class="col-auto pe-0">
-							<select name="searchCondition"
-									class="form-select"  aria-label="Bulk actions">
-									<option value="title"
-										<c:if test="${param.searchCondition=='title'}">
-	                            		selected = "selected"
-	                            	</c:if>>제목</option>
-									<option value="NAME"
-										<c:if test="${param.searchCondition=='NAME'}">
-	                            		selected = "selected"
-	                            	</c:if>>이름</option>
-									<option value="discription"
-										<c:if test="${param.searchCondition=='discription'}">
-	                            		selected = "selected"
-	                            	</c:if>>내용</option>
-								</select>
+				  <div class="row flex-between-center gy-2 px-x1">
+					<div class="col-auto pe-0">
+						<select name="searchCondition" class="form-select admindefault"  aria-label="Bulk actions">
+								<option value="title"
+									<c:if test="${param.searchCondition=='title'}">
+	                           		selected = "selected"
+	                           	</c:if>>제목</option>
+								<option value="NAME"
+									<c:if test="${param.searchCondition=='NAME'}">
+	                           		selected = "selected"
+	                           	</c:if>>이름</option>
+								<option value="discription"
+									<c:if test="${param.searchCondition=='discription'}">
+	                           		selected = "selected"
+	                           	</c:if>>내용</option>
+							</select>
 						</div>
 						<div class="col-auto">
 							<div class="input-group input-search-width">
 								<input name="searchKeyword"
-									class="form-control form-control-sm shadow-none search"
+									class="form-control shadow-none search admindefault"
 									value='${param.searchKeyword}' type="search"
 									placeholder="검색어 입력" aria-label="search" />
 								<button
@@ -120,20 +122,23 @@ div#selflagbox {
 								</button>
 							</div>
 						</div>
-					</div>
-					<div class="border-bottom border-200 my-3"></div>
-							<div id="selflagbox">
+						<div class="col-auto searchEmpResult admindefault" style="padding: 10px 0 0 25px;">
+							<c:if test="${!empty param.searchKeyword }">
+							   <p>검색어 : ${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
+							</c:if>   
+						</div>
+						<div id="selflagbox">
 							거래 가능 상품만 보기
 							<input type ="checkbox" name="checkSelflag" id="checkSelflag" onchange="submitForm()" 
 								<c:if test="${param.checkSelflag==true}">
 									checked="checked"
 								</c:if>
 							 value="true">
-							</div>
+						</div>
 				</form>
 				</div>
-				</div>
-			
+			</div>
+		</div>
 		<br>
 		<div class="card">
 			<div class="card-body p-0 overflow-hidden">
@@ -255,7 +260,6 @@ div#selflagbox {
 				</div>
 			</div>
 		</div>
-	  </div>
 		<!-- 페이징 처리  -->
       	<div class="board_page">
 		<!-- 페이지 번호 추가 -->		
@@ -291,7 +295,8 @@ div#selflagbox {
 	         <a href="#" class="bt last" onclick="pageFunc(${pagingInfo.lastPage+1})">>></a>
 		</c:if>
 		<!--  페이지 번호 끝 -->
-	</div>
+		</div>
+	  </div>
 	</div>
 </div>
 	<%@ include file="../inc/bottom.jsp"%>
