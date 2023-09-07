@@ -87,7 +87,7 @@
         	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">가입완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
         </c:if>
         <c:if test="${empty map['MERCHANT_NO']}">
-        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">가입대기<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">개설자<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
         </c:if>
         </td>
       </tr>
@@ -98,6 +98,7 @@
       <p class="fw-bold fs-1 mt-3">No club found</p>
   </div>
    </div>
+   
       <div class="card-footer">
        <div class="d-flex justify-content-center">
         <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
@@ -106,4 +107,5 @@
        </div>
   	</div>
 </div>
+
 <%@ include file='../../inc/adminBottom.jsp'%>

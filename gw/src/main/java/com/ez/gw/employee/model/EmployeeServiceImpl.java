@@ -192,6 +192,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selEmpCountByDeptName(year);
 	}
 
+	@Override
+	public int createClub(EmployeeVO empVo) {
+		return employeeDao.createClub(empVo);
+	}
+
 
 
 }

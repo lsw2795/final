@@ -18,6 +18,7 @@
 			alert('답변 수정하시겠습니까?');
 		});
 	});
+	
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
@@ -28,8 +29,20 @@
 		$(contentDiv).find('input[name=content]').attr('type', 'textarea');
 		
 	}
+	function editCancel(bt) {
+		var parent=$(bt).closest('#content');
+		var str=$(parent).find('span').text();
+		$(parent).find('input[name=content]').val(str);
+		
+		$(parent).find('#editOk').hide();
+		$(parent).find('#canBtn').hide();
+		$(parent).find('span').show();
+		$(parent).find('input[name=content]').attr('type', 'hidden');
+		
+	}
 	
 	$(function() {
+		
 	    $('#clubReportBtn').click(function() {
 	    	event.preventDefault(); // 기본 동작 중단
 	        if (confirm('해당 게시글을 신고하시겠습니까?')) {
@@ -51,7 +64,7 @@
 	        }
 	    });
 	    
-	    $('#submitCommt').click(function () {
+	    $('#commentFrm').submit(function () {
 		    if($('#content').val().length<1){
 		    	alert('답변을 입력해주세요.');
 		    	return false;
@@ -200,7 +213,7 @@
 			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
 			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
 				                 <button class="btn btn-primary btn-sm me-2" id="editOk" style="display: none;" type="submit" title="확인" >확인</button>
-				                 <button class="btn btn-light btn-sm" id="canBtn" type="button" data-bs-toggle="tooltip" style="display: none;" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
+				                 <button class="btn btn-light btn-sm" onclick="editCancel(this)" id="canBtn" type="button"  style="display: none;" title="Delete">취소</button>
 			                  </div>
 		                  </form>
 	                  </div>
@@ -210,7 +223,7 @@
             </div>
 
             <!-- 답변 등록 -->
-            <form id="commtentFrm" name="commtentFrm" action="<c:url value='/club/clubComment'/>" method="post">
+            <form id="commentFrm" name="commentFrm" action="<c:url value='/club/clubComment'/>" method="post">
 	            <input name="empNo" type="hidden" value="${sessionScope.empNo}">
             	<input name="clubNo" type="hidden" value="${param.clubNo}">
             	<input name="boardNo" type="hidden" value="${param.boardNo}">
@@ -230,7 +243,7 @@
 	                  </div>
 	            </div>
 	            <div class="card-footer bg-light" id="preview-footer">
-	                 <button class="btn btn-falcon-default btn-sm fs--1" type="button" data-bs-toggle="collapse" data-bs-target="#previewMailForm" aria-expanded="false" aria-controls="previewMailForm"><span class="fas fa-reply"></span><span class="d-none d-sm-inline-block ms-1">Comment</span></button>
+	                 <button id="comment" class="btn btn-falcon-default btn-sm fs--1" type="button" data-bs-toggle="collapse" data-bs-target="#previewMailForm" aria-expanded="false" aria-controls="previewMailForm"><span class="fas fa-reply"></span><span class="d-none d-sm-inline-block ms-1">Comment</span></button>
 	            </div>
             </div>
          

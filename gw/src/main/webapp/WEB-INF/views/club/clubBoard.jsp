@@ -8,7 +8,7 @@
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-12 pe-0">
-                        <h6 class="mb-0">Club Board</h6>
+                        <h6 class="mb-0">${map['TITLE']}  Club Board</h6>
                       </div>
                       <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 						<div class="row pe-0">
