@@ -13,7 +13,11 @@
 			location.href = "<c:url value='/club/deleteComment?commentNo="+commentNo+"&clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
-	
+	$(function() {
+		$('#editOk').click(function() {
+			alert('답변 수정하시겠습니까?');
+		});
+	});
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
@@ -45,6 +49,14 @@
 	            });
 	        }
 	    });
+	    
+	    $('#submitCommt').click(function () {
+		    if($('#content').val().length<1){
+		    	alert('답변을 입력해주세요.');
+		    	return false;
+		    }
+		});
+		
 	});
 
 	
@@ -168,7 +180,7 @@
 								<button onclick="deleteComment(${commtMap['COMMENT_NO']})" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
 									<span class="fas fa-trash-alt"></span>
 								</button>
-								<button class="btn btn-sm me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
+								<button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
        						</c:if>
 		                </div>
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
@@ -204,11 +216,11 @@
             	<div class="collapse transition-none" id="previewMailForm">
 	                  <h5 class="mb-0 p-x1 bg-light">답변 내용</h5>
 	                  <div class="border border-y-0 border-200">
-	                    <textarea form="commtentFrm" class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="10"></textarea>
+	                    <textarea form="commtentFrm" class="form-control" id="content" name="content" cols="50" rows="10"></textarea>
 	                  </div>
 	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">
 	                    <div class="d-flex align-items-center">
-	                      <button class="btn btn-primary btn-sm px-4 me-2" type="submit">등록</button>
+	                      <button class="btn btn-primary btn-sm px-4 me-2" id="submitCommt" type="submit">등록</button>
 	                    </div>
 	                    <div class="d-flex align-items-center">
 	                      <button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
