@@ -42,7 +42,7 @@
         <div class="tab-content">
           <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
             	<div id="commute">
-            		여기다 근태 넣어주세요.
+					<c:import url="/inc/indexCommute"/>
             	</div>
             	<div id="weather">
             		<c:import url="inc/weather.jsp"></c:import>
