@@ -126,6 +126,7 @@
                       <div class="mb-3">
                         <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in</button>
                       </div>
+                      <div class="col-auto"><a class="fs--1" href="<c:url value='/admin/login'/>">Admin</a></div>
                     </form>
                   </div>
                 </div>
