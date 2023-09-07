@@ -440,30 +440,13 @@
                     		</li>
 						</ul>
                   	</li>
-                  	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#f" role="button" data-bs-toggle="collapse">
-	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-text"><span class="fas fa-download"></span></span>
-	                    		<span class="nav-link-text ps-1">자료실</span>
-	                    	</div>
-	                  	</a>
-	                  	<ul class="nav collapse" id="f">
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="<c:url value='/pds/list'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">파일 다운로드</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">다운로드 파일 관리</span>
-                        			</div> 
-                      			</a>
-                    		</li>
-						</ul>
-                  	</li>
+                  	
+   					<a class="nav-link" href="<c:url value='/pds/list'/>" role="button" data-toggle="collapse">
+                    	<div class="d-flex align-items-center">
+                    		<span class="nav-link-text"><span class="fas fa-download"></span></span>
+                   			<span class="nav-link-text ps-1">자료실</span>
+                    	</div>
+                  	</a>
                   	<!-- label-->
                   	<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
 	                    <div class="col-auto navbar-vertical-label">

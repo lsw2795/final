@@ -146,3 +146,15 @@
 .mypageempdiv18{
 	margin: 50px 150px 50px 310px;
 }
+.dept-board-link {
+  text-decoration: none;
+  color: #5e6e82;
+  display: inline-block;
+  padding: 10px;
+  font-weight: bold;
+  transition: color 0.3s, background-color 0.3s; 
+}
+.dept-board-link:hover {
+   color: rgb(64, 0, 64);
+   background-color:#eff2f8;
+}
