@@ -23,6 +23,7 @@
 		var contentDiv=$(parent).next('div');
 		
 		$(contentDiv).find('#editOk').show();
+		$(contentDiv).find('#canBtn').show();
 		$(contentDiv).find('span').hide();
 		$(contentDiv).find('input[name=content]').attr('type', 'textarea');
 		
@@ -180,7 +181,7 @@
 								<button onclick="deleteComment(${commtMap['COMMENT_NO']})" id="delComment" class="btn btn-falcon-default btn-sm mx-2" type="button">
 									<span class="fas fa-trash-alt"></span>
 								</button>
-								<button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
+								
        						</c:if>
 		                </div>
 		                  	<p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${commtMap['REGDATE']}" pattern="a h:mm"/></span><span class="fas fa-star ms-2 text-warning"></span></p>
@@ -199,6 +200,7 @@
 			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
 			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
 				                 <button class="btn btn-primary btn-sm me-2" id="editOk" style="display: none;" type="submit" title="확인" >확인</button>
+				                 <button class="btn btn-light btn-sm" id="canBtn" type="button" data-bs-toggle="tooltip" style="display: none;" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
 			                  </div>
 		                  </form>
 	                  </div>
