@@ -13,12 +13,19 @@
 			location.href = "<c:url value='/club/deleteComment?commentNo="+commentNo+"&clubNo=${param.clubNo}&boardNo=${param.boardNo}'/>"
 		}
 	}
+	
 	$(function() {
 		$('#editOk').click(function() {
 			alert('답변 수정하시겠습니까?');
 		});
-	});
 	
+		$('form[name=commentFrm]').submit(function () {
+		    if($('form[name=commentFrm] #content').val().length<1){
+		    	alert('답변을 입력해주세요.');
+		    	return false;
+		    }
+		});
+	});
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
@@ -64,13 +71,6 @@
 	        }
 	    });
 	    
-	    $('#commentFrm').submit(function () {
-		    if($('#content').val().length<1){
-		    	alert('답변을 입력해주세요.');
-		    	return false;
-		    }
-		});
-		
 	});
 
 	
@@ -186,7 +186,7 @@
 			                         <img class="rounded-circle" src="<c:url value='/images/noImage.jpg'/>"  />
 			                    </div>
 		                    </c:if>
-		                    <p class="mb-0"><a class="fw-semi-bold mb-0 text-800" href="../../app/support-desk/contact-details.jsp">${commtMap['NAME']}</a>&nbsp;
+		                    <p class="mb-0">${commtMap['NAME']}&nbsp;
 		                	<c:if test="${sessionScope.empNo==commtMap['EMP_NO']}">
 							    <button class="btn btn-falcon-default btn-sm" onclick='editComment(this)' id="edit" type="button">
 							        <span class="fas fa-pen" ></span>
@@ -231,7 +231,7 @@
             	<div class="collapse transition-none" id="previewMailForm">
 	                  <h5 class="mb-0 p-x1 bg-light">답변 내용</h5>
 	                  <div class="border border-y-0 border-200">
-	                    <textarea form="commtentFrm" class="form-control" id="content" name="content" cols="50" rows="10"></textarea>
+	                    <textarea class="form-control" id="content" name="content" cols="50" rows="10"></textarea>
 	                  </div>
 	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">
 	                    <div class="d-flex align-items-center">
@@ -242,12 +242,11 @@
 	                    </div>
 	                  </div>
 	            </div>
+       		</form>
 	            <div class="card-footer bg-light" id="preview-footer">
 	                 <button id="comment" class="btn btn-falcon-default btn-sm fs--1" type="button" data-bs-toggle="collapse" data-bs-target="#previewMailForm" aria-expanded="false" aria-controls="previewMailForm"><span class="fas fa-reply"></span><span class="d-none d-sm-inline-block ms-1">Comment</span></button>
 	            </div>
             </div>
-         
-       		</form>
             <!-- 답변 등록 끝-->
             </div>
 <%@ include file='../inc/bottom.jsp'%>
