@@ -65,8 +65,8 @@
       	<td class="text-nowrap">
           <div class="d-flex align-items-center">
             <div class="avatar avatar-xl">
-              <div class="avatar-name rounded-circle" >
-              	<img src="<c:url value='/images/${map["IMAGE"]}'/>">
+              <div class="avatar-name rounded-circle">
+              	<img class="avatar-name rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
               </div>
             </div>
             <div class="ms-2">${map['NAME']}</div>
