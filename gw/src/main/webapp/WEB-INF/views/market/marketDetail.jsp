@@ -105,8 +105,7 @@ div#explains {
 				</div>
 			</c:if>
 		</div>
-		<input type="hidden" id="tradeNo" name="tradeNo"
-			value="${map['TRADE_NO'] }">
+		<input type="hidden" id="tradeNo" name="tradeNo" value="${map['TRADE_NO'] }">
 		<div class="d-md-flex d-xl-inline-block d-xxl-flex align-items-center justify-content-between mb-x1">
 			<div class="d-flex align-items-center gap-2">
 				<div class="avatar avatar-2xl">
@@ -171,7 +170,7 @@ div#explains {
 			<div class="row">
 				<div class="col-auto px-2 px-md-3">
 					<a class="btn btn-sm btn-primary"
-						href="<c:url value='/message/messageWrite?empNo=${emp.empNo}'/>">
+						href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"]}'/>">
 						<span class="fas fa-envelope-open"></span> <span
 						class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span>
 					</a>
