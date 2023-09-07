@@ -13,7 +13,7 @@ public class NewsController {
 	private String clientId = "VvgfyIV_bSjmsS0Y0nvX"; 		
 	private String clientSecret = "oBQSkhP6cz";
 	
-	@GetMapping("/inc/news")
+	@GetMapping("/news")
 	public String list(@RequestParam String searchWord) {
 		
 		final String uri = "https://openapi.naver.com/v1/search/news.json?query=" + searchWord.trim() +"&display=100&sort=sim";
