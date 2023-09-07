@@ -8,7 +8,7 @@
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-12 pe-0">
-                        <h6 class="mb-0">Club Board</h6>
+                        <h6 class="mb-0">${map['TITLE']}  Club Board</h6>
                       </div>
                       <form name="clubBoardFrm" method="post" action="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 						<div class="row pe-0">
@@ -47,15 +47,21 @@
                     <div class="d-flex align-items-center justify-content-between justify-content-lg-end px-x1">
                       <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
+                      	<a href="<c:url value='/club/clubDetail?clubNo=${param.clubNo}'/>">
+							<button class="btn btn-falcon-default btn-sm" type="button">
+								<span class="fas fa-arrow-left">
+								</span>
+							</button>
+						</a>
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                      <c:if test="">
-                      </c:if>
+                      <c:if test="${sessionScope.clubNo==param.clubNo}">
                      	 <a href="<c:url value='/club/clubBoardWrite?clubNo=${param.clubNo}'/>">
                        		 <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                         		<span class="fas fa-plus" data-fa-transform="shrink-3">
                         		</span><span class="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">New</span>
                         	</button>
                         </a>
+                      </c:if>
                       </div>
                     </div>
                   </div>

@@ -200,4 +200,10 @@
 		order by dept_no asc
 	</select>
 	
+	<update id="createClub" parameterType="employeeVo" >
+		update employee
+		set club_no=#{clubNo}
+		where emp_no=#{empNo} 
+	</update>
+	
 </mapper>
