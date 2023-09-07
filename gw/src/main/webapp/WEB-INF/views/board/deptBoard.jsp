@@ -59,10 +59,18 @@
 					</c:if>
 					<c:if test="${!empty deptBoardList }">
 						<c:forEach var="deptBoardVo" items="${deptBoardList }">
+						<c:if test="${deptBoardVo.boardlistNo!=param.boardlistNo }">
 							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo}'/>"
 						     class="dept-board-link">
 						     <span>${deptBoardVo.boardName}</span>
 						   </a>
+						</c:if>
+						<c:if test="${deptBoardVo.boardlistNo==param.boardlistNo }">
+							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo}'/>"
+						     class="dept-board-link" style="background: #fde6d8; color:black;">
+						     <span>${deptBoardVo.boardName}</span>
+						   </a>
+						</c:if>
 						</c:forEach>
 					</c:if>
 					</div>
