@@ -170,7 +170,7 @@
 		        	selectedResource = $('#rentCar').val();
 		        }
 		 	var startTime = $('#startTime').val();
-			var endTime = $('#endTime').val();
+			var endTime = $('#endtime').val();
 			if(startTime.length < 1){
 				alert("시작시간을 선택해주세요.");
 				return false;
