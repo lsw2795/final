@@ -31,10 +31,9 @@
      <div class="card-header">
        <div class="row flex-between-end">
          <div class="col-auto align-self-center">
-           <h5 class="mb-0" data-anchor="data-anchor">근태관련</h5>
+           <h5 class="mb-0" data-anchor="data-anchor">근태</h5>
          </div>
          <div class="col-auto ms-auto">
-         여기에 버튼 필요하면 쓰세영 빼도되는기능임
          </div>
        </div>
      </div>
@@ -51,6 +50,29 @@
         </div>
       </div>
     </div>
+    
+    <div class="card mb-3">
+     <div class="card-header">
+       <div class="row flex-between-end">
+         <div class="col-auto align-self-center">
+           <h5 class="mb-0" data-anchor="data-anchor"></h5>
+         </div>
+         <div class="col-auto ms-auto">
+         	<a href="<c:url value='/calendar/fullCalendar'/>">
+				캘린더   	
+         	</a>	
+         </div>
+       </div>
+     </div>
+      <div class="card-body bg-light">
+        <div class="tab-content">
+          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" style="width:100%;">
+            <div class="input-group flex-nowrap" >
+            	<c:import url="/indexCalendar"></c:import>
+            </div>
+          </div>
+        </div>
+      </div>
    
    	<div class="row g-3 mb-3">
           <div class="col-lg-6">
@@ -154,28 +176,7 @@
             </div>
   			</div>
           
-  <div class="card mb-3">
-     <div class="card-header">
-       <div class="row flex-between-end">
-         <div class="col-auto align-self-center">
-           <h5 class="mb-0" data-anchor="data-anchor"></h5>
-         </div>
-         <div class="col-auto ms-auto">
-         	<a href="<c:url value='/calendar/fullCalendar'/>">
-				캘린더   	
-         	</a>	
-         </div>
-       </div>
-     </div>
-      <div class="card-body bg-light">
-        <div class="tab-content">
-          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" style="width:100%;">
-            <div class="input-group flex-nowrap" >
-            	<c:import url="/indexCalendar"></c:import>
-            </div>
-          </div>
-        </div>
-      </div>
+  
       
       						<div class="row row-card-no-pd">
 							<div class="col-md-4">
