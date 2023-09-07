@@ -47,7 +47,7 @@
 				return false;
 			}
 
-			if($('#confirmLineNo').val().length==0){
+			if($('input[name=confirm1]').val().length==0){
 				alert('결재선을 선택하세요');
 				$('#select').focus();
 				return false;
