@@ -48,4 +48,5 @@ public interface EmployeeService {
 	List<Integer> selectRetire(); //퇴사자
 	Integer selectByClubNo(int empNo); 
 	List<Map<String, Object>> selEmpCountByDeptName(int year); //부서포함 년도별 입사자 수
+	int createClub(EmployeeVO empVo); //개설자 동호회 번호 넣어주기
 }

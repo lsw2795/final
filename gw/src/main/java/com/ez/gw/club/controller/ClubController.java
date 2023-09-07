@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.bouncycastle.asn1.cmp.CertRepMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import com.ez.gw.clubboard.model.ListClubBoardVO;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.employee.model.EmployeeService;
+import com.ez.gw.employee.model.EmployeeVO;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
@@ -55,6 +57,12 @@ public class ClubController {
 		int cnt=clubService.insertClub(vo);
 		logger.info("동호회 개설 결과 cnt={}",cnt);
 		
+		EmployeeVO empVo = new EmployeeVO();
+		empVo.setEmpNo(empNo);
+		empVo.setClubNo(vo.getClubNo());
+		
+		int res=empService.createClub(empVo);
+		logger.info("동호회 개설 res={}",res,vo.getClubNo());
 		
 		
 		String msg="동호회 개설 실패", url="/club/clubList";

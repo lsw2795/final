@@ -73,10 +73,11 @@
                   <h5 class="mb-2 mb-md-0">동호회 개설</h5>
                 </div>
                 <div class="col-auto">
-		          <button class="btn btn-falcon-default btn-sm"type="button">
 		          	<a href="<c:url value='/club/clubList'/>">
-		          	<span class="fas fa-arrow-left"></span></a>
-		          </button>
+			          <button class="btn btn-falcon-default btn-sm"type="button">
+		          		<span class="fas fa-arrow-left"></span>
+			          </button>
+		          	</a>
                   <button class="btn btn-primary btn-sm me-2" type="submit">저장</button>
                 </div>
               </div>

@@ -113,7 +113,7 @@ public class deptBoardController {
 		//다중파일 업로드 처리
 		String fileName="", originalFileName="",filePath = "";
 		long fileSize=0;
-		logger.info("관리자 - 공지사항 글 등록 결과, cnt={}", cnt);
+		logger.info("부서게시판 글 등록 결과, cnt={}", cnt);
 		
 		int result=0;
 		try {
@@ -296,7 +296,7 @@ public class deptBoardController {
 		
 		String msg = "게시글 수정에 실패했습니다.", url = "/board/deptBoardEdit?boardlistNo="+vo.getBoardlistNo()+"&boardNo=" + vo.getBoardNo();
 		if(cnt>0) { //파일 등록을 안할 수도 있으니까 result>0 뺌
-			msg = "공지사항 수정이 완료되었습니다.";
+			msg = "게시글 수정이 완료되었습니다.";
 			url = "/board/deptBoardDetail?boardlistNo="+vo.getBoardlistNo()+"&boardNo=" + vo.getBoardNo();
 		}
 		//3

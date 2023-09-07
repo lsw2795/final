@@ -150,15 +150,15 @@ input[type="file"].default-style {
                     <div class="row gx-2">
                       <div class="col-12 mb-3"s>
                         <label class="form-label" for="product-name">제목</label>
-                        <input class="form-control" id="product-name" name="title" type="text" value="${vo.title }"/>
+                        <input class="form-control" id="product-name" name="title" type="text" value="${vo['TITLE'] }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="identification-no">상품명</label>
-                        <input class="form-control" id="identification-no" name = "product" type="text" value="${vo.product }"/>
+                        <input class="form-control" id="identification-no" name = "product" type="text" value="${vo['PRODUCT'] }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">가격</label>
-                        <input class="form-control" id="product-summary" name = "price" type="text" value="${vo.price }"/>
+                        <input class="form-control" id="product-summary" name = "price" type="text" value="${vo['PRICE'] }"/>
                       </div>
                       <div class="col-12 mb-3">
                         <label class="form-label" for="product-summary">비밀번호</label>
@@ -173,7 +173,7 @@ input[type="file"].default-style {
 						<div class="col-md-6 mypagespan">
 					        <div class="form-check">
 		                        <label class="form-check-label mb-0" for="marriedFlagY">거래완료</label>
-		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selFlag" value="Y"/>
+		                        <input type="checkbox" class="form-check-input" id="soldout"  name="selFlag" value="${vo['SELFLAG'] }"/>
 	                       </div>
 	                       <span class="mypagehyphen"></span>
 				    	</div>
@@ -182,7 +182,7 @@ input[type="file"].default-style {
                       <label class="form-label" for="product-description">자세한 설명</label>
                       <div class="create-product-description-textarea">
                         <textarea class="form-control" data-tinymce="data-tinymce" name="discription" id="product-description"
-                        	style="height:300px">${vo.discription }</textarea>
+                        	style="height:300px">${vo['DISCRIPTION'] }</textarea>
                       </div>
                    	</div>
                     </div>
@@ -202,7 +202,7 @@ input[type="file"].default-style {
 	                <c:forEach var="file" items="${fileList }">
 	               	 <img src = "<c:url value='/market/upload/${file.imageURL }'/>"
 	               	 	style="max-width:240px; max-height:200px">
-	               	 <input type="text" name="imageURL" value="${file.imageURL}">|	
+	               	 <input type="hidden" name="imageURL" value="${file.imageURL}">	
                     </c:forEach>
                     </div>
                     <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
