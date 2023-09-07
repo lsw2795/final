@@ -53,14 +53,14 @@
                 </div>
               </div>
             </div>
-            <div class="card-body admindefault" style="background: #f9fafd;">
+            <div class="card-body admindefault" style="background: #fffcf0;">
                 <div class="col-lg-12">
                   <div class="card shadow-none mb-3 admindefault">
                     <div class="card-body adminempdiv15">
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>
-                  <div class="shadow-none mb-3 admindefault" style="background: #f9fafd;">
+                  <div class="shadow-none mb-3 admindefault" style="background: #fffcf0;">
                       <h6 style="color: black;">첨부 파일</h6>
                       <c:if test="${empty pdsList}">
                       첨부파일이 없습니다.

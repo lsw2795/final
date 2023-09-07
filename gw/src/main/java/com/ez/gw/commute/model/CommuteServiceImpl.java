@@ -108,6 +108,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.updateWorkTime(commuteVo);
 	}
 
+	@Override
+	public CommuteVO selectTodayCommute(int empNo) {
+		return commuteDao.selectTodayCommute(empNo);
+	}
+
 	
 	
 }

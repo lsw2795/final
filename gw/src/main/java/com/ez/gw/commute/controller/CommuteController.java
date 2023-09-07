@@ -176,50 +176,85 @@ public class CommuteController {
 				// 시간 추출
 				String workInStr = (String) map.get("WORK_IN");
 				String workOutStr = (String) map.get("WORK_OUT");
+				
+				if (workOutStr != null) {
+					LocalDateTime workInTime = LocalDateTime.parse(workInStr, formatter);
+					LocalDateTime workOutTime = LocalDateTime.parse(workOutStr, formatter);
+	
+					// 시간 정보만 추출 (초 제외)
+					LocalTime workInTimeOnly = workInTime.toLocalTime().withSecond(0);
+					LocalTime workOutTimeOnly = workOutTime.toLocalTime().withSecond(0);
+	
+					// 근무 시간 계산
+					Duration workDuration = Duration.between(workInTime, workOutTime);
+					long workHours = workDuration.toHours();
+					long workMinutes = (workDuration.toMinutes() % 60);
+	
+					totalHours += workHours; // 월 총 근무시간
+					totalMinutes += workDuration.toMinutes(); // 월 총 근무시간 (분 단위)
+	
+					// 날짜에서 년도, 월, 일, 요일 추출
+					LocalDate workDate = workInTime.toLocalDate();
+					int year = workDate.getYear();
+					int month = workDate.getMonthValue();
+					int day = workDate.getDayOfMonth();
+					String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
+	
+					//근태상태 조회 
+					BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
+					int state = stateBig.intValue();
+					String stateResult = "";
+	
+					if(state==0) {
+						stateResult = "정상근무";
+					}else if(state==1) {
+						stateResult = "지각";
+					}else if(state==2) {
+						stateResult = "조퇴" ;
+					}else if(state==3) {
+						stateResult = "지각 + 조퇴";
+					}
+	
+					map.put("state", stateResult);
+					map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
+					map.put("workInTime", workInTimeOnly); //출근 시간
+					map.put("workOutTime", workOutTimeOnly); //퇴근 시간
+					map.put("workTime", String.format("%02d:%02d", workHours, workMinutes)); // 근무 시간
+				}else {
+					LocalDateTime workInTime = LocalDateTime.parse(workInStr, formatter);
 
-				LocalDateTime workInTime = LocalDateTime.parse(workInStr, formatter);
-				LocalDateTime workOutTime = LocalDateTime.parse(workOutStr, formatter);
+					// 시간 정보만 추출 (초 제외)
+					LocalTime workInTimeOnly = workInTime.toLocalTime().withSecond(0);
 
-				// 시간 정보만 추출 (초 제외)
-				LocalTime workInTimeOnly = workInTime.toLocalTime().withSecond(0);
-				LocalTime workOutTimeOnly = workOutTime.toLocalTime().withSecond(0);
 
-				// 근무 시간 계산
-				Duration workDuration = Duration.between(workInTime, workOutTime);
-				long workHours = workDuration.toHours();
-				long workMinutes = (workDuration.toMinutes() % 60);
+					// 날짜에서 년도, 월, 일, 요일 추출
+					LocalDate workDate = workInTime.toLocalDate();
+					int year = workDate.getYear();
+					int month = workDate.getMonthValue();
+					int day = workDate.getDayOfMonth();
+					String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
 
-				totalHours += workHours; // 월 총 근무시간
-				totalMinutes += workDuration.toMinutes(); // 월 총 근무시간 (분 단위)
+					//근태상태 조회 
+					BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
+					int state = stateBig.intValue();
+					String stateResult = "";
 
-				// 날짜에서 년도, 월, 일, 요일 추출
-				LocalDate workDate = workInTime.toLocalDate();
-				int year = workDate.getYear();
-				int month = workDate.getMonthValue();
-				int day = workDate.getDayOfMonth();
-				String dayOfWeek = workDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN); // 요일 계산 (한글로)
+					if(state==0) {
+						stateResult = "정상근무";
+					}else if(state==1) {
+						stateResult = "지각";
+					}else if(state==2) {
+						stateResult = "조퇴" ;
+					}else if(state==3) {
+						stateResult = "지각 + 조퇴";
+					}
 
-				//근태상태 조회 
-				BigDecimal stateBig = (BigDecimal)map.get("COMMUTE_STATE");
-				int state = stateBig.intValue();
-				String stateResult = "";
-
-				if(state==0) {
-					stateResult = "정상근무";
-				}else if(state==1) {
-					stateResult = "지각";
-				}else if(state==2) {
-					stateResult = "조퇴" ;
-				}else if(state==3) {
-					stateResult = "지각 + 조퇴";
+					map.put("state", stateResult);
+					map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
+					map.put("workInTime", workInTimeOnly); //출근 시간
+					map.put("workOutTime", "미퇴근"); //퇴근 시간
+					map.put("workTime", ""); // 근무 시간
 				}
-
-				map.put("state", stateResult);
-				map.put("workDate", String.format("%04d-%02d-%02d (%s)", year, month, day, dayOfWeek)); // 년도, 월, 일, 요일 저장
-				map.put("workInTime", workInTimeOnly); //출근 시간
-				map.put("workOutTime", workOutTimeOnly); //퇴근 시간
-				map.put("workTime", String.format("%02d:%02d", workHours, workMinutes)); // 근무 시간
-
 
 			}
 
@@ -308,7 +343,20 @@ public class CommuteController {
 		return "redirect:/commute/status?importSuccess=Data imported successfully";
 	}
 	
-	
+	@RequestMapping("/inc/indexCommute")
+	public String indexCommute(HttpSession session, Model model) {
+		int empNo = (int)session.getAttribute("empNo");
+		
+		logger.info("index - 근태 부분 파라미터 empNo={}", empNo);
+		
+		
+		CommuteVO commuteVo = commuteService.selectTodayCommute(empNo);
+		logger.info("index - 오늘의 근태 데이터 commuteVO={}", commuteVo);
+		
+		model.addAttribute("commuteVo", commuteVo);
+		
+		return "inc/indexCommute";
+	}
 
 	
 

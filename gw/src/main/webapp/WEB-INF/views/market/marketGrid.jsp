@@ -1,137 +1,661 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../inc/top.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../inc/top.jsp"%>
 
-<link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>"
+	rel="stylesheet">
+<link href="<c:url value='/css/Marketcss.css'/>" rel="stylesheet">
+<style type="text/css">
+</style>
 
-<div class="card-body">
-   <div class="row flex-between-center">
-     <div class="col-sm-auto mb-2 mb-sm-0">
-       <h6 class="mb-0">검색 결과 갯수 뿌리기</h6>
-     </div>
-     <div class="col-sm-auto">
-       <div class="row gx-2 align-items-center">
-         <div class="col-auto">
-           <form class="row gx-2">
-             <div class="col-auto"><small>Sort by: </small></div>
-             <div class="col-auto">
-               <select class="form-select form-select-sm" aria-label="Bulk actions">
-                 <option selected="">Best Match</option>
-                 <option value="Refund">Newest</option>
-                 <option value="Delete">Price</option>
-               </select>
-             </div>
-           </form>
-         </div>
-         <div class="col-auto pe-0"><a class="text-600 px-1" href="<c:url value='/market/marketGrid.jsp'/>" data-bs-toggle="tooltip" title="그리드로 보기"><span class="fas fa-th"></span></a></div>
-       </div>
-     </div>
-   </div>
- </div>
- <br>
+<div class="content">
 	<div class="card mb-3">
-    <div class="card-body">
-    <div class="row">
-	 <table>
-	  <tr>
-	   <td>
-      	<div class="mb-4 col-md-6 col-lg-4">
-        <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
-          <div class="overflow-hidden">
-            <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>"><img class="img-fluid rounded-top" src="<c:url value='/assets/img/products/2.jpg'/>" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
-            </div>
-            <div class="p-3">
-              <h5 class="fs-0"><a class="text-dark" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)</a></h5>
-              <p class="fs--1 mb-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
-              <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $1199.5
-                <del class="ms-2 fs--1 text-500">$2399 </del>
-              </h5>
-              <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
-              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
-              </p>
-            </div>
-          </div>
-          <div class="d-flex flex-between-center px-3">
-            <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
-            </div>
-            <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
-          </div>
-        </div>
-      </div>
-      </td>
-      <td>
-      <div class="mb-4 col-md-6 col-lg-4">
-        <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
-          <div class="overflow-hidden">
-            <div class="position-relative rounded-top overflow-hidden">
-              <div class="swiper-container theme-slider" data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide"><a class="d-block" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>"><img class="rounded-top img-fluid" src="<c:url value='/assets/img/products/1.jpg'/>" alt="" /></a></div>
-                  <div class="swiper-slide"><a class="d-block" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>"><img class="rounded-top img-fluid" src="<c:url value='/assets/img/products/1-2.jpg'/>" alt="" /></a></div>
-                  <div class="swiper-slide"><a class="d-block" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>"><img class="rounded-top img-fluid" src="<c:url value='/assets/img/products/1-3.jpg'/>" alt="" /></a></div>
-                </div>
-                <div class="swiper-nav">
-                  <div class="swiper-button-next swiper-button-white"></div>
-                  <div class="swiper-button-prev swiper-button-white"></div>
-                </div>
-              </div><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
-            </div>
-            <div class="p-3">
-              <h5 class="fs-0"><a class="text-dark" href="<c:url value='/app/e-commerce/product/product-details.jsp'/>">Apple MacBook Pro (15&quot; Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</a></h5>
-              <p class="fs--1 mb-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
-              <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $7199
-              </h5>
-              <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
-              <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong>
-              </p>
-            </div>
-          </div>
-          <div class="d-flex flex-between-center px-3">
-            <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
-            </div>
-            <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
-          </div>
-        </div>
-      </div>
-      </td>
-      <td>
-      <div class="mb-4 col-md-6 col-lg-4">
-        <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
-          <div class="overflow-hidden">
-            <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="<c:url value='/assets/img/products/4.jpg'/>" alt="" /></a>
-            </div>
-            <div class="p-3">
-              <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple iPad Air 2019 (3GB RAM, 128GB ROM, 8MP Main Camera)</a></h5>
-              <p class="fs--1 mb-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
-              <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $562.5
-                <del class="ms-2 fs--1 text-500">$750 </del>
-              </h5>
-              <p class="fs--1 mb-1">Shipping Cost: <strong>$47</strong></p>
-              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
-              </p>
-            </div>
-          </div>
-          <div class="d-flex flex-between-center px-3">
-            <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="fa fa-star text-300"></span><span class="fa fa-star text-300"></span><span class="ms-1">(14)</span>
-            </div>
-            <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
-          </div>
-        </div>
-      </div>
-      </td>
-      </tr>
-     </table>
-      
-      
-    </div>
-  </div>
-  <div class="card-footer bg-light d-flex justify-content-center">
-    <div>
-      <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button><a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a class="btn btn-sm btn-falcon-default me-2" href="#!"> <span class="fas fa-ellipsis-h"></span></a><a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
-      <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right">     </span></button>
-    </div>
-  </div>
+		<!-- 페이징 처리 관련 form -->
+		<form action="<c:url value='/market/marketList'/>" name="frmPage"
+			method="post">
+			<input type="hidden" name="currentPage"> <input type="hidden"
+				name="searchKeyword" value="${param.searchKeyword}"> <input
+				type="hidden" name="searchCondition"
+				value="${param.searchCondition}"> <input type="hidden"
+				name="checkSelflag" value="${param.checkSelflag }">
+		</form>
+		<!-- 페이징 처리 관련 form -->
+		<!-- <h2>중고거래 게시판</h2> -->
+		<div class="card-body">
+			<div class="row flex-between-center">
+				<div class="col-sm-auto mb-2 mb-sm-0"
+					data-list='{"valueNames":["name","phone-number","report","subscription","social"],"page":10,"pagination":true,"fallback":"contact-table-fallback"}'>
+					<c:if test="${!empty param.searchKeyword }">
+						<p>
+							검색어 : ${param.searchKeyword} , <span
+								style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span>
+							건 검색되었습니다.
+						</p>
+					</c:if>
+				</div>
+				<div class="row gx-2 align-items-center">
+					<form class="row gx-2" name="frmSearch"
+						action='<c:url value='/market/marketList'/>'>
+						<select name="searchCondition" class="form-select admindefault"
+							aria-label="Bulk actions">
+							<option value="title"
+								<c:if test="${param.searchCondition=='title'}">
+	                          		selected = "selected"
+	                       		</c:if>>제목
+							</option>
+							<option value="NAME"
+								<c:if test="${param.searchCondition=='NAME'}">
+	                          		selected = "selected"
+	                       		</c:if>>이름
+							</option>
+							<option value="discription"
+								<c:if test="${param.searchCondition=='discription'}">
+	                          		selected = "selected"
+	                       		</c:if>>내용
+							</option>
+						</select>
+						<div class="input-group input-search-width">
+							<input name="searchKeyword" id="searchKeyword"
+								class="form-control shadow-none search admindefault"
+								value='${param.searchKeyword}' type="search"
+								placeholder="검색어 입력" aria-label="search" />
+							<button
+								class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+								<span class="fa fa-search fs--1"></span>
+							</button>
+						</div>
+						<div id="selflagbox">
+							거래 가능 상품만 보기 <input type="checkbox" name="checkSelflag"
+								id="checkSelflag" onchange="submitForm()"
+								<c:if test="${param.checkSelflag==true}">
+										checked="checked"
+									</c:if>
+								value="true">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card mb-3">
+		<div class="card-body">
+			<div class="row">
+			<!-- 검색 결과 없을 때 -->
+			<c:choose>
+				<c:when test="${empty list }">
+					<div class="col-12 p-x1">검색결과가 없습니다.</div>
+				</c:when>
+				<c:otherwise>
+					<c:set var="i" value="0" />
+					<c:forEach var="map" items="${list }" varStatus="loopStatus">
+					<table>
+						<tr>
+							<td>
+								<div class="mb-4 col-md-6 col-lg-4">
+									<div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+										<div class="overflow-hidden">
+											<div class="position-relative rounded-top overflow-hidden">
+												<a class="d-block"
+													href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"] }'/>">
+													<img class="rounded-1"
+													style="max-height: 200px; max-weight: 240px;"
+													src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
+													alt="" />
+												</a>
+												<c:if test="${map['timeNew']==1}">
+													<div
+														class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
+														New</div>
+												</c:if>
+											</div>
+											<div class="p-3">
+												<h5 class="fs-0">
+													<input type="hidden" id="tradeNo${idx}"
+														value="${map['TRADE_NO']}"> 
+													<a class="text-dark fs-0 fs-lg-1"
+														href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
+														${map["TITLE"] } 
+													</a>
+												</h5>
+												<p class="fs--1 mb-2 mb-md-3">
+													<h6 class="text-500">
+														<fmt:formatDate value="${map['REGDATE'] }"
+															pattern="yyyy-MM-dd HH:mm" />
+													</h6>
+												</p>
+												<h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+													<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
+													원
+												</h5>
+												<p class="fs--1 mb-1">
+													♥ 좋아요 : <strong id="likecount1">${map['likeCount'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													<span class="fa-solid fa-eye"></span> 조회수 : <strong>${map['READCOUNT'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+														작성자 : <strong>${map["NAME"] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													Stock:
+													<c:if test="${map['SELFLAG']=='N' }">
+														<strong class="text-success">거래가능</strong>
+													</c:if>
+													<c:if test="${map['SELFLAG']=='Y' }">
+														<strong class="text-danger">판매완료</strong>
+													</c:if>
+												</p>
+											</div>
+										</div>
+										<div class="d-flex flex-between-center px-3">
+											<div>
+												<span class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+											</div>
+											<div>
+												<a class="btn btn-sm btn-falcon-default me-2" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Wish List"><span class="far fa-heart"></span></a><a
+													class="btn btn-sm btn-falcon-default" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Cart"><span class="fas fa-cart-plus"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="mb-4 col-md-6 col-lg-4">
+									<div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+										<div class="overflow-hidden">
+											<div class="position-relative rounded-top overflow-hidden">
+												<a class="d-block"
+													href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"] }'/>">
+													<img class="rounded-1"
+													style="max-height: 200px; max-weight: 240px;"
+													src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
+													alt="" />
+												</a>
+												<c:if test="${map['timeNew']==1}">
+													<div
+														class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
+														New</div>
+												</c:if>
+											</div>
+											<div class="p-3">
+												<h5 class="fs-0">
+													<input type="hidden" id="tradeNo${idx}"
+														value="${map['TRADE_NO']}"> 
+													<a class="text-dark fs-0 fs-lg-1"
+														href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
+														${map["TITLE"] } 
+													</a>
+												</h5>
+												<p class="fs--1 mb-2 mb-md-3">
+													<h6 class="text-500">
+														<fmt:formatDate value="${map['REGDATE'] }"
+															pattern="yyyy-MM-dd HH:mm" />
+													</h6>
+												</p>
+												<h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+													<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
+													원
+												</h5>
+												<p class="fs--1 mb-1">
+													♥ 좋아요 : <strong id="likecount1">${map['likeCount'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													<span class="fa-solid fa-eye"></span> 조회수 : <strong>${map['READCOUNT'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+														작성자 : <strong>${map["NAME"] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													Stock:
+													<c:if test="${map['SELFLAG']=='N' }">
+														<strong class="text-success">거래가능</strong>
+													</c:if>
+													<c:if test="${map['SELFLAG']=='Y' }">
+														<strong class="text-danger">판매완료</strong>
+													</c:if>
+												</p>
+											</div>
+										</div>
+										<div class="d-flex flex-between-center px-3">
+											<div>
+												<span class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+											</div>
+											<div>
+												<a class="btn btn-sm btn-falcon-default me-2" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Wish List"><span class="far fa-heart"></span></a><a
+													class="btn btn-sm btn-falcon-default" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Cart"><span class="fas fa-cart-plus"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="mb-4 col-md-6 col-lg-4">
+									<div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+										<div class="overflow-hidden">
+											<div class="position-relative rounded-top overflow-hidden">
+												<a class="d-block"
+													href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"] }'/>">
+													<img class="rounded-1"
+													style="max-height: 200px; max-weight: 240px;"
+													src="<c:url value='/market/upload/${map["thumbnail"]}'/>"
+													alt="" />
+												</a>
+												<c:if test="${map['timeNew']==1}">
+													<div
+														class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">
+														New</div>
+												</c:if>
+											</div>
+											<div class="p-3">
+												<h5 class="fs-0">
+													<input type="hidden" id="tradeNo${idx}"
+														value="${map['TRADE_NO']}"> 
+													<a class="text-dark fs-0 fs-lg-1"
+														href="<c:url value='/market/marketDetail?tradeNo=${map["TRADE_NO"]}'/>">
+														${map["TITLE"] } 
+													</a>
+												</h5>
+												<p class="fs--1 mb-2 mb-md-3">
+													<h6 class="text-500">
+														<fmt:formatDate value="${map['REGDATE'] }"
+															pattern="yyyy-MM-dd HH:mm" />
+													</h6>
+												</p>
+												<h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+													<fmt:formatNumber value="${map['PRICE']}" pattern="#,###" />
+													원
+												</h5>
+												<p class="fs--1 mb-1">
+													♥ 좋아요 : <strong id="likecount1">${map['likeCount'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													<span class="fa-solid fa-eye"></span> 조회수 : <strong>${map['READCOUNT'] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+														작성자 : <strong>${map["NAME"] }</strong>
+												</p>
+												<p class="fs--1 mb-1">
+													Stock:
+													<c:if test="${map['SELFLAG']=='N' }">
+														<strong class="text-success">거래가능</strong>
+													</c:if>
+													<c:if test="${map['SELFLAG']=='Y' }">
+														<strong class="text-danger">판매완료</strong>
+													</c:if>
+												</p>
+											</div>
+										</div>
+										<div class="d-flex flex-between-center px-3">
+											<div>
+												<span class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-warning"></span><span
+													class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+											</div>
+											<div>
+												<a class="btn btn-sm btn-falcon-default me-2" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Wish List"><span class="far fa-heart"></span></a><a
+													class="btn btn-sm btn-falcon-default" href="#!"
+													data-bs-toggle="tooltip" data-bs-placement="top"
+													title="Add to Cart"><span class="fas fa-cart-plus"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</div>
 </div>
- 
+		<div class="card-footer bg-light d-flex justify-content-center">
+			<div>
+				<button class="btn btn-falcon-default btn-sm me-2" type="button"
+					disabled="disabled" data-bs-toggle="tooltip"
+					data-bs-placement="top" title="Prev">
+					<span class="fas fa-chevron-left"></span>
+				</button>
+				<a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a
+					class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a
+					class="btn btn-sm btn-falcon-default me-2" href="#!"> <span
+					class="fas fa-ellipsis-h"></span></a><a
+					class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
+				<button class="btn btn-falcon-default btn-sm" type="button"
+					data-bs-toggle="tooltip" data-bs-placement="top" title="Next">
+					<span class="fas fa-chevron-right"> </span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
+			<div class="col-12 col-sm-auto text-center">
+				<p class="mb-0 text-600">
+					Thank you for creating with Falcon <span
+						class="d-none d-sm-inline-block">| </span><br class="d-sm-none" />
+					2023 &copy; <a href="https://themewagon.com">Themewagon</a>
+				</p>
+			</div>
+			<div class="col-12 col-sm-auto text-center">
+				<p class="mb-0 text-600">v3.17.0</p>
+			</div>
+		</div>
+	</footer>
+</div>
+<div class="modal fade" id="authentication-modal" tabindex="-1"
+	role="dialog" aria-labelledby="authentication-modal-label"
+	aria-hidden="true">
+	<div class="modal-dialog mt-6" role="document">
+		<div class="modal-content border-0">
+			<div
+				class="modal-header px-5 position-relative modal-shape-header bg-shape">
+				<div class="position-relative z-1" data-bs-theme="light">
+					<h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
+					<p class="fs--1 mb-0 text-white">Please create your free Falcon
+						account</p>
+				</div>
+				<button
+					class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2"
+					data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body py-4 px-5">
+				<form>
+					<div class="mb-3">
+						<label class="form-label" for="modal-auth-name">Name</label> <input
+							class="form-control" type="text" autocomplete="on"
+							id="modal-auth-name" />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="modal-auth-email">Email
+							address</label> <input class="form-control" type="email"
+							autocomplete="on" id="modal-auth-email" />
+					</div>
+					<div class="row gx-2">
+						<div class="mb-3 col-sm-6">
+							<label class="form-label" for="modal-auth-password">Password</label>
+							<input class="form-control" type="password" autocomplete="on"
+								id="modal-auth-password" />
+						</div>
+						<div class="mb-3 col-sm-6">
+							<label class="form-label" for="modal-auth-confirm-password">Confirm
+								Password</label> <input class="form-control" type="password"
+								autocomplete="on" id="modal-auth-confirm-password" />
+						</div>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox"
+							id="modal-auth-register-checkbox" /> <label class="form-label"
+							for="modal-auth-register-checkbox">I accept the <a
+							href="#!">terms </a>and <a href="#!">privacy policy</a></label>
+					</div>
+					<div class="mb-3">
+						<button class="btn btn-primary d-block w-100 mt-3" type="submit"
+							name="submit">Register</button>
+					</div>
+				</form>
+				<div class="position-relative mt-5">
+					<hr />
+					<div class="divider-content-center">or register with</div>
+				</div>
+				<div class="row g-2 mt-2">
+					<div class="col-sm-6">
+						<a class="btn btn-outline-google-plus btn-sm d-block w-100"
+							href="#"><span class="fab fa-google-plus-g me-2"
+							data-fa-transform="grow-8"></span> google</a>
+					</div>
+					<div class="col-sm-6">
+						<a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span
+							class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span>
+							facebook</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</main>
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
 
-<%@ include file="../inc/bottom.jsp"%>
+
+<div class="offcanvas offcanvas-end settings-panel border-0"
+	id="settings-offcanvas" tabindex="-1"
+	aria-labelledby="settings-offcanvas">
+	<div class="offcanvas-header settings-panel-header bg-shape">
+		<div class="z-1 py-1" data-bs-theme="light">
+			<div class="d-flex justify-content-between align-items-center mb-1">
+				<h5 class="text-white mb-0 me-2">
+					<span class="fas fa-palette me-2 fs-0"></span>Settings
+				</h5>
+				<button class="btn btn-primary btn-sm rounded-pill mt-0 mb-0"
+					data-theme-control="reset" style="font-size: 12px">
+					<span class="fas fa-redo-alt me-1" data-fa-transform="shrink-3"></span>Reset
+				</button>
+			</div>
+			<p class="mb-0 fs--1 text-white opacity-75">Set your own
+				customized style</p>
+		</div>
+		<button class="btn-close btn-close-white z-1 mt-0" type="button"
+			data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body scrollbar-overlay px-x1 h-100"
+		id="themeController">
+		<h5 class="fs-0">Color Scheme</h5>
+		<p class="fs--1">Choose the perfect color mode for your app.</p>
+		<div class="btn-group d-block w-100 btn-group-navbar-style">
+			<div class="row gx-2">
+				<div class="col-6">
+					<input class="btn-check" id="themeSwitcherLight" name="theme-color"
+						type="radio" value="light" data-theme-control="theme" /> <label
+						class="btn d-inline-block btn-navbar-style fs--1"
+						for="themeSwitcherLight"> <span
+						class="hover-overlay mb-2 rounded d-block"><img
+							class="img-fluid img-prototype mb-0"
+							src="../../../assets/img/generic/falcon-mode-default.jpg" alt="" /></span><span
+						class="label-text">Light</span></label>
+				</div>
+				<div class="col-6">
+					<input class="btn-check" id="themeSwitcherDark" name="theme-color"
+						type="radio" value="dark" data-theme-control="theme" /> <label
+						class="btn d-inline-block btn-navbar-style fs--1"
+						for="themeSwitcherDark"> <span
+						class="hover-overlay mb-2 rounded d-block"><img
+							class="img-fluid img-prototype mb-0"
+							src="../../../assets/img/generic/falcon-mode-dark.jpg" alt="" /></span><span
+						class="label-text"> Dark</span></label>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="d-flex justify-content-between">
+			<div class="d-flex align-items-start">
+				<img class="me-2"
+					src="../../../assets/img/icons/left-arrow-from-left.svg" width="20"
+					alt="" />
+				<div class="flex-1">
+					<h5 class="fs-0">RTL Mode</h5>
+					<p class="fs--1 mb-0">Switch your language direction</p>
+					<a class="fs--1"
+						href="../../../documentation/customization/configuration.jsp">RTL
+						Documentation</a>
+				</div>
+			</div>
+			<div class="form-check form-switch">
+				<input class="form-check-input ms-0" id="mode-rtl" type="checkbox"
+					data-theme-control="isRTL" />
+			</div>
+		</div>
+		<hr />
+		<div class="d-flex justify-content-between">
+			<div class="d-flex align-items-start">
+				<img class="me-2" src="../../../assets/img/icons/arrows-h.svg"
+					width="20" alt="" />
+				<div class="flex-1">
+					<h5 class="fs-0">Fluid Layout</h5>
+					<p class="fs--1 mb-0">Toggle container layout system</p>
+					<a class="fs--1"
+						href="../../../documentation/customization/configuration.jsp">Fluid
+						Documentation</a>
+				</div>
+			</div>
+			<div class="form-check form-switch">
+				<input class="form-check-input ms-0" id="mode-fluid" type="checkbox"
+					data-theme-control="isFluid" />
+			</div>
+		</div>
+		<hr />
+		<div class="d-flex align-items-start">
+			<img class="me-2" src="../../../assets/img/icons/paragraph.svg"
+				width="20" alt="" />
+			<div class="flex-1">
+				<h5 class="fs-0 d-flex align-items-center">Navigation Position</h5>
+				<p class="fs--1 mb-2">Select a suitable navigation system for
+					your web application</p>
+				<div>
+					<select class="form-select form-select-sm"
+						aria-label="Navbar position" data-theme-control="navbarPosition">
+						<option value="vertical"
+							data-page-url="../../../modules/components/navs-and-tabs/vertical-navbar.jsp">Vertical</option>
+						<option value="top"
+							data-page-url="../../../modules/components/navs-and-tabs/top-navbar.jsp">Top</option>
+						<option value="combo"
+							data-page-url="../../../modules/components/navs-and-tabs/combo-navbar.jsp">Combo</option>
+						<option value="double-top"
+							data-page-url="../../../modules/components/navs-and-tabs/double-top-navbar.jsp">Double
+							Top</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<h5 class="fs-0 d-flex align-items-center">Vertical Navbar Style</h5>
+		<p class="fs--1 mb-0">Switch between styles for your vertical
+			navbar</p>
+		<p>
+			<a class="fs--1"
+				href="../../../modules/components/navs-and-tabs/vertical-navbar.jsp#navbar-styles">See
+				Documentation</a>
+		</p>
+		<div class="btn-group d-block w-100 btn-group-navbar-style">
+			<div class="row gx-2">
+				<div class="col-6">
+					<input class="btn-check" id="navbar-style-transparent" type="radio"
+						name="navbarStyle" value="transparent"
+						data-theme-control="navbarStyle" /> <label
+						class="btn d-block w-100 btn-navbar-style fs--1"
+						for="navbar-style-transparent"> <img
+						class="img-fluid img-prototype"
+						src="../../../assets/img/generic/default.png" alt="" /><span
+						class="label-text"> Transparent</span></label>
+				</div>
+				<div class="col-6">
+					<input class="btn-check" id="navbar-style-inverted" type="radio"
+						name="navbarStyle" value="inverted"
+						data-theme-control="navbarStyle" /> <label
+						class="btn d-block w-100 btn-navbar-style fs--1"
+						for="navbar-style-inverted"> <img
+						class="img-fluid img-prototype"
+						src="../../../assets/img/generic/inverted.png" alt="" /><span
+						class="label-text"> Inverted</span></label>
+				</div>
+				<div class="col-6">
+					<input class="btn-check" id="navbar-style-card" type="radio"
+						name="navbarStyle" value="card" data-theme-control="navbarStyle" />
+					<label class="btn d-block w-100 btn-navbar-style fs--1"
+						for="navbar-style-card"> <img
+						class="img-fluid img-prototype"
+						src="../../../assets/img/generic/card.png" alt="" /><span
+						class="label-text"> Card</span></label>
+				</div>
+				<div class="col-6">
+					<input class="btn-check" id="navbar-style-vibrant" type="radio"
+						name="navbarStyle" value="vibrant"
+						data-theme-control="navbarStyle" /> <label
+						class="btn d-block w-100 btn-navbar-style fs--1"
+						for="navbar-style-vibrant"> <img
+						class="img-fluid img-prototype"
+						src="../../../assets/img/generic/vibrant.png" alt="" /><span
+						class="label-text"> Vibrant</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="text-center mt-5">
+			<img class="mb-4"
+				src="../../../assets/img/icons/spot-illustrations/47.png" alt=""
+				width="120" />
+			<h5>Like What You See?</h5>
+			<p class="fs--1">Get Falcon now and create beautiful dashboards
+				with hundreds of widgets.</p>
+			<a class="mb-3 btn btn-primary"
+				href="https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/"
+				target="_blank">Purchase</a>
+		</div>
+	</div>
+</div>
+<a class="card setting-toggle" href="#settings-offcanvas"
+	data-bs-toggle="offcanvas">
+	<div class="card-body d-flex align-items-center py-md-2 px-2 py-1">
+		<div class="bg-primary-subtle position-relative rounded-start"
+			style="height: 34px; width: 28px">
+			<div class="settings-popover">
+				<span class="ripple"><span
+					class="fa-spin position-absolute all-0 d-flex flex-center"><span
+						class="icon-spin position-absolute all-0 d-flex flex-center">
+							<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                    <path
+									d="M19.7369 12.3941L19.1989 12.1065C18.4459 11.7041 18.0843 10.8487 18.0843 9.99495C18.0843 9.14118 18.4459 8.28582 19.1989 7.88336L19.7369 7.59581C19.9474 7.47484 20.0316 7.23291 19.9474 7.03131C19.4842 5.57973 18.6843 4.28943 17.6738 3.20075C17.5053 3.03946 17.2527 2.99914 17.0422 3.12011L16.393 3.46714C15.6883 3.84379 14.8377 3.74529 14.1476 3.3427C14.0988 3.31422 14.0496 3.28621 14.0002 3.25868C13.2568 2.84453 12.7055 2.10629 12.7055 1.25525V0.70081C12.7055 0.499202 12.5371 0.297594 12.2845 0.257272C10.7266 -0.105622 9.16879 -0.0653007 7.69516 0.257272C7.44254 0.297594 7.31623 0.499202 7.31623 0.70081V1.23474C7.31623 2.09575 6.74999 2.8362 5.99824 3.25599C5.95774 3.27861 5.91747 3.30159 5.87744 3.32493C5.15643 3.74527 4.26453 3.85902 3.53534 3.45302L2.93743 3.12011C2.72691 2.99914 2.47429 3.03946 2.30587 3.20075C1.29538 4.28943 0.495411 5.57973 0.0322686 7.03131C-0.051939 7.23291 0.0322686 7.47484 0.242788 7.59581L0.784376 7.8853C1.54166 8.29007 1.92694 9.13627 1.92694 9.99495C1.92694 10.8536 1.54166 11.6998 0.784375 12.1046L0.242788 12.3941C0.0322686 12.515 -0.051939 12.757 0.0322686 12.9586C0.495411 14.4102 1.29538 15.7005 2.30587 16.7891C2.47429 16.9504 2.72691 16.9907 2.93743 16.8698L3.58669 16.5227C4.29133 16.1461 5.14131 16.2457 5.8331 16.6455C5.88713 16.6767 5.94159 16.7074 5.99648 16.7375C6.75162 17.1511 7.31623 17.8941 7.31623 18.7552V19.2891C7.31623 19.4425 7.41373 19.5959 7.55309 19.696C7.64066 19.7589 7.74815 19.7843 7.85406 19.8046C9.35884 20.0925 10.8609 20.0456 12.2845 19.7729C12.5371 19.6923 12.7055 19.4907 12.7055 19.2891V18.7346C12.7055 17.8836 13.2568 17.1454 14.0002 16.7312C14.0496 16.7037 14.0988 16.6757 14.1476 16.6472C14.8377 16.2446 15.6883 16.1461 16.393 16.5227L17.0422 16.8698C17.2527 16.9907 17.5053 16.9504 17.6738 16.7891C18.7264 15.7005 19.4842 14.4102 19.9895 12.9586C20.0316 12.757 19.9474 12.515 19.7369 12.3941ZM10.0109 13.2005C8.1162 13.2005 6.64257 11.7893 6.64257 9.97478C6.64257 8.20063 8.1162 6.74905 10.0109 6.74905C11.8634 6.74905 13.3792 8.20063 13.3792 9.97478C13.3792 11.7893 11.8634 13.2005 10.0109 13.2005Z"
+									fill="#2A7BE4"></path>
+                  </svg>
+					</span></span></span>
+			</div>
+		</div>
+		<small
+			class="text-uppercase text-primary fw-bold bg-primary-subtle py-2 pe-2 ps-1 rounded-end">customize</small>
+	</div>
+</a>
+
+
+<!-- ===============================================-->
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src="../../../vendors/popper/popper.min.js"></script>
+<script src="../../../vendors/bootstrap/bootstrap.min.js"></script>
+<script src="../../../vendors/anchorjs/anchor.min.js"></script>
+<script src="../../../vendors/is/is.min.js"></script>
+<script src="../../../vendors/swiper/swiper-bundle.min.js"></script>
+<script src="../../../vendors/fontawesome/all.min.js"></script>
+<script src="../../../vendors/lodash/lodash.min.js"></script>
+<script
+	src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+<script src="../../../vendors/list.js/list.min.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+
+</body>
+
+</html>

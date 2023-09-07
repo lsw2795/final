@@ -223,13 +223,13 @@
                       </a>
                       <!-- more inner pages-->
                       <ul class="nav collapse show" id="product">
-                        <li class="nav-item"><a class="nav-link active" href="../../../app/e-commerce/product/product-list.jsp">
+                        <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/product/product-list.jsp">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span>
                             </div>
                           </a>
                           <!-- more inner pages-->
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/product/product-grid.jsp">
+                        <li class="nav-item"><a class="nav-link active" href="../../../app/e-commerce/product/product-grid.jsp">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product grid</span>
                             </div>
                           </a>
@@ -2028,7 +2028,7 @@
                   <div class="row gx-2 align-items-center">
                     <div class="col-auto">
                       <form class="row gx-2">
-                        <div class="col-auto"><small>Sort by: </small></div>
+                        <div class="col-auto"><small>Sort by:</small></div>
                         <div class="col-auto">
                           <select class="form-select form-select-sm" aria-label="Bulk actions">
                             <option selected="">Best Match</option>
@@ -2038,187 +2038,235 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-auto pe-0"><a class="text-600 px-1" href="../../../app/e-commerce/product/product-grid.jsp" data-bs-toggle="tooltip" title="Product Grid"><span class="fas fa-th"></span></a></div>
+                    <div class="col-auto pe-0"> <a class="text-600 px-1" href="../../../app/e-commerce/product/product-list.jsp" data-bs-toggle="tooltip" data-bs-placement="top" title="Product List"><span class="fas fa-list-ul"></span></a></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-body p-0 overflow-hidden">
-              <div class="row g-0">
-                <div class="col-12 p-x1">
-                  <div class="row">
-                    <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid object-fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="../../../assets/img/products/2.jpg" alt="" /></a>
-                        <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">New</div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/2.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $1199.5
+                          <del class="ms-2 fs--1 text-500">$2399 </del>
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
                       </div>
                     </div>
-                    <div class="col-sm-7 col-md-8">
-                      <div class="row">
-                        <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0">
-	                          <a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)
-	                          </a>
-                          </h5>
-                          	<p class="fs--1 mb-2 mb-md-3">
-                          		<a class="text-500" href="#!">Computer &amp; Accessories</a>
-                          	</p>
-                          <ul class="list-unstyled d-none d-lg-block">
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>16GB RAM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>1TB SSD Hard Drive</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>10-core Intel Xeon</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Mac OS</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Secured</span></li>
-                          </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-between flex-column">
-                          <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$1199.5</h4>
-                            <h5 class="fs--1 text-500 mb-0 mt-1">
-                              <del>$2399 </del><span class="ms-1">-50%</span>
-                            </h5>
-                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
-                            </div>
-                            <div class="d-none d-lg-block">
-                              <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="mt-2"><a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0" href="#!"><span class="far fa-heart"></span><span class="ms-2 d-none d-md-inline-block">Favourite</span></a><a class="btn btn-sm btn-primary d-lg-block mt-lg-2" href="#!"><span class="fas fa-cart-plus"> </span><span class="ms-2 d-none d-md-inline-block">Add to Cart</span></a></div>
-                        </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
                       </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 p-x1 bg-100">
-                  <div class="row">
-                    <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100">
-                        <div class="swiper-container theme-slider h-100" data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
-                          <div class="swiper-wrapper h-100">
-                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="../../../assets/img/products/1.jpg" alt="" /></a></div>
-                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="../../../assets/img/products/1-2.jpg" alt="" /></a></div>
-                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-1 h-100 w-100 object-fit-cover" src="../../../assets/img/products/1-3.jpg" alt="" /></a></div>
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden">
+                        <div class="swiper-container theme-slider" data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
+                          <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-top img-fluid" src="../../../assets/img/products/1.jpg" alt="" /></a></div>
+                            <div class="swiper-slide"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-top img-fluid" src="../../../assets/img/products/1-2.jpg" alt="" /></a></div>
+                            <div class="swiper-slide"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="rounded-top img-fluid" src="../../../assets/img/products/1-3.jpg" alt="" /></a></div>
                           </div>
                           <div class="swiper-nav">
                             <div class="swiper-button-next swiper-button-white"></div>
                             <div class="swiper-button-prev swiper-button-white"></div>
                           </div>
-                        </div>
-                        <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-2">New</div>
+                        </div><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple MacBook Pro (15&quot; Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $7199
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong>
+                        </p>
                       </div>
                     </div>
-                    <div class="col-sm-7 col-md-8">
-                      <div class="row">
-                        <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple MacBook Pro (15&quot; Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</a></h5>
-                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
-                          <ul class="list-unstyled d-none d-lg-block">
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>16GB RAM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>256GB SSD Hard Drive</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Intel Core i7</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Mac OS</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Space Gray</span></li>
-                          </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-between flex-column">
-                          <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$7199</h4>
-                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
-                            </div>
-                            <div class="d-none d-lg-block">
-                              <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="mt-2"><a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0" href="#!"><span class="far fa-heart"></span><span class="ms-2 d-none d-md-inline-block">Favourite</span></a><a class="btn btn-sm btn-primary d-lg-block mt-lg-2" href="#!"><span class="fas fa-cart-plus"> </span><span class="ms-2 d-none d-md-inline-block">Add to Cart</span></a></div>
-                        </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
                       </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 p-x1">
-                  <div class="row">
-                    <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid object-fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="../../../assets/img/products/4.jpg" alt="" /></a>
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/4.jpg" alt="" /></a>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple iPad Air 2019 (3GB RAM, 128GB ROM, 8MP Main Camera)</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $562.5
+                          <del class="ms-2 fs--1 text-500">$750 </del>
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$47</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
                       </div>
                     </div>
-                    <div class="col-sm-7 col-md-8">
-                      <div class="row">
-                        <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple iPad Air 2019 (3GB RAM, 128GB ROM, 8MP Main Camera)</a></h5>
-                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
-                          <ul class="list-unstyled d-none d-lg-block">
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>3GB RAM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>128GB ROM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Apple A12 Bionic (7 nm)</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>iOS 12.1.3</span></li>
-                          </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-between flex-column">
-                          <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$562.5</h4>
-                            <h5 class="fs--1 text-500 mb-0 mt-1">
-                              <del>$750 </del><span class="ms-1">-25%</span>
-                            </h5>
-                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="fa fa-star text-300"></span><span class="fa fa-star text-300"></span><span class="ms-1">(14)</span>
-                            </div>
-                            <div class="d-none d-lg-block">
-                              <p class="fs--1 mb-1">Shipping Cost: <strong>$47</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="mt-2"><a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0" href="#!"><span class="far fa-heart"></span><span class="ms-2 d-none d-md-inline-block">Favourite</span></a><a class="btn btn-sm btn-primary d-lg-block mt-lg-2" href="#!"><span class="fas fa-cart-plus"> </span><span class="ms-2 d-none d-md-inline-block">Add to Cart</span></a></div>
-                        </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="fa fa-star text-300"></span><span class="fa fa-star text-300"></span><span class="ms-1">(14)</span>
                       </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 p-x1 bg-100">
-                  <div class="row">
-                    <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid object-fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="../../../assets/img/products/3.jpg" alt="" /></a>
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/3.jpg" alt="" /></a>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple iPhone XS Max (4GB RAM, 512GB ROM, 12MP Main Camera)</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $1050
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
                       </div>
                     </div>
-                    <div class="col-sm-7 col-md-8">
-                      <div class="row">
-                        <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.jsp">Apple iPhone XS Max (4GB RAM, 512GB ROM, 12MP Main Camera)</a></h5>
-                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
-                          <ul class="list-unstyled d-none d-lg-block">
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>4GB RAM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>512GB Internal Storage</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Apple A12 Bionic (7nm)</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>iOS 12</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>3174mAh Li-Ion Battery</span></li>
-                          </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-between flex-column">
-                          <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$1050</h4>
-                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(13)</span>
-                            </div>
-                            <div class="d-none d-lg-block">
-                              <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
-                              </p>
-                            </div>
-                          </div>
-                          <div class="mt-2"><a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0" href="#!"><span class="far fa-heart"></span><span class="ms-2 d-none d-md-inline-block">Favourite</span></a><a class="btn btn-sm btn-primary d-lg-block mt-lg-2" href="#!"><span class="fas fa-cart-plus"> </span><span class="ms-2 d-none d-md-inline-block">Add to Cart</span></a></div>
-                        </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(13)</span>
                       </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/8.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Canon Standard Zoom Lens</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Camera</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $400
+                          <del class="ms-2 fs--1 text-500">$500 </del>
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$60</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold Out</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(10)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/6.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Logitech G305 Gaming Mouse</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $95
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$20</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="fa fa-star text-300"></span><span class="ms-1">(6)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4 mb-lg-0 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/7.jpg" alt="" /></a>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Nikon D3200 Digital DSLR Camera</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Camera</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $2398
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$30</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(5)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4 mb-lg-0 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/5.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-2 top-0 end-0">New</span>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Apple Watch Series 4 44mm GPS Only</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Watches &amp; Accessories</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $360
+                          <del class="ms-2 fs--1 text-500">$400 </del>
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$24</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="ms-1">(4)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.jsp"><img class="img-fluid rounded-top" src="../../../assets/img/products/9.jpg" alt="" /></a>
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.jsp">Nikon AF-S FX NIKKOR 24-70mm</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">Camera</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> $956.57
+                        </h5>
+                        <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="ms-1">(4)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-footer border-top d-flex justify-content-center">
-              <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button><a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a class="btn btn-sm btn-falcon-default me-2" href="#!"><span class="fas fa-ellipsis-h"></span></a><a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
-              <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right"></span></button>
+            <div class="card-footer bg-light d-flex justify-content-center">
+              <div>
+                <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button><a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a class="btn btn-sm btn-falcon-default me-2" href="#!"> <span class="fas fa-ellipsis-h"></span></a><a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
+                <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right">     </span></button>
+              </div>
             </div>
           </div>
           <footer class="footer">

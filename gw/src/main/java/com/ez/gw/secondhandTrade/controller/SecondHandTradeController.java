@@ -260,6 +260,78 @@ public class SecondHandTradeController {
 		// 4
 		return "market/marketList";
 	}
+	
+	@RequestMapping("/marketGrid")
+	public String marketGrid(Model model, @ModelAttribute SearchSellVO searchVo,
+            @RequestParam(name = "checkSelflag", required = false, defaultValue = "false") boolean checkSelflag
+            ,@RequestParam(defaultValue="1") int currentPage) {
+		// 1
+		logger.info("중고마켓 화면 보여주기 searchVo={}", searchVo);
+		EmployeeVO emp = null;
+		String likeFlag = "";
+		
+		// 2
+		// 페이징
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+
+		// [2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+
+		List<Map<String, Object>> list= secondHandTradeService.selectAllMarket(searchVo);
+		List<SecondhandTradeFileVO> fileList = secondHandTradeFileService.showThumbnail();
+		
+		
+		int totalRecord = secondHandTradeService.getTotalRecord(searchVo);
+		logger.info("리스트 결과, list.size = {}, fileList.size={}", list.size(), fileList.size());
+		pagingInfo.setTotalRecord(totalRecord);
+
+		for (Map<String, Object> fg : list) {
+
+			for (SecondhandTradeFileVO f : fileList) {
+				// 게시글과 파일의 매칭 조건을 설정
+				
+				BigDecimal tradeNoBigDecimal = (BigDecimal) fg.get("TRADE_NO");
+			    int tradeNo = tradeNoBigDecimal.intValue(); // BigDecimal을 int로 변환
+			    
+				if (f.getTradeNo() == tradeNo && f.getImageURL().contains("_0.")) {
+					fg.put("thumbnail", f.getImageURL()); // 썸네일 파일명 저장
+					//logger.info("썸네일 파일명={}", fg.get("thumbnail"));
+					break; // 매칭되는 파일을 찾았으면 더 이상 검색하지 않고 반복문을 종료
+				}
+			}
+
+			BigDecimal empNoBigDecimal = (BigDecimal) fg.get("EMP_NO");
+			int empNo = empNoBigDecimal.intValue(); // BigDecimal을 int로 변환
+			
+			//String name = (String)fg.get("NAME");
+			emp = employeeService.selectByEmpNo(empNo);
+			String name = (String)fg.put("NAME", emp.getName());
+			//logger.info("작성자 이름 ={}", (String)fg.put("NAME", emp.getName()));
+			fg.put("timeNew", Utility.displayNew((Date)fg.get("REGDATE"))); // 게시글별로 24시간이내 글등록 확인 여부 저장
+			
+			BigDecimal tradeNoBigDecimal = (BigDecimal)fg.get("TRADE_NO");
+			int tradeNo = tradeNoBigDecimal.intValue();
+			likeFlag = secondHandLikeService.findLike(empNo, tradeNo);
+			
+			BigDecimal likeCountBigDecimal = (BigDecimal)fg.get("LIKECOUNT");
+			    if (likeCountBigDecimal != null) {
+			        int likeCount = likeCountBigDecimal.intValue();
+			        fg.put("likeCount", likeCount);
+			    }
+			fg.put("likeFlag", likeFlag);
+		}
+
+		// 3
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		// 4
+		return "market/marketGrid";
+	}
 
 	@RequestMapping("/marketDetail")
 	public String detail(@RequestParam(defaultValue = "0") int tradeNo, Model model, HttpSession session) {
