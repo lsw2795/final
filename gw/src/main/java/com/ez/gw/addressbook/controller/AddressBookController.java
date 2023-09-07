@@ -98,11 +98,13 @@ public class AddressBookController {
 		if(cnt>0) {
 			msg="선택한 주소록 삭제에 성공했습니다.";
 		}
+		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		//4
 		return "common/message";
 	}
 
+	
 	
 }
