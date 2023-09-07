@@ -50,8 +50,9 @@
 	
 	<select id="adminClubList" resultType="map" parameterType="searchVo">
 		select * from ADMINCLUBVIEW
+		 where club_no is not null
 		<if test="searchKeyword!=null and searchKeyword!=''">
-			where ${searchCondition} like '%' || #{searchKeyword} ||'%'
+			and ${searchCondition} like '%' || #{searchKeyword} ||'%'
 		</if>
 		order by regdate desc
 	</select>

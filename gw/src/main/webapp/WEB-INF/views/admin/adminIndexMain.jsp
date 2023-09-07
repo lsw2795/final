@@ -17,41 +17,101 @@
 	#weather {
 	    background: white;
 	    text-align: center;
-	    padding: 15px;
+	    padding: 45px;
 	    border-radius: 16px;
-	    margin-right: 23px;
 	    font-weight: bold;
 	    font-size: 15px;
+	    height: 222px;
 	}
 	
 	div#weather h4 {
 	    font-weight: bold;
+	    color: black;
 	}
+	
+	#commute{
+		width: 100%;
+	}
+	
+	#weatherCard{
+		height: 100%;
+	}
+	
+	#pdsCard{
+		height: 100%;
+	}
+	
+	#mgWeather{
+		margin-top: 35px;
+		margin-left: 37px;
+	}
+	
+	.white{
+		color: white;
+	}
+	
+	.black{
+		color: black;
+	}
+	
+	.marginWeather{
+		height: 369px;
+	}
+	
+	
 </style>
-   <div class="card mb-3 admindefault">
-     <div class="card-header">
-       <div class="row flex-between-end">
-         <div class="col-auto align-self-center">
-           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">근태관련</h5>
-         </div>
-         <div class="col-auto ms-auto">
-         버튼기능
-         </div>
-       </div>
-     </div>
-      <div class="card-body admindefault">
-        <div class="tab-content">
-          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
-            	<div id="commute">
-            	본문
-            	</div>
-            	<div id="weather">
-            		<c:import url="../inc/weather.jsp"></c:import>
-            	</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="row g-3 mb-3">
+
+   <div class="col-lg-8">
+	   <div class="card mb-3 admindefault marginWeather">
+	     <div class="card-header">
+	       <div class="row flex-between-end">
+	         <div class="col-auto align-self-center">
+	           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">근태상태</h5>
+	         </div>
+	         <div class="col-auto ms-auto">
+           	      <a href="<c:url value='/admin/commute/allCommute'/>" 
+                   	style="color: black; font-size: 14px;">전사원 근태관리▶</a>
+	         </div>
+	       </div>
+	     </div>
+	      <div class="card-body admindefault">
+	        <div class="tab-content">
+	          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
+	            	<div id="commute">
+	            		<c:import url="/inc/indexCommute"/>
+	            	</div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+  	
+  	
+   <div class="col-lg-4">
+	   <div id="marginWeather" class="card mb3 admindefault marginWeather">
+	     <div class="card-header">
+	       <div class="row flex-between-end">
+	         <div class="col-auto align-self-center">
+	           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">오늘의 날씨</h5>
+	         </div>
+	         <div class="col-auto ms-auto">
+	         </div>
+	       </div>
+	     </div>
+	      <div class="card-body admindefault">
+	        <div id="mgWeather" class="tab-content">
+	          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7" id="dom-dc27c0b8-dabf-405a-865d-4aaf2768bcc7">
+	            	<div id="weather">
+	            		<c:import url="../inc/weather.jsp"></c:import>
+	            	</div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+  	
+ </div>
     
    <!-- 사원통계 -->
     <div class="card mb-3 admindefault">

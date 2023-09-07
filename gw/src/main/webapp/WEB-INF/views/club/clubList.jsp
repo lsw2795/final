@@ -54,11 +54,13 @@
                       <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
                       
                       <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                        <a href="<c:url value='/club/createClub'/>">
-                        	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
-                        		<span class="fas fa-plus" ></span>
-                        	</button>
-                        </a>
+                      <c:if test="${sessionScope.clubNo==0}">
+	                        <a href="<c:url value='/club/createClub'/>">
+	                        	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
+	                        		<span class="fas fa-plus" ></span>
+	                        	</button>
+	                        </a>
+                        </c:if>
                       </div>
                   </div>
                   </div>
