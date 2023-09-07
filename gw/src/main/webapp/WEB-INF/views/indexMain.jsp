@@ -31,7 +31,7 @@
      <div class="card-header">
        <div class="row flex-between-end">
          <div class="col-auto align-self-center">
-           <h5 class="mb-0" data-anchor="data-anchor">근태</h5>
+           <h5 class="mb-0" data-anchor="data-anchor">근무상태</h5>
          </div>
          <div class="col-auto ms-auto">
          </div>
