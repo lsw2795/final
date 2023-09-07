@@ -24,6 +24,7 @@
 	  padding: 8px;
 	  text-align: left;
 	  border-bottom: 1px solid #ddd;
+	  border-top: 1px solid #ddd;
 	  text-align: center;
 	}
 	
@@ -64,8 +65,12 @@
 function printClock() {
     
     var clock = document.getElementById("clock");            // 출력할 장소 선택
+    var todayDate = document.getElementById("todayDate");    // 오늘 날짜 출력할 장소 선택
     var currentDate = new Date();                                     // 현재시간
-    var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+    var calendar = currentDate.getFullYear() + "년 " + (currentDate.getMonth() + 1) + "월 " + currentDate.getDate() + "일 "; // 현재 날짜
+    var days = ['일', '월', '화', '수', '목', '금', '토']; // 요일 배열
+    var dayOfWeek = days[currentDate.getDay()]; // 현재 요일 구하기
+    
     var amPm = 'AM'; // 초기값 AM
     var currentHours = addZeros(currentDate.getHours(),2); 
     var currentMinute = addZeros(currentDate.getMinutes() ,2);
@@ -77,6 +82,7 @@ function printClock() {
     }
 
     clock.innerHTML = currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:35px;'>"+ amPm+"</span>"; //날짜를 출력해 줌
+    todayDate.innerHTML = calendar + dayOfWeek + '요일';  // 오늘 날짜와 요일을 출력해 줌
     
     setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
 }
@@ -102,6 +108,10 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
       </tr>
     </thead>
     <tbody class="tbodyC">
+    	<tr>
+    		<td colspan="2" style="text-align:center; font-weight: bold; font-size: 30px;" id="todayDate"></td>
+    	</tr>
+    
       <tr class="trC">
         <td class="tdC">
        		<Strong>출근</Strong>
