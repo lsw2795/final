@@ -19,15 +19,11 @@
 		});
 	});
 	
-	
-	
 	function deleteClubBoard(clubBoardNo) {
 		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
 			location.href = "<c:url value='/admin/adminclub/adminDeleteClubBoard?boardNo=" + clubBoardNo + "'/>";
 		} 
 	}
-	
-	
 
 </script>
 <div class="table-responsive scrollbar">
@@ -37,7 +33,8 @@
       <tr>
       	<th>
       		<div class="check d-flex align-items-center">
-                <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' />
+              	<input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" 
+                  	data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"'/>
             </div>
       	</th>
         <th scope="col">Name</th>

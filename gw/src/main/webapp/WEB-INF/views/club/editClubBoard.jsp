@@ -45,6 +45,12 @@
 	  });
 		  
 	});
+	function deleteImg(imgName,a){
+		var editImg=$(a).parent().parent();
+		
+		$(editImg).append("<input name='deleteImg' type='text' value='"+imgName+"'/>");
+		$(a).parent().remove();
+	}
 </script>
 
 <div class="contentBody">
@@ -101,7 +107,18 @@
                     </div>
                     <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
                       <div class="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger">
-                        <div class="flex-1 d-flex flex-between-center">
+                        <div class="flex-1 d-flex flex-between-center" id="editImg">
+                          <c:forEach var="imgMap" items="${list }">
+					        	<div>
+					        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
+										${imgMap['FILENAME']}
+									<a href="#!" onclick="deleteImg('${imgMap['FILENAME']}',this)">
+										<span class="badge rounded-pill text-bg-primary">
+				                        	삭제
+				                        </span>
+			                        </a>
+			                    </div>
+	                  	  </c:forEach>
                           <div>
                             <h6 data-dz-name="data-dz-name"></h6>
                             <div class="d-flex align-items-center">

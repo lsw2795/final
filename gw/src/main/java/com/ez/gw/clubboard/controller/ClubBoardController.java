@@ -207,14 +207,20 @@ public class ClubBoardController {
 		//3.
 		Map<String, Object> map = clubBoardService.detailClubBoard(clubNo, boardNo);
 		logger.info("파라미터로 알아보는 동게 수정페이지 map={}",map);
-
+		
+		List<Map<String, Object>> list=clubBoardService.selectImg(boardNo);
+		logger.info("동호회게시글 상세보기 이미지 list={}",list.size());
+		
 		model.addAttribute("map", map);
+		model.addAttribute("list", list);
+		
 		//4.
 		return "club/editClubBoard";
 	}
 	
 	@RequestMapping("/club/editClubBoard")
-	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo, Model model) {
+	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo,
+			@RequestParam(required = false) String[] deleteImg, Model model) {
 		//1.
 		logger.info("동게 수정처리 clubVo={}",clubVo);
 		
