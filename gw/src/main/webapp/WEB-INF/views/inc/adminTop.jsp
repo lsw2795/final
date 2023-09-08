@@ -40,19 +40,120 @@
     <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
     <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
     <script>
-      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
-      if (isRTL) {
-        var linkDefault = document.getElementById('style-default');
-        var userLinkDefault = document.getElementById('user-style-default');
-        linkDefault.setAttribute('disabled', true);
-        userLinkDefault.setAttribute('disabled', true);
-        document.querySelector('html').setAttribute('dir', 'rtl');
-      } else {
-        var linkRTL = document.getElementById('style-rtl');
-        var userLinkRTL = document.getElementById('user-style-rtl');
-        linkRTL.setAttribute('disabled', true);
-        userLinkRTL.setAttribute('disabled', true);
-      }
+		var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+		if (isRTL) {
+		  var linkDefault = document.getElementById('style-default');
+		  var userLinkDefault = document.getElementById('user-style-default');
+		  linkDefault.setAttribute('disabled', true);
+		  userLinkDefault.setAttribute('disabled', true);
+		  document.querySelector('html').setAttribute('dir', 'rtl');
+		} else {
+		  var linkRTL = document.getElementById('style-rtl');
+		  var userLinkRTL = document.getElementById('user-style-rtl');
+		  linkRTL.setAttribute('disabled', true);
+		  userLinkRTL.setAttribute('disabled', true);
+		}
+      
+    </script>
+    <script type="text/javascript">
+    	$(function(){
+    		$.when(newMessage(),anonymousReportCount()).done(function() {
+    	        bellSet();
+    	    });
+    		
+    	});
+    	
+   		function bellSet(){
+   	  		var newCnt=$('.new-list').find('.new').length;
+   	  		if(newCnt>0){
+   	  			$('#navbarDropdownNotification').addClass('notification-indicator');
+   	  			$('#navbarDropdownNotification').addClass('notification-indicator-primary');
+   	  		}
+     	 }
+   		
+   		function newMessage(){
+       		return $.ajax({
+       			url:"<c:url value='/message/newMessageAjax'/>",
+       		   	type:"post",
+       		   	dataType:"json",
+       		   	success:function(res){
+       		   		$('#newMessage').text(res);
+       		   		$('#totalMessage').text(res);
+       		   		messageInfo(res);
+       		    },error:function(xhr, status, error){
+       		    	alert(status+" : "+error);
+       		   	}
+       		});
+       	}
+   		
+   		function anonymousReportCount(){
+       		return $.ajax({
+       			url:"<c:url value='/report/anonymous/countAjax'/>",
+       		   	type:"post",
+       		   	dataType:"json",
+       		   	success:function(res){
+       		   		$('#reportCount').text(res);
+       		   		$('#reportTotal').text(res);
+       		   		anonymousReportInfo(res);
+       		    },error:function(xhr, status, error){
+       		    	alert(status+" : "+error);
+       		   	}
+       		});
+       	}
+   		
+   		function messageInfo(cnt){
+           	var str="";
+           	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+           	
+             	if(cnt>0){
+           	  str+="<div class='list-group-item new'>";
+           	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
+           	  str+="<div class='notification-avatar'>";
+           	  str+="<div class='avatar avatar-2xl me-3'>";
+           	  str+="<img class='rounded-circle' style='background-color:white;' src='<c:url value='/images/message.png'/>' alt='쪽지아이콘' />";
+           	  str+="</div>";
+           	  str+="</div>";
+           	  str+="<div class='notification-body'>";
+           	  str+="<p class='mb-1'>";
+           	  str+="<strong>안읽은 메시지</strong> : "+cnt+"건이 있습니다.</p>";
+           	  str+="</div></a></div>";
+             	}else{
+             		return;
+             	}
+             	
+             	if($('.new-list').find('.new').length==0){
+             		$('.new-list').html(topstr);
+             	} 
+             	$('.new-list').append(str);
+             
+       	}
+   		
+   		function anonymousReportInfo(cnt){
+           	var str="";
+           	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+           	
+           	if(cnt>0){
+          	  str+="<div class='list-group-item new'>";
+          	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/report/anonymousReportList'/>'>";
+          	  str+="<div class='notification-avatar'>";
+          	  str+="<div class='avatar avatar-2xl me-3'>";
+          	  str+="<img class='rounded-circle' style='background-color:white;' src='<c:url value='/images/reportCount.png'/>' alt='익명게시판 신고건' />";
+          	  str+="</div>";
+          	  str+="</div>";
+          	  str+="<div class='notification-body'>";
+          	  str+="<p class='mb-1'>";
+          	  str+="<strong>익명게시판 신고</strong> : "+cnt+"건이 있습니다.</p>";
+          	  str+="</div></a></div>";
+           	}else{
+           		return;
+           	}
+           	
+           	if($('.new-list').find('.new').length==0){
+           		$('.new-list').html(topstr);
+           	} 
+           	$('.new-list').append(str);
+             
+       	}
     </script>
   </head>
   <body>
@@ -93,11 +194,9 @@
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <div class="navbar-vertical-content scrollbar">
 				<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-				
 					<li class="nav-item">
             			<c:import url="/inc/empMain"></c:import>
 					</li>
-					
 					<li class="nav-item"><!-- parent pages-->
 						<a class="nav-link dropdown-indicator" href="#mypage" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
@@ -105,7 +204,7 @@
 	                    		<span class="nav-link-text ps-1">사원 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="mypage">
+	                  	<ul class="nav collapse" id="mypage">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/admin/employee/employeeRegister'/>" role="button" data-toggle="collapse">
                         			<div class="d-flex align-items-center">
@@ -129,7 +228,7 @@
 	                    		<span class="nav-link-text ps-1">근태관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="a">
+	                  	<ul class="nav collapse" id="a">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/admin/commute/allCommute'/>">
                         			<div class="d-flex align-items-center">
@@ -146,7 +245,7 @@
 	                    		<span class="nav-link-text ps-1">전자결재</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="b">
+	                  	<ul class="nav collapse" id="b">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/approval/confirmList/admin'/>">
                         			<div class="d-flex align-items-center">
@@ -170,7 +269,7 @@
 	                    		<span class="nav-link-text ps-1">자원관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="c">
+	                  	<ul class="nav collapse" id="c">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/admin/officeProduct/addOfficeProduct'/>">
                         			<div class="d-flex align-items-center">
@@ -194,7 +293,7 @@
 	                    		<span class="nav-link-text ps-1">캘린더</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="d">
+	                  	<ul class="nav collapse" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="#">
                         			<div class="d-flex align-items-center">
@@ -208,10 +307,13 @@
 						<a class="nav-link dropdown-indicator" href="#e" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span>
-	                    		<span class="nav-link-text ps-1">쪽지</span>
+	                    		<span class="nav-link-text ps-1">
+		                    		쪽지
+		                    		<span class="badge rounded-pill text-bg-primary" id="totalMessage"></span>
+	                    		</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="e">
+	                  	<ul class="nav collapse" id="e">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/message/messageWrite'/>">
                         			<div class="d-flex align-items-center">
@@ -232,13 +334,13 @@
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#" role="button" data-bs-toggle="collapse">
+						<a class="nav-link dropdown-indicator" href="#f" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-download"></span></span>
 	                    		<span class="nav-link-text ps-1">자료실 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="f">
+	                  	<ul class="nav collapse" id="f">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/admin/pds/management'/>">
                         			<div class="d-flex align-items-center">
@@ -306,7 +408,7 @@
 	                    		<span class="nav-link-text ps-1">동호회 관리</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="g">
+	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/admin/adminclub/clubList'/>">
                         			<div class="d-flex align-items-center">
@@ -334,14 +436,20 @@
 						<a class="nav-link dropdown-indicator" href="#h" role="button" data-bs-toggle="collapse">
 	                    	<div class="d-flex align-items-center">
 	                    		<span class="nav-link-icon"><span class="fas fa-carrot"></span></span>
-	                    		<span class="nav-link-text ps-1">신고글 관리</span>
+	                    		<span class="nav-link-text ps-1">
+	                    		신고글 관리
+	                    		<span class="badge rounded-pill text-bg-primary" id="reportTotal"></span>
+	                    		</span>
 	                    	</div>
 	                  	</a>
-	                  	<ul class="nav collapse show" id="g">
+	                  	<ul class="nav collapse" id="h">
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/report/anonymousReportList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">익명게시판 신고함</span>
+                        				<span class="nav-link-text ps-1">
+                        				익명게시판 신고함
+                        				<span class="badge rounded-pill text-bg-primary" id="reportCount"></span>	
+                        				</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -359,93 +467,30 @@
               </div>
             </a>
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
-              <li class="nav-item d-none d-sm-block">
-                <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.jsp"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
-              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link notification-indicator notification-indicator-primary px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll"><span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span></a>
+                <a class="nav-link px-0 fa-icon-wait" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hide-on-body-scroll="data-hide-on-body-scroll">
+                	<span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span>
+                </a>
                 <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-menu-notification dropdown-caret-bg" aria-labelledby="navbarDropdownNotification">
                   <div class="card card-notification shadow-none">
                     <div class="card-header">
                       <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
-                          <h6 class="card-header-title mb-0">Notifications</h6>
+                          <h6 class="card-header-title mb-0">알림</h6>
                         </div>
-                        <div class="col-auto ps-0 ps-sm-3"><a class="card-link fw-normal" href="#">Mark all as read</a></div>
                       </div>
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
                       <div class="list-group list-group-flush fw-normal fs--1">
-                        <div class="list-group-title border-bottom">NEW</div>
-                        <div class="list-group-item">
-                          <a class="notification notification-flush notification-unread" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="assets/img/team/1-thumb.png" alt="" />
-                              </div>
+                        <div class="list-group-item new-list">
+                            <div class="notification-body p-3" align="center">
+                              <p class="mb-1">
+                              	<strong>새로운 알림이 없습니다.</strong> 
+                              </p>
                             </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world ð"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¬</span>Just now</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="notification notification-flush notification-unread" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <div class="avatar-name rounded-circle"><span>AB</span></div>
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
-                              <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-title border-bottom">EARLIER</div>
-                        <div class="list-group-item">
-                          <a class="notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="assets/img/icons/weather-sm.jpg" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ð¤ï¸</span>1d</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="border-bottom-0 notification-unread  notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="assets/img/logos/oxford.png" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">âï¸</span>1w</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="list-group-item">
-                          <a class="border-bottom-0 notification notification-flush" href="#!">
-                            <div class="notification-avatar">
-                              <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="assets/img/team/10.jpg" alt="" />
-                              </div>
-                            </div>
-                            <div class="notification-body">
-                              <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
-                              <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">ðâ</span>2d</span>
-                            </div>
-                          </a>
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer text-center border-top"><a class="card-link d-block" href="app/social/notifications.jsp">View all</a></div>
                   </div>
                 </div>
               </li>
