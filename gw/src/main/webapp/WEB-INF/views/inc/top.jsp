@@ -203,7 +203,9 @@
     	$(function() {
 			$('#clubBtn').click(function() {
 				if(confirm('동호회를 새로 개설하시겠습니까?')){
-					
+					location.href="<c:url value='/club/createClub'/>"
+				}else{
+					location.href="<c:url value='/club/clubList'/>";
 				}
 			});
 		});
@@ -501,7 +503,7 @@
 	                  	<ul class="nav collapse" id="g">
                     		<li class="nav-item"><!-- more inner pages-->
                     		<c:if test="${sessionScope.clubNo==0}">
-                    			<a class="nav-link " href="<c:url value='/club/createClub'/>">
+                    			<a class="nav-link " href="#">
                         			<div id="clubBtn" class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">동호회 등록</span>
                         			</div> 
