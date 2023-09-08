@@ -251,26 +251,30 @@
 <div class="row g-3 mb-3">
 	<div class="col-xxl-4">
 		<div class="card h-100 admindefault">
-			<div class="card-header d-flex flex-between-center admindefault">
-				<h5 class="mb-0 admindefault">
-				<span class="fas fa-file" style="margin: 0 10px;"></span>
-				게시판 목록</h5>
-			</div>
-			<div class="d-lg-flex justify-content-between">
-              <form name="frmSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
-                <div class="row flex-between-center gy-2 px-x1">
-                  <div class="col-auto">
-                     <div class="input-group">
-                       <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search admindefault" type="search" placeholder="게시판 이름을 입력하세요" aria-label="search" />
-                       <button onclick="submitForm()" 
-	                       	class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
-	                       	<span class="fa fa-search fs--1"></span>
-                       	</button>
-                     </div>
-                  </div>
+	<div class="card-header">
+       <div class="row flex-between-end">
+         <div class="col-auto align-self-center">
+           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">
+           <span class="fas fa-file" style="margin: 0 10px;"></span>
+			게시판 목록</h5>
+         </div>
+       </div>
+     </div>
+	<div class="d-lg-flex justify-content-between mt-3">
+            <form name="frmSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
+              <div class="row flex-between-center gy-2 px-x1">
+                <div class="col-auto">
+                   <div class="input-group">
+                     <input name="searchKeyword" value="${param.searchKeyword }" class="form-control shadow-none search admindefault" type="search" placeholder="게시판 이름을 입력하세요" aria-label="search" />
+                     <button onclick="submitForm()" 
+                      	class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary">
+                      	<span class="fa fa-search fs--1"></span>
+                     	</button>
+                   </div>
                 </div>
-              </form>
-             </div>	
+              </div>
+            </form>
+           </div>	
 			<div class="card-body pt-3 admindefault">
 			<c:if test="${!empty param.searchKeyword }">
 				   <p>검색어 :${param.searchKeyword} , <span style="font-weight: bold; color: red;">${pagingInfo.totalRecord}</span> 건 검색되었습니다.</p>
@@ -347,11 +351,15 @@
 		<div class="row g-3 h-100">
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
-					<div class="card-header pb-0 admindefault">
-						<h5 class="mb-0 admindefault">
-						<span class="fas fa-file" style="margin: 0 10px;"></span>
-						게시판 추가</h5>
-					</div>
+					<div class="card-header">
+				       <div class="row flex-between-end">
+				         <div class="col-auto align-self-center">
+				           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">
+				          <span class="fas fa-file" style="margin: 0 10px;"></span>
+							게시판 추가</h5>
+				         </div>
+				       </div>
+				     </div>
 					<div class="card-body pt-3 admindefault">
 						<div class="table-responsive scrollbar admindefault">
 							<table class="table table-bordered">
@@ -453,11 +461,15 @@
 			</div>
 			<div class="col-md-6">
 				<div class="card font-sans-serif h-100 admindefault">
-					<div class="card-header pb-0 admindefault">
-						<h5 class="mb-0 admindefault">
-						<span class="fas fa-file" style="margin: 0 10px;"></span>
+					<div class="card-header">
+				       <div class="row flex-between-end">
+				         <div class="col-auto align-self-center">
+				           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">
+				          <span class="fas fa-file" style="margin: 0 10px;"></span>
 						게시판 권한 수정</h5>
-					</div>
+				         </div>
+				       </div>
+				     </div>
 					<div class="ms-2" style="width:200px;"> 
 					<select id="selboardName" name="boardName" class="admindefault adminempborder adminempsel form-select">
 						<option value="">선택하세요</option>
@@ -525,28 +537,27 @@
 			</div>
 			<div class="col-12">
 				<div class="card h-100 admindefault">
-					<div class="card-header py-2 admindefault">
-						<div class="row flex-between-center g-0 admindefault">
-							<div class="col-auto pb-0 admindefault">
-								<h5 class="mb-0 admindefault">
-								<span class="fas fa-file" style="margin: 0 10px;"></span>
-								게시판별 이용 통계</h5>
+				<div class="card-header">
+				       <div class="row flex-between-end">
+				         <div class="col-auto align-self-center">
+				           <h5 class="mb-0" data-anchor="data-anchor" style="color:black;">
+				          <span class="fas fa-file" style="margin: 0 10px;"></span>
+							게시판별 이용 통계</h5>
 							</div>
 							 <div class="col-auto d-flex">
 							<form name="frmDateSearch" method="post" action="<c:url value='/admin/board/manageBoards'/>">
-								 	<input type="date" id="startDate" name="startDate" value="${param.startDate }" class="form-control-sm admindefault"/>
-								 	<span class="adminhyphen">~</span>
-									<input type="date" id="lastDate" name="lastDate" value="${param.lastDate }" class="form-control-sm admindefault"/>
-									<span class="adminhyphen"></span>
-									<button type="submit" class="btn btn-primary" id="boardlistWriteCount">조회</button>
+							 	<input type="date" id="startDate" name="startDate" value="${param.startDate }" class="form-control-sm admindefault"/>
+							 	<span class="adminhyphen">~</span>
+								<input type="date" id="lastDate" name="lastDate" value="${param.lastDate }" class="form-control-sm admindefault"/>
+								<span class="adminhyphen"></span>
+								<button type="submit" class="btn btn-primary" id="boardlistWriteCount">조회</button>
                     		</form>
                     		</div>
 				  		 </div>
 					</div>
                 <div class="card-body h-100 pe-0">
                  <canvas id="myBarChart" width="400" height="150"></canvas>
-                
-           <script type="text/javascript">
+         	<script type="text/javascript">
                var barChartData = {
 			        labels: [
 			        	<c:forEach var="map" items="${boardListCount}">

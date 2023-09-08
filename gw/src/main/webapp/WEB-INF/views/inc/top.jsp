@@ -404,7 +404,7 @@
                     		<li class="nav-item"><!-- more inner pages-->
                     			<a class="nav-link " href="<c:url value='/calendar/DeptCalendar'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">부서 일정 관리(임원)</span>
+                        				<span class="nav-link-text ps-1">부서 일정 관리</span>
                         			</div> 
                       			</a>
                     		</li>

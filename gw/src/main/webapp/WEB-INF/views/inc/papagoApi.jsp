@@ -2,50 +2,55 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$(function() {
-	$("#english2").click(function(){
-	    var ko = $("#korean").val();
-	    $.ajax({
-	        url:"<c:url value='/english'/>",
-	        type:"GET",
-	        dataType:"json", // JSON 형식으로 응답을 기대
-	        data:{korean:ko},
-	        success:function(data){
-	        	 var translatedText = data.enlgish;
-	        	 alert(translatedText);
-                $("#english").text(translatedText); // 영어 결과를 화면에 출력
-	        },
-	        error:function(e){
-	            console.log(e);
-	        }
-	    });
-	});
-});
-</script>
-<title>항상테스트부터</title>
+    <meta charset="UTF-8">
+    <title>파파고 번역</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <body>
-	<h1>성공이다!!!!</h1>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>한국어</th>
-					<th>영어</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="text" id="korean" name="korean"></td>
-					<td width="200" height="30" id="english"></td>
-				</tr>
-			</tbody>
-		</table>
-		<input type="button" id="english2" value="영어">
+    <h1>파파고 번역</h1>
+    <form id="translationForm">
+        <label for="sourceText">번역할 텍스트 (한국어):</label>
+        <input type="text" id="sourceText" name="sourceText">
+        <button type="button" id="translateButton">번역하기</button>
+    </form>
+    <div id="translationResult">
+        <p><strong>번역 결과 (영어):</strong> <span id="translatedText"></span></p>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#translateButton").click(function () {
+                var sourceText = $("#sourceText").val();
+                if (sourceText.trim() === "") {
+                    alert("번역할 텍스트를 입력하세요.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://openapi.naver.com/v1/papago/n2mt",
+                    headers: {
+                        "X-Naver-Client-Id": "rlNbwm_88QwSG8CH1QzN",
+                        "X-Naver-Client-Secret": "RcpivYf_GM",
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({
+                        source: "ko",
+                        target: "en",
+                        text: sourceText
+                    }),
+                    success: function (response) {
+                        var translatedText = response.message.result.translatedText;
+                        $("#translatedText").text(translatedText);
+                    },
+                    error: function (error) {
+                        console.log("번역 오류:", error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
