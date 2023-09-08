@@ -21,12 +21,17 @@
  	  	margin-left: 10px;
 	}
 	
-	tbody#table-contact-body {
-   		height: 700px;
+	.trSize{
+		height: 100px;
+		font-size: 15px;
 	}
 	
 	.col-lg-12.pe-lg-2.mb-3 {
     	width: 1200px;
+	}
+	
+	thead.text-800.bg-light {
+	    font-size: 15px;
 	}
 </style>
  <!-- 페이징 처리 관련 form -->
@@ -104,7 +109,7 @@
                       <tbody class="list" id="table-contact-body">
                       <!-- 반복 시작  -->
                       	<c:forEach var="map" items="${list}">
-	                        <tr>
+	                        <tr class="trSize">
 	                          <td class="align-middle name white-space-nowrap pe-5 ps-2">
 	                            <div class="d-flex align-items-center gap-2 position-relative">
 	                              <div class="avatar avatar-xl">
