@@ -7,7 +7,7 @@
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-<link rel="stylesheet" href="<c:url value='/css/club.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/clubModal.css'/>">
 <script type="text/javascript">
 	
 	

@@ -132,15 +132,15 @@
 						<div class="col-12" id="editImgDiv" style="display: none;">
 							<c:forEach var="pdsVo" items="${imageList }" >
 					        	<c:if test="${pdsVo.boardNo == map['BOARD_NO']}">
-					        	<div>
-					        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
-										${pdsVo.fileName }
-									<a href="#!" onclick="deleteImg('${pdsVo.fileName }',this)">
-										<span class="badge rounded-pill text-bg-primary">
-				                        	삭제
-				                        </span>
-			                        </a>
-			                    </div>
+						        	<div>
+						        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
+											${pdsVo.fileName }
+										<a href="#!" onclick="deleteImg('${pdsVo.fileName }',this)">
+											<span class="badge rounded-pill text-bg-primary">
+					                        	삭제
+					                        </span>
+				                        </a>
+				                    </div>
 					        	</c:if>
 					        </c:forEach>
 						</div>
