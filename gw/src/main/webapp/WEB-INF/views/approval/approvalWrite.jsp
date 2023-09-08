@@ -3,8 +3,8 @@
 <%@ include file = "../inc/top.jsp" %>
 <script type="text/javascript">
 	$(function(){
-		var bool=false;
 		$('form[name=documentFrm]').submit(function(){
+			var bool=false;
 			if($('#referEmpNo').find('input[name=referEmpNo]').length>0){
 				$('input[name=referEmpNo]').each(function(){
 					if($(this).val()==$('#user').val()){

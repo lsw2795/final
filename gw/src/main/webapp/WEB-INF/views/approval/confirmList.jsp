@@ -238,10 +238,10 @@
 							        </div>
 							    </td>
 							    <td class="text-nowrap" align="left">
-								    <c:if test="${map['CONFIRM_TITLE'].length()>10 }">
-									 	${fn:substring(map['CONFIRM_TITLE'],0,10) }...
+								    <c:if test="${map['CONFIRM_TITLE'].length()>20 }">
+									 	${fn:substring(map['CONFIRM_TITLE'],0,20) }...
 									</c:if>
-									<c:if test="${map['CONFIRM_TITLE'].length()<=10 }">
+									<c:if test="${map['CONFIRM_TITLE'].length()<=20 }">
 			                    		${map['CONFIRM_TITLE']}
 									</c:if>
 							    </td>
