@@ -540,7 +540,7 @@
 				<div class="card-header">
 				       <div class="row flex-between-end">
 				         <div class="col-auto align-self-center">
-				           <h5 class="mb-0" data-anchor="data-anchor" style="color: black;">
+				           <h5 class="mb-0" data-anchor="data-anchor" style="color:black;">
 				          <span class="fas fa-file" style="margin: 0 10px;"></span>
 							게시판별 이용 통계</h5>
 							</div>
