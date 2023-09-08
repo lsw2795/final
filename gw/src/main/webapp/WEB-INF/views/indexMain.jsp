@@ -204,6 +204,7 @@
 	                    <a href="<c:url value='/pds/list'/>"
 	                    	style="color: black; font-size: 14px;">
 	                    		더보기 ▶
+	                    </a>
                     </div>
                   </div>
                 </div>
