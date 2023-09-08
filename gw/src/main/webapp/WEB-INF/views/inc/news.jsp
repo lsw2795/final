@@ -7,8 +7,16 @@
 
 
 <body>
-<c:forEach>
-	<label></label>
-</c:forEach>
+<h3>네이버 오픈 API를 활용한 뉴스 목록</h3>
+		
+<table border = "1">
+	<c:forEach var="newItem" items="${news }">
+	<tr>
+        <td>${newItem.title}</td>
+        <td>
+        <a>${newItem.title}</a></td>
+    </tr>
+	</c:forEach>
+</table>
 </body>
 <%@ include file="../inc/bottom.jsp"%>
