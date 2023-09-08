@@ -87,7 +87,7 @@
         	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">가입완료<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
         </c:if>
         <c:if test="${empty map['MERCHANT_NO']}">
-        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">개설자<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">개설자<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span></span>
         </c:if>
         </td>
       </tr>

@@ -207,7 +207,7 @@
 		    order by regdate desc
 		)
 		<![CDATA[
-			where rownum<=3
+			where rownum<=5
 		]]>
 	</select>
 	
