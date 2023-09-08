@@ -10,5 +10,5 @@ public class NewsResultVO {
 	private int total;
 	private int start;
 	private int display;
-	private List<NewsVO> item;
+	private List<NewsVO> items;
 }

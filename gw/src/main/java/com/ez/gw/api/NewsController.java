@@ -65,8 +65,8 @@ public class NewsController {
 	  			e.printStackTrace(); 
 	  		}
 		  
-		  if(resultVO !=null && resultVO.getItem() !=null) {
-			  List<NewsVO> news =resultVO.getItem(); // books를 list.html에 출력 -> model 선언
+		  if(resultVO !=null && resultVO.getItems() !=null) {
+			  List<NewsVO> news =resultVO.getItems(); // books를 list.html에 출력 -> model 선언
 			  logger.info("news={}", news);
 			  model.addAttribute("news", news);
 			  
