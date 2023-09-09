@@ -17,4 +17,6 @@ public interface ClubBoardDAO {
 	Map<String, Object> detailClubBoard(int clubNo, int boardNo);
 	int deleteClubBoard(int boardNo);
 	List<Map<String, Object>> selectImg(int clubBoardNo); //이미지만 가져오기
+	
+	int deleteClubFileOne(@Param("fileName") String fileName ,@Param("clubBoardNo")int clubBoardNo); // 동호회 게시글번호와 삭제대상 파일명으로 해당 파일 삭제 메서드
 }
