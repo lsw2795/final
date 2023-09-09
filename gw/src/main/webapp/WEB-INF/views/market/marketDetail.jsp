@@ -5,9 +5,9 @@
 <link href="<c:url value='/vendors/swiper/swiper-bundle.min.css'/>"
 	rel="stylesheet">
 <script type="text/javascript">
-	function delMarket(){
+	function delMarket(no){
 		if(confirm("삭제하시겠습니까?")){
-			location.href="<c:url value='/market/delMarket?tradeNo=${vo.tradeNo}'/>"
+			location.href="<c:url value='/market/delMarket?tradeNo="+no+"'/>"
 		}
 	}
 	function insertLikeOn(empNo, tradeNo){
@@ -38,6 +38,24 @@
         });//ajax
 	}
 	
+	function boardReport(no){
+		if(confirm("게시글을 신고하시겠습니까?")){
+			$.ajax({
+				url:'<c:url value="/report/reportBoardAjax"/>',
+				type:"get",
+				dataType:"text",
+				data:{
+					tradeNo : no
+				},
+				success:function(result){
+					alert(result);
+				},
+				error:function(xhr, status, error){
+					alert(status + " : " + error);
+				}
+			});
+		}
+	}
 </script>
 <style type="text/css">
 div.updateBtn {
@@ -71,6 +89,14 @@ div#explains {
     width: 97%;
     padding-bottom: 40px;
 }
+
+div#heartBox a {
+    text-decoration: none;
+    color: white;
+    background: #dd6e6e;
+    padding: 3px 25px;
+    border-radius: 4px;
+}
 </style>
 
 <div class="content">
@@ -86,7 +112,7 @@ div#explains {
 							<span class="d-none d-md-inline-block ms-1">수정</span>
 						</button>
 					</a>
-					<button onclick="delMarket()"
+					<button onclick="delMarket(${map['TRADE_NO']})"
 						class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block"
 						type="button">
 						<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
@@ -96,7 +122,7 @@ div#explains {
 			</c:if>
 			<c:if test="${sessionScope.empNo != map['EMP_NO'] }">
 				<div class="updateBtn">
-					<button onclick="delMarket()"
+					<button onclick="boardReport(${map['TRADE_NO']})"
 						class="btn btn-falcon-default btn-sm ms-2 d-none d-sm-block"
 						type="button">
 						<span class="fas fa-trash-alt" data-fa-transform="shrink-2 down-1"></span>
@@ -125,6 +151,7 @@ div#explains {
 		</div>
 		<div class="d-flex align-items-center gap-2"id = "likeCountBox">
 			<div>
+                
 				<p class="fs--1 mb-1">
 					♥ 좋아요 : <span id="showLike"><strong>${map["LIKECOUNT"]}</strong></span>
 				</p>
@@ -175,33 +202,24 @@ div#explains {
 						class="d-none d-sm-inline-block">&nbsp&nbsp판매자에게 쪽지하기</span>
 					</a>
 				</div>
+				<div class="col-auto px-2 px-md-3" id ="heartBox">
+                	<a class="" href="#!" onclick="insertLikeOn(empNo, ${map['TRADE_NO']})">
+                		<c:if test="${empty map['LIKEFLAG']}">
+								<img id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>"
+								width="30px" height="30px" > 좋아요
+							</c:if>
+							<c:if test="${map['LIKEFLAG'] =='N' }"> 
+								<img id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>"
+								width="30px" height="30px"> 좋아요
+							</c:if>
+							<c:if test="${map['LIKEFLAG'] =='Y' }">
+								<img id="heartimg" src="<c:url value='/images/배경지운풀하트.png'/>"
+								width="30px" height="30px" > 좋아요
+							</c:if>
+                		<span class="ms-2 d-none d-md-inline-block"></span>
+               		</a>
+               	</div>
 				<div class="col-auto px-0">
-					<div class="ILikeIt">
-						<div class="likebox">
-							<c:if test="${empty map['likeFlag']}">
-								<a href="#" id="heart" style="float: right;"
-									onclick="insertLikeOn(empNo, ${map['TRADE_NO']})"> <img
-									id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>"
-									width="30px" height="30px" value="좋아요">좋아요
-								</a>
-							</c:if>
-							<c:if test="${map['likeFlag'] =='N' }">
-								<a href="#" id="heart" style="float: right;"
-									onclick="insertLikeOn(empNo, ${map['TRADE_NO']})"> <img
-									id="heartimg" src="<c:url value='/images/배경지운빈하트.png'/>"
-									width="30px" height="30px" value="좋아요">좋아요
-								</a>
-							</c:if>
-							<c:if test="${map['likeFlag'] =='Y' }">
-								<a href="#" id="heart" style="float: right;"
-									onclick="insertLikeOn(empNo, ${map['TRADE_NO']})"> <img
-									id="heartimg" src="<c:url value='/images/배경지운풀하트.png'/>"
-									width="30px" height="30px" value="좋아요">좋아요
-								</a>
-							</c:if>
-							<span class="mypagehyphen"></span>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="row">
