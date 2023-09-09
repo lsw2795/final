@@ -333,9 +333,10 @@ public class CommuteController {
 		// 컬럼 셋팅
 		Row headerRow = sheet.createRow(0);
 		headerRow.createCell(0).setCellValue("사원번호");
-		headerRow.createCell(1).setCellValue("출근 시간");
-		headerRow.createCell(2).setCellValue("퇴근 시간");
-		headerRow.createCell(3).setCellValue("근태 상태");
+		headerRow.createCell(1).setCellValue("사원명");
+		headerRow.createCell(2).setCellValue("출근 시간");
+		headerRow.createCell(3).setCellValue("퇴근 시간");
+		headerRow.createCell(4).setCellValue("근태 상태");
 
 		// Populate data rows
 		int rowNum = 1;
@@ -346,9 +347,10 @@ public class CommuteController {
 			BigDecimal commuteStateBig = (BigDecimal)commute.get("COMMUTE_STATE");
 			int commuteState = commuteStateBig.intValue();
 			row.createCell(0).setCellValue(empNo);
-			row.createCell(1).setCellValue((String)commute.get("WORK_IN")); // 출근 시간 필드에 따라 변경
-			row.createCell(2).setCellValue((String)commute.get("WORK_OUT")); // 퇴근 시간 필드에 따라 변경
-			row.createCell(3).setCellValue(commuteState); // 근태 상태 필드에 따라 변경
+			row.createCell(1).setCellValue((String)commute.get("NAME"));
+			row.createCell(2).setCellValue((String)commute.get("WORK_IN")); // 출근 시간 필드에 따라 변경
+			row.createCell(3).setCellValue((String)commute.get("WORK_OUT")); // 퇴근 시간 필드에 따라 변경
+			row.createCell(4).setCellValue(commuteState); // 근태 상태 필드에 따라 변경
 		}
 
 		// Set response headers
