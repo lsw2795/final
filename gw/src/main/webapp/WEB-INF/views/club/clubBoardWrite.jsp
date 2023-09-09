@@ -110,10 +110,6 @@
                               <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
                             </div>
                           </div>
-                          <div class="dropdown font-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
-                          </div>
                         </div>
                       </div>
                     </div>
