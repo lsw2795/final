@@ -68,26 +68,32 @@
 		SET
 		commute_state = 1
 		WHERE emp_no = #{empNo}
-		AND TO_DATE(work_in,
-		'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		<![CDATA[
+			AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') < TRUNC(SYSDATE) + 1
+		]]>
 	</update>
 
 	<update id="updateCommuteStateEalry" parameterType="int">
-		UPDATE
-		commute
-		SET commute_state = 2
+		UPDATE commute
+		SET
+		commute_state = 2
 		WHERE emp_no = #{empNo}
-		AND
-		TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		<![CDATA[
+			AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') < TRUNC(SYSDATE) + 1
+		]]>
 	</update>
 
 	<update id="updateCommuteStateTotal" parameterType="int">
-		UPDATE
-		commute
-		SET commute_state = 3
+		UPDATE commute
+		SET
+		commute_state = 3
 		WHERE emp_no = #{empNo}
-		AND
-		TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') >= TRUNC(SYSDATE)
+		<![CDATA[
+			AND TO_DATE(work_in, 'YYYY-MM-DD HH24:MI:SS') < TRUNC(SYSDATE) + 1
+		]]>
 	</update>
 
 	<select id="selectLateState" parameterType="int"
