@@ -23,7 +23,7 @@
 	
 	.trSize{
 		height: 100px;
-		font-size: 15px;
+		font-size: 20px;
 	}
 	
 	.col-lg-12.pe-lg-2.mb-3 {
@@ -31,7 +31,7 @@
 	}
 	
 	thead.text-800.bg-light {
-	    font-size: 15px;
+	    font-size: 20px;
 	}
 </style>
  <!-- 페이징 처리 관련 form -->
