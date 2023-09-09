@@ -565,9 +565,11 @@
             </a>
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
               <li>
-				<button class="nav-link px-0 notification-indicator-warning notification-indicator-fill fa-icon-wait" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-					<span class="fas fa-newspaper" data-fa-transform="shrink-7" style="font-size: 33px;"></span>
-				</button>
+              	 <a class="nav-link p-1" role="button" href="<c:url value='/news?searchWord=코스모스사'/>">
+					<button class="nav-link px-0 notification-indicator-warning notification-indicator-fill fa-icon-wait" type="button" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+						<span class="fas fa-newspaper" data-fa-transform="shrink-7" style="font-size: 33px;"></span>
+					</button>
+				</a>
               </li>
               <li>
 				<button class="nav-link px-0 notification-indicator-warning notification-indicator-fill fa-icon-wait" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">

@@ -170,7 +170,7 @@ form.row.gx-2 {
 				</c:when>
 				<c:otherwise>
 					<c:set var="i" value="0" />
-					<c:forEach var="map" items="${list }" varStatus="loopStatus">
+					<c:forEach var="map" ite  ms="${list }" varStatus="loopStatus">
 						<div class="col-12 p-x1">
 							<div class="row">
 								<div class="col-sm-5 col-md-4">
