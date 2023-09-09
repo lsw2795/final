@@ -211,9 +211,10 @@ public class EmployeeController {
 		return result;
 	}
 
-	@PostMapping("/mypage/pwdEdit")
-	public String pwdEdit_post(@ModelAttribute EmployeeVO empVo,
-			HttpSession session, Model model) {
+	@ResponseBody
+	@RequestMapping("/mypage/ajaxPwdEdit")
+	public int pwdEdit_post(@ModelAttribute EmployeeVO empVo,
+			HttpSession session) {
 		int empNo=(int)session.getAttribute("empNo");
 		empVo.setEmpNo(empNo);
 		empVo.setPwd(passwordEncoder.encode(empVo.getPwd()));
@@ -221,14 +222,7 @@ public class EmployeeController {
 
 		int cnt=employeeService.updateEmpPwd(empVo);
 		logger.info("사원 - 비밀번호 수정결과 cnt={}", cnt);
-		String msg="비밀번호 수정에 실패했습니다.", url="/mypage/pwdEdit";
-		if(cnt>0) {
-			msg="비밀번호 수정이 완료되었습니다.";
-		}
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
-		return "common/message";
+		return cnt;
 	}
 
 	@RequestMapping("/admin/employee/employeeList")
