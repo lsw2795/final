@@ -19,7 +19,7 @@
 	        select rownum as RNUM, A.* from
 	        (
 	            select 
-	            boardList_no, board_no, emp_no, name, title, content, readcount, regdate
+	            boardList_no, board_no, emp_no, name, title, content, readcount, regdate, deptname
 	            from pdsListview
 	            where boardList_no=3000
 	            <if test="searchKeyword!=null and searchKeyword!=''">
