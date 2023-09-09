@@ -46,7 +46,7 @@ public class ClubBoardController {
 	private final ClubBoardCommentService cbcService;
 	private final PdsService pdsService;
 	private final ReportService reportService;
-	
+	private final FileUploadUtil fileUploadUtil;
 	
 	@GetMapping("/club/clubBoardWrite")
 	public String clubBoardWrite() {
@@ -221,6 +221,7 @@ public class ClubBoardController {
 	
 	@RequestMapping("/club/editClubBoard")
 	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo,
+			@ModelAttribute PdsVO pdsVo,
 			@RequestParam(required = false) String[] deleteImg, 
 			HttpServletRequest request,
 			Model model) {
@@ -232,7 +233,6 @@ public class ClubBoardController {
 		logger.info("동게 수정처리 결과 cnt={}",cnt);
 
 		//3.
-		PdsVO pdsVo = new PdsVO();
 		String msg="수정 실패하였습니다.", 
 			   url="/club/editClubBoard?clubNo="+clubVo.getClubNo()+"&boardNo="+clubVo.getBoardNo();
 		if(cnt>0) {
@@ -284,13 +284,14 @@ public class ClubBoardController {
 				}//for
 			
 			if(deleteImg!=null) {
-	    		for(int i=0; i<deleteImg.length; i++) {
-	    			File f = new File(FileUploadUtil.getUploadPath(request, ConstUtil.CLUB_UPLOAD_PATH), deleteImg[i]);
+	    		for(int j=0; j<deleteImg.length; j++) {
+	    			File f = new File(fileUploadUtil.getUploadPath(request, 
+	    					Integer.parseInt(ConstUtil.CLUB_UPLOAD_PATH)), deleteImg[j]);
 	    			if(f.exists()) {
 	    				boolean result = f.delete();
 	    				logger.info("파일 삭제 여부 result={}", result);
 	    				if(result) {
-	    					pdsVo.setFileName(deleteImg[i]);
+	    					pdsVo.setFileName(deleteImg[j]);
 	    					pdsVo.setBoardNo(clubVo.getBoardNo());
 	    					cnt=pdsService.deleteAnonymousImg(pdsVo);
 	    				}
