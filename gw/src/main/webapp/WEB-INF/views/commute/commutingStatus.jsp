@@ -94,7 +94,6 @@
 	<hr>
 
 	<div style="clear: both;" id='calendar'></div>
-
 </div>
 
 

@@ -27,6 +27,19 @@ $(function(){
     
 });
 
+function btnCss(index) {
+    var $btn = $('.btnDept').eq(index);
+    
+    if ($btn.find('span').text() === '▶') {
+        $('.btnDept').each(function () {
+            $(this).find('span').html('▶');
+        });
+        $btn.find('span').html('▼');
+    } else {
+        $btn.find('span').html('▶');
+    }
+}
+
 function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
@@ -54,7 +67,7 @@ function send(curPage){
         var searchrs = "검색 결과 : 총 <b style='font-weight: bold; color:red;'>" + res.pagingInfo.totalRecord + "</b>건 입니다.<br>";
         var results = "";
         $.each(res.searchList, function (index, item) {
-                results += "<a href='#' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
+                results += "<a href='#' style='font-size: 18px;' class='list-group-item-action' onclick='empDetail(" + item.EMP_NO + ")'>" +
                     "[" + item.DEPT_NAME + "]" + " " + item.EMP_NO + " " + item.NAME + " " + item.POSITION_NAME +
                     "</a><br>";
             });
@@ -96,9 +109,9 @@ function pageMake(){
    //페이지 번호 출력
    for(var i=firstPage;i<=lastPage;i++){
 	   if(i==currentPage){
-		   str+="<span style='font-weight: bold; color: blue; font-size:20px;'>"+ i +"</span>";
+		   str+="<span style='font-weight: bold; font-size:20px;'>"+ i +"</span>";
 	   }else{
-		   str+="<a href='#' onclick='send("+i+")' style='font-size: 20px;'>["+ i +"]</a>";
+		   str+="<a href='#' onclick='send("+i+")' style='font-size: 20px; color:gray;'>["+ i +"]</a>";
 	   }
    }//for
    //다음 블럭으로
@@ -119,12 +132,13 @@ function pageMake(){
             비어있음
         </c:if>
         <c:if test="${!empty list}">
+        	<c:set var="i" value="0"></c:set>
             <c:forEach var="deptAllVo" items="${list}">
                 <p>
-                    <button class="btn btn-sm btn-primary btnDept" type="button"
+                    <button class="btn btnDept" type="button"
                             data-bs-toggle="collapse" data-bs-target="#dept-${deptAllVo.deptVo.deptNo }"
-                            data-dept-no="${deptAllVo.deptVo.deptNo}">
-                        <span class="fas fa-plus" data-fa-transform="shrink-3"></span>
+                            data-dept-no="${deptAllVo.deptVo.deptNo}" onclick="btnCss(${i});">
+                        <span id="btnDeptSpan${i }">▶</span>
                     </button>
                     <b>${deptAllVo.deptVo.name }</b>
                 </p>
@@ -143,6 +157,7 @@ function pageMake(){
                         </div>
                     </div>
                 </div>
+               <c:set var="i" value="${i+1 }"></c:set> 
             </c:forEach>
         </c:if>
 		<div class="border-top border-200 py-x1">
