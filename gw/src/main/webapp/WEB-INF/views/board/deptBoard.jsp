@@ -67,7 +67,7 @@
 						</c:if>
 						<c:if test="${deptBoardVo.boardlistNo==param.boardlistNo }">
 							<a href="<c:url value='/board/deptBoard?boardlistNo=${deptBoardVo.boardlistNo}'/>"
-						     class="dept-board-link" style="background: #fde6d8; color:black;">
+						     class="dept-board-link" style="background: #eff2f8; color:black;">
 						     <span>${deptBoardVo.boardName}</span>
 						   </a>
 						</c:if>

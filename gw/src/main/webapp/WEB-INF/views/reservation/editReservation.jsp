@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="<c:url value='/vendors/simplebar/simplebar.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/scss/theme/_reboot.scss'/>" rel = "stylesheet">
     <link href="<c:url value='/assets/css/theme-rtl.css'/>" rel="stylesheet" id="style-rtl">
     <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
     <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
@@ -133,24 +132,31 @@
 			var selectedCategory = $('#category').val();
 	        var selectedResource = "";
 	        var checkResult = $('#checkResult').val();
-				 
-			 	if(selectedCategory === 'meetingRoom') {
-			 		selectedResource = $('#meetingRoom').val();
-		        }else if(selectedCategory === 'noteBook') {
-		        	selectedResource = $('#noteBook').val();
-		        }else if (selectedCategory === 'rentCar') {
-		        	selectedResource = $('#rentCar').val();
-		        }
-			 	
-			var startTime = $('#startTime').val();
-			var endTime = $('#endTime').val();
-			if(startTime.length < 1){
+	        var startTime = $('#startTime').val();
+			var endTime = $('#endtime').val();
+			
+			if(selectedCategory === 'meetingRoom') {
+		 		selectedResource = $('#meetingRoom').val();
+	        }else if(selectedCategory === 'noteBook') {
+	        	selectedResource = $('#noteBook').val();
+	        }else if (selectedCategory === 'rentCar') {
+	        	selectedResource = $('#rentCar').val();
+	        }
+			
+			if(selectedCategory == null || selectedCategory == ""){
+				alert("자원 종류를 선택해주세요.");
+            	return false;
+			}else if(selectedResource == null || selectedResource == ""){
+				alert("자원을 선택해주세요.");	
+				return false;
+			}else if(startTime.length < 1){
 				alert("시작시간을 선택해주세요.");
 				return false;
 			}else if(endTime.length < 1){
 				alert("종료시간을 선택해주세요.");
 				return false;
 			}
+			
 			
 			$.ajax({
 				url : "<c:url value='/reservation/ajaxCheckBook'/>",
@@ -182,13 +188,13 @@
 					alert(status + " : " + error);
 				}
 			});
-		});
-   		
+   			
+   		});
+				 
    		$('#addReservationForm').submit(function(event){
    		 	event.preventDefault(); // 기본 제출 동작 방지
    			
    		 	if(confirm("수정하시겠습니까?")){
-   		 		
 		   		 $.ajax({
 		   	        url: $("#addReservationForm").attr("action"), // 제출할 URL
 		   	        type: "POST", // 또는 "GET" 등 HTTP 메서드 선택
@@ -211,6 +217,10 @@
 		   	    });
    		 	}
    		});
+   		
+   		$('#sprintSettingModalClose').click(function(){
+   			self.close();
+   		});
 	});
 </script>
 <style type="text/css">
@@ -224,12 +234,16 @@
 	    font-weight: bold;
 	    margin-top: 10px;
 	}
+	
+	button#editReservation {
+    	margin-right: 20px;
+	}
 </style>
 <body>
 	<div class="" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="content" role="document">
-        <form id = "addReservationForm" autocomplete="on" action="<c:url value='/reservation/editReservation?reservationNo=${resVo.reservationNo}'/>" method = "post" >
+        <form id = "addReservationForm" autocomplete="on" action="<c:url value='/reservation/ajaxeditReservation?reservationNo=${resVo.reservationNo}'/>" method = "post" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>

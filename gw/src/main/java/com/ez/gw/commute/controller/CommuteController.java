@@ -308,6 +308,61 @@ public class CommuteController {
 		workbook.close();
 		outputStream.close();
 	}
+	
+	@PostMapping("/commute/exportToExcel2")
+	public void exportToExcel2(SearchCommuteVO searchCommuteVo, HttpServletResponse response, HttpSession session) throws IOException {
+		logger.info("searchCommuteVO={}", searchCommuteVo);
+		// 페이징처리
+		//[1] PaginationInfo 객체 생성
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchCommuteVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(20);
+
+		//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+		searchCommuteVo.setRecordCountPerPage(20);
+		searchCommuteVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		List<Map<String, Object>> commuteList = commuteService.exelDownCommute(searchCommuteVo); // 근태 출퇴근 정보를 DB에서 가져옴
+		logger.info("관리자 - 엑셀 다운 근태 기록 조회 commuteList.size={}", commuteList.size());
+
+		// Create a new Excel workbook and sheet
+		Workbook workbook = new XSSFWorkbook();
+		Sheet sheet = workbook.createSheet("전사원 근태기록");
+
+		// 컬럼 셋팅
+		Row headerRow = sheet.createRow(0);
+		headerRow.createCell(0).setCellValue("사원번호");
+		headerRow.createCell(1).setCellValue("사원명");
+		headerRow.createCell(2).setCellValue("출근 시간");
+		headerRow.createCell(3).setCellValue("퇴근 시간");
+		headerRow.createCell(4).setCellValue("근태 상태");
+
+		// Populate data rows
+		int rowNum = 1;
+		for (Map<String, Object> commute : commuteList) {
+			Row row = sheet.createRow(rowNum++);
+			BigDecimal empNoBig = (BigDecimal)commute.get("EMP_NO");
+			int empNo = empNoBig.intValue();
+			BigDecimal commuteStateBig = (BigDecimal)commute.get("COMMUTE_STATE");
+			int commuteState = commuteStateBig.intValue();
+			row.createCell(0).setCellValue(empNo);
+			row.createCell(1).setCellValue((String)commute.get("NAME"));
+			row.createCell(2).setCellValue((String)commute.get("WORK_IN")); // 출근 시간 필드에 따라 변경
+			row.createCell(3).setCellValue((String)commute.get("WORK_OUT")); // 퇴근 시간 필드에 따라 변경
+			row.createCell(4).setCellValue(commuteState); // 근태 상태 필드에 따라 변경
+		}
+
+		// Set response headers
+		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		response.setHeader("Content-Disposition", "attachment; filename=allCommute_data.xlsx");
+
+		// Write workbook data to response output stream
+		OutputStream outputStream = response.getOutputStream();
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
+	}
 
 
 	@PostMapping("/commute/importFromExcel")

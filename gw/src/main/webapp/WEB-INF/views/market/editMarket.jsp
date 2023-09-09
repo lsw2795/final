@@ -137,7 +137,7 @@ input[type="file"].default-style {
               <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">중고거래 상품 수정</h5>
-                  <input type="hidden" name= "tradeNo" value="${vo['TRADE_NO'] }"/>
+                  <input type="text" name= "tradeNo" value="${vo['TRADE_NO'] }"/>
                 </div>
                 <div class="col-auto">
                 </div>
@@ -202,7 +202,6 @@ input[type="file"].default-style {
 	                <c:forEach var="file" items="${fileList }">
 	               	 <img src = "<c:url value='/market/upload/${file.imageURL }'/>"
 	               	 	style="max-width:240px; max-height:200px">
-	               	 <input type="hidden" name="imageURL" value="${file.imageURL}">	
                     </c:forEach>
                     </div>
                     <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
