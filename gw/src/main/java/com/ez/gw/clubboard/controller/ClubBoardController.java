@@ -237,7 +237,7 @@ public class ClubBoardController {
 		//3.
 		PdsVO pdsVo = new PdsVO();
 		String msg="수정 실패하였습니다.", 
-				url="/club/editClubBoard?clubNo="+clubVo.getClubNo()+"&boardNo="+clubVo.getBoardNo();
+				url="/club/clubBoardDetail?clubNo="+clubVo.getClubNo()+"&boardNo="+clubVo.getBoardNo();
 		//게시글 내용 수정에 성공하면
 		if(cnt>0) {
 			msg="게시글이 수정되었습니다.";
