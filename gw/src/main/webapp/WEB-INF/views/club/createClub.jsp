@@ -38,6 +38,12 @@
 				return false;
 			}
 			
+			if($("#memLimitflag").val().length<1){
+				alert('제한인원수 여부 입력해주세요.');
+				$('#memLimitflag').focus();
+				return false;
+			}
+			
 			 if($('#secflag').val().length<1){
 				alert('동호회 공개여부를 선택해주세요.');
 				$('#secflag').focus();
@@ -85,9 +91,6 @@
           </div>
           <div class="row g-0">
               <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="mb-0">Create Club</h5>
-                </div>
                 <div class="card-body bg-light">
                     <div class="row gx-2">
                     <div class="col-sm-9 mb-3">

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.gw.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,8 +20,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectReportClub() {
-		return reportDao.selectReportClub();
+	public List<Map<String, Object>> selectReportClub(SearchVO searchVo) {
+		return reportDao.selectReportClub(searchVo);
 	}
 
 	@Override

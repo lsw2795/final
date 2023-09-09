@@ -26,6 +26,7 @@ import com.ez.gw.clubboard.model.ListClubBoardVO;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentService;
 import com.ez.gw.clubboardComment.model.ClubBoardCommentVO;
 import com.ez.gw.common.ConstUtil;
+import com.ez.gw.common.FileUploadUtil;
 import com.ez.gw.common.SearchVO;
 import com.ez.gw.common.Utility;
 import com.ez.gw.pds.model.PdsService;
@@ -220,20 +221,88 @@ public class ClubBoardController {
 	
 	@RequestMapping("/club/editClubBoard")
 	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo,
-			@RequestParam(required = false) String[] deleteImg, Model model) {
+			@RequestParam(required = false) String[] deleteImg, 
+			HttpServletRequest request,
+			Model model) {
 		//1.
 		logger.info("동게 수정처리 clubVo={}",clubVo);
 		
 		//2.
 		int cnt = clubBoardService.updateClubBoard(clubVo);
 		logger.info("동게 수정처리 결과 cnt={}",cnt);
+
 		//3.
+		PdsVO pdsVo = new PdsVO();
 		String msg="수정 실패하였습니다.", 
 			   url="/club/editClubBoard?clubNo="+clubVo.getClubNo()+"&boardNo="+clubVo.getBoardNo();
 		if(cnt>0) {
-			msg="게시글 수정 완료 되었습니다.";
-			url="/club/clubBoard?clubNo="+clubVo.getClubNo();
+			msg="게시글이 수정되었습니다.";
+		
+			try {
+				String fileName = "", originalFileName = "";
+				long fileSize = 0;
+				
+				//2.
+				//파일 업로드 처리 
+				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+				List<MultipartFile> files = multiRequest.getFiles("imageURL");
+				logger.info("files.size={}",files.size());
+				
+							
+				cnt=clubBoardService.insertClubBoard(clubVo);
+				logger.info("동호회 게시판 작성 결과 cnt={}",cnt);
+				
+				int i=0;
+				for(MultipartFile f : files){
+					originalFileName = f.getOriginalFilename();
+					if(originalFileName!="") {
+						int idx=originalFileName.indexOf(".");
+						logger.info("idx={}",idx);
+						String cutfile = originalFileName.substring(idx);
+						
+						fileName = clubVo.getClubNo() + "_" + i++ + f.getOriginalFilename();
+						fileSize = (long) f.getSize();
+						
+						String path = ConstUtil.CLUB_UPLOAD_PATH;
+						String filePath = request.getSession().getServletContext().getRealPath(path);
+						
+						File file = new File(filePath, fileName);
+						f.transferTo(file);
+						
+						logger.info("파일명 fileName={}",fileName);
+						pdsVo.setClubBoardNo(clubVo.getBoardNo());
+						pdsVo.setPath(filePath);
+						pdsVo.setFileName(fileName);
+						pdsVo.setFileSize(fileSize);
+						pdsVo.setOriginalFileName(originalFileName);
+						pdsVo.setFileExtension(cutfile);
+						
+						logger.info("board_no={}", clubVo.getBoardNo());
+						int res=pdsService.clubFiles(pdsVo);
+						logger.info("파일 db저장 결과 res={}",res);		
+					}
+				}//for
+			
+			if(deleteImg!=null) {
+	    		for(int i=0; i<deleteImg.length; i++) {
+	    			File f = new File(FileUploadUtil.getUploadPath(request, ConstUtil.CLUB_UPLOAD_PATH), deleteImg[i]);
+	    			if(f.exists()) {
+	    				boolean result = f.delete();
+	    				logger.info("파일 삭제 여부 result={}", result);
+	    				if(result) {
+	    					pdsVo.setFileName(deleteImg[i]);
+	    					pdsVo.setBoardNo(clubVo.getBoardNo());
+	    					cnt=pdsService.deleteAnonymousImg(pdsVo);
+	    				}
+	    			}
+	    		}//for
+			}//if
+		}catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		}	
 		//4.
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -340,12 +409,12 @@ public class ClubBoardController {
 	//--------------------------------Admin 관리자----------------------------------------
 	
 	@GetMapping("/admin/adminclub/adminClubReport")
-	public String adminReport(Model model) {
+	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1.
 		logger.info("관리자 - 동호회 신고 목록 페이지");
 		
 		//2.
-		List<Map<String, Object>> list = reportService.selectReportClub();
+		List<Map<String, Object>> list = reportService.selectReportClub(searchVo);
 		logger.info("관리자 - 동호회 신고 목록 개수 list.size={}",list.size());
 		
 		//3.

@@ -21,7 +21,7 @@
 	}); */
 	
 	function adminClubDel(clubNo) {
-		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+		if(confirm("해당 동호회를 삭제하시겠습니까?")){
 			location.href="<c:url value='/admin/adminclub/adminClubDelete?clubNo=" + clubNo + "'/>"
 		}
 	}
@@ -85,6 +85,7 @@
                           <th class="sort align-middle ps-2" data-sort="Name">Manager</th>
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:14rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
+                          <th class="sort align-middle" data-sort="SECFLAG">공개여부</th>                          
                           <th class="sort align-middle" data-sort="Date">Date</th>
                           <th class="sort align-middle" data-sort="Date">삭제</th>
                           
@@ -94,7 +95,6 @@
 	                      <c:set var="idx" value="0"/>
                           <!-- 반복 시작 -->
                           <c:forEach var="map" items="${list }">
-                          	<c:if test="${map['SECFLAG']=='Y' }">
 		                        <tr>
 		                          <td class="align-middle fs-0 py-3">
 		                            <div class="form-check mb-0">
@@ -120,6 +120,18 @@
 			                          	${map['MEM_LIMIT'] }
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
+			                        	<c:if test="${map['SECFLAG']=='Y' }">
+			                        		<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
+				       							공개<span class="ms-1 fas fa-check" data-fa-transform="shrink-3"></span>
+				   							</span>
+			                        	</c:if>
+			                        	<c:if test="${map['SECFLAG']=='N' }">
+			                        		<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+			                        			비공개<span class="ms-1 fas fa-user" data-fa-transform="shrink-3"></span>
+			                        		</span>
+			                        	</c:if>
+			                        </td>
+			                        <td class="align-middle subscription fs-0 pe-4">
 			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small> 
 			                        </td>
 			                        <td>
@@ -127,7 +139,6 @@
                        					<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
 			                      	</td>
 			                      </tr>
-                          	</c:if>
                           	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
 		               </form>
