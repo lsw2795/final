@@ -50,10 +50,10 @@
 	  });
 		  
 	});
-	function deleteImg(imgName,a){
+	function deleteImg(fileName,a){
 		var editImg=$(a).parent().parent();
 		
-		$(editImg).append("<input name='deleteImg' type='text' value='"+imgName+"'/>");
+		$(editImg).append("<input name='deleteImg' type='text' value='"+fileName+"'/>");
 		$(a).parent().remove();
 	}
 </script>
