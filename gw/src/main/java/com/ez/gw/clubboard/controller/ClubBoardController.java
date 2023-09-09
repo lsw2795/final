@@ -245,8 +245,6 @@ public class ClubBoardController {
 			String fileName = "", originalFileName = "";
 			long fileSize = 0;
 
-			Boolean isDelete = false;
-
 			//2.
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
@@ -256,7 +254,7 @@ public class ClubBoardController {
 			List<Map<String, Object>> fileList = clubBoardService.selectImg(clubVo.getBoardNo());
 
 			//삭제대상 파일이 있으면
-			if(deleteImg.length>0) {
+			if(deleteImg != null && deleteImg.length > 0) {
 				//jsp에서 넘어온 삭제 대상 파일들을 삭제하고 해당파일들을 db에 저장되어있는 데이터들을 삭제
 				for(String delFile : deleteImg) {
 					//실제 파일삭제
@@ -265,7 +263,7 @@ public class ClubBoardController {
 						boolean result = f.delete();
 						logger.info("파일 삭제 여부 result={}", result);
 						//db에서 삭제
-						clubBoardService.deleteClubFileOne(delFile, cnt);
+						clubBoardService.deleteClubFileOne(delFile, clubVo.getBoardNo());
 
 					}
 
