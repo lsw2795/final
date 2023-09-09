@@ -113,6 +113,11 @@ public class CommuteServiceImpl implements CommuteService{
 		return commuteDao.selectTodayCommute(empNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> exelDownCommute(SearchCommuteVO searchCommuteVO) {
+		return commuteDao.exelDownCommute(searchCommuteVO);
+	}
+
 	
 	
 }

@@ -159,6 +159,20 @@
 		]]>		
 	</select>
 	
+	<select id="exelDownCommute" parameterType="searchCommuteVO" resultType="map">
+		select *
+		from
+		(
+			select rownum as rnum, A.*
+			from
+			(	
+				select * from allcommuteview
+				<include refid="searchAllCommute"></include>
+				order by work_in desc
+			)A
+		)
+	</select>
+	
 	<select id="getAllCommuteTotalCount" parameterType="searchCommuteVO" resultType="int">
 		select count(*) from allcommuteview
 		<include refid="searchAllCommute"></include>

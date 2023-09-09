@@ -25,6 +25,7 @@ public interface CommuteService {
 	
 	//------------admin-------------
 	List<Map<String, Object>> selectAllCommute(SearchCommuteVO searchCommuteVO); // 전사원 근태 조회
+	List<Map<String, Object>> exelDownCommute(SearchCommuteVO searchCommuteVO); // 엑셀 다운용 검색 조건
 	int getAllCommuteTotalCount(SearchCommuteVO searchCommuteVO); //전사원 근태 조회 갯수
 	int selectAllCommuteLateCount(SearchCommuteVO searchCommuteVO); //전사원 지각횟수 갯수 조회
 	int selectAllCommuteEalryLeaveCount(SearchCommuteVO searchCommuteVO); //전사원 조퇴횟수 갯수 조회

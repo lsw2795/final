@@ -73,7 +73,7 @@
 	.stats-List {
 		width: 100%;
 		margin-bottom: 20px;
-		font-size: 14px;
+		font-size: 17px;
 		text-align: center;
 		border-collapse: collapse;
 		border-top: 2px solid rgb(200, 200, 200);
@@ -112,7 +112,7 @@
 	
 	.t-List2 {
 		width:100%;
-		font-size: 14px;
+		font-size: 15px;
 		text-align: center;
 		border-collapse: collapse;
 		border: 2px solid rgb(200, 200, 200);
@@ -230,6 +230,9 @@
             $("#editWorkForm").submit();
         });
 
+        $("#exelDown").click(function() {
+        	$('form[name="frmExel"]').submit();
+		});
 	    
 	    
 	});//jquery
@@ -286,6 +289,24 @@
 <div class="s-container">
 			<div> 
 				<h2>전사원 근태 관리</h1>
+				
+				<form action="<c:url value='/commute/exportToExcel2'/>" 
+					name="frmExel" method="post">
+					<input type="hidden" name="currentPage" 
+						<c:if test="${empty param.currentPage}">
+							value="1"
+						</c:if>
+						<c:if test="${!empty param.currentPage}">
+							value="${param.currentPage}"
+						</c:if>
+					>
+					<input type="hidden" name="date1" value="${param.date1}"> 
+					<input type="hidden" name="date2" value="${param.date2}">
+					<input type="hidden" name="deptNo" value="${param.deptNo}">
+					<input type="hidden" name="emp" value="${param.emp}">
+					<a id="exelDown" class="btn btn-dark" style="position:relative;  bottom:10px; right:10px; float: right;" href="#">엑셀로 저장</a>
+				</form>
+				
 			</div>
 			<hr>
 			
