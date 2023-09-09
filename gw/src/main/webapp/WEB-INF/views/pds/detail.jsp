@@ -36,7 +36,7 @@
                     </dl>
                     <dl>
                         <dt>작성자</dt>
-                        <dd>${map['NAME']}</dd>
+                        <dd>${map['NAME']}(${map['DEPTNAME']}팀)</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
 	function updateReadCount(boardNo){
 		$.ajax({
@@ -39,7 +40,12 @@
 							<img src="<c:url value='/images/last.JPG'/>">
 							<a href="#" onclick="updateReadCount(${map.BOARD_NO});"
 								style="text-decoration: none; color:#5e6e82;">
-							${map['TITLE']}
+							<c:if test="${fn:length(map['TITLE'])>30}">
+								${fn:substring(map['TITLE'],0,30)}...
+							</c:if>
+							<c:if test="${fn:length(map['TITLE'])<30}">
+								${map['TITLE']}
+							</c:if>		
 							<c:if test="${map['timeNew']==1}">
 								<img alt="New이미지" src="<c:url value='/images/new.jpg'/>">
 							</c:if>

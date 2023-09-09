@@ -175,7 +175,7 @@ div#heartBox a {
 		</div>
 		<hr>
 		<div class="cardfile">
-		<input type="hidden" id="empNo" name="empNo" value="${sessionScope.empNo}">
+		<input type="hidden" id="empNo" name="empNo" value="${map['EMP_NO']}">
 			<c:forEach var="file" items="${file}" varStatus="loopStatus">
 				<div class="p-x1 bg-light rounded-3 mt-3">
 					<div class="row flex-between-center gx-4 gy-2">
