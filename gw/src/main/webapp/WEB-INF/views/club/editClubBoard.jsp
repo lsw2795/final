@@ -8,6 +8,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btn').click(function(){
+			event.preventDefault();
 			
 			if($('#title').val().length<1){
 				alert("제목을 입력하세요.");
@@ -22,6 +23,8 @@
 				
 				return false;
 			}
+			
+			$('form[name="clubBoardFrm"]').submit();
 			
 		});
 		
@@ -77,7 +80,7 @@
                   	name="clubBoardFrm"	method="post" action="<c:url value='/club/editClubBoard'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                     <input type="hidden" name="clubNo" value="${param.clubNo }">
-                    <input type="hidden" name="boardNo" value="${param.boardNo }">
+                    <input type="text" name="boardNo" value="${param.boardNo }">
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">제목</label>
                         <input class="form-control" id="title" name="title" type="text" value="${map['TITLE']}"/>
@@ -112,7 +115,7 @@
 					        	<div>
 					        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
 										${imgMap['FILENAME']}
-									<a href="#!" onclick="deleteImg('${imgMap['FILENAME']}',this)">
+									<a href="#" onclick="deleteImg('${imgMap['FILENAME']}',this)">
 										<span class="badge rounded-pill text-bg-primary">
 				                        	삭제
 				                        </span>
@@ -142,11 +145,11 @@
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" id = "btn" role="button">저장 </button>
+                  <button class="btn btn-primary" id ="btn" role="button">저장 </button>
                 </div>
               </div>
             </div>
           </div>
-         </form>
         </div>
+         </form>
 <%@ include file="../inc/bottom.jsp" %>
