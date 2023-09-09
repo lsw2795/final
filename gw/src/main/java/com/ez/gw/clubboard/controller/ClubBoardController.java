@@ -302,7 +302,7 @@ public class ClubBoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		}	
+	}	
 		//4.
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
