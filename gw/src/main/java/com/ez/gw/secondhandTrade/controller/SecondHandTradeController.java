@@ -406,7 +406,7 @@ public class SecondHandTradeController {
 
 
 	@PostMapping("/editMarket") 
-	public String post_editMarket(@RequestParam(defaultValue = "0")int tradeNo, @ModelAttribute SecondHandTradeVO secondVo, 
+	public String post_editMarket(@ModelAttribute SecondHandTradeVO secondVo, 
 			@ModelAttribute SecondhandTradeFileVO secondFileVo, HttpServletRequest request, HttpSession session, Model model) { 
 		//1
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
@@ -415,7 +415,7 @@ public class SecondHandTradeController {
 
 
 		int empNo = (int)session.getAttribute("empNo");
-		logger.info("수정 게시판(post), 파라미터 tradeNo={}", tradeNo);
+		logger.info("수정 게시판(post), 파라미터 tradeNo={}", secondVo.getTradeNo());
 		logger.info("secondVo={}", secondVo);
 		logger.info("file2.size()={}", file2.size());
 
@@ -424,34 +424,27 @@ public class SecondHandTradeController {
 		int cnt = 0, result = 0;
 		String originalFileName = "", inputFileName="";
 		long fileSize=0;
+		
+		String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+		String filePath = request.getSession().getServletContext().getRealPath(path);
 
-		/*	//1. 파일새로 선택 안할 경우 기존 파일 그대로 저장
-			//만약 tradeNo_숫자.확장명으로 들어오는 파일이 있는 경우
-		else if(file2.size()<1) {
-				//파일들 조회
-				List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-				logger.info(tradeNo+"번 업로드 파일 list={}", list);
+		boolean newFile = false;
+		//새로 업로드된 파일이 있다면
+		
+		for (MultipartFile f2 : file2) {
+		    if (f2.getSize() > 0) {
+		    	newFile = true;
+		        break; // 하나 이상의 비어 있지 않은 파일이 발견되면 루프를 빠져나갑니다.
+		    }
+		}
+		
+		if(newFile) {
+			//거래글 번호로 해당 
+			List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(secondVo.getTradeNo());
 
-				boolean delFile = true; //파일 삭제 여부
-
-				//DB에 게시글 번호로 저장된 파일들 조회
-				for(SecondhandTradeFileVO file : list) {
-						if(file.getImageURL().equals(inputFileName)) {
-							delFile = false;
-							logger.info("파일 삭제? file={}, delFile={}", file.getImageURL(), delFile);
-							break;
-						}
-
-				}//for
-		 */				
-		//1. 파일명에 파일번호_가 없다면 기존파일 삭제
-		if(file2.size()>0) {
-			List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
-
+			//해당 거래글 번호에 있던 실제 파일들 하나하나 삭제
 			for(SecondhandTradeFileVO f:list) {
 				String fileName = f.getImageURL();
-				String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
-				String filePath = request.getSession().getServletContext().getRealPath(path);
 
 				File file = new File(filePath, fileName);
 
@@ -459,41 +452,46 @@ public class SecondHandTradeController {
 					boolean del = file.delete();
 					logger.info("파일 삭제 여부 - del={}", del);
 				}
-				//db에서도 삭제
-				cnt = secondHandTradeFileService.deleteMarketFile(tradeNo);
-				logger.info("파일 DB 삭제여부 - cnt={}", cnt);
 
-				//3. 새로운 파일 등록
-				logger.info("파일 지운다음 새로 저장!!");
-
-				cnt = secondHandTradeService.updateMarket(secondVo);
-				logger.info("중고거래 수정 완료, cnt={}", cnt);
-
-				int i=0;
-				for(MultipartFile f2:file2) {
-					originalFileName=f2.getOriginalFilename();
-					int cut = originalFileName.indexOf(".");
-					String cutFileName = originalFileName.substring(cut);
-
-					fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
-					fileSize = (long)f2.getSize();
-
-
-					File files = new File(filePath, fileName);
-					try {
-						f2.transferTo(files);
-					} catch (IllegalStateException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					logger.info("파일명 fileName={}", fileName);
-					secondFileVo.setImageURL(fileName);
-					result = secondHandTradeFileService.insertFile(secondFileVo);
-					logger.info("파일 등록 결과, result={}", result);
-				}
 			}//for
+			
+			//db에서 해당 거래글번호로 모든 파일 db 삭제 : for문 밖에서 한번만 삭제
+			cnt = secondHandTradeFileService.deleteMarketFile(secondVo.getTradeNo());
+			logger.info("파일 DB 삭제여부 - cnt={}", cnt);
+
+			//3. 새로운 파일 등록
+			logger.info("파일 지운다음 새로 저장!!");
+
+			//글 내용 수정
+			cnt = secondHandTradeService.updateMarket(secondVo);
+			logger.info("중고거래 수정 완료, cnt={}", cnt);
+
+			int i=0;
+			for(MultipartFile f2:file2) {
+				String fileName = "";
+				originalFileName=f2.getOriginalFilename();
+				int cut = originalFileName.indexOf(".");
+				String cutFileName = originalFileName.substring(cut);
+
+				fileName=secondVo.getTradeNo() + "_" + i++ + cutFileName;
+				fileSize = (long)f2.getSize();
+
+
+				File files = new File(filePath, fileName);
+				try {
+					f2.transferTo(files);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				logger.info("파일명 fileName={}", fileName);
+				secondFileVo.setImageURL(fileName);
+				result = secondHandTradeFileService.insertFile(secondFileVo);
+				logger.info("파일 등록 결과, result={}", result);
+			}
+
 		}else {
 			cnt = secondHandTradeService.updateMarket(secondVo);
 			logger.info("중고거래 수정 완료, cnt={}", cnt);
