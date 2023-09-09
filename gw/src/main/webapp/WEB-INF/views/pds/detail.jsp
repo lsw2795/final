@@ -13,7 +13,11 @@
 	});
 
 </script>
-
+<style>
+	.file_list .file_input {
+	    width: 700px;
+	}
+</style>
 
  <div class="board_wrap">
         <div class="board_title">

@@ -123,4 +123,11 @@
 		where report_no=#{reportNo}
 	</select>
 	
+	<select id="anonymousReportCount" resultType="int">
+		select count(*) from report
+		where boardlist_no=5000
+		and report_status=0
+	</select>
+	
+	
 </mapper>

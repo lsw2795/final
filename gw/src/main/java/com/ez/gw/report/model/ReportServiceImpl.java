@@ -95,4 +95,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.clubByReportNo(reportNo);
 	}
 
+	@Override
+	public int anonymousReportCount() {
+		return reportDao.anonymousReportCount();
+	}
+
 }

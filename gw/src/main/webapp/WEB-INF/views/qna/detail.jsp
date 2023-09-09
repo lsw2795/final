@@ -41,9 +41,15 @@
 	  // moveComment 요소에 formHtml을 추가합니다.
 	  $('#' + textDivId).html(formHtml);
 	}
-
  	
 </script>
+
+<style>
+	.titleSize{
+		font-size: 25px;
+		font-weight: bold;
+	}
+</style>
 
  <div class="row g-3">
             <div class="col-xxl-12 col-xl-8">
@@ -73,7 +79,7 @@
               </div>
               <div class="card mt-3">
                 <div class="card-header bg-light">
-                  <h1><span class="fas me-2 fa-question-circle"></span><span>${map['TITLE']}</span></h1>
+                  <h1><span class="fas me-2 fa-question-circle"></span><span class="titleSize">${map['TITLE']}</span></h1>
                 </div>
                 <div class="card-body">
                 

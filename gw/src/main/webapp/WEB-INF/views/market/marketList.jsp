@@ -50,6 +50,14 @@ form.row.gx-2 {
 .col-md-4 {
 	text-align: center;
 }
+
+#heartBox a{
+	 text-decoration: none;
+    color: white;
+    background: #dd6e6e;
+    padding: 0px 68px 0 54px;
+    border-radius: 4px;
+}
 </style>
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
@@ -170,7 +178,7 @@ form.row.gx-2 {
 				</c:when>
 				<c:otherwise>
 					<c:set var="i" value="0" />
-					<c:forEach var="map" ite  ms="${list }" varStatus="loopStatus">
+					<c:forEach var="map" items="${list }" varStatus="loopStatus">
 						<div class="col-12 p-x1">
 							<div class="row">
 								<div class="col-sm-5 col-md-4">
@@ -236,14 +244,15 @@ form.row.gx-2 {
 													</p>
 												</div>
 											</div>
+											
 											<div class="mt-2">
 												<div class="ILikeIt">
-													<div class="likebox">
+													<div class="col-auto px-2 px-md-3" id="heartBox">
 														<!-- 고유한 ID 할당 -->
 														<c:set var="imageId"
 															value="heartimg${loopStatus.index + 1}" />
 														<c:if test="${empty map['likeFlag'] }">
-															<a href="#" style="float: right;"
+															<a class = "btn-sm" href="#" style="float: right;"
 																onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																<img id="${imageId}"
 																src="<c:url value='/images/배경지운빈하트.png'/>" width="30px"
@@ -251,7 +260,7 @@ form.row.gx-2 {
 															</a>
 														</c:if>
 														<c:if test="${map['likeFlag'] =='N'}">
-															<a href="#" style="float: right;"
+															<a href="#" class = "btn-sm" style="float: right;"
 																onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																<img id="${imageId}"
 																src="<c:url value='/images/배경지운빈하트.png'/>" width="30px"
@@ -259,7 +268,7 @@ form.row.gx-2 {
 															</a>
 														</c:if>
 														<c:if test="${map['likeFlag'] =='Y' }">
-															<a href="#" style="float: right;"
+															<a class = "btn-sm" href="#" style="float: right;"
 																onclick="insertLikeOn1(${map['TRADE_NO']}, ${map['EMP_NO']}, '${imageId}')">
 																<img id="${imageId}"
 																src="<c:url value='/images/배경지운풀하트.png'/>" width="30px"
@@ -269,11 +278,13 @@ form.row.gx-2 {
 														<span class="mypagehyphen"></span>
 													</div>
 												</div>
+												<div class="col-auto px-2 px-md-3">
 												<a class="btn btn-sm btn-primary d-lg-block mt-lg-2"
 													href="<c:url value='/message/messageWrite?empNo=${map["EMP_NO"] }'/>"
 													id="message"> <span class="fas fa-envelope-open"></span>
 													<span class="ms-2 d-none d-md-inline-block">쪽지하기</span>
 												</a>
+												</div>
 											</div>
 										</div>
 									</div>

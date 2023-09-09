@@ -40,7 +40,7 @@ public class NewsController {
 				  .fromUriString("https://openapi.naver.com")
 				  .path("/v1/search/news.json") 
 				  .queryParam("query", searchWord)
-				  .queryParam("display", 10) 
+				  .queryParam("display", 20) 
 				  .queryParam("start", 1) 
 				  .queryParam("sort", "sim")
 				  .encode() 

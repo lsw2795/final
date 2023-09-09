@@ -430,7 +430,7 @@ public class SecondHandTradeController {
 			//1. 파일새로 선택 안할 경우 기존 파일 그대로 저장
 			//만약 tradeNo_숫자.확장명으로 들어오는 파일이 있는 경우
 			String fileName = secondFileVo.getImageURL();
-			if(fileName!=null || file2!=null) {
+			if(fileName!=null && file2!=null) {
 				//파일들 조회
 				List<SecondhandTradeFileVO> list = secondHandTradeFileService.selectDetailFileByNo(tradeNo);
 				logger.info(tradeNo+"번 업로드 파일 list={}", list);

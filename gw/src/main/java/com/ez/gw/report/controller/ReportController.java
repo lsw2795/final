@@ -87,7 +87,6 @@ public class ReportController {
 			
 		}
 		
-		
 		//3.
 			
 		//4.
@@ -220,6 +219,18 @@ public class ReportController {
 		}
 		
 		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/anonymous/countAjax")
+	public int anonymousCountAjax(@RequestParam(defaultValue = "0") int reportNo,
+			HttpSession session) {
+		logger.info("익명게시판 신고 알림 처리 Ajax");
+		
+		int cnt = reportService.anonymousReportCount();
+		logger.info("익명게시판 신고 조회 결과 cnt={}",cnt);
+		
+		return cnt;
 	}
 		
 	
