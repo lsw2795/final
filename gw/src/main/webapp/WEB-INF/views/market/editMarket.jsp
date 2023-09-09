@@ -202,7 +202,6 @@ input[type="file"].default-style {
 	                <c:forEach var="file" items="${fileList }">
 	               	 <img src = "<c:url value='/market/upload/${file.imageURL }'/>"
 	               	 	style="max-width:240px; max-height:200px">
-	               	 <input type="hidden" name="imageURL" value="${file.imageURL}">	
                     </c:forEach>
                     </div>
                     <span class="mb-0">첨부파일 ${fileList.size() } 개</span>
