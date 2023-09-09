@@ -1,7 +1,12 @@
 package com.ez.gw.api;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +33,7 @@ public class NewsController {
 	
 	@GetMapping("/news")
 	public String list(@RequestParam String searchWord, Model model) {
+		searchWord = "코스모스사";
 		logger.info("news mapping test");
 		 // curl  "https://openapi.naver.com/v1/search/news.json?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=sim"
 		  URI uri = UriComponentsBuilder 
@@ -58,23 +64,37 @@ public class NewsController {
 		  try { 
 			  
 			  resultVO = om.readValue(resp.getBody(), NewsResultVO.class); 
-			  logger.info("resultVO={}", resultVO);
 		  	} catch(JsonMappingException e) { 
 		  		e.printStackTrace(); 
 	  		} catch(JsonProcessingException e) { 
 	  			e.printStackTrace(); 
 	  		}
 		  
-		  if(resultVO !=null && resultVO.getItem() !=null) {
-			  List<NewsVO> news =resultVO.getItem(); // books를 list.html에 출력 -> model 선언
-			  logger.info("news={}", news);
-			  model.addAttribute("news", news);
+		  if(resultVO !=null && resultVO.getItems() !=null) {
+			  List<NewsVO> news =resultVO.getItems(); // books를 list.html에 출력 -> model 선언
 			  
+			  try {
+				  for(NewsVO newsList : news) {
+					  String pubDate = newsList.getPubDate();
+					  //'sun jun 11 11:32:00 KST 2023
+					  
+					  SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+					  Date pubDate2 = sdf.parse(pubDate);
+					  logger.info("pubDate2={}", pubDate2);
+					  
+					  SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+					  String newsDate = sdf2.format(pubDate2);
+					  logger.info("newsDate={}", newsDate);
+					  newsList.setNewsDate(newsDate);
+					  
+					  }
+				  model.addAttribute("news", news);
+				  } catch (ParseException e) {
+					  e.printStackTrace();
+				  }
 		  }
-		  
 		  return "inc/news";
 		 
-		
 		/*
 		 * final String uri = "https://openapi.naver.com/v1/search/news.json?query=" +
 		 * searchWord.trim() +"&display=100&sort=sim"; HttpHeaders headers = new
@@ -92,3 +112,4 @@ public class NewsController {
 		 
 	}
 }
+	
