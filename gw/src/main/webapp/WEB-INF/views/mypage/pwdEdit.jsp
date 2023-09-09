@@ -59,7 +59,24 @@
 	               
 	               if($('#pwdChkFlag').val()>0){
 	                  if(confirm('변경하시겠습니까?')){
-	                      $("#pwdEditfrm").submit();
+	                      //alert($.param($('#pwdEditfrm').serializeArray()));
+				         $.ajax({
+				            url : "<c:url value='/mypage/ajaxPwdEdit'/>",
+				            type:'post',
+				            data: $('#pwdEditfrm').serializeArray(),
+				            dataType : 'json',
+				            success: function(res){
+				            	if(res>0){
+					            	alert("비밀번호 수정이 완료되었습니다.");
+					            	self.close();
+				            	}else{
+				            		alert("비밀번호 수정에 실패했습니다.");
+				            	}
+				            },
+				            error:function(xhr, status, error){
+				               alert(status+" : "+error);
+				            }
+				         });//ajax
 	                  }
 	               }else{
 	                  alert('현재 비밀번호가 일치하지 않습니다.');
@@ -104,15 +121,15 @@
       	<form name="pwdEditfrm" id="pwdEditfrm" method="post" action="<c:url value='/mypage/pwdEdit'/>">	
 				 <div class="mb-3">
                     <label class="form-label" for="pwd">현재 비밀번호</label>
-                    <input class="form-control form-control-lg" type="password" id="pwd" placeholder="현재 비밀번호"/>
+                    <input class="form-control form-control-lg" type="password" id="pwd" placeholder="현재 비밀번호를 입력하세요."/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="newPwd">새 비밀번호</label>
-                    <input class="form-control form-control-lg" type="password" name="pwd" id="newPwd" placeholder="새 비밀번호"/>
+                    <input class="form-control form-control-lg" type="password" name="pwd" id="newPwd" placeholder="새 비밀번호를 입력하세요."/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="newPwd2">새 비밀번호 확인</label>
-                    <input class="form-control form-control-lg" type="password" id="newPwd2" placeholder="새 비밀번호 확인" />
+                    <input class="form-control form-control-lg" type="password" id="newPwd2" placeholder="새 비밀번호를 다시 입력하세요." />
                 </div>
 				<div class="mb-4 mt-2" id="pwdConfirm"></div>
 				<div class="card-footer text-center">
