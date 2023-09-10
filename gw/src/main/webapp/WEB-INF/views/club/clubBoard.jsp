@@ -93,7 +93,7 @@
 	                              	<span>${map['NAME']}</span>
                               </h6>
                               <p class="mb-0 fs--2 fs-sm--1 fw-semi-bold mt-2 mt-md-0 mt-xl-2 mt-xxl-0 ms-5"> </p>
-	                    		<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><span class="fst-italic"><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/></span>
+	                    		<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/><span class="mx-1">|</span><fmt:formatDate value="${map['REGDATE']}" pattern="a h:mm"/>
 	                    		<p class="mb-0 text-700">조회수&nbsp;${map['READCOUNT'] }</p>
 	                    	</p>
 	                    	
