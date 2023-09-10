@@ -6,6 +6,16 @@
 </c:if>
 <c:if test="${sessionScope.authority=='Y' }">
 <%@ include file = "../inc/adminTop.jsp" %>
+<style>
+	.card, #messageContent {
+	    background: white;
+	    color: black;
+	}
+	
+	.card h5 {
+	    color: black;
+	}
+</style>
 </c:if>
 <script type="text/javascript">
 	$(function(){

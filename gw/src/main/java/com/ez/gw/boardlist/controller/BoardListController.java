@@ -40,11 +40,13 @@ public class BoardListController {
 	int totalRecord=boardListService.gTRSearchBoardList(searchVo);
 	pagingInfo.setTotalRecord(totalRecord);
 	List<BoardListVO> boardList=boardListService.selAdminBoardList(searchVo);
+	List<BoardListVO> boardList2=boardListService.seldeptBoard();
 	logger.info("관리자 - 게시판관리 boardList.size()={}", boardList.size());
 	
 	List<Map<String, Object>> boardListCount=boardListService.selBoardlistWriteCount(searchVo);
 
 	model.addAttribute("boardList",boardList);
+	model.addAttribute("boardList2",boardList2);
 	model.addAttribute("boardListCount",boardListCount);
 	model.addAttribute("pagingInfo",pagingInfo);
 		

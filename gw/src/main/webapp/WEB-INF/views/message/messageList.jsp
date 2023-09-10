@@ -6,6 +6,28 @@
 </c:if>
 <c:if test="${sessionScope.authority=='Y' }">
 <%@ include file = "../inc/adminTop.jsp" %>
+<style>
+	.card, #messageContent {
+	    background: white;
+	    color: black;
+	}
+	
+	.chat-contact {
+   		background-color: whitesmoke;
+	}
+	
+	h6, h5 {
+    	color: black;
+	}
+	
+	.chat-message {
+	    color: white;
+	}
+	
+	.chat-contacts-search {
+    	background-color: white;
+	}
+</style>
 </c:if>
 <script type="text/javascript">
 	$(function(){

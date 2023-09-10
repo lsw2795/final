@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <!DOCTYPE html>
 <script type="text/javascript">
 	$(function() {
@@ -26,13 +27,23 @@
 	}
 
 </script>
+<style type="text/css">
+.mb-0 {
+	color: black;
+}
+thead{
+	color: black;
+	font-variant: bold;
+}
+</style>
+
 <div class="row gx-3">
    <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
      <div class="card-header admindefault border-bottom border-200 px-0">
        <div class="d-lg-flex justify-content-between">
          <div class="row flex-between-center gy-2 px-x1">
            <div class="col-auto pe-0">
-             <h6 class="mb-0">Club List</h6>
+             <h6 class="mb-0">신고글 현황</h6>
            </div>
              <div class="col-auto pe-0">
        <form name="adminClub" action='<c:url value='/admin/adminclub/adminClubReport'/>' method="post">
@@ -60,7 +71,6 @@
          <div class="border-bottom border-200 my-3"></div>
            <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
            <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      
 		  <form name="frmChk" method="post" action="<c:url value='/admin/adminclub/deleteMulti'/>">
 	      <div class="d-flex align-items-center" id="table-ticket-replace-element"></div>
 	  </div>
