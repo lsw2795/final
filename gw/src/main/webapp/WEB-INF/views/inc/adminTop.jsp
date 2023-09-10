@@ -57,9 +57,19 @@
     </script>
     <script type="text/javascript">
     	$(function(){
-    		$.when(newMessage(),anonymousReportCount()).done(function() {
-    	        bellSet();
-    	    });
+    		var total = 0;
+    		 $.when(newMessage(),anonymousReportCount(),anonymousMarketCount()).done(function() {
+    			 bellSet();
+    	    }); 
+    		
+    	    
+    		/* $.when(anonymousReportCount(), anonymousMarketCount()).done(function (result1, result2) {
+    	        total = result1[0] + result2[0];
+    	        $('#reportTotal').text(total);
+    	        anonymousReportInfo(total);
+    	    }).fail(function (xhr, status, error) {
+    	        alert(status + " : " + error);
+    	    }); */
     		
     	});
     	
@@ -93,8 +103,23 @@
        		   	dataType:"json",
        		   	success:function(res){
        		   		$('#reportCount').text(res);
-       		   		$('#reportTotal').text(res);
+       		   		/* $('#reportTotal').text(res); */
        		   		anonymousReportInfo(res);
+       		    },error:function(xhr, status, error){
+       		    	alert(status+" : "+error);
+       		   	}
+       		});
+       	}
+   		
+   		function anonymousMarketCount(){
+       		return $.ajax({
+       			url:"<c:url value='/report/anonymous/countMarketAjax'/>",
+       		   	type:"post",
+       		   	dataType:"json",
+       		   	success:function(res){
+       		   		$('#marketCount').text(res);
+       		   		/* $('#reportTotal').text(res); */
+       		   		anonymousMarketReportInfo(res);
        		    },error:function(xhr, status, error){
        		    	alert(status+" : "+error);
        		   	}
@@ -143,6 +168,33 @@
           	  str+="<div class='notification-body'>";
           	  str+="<p class='mb-1'>";
           	  str+="<strong>익명게시판 신고</strong> : "+cnt+"건이 있습니다.</p>";
+          	  str+="</div></a></div>";
+           	}else{
+           		return;
+           	}
+           	
+           	if($('.new-list').find('.new').length==0){
+           		$('.new-list').html(topstr);
+           	} 
+           	$('.new-list').append(str);
+             
+       	}
+   		
+   		function anonymousMarketReportInfo(cnt){
+           	var str="";
+           	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
+           	
+           	if(cnt>0){
+          	  str+="<div class='list-group-item new'>";
+          	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/report/warningMarketList'/>'>";
+          	  str+="<div class='notification-avatar'>";
+          	  str+="<div class='avatar avatar-2xl me-3'>";
+          	  str+="<img class='rounded-circle' style='background-color:white;' src='<c:url value='/images/reportCount.png'/>' alt='중고거래 신고건' />";
+          	  str+="</div>";
+          	  str+="</div>";
+          	  str+="<div class='notification-body'>";
+          	  str+="<p class='mb-1'>";
+          	  str+="<strong>중고거래 신고</strong> : "+cnt+"건이 있습니다.</p>";
           	  str+="</div></a></div>";
            	}else{
            		return;
@@ -441,7 +493,7 @@
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">
                         				중고거래 신고함
-                        				<span class="badge rounded-pill text-bg-primary" id="reportCount"></span>	
+                        				<span class="badge rounded-pill text-bg-primary" id="marketCount"></span>	
                         				</span>
                         			</div> 
                       			</a>
