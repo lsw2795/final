@@ -36,13 +36,13 @@
 		where CLUB_NO=#{clubNo}
 	</update>
 	
-	<update id="joinClub">
+	<update id="joinClub" parameterType="int">
 		update employee
 		set club_no=#{clubNo}, merchant_no=#{merchantNo}
 		where emp_no=#{empNo}
 	</update>
 
-	<update id="outClub">
+	<update id="outClub" parameterType="int">
 		update employee
 		set club_no=null, merchant_no=null
 		where emp_no=#{empNo}
@@ -62,6 +62,10 @@
 		where club_no=#{clubNo}
 	</select>
 	
+	<select id="regiClub" parameterType="int">
+		select count(club_no) from employee
+		where emp_no =#{empNo}
+	</select>
 </mapper>
 
 

@@ -60,14 +60,6 @@
 } 
 
 	
-	$(function() {
-		
-
-		
-		
-		
-		
-	});
 	
 	function deleteClub() {
 		if(confirm("동호회를 삭제하시겠습니까?")){
@@ -119,12 +111,12 @@
 		<div class="row g-0">
 			<div class="card mb-3">
 				<div class="card-body bg-light">
-					<input type="hidden" name="clubNo" id="clubNo"
-						value="${param.clubNo}">
+					<input type="hidden" name="clubNo" id="clubNo" value="${param.clubNo}">
+					<input type="hidden" name="register" id="register" value="${register}">
 					<div class="row gx-2">
 						<div class="col-sm-6 mb-3">
 							<span><strong>동호회장</strong></span><br> <br>
-							${clubVo.manager }
+							${clubVo.manager}
 							<div class="col-12">
 								<div class="border-bottom border-dashed my-2"></div>
 							</div>
@@ -165,7 +157,8 @@
 					</div>
 					<div class="col-auto mb-0">
 						<div class="col-auto">
-						<c:if test="${sessionScope.clubNo==clubVo.clubNo or clubVo.memLimit<=clubCnt}">
+						<c:if test="${sessionScope.clubNo==clubVo.clubNo or clubVo.memLimit<=clubCnt
+							or register>0}">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"
 								name="paymentModal" style="display: none" type="button">가입</button>
@@ -203,7 +196,7 @@
 					<span>동호회 가입 비용은 10,000원입니다.</span><br><br> 
 					<h8><strong>카카오 페이 결제만 가능합니다.</strong></h8><br> 
 					<a href="#" onclick="kakaopay()"> 
-						<img width="70" src="<c:url value='/kakaopay.jpg'/>">
+						<img width="100" src="<c:url value='/kakaopay.jpg'/>">
 					</a>
 				</div>
 				<div class="modal-footer">
@@ -215,4 +208,12 @@
 	<!-- ****************************모달 끝 *******************************-->
 
 </body>
+<style>
+.modal-content{
+	text-align: center;
+}
+.modal-header{
+	background: #FFEC4A;
+}
+</style>
 <%@ include file="../inc/bottom.jsp"%>

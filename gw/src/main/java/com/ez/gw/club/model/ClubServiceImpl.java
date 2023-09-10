@@ -88,6 +88,11 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.clubCount(clubNo);
 	}
 
+	@Override
+	public int regiClub(int empNo) {
+		return clubDao.regiClub(empNo);
+	}
+
 	
 
 	

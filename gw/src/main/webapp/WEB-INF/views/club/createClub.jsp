@@ -38,9 +38,9 @@
 				return false;
 			}
 			
-			if($("#memLimitflag").val().length<1){
-				alert('제한인원수 여부 입력해주세요.');
-				$('#memLimitflag').focus();
+			if($("#memLimit").val().length<1){
+				alert('모집 인원을 입력해주세요.');
+				$('#memLimit').focus();
 				return false;
 			}
 			
