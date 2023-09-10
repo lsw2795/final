@@ -49,4 +49,10 @@ public interface EmployeeService {
 	Integer selectByClubNo(int empNo); 
 	List<Map<String, Object>> selEmpCountByDeptName(int year); //부서포함 년도별 입사자 수
 	int createClub(EmployeeVO empVo); //개설자 동호회 번호 넣어주기
+	
+	int selectRetireCount(); //퇴사자수
+	int selectAllEmployeeCount(); //총 사원수
+	int selectAvgSalary(); //평균연봉
+	int selectHiredateCount(); //올해 입사자수
+	
 }
