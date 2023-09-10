@@ -157,17 +157,17 @@
 					</div>
 					<div class="col-auto mb-0">
 						<div class="col-auto">
-						<c:if test="${sessionScope.clubNo==clubVo.clubNo or clubVo.memLimit<=clubCnt
-							or register>0}">
-							<button class="btn btn-sm btn-primary me-2"
-								data-bs-target="#paymentModal" data-bs-toggle="modal"
-								name="paymentModal" style="display: none" type="button">가입</button>
-						</c:if>
-						<c:if test="${sessionScope.clubNo!=clubVo.clubNo}">
+						<c:if test="${sessionScope.clubNo!=clubVo.clubNo and clubVo.memLimit>=clubCnt
+							and register<1}">
 							<button class="btn btn-sm btn-primary me-2"
 								data-bs-target="#paymentModal" data-bs-toggle="modal"
 								name="paymentModal" type="button">가입</button>
 						</c:if>
+<%-- 						<c:if test="${sessionScope.clubNo!=clubVo.clubNo}">
+							<button class="btn btn-sm btn-primary me-2"
+								data-bs-target="#paymentModal" data-bs-toggle="modal"
+								name="paymentModal" type="button">가입</button>
+						</c:if> --%>
 							<button class="btn btn-falcon-default btn-sm me-2" type="button">
 								<a href="<c:url value='/club/clubBoard?clubNo=${param.clubNo }'/>">
 									게시판 바로가기 </a>
