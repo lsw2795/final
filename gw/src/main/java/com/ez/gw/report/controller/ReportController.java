@@ -22,6 +22,8 @@ import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
+import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
+import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class ReportController {
 	private final ReportService reportService;
 	private final BoardService boardService;
 	private final CommentsService commentService;
+	private final SecondHandTradeService secondService;
 
 	@ResponseBody
 	@RequestMapping("/reportBoardAjax")
@@ -92,6 +95,38 @@ public class ReportController {
 		//4.
 		return msg;
 	}
+	
+	//중고거래
+		@ResponseBody
+		@RequestMapping("/reportMarketAjax")
+		public String ajaxReportMarket(@RequestParam(defaultValue = "0") int tradeNo,
+				HttpSession session) {
+			//1.
+			int empNo=(int)session.getAttribute("empNo");
+			ReportVO reVo = new ReportVO();
+			reVo.setEmpNo(empNo);
+			reVo.setBoardNo(tradeNo);
+			logger.info("게시글 신고 Ajax 파라미터 tradeNo={}",tradeNo);
+			
+			//2.
+			String msg="알 수 없는 문제가 발생하였습니다.";
+			int cnt=reportService.searchWarningMarket(reVo);
+			logger.info("신고등록 결과 cnt={}",cnt);
+			
+			if(cnt>0) {
+				msg="이미 신고한 게시물입니다.";
+			}else {
+				int cnt2=reportService.warningMarket(reVo);
+				if(cnt2>0){
+					msg="해당 게시물이 신고되었습니다.";
+				}
+			}
+			
+			//3.
+				
+			//4.
+			return msg;
+		}
 	
 	@ResponseBody
 	@RequestMapping("/reportCommentAjax")
@@ -231,6 +266,32 @@ public class ReportController {
 		logger.info("익명게시판 신고 조회 결과 cnt={}",cnt);
 		
 		return cnt;
+	}
+	
+	@RequestMapping("/warningMarketList")
+	public String warningMarket(@ModelAttribute ReportVO vo, Model model) {
+		logger.info("익명게시판 신고 리스트 파라미터 vo={}",vo);
+		
+		PaginationInfo pagingInfo=new PaginationInfo();
+    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+   		pagingInfo.setCurrentPage(vo.getCurrentPage());
+    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
+    			
+    	vo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+    	
+    	List<Map<String, Object>> reportList = reportService.anonymousReportList(vo);
+    	logger.info("익명게시판 신고함 조회결과, list.size={}",reportList.size());
+    	
+    	int totalRecord = reportService.getTotalAnonymousReport(vo);
+		logger.info("익명게시판 신고함 조회결과, totalRecord={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+    	
+    	//3
+    	model.addAttribute("reportList",reportList);
+    	model.addAttribute("pagingInfo",pagingInfo);
+	
+		return "anonymousBoard/report/warningMarketList";
 	}
 		
 	

@@ -58,6 +58,14 @@ form.row.gx-2 {
     padding: 0px 68px 0 54px;
     border-radius: 4px;
 }
+
+.d-none.d-lg-block {
+    margin-left: 22px;
+}
+
+h4.fs-1.fs-md-2.mb-0 {
+    margin-left: 19px;
+}
 </style>
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>

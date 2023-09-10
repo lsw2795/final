@@ -102,4 +102,14 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.anonymousReportCount();
 	}
 
+	@Override
+	public int warningMarket(ReportVO reportVo) {
+		return reportDao.warningMarket(reportVo);
+	}
+
+	@Override
+	public int searchWarningMarket(ReportVO reportVo) {
+		return reportDao.searchWarningMarket(reportVo);
+	}
+
 }

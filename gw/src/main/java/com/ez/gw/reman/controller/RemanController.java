@@ -1,6 +1,7 @@
 package com.ez.gw.reman.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,5 +149,25 @@ public class RemanController {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping("/admin/officeProduct/staticProductList")
+	public String staticProductList(@RequestParam(required = false)String category, String regdate, Model model) {
+		logger.info("자원 통계 페이지, 파라미터 category={}, date={}", category, regdate);
+		
+		List<Map<String, Object>> meetingRoom = remanService.staticReman("meetingRoom", regdate);
+		logger.info("회의실 조회 결과, meetingRoom={}", meetingRoom.size());
+		
+		List<Map<String, Object>> noteBook = remanService.staticReman("noteBook", regdate);
+		logger.info("노트북 조회 결과, noteBook={}", noteBook.size());
+		
+		List<Map<String, Object>> rentCar = remanService.staticReman("rentCar", regdate);
+		logger.info("렌트카 조회 결과, meetingRoom={}", rentCar.size());
+		
+		model.addAttribute("meetingRoom", meetingRoom);
+		model.addAttribute("noteBook", noteBook);
+		model.addAttribute("rentCar", rentCar);
+		
+		return "admin/officeProduct/staticProductList";
 	}
 }
