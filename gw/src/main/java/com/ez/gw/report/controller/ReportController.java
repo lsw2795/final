@@ -1,5 +1,6 @@
 package com.ez.gw.report.controller;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,10 +22,13 @@ import com.ez.gw.comments.model.CommentsService;
 import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +42,7 @@ public class ReportController {
 	private final BoardService boardService;
 	private final CommentsService commentService;
 	private final SecondHandTradeService secondService;
+	private final SecondhandTradeFileService secondfileService;
 
 	@ResponseBody
 	@RequestMapping("/reportBoardAjax")
@@ -105,7 +111,7 @@ public class ReportController {
 			int empNo=(int)session.getAttribute("empNo");
 			ReportVO reVo = new ReportVO();
 			reVo.setEmpNo(empNo);
-			reVo.setBoardNo(tradeNo);
+			reVo.setTradeNo(tradeNo);
 			logger.info("게시글 신고 Ajax 파라미터 tradeNo={}",tradeNo);
 			
 			//2.
@@ -269,30 +275,61 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/warningMarketList")
-	public String warningMarket(@ModelAttribute ReportVO vo, Model model) {
-		logger.info("익명게시판 신고 리스트 파라미터 vo={}",vo);
-		
-		PaginationInfo pagingInfo=new PaginationInfo();
-    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
-   		pagingInfo.setCurrentPage(vo.getCurrentPage());
-    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
-    			
-    	vo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
-    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-    	
-    	List<Map<String, Object>> reportList = reportService.anonymousReportList(vo);
-    	logger.info("익명게시판 신고함 조회결과, list.size={}",reportList.size());
-    	
-    	int totalRecord = reportService.getTotalAnonymousReport(vo);
-		logger.info("익명게시판 신고함 조회결과, totalRecord={}",totalRecord);
-		pagingInfo.setTotalRecord(totalRecord);
-    	
-    	//3
-    	model.addAttribute("reportList",reportList);
-    	model.addAttribute("pagingInfo",pagingInfo);
-	
+	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
+		//1.
+		logger.info("관리자 - 중고거래 신고 목록 페이지");
+
+		//2.
+		List<Map<String, Object>> list = reportService.selectReportMarket(searchVo);
+		logger.info("관리자 - 중고거래 신고 목록 개수 list.size={}",list.size());
+
+		//3.
+		model.addAttribute("list", list);
+
+		//4.
 		return "anonymousBoard/report/warningMarketList";
 	}
-		
+	
+		@RequestMapping("/adminDeleteMarket")
+		public String delete(@RequestParam(defaultValue = "0")int tradeNo, Model model) {
+			logger.info("삭제 페이지, 파라미터 tradeNo={}", tradeNo);
+			
+			if (tradeNo == 0) {
+				model.addAttribute("msg", "잘못된 경로입니다.");
+				model.addAttribute("url", "/report/warningMarketList");
+
+				return "common/message";
+			}
+			// 2
+			List<SecondhandTradeFileVO> fileList =  secondfileService.selectDetailFileByNo(tradeNo);
+			logger.info("중고거래 이미지 파일 갯수, fileList={}", fileList);
+			if (fileList.size() > 0) {
+				for (SecondhandTradeFileVO f : fileList) {
+					String fileName = f.getImageURL();
+					String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+					File file = new File(path, fileName);
+					if (file.exists()) {
+						boolean result = file.delete();
+						logger.info("이미지 삭제 여부 : {}", result);
+					}
+				} // for
+			} // if
+
+			int cnt = secondService.deleteMarket(tradeNo);
+			logger.info("중고거래 게시글 삭제 결과, cnt = {}", cnt);
+
+			String msg = "삭제 실패!", url = "/report/warningMarketList";
+			if (cnt > 0) {
+				msg = "자료 삭제가 완료되었습니다.";
+			}
+
+			// 3
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			// 4
+			return "common/message";
+			
+		}
 	
 }

@@ -17,6 +17,17 @@
 	}
 	
 </script>
+
+<style>
+	.card {
+	    background: white;
+	    color: black;
+	}
+	
+	a.btn {
+   		background: white;
+	}
+</style>
 <div class="container p-0">
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -100,7 +111,7 @@
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-body table-responsive scrollbar">
 				<div class="table-responsive scrollbar">
-					<table class="table table-hover table-striped overflow-hidden" style="width: 100%">
+					<table class="table table-hover overflow-hidden" style="width: 100%">
 						<thead>
 					    	<tr class="align-middle" align="center">
 						      	<th width="20%" scope="col">신고유형</th>

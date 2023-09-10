@@ -58,6 +58,21 @@
 	}
 	
 </script>
+<style>
+	.card {
+	    background: white;
+	    color: black;
+    }
+    
+    a.btn {
+   		background: white;
+	}
+	
+	button#deleteConfirm {
+    	background: white;
+	}
+}
+</style>
 <div class="container p-0">
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
@@ -136,7 +151,7 @@
 		<div class="card h-lg-100 overflow-hidden">
 			<div class="card-body table-responsive scrollbar">
 				<div class="table-responsive scrollbar">
-					<table class="table table-hover table-striped overflow-hidden" style="width: 100%">
+					<table class="table table-hover overflow-hidden" style="width: 100%">
 						<thead>
 					    	<tr class="align-middle" align="center">
 							    <th width="5%" scope="col">
@@ -163,7 +178,7 @@
 									<input type="checkbox" onchange="delOk(this,'${map['CONFIRM_DOCUMENT_NO']}','${map['CREATE_DATE']}','${map['DEADLINE']}')" name="deleteNo" value="${map['CONFIRM_DOCUMENT_NO']}">
 								</td>
 								<td class="text-nowrap">
-									<a style="color: #9da9bb;" 
+									<a style="color: black;" 
 									onclick="approvalDetail('${map['CONFIRM_DOCUMENT_NO']}','${map['CONFIRM_STATE'] }',
 										this,'${title }','${map['SECURITY_LEVEL']}')" href="#">
 								        ${map['CONFIRM_DOCUMENT_NO']}

@@ -284,13 +284,6 @@
                         			</div> 
                       			</a>
                     		</li>
-                    		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link" href="<c:url value='/admin/officeProduct/staticProductList'/>">
-                        			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">자원 통계</span>
-                        			</div> 
-                      			</a>
-                    		</li>
 						</ul>
                   	</li>
                   	<li class="nav-item"><!-- parent pages-->

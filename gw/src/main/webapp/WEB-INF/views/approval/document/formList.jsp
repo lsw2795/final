@@ -160,6 +160,17 @@
 	   	});
 	}
 </script>
+<style>
+	.card {
+    	background: white;
+    	color: black;
+	}
+	
+	a.btn {
+   		background: white;
+	}
+	
+</style>
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg-7 pe-lg-2 mb-3">
@@ -169,7 +180,7 @@
 					<div class="card-header bg-light">
 						<div class="row align-items-center">
 	                    	<div class="col pl-2">
-	                      		<h6 class="mb-0">전체 양식</h6>
+	                      		전체 양식
 	                    	</div>
 		                    <div class="col-auto text-center p-1">
 		                    	<select class="form-select" name="searchCondition">
@@ -203,7 +214,7 @@
             	<div class="card-body table-responsive scrollbar">
 					<div class="table-responsive scrollbar" id="tableDiv">
 						<form name="frmTable" method="post" action="<c:url value='/document/formDelete'/>">
-							<table class="table table-hover table-striped overflow-hidden m-0" style="width: 100%">
+							<table class="table table-hover overflow-hidden m-0" style="width: 100%">
 								<thead>
 							    	<tr class="align-middle" align="center">
 									    <th width="5%" scope="col">
@@ -284,7 +295,7 @@
 							<div class="card-header bg-light">
 								<div class="row align-items-center">
 			                    	<div class="col">
-			                      		<h6 class="mb-0">문서 양식 추가</h6>
+			                      		문서 양식 추가
 			                    	</div>
 			                    	<div class="col-auto text-center pe-x1">
 				                      	<button class="form-control btn btn-primary" type="button" id="formInsert">추가하기</button>
@@ -297,7 +308,7 @@
 				                  		<label class="form-label" for="formName">
 				               				양식명
 				                    	</label>
-				                    	<input class="form-control" name="formName" id="formName" type="text" placeholder="양식명을 입력하세요" />
+				                    	<input class="form-control" name="formName" id="formName" type="text" placeholder="양식명을 입력하세요"/>
 				                    </div>
 									<div class="col-6 mb-3">
 										<label class="form-label" for="securityLevel">
@@ -333,7 +344,7 @@
 							<div class="card-header bg-light">
 								<div class="row align-items-center">
 			                    	<div class="col">
-			                      		<h6 class="mb-0">문서 양식 수정</h6>
+			                      		문서 양식 수정
 			                    	</div>
 			                    	<div class="col-auto text-center pe-x1">
 				                      	<button class="form-control btn btn-primary" type="button" id="btDisabled" style="width: 80px">수정</button>

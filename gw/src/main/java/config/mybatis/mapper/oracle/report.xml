@@ -146,5 +146,16 @@
 		and report_status=0
 	</select>
 	
+	<select id="selectReportMarket" parameterType="searchVo" resultType="map">
+		select * from marketreportview
+		where BOARDLIST_NO=100
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
+		order by report_date desc 
+	</select>
 	
+	<delete id="deleteMarket" parameterType="int">
+		 delete from report where report_no = #{reportNo}
+	</delete>
 </mapper>

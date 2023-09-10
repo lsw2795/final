@@ -26,4 +26,6 @@ public interface ReportDAO {
 	int anonymousReportCount();
 	int searchWarningMarket(ReportVO reportVo);
 	int warningMarket(ReportVO reportVo);
+	List<Map<String, Object>> selectReportMarket(SearchVO searchVo);
+	int deleteMarket(int reportNo);
 }
