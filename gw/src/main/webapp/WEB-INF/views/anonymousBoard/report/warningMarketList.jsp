@@ -2,30 +2,63 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
+<script type="text/javascript" src = "<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
-	$(function() {
-		$('#delBtn').click(function(){
-			var chk=$('tbody input[type=checkbox]:checked').length;
-			if(chk<1){
-				alert('삭제할 게시물를 선택하세요.');
-			}
+	
+	$(function(){
+		
+		$('#find').click(function(){
+			console.log(1);
+			$('form[name="market"]').submit();	
+		});
+		
+		var tradeNo = $('#tradeNo').val();
+		var reportNo = $('#reportNo').val();
+		var name = $('#name').val();
+		var empNo = $('#empNo').val();
+		var reportDate = $('#reportDate').val();
+		
+		
+		$('#modal').click(function(){
+			$('#modalDetail').modal("show");
+			$('#modalTradeNo').val(tradeNo);
+			$('#modalReportNo').val(reportNo);
+			$('#modalName').html(name);
+			$('#modalEmpNo').html(empNo);
+			$('#modalReportDate').html(reportDate);
+			$('#modalTradeNo2').html(tradeNo);
+		});
+		
+		$('#x').click(function(){
+			$('#modalDetail').modal("hide");
+			$("body").removeClass("modal-open");
+			$(".modal-backdrop").remove();
+		});
+		
+		$('#showMarket').click(function(){
+			var tradeNo = $('#modalTradeNo').val();
+			$('#modalDetail').modal("hide");
+			$("body").removeClass("modal-open");
+			$(".modal-backdrop").remove();
 			
-			if(chk > 0){
-				if(confirm('선택한 게시물을 삭제하시겠습니까?')){
-					$('form[name=frmChk]').prop('action', "<c:url value='/admin/report/deleteMulti'/>");
-					$('form[name=frmChk]').submit();
-				} // if
+			location.href= "<c:url value='/market/marketDetail?tradeNo="+tradeNo+"'/>";
+		});
+		
+		$('#delMarket').click(function(){
+			var tradeNo = $('#modalTradeNo').val();
+			
+			if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+				$('#modalDetail').modal("hide");
+				$("body").removeClass("modal-open");
+				$(".modal-backdrop").remove();
+				
+				location.href = "<c:url value='/report/adminDeleteMarket?tradeNo=" + tradeNo + "'/>";
 			} 
 		});
 	});
-	
-	function deleteMarket(reportNo) {
-		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
-			location.href = "<c:url value='/report/adminDeleteMarket?reportNo=" + reportNo + "'/>";
-		} 
-	}
 
 </script>
+<div class="card">
 <div class="row gx-3">
    <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
      <div class="card-header admindefault border-bottom border-200 px-0">
@@ -35,63 +68,63 @@
              <h6 class="mb-0">Club List</h6>
            </div>
            <div class="col-auto pe-0">
-       		<form name="adminClub" action='<c:url value='/report/warningMarketList'/>' method="post">
+       		<form name="market" action='<c:url value='/report/warningMarketList'/>' method="post">
                <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
                   <option value="title"
                   	<c:if test="${param.searchCondition=='title'}">
                   		selected = "selected"
                   	</c:if>
                   >제목</option>
-                  <option value="manager"
+                  <option value="name"
             		        <c:if test="${param.searchCondition=='name'}">
                   		selected = "selected"
                   	</c:if>
                   >이름</option>
                </select>
            </div>
-       </form>
            <div class="col-auto">
                <div class="input-group input-search-width">
-                 <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
-                 <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+                 <input name = "searchKeyword" class="form-control form-control-sm shadow-none search" value="${param.searchKeyword }" type="search" placeholder="Search  by name" aria-label="search" />
+                 <button id = "find" class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                </div>
            </div>
+       	</form>
          </div>
          <div class="border-bottom border-200 my-3"></div>
            <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
            <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      
-		  <form name="frmChk" method="post" action="<c:url value='/admin/adminclub/deleteMulti'/>">
 	      <div class="d-flex align-items-center" id="table-ticket-replace-element"></div>
 	  </div>
 	</div>
 <div class="card-body p-0">
 	<div class="table-responsive scrollbar">
 	  <table class="table table-hover table-striped overflow-hidden">
-	    <thead>
+	    <thead class = "align-middle" align="center">
 	      <tr>
-	        <th scope="col">Name</th>
-	        <th scope="col">Title</th>
-	        <th scope="col">Date</th>
-	        <th scope="col">Status</th>
-	        <th scope="col"></th>
+	        <th width = "25%" scope="col">Name</th>
+	        <th width = "45%" scope="col">Title</th>
+	        <th width = "15" scope="col">Date</th>
+	        <th width = "15" scope="col">Status</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	    <c:set var="idx" value="0"/>
 	    <!-- 반복 시작  -->
 	    <c:forEach var="map" items="${list }">
-	      <tr class="align-middle">
+	      <tr class = "align-middle" align="center" id="modal">
 	      	<td class="align-middle fs-0 py-3">
 		  		<div class="form-check mb-0">
-			     <input type="hidden" value="${map['REPORT_NO']}" name="clubBoardItems[${idx }].clubNo" >
+			     <input type="hidden" id = "reportNo" value="${map['REPORT_NO']}" name="reportNo" >
+				 <input type="hidden" id="tradeNo" value="${map['TRADE_NO'] }">
 				<div class="d-flex align-items-center">
 	            <div class="avatar avatar-xl">
 	              <div class="avatar-name rounded-circle">
 	              	<img class="avatar-name rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
 	              </div>
 	            </div>
-	            <div class="ms-2">${map['NAME']}</div>
+	            <input type="hidden" id="name" value="${map['NAME'] }">
+	            <input type="hidden" id="empNo" value="${map['EMP_NO']}">
+	            <div class="ms-2" >${map['NAME']}</div>
 	          </div>
 				</div>
 			</td>
@@ -99,12 +132,14 @@
 	          ${map['TITLE']}
 	        </td>  
 	        <td class="text-nowrap">
+	        	<input type="hidden" id = "reportDate" value="<fmt:formatDate value="${map['REPORT_DATE']}" pattern="yyyy-MM-dd"/>">
         		<fmt:formatDate value="${map['REPORT_DATE']}" pattern="yyyy-MM-dd"/>
 	        </td>
 	        <td>
-	          <button class="btn btn-falcon-primary btn-sm" onclick="deleteMarket(${map['REPORT_NO']})" type="button">
-	          	<span class="fas fa-trash-alt"></span>
-	          </button>
+	          <span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+				<b class="state">대기</b>
+				<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
+				</span>
 	        </td>
 	      </tr>
 	      <c:set var="idx" value="${idx+1}"/>
@@ -127,7 +162,44 @@
         </div>
     </div>
   </div>
+ </div>
+ 
+ 
+ <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id ="x">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                    	<input type="hidden" name="reportNo" id="modalReportNo" >
+                    	<input type="hidden" name="tradeNo" id="modalTradeNo">
+                    	<label class="fs-0" for="product-name">작성자 : </label> 
+                    	<label class="fs-0" for="product-name" id="modalName"> </label><br> 
+                    	<label class="fs-0" for="product-name">사원번호 : </label> 
+                    	<label class="fs-0" for="product-name" id="modalEmpNo"> </label> <br>
+						<label class="fs-0" for="product-name" >글 번호 :</label>
+						<label class="fs-0" for="product-name" id = "modalTradeNo2"></label><br>
+                		<div class = "mb-3">
+	                  	  <label class="fs-0" for="eventStartDate">신고 날짜 :</label>
+	                  	  <label class="fs-0" for="eventStartDate" id="modalReportDate"></label>
+	                  	</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary px-4" id="showMarket" >글 보기</button>
+                    <button type="button" class="btn btn-primary px-4" id="delMarket">삭제</button>
+                </div>
     
+            </div>
+        </div>
+    </div>   
 <%@ include file='../../inc/adminBottom.jsp'%>
 
 

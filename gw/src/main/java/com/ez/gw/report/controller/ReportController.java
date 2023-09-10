@@ -1,5 +1,6 @@
 package com.ez.gw.report.controller;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,8 @@ import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeVO;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileService;
+import com.ez.gw.secondhandTradeFile.model.SecondhandTradeFileVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +42,7 @@ public class ReportController {
 	private final BoardService boardService;
 	private final CommentsService commentService;
 	private final SecondHandTradeService secondService;
+	private final SecondhandTradeFileService secondfileService;
 
 	@ResponseBody
 	@RequestMapping("/reportBoardAjax")
@@ -270,7 +274,7 @@ public class ReportController {
 		return cnt;
 	}
 	
-	@GetMapping("/warningMarketList")
+	@RequestMapping("/warningMarketList")
 	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1.
 		logger.info("관리자 - 중고거래 신고 목록 페이지");
@@ -290,17 +294,42 @@ public class ReportController {
 		public String delete(@RequestParam(defaultValue = "0")int tradeNo, Model model) {
 			logger.info("삭제 페이지, 파라미터 tradeNo={}", tradeNo);
 			
-			String msg = "삭제 실패!", url="/report/warningMarketList";
-			int cnt = reportService.deleteMarket(tradeNo);
-			logger.info("결과 cnt = {}", cnt);
-			if(cnt>0) {
-				msg = "삭제 완료 되었습니다.";
+			if (tradeNo == 0) {
+				model.addAttribute("msg", "잘못된 경로입니다.");
+				model.addAttribute("url", "/report/warningMarketList");
+
+				return "common/message";
 			}
-			
+			// 2
+			List<SecondhandTradeFileVO> fileList =  secondfileService.selectDetailFileByNo(tradeNo);
+			logger.info("중고거래 이미지 파일 갯수, fileList={}", fileList);
+			if (fileList.size() > 0) {
+				for (SecondhandTradeFileVO f : fileList) {
+					String fileName = f.getImageURL();
+					String path = ConstUtil.MARKET_UPLOAD_PATH_TEST;
+					File file = new File(path, fileName);
+					if (file.exists()) {
+						boolean result = file.delete();
+						logger.info("이미지 삭제 여부 : {}", result);
+					}
+				} // for
+			} // if
+
+			int cnt = secondService.deleteMarket(tradeNo);
+			logger.info("중고거래 게시글 삭제 결과, cnt = {}", cnt);
+
+			String msg = "삭제 실패!", url = "/report/warningMarketList";
+			if (cnt > 0) {
+				msg = "자료 삭제가 완료되었습니다.";
+			}
+
+			// 3
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-			
+
+			// 4
 			return "common/message";
+			
 		}
 	
 }
