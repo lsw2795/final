@@ -15,17 +15,31 @@
 	}
 	
 	$(function() {
-		$('#editOk').click(function() {
-			alert('답변 수정하시겠습니까?');
-		});
-	
 		$('form[name=commentFrm]').submit(function () {
 		    if($('form[name=commentFrm] #content').val().length<1){
 		    	alert('답변을 입력해주세요.');
+		    	$('form[name=commentFrm] #content').focus();
 		    	return false;
 		    }
 		});
+		
+		
+		
 	});
+	
+	function editCommtOk(bt) {
+		var content=$(bt).parent().find('input[name=content]');
+		var form=$(bt).parent().parent();
+		
+		if(confirm("답변 수정하시겠습니까?")){
+			if($(content).val().length<1){
+				alert('답변을 입력해주세요.');
+				$(content).focus();
+				return false;
+			}
+			$(form).submit();
+		}
+	}
 	
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
@@ -34,7 +48,7 @@
 		$(contentDiv).find('#editOk').show();
 		$(contentDiv).find('#canBtn').show();
 		$(contentDiv).find('span').hide();
-		$(contentDiv).find('input[name=content]').attr('type', 'textarea');
+		$(contentDiv).find('input[name=content]').attr('type', 'text');
 		
 	}
 	
@@ -106,6 +120,10 @@
 		}); 
 	}); */
 </script>
+
+<style>
+
+</style>
 <div class="card">
 <input type="hidden" id="clubboardNo" value="${map['BOARD_NO'] }">
 <input type="hidden" id="clubNo" value="${map['CLUB_NO'] }">
@@ -203,19 +221,19 @@
 		             </div>
 		             
 		             <div class="border-bottom mb-5 pb-5">
+		                  <form method="post" name="editCommt" action="<c:url value='/club/editComment'/>">
 			              <!-- 글 줄바꿈 처리  -->
 		                  <% pageContext.setAttribute("newLine", "\r\n"); %>
 		            	  <c:set var="content" value="${fn:replace(commtMap['CONTENT'], newLine, '<br>')}" />
-		                  <form method="post" action="<c:url value='/club/editComment'/>">
 			                  <div id="content">
 			                  	 <span>${content}</span> 
-			                  	 <input type="hidden" name="content" value="${content}">
+			                  	 <input type="hidden" name="content" class="form-control" value="${content}">
 			                  	 <input type="hidden" name="commentNo" value="${commtMap['COMMENT_NO']}">
 			                  	 <input type="hidden" name="boardNo" value="${commtMap['BOARD_NO']}">
 			                  	 <input type="hidden" name="clubNo" value="${commtMap['CLUB_NO']}">
 			                  	 <input type="hidden" name="empNo" value="${commtMap['EMP_NO']}">
-				                 <button class="btn btn-primary btn-sm me-2" id="editOk" style="display: none;" type="submit" title="확인" >확인</button>
-				                 <button class="btn btn-light btn-sm" onclick="editCancel(this)" id="canBtn" type="button"  style="display: none;" title="Delete">취소</button>
+				                 <button class="btn btn-primary btn-sm me-2 mt-2" onclick="editCommtOk(this)" id="editOk" style="display: none;" type="button" title="확인" >확인</button>
+				                 <button class="btn btn-light btn-sm mt-2" onclick="editCancel(this)" id="canBtn" type="button"  style="display: none;" title="Delete">취소</button>
 			                  </div>
 		                  </form>
 	                  </div>
@@ -238,9 +256,6 @@
 	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">
 	                    <div class="d-flex align-items-center">
 	                      <button class="btn btn-primary btn-sm px-4 me-2" id="submitCommt" type="submit">등록</button>
-	                    </div>
-	                    <div class="d-flex align-items-center">
-	                      <button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-dismiss="collapse">취소</button>
 	                    </div>
 	                  </div>
 	            </div>

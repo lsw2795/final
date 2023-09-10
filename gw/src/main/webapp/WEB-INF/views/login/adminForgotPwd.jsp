@@ -119,7 +119,7 @@
                 	<input class="form-control" type="text" name="empNo" id="empNo" placeholder="사원번호"/>
                 	<input class="form-control" type="email" name="email" id="email" placeholder="Email address" />
                   <div class="mb-3"></div>
-                  <button class="btn btn-primary d-block w-100 mt-3" id="Send" type="submit" name="submit">Send email</button>
+                  <button class="btn btn-primary d-block w-100 mt-3" id="btnSend" type="submit" name="submit">Send email</button>
               </div>
             </div>
           </div>
