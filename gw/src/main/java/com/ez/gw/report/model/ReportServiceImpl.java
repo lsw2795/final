@@ -112,4 +112,15 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.searchWarningMarket(reportVo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectReportMarket(SearchVO searchVo) {
+		return reportDao.selectReportMarket(searchVo);
+	}
+
+	@Override
+	public int deleteMarket(int reportNo) {
+		return reportDao.deleteMarket(reportNo);
+	}
+
+
 }

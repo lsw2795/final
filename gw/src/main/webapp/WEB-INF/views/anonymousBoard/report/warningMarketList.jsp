@@ -1,195 +1,138 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "../../inc/adminTop.jsp" %>
+<%@ include file='../../inc/adminTop.jsp'%>
+<!DOCTYPE html>
 <script type="text/javascript">
-	function pageFunc(curPage){
-		$('input[name="currentPage"]').val(curPage);
-		$('form[name="frmSearch"]').submit();
-	}
+	$(function() {
+		$('#delBtn').click(function(){
+			var chk=$('tbody input[type=checkbox]:checked').length;
+			if(chk<1){
+				alert('삭제할 게시물를 선택하세요.');
+			}
+			
+			if(chk > 0){
+				if(confirm('선택한 게시물을 삭제하시겠습니까?')){
+					$('form[name=frmChk]').prop('action', "<c:url value='/admin/report/deleteMulti'/>");
+					$('form[name=frmChk]').submit();
+				} // if
+			} 
+		});
+	});
 	
-	function search(){
-		$('input[name="currentPage"]').val('1');
-		$('form[name="frmSearch"]').submit();
+	function deleteMarket(reportNo) {
+		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+			location.href = "<c:url value='/report/adminDeleteMarket?reportNo=" + reportNo + "'/>";
+		} 
 	}
-	
-	function statusUpdate(reportNo,status,tr){
-		window.open("<c:url value='/report/anonymousReportDetail?reportNo="+reportNo+"'/>","_blank","width=500,height=680 left=750 top=150")
-	}
-	
+
 </script>
-<div class="container p-0">
-	<div class="col-12-lg pe-lg-2 mb-3">
-		<div class="card h-lg-100 overflow-hidden">
-			<div class="card-header bg-light">
-				<div class="row g-3">
-					<div class="col-md-10 listTitle">
-						익명게시판 신고 목록 
-					</div>
-					<div class="col-md-2" align="right">
-						<button class="form-control btn btn-primary" onclick="search()">검색</button>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<form class="row g-3" method="post" name="frmSearch" action="<c:url value='/report/anonymousReportList'/>" >
-				<input type="hidden" name="currentPage" value="">
-					<div class="col-md-4">
-						<label class="form-label" for="confirmDocumentNo">신고유형</label>
-						<select class="form-select" name="searchKeyword">
-							<option value="0"
-							<c:if test="${reportVO.searchKeyword==0}">
-								selected="selected"
-							</c:if>
-							>선택하세요</option>
-							<option value="1"
-							<c:if test="${reportVO.searchKeyword==1}">
-								selected="selected"
-							</c:if>
-							>게시글</option>
-							<option value="2"
-							<c:if test="${reportVO.searchKeyword==2}">
-								selected="selected"
-							</c:if>
-							>댓글</option>
-						</select>
-					</div>
-					<div class="col-md-4">
-					    <label class="form-label" for="searchName">신고자</label>
-						<input class="form-control" name="searchName" id="searchName" type="text" value="${param.searchName }" />
-					</div>
-					<div class="col-md-4">
-					    <label class="form-label" for="reportDate">신고일</label>
-					    <input class="form-control" name="reportDate" id="reportDate" type="date" value="${reportVO.reportDate}"/>
-					</div>
-					<div class="col-md-4">
-						<label class="form-label" for="searchContent">게시글</label>
-						<input class="form-control" name="searchContent" id="searchContent" type="text" value="${param.searchContent}"/>
-					</div>
-					<div class="col-md-4">
-						<label class="form-label" for="searchComment">댓글</label>
-						<input class="form-control" name="searchComment" id="searchComment" type="text" value="${param.searchComment}" />
-					</div>
-					<div class="col-md-4">
-					    <label class="form-label" for="reportStatus">처리상태</label>
-					    <select class="form-select" name="reportStatus" id="reportStatus">
-							<option value="-1"
-								selected="selected"
-							>전체</option>
-							<option value="0"
-							<c:if test="${reportVO.reportStatus==0}">
-								selected="selected"
-							</c:if>
-							>대기</option>
-							<option value="2"
-							<c:if test="${reportVO.reportStatus==2}">
-								selected="selected"
-							</c:if>
-							>보류</option>
-							<option value="1"
-							<c:if test="${reportVO.reportStatus==1}">
-								selected="selected"
-							</c:if>
-							>완료</option>
-						</select>
-					</div>
-				</form>
-			</div>
-		</div>
+<div class="row gx-3">
+   <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
+     <div class="card-header admindefault border-bottom border-200 px-0">
+       <div class="d-lg-flex justify-content-between">
+         <div class="row flex-between-center gy-2 px-x1">
+           <div class="col-auto pe-0">
+             <h6 class="mb-0">Club List</h6>
+           </div>
+           <div class="col-auto pe-0">
+       		<form name="adminClub" action='<c:url value='/report/warningMarketList'/>' method="post">
+               <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+                  <option value="title"
+                  	<c:if test="${param.searchCondition=='title'}">
+                  		selected = "selected"
+                  	</c:if>
+                  >제목</option>
+                  <option value="manager"
+            		        <c:if test="${param.searchCondition=='name'}">
+                  		selected = "selected"
+                  	</c:if>
+                  >이름</option>
+               </select>
+           </div>
+       </form>
+           <div class="col-auto">
+               <div class="input-group input-search-width">
+                 <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
+                 <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+               </div>
+           </div>
+         </div>
+         <div class="border-bottom border-200 my-3"></div>
+           <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
+           <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
+                      
+		  <form name="frmChk" method="post" action="<c:url value='/admin/adminclub/deleteMulti'/>">
+	      <div class="d-flex align-items-center" id="table-ticket-replace-element"></div>
+	  </div>
 	</div>
-	<div class="col-12-lg pe-lg-2 mb-3">
-		<div class="card h-lg-100 overflow-hidden">
-			<div class="card-body table-responsive scrollbar">
-				<div class="table-responsive scrollbar">
-					<table class="table table-hover table-striped overflow-hidden" style="width: 100%">
-						<thead>
-					    	<tr class="align-middle" align="center">
-						      	<th width="20%" scope="col">신고유형</th>
-						      	<th width="10%" scope="col">신고자</th>
-						      	<th width="25%" scope="col">게시글</th>
-						        <th width="25%" scope="col">댓글</th>
-						        <th width="10%" scope="col">신고일</th>
-						        <th width="10%" scope="col">처리상태</th>
-					      	</tr>
-					    </thead>
-					    <tbody>
-					    	<c:if test="${!empty reportList }">
-					    		<c:forEach var="map" items="${reportList }">
-					    			<tr class="align-middle" align="center" onclick="statusUpdate(${map['REPORT_NO']},${map['REPORT_STATUS']},this)">
-					    				<td>
-					    					<c:if test="${empty map['COMMENT_NO']}">
-					    						게시글에 대한 신고
-					    					</c:if>
-					    					<c:if test="${!empty map['COMMENT_NO']}">
-					    						댓글에 대한 신고
-					    					</c:if>
-					    				</td>
-					    				<td>${map['NAME']}</td>
-					    				<td>
-					    					<c:if test="${map['CONTENT'].length()>15 }">
-											 	${fn:substring(map['CONTENT'],0,15) }...
-											</c:if>
-											<c:if test="${map['CONTENT'].length()<=15 }">
-					                    		${map['CONTENT']}
-											</c:if>
-					    				</td>
-					    				<td>
-					    					<c:if test="${map['COMMENT_CONTENT'].length()>15 }">
-											 	${fn:substring(map['COMMENT_CONTENT'],0,15) }...
-											</c:if>
-											<c:if test="${map['COMMENT_CONTENT'].length()<=15 }">
-					                    		${map['COMMENT_CONTENT']}
-											</c:if>
-					    				</td>
-					    				<td>
-					    					<fmt:formatDate value="${map['REPORT_DATE']}" pattern="yy-MM-dd"/>
-					    				</td>
-					    				<td>
-						    				<c:if test="${map['REPORT_STATUS']==0}">
-									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
-									        		<b class="state">대기</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-									        	</span>
-									        </c:if> 
-									        <c:if test="${map['REPORT_STATUS']==1}">
-									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
-										        	<b class="state">완료</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
-											    </span>
-									        </c:if>
-									        <c:if test="${map['REPORT_STATUS']==2}">
-									        	<span class="badge badge rounded-pill d-block p-2 badge-subtle-primary">
-							        				<b class="state">보류</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
-							        			</span>
-									        </c:if>
-					    				</td>
-					    			</tr>
-					    		</c:forEach>
-					    	</c:if>
-						</tbody>
-					</table>
+<div class="card-body p-0">
+	<div class="table-responsive scrollbar">
+	  <table class="table table-hover table-striped overflow-hidden">
+	    <thead>
+	      <tr>
+	        <th scope="col">Name</th>
+	        <th scope="col">Title</th>
+	        <th scope="col">Date</th>
+	        <th scope="col">Status</th>
+	        <th scope="col"></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    <c:set var="idx" value="0"/>
+	    <!-- 반복 시작  -->
+	    <c:forEach var="map" items="${list }">
+	      <tr class="align-middle">
+	      	<td class="align-middle fs-0 py-3">
+		  		<div class="form-check mb-0">
+			     <input type="hidden" value="${map['REPORT_NO']}" name="clubBoardItems[${idx }].clubNo" >
+				<div class="d-flex align-items-center">
+	            <div class="avatar avatar-xl">
+	              <div class="avatar-name rounded-circle">
+	              	<img class="avatar-name rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
+	              </div>
+	            </div>
+	            <div class="ms-2">${map['NAME']}</div>
+	          </div>
 				</div>
-			</div>
-			<div class="card-footer border-top d-flex justify-content-center">
-			<c:if test="${pagingInfo.firstPage>1 }">
-     			<button class="btn btn-falcon-default btn-sm me-2" onclick="pageFunc(${pagingInfo.firstPage-1})" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev">
-     				<span class="fas fa-chevron-left"></span>
-     			</button>
-     		</c:if>
-     		
-     		<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
-     			<c:if test="${i == pagingInfo.currentPage }">
-	     			<a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">${i }</a>
-     			</c:if>
-     			<c:if test="${i != pagingInfo.currentPage }">
-	     			<a class="btn btn-sm btn-falcon-default me-2" onclick="pageFunc(${i})" href="#!">${i }</a>
-     			</c:if>
-     		</c:forEach>
-     		
-     		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-     			<button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next">
-     				<span class="fas fa-chevron-right"></span>
-     			</button>
-     		</c:if>
-   			</div>
-		</div>
+			</td>
+	      	<td class="text-nowrap">
+	          ${map['TITLE']}
+	        </td>  
+	        <td class="text-nowrap">
+        		<fmt:formatDate value="${map['REPORT_DATE']}" pattern="yyyy-MM-dd"/>
+	        </td>
+	        <td>
+	          <button class="btn btn-falcon-primary btn-sm" onclick="deleteMarket(${map['REPORT_NO']})" type="button">
+	          	<span class="fas fa-trash-alt"></span>
+	          </button>
+	        </td>
+	      </tr>
+	      <c:set var="idx" value="${idx+1}"/>
+	    </c:forEach>
+		<!-- 반복 끝 -->
+	    </tbody>
+	  </table>
+		 <div class="text-center d-none" id="tickets-table-fallback">
+		     <p class="fw-bold fs-1 mt-3">신고 게시물이 없습니다.</p>
+		 </div>
+	</form>	 
 	</div>
 </div>
-<%@ include file = "../../inc/adminBottom.jsp" %>
+		<div class="card-footer">
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+            <ul class="pagination mb-0"></ul>
+            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+          </div>
+        </div>
+    </div>
+  </div>
+    
+<%@ include file='../../inc/adminBottom.jsp'%>
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.ez.gw.comments.model.CommentsService;
 import com.ez.gw.comments.model.CommentsVO;
 import com.ez.gw.common.ConstUtil;
 import com.ez.gw.common.PaginationInfo;
+import com.ez.gw.common.SearchVO;
 import com.ez.gw.report.model.ReportService;
 import com.ez.gw.report.model.ReportVO;
 import com.ez.gw.secondhandTrade.model.SecondHandTradeService;
@@ -105,7 +107,7 @@ public class ReportController {
 			int empNo=(int)session.getAttribute("empNo");
 			ReportVO reVo = new ReportVO();
 			reVo.setEmpNo(empNo);
-			reVo.setBoardNo(tradeNo);
+			reVo.setTradeNo(tradeNo);
 			logger.info("게시글 신고 Ajax 파라미터 tradeNo={}",tradeNo);
 			
 			//2.
@@ -268,31 +270,37 @@ public class ReportController {
 		return cnt;
 	}
 	
-	@RequestMapping("/warningMarketList")
-	public String warningMarket(@ModelAttribute ReportVO vo, Model model) {
-		logger.info("익명게시판 신고 리스트 파라미터 vo={}",vo);
-		
-		PaginationInfo pagingInfo=new PaginationInfo();
-    	pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
-   		pagingInfo.setCurrentPage(vo.getCurrentPage());
-    	pagingInfo.setRecordCountPerPage(ConstUtil.CONFIRM_RECORD_COUNT);
-    			
-    	vo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
-    	vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-    	
-    	List<Map<String, Object>> reportList = reportService.anonymousReportList(vo);
-    	logger.info("익명게시판 신고함 조회결과, list.size={}",reportList.size());
-    	
-    	int totalRecord = reportService.getTotalAnonymousReport(vo);
-		logger.info("익명게시판 신고함 조회결과, totalRecord={}",totalRecord);
-		pagingInfo.setTotalRecord(totalRecord);
-    	
-    	//3
-    	model.addAttribute("reportList",reportList);
-    	model.addAttribute("pagingInfo",pagingInfo);
-	
+	@GetMapping("/warningMarketList")
+	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
+		//1.
+		logger.info("관리자 - 중고거래 신고 목록 페이지");
+
+		//2.
+		List<Map<String, Object>> list = reportService.selectReportMarket(searchVo);
+		logger.info("관리자 - 중고거래 신고 목록 개수 list.size={}",list.size());
+
+		//3.
+		model.addAttribute("list", list);
+
+		//4.
 		return "anonymousBoard/report/warningMarketList";
 	}
-		
+	
+		@RequestMapping("/adminDeleteMarket")
+		public String delete(@RequestParam(defaultValue = "0")int tradeNo, Model model) {
+			logger.info("삭제 페이지, 파라미터 tradeNo={}", tradeNo);
+			
+			String msg = "삭제 실패!", url="/report/warningMarketList";
+			int cnt = reportService.deleteMarket(tradeNo);
+			logger.info("결과 cnt = {}", cnt);
+			if(cnt>0) {
+				msg = "삭제 완료 되었습니다.";
+			}
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "common/message";
+		}
 	
 }
