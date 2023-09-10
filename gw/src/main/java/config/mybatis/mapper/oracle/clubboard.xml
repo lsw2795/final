@@ -44,10 +44,16 @@
 	</delete>
 	
 	 <select id="selectImg" resultType="map" parameterType="int">
-	 	select filename, originalFilename from pds
+	 	select * from pds
 	 	where club_board_no=#{#clubBoardNo}
 	 </select>
 		
+		
+	<delete id="deleteClubFileOne" parameterType="map">
+        delete pds
+        where club_board_no=#{clubBoardNo}
+        and filename=#{fileName}
+	</delete>	
 </mapper>
 
 

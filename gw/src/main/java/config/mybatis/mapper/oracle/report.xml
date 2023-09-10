@@ -39,9 +39,12 @@
 		values(#{reportNo},#{reportStatus},#{empNo},200,#{boardNo},#{clubNo},#{clubBoardNo})
 	</insert>
 	
-	<select id="selectReportClub" resultType="map" parameterType="int">
+	<select id="selectReportClub" resultType="map" parameterType="searchVo">
 		select * from CLUBREPORTVIEW
 		where BOARDLIST_NO=200
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			and ${searchCondition} like '%' || #{searchKeyword} ||'%'
+		</if>
 		order by report_date desc  
 	</select>
 	

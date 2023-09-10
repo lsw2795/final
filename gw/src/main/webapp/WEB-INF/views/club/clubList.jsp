@@ -112,6 +112,34 @@
 			                        </td>
 			                      </tr>
                           	</c:if>
+                          	<c:if test="${map['SECFLAG']=='N'} and ${sessionScope.empNo==map['EMO_NO'] }">
+		                        <tr>
+		                          <td class="align-middle fs-0 py-3">
+		                            <div class="form-check mb-0">
+		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
+		                            </div>
+		                          </td>
+		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
+			                          <div class="d-flex align-items-center gap-2 position-relative">
+			                             <h6 class="mb-0">${map['MANAGER']}</h6>
+			                           </div>
+			                        </td>
+			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${map.CLUB_NO}'/>">${map['TITLE']}</a>
+			                        	<c:if test="${map['timeNew']==1}">
+											&nbsp;&nbsp;
+											<span class="badge rounded-pill bg-success position-absolute me-2">
+												New
+											</span>
+										</c:if>
+			                        </td>
+			                        <td class="align-middle memberCnt pe-4">
+			                          	${map['MEM_LIMIT']}
+			                        </td>
+			                        <td class="align-middle subscription fs-0 pe-4">
+			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small>
+			                        </td>
+			                      </tr>
+                          	</c:if>
                           </c:forEach>
                       </tbody>
                     </table>

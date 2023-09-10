@@ -73,5 +73,10 @@ public class ClubBoardServiceImpl implements ClubBoardService{
 		return clubboardDao.selectImg(clubBoardNo);
 	}
 
+	@Override
+	public int deleteClubFileOne(String fileName, int clubBoardNo) {
+		return clubboardDao.deleteClubFileOne(fileName, clubBoardNo);
+	}
+
 	
 }

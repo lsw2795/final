@@ -8,6 +8,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#btn').click(function(){
+			event.preventDefault();
 			
 			if($('#title').val().length<1){
 				alert("제목을 입력하세요.");
@@ -23,9 +24,13 @@
 				return false;
 			}
 			
+			$('form[name="clubBoardFrm"]').submit();
+			
 		});
 		
 		  $("#fileInput").on("change", function() {
+			  var imagePreview = $(".dz-message");
+			  imagePreview.empty();
 			  
 			  var files = $(this)[0].files;
               for (var i = 0; i < files.length; i++) {
@@ -45,12 +50,21 @@
 	  });
 		  
 	});
-	function deleteImg(imgName,a){
-		var editImg=$(a).parent().parent();
-		
-		$(editImg).append("<input name='deleteImg' type='text' value='"+imgName+"'/>");
-		$(a).parent().remove();
+	function deleteImg(imgName, a) {
+	    var editImg = $(a).parent().parent();
+	    
+	    // 새로운 input 태그를 동적으로 생성하고 폼 내에 추가합니다.
+	    var input = $("<input>").attr({
+	        type: "text",
+	        name: "delImg",
+	        value: imgName
+	    });
+	    $('form[name="clubBoardFrm"]').append(input);
+	    
+	    // 원래의 요소를 제거합니다.
+	    $(a).parent().remove();
 	}
+
 </script>
 
 <div class="contentBody">
@@ -77,7 +91,7 @@
                   	name="clubBoardFrm"	method="post" action="<c:url value='/club/editClubBoard'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
                     <input type="hidden" name="clubNo" value="${param.clubNo }">
-                    <input type="hidden" name="boardNo" value="${param.boardNo }">
+                    <input type="text" name="boardNo" value="${param.boardNo }">
                       <div class="col-12 mb-3">
                         <label class="form-label" for="title">제목</label>
                         <input class="form-control" id="title" name="title" type="text" value="${map['TITLE']}"/>
@@ -101,7 +115,7 @@
                     <div class="fallback">
                       <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
                     </div>
-                    <div class="dz-message" data-dz-message=""> 
+                    <div class="dz-message" data-dz-message="dz-message"> 
 	                    <img class="me-2" src="<c:url value='/assets/img/icons/cloud-upload.svg'/>" width="25" alt="" />
 	                    <span class="d-none d-lg-inline">파일을 드래그하세요.</span>
                     </div>
@@ -126,10 +140,6 @@
                               <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
                             </div>
                           </div>
-                          <div class="dropdown font-sans-serif">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -142,11 +152,11 @@
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" id = "btn" role="button">저장 </button>
+                  <button class="btn btn-primary" id ="btn" role="button">저장 </button>
                 </div>
               </div>
             </div>
           </div>
-         </form>
         </div>
+         </form>
 <%@ include file="../inc/bottom.jsp" %>

@@ -118,9 +118,6 @@
 		</div>
 		<div class="row g-0">
 			<div class="card mb-3">
-				<div class="card-header">
-					<h5 class="mb-0">Introduce Club</h5>
-				</div>
 				<div class="card-body bg-light">
 					<input type="hidden" name="clubNo" id="clubNo"
 						value="${param.clubNo}">

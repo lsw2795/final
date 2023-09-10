@@ -21,7 +21,7 @@
 	}); */
 	
 	function adminClubDel(clubNo) {
-		if(confirm("해당 신고 게시물을 삭제하시겠습니까?")){
+		if(confirm("해당 동호회를 삭제하시겠습니까?")){
 			location.href="<c:url value='/admin/adminclub/adminClubDelete?clubNo=" + clubNo + "'/>"
 		}
 	}
@@ -75,35 +75,19 @@
                     <table class="table table-sm mb-0 fs--1 table-view-tickets">
                       <thead class="text-800 bg-light">
                         <tr>
-                          <th class="py-2 fs-0 pe-2" style="width: 28px;">
-                            <div class="check d-flex align-items-center">
-                              <input class="check-input" id="checkbox-bulk-table-tickets-select" type="checkbox" 
-                              data-bulk-select='{"body":"table-ticket-body","actions":"table-ticket-actions"' 
-                              />
-                            </div>
-                          </th>
                           <th class="sort align-middle ps-2" data-sort="Name">Manager</th>
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:14rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
+                          <th class="sort align-middle" data-sort="SECFLAG">공개여부</th>                          
                           <th class="sort align-middle" data-sort="Date">Date</th>
                           <th class="sort align-middle" data-sort="Date">삭제</th>
-                          
                         </tr>
                       </thead>
                       <tbody class="list" id="table-ticket-body">
 	                      <c:set var="idx" value="0"/>
                           <!-- 반복 시작 -->
                           <c:forEach var="map" items="${list }">
-                          	<c:if test="${map['SECFLAG']=='Y' }">
 		                        <tr>
-		                          <td class="align-middle fs-0 py-3">
-		                            <div class="form-check mb-0">
-		                              <input class="form-check-input" type="checkbox" id="table-view-tickets-0"
-		                               data-bulk-select-row="data-bulk-select-row" 
-		                               name="clubItems[${idx}].clubNo"
-		     							value="${map['CLUB_NO']}"/>
-		                            </div>
-		                          </td>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
 			                          <div class="d-flex align-items-center gap-2 position-relative">
 			                             <h6 class="mb-0">${map['MANAGER'] }</h6>
@@ -120,6 +104,18 @@
 			                          	${map['MEM_LIMIT'] }
 			                        </td>
 			                        <td class="align-middle subscription fs-0 pe-4">
+			                        	<c:if test="${map['SECFLAG']=='Y' }">
+			                        		<span class="badge badge rounded-pill d-block p-2 badge-subtle-success">
+				       							공개<span class="ms-1 fas fa-check" data-fa-transform="shrink-3"></span>
+				   							</span>
+			                        	</c:if>
+			                        	<c:if test="${map['SECFLAG']=='N' }">
+			                        		<span class="badge badge rounded-pill d-block p-2 badge-subtle-warning">
+			                        			비공개<span class="ms-1 fas fa-user" data-fa-transform="shrink-3"></span>
+			                        		</span>
+			                        	</c:if>
+			                        </td>
+			                        <td class="align-middle subscription fs-0 pe-4">
 			                          <small class="badge rounded badge-subtle-success"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd"/></small> 
 			                        </td>
 			                        <td>
@@ -127,8 +123,6 @@
                        					<span class="fas fa-trash-alt" data-fa-transform="shrink-3"></span></button>
 			                      	</td>
 			                      </tr>
-                          	</c:if>
-                          	<c:set var="idx" value="${idx+1}"/>
                           </c:forEach>
 		               </form>
                       </tbody>
