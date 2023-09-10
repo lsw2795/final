@@ -19,7 +19,7 @@
 		var reportDate = $('#reportDate').val();
 		
 		
-		$('#modal').click(function(){
+		$('.align-middle').click(function(){
 			$('#modalDetail').modal("show");
 			$('#modalTradeNo').val(tradeNo);
 			$('#modalReportNo').val(reportNo);
@@ -58,6 +58,25 @@
 	});
 
 </script>
+<style type="text/css">
+.card{
+	 background: white;
+	    color: black;
+}
+
+a.btn {
+   		background: white;
+	}
+	
+.mb-0 {
+    margin-bottom: 0 !important;
+    color: black;
+}
+
+div#tableName {
+    margin-left: 54px;
+}
+</style>
 <div class="card">
 <div class="row gx-3">
    <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
@@ -65,7 +84,7 @@
        <div class="d-lg-flex justify-content-between">
          <div class="row flex-between-center gy-2 px-x1">
            <div class="col-auto pe-0">
-             <h6 class="mb-0">Club List</h6>
+             <h6 class="mb-0">검색</h6>
            </div>
            <div class="col-auto pe-0">
        		<form name="market" action='<c:url value='/report/warningMarketList'/>' method="post">
@@ -112,11 +131,11 @@
 	    <!-- 반복 시작  -->
 	    <c:forEach var="map" items="${list }">
 	      <tr class = "align-middle" align="center" id="modal">
-	      	<td class="align-middle fs-0 py-3">
+	      	<td class="align-middle" align="center">
 		  		<div class="form-check mb-0">
 			     <input type="hidden" id = "reportNo" value="${map['REPORT_NO']}" name="reportNo" >
 				 <input type="hidden" id="tradeNo" value="${map['TRADE_NO'] }">
-				<div class="d-flex align-items-center">
+				<div class="d-flex align-items-center" id="tableName">
 	            <div class="avatar avatar-xl">
 	              <div class="avatar-name rounded-circle">
 	              	<img class="avatar-name rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">

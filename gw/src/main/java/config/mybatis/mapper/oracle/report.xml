@@ -146,6 +146,12 @@
 		and report_status=0
 	</select>
 	
+	<select id="anonymousMarketReportCount" resultType="int">
+		select count(*) from report
+		where boardlist_no=100
+		and report_status=0
+	</select>
+	
 	<select id="selectReportMarket" parameterType="searchVo" resultType="map">
 		select * from marketreportview
 		where BOARDLIST_NO=100

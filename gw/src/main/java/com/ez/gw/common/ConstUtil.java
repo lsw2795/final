@@ -5,9 +5,11 @@ import java.util.Date;
 public interface ConstUtil {
 	//게시판 페이징 처리 관련 상수
 	public static final int RECORD_COUNT=10;
+	public static final int MARKET_COUNT=5;
 	public static final int CONFIRM_RECORD_COUNT=10;
 	public static final int ADMIN_RECORD_COUNT=7;
 	int BLOCK_SIZE=10;
+	int MARKET_BLOCK_SIZE=5;
 	int ADMIN_FORMLIST_BLOCK_SIZE=5;
 	
 	//파일 업로드 처리 관련 상수

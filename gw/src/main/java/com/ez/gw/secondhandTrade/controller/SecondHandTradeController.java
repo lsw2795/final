@@ -201,12 +201,12 @@ public class SecondHandTradeController {
 		// 2
 		// 페이징
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+		pagingInfo.setBlockSize(ConstUtil.MARKET_BLOCK_SIZE);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		pagingInfo.setRecordCountPerPage(ConstUtil.MARKET_COUNT);
 
 		// [2]SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
-		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setRecordCountPerPage(ConstUtil.MARKET_COUNT);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 
 		List<Map<String, Object>> list= secondHandTradeService.selectAllMarket(searchVo);
