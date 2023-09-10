@@ -197,6 +197,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.createClub(empVo);
 	}
 
+	@Override
+	public int selectRetireCount() {
+		return employeeDao.selectRetireCount();
+	}
+
+	@Override
+	public int selectAllEmployeeCount() {
+		return employeeDao.selectAllEmployeeCount();
+	}
+
+	@Override
+	public int selectAvgSalary() {
+		return employeeDao.selectAvgSalary();
+	}
+
+	@Override
+	public int selectHiredateCount() {
+		return employeeDao.selectHiredateCount();
+	}
+
 
 
 }

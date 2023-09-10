@@ -51,13 +51,16 @@
 	}
 	
 	.black{
-		color: black;
+		color: black !important;
 	}
 	
 	.marginWeather{
 		height: 369px;
 	}
 	
+	.card.stat {
+   		height: 100%;
+	}
 	
 </style>
 <div class="row g-3 mb-3">
@@ -120,91 +123,60 @@
    
   <div class="card mb-3 admindefault">
 		<div class="row row-card-no-pd">
+			<div class="col-md-8">
+				<div class="card stat">
+					<div class="card-body admindefault">
+					<h3 style="color: black">Internal Data</h3>
+						<div class="progress-card" style="margin-top: 25px">
+							<div class="d-flex justify-content-between mb-1">
+								<span>오늘/365일</span>
+								<span>
+								 	 ${((currentDayOfYear/365)*100).intValue()}%(${currentDayOfYear}일) <!-- 소수점 이하를 제거하고 정수로 변환 -->
+								 </span>
+							</div>
+							<div class="progress mb-2" style="height: 7px;">
+								<div class="progress-bar bg-success" role="progressbar" style="width: ${((currentDayOfYear/365)*100).intValue()}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="78%"></div>
+							</div>
+						</div>
+						<div class="progress-card">
+							<div class="d-flex justify-content-between mb-1">
+								<span>퇴사율(연간 퇴사자)</span>
+								<span> ${((11/allEmpCount)*100).intValue()}%(11명)</span>
+							</div>
+							<div class="progress mb-2" style="height: 7px;">
+								<div class="progress-bar bg-info" role="progressbar" style="width: ${((11/allEmpCount)*100).intValue()}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="65%"></div>
+							</div>
+						</div>
+						<div class="progress-card">
+							<div class="d-flex justify-content-between mb-1">
+								<span>입사율(연간 입사자)</span>
+								<span>${((46/allEmpCount)*100).intValue()}%(46명)</span>
+							</div>
+							<div class="progress mb-2" style="height: 7px;">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: ${((46/allEmpCount)*100).intValue()}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="70%"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col-md-4">
-				<div class="card admindefault">
-					<div class="card-body admindefault">
-						<p class="fw-bold mt-1 admindefault">프로젝트 진행상황</p>
-						<h4><b>사내 그룹웨어 개발</b></h4>
-						<a href="#" class="btn btn-primary btn-full text-left mt-3 mb-3"><i class="la la-plus"></i> 자세히</a>
-					</div>
-					<div class="card-footer">
-						<ul class="nav">
-							<li class="nav-item"><a class="btn btn-default btn-link" href="#"><i class="la la-history"></i> History</a></li>
-							<li class="nav-item ml-auto"><a class="btn btn-default btn-link" href="#"><i class="la la-refresh"></i> Refresh</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-5">
-				<div class="card">
-					<div class="card-body admindefault">
-						<div class="progress-card">
-							<div class="d-flex justify-content-between mb-1">
-								<span class="text-muted">기획팀</span>
-								<span class="text-muted fw-bold"> 90%</span>
-							</div>
-							<div class="progress mb-2" style="height: 7px;">
-								<div class="progress-bar bg-success" role="progressbar" style="width: 90%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="78%"></div>
-							</div>
-						</div>
-						<div class="progress-card">
-							<div class="d-flex justify-content-between mb-1">
-								<span class="text-muted">디자인팀</span>
-								<span class="text-muted fw-bold"> 80%</span>
-							</div>
-							<div class="progress mb-2" style="height: 7px;">
-								<div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="65%"></div>
-							</div>
-						</div>
-						<div class="progress-card">
-							<div class="d-flex justify-content-between mb-1">
-								<span class="text-muted">프론트엔드팀</span>
-								<span class="text-muted fw-bold"> 10%</span>
-							</div>
-							<div class="progress mb-2" style="height: 7px;">
-								<div class="progress-bar bg-primary" role="progressbar" style="width: 10%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="70%"></div>
-							</div>
-						</div>
-						<div class="progress-card">
-							<div class="d-flex justify-content-between mb-1">
-								<span class="text-muted">백엔드팀</span>
-								<span class="text-muted fw-bold"> 10%</span>
-							</div>
-							<div class="progress mb-2" style="height: 7px;">
-								<div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
 				<div class="card card-stats">
 					<div class="card-body admindefault">
 						<p class="fw-bold mt-1">Statistic</p>
 						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center icon-warning">
-									<i class="la la-pie-chart text-warning"></i>
-								</div>
-							</div>
 							<div class="col-7 d-flex align-items-center">
 								<div class="numbers">
-									<p class="card-category">전체진행율</p>
-									<h4 class="card-title">30%</h4>
+									<p class="card-category">평균연봉</p>
+									<span style="font-weight: bold;">${avgSalary}(만)원</span>
 								</div>
 							</div>
 						</div>
 						<hr/>
 						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center">
-									<i class="la la-heart-o text-primary"></i>
-								</div>
-							</div>
 							<div class="col-7 d-flex align-items-center">
 								<div class="numbers">
-									<p class="card-category">참여사원수</p>
-									<h4 class="card-title">6명</h4>
+									<p class="card-category">총 사원수</p>
+									<span style="font-weight: bold;" >${allEmpCount}명</span>
 								</div>
 							</div>
 						</div>

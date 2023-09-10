@@ -206,4 +206,24 @@
 		where emp_no=#{empNo} 
 	</update>
 	
+	<select id="selectRetireCount" resultType="int">
+		select count(*) from employee
+		where retiredate like '%' ||'2023'|| '%'
+		and retiredate is not null
+	</select>
+	
+	<select id="selectAllEmployeeCount" resultType="int">
+		select count(*) from employee
+	</select>
+	
+	<select id="selectAvgSalary" resultType="int">
+		select trunc(avg(annual_salary)) from employee
+	</select>
+	
+	<select id="selectHiredateCount" resultType="int">
+		select count(*) from employee
+		where hiredate like '%2023%'
+		and hiredate is not null
+	</select>
+	
 </mapper>
