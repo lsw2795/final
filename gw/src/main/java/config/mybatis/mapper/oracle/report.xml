@@ -61,6 +61,14 @@
 		values(#{reportNo},#{empNo},5000,#{boardNo},#{commentNo})
 	</insert>
 	
+	<insert id="warningMarket" parameterType="reportVo">
+		<selectKey keyProperty="reportNo" order="BEFORE" resultType="int">
+			select report_seq.nextval from dual
+		</selectKey>
+		insert into report(REPORT_NO, EMP_NO, BOARDLIST_NO, BOARD_NO)
+		values(#{reportNo},#{empNo},100,#{boardNo})
+	</insert>
+	
 	<select id="searchAnonymousBoardReport" resultType="int" parameterType="reportVo">
 		select count(*) from report
 		where emp_no=#{empNo}

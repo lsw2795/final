@@ -1,6 +1,7 @@
 package com.ez.gw.reman.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,5 +58,11 @@ public class RemanServiceImpl implements RemanService{
 	@Override
 	public List<RemanVO> selectAllReman() {
 		return remanDao.selectAllReman();
+	}
+
+
+	@Override
+	public List<Map<String, Object>> staticReman(String category, String regdate) {
+		return remanDao.staticReman(category, regdate);
 	}
 }

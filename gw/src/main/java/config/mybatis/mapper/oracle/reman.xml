@@ -49,4 +49,10 @@
 		set category = #{category}, name = #{name}, discription = #{discription}, state = #{state}, manager = #{manager}
 		where reman_no = #{remanNo}
 	</update>
+	
+	<select id="staticReman" resultType="map" parameterType="map">
+		select * from reservationview
+		where category=#{category}
+		and substr(regdate, 1, 7) = #{regdate}
+	</select>
 </mapper>

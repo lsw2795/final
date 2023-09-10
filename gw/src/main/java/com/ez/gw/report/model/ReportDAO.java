@@ -22,4 +22,5 @@ public interface ReportDAO {
 	int updateAnonymousReportPostpone(int reportNo);
 	Map<String, Object> clubByReportNo(int reportNo);
 	int anonymousReportCount();
+	int warningMarket(ReportVO reportVo);
 }
