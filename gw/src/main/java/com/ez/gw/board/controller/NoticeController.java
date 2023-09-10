@@ -59,7 +59,7 @@ public class NoticeController {
 		//1
 		int empNo = (int)session.getAttribute("empNo");
 		vo.setEmpNo(empNo);
-		logger.info("관리자 - 공지사항 글쓰기 페이지, 파라미터 vo={}, empNo={}", vo, empNo);
+		//logger.info("관리자 - 공지사항 글쓰기 페이지, 파라미터 vo={}, empNo={}", vo, empNo);
 		//2
 		//다중파일 업로드 처리
 		String fileName="", originalFileName="",filePath = "";
@@ -78,7 +78,7 @@ public class NoticeController {
 				fileSize=(long) map.get("fileSize");
 				filePath = (String) map.get("uploadPath") + File.separator + fileName;
 				
-				logger.info("파일명:{}", fileName);
+				//logger.info("파일명:{}", fileName);
 				
 				pdsVo.setBoardListNo(2000); //공지사항 게시판 번호임
 				pdsVo.setBoardNo(vo.getBoardNo()); //게시글 번호
@@ -90,7 +90,7 @@ public class NoticeController {
 				
 				if(originalFileName!=null && !originalFileName.isEmpty()) { //원본 파일명이 있을때만 db에 파일 데이터 저장
 					result = pdsService.insertFiles(pdsVo); //pds 테이블에 파일 db 저장
-					logger.info("다중 파일 등록 결과 result = {}", result);
+					//logger.info("다중 파일 등록 결과 result = {}", result);
 				}
 			}//for
 		} catch (IllegalStateException e) {
@@ -455,7 +455,7 @@ public class NoticeController {
 	public String selRegdateDesc5(Model model) {
 		logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회");
 		List<Map<String, Object>> noticeList=boardService.selRegdateDesc5();
-		logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회 결과 noticeList={}", noticeList);
+		//logger.info("사원 - 메인페이지 공지사항 최신글 5건 조회 결과 noticeList={}", noticeList);
 		
 		for(Map<String, Object> map : noticeList) {
 			map.put("timeNew", Utility.displayNew((Date)map.get("REGDATE")));

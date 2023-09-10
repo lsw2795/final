@@ -105,12 +105,12 @@ public class ReportController {
 			int empNo=(int)session.getAttribute("empNo");
 			ReportVO reVo = new ReportVO();
 			reVo.setEmpNo(empNo);
-			logger.info("게시글 신고 Ajax 파라미터 boardNo={}",tradeNo);
 			reVo.setBoardNo(tradeNo);
+			logger.info("게시글 신고 Ajax 파라미터 tradeNo={}",tradeNo);
 			
 			//2.
 			String msg="알 수 없는 문제가 발생하였습니다.";
-			int cnt=reportService.dupClubBoardReport(reVo);
+			int cnt=reportService.searchWarningMarket(reVo);
 			logger.info("신고등록 결과 cnt={}",cnt);
 			
 			if(cnt>0) {

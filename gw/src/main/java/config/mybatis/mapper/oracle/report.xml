@@ -68,8 +68,8 @@
 		<selectKey keyProperty="reportNo" order="BEFORE" resultType="int">
 			select report_seq.nextval from dual
 		</selectKey>
-		insert into report(REPORT_NO, EMP_NO, BOARDLIST_NO, BOARD_NO)
-		values(#{reportNo},#{empNo},100,#{boardNo})
+		insert into report(REPORT_NO, EMP_NO, BOARDLIST_NO, TRADE_NO)
+		values(#{reportNo},#{empNo},100,#{tradeNo})
 	</insert>
 	
 	<select id="searchAnonymousBoardReport" resultType="int" parameterType="reportVo">
@@ -89,6 +89,12 @@
 		where emp_no=#{empNo}
 		and board_no=#{boardNo}
 		and comment_no =#{commentNo}
+	</select>
+	
+	<select id="searchWarningMarket" resultType="int" parameterType="reportVo">
+		select count(*) from report
+		where emp_no = #{empNo}
+		and trade_no = #{tradeNo}
 	</select>
 	
 	<select id="anonymousReportList" resultType="map" parameterType="reportVo" >

@@ -107,4 +107,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.warningMarket(reportVo);
 	}
 
+	@Override
+	public int searchWarningMarket(ReportVO reportVo) {
+		return reportDao.searchWarningMarket(reportVo);
+	}
+
 }
