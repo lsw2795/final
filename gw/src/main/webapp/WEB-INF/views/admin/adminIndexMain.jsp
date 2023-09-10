@@ -134,7 +134,7 @@
 								 	 ${((currentDayOfYear/365)*100).intValue()}%(${currentDayOfYear}일) <!-- 소수점 이하를 제거하고 정수로 변환 -->
 								 </span>
 							</div>
-							<div class="progress mb-2" style="height: 7px;">
+							<div class="progress mb-2" style="height: 10px;">
 								<div class="progress-bar bg-success" role="progressbar" style="width: ${((currentDayOfYear/365)*100).intValue()}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="78%"></div>
 							</div>
 						</div>
@@ -143,7 +143,7 @@
 								<span>퇴사율(연간 퇴사자)</span>
 								<span> ${((11/allEmpCount)*100).intValue()}%(11명)</span>
 							</div>
-							<div class="progress mb-2" style="height: 7px;">
+							<div class="progress mb-2" style="height: 10px;">
 								<div class="progress-bar bg-info" role="progressbar" style="width: ${((11/allEmpCount)*100).intValue()}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="65%"></div>
 							</div>
 						</div>
@@ -152,7 +152,7 @@
 								<span>입사율(연간 입사자)</span>
 								<span>${((46/allEmpCount)*100).intValue()}%(46명)</span>
 							</div>
-							<div class="progress mb-2" style="height: 7px;">
+							<div class="progress mb-2" style="height: 10px;">
 								<div class="progress-bar bg-primary" role="progressbar" style="width: ${((46/allEmpCount)*100).intValue()}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="70%"></div>
 							</div>
 						</div>
