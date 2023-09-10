@@ -41,7 +41,7 @@
 	function boardReport(no){
 		if(confirm("게시글을 신고하시겠습니까?")){
 			$.ajax({
-				url:'<c:url value="/report/reportBoardAjax"/>',
+				url:'<c:url value="/report/reportMarketAjax"/>',
 				type:"get",
 				dataType:"text",
 				data:{

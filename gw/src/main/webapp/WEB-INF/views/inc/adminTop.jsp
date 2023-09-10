@@ -284,20 +284,10 @@
                         			</div> 
                       			</a>
                     		</li>
-						</ul>
-                  	</li>
-                  	<li class="nav-item"><!-- parent pages-->
-						<a class="nav-link dropdown-indicator" href="#d" role="button" data-bs-toggle="collapse">
-	                    	<div class="d-flex align-items-center">
-	                    		<span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span>
-	                    		<span class="nav-link-text ps-1">캘린더</span>
-	                    	</div>
-	                  	</a>
-	                  	<ul class="nav collapse" id="d">
                     		<li class="nav-item"><!-- more inner pages-->
-                    			<a class="nav-link " href="#">
+                    			<a class="nav-link" href="<c:url value='/admin/officeProduct/staticProductList'/>">
                         			<div class="d-flex align-items-center">
-                        				<span class="nav-link-text ps-1">일정 조회</span>
+                        				<span class="nav-link-text ps-1">자원 통계</span>
                         			</div> 
                       			</a>
                     		</li>
@@ -448,6 +438,16 @@
                         			<div class="d-flex align-items-center">
                         				<span class="nav-link-text ps-1">
                         				익명게시판 신고함
+                        				<span class="badge rounded-pill text-bg-primary" id="reportCount"></span>	
+                        				</span>
+                        			</div> 
+                      			</a>
+                    		</li>
+                    		<li class="nav-item"><!-- more inner pages-->
+                    			<a class="nav-link " href="<c:url value='/report/warningMarketList'/>">
+                        			<div class="d-flex align-items-center">
+                        				<span class="nav-link-text ps-1">
+                        				중고거래 신고함
                         				<span class="badge rounded-pill text-bg-primary" id="reportCount"></span>	
                         				</span>
                         			</div> 
