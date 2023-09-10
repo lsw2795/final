@@ -141,13 +141,19 @@ public class ClubController {
 
 
 	@RequestMapping("/club/deleteClub")
-	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
+	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo,
+			HttpSession session, Model model) {
 		//1.
+		int empNo = (int)session.getAttribute("empNo");
 		logger.info("동호회 삭제");
+		
 		//2.
+		int out=clubService.outClub(empNo);
+		logger.info("동호회 탈퇴 결과 out={}",out);
+		
 		int cnt=clubService.deleteClub(clubNo);
 		logger.info("동호회 삭제 결과 cnt={}",cnt);
-
+		
 		String msg="삭제 실패했습니다.", url="/club/clubEdit?clubNo="+clubNo;
 		if(cnt>0) {
 			msg="삭제완료 되었습니다.";
@@ -163,9 +169,11 @@ public class ClubController {
 	}
 
 	@RequestMapping("/club/clubDetail")
-	public String clubDetail(@ModelAttribute ClubVO clubVo,@RequestParam(defaultValue = "0")int clubNo,
-			Model model) {
+	public String clubDetail(@ModelAttribute ClubVO clubVo,
+			@RequestParam(defaultValue = "0")int clubNo,
+			HttpSession session, Model model) {
 		//1.
+		int empNo = (int)session.getAttribute("empNo");
 		logger.info("동호회 상세보기, clubNo={}",clubNo);
 		
 		if(clubNo==0) {
@@ -178,15 +186,17 @@ public class ClubController {
 		//2.
 		clubVo=clubService.selectByClubNo(clubNo);
 		int cnt=clubService.clubCount(clubNo);
+		int regi=clubService.regiClub(empNo);
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
 		logger.info("동호회 인원수 제한여부 cnt={},memlimit={}",cnt,clubVo.getMemLimit());
-		
-		
+		logger.info("동호회 가입여부 regi={}",regi);
 		
 		
 		//3.
 		model.addAttribute("clubVo", clubVo);
-		 model.addAttribute("clubCnt", cnt);
+		model.addAttribute("clubCnt", cnt);
+		model.addAttribute("register", regi);
+		 
 		
 		//4.
 		return "club/clubDetail";
@@ -227,9 +237,6 @@ public class ClubController {
 		return "common/message";
 		
 	}
-	
-	
-	
 	
 
 	

@@ -121,7 +121,6 @@
             <div class="card-body">
               <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                  <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
                   <button class="btn btn-primary" id = "btn" role="button">등록 </button>
                 </div>
               </div>

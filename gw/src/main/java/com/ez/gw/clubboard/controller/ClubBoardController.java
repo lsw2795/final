@@ -222,12 +222,12 @@ public class ClubBoardController {
 
 	@PostMapping("/club/editClubBoard")
 	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo,
-			@RequestParam(name = "deleteImg", required = false) String[] deleteImg, 
+			@RequestParam(name = "delImg", required = false) String[] delImg, 
 			HttpServletRequest request,
 			Model model) {
 		//1.
 		logger.info("동게 수정처리 clubVo={}",clubVo);
-		logger.info("삭제대상 파일 이름 deleteImg={}", deleteImg);
+		logger.info("삭제대상 파일 이름 delImg={}", delImg);
 
 		//2.
 		//게시글 내용 수정
@@ -250,13 +250,10 @@ public class ClubBoardController {
 			List<MultipartFile> files = multiRequest.getFiles("imageURL2");
 			logger.info("files.size={}",files.size());
 
-			//해당 게시글번호에 묶여있는 파일들 조회
-			List<Map<String, Object>> fileList = clubBoardService.selectImg(clubVo.getBoardNo());
-
 			//삭제대상 파일이 있으면
-			if(deleteImg != null && deleteImg.length > 0) {
+			if(delImg != null && delImg.length > 0) {
 				//jsp에서 넘어온 삭제 대상 파일들을 삭제하고 해당파일들을 db에 저장되어있는 데이터들을 삭제
-				for(String delFile : deleteImg) {
+				for(String delFile : delImg) {
 					//실제 파일삭제
 					File f = new File(fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG), delFile);
 					if(f.exists()) {

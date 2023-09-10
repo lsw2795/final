@@ -19,4 +19,5 @@ public interface ClubDAO {
 	int outClub(int empNo);
 	List<Map<String, Object>> adminClubList(SearchVO searchVo);
 	int clubCount(int clubNo); //인원수 체크
+	int regiClub (int empNo); //개설자는 다른 동호회 가입 불가
 }

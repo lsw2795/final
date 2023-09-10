@@ -50,12 +50,21 @@
 	  });
 		  
 	});
-	function deleteImg(fileName,a){
-		var editImg=$(a).parent().parent();
-		
-		$(editImg).append("<input name='deleteImg' type='text' value='"+fileName+"'/>");
-		$(a).parent().remove();
+	function deleteImg(imgName, a) {
+	    var editImg = $(a).parent().parent();
+	    
+	    // 새로운 input 태그를 동적으로 생성하고 폼 내에 추가합니다.
+	    var input = $("<input>").attr({
+	        type: "text",
+	        name: "delImg",
+	        value: imgName
+	    });
+	    $('form[name="clubBoardFrm"]').append(input);
+	    
+	    // 원래의 요소를 제거합니다.
+	    $(a).parent().remove();
 	}
+
 </script>
 
 <div class="contentBody">
@@ -117,7 +126,7 @@
 					        	<div>
 					        		<img src="<c:url value='/images/file.gif' />" alt="파일그림">
 										${imgMap['FILENAME']}
-									<a href="#" onclick="deleteImg('${imgMap['FILENAME']}',this)">
+									<a href="#!" onclick="deleteImg('${imgMap['FILENAME']}',this)">
 										<span class="badge rounded-pill text-bg-primary">
 				                        	삭제
 				                        </span>

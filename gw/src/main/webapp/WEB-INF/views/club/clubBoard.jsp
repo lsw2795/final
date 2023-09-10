@@ -67,17 +67,11 @@
                   </div>
                 </div>
                 <div class="card-body p-0">
-                  <div class="form-check d-none">
-                    <input class="form-check-input" id="checkbox-bulk-card-tickets-select" type="checkbox" data-bulk-select='{"body":"card-ticket-body","actions":"table-ticket-actions"}' />
-                  </div>
                   <!-- 반복 시작  -->
                   <c:forEach var="map" items="${list }">
                   <div class="list bg-light d-flex flex-column gap-3" id="card-ticket-body">
                     <div class="bg-white dark__bg-1100 d-md-flex  align-items-center p-x1 rounded-3 shadow-sm card-view-height">
                       <div class="d-flex align-items-start align-items-sm-center">
-                        <div class="form-check me-2 me-xxl-3 mb-0">
-                          <input class="form-check-input" type="checkbox" id="card-view-tickets-0" data-bulk-select-row="data-bulk-select-row" />
-                        </div>
                         <div class="avatar avatar-xl avatar-3xl">
                           <div class="avatar-name rounded-circle">
                           	<img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>">
