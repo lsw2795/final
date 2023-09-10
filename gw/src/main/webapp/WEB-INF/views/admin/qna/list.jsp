@@ -27,10 +27,6 @@
 	
 </script>
 <style>
-	h6.mb-0 {
-   	 	color: black;
-	}
-	
 	.gap-2 {
     	padding-left: 52px;
 	}
@@ -38,8 +34,6 @@
 	.table-sm > :not(caption) > * > * {
    		text-align: center;
 	}
-	
-
 </style>
 
   <!-- 페이징 처리 관련 form -->
@@ -162,7 +156,7 @@
 											    </div>
 										  	</c:if>
 										</div>
-										<h6 class="mb-0">${map['NAME']}</h6>
+										<h6 class="mb-0" style="color: black;">${map['NAME']}</h6>
 									</div>
 								</td>
 								

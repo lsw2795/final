@@ -161,7 +161,7 @@
 	}
 </script>
 <style>
-	.card {
+	.admin-card {
     	background: white;
     	color: black;
 	}
@@ -174,7 +174,7 @@
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg-7 pe-lg-2 mb-3">
-			<div class="card h-lg-100 overflow-hidden">
+			<div class="card admin-card h-lg-100 overflow-hidden">
                 <form name="frmSearch" method="post" action="<c:url value='/document/formList'/>" >
 					<input type="hidden" name="currentPage" value="${pagingInfo.currentPage }">
 					<div class="card-header bg-light">
@@ -291,7 +291,7 @@
         	<div class="row g-0">
         		<div class="col-lg-12 pe-lg-2 mb-4">
 	        		<form name="frmFormInsert" method="post" action="<c:url value='/document/formInsert'/>">
-						<div class="card h-lg-100 overflow-hidden">
+						<div class="card admin-card h-lg-100 overflow-hidden">
 							<div class="card-header bg-light">
 								<div class="row align-items-center">
 			                    	<div class="col">
@@ -340,7 +340,7 @@
 				</div>
 				<div class="col-lg-12 pe-lg-2 mt-2">
 					<form name="frmFormEdit" action="<c:url value='/document/formEdit'/>">
-						<div class="card h-lg-100 overflow-hidden">
+						<div class="card admin-card h-lg-100 overflow-hidden">
 							<div class="card-header bg-light">
 								<div class="row align-items-center">
 			                    	<div class="col">
