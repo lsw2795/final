@@ -181,7 +181,13 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${empty boardList }">
+						<tr>
+						<th colspan="5" style="border-bottom: none; text-align: center;">해당 부서의 게시글이 없습니다.</th>
+						</tr>
+						</c:if>
 						<!-- 반복 시작  -->
+						<c:if test="${!empty boardList }">
 						<c:forEach var="map" items="${boardList}">
 							<tr>
 								<c:if test="${boardlistVo.secflag=='Y'}">
@@ -246,6 +252,7 @@
 								</c:if>
 							</tr>
 						</c:forEach>
+						</c:if>
 						<!-- 반복 끝 -->
 					</tbody>
 				</table>
