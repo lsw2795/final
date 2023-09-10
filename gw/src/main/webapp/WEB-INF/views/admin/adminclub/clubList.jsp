@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file='../../inc/adminTop.jsp'%>
 <!DOCTYPE html>
+<link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
 /*$(function () {
 		
@@ -26,13 +27,22 @@
 		}
 	}
 </script>
+<style type="text/css">
+.mb-0 {
+	color: black;
+}
+thead tr th{
+	color: black;
+	font-variant: bold;
+}
+</style>
 		<div class="row gx-3">
               <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
                 <div class="card-header admindefault border-bottom border-200 px-0">
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <h6 class="mb-0">Club List</h6>
+                        <h6 class="mb-0">사내 동호회 현황</h6>
                       </div>
                         <div class="col-auto pe-0">
                   <form name="adminClub" action='<c:url value='/admin/adminclub/clubList'/>' method="post">

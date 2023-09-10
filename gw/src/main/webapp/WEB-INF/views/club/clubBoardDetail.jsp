@@ -26,6 +26,7 @@
 		    }
 		});
 	});
+	
 	function editComment(bt) {
 		var parent=$(bt).closest('#btDiv');
 		var contentDiv=$(parent).next('div');
@@ -36,6 +37,7 @@
 		$(contentDiv).find('input[name=content]').attr('type', 'textarea');
 		
 	}
+	
 	function editCancel(bt) {
 		var parent=$(bt).closest('#content');
 		var str=$(parent).find('span').text();

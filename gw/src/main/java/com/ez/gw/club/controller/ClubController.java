@@ -187,6 +187,7 @@ public class ClubController {
 		clubVo=clubService.selectByClubNo(clubNo);
 		int cnt=clubService.clubCount(clubNo);
 		int regi=clubService.regiClub(empNo);
+		
 		logger.info("동호회 상세보기 clubvo={}",clubVo);
 		logger.info("동호회 인원수 제한여부 cnt={},memlimit={}",cnt,clubVo.getMemLimit());
 		logger.info("동호회 가입여부 regi={}",regi);
@@ -196,7 +197,6 @@ public class ClubController {
 		model.addAttribute("clubVo", clubVo);
 		model.addAttribute("clubCnt", cnt);
 		model.addAttribute("register", regi);
-		 
 		
 		//4.
 		return "club/clubDetail";
