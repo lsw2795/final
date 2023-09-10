@@ -473,12 +473,12 @@
 					<div class="ms-2" style="width:200px;"> 
 					<select id="selboardName" name="boardName" class="admindefault adminempborder adminempsel form-select">
 						<option value="">선택하세요</option>
-						<c:forEach var="boardListVo" items="${boardList}">
-							<option value="${boardListVo.boardlistNo}"
-								<c:if test="${param.boardlistNo==boardListVo.boardlistNo}">
+						<c:forEach var="boardListVo2" items="${boardList2}">
+							<option value="${boardListVo2.boardlistNo}"
+								<c:if test="${param.boardlistNo==boardListVo2.boardlistNo}">
 									selected="selected"
 								</c:if>
-							>${boardListVo.boardName}</option>
+							>${boardListVo2.boardName}</option>
 						</c:forEach>
 					</select>
 					</div>
