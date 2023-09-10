@@ -43,7 +43,7 @@ thead{
        <div class="d-lg-flex justify-content-between">
          <div class="row flex-between-center gy-2 px-x1">
            <div class="col-auto pe-0">
-             <h6 class="mb-0">신고 현황</h6>
+             <h6 class="mb-0">신고글 현황</h6>
            </div>
              <div class="col-auto pe-0">
        <form name="adminClub" action='<c:url value='/admin/adminclub/adminClubReport'/>' method="post">
@@ -60,13 +60,13 @@ thead{
                   >이름</option>
                </select>
            </div>
+       </form>
            <div class="col-auto">
                <div class="input-group input-search-width">
                  <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search  by name" aria-label="search" />
                  <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
                </div>
            </div>
-       </form>
          </div>
          <div class="border-bottom border-200 my-3"></div>
            <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>

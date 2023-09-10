@@ -13,11 +13,11 @@
      <div class="card-header admindefault border-bottom border-200 px-0">
 		<div class="d-lg-flex justify-content-between">
             <div class="row flex-between-center gy-2 px-x1">
-              <div class="col-12 pe-0">
+              <div class="col-auto pe-0">
                 <h6 class="mb-0">가입 및 개설 현황</h6>
               </div>
-           <form name="adminClubList" action='<c:url value='/admin/adminclub/adminPayment'/>' method="post">
                 <div class="col-auto pe-0">
+           <form name="adminClubList" action='<c:url value='/admin/adminclub/adminPayment'/>' method="post">
                   <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
                      <option value="manager"
                      	<c:if test="${param.searchCondition=='manager'}">
