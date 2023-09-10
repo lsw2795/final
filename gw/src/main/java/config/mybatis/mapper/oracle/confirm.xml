@@ -121,7 +121,7 @@
 	
 	
 	<select id="selectCountByDate" resultType="int">
-		select count(*) from confirm
+		select count(*) from confirmsview
 		where trunc(create_date) = trunc(sysdate)
 	</select>
 	
@@ -188,9 +188,9 @@
 			select rownum as num, A.* from
 				(
 					select * from confirmsview
-					where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
+					where ((confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
 					or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
-					or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
+					or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6)))
 					and delflag='N'
 					<include refid="search"></include>
 					order by confirm_state,create_date desc
@@ -207,9 +207,9 @@
 			select rownum as num, A.* from
 				(
 					select * from confirmsview
-					where (confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
+					where ((confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
 					or (confirm2 = #{empNo} and confirm_state not in (1,2,3,4,9))
-					or (confirm3 = #{empNo} and confirm_state = 10)
+					or (confirm3 = #{empNo} and confirm_state = 10))
 					and delflag='N'
 					<include refid="search"></include>
 					order by confirm_state,create_date desc
@@ -305,18 +305,18 @@
 
 	<select id="getTotalConfirmRecord" parameterType="confirmVo" resultType="int">
 		select count(*) from confirmsview 
-		where (confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
+		where ((confirm1 = #{empNo} and (confirm_state = 1 or confirm_state = 2)) 
 		or (confirm2 = #{empNo} and (confirm_state = 3 or confirm_state = 4))
-		or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6))
+		or (confirm3 = #{empNo} and (confirm_state = 5 or confirm_state = 6)))
 		and delflag='N'
 		<include refid="search"></include>
 	</select>
 	
 	<select id="getTotalComplteRecord" parameterType="confirmVo" resultType="int">
 		select count(*) from confirmsview 
-		where (confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
+		where ((confirm1 = #{empNo} and confirm_state not in (1,2,9)) 
 		or (confirm2 = #{empNo} and confirm_state not in (1,2,3,4,9))
-		or (confirm3 = #{empNo} and confirm_state = 10)
+		or (confirm3 = #{empNo} and confirm_state = 10))
 		and delflag='N'
 		<include refid="search"></include>
 	</select>
@@ -371,6 +371,7 @@
 	<select id="searchByDocumentFormNo" parameterType="int" resultType="int">
 		select count(*) from confirm
 		where document_no=#{documentNo}
+		and delflag='N'
 	</select>
 	
 	<select id="selectConfirmList5" parameterType="int" resultType="map">

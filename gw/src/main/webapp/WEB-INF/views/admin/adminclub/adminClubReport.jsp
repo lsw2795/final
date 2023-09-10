@@ -28,9 +28,6 @@
 
 </script>
 <style type="text/css">
-.mb-0 {
-	color: black;
-}
 thead{
 	color: black;
 	font-variant: bold;
@@ -43,7 +40,7 @@ thead{
        <div class="d-lg-flex justify-content-between">
          <div class="row flex-between-center gy-2 px-x1">
            <div class="col-auto pe-0">
-             <h6 class="mb-0">신고글 현황</h6>
+             <h6 class="mb-0" style="color: black;">신고글 현황</h6>
            </div>
              <div class="col-auto pe-0">
        <form name="adminClub" action='<c:url value='/admin/adminclub/adminClubReport'/>' method="post">
@@ -77,7 +74,7 @@ thead{
 	</div>
 <div class="card-body p-0">
 	<div class="table-responsive scrollbar">
-	  <table class="table table-hover table-striped overflow-hidden">
+	  <table class="table table-hover overflow-hidden">
 	    <thead>
 	      <tr>
 	      	<th>

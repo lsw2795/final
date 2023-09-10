@@ -59,18 +59,9 @@
     	$(function(){
     		var total = 0;
     		 $.when(newMessage(),anonymousReportCount(),anonymousMarketCount()).done(function() {
+    			 totalReport();
     			 bellSet();
     	    }); 
-    		
-    	    
-    		/* $.when(anonymousReportCount(), anonymousMarketCount()).done(function (result1, result2) {
-    	        total = result1[0] + result2[0];
-    	        $('#reportTotal').text(total);
-    	        anonymousReportInfo(total);
-    	    }).fail(function (xhr, status, error) {
-    	        alert(status + " : " + error);
-    	    }); */
-    		
     	});
     	
    		function bellSet(){
@@ -103,7 +94,6 @@
        		   	dataType:"json",
        		   	success:function(res){
        		   		$('#reportCount').text(res);
-       		   		/* $('#reportTotal').text(res); */
        		   		anonymousReportInfo(res);
        		    },error:function(xhr, status, error){
        		    	alert(status+" : "+error);
@@ -118,7 +108,6 @@
        		   	dataType:"json",
        		   	success:function(res){
        		   		$('#marketCount').text(res);
-       		   		/* $('#reportTotal').text(res); */
        		   		anonymousMarketReportInfo(res);
        		    },error:function(xhr, status, error){
        		    	alert(status+" : "+error);
@@ -126,31 +115,39 @@
        		});
        	}
    		
+   		
+   		function totalReport(){
+   			var cnt1=$('#marketCount').text();
+   			cnt1=parseInt(cnt1);
+   			var cnt2=$('#reportCount').text();
+   			cnt2=parseInt(cnt2);
+   			$('#reportTotal').text(cnt1+cnt2);
+   		}
+   		
    		function messageInfo(cnt){
            	var str="";
            	var topstr="<div class='list-group-title border-bottom'>NEW</div>";
            	
-             	if(cnt>0){
-           	  str+="<div class='list-group-item new'>";
-           	  str+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
-           	  str+="<div class='notification-avatar'>";
-           	  str+="<div class='avatar avatar-2xl me-3'>";
-           	  str+="<img class='rounded-circle' style='background-color:white;' src='<c:url value='/images/message.png'/>' alt='쪽지아이콘' />";
-           	  str+="</div>";
-           	  str+="</div>";
-           	  str+="<div class='notification-body'>";
-           	  str+="<p class='mb-1'>";
-           	  str+="<strong>안읽은 메시지</strong> : "+cnt+"건이 있습니다.</p>";
-           	  str+="</div></a></div>";
-             	}else{
-             		return;
-             	}
+            if(cnt>0){
+           		str+="<div class='list-group-item new'>";
+           	  	str+="<a class='notification notification-flush notification-unread' href='<c:url value='/message/messageList'/>'>";
+	           	str+="<div class='notification-avatar'>";
+	            str+="<div class='avatar avatar-2xl me-3'>";
+	       		str+="<img class='rounded-circle' style='background-color:white;' src='<c:url value='/images/message.png'/>' alt='쪽지아이콘' />";
+	           	str+="</div>";
+	           	str+="</div>";
+	           	str+="<div class='notification-body'>";
+	           	str+="<p class='mb-1'>";
+	           	str+="<strong>안읽은 메시지</strong> : "+cnt+"건이 있습니다.</p>";
+	           	str+="</div></a></div>";
+             }else{
+             	return;
+             }
              	
-             	if($('.new-list').find('.new').length==0){
-             		$('.new-list').html(topstr);
-             	} 
-             	$('.new-list').append(str);
-             
+             if($('.new-list').find('.new').length==0){
+             	$('.new-list').html(topstr);
+             } 
+             $('.new-list').append(str);
        	}
    		
    		function anonymousReportInfo(cnt){
@@ -517,7 +514,7 @@
                 	<span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span>
                 </a>
                 <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end dropdown-menu-card dropdown-menu-notification dropdown-caret-bg" aria-labelledby="navbarDropdownNotification">
-                  <div class="card card-notification shadow-none">
+                  <div class="card bell card-notification shadow-none">
                     <div class="card-header">
                       <div class="row justify-content-between align-items-center">
                         <div class="col-auto">

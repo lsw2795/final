@@ -59,7 +59,7 @@
 
 </script>
 <style type="text/css">
-.card{
+.admin-card{
 	 background: white;
 	    color: black;
 }
@@ -67,24 +67,19 @@
 a.btn {
    		background: white;
 	}
-	
-.mb-0 {
-    margin-bottom: 0 !important;
-    color: black;
-}
 
 div#tableName {
     margin-left: 54px;
 }
 </style>
-<div class="card">
+<div class="card admin-card">
 <div class="row gx-3">
-   <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
+   <div class="card admin-card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
      <div class="card-header admindefault border-bottom border-200 px-0">
        <div class="d-lg-flex justify-content-between">
          <div class="row flex-between-center gy-2 px-x1">
            <div class="col-auto pe-0">
-             <h6 class="mb-0">검색</h6>
+             <h6 class="mb-0" style="color: black;">검색</h6>
            </div>
            <div class="col-auto pe-0">
        		<form name="market" action='<c:url value='/report/warningMarketList'/>' method="post">
