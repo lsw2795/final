@@ -274,6 +274,18 @@ public class ReportController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/anonymous/countMarketAjax")
+	public int anonymousCountMarketAjax(@RequestParam(defaultValue = "0") int reportNo,
+			HttpSession session) {
+		logger.info("중고거래 신고 알림 처리 Ajax");
+		
+		int cnt = reportService.anonymousMarketReportCount();
+		logger.info("중고거래 신고 조회 결과 cnt={}",cnt);
+		
+		return cnt;
+	}
+	
 	@RequestMapping("/warningMarketList")
 	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1.
@@ -289,6 +301,8 @@ public class ReportController {
 		//4.
 		return "anonymousBoard/report/warningMarketList";
 	}
+	
+	
 	
 		@RequestMapping("/adminDeleteMarket")
 		public String delete(@RequestParam(defaultValue = "0")int tradeNo, Model model) {

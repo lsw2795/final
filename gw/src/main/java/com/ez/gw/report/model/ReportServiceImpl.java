@@ -122,5 +122,10 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.deleteMarket(reportNo);
 	}
 
+	@Override
+	public int anonymousMarketReportCount() {
+		return reportDao.anonymousMarketReportCount();
+	}
+
 
 }

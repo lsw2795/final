@@ -7,7 +7,7 @@
 <c:if test="${sessionScope.authority=='Y' }">
 <%@ include file = "../inc/adminTop.jsp" %>
 <style>
-	.card, #messageContent {
+	.admin-card, #messageContent {
 	    background: white;
 	    color: black;
 	}
@@ -16,7 +16,7 @@
    		background-color: whitesmoke;
 	}
 	
-	h6, h5 {
+	h5 {
     	color: black;
 	}
 	
@@ -254,7 +254,7 @@
 	}
 	
 </script>
-<div class="card card-chat overflow-hidden">
+<div class="card admin-card card-chat overflow-hidden">
 	<div class="card-body d-flex p-0 h-100">
 		<div class="chat-sidebar" >
 			<div class="contacts-list scrollbar-overlay">
@@ -285,7 +285,7 @@
 		                        </div>
 		                        <div class="flex-1 chat-contact-body ms-2 d-md-none d-lg-block">
 		                        	<div class="d-flex justify-content-between">
-		                            	<h6 class="mb-0 chat-contact-title">
+		                            	<h6 class="mb-0 chat-contact-title" style="color: black">
 		                            		<c:if test="${mViewVo.empNo==sessionScope.empNo }">
 				                            	${mViewVo.readName }
 				                            	<input id="reader" name="reader" type="hidden" value="${mViewVo.reader }">

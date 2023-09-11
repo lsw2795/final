@@ -98,17 +98,8 @@
         var newWindow = window.open(editUrl, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
      
 		}
-	
-	
-		
-		
-	
 </script>
 <style type="text/css">
-	   h6.mb-0 {
-          color: black;
-   }
-   
    .gap-2 {
        padding-left: 52px;
    }
@@ -221,9 +212,9 @@
 					<table class="table table-sm table-hover">
 					<colgroup>
 						<col style="width: 10%;" />
+						<col style="width: 20%;" />
 						<col style="width: 15%;" />
-						<col style="width: 15%;" />
-						<col style="width: 35%;" />
+						<col style="width: 30%;" />
 						<col style="width: 10%;" />
 						<col style="width: 15%;" />
 					</colgroup>
@@ -493,7 +484,7 @@
 												<span></span>
 											</div>
 										</div>
-										<h6 class="mb-0">${pd.discription}</h6>
+										<h6 class="mb-0" style="color: black;">${pd.discription}</h6>
 									</div>
 								</td>
 								

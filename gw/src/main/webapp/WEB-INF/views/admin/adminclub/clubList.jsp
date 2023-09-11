@@ -28,9 +28,6 @@
 	}
 </script>
 <style type="text/css">
-.mb-0 {
-	color: black;
-}
 thead tr th{
 	color: black;
 	font-variant: bold;
@@ -42,7 +39,7 @@ thead tr th{
                   <div class="d-lg-flex justify-content-between">
                     <div class="row flex-between-center gy-2 px-x1">
                       <div class="col-auto pe-0">
-                        <h6 class="mb-0">사내 동호회 현황</h6>
+                        <h6 class="mb-0" style="color: black;">사내 동호회 현황</h6>
                       </div>
                         <div class="col-auto pe-0">
                   <form name="adminClub" action='<c:url value='/admin/adminclub/clubList'/>' method="post">

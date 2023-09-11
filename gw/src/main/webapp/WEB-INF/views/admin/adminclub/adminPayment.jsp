@@ -3,18 +3,13 @@
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <!DOCTYPE html>
-<style type="text/css">
-.mb-0 {
-	color: black;
-}
-</style>
 <div class="row gx-3">
    <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
      <div class="card-header admindefault border-bottom border-200 px-0">
 		<div class="d-lg-flex justify-content-between">
             <div class="row flex-between-center gy-2 px-x1">
               <div class="col-auto pe-0">
-                <h6 class="mb-0">가입 및 개설 현황</h6>
+                <h6 class="mb-0" style="color: black;">가입 및 개설 현황</h6>
               </div>
                 <div class="col-auto pe-0">
            <form name="adminClubList" action='<c:url value='/admin/adminclub/adminPayment'/>' method="post">
