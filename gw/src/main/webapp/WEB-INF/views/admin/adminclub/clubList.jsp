@@ -97,7 +97,7 @@ thead tr th{
 		                        <tr>
 		                          	<td class="align-middle client white-space-nowrap pe-3 pe-xxl-4 ps-2">
 			                          <div class="d-flex align-items-center gap-2 position-relative">
-			                             <h6 class="mb-0">${map['MANAGER'] }</h6>
+			                             <h6 style="color: black;" class="mb-0">${map['MANAGER'] }</h6>
 			                           </div>
 			                        </td>
 			                        <td class="align-middle subject py-2 pe-4"><a class="fw-semi-bold" href="<c:url value='/club/clubDetail?clubNo=${map.CLUB_NO}'/>">${map['TITLE']}</a>
