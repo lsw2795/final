@@ -137,7 +137,7 @@ input[type="file"].default-style {
               <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">중고거래 상품 수정</h5>
-                  <input type="text" name= "tradeNo" value="${vo['TRADE_NO'] }"/>
+                  <input type="hidden" name= "tradeNo" value="${vo['TRADE_NO'] }"/>
                 </div>
                 <div class="col-auto">
                 </div>
