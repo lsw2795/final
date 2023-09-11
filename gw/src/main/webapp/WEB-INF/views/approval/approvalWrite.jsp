@@ -112,7 +112,7 @@
 	}
 	
 	function selectLine(){
-		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=600, height=580")
+		window.open("<c:url value='/approval/selectEmp/selectConfirmLine'/>","_blank","width=700, height=580")
 	}
 </script>
 <form name="documentFrm" method="post" enctype="multipart/form-data" action="<c:url value='/approval/approvalWrite'/>">

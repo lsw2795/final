@@ -17,7 +17,7 @@
 			</div>
             <div class="card-body p-0">
             	<form name="frmBoardWrite" method="post" enctype="multipart/form-data" action="<c:url value='/anonymous/boardWrite'/>">
-					<input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." >
+					<input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." maxlength="33">
                 	<textarea name="content" class="shadow-none form-control rounded-0 resize-none px-x1 border-y-0 border-200" placeholder="내용을 입력하세요." rows="4"></textarea>
 					<input name="upfile" type="hidden" class="form-control" accept="image/*" multiple="multiple">
                     <div class="row g-0 justify-content-between mt-3 px-x1 pb-3">
@@ -58,7 +58,7 @@
 		                        	<b><p class="mb-2 lh-1">익명 ${map['BOARD_NO'] }번째 글</p></b>
 		                        	<input type="hidden" name="boardNo" value="${map['BOARD_NO'] }">
 		                        	<p class="mt-3 mb-1 lh-1" id="titleP">${map['TITLE'] }</p>
-		                        	<input type="text" name="title" id="editTitle" class="form-control" value="${map['TITLE'] }" style="display: none;">
+		                        	<input type="text" name="title" id="editTitle" class="form-control" value="${map['TITLE'] }" style="display: none;" maxlength="33">
 		                          	<p class="mb-0 fs--1"><fmt:formatDate value="${map['REGDATE'] }" pattern="yy-MM-dd HH:mm"/></p>
 		                        </div>
 	                      	</div>
