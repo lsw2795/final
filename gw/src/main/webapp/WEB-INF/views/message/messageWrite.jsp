@@ -7,7 +7,7 @@
 <c:if test="${sessionScope.authority=='Y' }">
 <%@ include file = "../inc/adminTop.jsp" %>
 <style>
-	.card, #messageContent {
+	.admin-card, #messageContent {
 	    background: white;
 	    color: black;
 	}
@@ -73,7 +73,7 @@
 <div class="container p-0">
 	<div class="row g-0">
 		<div class="col-lg-4 pe-lg-2 mb-3">
-			<div class="card h-lg-100 overflow-hidden">
+			<div class="card admin-card h-lg-100 overflow-hidden">
 				<div class="card-header bg-light">
 					<div class="row align-items-center">
 	                    <div class="col pl-2">
@@ -108,8 +108,8 @@
 			</div>
 		</div>
 		<div class="col-lg-8 pe-lg-2 mb-3">
-			<div class="card h-lg-100 overflow-hidden">
-				<form class="card" name="frmMessageWrite" method="post" action="<c:url value='/message/messageWrite'/>">
+			<div class="card admin-card h-lg-100 overflow-hidden">
+				<form class="card admin-card" name="frmMessageWrite" method="post" action="<c:url value='/message/messageWrite'/>">
 					<div class="card-header bg-light">
 						<div class="row align-items-center">
 		                    <div class="col pl-2">

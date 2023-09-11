@@ -19,6 +19,7 @@
 	
 	<select id="selectAllEmp" resultType="map">
 		select * from organizationchartview
+		where retiredate is null
 		order by position_rank desc
 	</select>
 	

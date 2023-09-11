@@ -102,7 +102,7 @@
 	color: #0E1726;
 }
 
-.card {
+.admin-card {
 	background: white;
 	color: #0E1726;
 }
@@ -118,7 +118,7 @@
 }
 </style>
 <div class="content">
-	<div class="card mb-3">
+	<div class="card admin-card mb-3">
 		<div class="card-body">
 			<h5 class="mb-2 mb-md-0">
 				<strong>자원 등록</strong>
@@ -126,7 +126,7 @@
 		</div>
 	</div>
 	<div class="row g-0">
-		<div class="card mb-3">
+		<div class="card admin-card mb-3">
 			<div class="card-body">
 				<form class="dropzone dropzone-multiple p-0"
 					id="update" data-dropzone="data-dropzone"
@@ -174,7 +174,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card mt-3">
+		<div class="card admin-card mt-3">
 			<div class="card-body">
 				<div class="row justify-content-between align-items-center">
 					<div class="col-auto">

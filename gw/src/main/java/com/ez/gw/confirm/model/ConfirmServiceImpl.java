@@ -2,6 +2,7 @@ package com.ez.gw.confirm.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ import com.ez.gw.confirmFile.model.ConfirmFileDAO;
 import com.ez.gw.confirmFile.model.ConfirmFileVO;
 import com.ez.gw.deptagree.model.DeptagreeDAO;
 import com.ez.gw.deptagree.model.DeptagreeVO;
+import com.ez.gw.documentform.model.DocumentFormDAO;
+import com.ez.gw.documentform.model.DocumentFormVO;
 import com.ez.gw.refer.model.ReferDAO;
 import com.ez.gw.refer.model.ReferVO;
 
@@ -32,18 +35,24 @@ public class ConfirmServiceImpl implements ConfirmService{
 	private final DeptagreeDAO deptAgreeDao;
 	private final ReferDAO referDao;
 	private final ConfirmFileDAO confirmFileDao;
+	private final DocumentFormDAO documentFormDao;
 	
 	@Transactional
 	@Override
 	public int insertConfirm(ConfirmVO confirmVo, DeptagreeVO deptAgreeVo,
 			int[] referEmpNo,List<Map<String, Object>> fileList) {
 		int cnt=confirmDao.selectCountByDate();
+		logger.info("오늘날짜 문서갯수 조회 결과 cnt={}",cnt);
+		
 		String cdNo=confirmVo.getConfirmDocumentNo();
 		cdNo+="-"+(cnt+1);
+		logger.info("cdNo={}",cdNo);
+		
 		confirmVo.setConfirmDocumentNo(cdNo);
-		logger.info("결재문서 처리 결과 cnt={}",cnt);
 		
 		cnt=confirmDao.insertConfirm(confirmVo);
+		logger.info("결재문서 처리 결과 cnt={}",cnt);
+		
 		
 		if(deptAgreeVo.getDeptNo()!=0) {
 			deptAgreeVo.setConfirmDocumentNo(confirmVo.getConfirmDocumentNo());
@@ -268,8 +277,23 @@ public class ConfirmServiceImpl implements ConfirmService{
 	@Override
 	public int updateConfirmDelFlag(String[] confirmDocumentNo) {
 		int cnt=0;
+		int confirm=0;
 		for(int i=0;i<confirmDocumentNo.length;i++) {
 			cnt=confirmDao.updateConfirmDelFlag(confirmDocumentNo[i]);
+			
+			if(cnt>0) {
+				Map<String, Object> map=selectConfirmDocument(confirmDocumentNo[i]);
+				Object obj = map.get("DOCUMENT_NO");
+				int documentNo = ((BigDecimal) obj).intValue();
+				
+				DocumentFormVO formVo = documentFormDao.selectFormByNo(documentNo);
+				if(formVo==null) {
+					confirm=confirmDao.searchByDocumentFormNo(documentNo);
+					if(confirm==0) {
+						cnt=documentFormDao.formDelete(documentNo);
+					}
+				}
+			}
 		}
 		
 		return cnt;
