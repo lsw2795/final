@@ -123,38 +123,7 @@
                 </div>
                 
                 
-                <!-- 답변 등록  -->
-                <form id="replyForm" method="post" action="<c:url value='/admin/qna/reply'/>">
-	                <div class="collapse transition-none" id="previewMailForm">
-	                  <h5 class="mb-0 p-x1 bg-light">답변</h5>
-	                  <div class="border border-y-0 border-200">
-	                  	<input name="boardNo" type="hidden" value="${param.boardNo}">
-	                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" cols="50" rows="15" placeholder="내용" form="replyForm"></textarea>
-	                  </div>
-	                  
-	                  <div class="d-flex align-items-center justify-content-between px-x1 py-3">
-	                    <div class="d-flex align-items-center">
-	                      <button class="btn btn-primary btn-sm px-4 me-2" type="submit">답변 등록</button>
-	                                <button class="btn btn-primary btn-sm px-4 me-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="취소" data-dismiss="collapse">취소</button>
-	                    </div>
-	                    
-	                    <div class="d-flex align-items-center">
-	                      <div class="dropdown font-sans-serif me-2 btn-reveal-trigger">
-	                        <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-options">
-	                        <a class="dropdown-item" href="#!">Print</a><a class="dropdown-item" href="#!">Check spelling</a><a class="dropdown-item" href="#!">Plain text mode</a>
-	                        </div>
-	                      </div>
-	            
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="card-footer bg-light" id="preview-footer">
-	                  <button class="btn btn-falcon-default btn-sm fs--1" type="button" data-bs-toggle="collapse" data-bs-target="#previewMailForm" aria-expanded="false" aria-controls="previewMailForm"><span class="fas fa-reply"></span><span class="d-none d-sm-inline-block ms-1">답변</span></button>
-	                </div>
-	              </div>
-	            </div>
-            </form>
-            <!-- 답변 등록 끝 -->
+             
            
             </div>
           </div>
