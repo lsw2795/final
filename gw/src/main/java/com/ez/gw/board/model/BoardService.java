@@ -7,14 +7,14 @@ import com.ez.gw.common.EmpSearchVO;
 import com.ez.gw.common.SearchVO;
 
 public interface BoardService {
-	int insertQna(BoardVO vo); //Qna 글등록 메서드
-	List<Map<String, Object>> selectQnaAll(SearchVO searchVo); //Qna 글 리스트 목록 조회 메서드
-	List<Map<String, Object>> selectAdminQnaAll(SearchVO searchVo); //Qna 관리자 글 리스트 목록 조회 메서드
+	int insertQna(BoardVO vo); //Q&A 글 등록 메서드
+	List<Map<String, Object>> selectQnaAll(SearchVO searchVo); //Q&A 글 목록 조회 메서드
+	List<Map<String, Object>> selectAdminQnaAll(SearchVO searchVo); //관리자 - Q&A 글 목록 조회 메서드
 	int selectAdminQnaTotalRecord(SearchVO searchVo); // 페이징 처리 위한 qna 관리자 페이지 총 레코드 수 메서드
-	Map<String, Object> selectQna(int boardNo); //qna 글 1개 디테일 조회 메서드
-	int updateReadcount(int boardNo); //조회수 증가 메서드
-	int updateQna(BoardVO vo); //질문 수정 메서드
-	int deleteQna(int boardNo); //질문 삭제 메서드
+	Map<String, Object> selectQna(int boardNo); //Q&A 글 상세조회 메서드
+	int updateReadcount(int boardNo); //Q&A 조회수 증가 메서드
+	int updateQna(BoardVO vo); //Q&A 수정 메서드
+	int deleteQna(int boardNo); //Q&A 삭제 메서드
 	int insertNotice(BoardVO vo); //관리자 공지사항 글등록 메서드
 	List<Map<String, Object>> selectNoticeAll(SearchVO searchVo);//공지사항 글 리스트 목록 조회 메서드
 	int gTRSearchNotice(SearchVO searchVo); //공지사항 글 리스트 검색 전체 레코드
@@ -47,13 +47,12 @@ public interface BoardService {
 	int likeCountUp(int boardNo); //게시판 좋아요 수 올리기
 	int likeCountDown(int boardNo); //게시판 좋아요 수 내리기
 	
-	//Q&A 게시글 여러개 삭제 메서드
-	int deleteMulti(List<BoardVO> list);
+	int deleteMulti(List<BoardVO> list); //관리자 - Q&A 다중삭제를 위한 메서드
 	//FAQ 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
 	int faqDeleteMulti(List<BoardVO> list);
 	//공지사항 게시글 여러개 삭제 메서드(delflag='Y'로 변경)
 	int noticeDeleteMulti(List<BoardVO> list);
 	
-	int getQnaTotalCount(SearchVO searchVo); // qna게시판 토탈카운트 구하기
+	int getQnaTotalCount(SearchVO searchVo); //총 레코드 개수 구하는 메서드
 	
 }
