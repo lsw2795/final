@@ -14,5 +14,4 @@
     </div>
     <button class="btn btn-primary btn-sm px-5 me-2" type="submit">수정</button>
 </form>
-
 <%@ include file="../../inc/adminBottom.jsp" %>
