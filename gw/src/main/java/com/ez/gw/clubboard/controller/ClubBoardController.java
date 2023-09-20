@@ -48,13 +48,14 @@ public class ClubBoardController {
 	private final ReportService reportService;
 	private final FileUploadUtil fileUploadUtil;
 
-
+	//동호회 게시글 작성페이지 보여주기
 	@GetMapping("/club/clubBoardWrite")
 	public String clubBoardWrite() {
 		logger.info("동호회 게시판 작성");
 		return "club/clubBoardWrite";
 	}
-
+	
+	//동호회 게시글 실제 작성
 	@PostMapping("/club/clubBoardWrite")
 	public String clubBoardWrite_post(@ModelAttribute ClubBoardVO clubVo, HttpSession session ,
 			@RequestParam int clubNo, HttpServletRequest request,
@@ -135,7 +136,7 @@ public class ClubBoardController {
 		return "common/message";
 	}
 
-
+	//동호회 게시판-목록(리스트) 보여주기
 	@RequestMapping("/club/clubBoard")
 	public String clubBoadList(@ModelAttribute SearchVO saerchVo,
 			@RequestParam(defaultValue = "0")int clubNo, Model model) {
@@ -157,7 +158,8 @@ public class ClubBoardController {
 
 		return "club/clubBoard";
 	}
-
+	
+	//동호회 게시판 상세보기
 	@RequestMapping("/club/clubBoardDetail")
 	public String detailClubBoard(@RequestParam(defaultValue = "0")int clubNo,
 			@RequestParam(defaultValue = "0")int boardNo,
@@ -194,6 +196,7 @@ public class ClubBoardController {
 		return "club/clubBoardDetail";
 	}
 
+	//동호회 게시판 - 수정 페이지 보여주기
 	@GetMapping("/club/editClubBoard")
 	public String editClubBoard(@RequestParam int clubNo, int boardNo, Model model) {
 		//1.
@@ -219,7 +222,8 @@ public class ClubBoardController {
 		//4.
 		return "club/editClubBoard";
 	}
-
+	
+	//동호회 게시판 - 실제 수정 페이지
 	@PostMapping("/club/editClubBoard")
 	public String editClubBoard_post(@ModelAttribute ClubBoardVO clubVo,
 			@RequestParam(name = "delImg", required = false) String[] delImg, 
@@ -311,6 +315,7 @@ public class ClubBoardController {
 		return "common/message";
 	}
 
+	//동호회 게시판 - 답변(댓글) 작성 및 등록
 	@RequestMapping("/club/clubComment")
 	public String insertCommt(@ModelAttribute ClubBoardCommentVO cbcVo, Model model) {
 		//1.
@@ -331,7 +336,8 @@ public class ClubBoardController {
 		//4.
 		return "common/message";
 	}
-
+	
+	//동호회 게시판 - 삭제
 	@RequestMapping("/club/deleteClubBoard")
 	public String deleteClubBoard(@RequestParam(defaultValue = "0")int clubNo,
 			@RequestParam(defaultValue = "0")int boardNo, Model model) {
@@ -355,7 +361,8 @@ public class ClubBoardController {
 		//4.
 		return "common/message";
 	}
-
+	
+	//동호회 게시판 - 답변(댓글)만 삭제
 	@RequestMapping("/club/deleteComment")
 	public String commentDelete(@RequestParam(defaultValue = "0")int commentNo,
 			@RequestParam(defaultValue = "0")int clubNo,
@@ -379,7 +386,8 @@ public class ClubBoardController {
 
 		return "common/message";
 	}
-
+	
+	//동호회 게시판 - 답변(댓글)만 수정
 	@PostMapping("/club/editComment")
 	public String commentEdit(@ModelAttribute ClubBoardCommentVO cbcVo,
 			Model model) {
@@ -408,7 +416,8 @@ public class ClubBoardController {
 
 
 	//--------------------------------Admin 관리자----------------------------------------
-
+	
+	//관리자(동호회 게시판) - 신고된 목록 보여주기
 	@GetMapping("/admin/adminclub/adminClubReport")
 	public String adminReport(@ModelAttribute SearchVO searchVo ,Model model) {
 		//1.
@@ -426,7 +435,7 @@ public class ClubBoardController {
 	}
 
 
-	//관리자 - 신고함 다중 삭제
+	//관리자(동호회 게시판) - 신고함 다중 삭제
 	@RequestMapping("/admin/adminclub/deleteMulti")
 	public String deleteMulti(@ModelAttribute ListClubBoardVO listBoardVo, Model model) {
 		//1.
@@ -449,10 +458,10 @@ public class ClubBoardController {
 		return "common/message";
 
 	}
-
+	
+	//관리자(동호회 게시판) - 신고된 게시물 삭제
 	@RequestMapping("/admin/adminclub/adminDeleteClubBoard")
 	public String adminDeleteClubBoard(@RequestParam(defaultValue = "0")int boardNo,
-
 			Model model) {
 		//1.
 		logger.info("관리자 - 신고 동호회게시물 삭제 boardNo={},reportNo={}",boardNo);

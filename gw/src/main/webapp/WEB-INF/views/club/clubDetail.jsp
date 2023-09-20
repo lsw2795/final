@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <!DOCTYPE html>
+<!-- 동호회 상세보기 
+	-clubController
+-->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -10,7 +13,7 @@
 <link rel="stylesheet" href="<c:url value='/css/clubModal.css'/>">
 <script type="text/javascript">
 	
-	
+	//온라인 결제(카카오 페이)
 	function kakaopay() {
 			
 		var IMP = window.IMP;
@@ -56,11 +59,10 @@
 	        //location.href="/club/clubBoard?clubNo=${param.clubNo }"+rsp.error_msg;
 	    }
 	        alert(msg);
-	});
-} 
-
+		});
+	} 
 	
-	
+	//동호회 삭제
 	function deleteClub() {
 		if(confirm("동호회를 삭제하시겠습니까?")){
 			location.href = "<c:url value='/club/deleteClub?clubNo=${param.clubNo}'/>"
@@ -74,8 +76,6 @@
 <!--    Document Title-->
 <!-- ===============================================-->
 <title>Payment Club</title>
-
-
 <body>
 	<form name="detailFrm" action="">
 		<div class="card mb-3">
@@ -202,6 +202,7 @@
 
 </body>
 <style>
+/* 모달 스타일 */
 .modal-content{
 	text-align: center;
 }

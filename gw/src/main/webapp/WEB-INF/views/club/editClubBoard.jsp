@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 동호회 게시판 수정페이지 
+	-clubBoardController
+-->
 <%@ include file="../inc/top.jsp" %>
-
 <link href="<c:url value='/vendors/choices/choices.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/flatpickr/flatpickr.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/dropzone/dropzone.min.c.css'/>" rel="stylesheet">
@@ -28,7 +30,7 @@
 			
 		});
 		
-		  $("#fileInput").on("change", function() {
+		$("#fileInput").on("change", function() {
 			  var imagePreview = $(".dz-message");
 			  imagePreview.empty();
 			  
@@ -48,8 +50,8 @@
                   reader.readAsDataURL(file);
 		  }
 	  });
-		  
 	});
+	
 	function deleteImg(imgName, a) {
 	    var editImg = $(a).parent().parent();
 	    
@@ -64,13 +66,12 @@
 	    // 원래의 요소를 제거합니다.
 	    $(a).parent().remove();
 	}
-
 </script>
 
 <div class="contentBody">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row flex-between-center">
+   	<div class="card mb-3">
+       	<div class="card-body">
+            <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">게시글 수정</h5>
                 </div>
@@ -82,14 +83,14 @@
 	                </button>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row g-0">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
+        </div>
+     </div>
+     <div class="row g-0">
+        <div class="card mb-3">
+           	<div class="card-body">
+                <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
                   	name="clubBoardFrm"	method="post" action="<c:url value='/club/editClubBoard'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
-                    <div class="row gx-2">
+                 <div class="row gx-2">
                     <input type="hidden" name="clubNo" value="${param.clubNo }">
                     <input type="text" name="boardNo" value="${param.boardNo }">
                       <div class="col-12 mb-3">
@@ -103,15 +104,15 @@
                         		style="height:300px">${map['CONTENT']}</textarea>
                       	</div>
                    	</div>
-                    </div>
-	                </div>
-	              </div>
-              <div class="card mb-3">
-                <div class="card-header bg-light">
+                 </div>
+	        </div>
+	    </div>
+        <div class="card mb-3">
+            <div class="card-header bg-light">
                   <h6 class="mb-0">이미지 추가</h6>
-                </div>
-                <div class="card-body">
-                  <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
+            </div>
+            <div class="card-body">
+                <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
                       <input name="imageURL2" type="file" multiple="multiple" id="fileInput"/>
                     </div>
@@ -143,20 +144,20 @@
                         </div>
                       </div>
                     </div>
-                   </div>
-                 </div>
-               </div>
-          	</div>
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row justify-content-between align-items-center">
-                <div class="col-auto">
-                  <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
-                  <button class="btn btn-primary" id ="btn" role="button">저장 </button>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-         </form>
+     </div>
+     <div class="card mb-3">
+       <div class="card-body">
+         <div class="row justify-content-between align-items-center">
+           <div class="col-auto">
+             <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button">취소</button>
+             <button class="btn btn-primary" id ="btn" role="button">저장 </button>
+           </div>
+         </div>
+       </div>
+     </div>
+</div>
+</form>
 <%@ include file="../inc/bottom.jsp" %>

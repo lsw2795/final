@@ -38,14 +38,16 @@ public class ClubController {
 	private final ClubService clubService;
 	private final EmployeeService empService;
 	private final ReportService reportService;
-
+	
+	//동호회 개설 페이지 보여주기
 	@RequestMapping("/club/createClub")
 	public String clubWrite() {
 		//1.
 		logger.info("동호회 개설 페이지");
 		return "club/createClub";
 	}
-
+	
+	//동호회 실제 개설
 	@PostMapping("/club/createClub")
 	public String clubWrite_post(@ModelAttribute ClubVO vo, HttpSession session ,Model model) {
 		//1.
@@ -78,6 +80,7 @@ public class ClubController {
 		return "common/message";
 	}
 
+	//개설 동호회 목록 보여주기
 	@RequestMapping("/club/clubList")
 	public String clubList(@ModelAttribute SearchVO searchVo,Model model) {
 		//1.
@@ -97,6 +100,7 @@ public class ClubController {
 		return "club/clubList";
 	}
 
+	//동호회 개설 수정페이지
 	@GetMapping("/club/clubEdit")
 	public String editClub(@RequestParam(defaultValue = "0")int clubNo ,Model model) {
 		//1.
@@ -116,7 +120,8 @@ public class ClubController {
 
 		return "club/clubEdit";
 	}
-
+	
+	//동호회 개설 실제 수정페이지
 	@RequestMapping("/club/clubEdit")
 	public String editClub_post(@ModelAttribute ClubVO vo, Model model) {
 		//1.
@@ -139,7 +144,7 @@ public class ClubController {
 
 	}
 
-
+	//개설된 동호회 삭제 
 	@RequestMapping("/club/deleteClub")
 	public String deleteClub(@RequestParam(defaultValue = "0")int clubNo,
 			HttpSession session, Model model) {
@@ -168,6 +173,7 @@ public class ClubController {
 		return "common/message";
 	}
 
+	//개설된 동호회 상세보기
 	@RequestMapping("/club/clubDetail")
 	public String clubDetail(@ModelAttribute ClubVO clubVo,
 			@RequestParam(defaultValue = "0")int clubNo,
@@ -202,6 +208,7 @@ public class ClubController {
 		return "club/clubDetail";
 	}
 	
+	//동호회비 결제
 	@RequestMapping("/payClub")
 	public String payClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
@@ -218,6 +225,7 @@ public class ClubController {
 		return "club/clubDetail?clubNo="+clubNo;
 	}
 	
+	//동호회 탈퇴
 	@RequestMapping("/club/outClub")
 	public String outClub(@RequestParam(defaultValue = "0")int empNo, Model model) {
 		//1.
@@ -242,7 +250,7 @@ public class ClubController {
 	
 	//--------------------------------Admin 관리자----------------------------------------
 	
-	//admin clubList
+	//관리자(동호회) - 전체 목록(공개,비공개) admin clubList
 	@RequestMapping("/admin/adminclub/clubList")
 	public String adminclubList(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("관리자 - 동호회 전체 현황");
@@ -262,6 +270,7 @@ public class ClubController {
 		return "admin/adminclub/clubList";
 	}
 	
+	//관리자(동호회) - 삭제
 	@RequestMapping("/admin/adminclub/adminClubDelete")
 	public String adminDeleteClub(@RequestParam(defaultValue = "0")int clubNo, Model model) {
 		//1.
@@ -283,33 +292,32 @@ public class ClubController {
 		return "common/message";
 	}
 	
-	//관리자 - 동호회 다중 삭제 안됌
-		@RequestMapping("/admin/adminclub/clubDeleteMulti")
-		public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
-			//1.
-			logger.info("관리자 - 동호회 다중삭제 listVo={}",listVo);
-			
-			//2.
-			List<ClubVO> list = listVo.getClubItems();
-			
-			Integer cnt=clubService.deleteMulti(list);
-			logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
-			
-			String msg="동호회 삭제 실패했습니다.",url="/admin/adminclub/clubList";
-			if(cnt>0) {
-				msg="선택 동호회 삭제 완료했습니다.";
-			}
-			//3.
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			//4.
-			return "common/message";
-			
+	//관리자 - 동호회 다중 삭제 안됨
+	@RequestMapping("/admin/adminclub/clubDeleteMulti")
+	public String clubDeleteMulti(@ModelAttribute ListClubVo listVo, Model model) {
+		//1.
+		logger.info("관리자 - 동호회 다중삭제 listVo={}",listVo);
+		
+		//2.
+		List<ClubVO> list = listVo.getClubItems();
+		
+		Integer cnt=clubService.deleteMulti(list);
+		logger.info("관리자 - 동호회 다중 삭제 결과 cnt={}",cnt);
+		
+		String msg="동호회 삭제 실패했습니다.",url="/admin/adminclub/clubList";
+		if(cnt>0) {
+			msg="선택 동호회 삭제 완료했습니다.";
 		}
+		//3.
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		//4.
+		return "common/message";
+		
+	}
 	
-	
-	
+	//관리자(동호회) - 동호회비 지불 여부 목록
 	@RequestMapping("/admin/adminclub/adminPayment")
 	public String paymentList(@ModelAttribute SearchVO searchVo, Model model) {
 		//1.
@@ -325,7 +333,6 @@ public class ClubController {
 		//4.
 		return "admin/adminclub/adminPayment";
 	}
-	
 	
 	
 }

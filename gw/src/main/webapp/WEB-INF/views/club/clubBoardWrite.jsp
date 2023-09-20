@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
-
+<!-- 동호회 게시판 작성
+	- clubController
+--> 
 <link href="<c:url value='/vendors/choices/choices.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/flatpickr/flatpickr.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/vendors/dropzone/dropzone.min.c.css'/>" rel="stylesheet">
@@ -43,16 +45,15 @@
                   };
                   
                   reader.readAsDataURL(file);
-		  }
+		  	}
 	  });
 		  
 	});
 </script>
-
 <div class="contentBody">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row flex-between-center">
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row flex-between-center">
                 <div class="col-md">
                   <h5 class="mb-2 mb-md-0">Club Board</h5>
                 </div>
@@ -63,36 +64,36 @@
 						</button>
 					</a>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="row g-0">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="card mb-3">
+            <div class="card-body">
+                <form class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" 
                   	name="clubBoardFrm"	method="post" action="<c:url value='/club/clubBoardWrite'/>" enctype="multipart/form-data" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="row gx-2">
-                    <input type="hidden" name="clubNo" value="${param.clubNo }">
-                      <div class="col-12 mb-3">
-                        <label class="form-label" for="title">제목</label>
-                        <input class="form-control" id="title" name="title" type="text"/>
-                      </div>
-                      <div class="col-12 mb-3">
-                      	<label class="form-label" for="content">내용</label>
-                      	<div class="create-product-description-textarea">
-                        	<textarea class="form-control" data-tinymce="data-tinymce" name="content" id="content"
-                        		style="height:300px"></textarea>
-                      	</div>
-                   	</div>
+	                    <input type="hidden" name="clubNo" value="${param.clubNo }">
+	                      <div class="col-12 mb-3">
+	                        <label class="form-label" for="title">제목</label>
+	                        <input class="form-control" id="title" name="title" type="text"/>
+	                      </div>
+	                      <div class="col-12 mb-3">
+	                      	<label class="form-label" for="content">내용</label>
+	                      	<div class="create-product-description-textarea">
+	                        	<textarea class="form-control" data-tinymce="data-tinymce" name="content" id="content"
+	                        		style="height:300px"></textarea>
+	                      	</div>
+	                   	</div>
                     </div>
-	                </div>
-	              </div>
-              <div class="card mb-3">
-                <div class="card-header bg-light">
-                  <h6 class="mb-0">이미지 추가</h6>
-                </div>
-                <div class="card-body">
-                  <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
+	        </div>
+	    </div>
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                <h6 class="mb-0">이미지 추가</h6>
+            </div>
+            <div class="card-body">
+                <div class="dropzone dropzone-multiple p-0" id="dropzoneMultipleFileUpload" data-dropzone="data-dropzone" data-options='{"acceptedFiles":"image/*"}'>
                     <div class="fallback">
                       <input name="imageURL" type="file" multiple="multiple" id="fileInput"/>
                     </div>
@@ -113,19 +114,19 @@
                         </div>
                       </div>
                     </div>
-                   </div>
-                 </div>
-               </div>
-          	</div>
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row justify-content-between align-items-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
                   <button class="btn btn-primary" id = "btn" role="button">등록 </button>
                 </div>
-              </div>
             </div>
-          </div>
-         </form>
         </div>
+    </div>
+  </form>
+</div>
 <%@ include file="../inc/bottom.jsp" %>

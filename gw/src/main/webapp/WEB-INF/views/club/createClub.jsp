@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
+<!-- 동호회 개설 
+	-clubController
+-->
 <script type="text/javascript">
 	$(function() {
 		/* $("#memLimitflag").val('Y').prop("selected", true); 
@@ -49,11 +52,7 @@
 				$('#secflag').focus();
 				return false;
 			} 
-			
-			
-			
 		});
-		
 	});
 </script>
 <html data-bs-theme="light" lang="en-US" dir="ltr">
@@ -149,8 +148,7 @@
             </div>
           </div>
 	</form>
-    
-    </body>
-    </html>
+ </body>
+</html>
     
 <%@ include file="../inc/bottom.jsp" %>

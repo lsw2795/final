@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
+<!-- 동호회 전체 목록 
+	-clubController
+-->
 <style>
 	  .avatar img {
 	    size: 10px;
@@ -25,6 +28,7 @@
 	}
 </style>
 <script type="text/javascript">
+	//체크박스 선택
 	$(function () {
 		$('input[type=checkbox]').each(function (index) {
 			if($(this).is(":checked")==true){
@@ -33,65 +37,63 @@
 		}
 	});
 </script>
-		<div class="row gx-3">
-              <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
-                <div class="card-header admindefault border-bottom border-200 px-0">
-                  <div class="d-lg-flex justify-content-between">
-                    <div class="row flex-between-center gy-2 px-x1">
-                      	<div class="col-12 pe-0">
-                        	<h6 class="mb-0">Club List</h6>
-                     	 </div>
-		                 <form name="frmSerch" action="<c:url value='/club/clubList'/>" method="post">
-	                     	 <div class="row pe-0">
-	                      	 	<div class="col-auto pe-0">
-		                          <select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
-			                            <option value="title"
-			                            	<c:if test="${param.searchCondition=='title'}">
-			                            		selected = "selected"
-			                            	</c:if>
-			                            >제목</option>
-			                            <option value="manager"
-		                       		        <c:if test="${param.searchCondition=='manager'}">
-			                            		selected = "selected"
+<div class="row gx-3">
+    <div class="card admindefault" id="ticketsTable" data-list='{"valueNames":["client","subject","status","priority","agent"],"page":11,"pagination":true,"fallback":"tickets-table-fallback"}'>
+    	<div class="card-header admindefault border-bottom border-200 px-0">
+        	<div class="d-lg-flex justify-content-between">
+            	<div class="row flex-between-center gy-2 px-x1">
+                	<div class="col-12 pe-0">
+                        <h6 class="mb-0">Club List</h6>
+                    </div>
+		            <form name="frmSerch" action="<c:url value='/club/clubList'/>" method="post">
+	                	<div class="row pe-0">
+	                    	<div class="col-auto pe-0">
+		                    	<select name="searchCondition" class="form-select form-select-sm" aria-label="Bulk actions">
+			                    	<option value="title"
+			                        	<c:if test="${param.searchCondition=='title'}">
+			                            	selected = "selected"
+			                            </c:if>
+			                        	>제목</option>
+			                        <option value="manager"
+		                       			<c:if test="${param.searchCondition=='manager'}">
+			                            	selected = "selected"
 			                            	</c:if>
 			                            >이름</option>
-			                            <option value="introduce"
-			                            	<c:if test="${param.searchCondition=='introduce'}">
-			                            		selected = "selected"
-			                            	</c:if>
-			                            >소개</option>
-		                          </select>
-	                     	 	</div>
-			                     <div class="col-auto">
-									<div class="input-group input-search-width">
-			                            <input class="form-control form-control-sm shadow-none search" type="text" name="searchKeyword" placeholder="Search  by name" aria-label="search" />
-			                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
-			                        </div>
-			                     </div>
-	                    	 </div>
-		                 </form>
-                    </div>
-                    <div class="border-bottom border-200 my-3"></div>
-                      <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
-                      <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
-                      
-                      <div class="d-flex align-items-center" id="table-ticket-replace-element">
-                      <c:if test="${sessionScope.clubNo==0}">
-	                        <a href="<c:url value='/club/createClub'/>">
-	                        	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
-	                        		<span class="fas fa-plus" ></span>
-	                        	</button>
-	                        </a>
-                        </c:if>
-                      </div>
-                  </div>
-                  </div>
-                
-                <div class="card-body p-0">
-                  <div class="table-responsive scrollbar">
-                    <table class="table table-sm mb-0 fs--1 table-view-tickets">
-                      <thead class="text-800 bg-light">
-                        <tr>
+			                        <option value="introduce"
+			                            <c:if test="${param.searchCondition=='introduce'}">
+			                            	selected = "selected"
+			                            </c:if>
+			                        	>소개</option>
+		                        </select>
+	                     	</div>
+		                     <div class="col-auto">
+								<div class="input-group input-search-width">
+		                            <input class="form-control form-control-sm shadow-none search" type="text" name="searchKeyword" placeholder="Search  by name" aria-label="search" />
+		                            <button class="btn btn-sm btn-outline-secondary border-300 hover-border-secondary"><span class="fa fa-search fs--1"></span></button>
+		                        </div>
+		                     </div>
+	                    </div>
+		            </form>
+                </div>
+                <div class="border-bottom border-200 my-3"></div>
+                <button class="btn btn-sm btn-falcon-default d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas" aria-controls="ticketOffcanvas"><span class="fas fa-filter" data-fa-transform="shrink-4 down-1"></span><span class="ms-1 d-none d-sm-inline-block">Filter</span></button>
+                <div class="bg-300 mx-3 d-none d-lg-block d-xl-none" style="width:1px; height:29px"></div>
+                <div class="d-flex align-items-center" id="table-ticket-replace-element">
+                	<c:if test="${sessionScope.clubNo==0}">
+	                	<a href="<c:url value='/club/createClub'/>">
+	                    	<button class="btn btn-falcon-default btn-sm mx-2" type="button">
+	                        	<span class="fas fa-plus" ></span>
+	                        </button>
+	                    </a>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive scrollbar">
+                <table class="table table-sm mb-0 fs--1 table-view-tickets">
+                	<thead class="text-800 bg-light">
+                    	<tr>
                           <th class="sort align-middle" data-sort="Manager">Manager</th>
                           <th class="sort align-middle" data-sort="Club Title" style="min-width:15.625rem">Title</th>
                           <th class="sort align-middle" data-sort="memberCnt">모집인원</th>
@@ -154,19 +156,19 @@
                           	</c:if>
                           </c:forEach>
                       </tbody>
-                    </table>
-                    <div class="text-center d-none" id="tickets-table-fallback">
+                  </table>
+                  <div class="text-center d-none" id="tickets-table-fallback">
                       <p class="fw-bold fs-1 mt-3">No club found</p>
-                    </div>
                   </div>
-                </div>
-                <div class="card-footer">
-                  <div class="d-flex justify-content-center">
-                    <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                    <ul class="pagination mb-0"></ul>
-                    <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
-                  </div>
-                </div>
-                </div>
-                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+            <ul class="pagination mb-0"></ul>
+            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+          </div>
+        </div>
+    </div>
+</div>
 <%@ include file="../inc/bottom.jsp" %>

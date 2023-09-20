@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
+<!-- 동호회 수정 
+	-clubController
+-->
 <script type="text/javascript">
 	
 	$(function() {
@@ -24,7 +27,6 @@
 </script>
 
 <html data-bs-theme="light" lang="en-US" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -113,10 +115,9 @@
 	               </div>
               </div>
             </div>
-	              </div>
+	      </div>
 	</form>
-    
-    </body>
-    </html>
+  </body>
+</html>
     
 <%@ include file="../inc/bottom.jsp" %>
