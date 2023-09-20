@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - FAQ 목록뷰
+내용 : FAQ 일반등록 이동, 수정 이동, 다중삭제, 페이징처리, 검색, POI API 이용한 엑셀 파일 FAQ 다중 등록
+컨트롤러 : com.ez.gw.board.controller.FaqController
+작성자 : 송영은
+작성일 : 2023.08
+ -->    
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
@@ -37,20 +44,21 @@
 		});
 	});
 	
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
-	
+	//FAQ 등록창 오픈
 	function btnFaqWrite(){
 		 window.open("<c:url value='/admin/board/faqWrite'/>",'faqWrite', 'width=700,height=800,top=300,left=700,location=yes,resizable=yes');
 	}
 </script>
- <!-- 페이징 처리 관련 form -->
+<!-- 페이징 처리 관련 form -->
 <form action="<c:url value='/admin/board/faqList'/>" 
 	name="frmPage" method="post">
 	<input type="hidden" name="currentPage" value=${param.currentPage }>
@@ -155,31 +163,31 @@
 	</form>
 		</c:if>
 		</div>
-	<div class="card-footer d-flex justify-content-center admindefault">
-	<div class="divPage" id="divPage">
-	<c:if test="${pagingInfo.firstPage>1 }">
-		<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
-			<img src="<c:url value='/images/first.JPG'/>">
-		</a>
-	</c:if>	
-					
-	<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
-		<c:if test="${i == pagingInfo.currentPage }">		
-			<span id="curPage">${i}</span>
-        	</c:if>
-		<c:if test="${i != pagingInfo.currentPage }">		
-	         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
-	    </c:if>   		
-	</c:forEach>
-	
-	<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
-			<img src="<c:url value='/images/last.JPG'/>">
-		</a>
-	</c:if>
-</div>
-</div>
-</div>
-</div>
+		<div class="card-footer d-flex justify-content-center admindefault">
+			<div class="divPage" id="divPage">
+			<c:if test="${pagingInfo.firstPage>1 }">
+				<a href="#" id="prevPage" onclick="pageFunc(${pagingInfo.firstPage-1})">
+					<img src="<c:url value='/images/first.JPG'/>">
+				</a>
+			</c:if>	
+							
+			<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+				<c:if test="${i == pagingInfo.currentPage }">		
+					<span id="curPage">${i}</span>
+		        	</c:if>
+				<c:if test="${i != pagingInfo.currentPage }">		
+			         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
+			    </c:if>   		
+			</c:forEach>
+			
+			<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+		         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
+					<img src="<c:url value='/images/last.JPG'/>">
+				</a>
+			</c:if>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
 <%@ include file='../../inc/adminBottom.jsp'%>

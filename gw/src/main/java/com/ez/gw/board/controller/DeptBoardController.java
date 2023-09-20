@@ -44,8 +44,8 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class deptBoardController {
-	private static final Logger logger = LoggerFactory.getLogger(deptBoardController.class);
+public class DeptBoardController {
+	private static final Logger logger = LoggerFactory.getLogger(DeptBoardController.class);
 	private final BoardService boardService;
 	private final BoardListService boardListService;
 	private final PdsService pdsService;

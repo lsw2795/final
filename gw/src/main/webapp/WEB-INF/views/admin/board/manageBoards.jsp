@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 게시판관리 뷰
+내용 : 게시판 삭제, 페이징처리, 게시판검색, 부서게시판(동적게시판) 생성, 
+	  동적게시판 플래그 수정(파일등록,익명,댓글,추천 등), 게시판별 게시글 날짜별 등록 통계(그래프이용)
+컨트롤러 : com.ez.gw.boardlist.controller.BoardListController	  
+작성자 : 송영은
+작성일 : 2023.09
+ -->  	
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		//통계
 		  function setDates(startMonth) {
 		        var startDate = new Date();
 		        var lastDate = new Date(); // 오늘 날짜
@@ -19,7 +28,7 @@
 		    if (!startDateValue || !lastDateValue) {
 		        setDates(1);
 		    }
-		
+		//유효성검사 후 게시판 생성
 		$('#AddBoardList').click(function(){
 			if($('#boardName').val().length<1){
 				alert('게시판 이름을 입력해주세요.');
@@ -50,15 +59,18 @@
 	            } 
 	        });//ajax
 		});
-		
 		$('#selboardName').change(function(){
 		  	var selectedValue = $('#selboardName').val();
+			
+		  	//수정할 게시판 조회 - 값 공백 선택시 새로고침
 		  	if(selectedValue==""){
 		  		location.href="<c:url value='/admin/board/manageBoards'/>";
+		  		//location.reload();
 		  		return false;
 		  	}
 		  	
 		  	//alert(selectedValue);
+		  	//해당 게시판 데이터 조회 ajax
 			$.ajax({
 	            url: "<c:url value='/admin/board/ajaxSelectBoardList'/>",
 	            type:'get',
@@ -141,7 +153,7 @@
 	        });//ajax
 		});
 		
-		
+		//유효성 검사 후 수정처리
 		$('#editBoardList').click(function(){
 			if($('#selboardName').val().length<1){
 				alert('수정할 게시판을 선택해주세요.');
@@ -196,6 +208,7 @@
 	        });//ajax
 		});
 		
+		//통계 유효성 검사
 		$('#boardlistWriteCount').click(function(){			
 			if($('#startDate').val().length!=10 || $('#lastDate').val().length!=10) {
 				alert("시작일자 또는 종료일자의 형식이 올바르지 않습니다. 형식 예시)2023-05-20");
@@ -210,16 +223,16 @@
 		
 		
 	});
-	
+	//게시판 목록 페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//게시판 검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
-	
+	//게시판 삭제 - 해당 게시판에 게시글 존재시 삭제 불가능 하도록 ajax 처리
 	function deleteBoard(boardlistNo){
 	    if(confirm('해당 게시판을 삭제하시겠습니까?')){
 		    $.ajax({
@@ -256,7 +269,7 @@
          <div class="col-auto align-self-center">
            <h5 class="mb-0" style="color: black;">
            <span class="fas fa-file" style="margin: 0 10px;"></span>
-			게시판 목록</h5>
+           게시판 목록</h5>
          </div>
        </div>
      </div>
@@ -555,45 +568,44 @@
                     		</div>
 				  		 </div>
 					</div>
-                <div class="card-body h-100 pe-0">
-                 <canvas id="myBarChart" width="400" height="150"></canvas>
-         	<script type="text/javascript">
-               var barChartData = {
-			        labels: [
-			        	<c:forEach var="map" items="${boardListCount}">
-	            		"${map['BOARD_NAME']}",
-	            		</c:forEach>
-			        ],
-			        datasets: [{
-		            label: '기간별 게시판 게시글 등록 횟수',
-		            data: [ 
-		            	<c:forEach var="map" items="${boardListCount}">
-		            		${map['CNT']},
-		            	</c:forEach>
-            			],
-			            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-			            borderColor: 'blue',
-			            borderWidth: 1
-			        }]
-			    };
-                
-                
-            // 막대 그래프 생성
-			    var ctx = document.getElementById('myBarChart').getContext('2d');
-			    var myBarChart = new Chart(ctx, {
-			        type: 'bar',  // 막대 그래프
-			        data: barChartData,
-			        options: {
-			            scales: {
-			                y: {
-			                    beginAtZero: true
-			                }
-			            }
-			        }
-			    });
-			</script>
-                </div>
-					
+	                <div class="card-body h-100 pe-0">
+	                 <canvas id="myBarChart" width="400" height="150"></canvas>
+			         	<script type="text/javascript">
+			               var barChartData = {
+						        labels: [
+						        	<c:forEach var="map" items="${boardListCount}">
+				            		"${map['BOARD_NAME']}",
+				            		</c:forEach>
+						        ],
+						        datasets: [{
+					            label: '기간별 게시판 게시글 등록 횟수',
+					            data: [ 
+					            	<c:forEach var="map" items="${boardListCount}">
+					            		${map['CNT']},
+					            	</c:forEach>
+			            			],
+						            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+						            borderColor: 'blue',
+						            borderWidth: 1
+						        }]
+						    };
+			                
+			                
+			            // 막대 그래프 생성
+						    var ctx = document.getElementById('myBarChart').getContext('2d');
+						    var myBarChart = new Chart(ctx, {
+						        type: 'bar',  // 막대 그래프
+						        data: barChartData,
+						        options: {
+						            scales: {
+						                y: {
+						                    beginAtZero: true
+						                }
+						            }
+						        }
+						    });
+						</script>
+	                </div>
 				</div>
 			</div>
 		</div>
