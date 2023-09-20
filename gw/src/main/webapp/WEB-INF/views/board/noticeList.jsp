@@ -1,23 +1,31 @@
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="com.ez.gw.common.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 공지사항 목록 뷰
+내용 : 공지사항 글 페이징처리, 공지사항 제목또는 내용검색, 제목 클릭시 ajax 이용한 조회수 증가 처리
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->  	    
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.ez.gw.common.Utility"%>
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">    
 <script type="text/javascript">
+	//작성자 정보보기
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
-	
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
-	
+	//제목 클릭시 조회수 증가 후 상세보기 뷰 이동
 	function updateReadCount(boardNo){
 		$.ajax({
             url: "<c:url value='/board/updateReadCount'/>",
