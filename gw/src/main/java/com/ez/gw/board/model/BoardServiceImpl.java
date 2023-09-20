@@ -107,7 +107,7 @@ public class BoardServiceImpl implements BoardService {
 				if(boardNo!=0) { //체크된 질문만 삭제
 					cnt = boardDao.deleteQna(boardNo);
 				}
-			}//for
+			}
 		}catch(RuntimeException e) {
 			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
 			e.printStackTrace();

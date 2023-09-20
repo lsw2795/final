@@ -11,6 +11,7 @@ import com.ez.gw.common.SearchVO;
 
 @Mapper
 public interface BoardDAO {
+	//Q&A 게시판
 	int insertQna(BoardVO vo); //Q&A 등록 메서드
 	List<Map<String, Object>> selectQnaAll(SearchVO searchVo); //Q&A 글 리스트 목록 조회 메서드
 	List<Map<String, Object>> selectAdminQnaAll(SearchVO searchVo); //Q&A 관리자 글 리스트 목록 조회 메서드
@@ -19,6 +20,8 @@ public interface BoardDAO {
 	int updateReadcount(int boardNo); //Q&A 조회수 증가 메서드
 	int updateQna(BoardVO vo); //Q&A 수정 메서드
 	int deleteQna(int boardNo); //Q&A 삭제 메서드
+	int getQnaTotalCount(SearchVO searchVo); // Q&A 총 레코드 개수 구하기
+	
 	int insertNotice(BoardVO vo); //관리자 공지사항 글등록 메서드
 	List<Map<String, Object>> selectNoticeAll(SearchVO searchVo);//공지사항 글 리스트 목록 조회 메서드
 	int gTRSearchNotice(SearchVO searchVo); //공지사항 글 리스트 검색 전체 레코드
@@ -52,5 +55,4 @@ public interface BoardDAO {
 	int likeCountUp(int boardNo); //게시판 좋아요 수 올리기
 	int likeCountDown(int boardNo); //게시판 좋아요 수 내리기
 	
-	int getQnaTotalCount(SearchVO searchVo); // qna게시판 토탈카운트 구하기
 }

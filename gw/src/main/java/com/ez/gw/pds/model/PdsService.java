@@ -11,17 +11,20 @@ import com.ez.gw.common.SearchVO;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface PdsService {
-	int insertPds(BoardVO vo);
-	List<Map<String, Object>> selectPdsAll(SearchVO vo);
-	Map<String, Object> selectPds(int boardNo);
-	int updatePds(BoardVO vo);
-	int deletePds(int boardNo);
-	int editPdsFile(@Param("boardNo") int boardNo, @Param("oldFileName") String oldFileName); 
-	int insertFiles(PdsVO vo); //파일 업로드 
-	List<PdsVO> selectFilesByBoardNo(int boardNo); // 게시글 번호로 파일 리스트 조회
-	int updateDownloadCount(int boardNo);
-	int getTotalRecord(SearchVO vo);
-	int selectIsFile(int boardNo);
+	//자료실
+	int insertPds(BoardVO vo); //자료실 DB에 파일 업로드 메서드
+	List<Map<String, Object>> selectPdsAll(SearchVO vo); //자료실 게시글 목록 조회 메서드
+	Map<String, Object> selectPds(int boardNo); //자료실 게시글 상세조회 메서드
+	int updatePds(BoardVO vo); //자료실 글 수정 메서드
+	int deletePds(int boardNo);//자료실 글 삭제 메서드
+	int editPdsFile(@Param("boardNo") int boardNo, @Param("oldFileName") String oldFileName); //자료실 게시글에 해당하는 파일 DB에서 삭제 메서드
+	int insertFiles(PdsVO vo); //자료실 게시판 DB에 파일 업로드 
+	List<PdsVO> selectFilesByBoardNo(int boardNo); //자료실 게시글에 업로드된 파일 조회 메서드
+	List<BoardVO> selectPdsNew5();//자료실 게시판 새 게시글 5개 조회 메서드
+	int updateDownloadCount(int boardNo); //자료실 파일 다운로드 횟수 증가 메서드
+	int getTotalRecord(SearchVO vo); //자료실 게시판 총 게시글 개수 조회 메서드
+	int selectIsFile(int boardNo); //자료실 게시판 해당 게시글에 업로드된 파일이 있는지 조회하는 메서드
+	
 	List<PdsVO> selFilesByNotice(int boardNo); // 공지사항 디테일 파일 리스트 조회
 	List<PdsVO> select24AnonymousImage();
 	int deleteAnonymousImg(PdsVO vo); //익명게시판 이미지 삭제
@@ -35,6 +38,4 @@ public interface PdsService {
 	int insertPdsByAnonymous(PdsVO vo);
 	int clubFiles(PdsVO pdsVo); //동호회 파일 업로드
 	
-	//NEW5
-	List<BoardVO> selectPdsNew5(); //자료실 new5 게시글 조회
 }

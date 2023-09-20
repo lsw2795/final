@@ -14,6 +14,4 @@ public class CommuteVO {
 	//수정용 변수
 	private String editInTime; //수정할 출근시간
 	private String editOutTime; //퇴근시간
-	
-	
 }

@@ -18,5 +18,4 @@ public class EmpSearchVO extends SearchVO{
 				+ startDate + ", lastDate=" + lastDate + ", toString()=" + super.toString() + "]";
 	}
 	
-	
 }
