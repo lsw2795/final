@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 
-사원뷰 - 내가 쓴 모든 게시글 조회 뷰
+사원뷰 - 마이페이지 내가 쓴 모든 게시글 조회 뷰
 내용 : 내가 쓴 모든 게시글 분류버튼으로 조회, 페이징처리, 검색기능, 카테고리 클릭시 해당 게시판 목록 이동,
 	  제목 클릭시 조회수 증가 ajax 처리 후 해당 게시글 상세보기 뷰 이동
 컨트롤러 : com.ez.gw.board.controller.BoardController  

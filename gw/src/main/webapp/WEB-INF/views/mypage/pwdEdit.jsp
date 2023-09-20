@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 마이페이지 비밀번호 수정 뷰
+내용 : AJAX를 이용한 기존 비밀번호 일치여부 확인, AJAX 비밀번호 수정 처리, 새 비밀번호 일치 여부 확인
+컨트롤러 : com.ez.gw.employee.controller.EmployeeController  
+작성자 : 송영은
+작성일 : 2023.08
+ -->     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
 <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
+		//새 비밀번호 일치 여부 확인 
 		$('#newPwd2').keyup(function(){
 		    if($('#newPwd').val() == $('#newPwd2').val()){
 		        $('#pwdConfirm').text('새 비밀번호와 확인이 일치합니다.').css('color', 'green');
@@ -15,7 +23,7 @@
 		});
 		
 		$('#btnEditPwd').click(function(){
-	        //submit실행 막고 유효성 검사로 내려감  
+	        //submit실행 막고 유효성 검사로 내려감. 유효성 검사 통과시 ajax 비밀번호 일치여부 조회  
 			event.preventDefault();
 	          
 	         if($('#pwd').val().length<1){
@@ -58,6 +66,7 @@
 	               $('#pwdChkFlag').val(res);
 	               
 	               if($('#pwdChkFlag').val()>0){
+	            	   //비밀번호 일치시 ajax 비밀번호 수정 진행
 	                  if(confirm('변경하시겠습니까?')){
 	                      //alert($.param($('#pwdEditfrm').serializeArray()));
 				         $.ajax({

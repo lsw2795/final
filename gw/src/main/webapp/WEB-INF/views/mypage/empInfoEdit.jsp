@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 
-사원뷰 - 사원정보 수정 뷰
+사원뷰 - 마이페이지 사원정보 수정 뷰
 내용 : 모든 input태그 유효성검사(/js/employee2.js), 사원 정보 조회, 비밀번호 수정 이동 
 	  비밀번호 일치시 수정 처리
 컨트롤러 : com.ez.gw.employee.controller.EmployeeController  
