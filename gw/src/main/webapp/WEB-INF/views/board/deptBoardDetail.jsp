@@ -552,7 +552,7 @@
                      	<div id="textAreaDiv${i }"></div>
                       </div>
 	                  <div class="col-auto mypageempdiv16">
-	                  	<div id="btnInsertRCMDiv${i }"></div>
+	                  	<div id="btnInsertRCMDiv${i }" style="display: flex;"></div>
 	                  </div>
                      </div>
 					  <c:set var="i" value="${i+1 }"/>
