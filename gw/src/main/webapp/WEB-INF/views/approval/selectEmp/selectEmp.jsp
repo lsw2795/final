@@ -6,10 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>참조자 선택</title>
-<!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <!-- jquery  -->
     <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
@@ -20,88 +16,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
-	<script type="text/javascript">
-    	$(function() {
-    		$('.a-select').click(function() {
-    		    // 해당 a 태그에 active 클래스 추가
-    		    $(this).addClass('active');
-    		    
-    		    // 클릭한 a 태그를 제외한 다른 a 태그들의 active 클래스 제거
-    		    $('.a-select').not(this).removeClass('active');
-    		});
-    		  
-    		$('#insert').click(function(){
-    			if($('#select').find('.selectName').length>0){
-			    	$('#select>.selectName').each(function(index,item){
-			    		var result=$(item).html();
-			    		if(index==0){
-			    			$(opener.document).find('#referEmpNameSpan').html(result);
-			    		}else{
-			    			$(opener.document).find('#referEmpNameSpan').append(", "+result);
-			    		}
-			    	});
-			    	
-			    	$('#select>.selectNo').each(function(index,item){
-			    		var result=$(item).html();
-			    		if(index==0){
-				    		$(opener.document).find('#referEmpNo').html(
-				    			"<input type='hidden' name='referEmpNo' value='"+result+"'>");
-			    		}else{
-				    		$(opener.document).find('#referEmpNo').append(
-				    			"<input type='hidden' name='referEmpNo' value='"+result+"'>");
-			    		}
-			    	});
-    			}else{
-			    	$(opener.document).find('#referEmpNameSpan').html("참조자를 선택하세요");
-				    $(opener.document).find('#referEmpNo').html("");
-    			}
-		    	
-		    	self.close();
-    		});
-    		
-    		$('#close').click(function(){
-		    	self.close();
-    		});
-		});
-    	
-    	function selectEmp() {
-    		var isDuplicate = false; 
-    		var selNo=$('.active>#empNo').val();
-    		var selName=$('.active>#empNameDiv').text();
-    		
-    		if(selNo==null){
-    			alert("참조자를 선택하세요");
-    			return;
-    		}
-    		
-    		$('#select>.selectNo').each(function(){
-    			if(selNo==$(this).html()){
-    				alert("중복된 참조자입니다");
-    				isDuplicate = true;
-    				return false;
-    			}
-    		});
-    		
-    		if(!isDuplicate){
-		    	var output="<span class='selectName' style='display: block;'>"+selName+
-		    		"</span><span class='selectNo' style='display: none;'>"+selNo+"</span>";
-		    	$('#select').append(output);
-    		}
-    		
-		    $('.a-select').removeClass('active');
-    	}
-    	
-    	function deleteEmp() {
-    		var lastSelectName = $('#select>.selectName:last');
-    		var lastSelectNo = $('#select>.selectNo:last');
-    		
-    	    if (lastSelectName.length > 0) {
-    	        lastSelectName.remove();
-    	        lastSelectNo.remove();
-    	    }
-    	}
-    	
-    </script>
+	<script src="<c:url value='/js/selectEmp.js'/>"></script>
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -112,11 +27,6 @@
     <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
     <link href="<c:url value='/assets/css/user-rtl.css'/>" rel="stylesheet" id="user-style-rtl">
     <link href="<c:url value='/assets/css/user.css'/>" rel="stylesheet" id="user-style-default">
-	 <style type="text/css">
-	    sel{
-	    	color: #2362b7;
-	    }
-    </style>
 </head>
 <body>
 	<div class="row gx-2 m-5" style="min-height: 600px;">
@@ -143,17 +53,21 @@
 			                    ${deptVo.name}
 		                  	</a>
 		                  	<ul class="nav collapse" id="${deptVo.deptNo }">
-		                  	<c:forEach var="employeeMap" items="${empList }">
-		                  	<c:if test="${deptVo.deptNo == employeeMap['DEPT_NO']}">
-				            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
-					        		<a class="a-select nav-link" href="#">
-			                    		<span class="nav-link-icon"><span class="fas fa-user"></span></span>
-					                	<div id="empNameDiv" style="display: inline;">${employeeMap['POSITION_NAME']} ${employeeMap['NAME']}</div>
-					                	<input type="hidden" id="empNo" value="${employeeMap['EMP_NO'] }">
-					                </a>
-				                </li>
-			                </c:if>
-			                </c:forEach>
+			                  	<c:forEach var="employeeMap" items="${empList }">
+				                  	<c:if test="${deptVo.deptNo == employeeMap['DEPT_NO']}">
+						            	<li class="nav-item" style="width: 100%"><!-- 사원 -->
+							        		<a class="a-select nav-link" href="#">
+					                    		<span class="nav-link-icon">
+					                    			<span class="fas fa-user"></span>
+					                    		</span>
+							                	<div id="empNameDiv" style="display: inline;">
+							                		${employeeMap['POSITION_NAME']} ${employeeMap['NAME']}
+							                	</div>
+							                	<input type="hidden" id="empNo" value="${employeeMap['EMP_NO'] }">
+							                </a>
+						                </li>
+					                </c:if>
+				                </c:forEach>
 							</ul>
 		        		</li>
 		        	</c:forEach>

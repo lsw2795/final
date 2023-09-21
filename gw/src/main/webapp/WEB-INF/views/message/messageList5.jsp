@@ -1,10 +1,8 @@
+<!-- 메인화면 쪽지 리스트 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script type="text/javascript">
-
-</script>
 <div class="card-body" style="background: white; height: 170px;">
 	<table style="width: 100%">
 		<tbody>
@@ -19,12 +17,12 @@
 						<td>
 							<img src="<c:url value='/images/last.JPG'/>">
 								${messageVo.sendName} : 
-								<c:if test="${messageVo.messageContent.length()>30 }">
-									 ${fn:substring(messageVo.messageContent,0,30) }...
-								</c:if>
-								<c:if test="${messageVo.messageContent.length()<=30 }">
-			                    	${messageVo.messageContent}
-								</c:if>
+							<c:if test="${messageVo.messageContent.length()>30 }">
+								${fn:substring(messageVo.messageContent,0,30) }...
+							</c:if>
+							<c:if test="${messageVo.messageContent.length()<=30 }">
+			                    ${messageVo.messageContent}
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
