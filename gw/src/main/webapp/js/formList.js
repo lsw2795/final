@@ -46,7 +46,7 @@
 				
 				if($('#editFormName').val().length>0){
 					//양식 수정 처리
-					$.ajax({
+					$.ajax({ //DocumentFormController
 				    	url:contextPath+"/document/searchFormNameAjax",
 				   		type:"post",
 				   		dataType:"json",
@@ -92,7 +92,7 @@
 			
 			//양식 추가 처리
 			if($('#formName').val().length>0){
-				$.ajax({
+				$.ajax({ //DocumentFormController
 			    	url:contextPath+"/document/searchFormNameAjax",
 			   		type:"post",
 			   		dataType:"json",
@@ -149,7 +149,7 @@
 	   	$('#editSecurityLevel').prop('disabled',true);
 	   	$('#editDeadline').prop('disabled',true);
 	   	
-		$.ajax({
+		$.ajax({ //DocumentFormController
 	    	url:contextPath+"/document/editSetAjax",
 	   		type:"post",
 	   		dataType:"json",

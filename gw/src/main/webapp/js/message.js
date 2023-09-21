@@ -4,6 +4,7 @@
 		/* messageWrite.jsp */
 		
 		//보내기 버튼 클릭시
+		//MessageContentController
 		$('form[name=frmMessageWrite]').submit(function(){
 			if($('#readerDiv').find('#reader').length==0){
 				alert("쪽지를 보낼 사람을 선택하세요.");
@@ -20,6 +21,7 @@
 		/* messageList.jsp */
 		
 		//쪽지함에서 보내기 버튼 클릭시
+		//MessageContentController
 		$('#frmMessageSend').submit(function(){
 			var reader=$('#frmMessageSend #reader').val();
 			var messageContent=$('#frmMessageSend #messageContent').val();
@@ -59,6 +61,7 @@
 			empNo=$('#InfoDiv').find('input[name=empNo]').val();
 			
 			if(confirm("메시지를 전체 삭제 하시겠습니까?")){
+				//MessageContentController
 				location.href=contextPath+"/message/allDelete?reader="+empNo;
 			}
 		});
@@ -124,7 +127,7 @@
 	    $('.LastMessage').not(a).find('.readDiv').removeClass('chat-contact');
 	    $('.LastMessage').not(a).find('.readDiv').removeClass('active');
 	    
-	    $.ajax({
+	    $.ajax({ //MessageContentController
 	    	url:contextPath+"/message/messageListClickAjax",
 	   		type:"post",
 	   		dataType:"json",
@@ -312,11 +315,13 @@
 	//메시지 내용에서 삭제 버튼 클릭시
 	function deleteMessage(reader,messageNo){
 		if(confirm("삭제하시겠습니까?")){
+			//MessageContentController
 			location.href=contextPath+"/message/messageDelete?messageNo="+messageNo+"&reader="+reader;
 		}
 	}
 	
 	//새쪽지 클릭시
 	function writePage(){
+		//MessageContentController
 		location.href=contextPath+"/message/messageWrite";
 	}
