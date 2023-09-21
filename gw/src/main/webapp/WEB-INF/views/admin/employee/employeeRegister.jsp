@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 사원 등록&수정 뷰
+내용 : 사원등록과 수정 모든 input태그 유효성검사(/js/employee.js), 사원 정보 조회(수정뷰), 
+	  AJAX와 모달을 이용한 등록 및 수정, 퇴사시 로그인한 관리자 비밀번호 확인완료 후 처리
+컨트롤러 : com.ez.gw.employee.controller.EmployeeController  
+작성자 : 송영은
+작성일 : 2023.08
+ --> 		
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript" src="<c:url value='/js/employee.js'/>"></script>

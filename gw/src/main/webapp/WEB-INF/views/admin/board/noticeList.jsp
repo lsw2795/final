@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 공지사항 목록 뷰
+내용 : 등록 이동, 수정 이동, 다중삭제, 페이징처리, 공지사항 제목또는 내용검색
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->  	
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">
@@ -20,16 +27,16 @@
 			} 
 		});
 	});
-		
+	//작성자 정보보기	
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
-	
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//공지사항 제목 또는 내용 검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}

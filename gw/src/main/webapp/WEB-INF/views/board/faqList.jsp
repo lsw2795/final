@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - FAQ 목록뷰
+내용 : FAQ 페이징처리, 검색, 아코디언을 이용한 제목과 내용 조회,CKEDITOR4 API를 이용한 이미지 파일 조회
+컨트롤러 : com.ez.gw.board.controller.FaqController
+작성자 : 송영은
+작성일 : 2023.08
+ -->    	
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
 <script type="text/javascript">	
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}

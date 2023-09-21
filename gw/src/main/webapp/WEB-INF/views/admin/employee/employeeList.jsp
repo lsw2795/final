@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 공지사항 등록&수정 뷰
+내용 : 사원 정보 조회, 페이징처리, 검색, POI API를 이용한 사원 데이터 엑셀 다운받기, 
+	  사원 정보보기, 사원정보 수정 페이지 이동, 사원 등록 페이지 이동,
+	  AJAX와 모달을 이용한 부서 생성, 부서 수정, 부서 삭제
+컨트롤러 : com.ez.gw.employee.controller.EmployeeController
+		 com.ez.gw.dept.controller.DeptController	  
+작성자 : 송영은
+작성일 : 2023.09
+ --> 	
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">	
 $(function(){
 	var bool=true;
+	//부서 이름 중복확인
 	$('#name1').keyup(function(){
 		 $.ajax({
 			url:"<c:url value='/admin/employee/checkDeptName'/>",
@@ -29,7 +40,9 @@ $(function(){
 		});//ajax 
 	});
 	
+	
 	$('#btnDeptWrite').click(function(){
+		//부서 유효성 검사 후 부서 생성
 		if($('#name1').val().length<1){
             alert("부서이름을 입력하세요.");
             $('#name1').focus();
@@ -78,6 +91,7 @@ $(function(){
 	});
             
      $('#name2').change(function(){
+    	//부서 수정 전 기존 내용 조회
  		var selectedValue=$('#name2').val();
  		//alert(selectedValue);
  		if(selectedValue<1){
@@ -138,6 +152,7 @@ $(function(){
 			
 			
 			$('#newname2').keyup(function(){
+				//부서 수정 처리 전 부서 이름 중복 확인
 		    	$.ajax({
 					url:"<c:url value='/admin/employee/checkDeptName2'/>",
 					type:"get",
@@ -174,6 +189,7 @@ $(function(){
      
      
     $('#btnDeptEdit').click(function(){
+    	//부서 수정 처리 전 유효성 검사
     	if($('#name2').val().length<1){
     		alert('수정할 부서를 선택하세요.');
     		$('#name2').focus();
@@ -231,6 +247,7 @@ $(function(){
      
 	
 	$('#btnDeptDelete').click(function(){
+		//부서 삭제
 		if($('#name3').val().length<1){
 			alert('삭제할 부서를 선택하세요.');
 			$('#name3').focus();
@@ -260,20 +277,20 @@ $(function(){
 		 }
 	});
 });
-
+//사원 목록 페이징 처리
 function pageFunc(curPage){
 	$('input[name="currentPage"]').val(curPage);
 	$('form[name="frmPage"]').submit();
 }
-
+//사원 정보 검색
 function submitForm() {
     document.getElementById('frmSearch').submit();
 }
-
+//사원 정보 보기 
 function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
-
+//사원 쪽지 보내기 
 function messageWrite(empNo) {
     window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
 }

@@ -1,20 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 부서게시판(동적 게시판) 목록뷰
+내용 : 부서 게시판(경영지원, 영업 등)의 게시판 이동 버튼, 해당 게시판 페이징처리와 검색처리,
+      게시글 상세보기, ajax 조회수 업데이트
+컨트롤러 : com.ez.gw.board.controller.DeptBoardController
+작성자 : 송영은
+작성일 : 2023.09
+ -->     
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">
 <script type="text/javascript">
+	//해당 부서게시판 페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//해당 부서게시판 검색기능 이용
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
+	//작성자 정보보기 
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
-	
+	//게시글의 제목 클릭시 조회수 증가 성공 후 상세보기 뷰 이동
 	function updateReadCount(boardlistNo, boardNo){
 		$.ajax({
             url: "<c:url value='/board/updateReadCount'/>",
@@ -77,18 +87,17 @@
 				</div>
 			</div>
 			
-			
 		<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card h-lg-100 overflow-hidden">
-				<c:if test="${empty param.boardlistNo }">
-					<div class="mypageempdiv18"><h1>부서 게시판을 선택해주세요.</h1></div>
-				</c:if>
-				<c:if test="${!empty param.boardlistNo }">
-					<div class="card-header py-2 mt-3">
-					<h5 class="mb-0">
-					<span class="fas fa-file" style="margin: 0 10px; font-weight: bold;"></span>
-					${boardlistVo.boardName} 게시판
-					</h5>
+			<c:if test="${empty param.boardlistNo }">
+				<div class="mypageempdiv18"><h1>부서 게시판을 선택해주세요.</h1></div>
+			</c:if>
+			<c:if test="${!empty param.boardlistNo }">
+			<div class="card-header py-2 mt-3">
+				<h5 class="mb-0">
+				<span class="fas fa-file" style="margin: 0 10px; font-weight: bold;"></span>
+				${boardlistVo.boardName} 게시판
+				</h5>
 			</div>
 			<div class="card-body table-responsive scrollbar">
 				<div class="card" id="allContactTable">
@@ -277,7 +286,6 @@
 							         <a href="#" id="otherPage" onclick="pageFunc(${i})">${i}</a>
 							    </c:if>   		
 							</c:forEach>
-							
 							<!-- 다음 블럭으로 이동 -->
 							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
 						         <a href="#" id="nextPage" onclick="pageFunc(${pagingInfo.lastPage+1})">
@@ -292,8 +300,5 @@
 			</c:if>
 			</div>
 		</div>
-		
-		
-		
 	</div>
 <%@ include file="../inc/bottom.jsp"%>

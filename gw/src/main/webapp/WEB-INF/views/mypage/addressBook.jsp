@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 마이페이지 주소록 목록뷰
+내용 : 사원 개개인이 등록한 주소록 목록 조회, AJAX와 모달을 이용한 연락처 추가, 연락처 수정, 연락처 다중삭제
+	  주소록 페이징처리, 검색기능
+컨트롤러 : com.ez.gw.addressbook.controller.AddressBookController
+작성자 : 송영은
+작성일 : 2023.09
+ -->         
 <%@ include file ="../inc/top.jsp"%>    
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">  
 <script type="text/javascript">
 	$(function(){
+		//테이블 체크박스 컬럼(th) 체크시 모든 td의 체크박스가 체크/해제 되도록 함
 		$('#chkAll').click(function(){
 			$('.chkItem').children('input[type=checkbox]').prop('checked',this.checked);
 		});
@@ -18,7 +27,7 @@
 				$("#addrbookEmail3").css("visibility", "hidden");
 			}
 		});
-		
+		//유효성 검사후 주소록 등록
 		$('#btnAddrWrite').click(function(){
 			var tel1=$('#addrbookTel1').val();
 			var tel2=$('#addrbookTel2').val();
@@ -100,10 +109,11 @@
 	            }
 	         });//ajax 
 		});
-		
+		//주소록 수정시 기존 수정할 주소록의 상세 내용 조회
 		$('#btnEdit').click(function(){
 			var checkModal=false;
 			var count= $('input[type=checkbox]:checked').length;
+			//수정시 하나만 체크해야함
 			if(count==1){
 				var addrbookNo=$('input[type=checkbox]:checked').val();
 				//alert(addrbookNo);
@@ -206,7 +216,7 @@
 				alert('수정할 주소록을 하나만 체크 바랍니다.');
 			}
 		});
-		
+		//유효성 검사 후 주소록 수정
 		$('#btnAddrEdit').click(function(){
 			var tel1=$('#2addrbookTel1').val();
 			var tel2=$('#2addrbookTel2').val();
@@ -291,11 +301,11 @@
 	            }
 	         });//ajax 
 		});
-		
+		//주소록 삭제 & 다중삭제
 		$('#btnDel').click(function(){
 			var count= $('input[type=checkbox]:checked').length;
 			var addrbookNo=$('input[name=addrbookNo]').val();
-			
+			//1개 이상 체크해야함
 			if(count<1){
 				alert('삭제하고 싶은 주소록을 먼저 체크하세요');
 			}
@@ -309,12 +319,12 @@
 		});
 		
 	});
-
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}

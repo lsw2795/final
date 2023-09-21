@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 공지사항 등록&수정 뷰
+내용 : CKEDITOR4 API를 이용한 이미지 등록, 첨부파일 등록, 첨부파일 삭제
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->  	    
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>

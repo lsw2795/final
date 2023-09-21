@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 부서게시판(동적 게시판) 등록 & 수정뷰
+내용 : 게시글 업로드 활성화시 파일 업로드 기능 추가, 등록&수정 뷰 모두 추가버튼과 제거버튼으로 다중파일 조절 가능
+	  수정 뷰 일 때 첨부파일 삭제버튼 클릭시 ajax 삭제 기능 추가
+	  CKEDITOR4 API를 이용한 이미지와 글꼴 등의 변경 기능 추가
+컨트롤러 : com.ez.gw.board.controller.DeptBoardController
+작성자 : 송영은
+작성일 : 2023.09
+ -->         
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script src="<c:url value='/vendors/ckeditor/ckeditor.js'/>"></script>
@@ -7,7 +16,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#title').focus();
-		
+		//유효성검사 후 등록
 		$('input[type=submit]').click(function(){
 			if($('input[name=title]').val().trim().length<1){
 				alert("제목을 입력하세요.");
@@ -22,24 +31,24 @@
 			    return false;
 			}
 		});		
-		
+		//첨부파일 개수 추가
 		$('#btnAddFile').click(function(){
 			var num = $('input[type=file]').length+1;
 			 var newInput = $("<input type='file' name='files" + num + "' class='form-control admindefault' style='margin:5px 0px;'/>");
 			 $('#inputFiles').append(newInput);
 		});
-		
+		//첨부파일 개수 제거
 		$('#btnDelFile').click(function(){
 			 $('input[type=file]:last').remove();
 		});
-
+		//등록시 첨부파일 올리고 싶지 않을 때 기능
 		$('.FileDelete').click(function(){
 			$(this).prev().remove();
 	        $(this).remove();
 	      
 		});
 	});
-	
+	//수정시 등록된 첨부파일 삭제 ajax
 	function FileDelete(index) {
 	    var pdsNo = $('#pdsNo' + index).val();
 	    var oldFileName = $('#oldFileName'+ index).val();

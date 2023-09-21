@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - indexMain.jsp에 c:import 태그 이용한 공지사항 최신 5건 조회
+내용 : 제목 클릭시 조회수 증가 ajax 처리 후 사원뷰 - 공지사항 상세뷰 이동
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->  	    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
+	//조회수 증가 ajax
 	function updateReadCount(boardNo){
 		$.ajax({
 	        url: "<c:url value='/board/updateReadCount'/>",
