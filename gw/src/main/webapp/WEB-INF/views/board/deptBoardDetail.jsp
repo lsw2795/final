@@ -12,7 +12,16 @@
 작성일 : 2023.09
  -->     
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
+<link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">
+<style type="text/css">
+ #CMDiv {
+    display: flex;
+  }
+ #commentContent {
+    flex: 1;
+    margin-right: 10px;
+  }
+</style>   
 <script type="text/javascript">
 	$(function(){
 		//게시글 작성자에게 보이는 삭제버튼 
@@ -329,7 +338,7 @@
 	<input type="hidden" name="boardlistNo" value=${param.boardlistNo }>
 	<input type="hidden" name="boardNo" value=${param.boardNo }>
 </form>	
-<div class="card mb-3">
+<div class="card mb-3" id="mybody">
             <div class="card-body d-flex justify-content-between ">
                <div class="d-lg-flex">
               	 <a class=" btn btn-falcon-default btn-sm" 
@@ -474,13 +483,9 @@
                     	  </a>
                    	   </div>
                       </div>
-                      <div class="row mb-3 d-flex align-items-center">
-                      	<div class="col-md-11 mypageempdiv1">
+                      <div id="CMDiv">
                         <textarea class="form-control" id="commentContent" name="content" rows="3"></textarea>
-                      	</div>
-	                      <div class="col-auto mypageempdiv16">
-	            			<input type="submit" id="btnInsertCM" value="등록" class="btn btn-outline-primary" style="height:82px;"/>
-	                      </div>
+            			<input type="submit" id="btnInsertCM" value="등록" class="btn btn-outline-primary" style="height:82px;"/>
                       </div>
                       </form>
                       </div>
@@ -547,7 +552,7 @@
                      	<div id="textAreaDiv${i }"></div>
                       </div>
 	                  <div class="col-auto mypageempdiv16">
-	                  	<div id="btnInsertRCMDiv${i }"></div>
+	                  	<div id="btnInsertRCMDiv${i }" style="display: flex;"></div>
 	                  </div>
                      </div>
 					  <c:set var="i" value="${i+1 }"/>
