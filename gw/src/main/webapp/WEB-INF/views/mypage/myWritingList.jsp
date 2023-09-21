@@ -1,17 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 마이페이지 내가 쓴 모든 게시글 조회 뷰
+내용 : 내가 쓴 모든 게시글 분류버튼으로 조회, 페이징처리, 검색기능, 카테고리 클릭시 해당 게시판 목록 이동,
+	  제목 클릭시 조회수 증가 ajax 처리 후 해당 게시글 상세보기 뷰 이동
+컨트롤러 : com.ez.gw.board.controller.BoardController  
+작성자 : 송영은
+작성일 : 2023.08
+ -->    
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">    
-<script type="text/javascript">	
+<script type="text/javascript">
+	//페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//검색
 	function submitForm() {
 	    document.getElementById('frmSearch').submit();
 	}
-	
+	//조회수 증가 ajax
 	function updateReadCount(boardlistNo, boardNo){
 		$.ajax({
             url: "<c:url value='/board/updateReadCount'/>",
@@ -109,34 +118,42 @@
                       <c:if test="${!empty boardList }">
                       <c:forEach var="map" items="${boardList }">
                         <tr class="mypageemptr">
-                           <c:if test="${map['BOARDLIST_NO']<100}">	                          
-                         	<td class="align-middle"><a href="<c:url value='/board/deptBoard?boardlistNo=${map["BOARDLIST_NO"]}'/>">${map['BOARD_NAME']}</a></td>
-                          	 <td class="align-middle"><a href="#" onclick="updateReadCount(${map['BOARDLIST_NO']},${map['BOARD_NO']});">${map['TITLE']}</a></td>
-                          </c:if>
+                        <!-- 부서 게시판(동적 게시판) -->
+                         <c:if test="${map['BOARDLIST_NO']<100}">	                          
+                       		<td class="align-middle"><a href="<c:url value='/board/deptBoard?boardlistNo=${map["BOARDLIST_NO"]}'/>">${map['BOARD_NAME']}</a></td>
+                        	<td class="align-middle"><a href="#" onclick="updateReadCount(${map['BOARDLIST_NO']},${map['BOARD_NO']});">${map['TITLE']}</a></td>
+                         </c:if>
+                         <!-- 사내 중고거래 게시판 --> 
 						  <c:if test="${map['BOARDLIST_NO']==100}">	                          
                           	<td class="align-middle"><a href="<c:url value='/market/marketList'/>">${map['BOARD_NAME']}</a></td>
-                          		<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
+                          	<td class="align-middle"><a href="<c:url value='/market/marketDetail?tradeNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                         <!-- 동호회 게시판 -->
                           <c:if test="${map['BOARDLIST_NO']==200}">	                          
                           	<td class="align-middle"><a href="<c:url value='/club/clubList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/club/clubBoard?clubNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                         <!-- Q&A 게시판 -->
                           <c:if test="${map['BOARDLIST_NO']==1000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/qna/list'/>">${map['BOARD_NAME']}</a></td>
                          	<td class="align-middle"><a href="<c:url value='/qna/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                          <!-- 공지사항 게시판 -->
                           <c:if test="${map['BOARDLIST_NO']==2000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/board/noticeList'/>">${map['BOARD_NAME']}</a></td>
                           	 <td class="align-middle"><a href="#" onclick="updateReadCount(${map['BOARDLIST_NO']},${map['BOARD_NO']});">${map['TITLE']}</a></td>
                           </c:if>
+                          <!-- 자료실 게시판 -->
                           <c:if test="${map['BOARDLIST_NO']==3000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/pds/list'/>">${map['BOARD_NAME']}</a></td>
                          	<td class="align-middle"><a href="<c:url value='/pds/detail?boardNo=${map["BOARD_NO"]}'/>">${map['TITLE']}</a></td>
                           </c:if>
+                          <!-- FAQ 게시판 -->
                           <c:if test="${map['BOARDLIST_NO']==4000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/board/faqList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/board/faqList'/>">${map['TITLE']}</a></td>
                           </c:if>
+                          <!-- 익명 게시판 -->
                            <c:if test="${map['BOARDLIST_NO']==5000}">	                          
                           	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['BOARD_NAME']}</a></td>
                           	<td class="align-middle"><a href="<c:url value='/anonymous/boardList'/>">${map['TITLE']}</a></td>

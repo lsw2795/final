@@ -1,15 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 부서게시판(동적 게시판) 상세뷰
+내용 : 게시글 좋아요 활성화시 ajax 이용한 좋아요 등록, 좋아요 감소, 좋아요 재증가 처리
+	  게시글 업로드 활성화시 업로드한 첨부파일 제목+용량 조회(여러개 파일 등록시 누적으로 보이도록 함)
+	  게시글 댓글 입력 활성화시 ajax 이용한 댓글 등록,수정,삭제 답글 등록,수정,삭제 처리
+	  게시글 작성자 공개여부 활성화시 작성자의 정보와 댓글,답글 작성자의 정보 조회와 정보보기 처리
+	  이전글과 다음글 ajax 활용한 조회수 증가 처리
+컨트롤러 : com.ez.gw.board.controller.DeptBoardController
+작성자 : 송영은
+작성일 : 2023.09
+ -->     
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">   
 <script type="text/javascript">
 	$(function(){
+		//게시글 작성자에게 보이는 삭제버튼 
 		$('#btnDelete').click(function(){
 			if(confirm('정말 삭제하시겠습니까?')){
 				location.href="<c:url value='/board/deptBoardDelete?boardlistNo=${boardlistVo.boardlistNo}&boardNo=${param.boardNo }'/>";
 			}
 		});
-		
+		//댓글 등록 활성화시 유효성 검사 진행 후 댓글 등록 처리
 		$('#btnInsertCM').click(function(){
 			if($('#commentContent').val().length<10){
 				alert('댓글 등록을 위해서는 최소 10글자 입력이 필요합니다.');
@@ -34,17 +46,17 @@
 	            } 
 	        });//ajax
 		});
-		
+		//댓글 등록전 취소 버튼 클릭시 새로고침
 		$('.btnCancelCM').click(function(){
 			location.reload();
 		});
 		
 	});
-
+	//게시글 작성자, 댓글, 답글 작성자의 각각 정보보기
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
-	
+	//댓글+답글 수정 
 	function btnCmEdit(index){
 		var commentNo=$('#commentNo'+index).val();
 		//alert(commentNo);
@@ -90,7 +102,7 @@
 	        });//ajax
 		});
 	}
-	
+	//댓글+답글 삭제
 	function btnCmDel(index){
 		if(confirm('댓글을 삭제하시겠습니까?')){
 		var boardlistNo='<%= request.getParameter("boardlistNo") %>';
@@ -117,7 +129,7 @@
 			
 		}
 	}
-	
+	//답글 등록
 	function insertRCM(index){
 		var email=$('#email').val();
 		var name=$('#name').val();
@@ -185,12 +197,12 @@
 		});
 		
 	}
-	
+	//댓글 페이징처리
 	function pageFunc(curPage){
 		$('input[name="currentPage"]').val(curPage);
 		$('form[name="frmPage"]').submit();
 	}
-	
+	//좋아요 활성화시 조회수 최초클릭 - 데이터 등록처리
 	function deptBoardLikeOn(){
 		var boardNo=$('#boardNo').val();
 		var empNo=$('#empNo').val();
@@ -223,7 +235,7 @@
 		
 	}
 	
-	
+	//좋아요 활성화시 좋아요 취소버튼(좋아요 -1 업데이트)
 	function deptBoardLikeOff(){
 		var boardNo=$('#boardNo').val();
 		var empNo=$('#empNo').val();
@@ -255,7 +267,7 @@
 	        });//ajax
 		}
 	}
-	
+	//좋아요 활성화시 다시 좋아요 버튼 클릭(좋아요 +1 업데이트)
 	function deptBoardLikeOn2(){
 		var boardNo=$('#boardNo').val();
 		var empNo=$('#empNo').val();
@@ -285,7 +297,7 @@
             } 
         });//ajax
 	}
-	
+	//이전글, 다음글 조회수 증가 
 	function updateReadCount(boardlistNo, boardNo){
 		$.ajax({
             url: "<c:url value='/board/updateReadCount'/>",
@@ -333,6 +345,7 @@
             <div class="card-header ">
               <div class="row">
                 <div class="col-md d-flex">
+                  <!-- 게시글 작성자 공개 여부 -->
                	  <c:if test="${boardlistVo.secflag=='Y'}">
                   <div class="avatar avatar-2xl">
                     <img class="rounded-circle" src="<c:url value='/images/${map["IMAGE"]}'/>" alt="사원 이미지"/>
@@ -352,6 +365,7 @@
                   </div>
                 </div>
                 <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3">
+                 <!-- 좋아요 허용 여부 -->
                 	<c:if test="${boardlistVo.boardLike=='Y' && sessionScope.empNo!=map['EMP_NO']}">
                 		<c:if test="${empty likeVo}">
 	                		<a href="#" id="heart1" style="float: right;" onclick="deptBoardLikeOn();">
@@ -395,6 +409,7 @@
                       <p>${map['CONTENT']}</p>
                     </div>
                   </div>
+                   <!-- 게시글 첨부파일 업로드 허용 여부 -->
                   <c:if test="${boardlistVo.uploadFlag=='Y'}">
                   <div class="shadow-none mb-3 " style="background: #f9fafd;">
                       <h6 style="color: black;">첨부 파일</h6>
@@ -411,6 +426,7 @@
                      </c:if>
                   </div>
                   </c:if>
+                  <!-- 이전글과 다음글 -->
                   <div style="font-size: 18px;">
                 	<c:if test="${empty prevMap['MAX(BOARD_NO)']}">
 	                 이전 글이 없습니다.
@@ -434,7 +450,7 @@
                 </div>
             </div>
             
-            
+             <!-- 댓글 허용 여부 -->
             	<c:if test="${boardlistVo.commentFlag=='Y'}">
                 <div class="card-header">
                   <h5 class="mb-0">댓글</h5>
@@ -567,12 +583,8 @@
 						<!--  페이지 번호 끝 -->
 					</div>
 				</div>
-                 
-                 
-                  </div>
-                </div>
-                </c:if>
-            </div>
-                  
-         
+               </div>
+             </div>
+             </c:if>
+         </div>
 <%@ include file="../inc/bottom.jsp"%>

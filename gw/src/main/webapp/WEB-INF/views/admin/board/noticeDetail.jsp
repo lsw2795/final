@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - 공지사항 상세 뷰
+내용 : CKEDITOR4로 등록한 이미지,글꼴 등의 내용 조회, 첨부파일 다운로드 기능, 
+	  게시글 삭제, 수정 이동, 이전글과 다음글 이동
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->  
 <%@ include file='../../inc/adminTop.jsp'%>
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
 <script type="text/javascript">

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+관리자뷰 - FAQ 등록&수정 뷰
+내용 : FAQ 일반등록, 수정, CKEDITOR4 API 이용한 이미지 등록
+컨트롤러 : com.ez.gw.board.controller.FaqController
+작성자 : 송영은
+작성일 : 2023.08
+ -->   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="<c:url value='/assets/css/theme.css'/>" rel="stylesheet" id="style-default">
 <link rel="stylesheet" href="<c:url value='/css/adminempform.css'/>">
@@ -52,7 +59,7 @@
 		                alert(status+" : "+error);
 		            } 
 		        });//ajax
-			}else if(boardNo!=0){
+			}else if(boardNo!=0){ //수정 ajax
 				$.ajax({
 		            url: "<c:url value='/admin/board/ajaxUpdateFAQ'/>",
 		            type:'get',

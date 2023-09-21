@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 조직도 조회 뷰
+내용 : 부서 클릭시 해당 소속 사원 목록 조회, 사원클릭시 해당 사원 정보보기 창 생성,
+      사원검색 ajax 처리(페이징처리 포함) 
+컨트롤러 : com.ez.gw.dept.controller.DeptController
+		 com.ez.gw.employee.controller.EmployeeController  
+작성자 : 송영은
+작성일 : 2023.08
+ -->        
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
@@ -8,17 +17,18 @@
 <script type="text/javascript" src="<c:url value='/js/paging.js'/>"></script>
 <script type="text/javascript">
 $(function(){
+	//다른 부서 클릭시 기존 클릭한 부서 목록 아코디언 식으로 들어가도록 처리
     $('.btnDept').click(function () {
    	    var target = $(this).data('bs-target');
         var $targetElement = $(target);
         $('.collapse.show').not($targetElement).collapse('hide');
         $targetElement.collapse('toggle');
     });   
-    
+    //사원 검색시 1페이지 고정
     $('#btnSearch').click(function(){
     	send(1);
     });
-    
+    //검색시 enter로 버튼 클릭 키능 활성화
     $('input[type=search]').keyup(function(event) {
         if (event.keyCode === 13 || event.key === 'Enter') {
         	send(1);
@@ -26,7 +36,7 @@ $(function(){
     });
     
 });
-
+//부서 열고 닫기 아코디언 연출
 function btnCss(index) {
     var $btn = $('.btnDept').eq(index);
     
@@ -39,15 +49,15 @@ function btnCss(index) {
         $btn.find('span').html('▶');
     }
 }
-
+//사원 정보보기
 function empDetail(empNo) {
     window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 }
-
+//사원 쪽지보내기
 function messageWrite(empNo) {
     window.location.href = "<c:url value='/message/messageWrite?empNo='/>"+empNo;
 }
-
+//ajax 검색기능 처리
 function send(curPage){
 	$('#currentPage').val(curPage);
 	
@@ -79,6 +89,7 @@ function send(curPage){
             $('#currentPage').val(res.pagingInfo.currentPage);
             $('#countPerPage').val(res.pagingInfo.recordCountPerPage);
             $('#firstRecordIndex').val(res.pagingInfo.firstRecordIndex);
+            //페이징처리 포함
             pageMake(curPage);
         } else {
             var result = "검색결과가 없습니다.";

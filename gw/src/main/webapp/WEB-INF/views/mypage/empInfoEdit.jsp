@@ -1,16 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 마이페이지 사원정보 수정 뷰
+내용 : 모든 input태그 유효성검사(/js/employee2.js), 사원 정보 조회, 비밀번호 수정 이동 
+	  비밀번호 일치시 수정 처리
+컨트롤러 : com.ez.gw.employee.controller.EmployeeController  
+작성자 : 송영은
+작성일 : 2023.08
+ -->     
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/mypageempform.css'/>">
 <script type="text/javascript" src="<c:url value='/js/employee2.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function(){
+	//취소 버튼 클릭시 새로고침
 	$('#empEditcancel').click(function(){
 		location.reload();
 	});
 });
-
+//비밀번호 수정 창 생성
 function btnpwdEdit(empNo){
 	 window.open("<c:url value='/mypage/pwdEdit?empNo='/>"+empNo,'pwdEdit','width=450,height=400,top=200,left=600,location=yes,resizable=yes');
 }

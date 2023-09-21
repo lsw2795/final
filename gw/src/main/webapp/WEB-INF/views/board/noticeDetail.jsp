@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 
+사원뷰 - 공지사항 상세 뷰
+내용 : CKEDITOR4로 등록한 이미지,글꼴 등의 내용 조회, 첨부파일 다운로드 기능, 이전글과 다음글 이동
+컨트롤러 : com.ez.gw.board.controller.NoticeController	  
+작성자 : 송영은
+작성일 : 2023.08
+ -->      
 <%@ include file = "../inc/top.jsp" %>
 <link rel="stylesheet"href="<c:url value='/css/mypageempform.css'/>">
  <script type="text/javascript">
+ 	//작성자 정보보기
 	function empDetail(empNo) {
 	    window.open("<c:url value='/mypage/empDetail?empNo='/>"+empNo,'empDetail', 'width=320,height=550,top=300,left=700,location=yes,resizable=yes');
 	}
-	
+	//이전글,다음글 조회수 증가 ajax
 	function updateReadCount(boardlistNo, boardNo){
 		$.ajax({
             url: "<c:url value='/board/updateReadCount'/>",
