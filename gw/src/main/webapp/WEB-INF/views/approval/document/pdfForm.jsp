@@ -1,3 +1,4 @@
+<!-- 결재 문서 출력 폼 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,25 +16,25 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
 
 <script type="text/javascript">
-$(function(){
-	const no=document.getElementById("confirmDocumentNo").value;
-	const name=document.getElementById("formName").value;
-	const element=document.getElementById("pdf");
-	const options = {
-		margin: 0, // 여백 설정
-		filename: no+' '+name+'.pdf', // 저장될 파일 이름
-		html2canvas: { scale: 5 }, // html2canvas 옵션
-		jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // jsPDF 옵션
-	};
-
-	html2pdf().from(element).set(options).save();
+	$(function(){
+		const no=document.getElementById("confirmDocumentNo").value;
+		const name=document.getElementById("formName").value;
+		const element=document.getElementById("pdf");
+		const options = {
+			margin: 0, // 여백 설정
+			filename: no+' '+name+'.pdf', // 저장될 파일 이름
+			html2canvas: { scale: 5 }, // html2canvas 옵션
+			jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // jsPDF 옵션
+		};
 	
-	setTimeout(function() {
-		alert("이전 페이지로 돌아갑니다.");
-		history.back();
-		}, 3000);
-	
-});
+		html2pdf().from(element).set(options).save();
+		
+		setTimeout(function() {
+			alert("이전 페이지로 돌아갑니다.");
+			history.back();
+			}, 3000);
+		
+	});
 </script>
 </head>
 <body>

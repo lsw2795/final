@@ -1,12 +1,9 @@
+<!-- 메인 결재문서 리스트 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script type="text/javascript">
-	function approvalDetail(no,title){
-		window.open("<c:url value='/approval/approvalDetail?confirmDocumentNo="+no+"&title="+title+"'/>","_blank","width=1000, height=600");
-	}
-</script>
+<script src="<c:url value='/js/approval.js'/>"></script>
 <div class="card-body pt-2" style="background: white; height: 170px;">
 	<table style="width: 100%">
 		<tbody>
@@ -33,17 +30,20 @@
 						<td align="right">
 							<c:if test="${map['STATE']=='반려' }">
 							    <span class="badge badge rounded-pill p-2 badge-subtle-warning">
-							    	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
+							    	<b class="state">${map['STATE']}</b>
+							    	<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span>
 								</span>
 							</c:if> 
 							<c:if test="${map['STATE']=='완료' }">
 							    <span class="badge badge rounded-pill p-2 badge-subtle-success">
-									<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+									<b class="state">${map['STATE']}</b>
+									<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
 								</span>
 							</c:if>
 							<c:if test="${map['STATE']!='완료' and map['STATE']!='반려' }">
 								<span class="badge badge rounded-pill p-2 badge-subtle-primary">
-							    	<b class="state">${map['STATE']}</b><span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
+							    	<b class="state">${map['STATE']}</b>
+							    	<span class="ms-1 fas fa-user" data-fa-transform="shrink-2"></span>
 								</span>
 							</c:if>
 						</td>

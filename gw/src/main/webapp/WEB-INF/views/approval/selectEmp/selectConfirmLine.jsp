@@ -1,3 +1,4 @@
+<!-- 결재라인 선택 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,11 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결재선 선택</title>
-<!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <!-- jquery  -->
+<title>결재라인 선택</title>
     <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
@@ -20,52 +17,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("input[name='chkLine']").change(function() {
-	            if ($(this).is(":checked")) {
-	            	$("input[name='chkLine']").not(this).prop("checked", false);
-	            }
-	        });
-			
-			$('#select').click(function(){
-				var confirmLineNo="";
-				var chk="";
-				var str="";
-				if (!$("input[name='chkLine']").is(":checked")) {
-	     	     	alert("결재선을 선택하세요");
-	               	return false;
-				}
-				
-				$("input[name='chkLine']:checked").each(function() {
-	                confirmLineNo=($(this).val());
-	                chk=$(this).parent().parent();
-	            });
-				$(opener.document).find("#confirmLineNo").val(confirmLineNo);
-				
-				for(var i=1; i<4; i++){
-					str=$(chk).find("td:eq("+i+")").text();
-					$(opener.document).find("#confirm"+i+"_Name").html(str)
-				}
-				window.close();
-			});
-			
-			$('#close').click(function(){
-				window.close();	
-			});
-		});
-		
-		function lineDel(no,bt){
-			var chkLine=$(bt).parent().parent().find('input[name=chkLine]');
-			if(!chkLine.is(':checked')){
-				alert('삭제할 결재선을 선택하세요');
-			}else{
-				if(confirm("선택한 결재선을 삭제하시겠습니까?")){
-					location.href="<c:url value='/confirm/deleteConfirmLine?confirmLineNo="+no+"'/>";
-				}
-			}
-		}
-	</script>
+	<script src="<c:url value='/js/confirmLine.js'/>"></script>
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -81,45 +33,45 @@
 	<div class="row gx-2 m-5">
 		<div class="col-sm-12 mb-3">
 			<div class="card h-lg-100 overflow-hidden">
-			<span style="display: none;"></span>
+				<span style="display: none;"></span>
 				<div class="card-header bg-light">
 					결재선 선택
 				</div>
 				<div class="card-body LineSelectDiv" style="overflow: auto;">
 		        	<div class="table-responsive scrollbar p-0">
-					  <table class="table m-auto" border="1" style="text-align: center; width: 500px;">
-					    <thead>
-					      <tr>
-					        <th style="width: 15%">선택</th>
-					        <th>검토자</th>
-					        <th>확인자</th>
-					        <th>승인자</th>
-					        <th style="width: 15%">삭제</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					    <c:if test="${empty lineList }">
-					    	<tr>
-					    		<td colspan="5">생선된 결재라인이 없습니다</td>
-						 	</tr>				    
-					    </c:if>
-					    <c:if test="${!empty lineList }">
-						    <c:forEach var="map" items="${lineList }">
-							    <tr>
-							    	<td>
-								       	<input class="form-check-input" type="checkbox" name="chkLine" value="${map['CONFIRM_LINE_NO']}">
-							        </td>
-							        <td>${map['CONFIRM1NAME']}</td>
-							        <td>${map['CONFIRM2NAME']}</td>
-							        <td>${map['CONFIRM3NAME']}</td>
-							        <td>
-							          	<button class="btn btn-link p-0 ms-2" type="button" onclick="lineDel('${map['CONFIRM_LINE_NO']}',this)" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><span class="text-500 fas fa-trash-alt"></span></button>
-							        </td>
-							    </tr>
-						    </c:forEach>
-					    </c:if>
-					    </tbody>
-					  </table>
+						<table class="table m-auto" border="1" style="text-align: center; width: 500px;">
+						    <thead>
+						       	<tr>
+							        <th style="width: 15%">선택</th>
+							        <th>검토자</th>
+							        <th>확인자</th>
+							        <th>승인자</th>
+							        <th style="width: 15%">삭제</th>
+						      	</tr>
+						    </thead>
+						    <tbody>
+							    <c:if test="${empty lineList }">
+							    	<tr>
+							    		<td colspan="5">생선된 결재라인이 없습니다</td>
+								 	</tr>				    
+							    </c:if>
+							    <c:if test="${!empty lineList }">
+								    <c:forEach var="map" items="${lineList }">
+									    <tr>
+									    	<td>
+										       	<input class="form-check-input" type="checkbox" name="chkLine" value="${map['CONFIRM_LINE_NO']}">
+									        </td>
+									        <td>${map['CONFIRM1NAME']}</td>
+									        <td>${map['CONFIRM2NAME']}</td>
+									        <td>${map['CONFIRM3NAME']}</td>
+									        <td>
+									          	<button class="btn btn-link p-0 ms-2" type="button" onclick="lineDel('${map['CONFIRM_LINE_NO']}',this)" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"><span class="text-500 fas fa-trash-alt"></span></button>
+									        </td>
+									    </tr>
+								    </c:forEach>
+							    </c:if>
+						    </tbody>
+					  	</table>
 					</div>
 				</div>		
 			</div>		

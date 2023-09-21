@@ -1,0 +1,20 @@
+.admin-card, #messageContent {
+	background: white;
+	color: black;
+}
+
+.chat-message {
+    color: white;
+}
+
+.chat-contacts-search {
+	background-color: white;
+}
+
+.chat-contact {
+	background-color: whitesmoke;
+}
+
+h5 {
+	color: black;
+}

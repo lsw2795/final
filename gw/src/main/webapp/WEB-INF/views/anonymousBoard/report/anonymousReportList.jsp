@@ -1,33 +1,9 @@
+<!-- 익명게시판 신고글리스트 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../inc/adminTop.jsp" %>
-<script type="text/javascript">
-	function pageFunc(curPage){
-		$('input[name="currentPage"]').val(curPage);
-		$('form[name="frmSearch"]').submit();
-	}
-	
-	function search(){
-		$('input[name="currentPage"]').val('1');
-		$('form[name="frmSearch"]').submit();
-	}
-	
-	function statusUpdate(reportNo,status,tr){
-		window.open("<c:url value='/report/anonymousReportDetail?reportNo="+reportNo+"'/>","_blank","width=500,height=680 left=750 top=150")
-	}
-	
-</script>
-
-<style>
-	.admin-card {
-	    background: white;
-	    color: black;
-	}
-	
-	a.btn {
-   		background: white;
-	}
-</style>
+<script src="<c:url value='/js/adminAnonymous.js'/>"></script>
+<link href="<c:url value='/css/adminAnonymous.css'/>" rel="stylesheet">
 <div class="container p-0">
 	<div class="col-12-lg pe-lg-2 mb-3">
 		<div class="card admin-card h-lg-100 overflow-hidden">
@@ -48,19 +24,19 @@
 						<label class="form-label" for="confirmDocumentNo">신고유형</label>
 						<select class="form-select" name="searchKeyword">
 							<option value="0"
-							<c:if test="${reportVO.searchKeyword==0}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.searchKeyword==0}">
+									selected="selected"
+								</c:if>
 							>선택하세요</option>
 							<option value="1"
-							<c:if test="${reportVO.searchKeyword==1}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.searchKeyword==1}">
+									selected="selected"
+								</c:if>
 							>게시글</option>
 							<option value="2"
-							<c:if test="${reportVO.searchKeyword==2}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.searchKeyword==2}">
+									selected="selected"
+								</c:if>
 							>댓글</option>
 						</select>
 					</div>
@@ -83,23 +59,21 @@
 					<div class="col-md-4">
 					    <label class="form-label" for="reportStatus">처리상태</label>
 					    <select class="form-select" name="reportStatus" id="reportStatus">
-							<option value="-1"
-								selected="selected"
-							>전체</option>
+							<option value="-1" selected="selected">전체</option>
 							<option value="0"
-							<c:if test="${reportVO.reportStatus==0}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.reportStatus==0}">
+									selected="selected"
+								</c:if>
 							>대기</option>
 							<option value="2"
-							<c:if test="${reportVO.reportStatus==2}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.reportStatus==2}">
+									selected="selected"
+								</c:if>
 							>보류</option>
 							<option value="1"
-							<c:if test="${reportVO.reportStatus==1}">
-								selected="selected"
-							</c:if>
+								<c:if test="${reportVO.reportStatus==1}">
+									selected="selected"
+								</c:if>
 							>완료</option>
 						</select>
 					</div>
@@ -179,26 +153,26 @@
 				</div>
 			</div>
 			<div class="card-footer border-top d-flex justify-content-center">
-			<c:if test="${pagingInfo.firstPage>1 }">
-     			<button class="btn btn-falcon-default btn-sm me-2" onclick="pageFunc(${pagingInfo.firstPage-1})" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev">
-     				<span class="fas fa-chevron-left"></span>
-     			</button>
-     		</c:if>
+				<c:if test="${pagingInfo.firstPage>1 }">
+	     			<button class="btn btn-falcon-default btn-sm me-2" onclick="pageFunc(${pagingInfo.firstPage-1})" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev">
+	     				<span class="fas fa-chevron-left"></span>
+	     			</button>
+	     		</c:if>
      		
-     		<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
-     			<c:if test="${i == pagingInfo.currentPage }">
-	     			<a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">${i }</a>
-     			</c:if>
-     			<c:if test="${i != pagingInfo.currentPage }">
-	     			<a class="btn btn-sm btn-falcon-default me-2" onclick="pageFunc(${i})" href="#!">${i }</a>
-     			</c:if>
-     		</c:forEach>
+	     		<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+	     			<c:if test="${i == pagingInfo.currentPage }">
+		     			<a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">${i }</a>
+	     			</c:if>
+	     			<c:if test="${i != pagingInfo.currentPage }">
+		     			<a class="btn btn-sm btn-falcon-default me-2" onclick="pageFunc(${i})" href="#!">${i }</a>
+	     			</c:if>
+	     		</c:forEach>
      		
-     		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-     			<button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next">
-     				<span class="fas fa-chevron-right"></span>
-     			</button>
-     		</c:if>
+	     		<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+	     			<button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next">
+	     				<span class="fas fa-chevron-right"></span>
+	     			</button>
+	     		</c:if>
    			</div>
 		</div>
 	</div>

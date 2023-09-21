@@ -1,3 +1,4 @@
+<!-- 익명게시판 신고글 상세보기 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,10 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>익명게시판 신고글 상세보기</title>
-<!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <!-- jquery  -->
     <script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/assets/img/favicons/apple-touch-icon.png'/>">
     <link rel="icon" type="image/png" sizes="32x32" href="<c:url value='/assets/img/favicons/favicon-32x32.png'/>">
@@ -21,45 +18,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="<c:url value='/assets/js/config.js'/>"></script>
     <script src="<c:url value='/vendors/simplebar/simplebar.min.js'/>"></script>
-	<script type="text/javascript">
-    	$(function() {   		  
-    		$('#statusUpdate').click(function(){
-    			$.ajax({
-			    	url:"<c:url value='/report/anonymous/UpdateAjax'/>",
-			   		type:"post",
-			   		dataType:"text",
-			   		data:"reportNo="+$('#reportNo').val(),
-			   		success:function(res){
-			   			alert(res);
-			   			opener.location.reload();
-			   			window.close();
-			    	},error:function(xhr, status, error){
-			    		alert(status+" : "+error);
-			   		}
-			   	});
-    		});
-    		
-    		$('#statusPostpone').click(function(){
-	    		$.ajax({
-			    	url:"<c:url value='/report/anonymous/statusPostponeAjax'/>",
-			   		type:"post",
-			   		dataType:"text",
-			   		data:"reportNo="+$('#reportNo').val(),
-			   		success:function(res){
-			   			alert(res);
-			   			opener.location.reload();
-			   			window.close();
-			    	},error:function(xhr, status, error){
-			    		alert(status+" : "+error);
-			   		}
-			   	});
-    		});
-    		
-    		$('#close').click(function(){
-		    	window.close();
-    		});
-		});
-    </script>
+	<script src="<c:url value='/js/adminAnonymous.js'/>"></script>
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -75,19 +34,19 @@
 	<div class="row gx-2 m-5">
 		<div class="col-sm-12 ">
 			<div class="row gx-2 mb-3" style="float: right;">
-			<c:if test="${reportMap['REPORT_STATUS']==0}">
-				<div class="col-auto" align="center">
-					<button class="btn btn-primary" id="statusUpdate">신고처리</button>
-				</div>
-				<div class="col-auto" align="center">
-					<button class="btn btn-primary" id="statusPostpone">신고보류</button>
-				</div>
-			</c:if>
-			<c:if test="${reportMap['REPORT_STATUS']==2}">
-				<div class="col-auto" align="center">
-					<button class="btn btn-primary" id="statusUpdate">신고처리</button>
-				</div>
-			</c:if>
+				<c:if test="${reportMap['REPORT_STATUS']==0}">
+					<div class="col-auto" align="center">
+						<button class="btn btn-primary" id="statusUpdate">신고처리</button>
+					</div>
+					<div class="col-auto" align="center">
+						<button class="btn btn-primary" id="statusPostpone">신고보류</button>
+					</div>
+				</c:if>
+				<c:if test="${reportMap['REPORT_STATUS']==2}">
+					<div class="col-auto" align="center">
+						<button class="btn btn-primary" id="statusUpdate">신고처리</button>
+					</div>
+				</c:if>
 				<div class="col-auto" align="center">
 					<button class="btn btn-primary" id="close">닫기</button>
 				</div>
@@ -116,7 +75,6 @@
 			            	신고일
 			            </label><br>
 			            <fmt:formatDate value="${reportMap['REPORT_DATE'] }" pattern="yy-MM-dd HH:mm"/>
-			            
 					</div>
 					<div class="col-12 mb-3">
 						<label class="form-label mb-2">
@@ -142,18 +100,18 @@
 			            ${reportMap['CONTENT'] }
 					</div>
 			        <c:if test="${!empty commentMap }">
-					<div class="col-12 mb-3">
-						<label class="form-label mb-2">
-			            	댓글 작성자
-			            </label><br>
-			            ${commentMap['NAME'] }
-					</div>
-					<div class="col-12 mb-3">
-						<label class="form-label mb-2">
-			            	댓글 내용
-			            </label><br>
-			  	  	    	${reportMap['COMMENT_CONTENT'] }
-					</div>
+						<div class="col-12 mb-3">
+							<label class="form-label mb-2">
+				            	댓글 작성자
+				            </label><br>
+				            ${commentMap['NAME'] }
+						</div>
+						<div class="col-12 mb-3">
+							<label class="form-label mb-2">
+				            	댓글 내용
+				            </label><br>
+				  	  	    	${reportMap['COMMENT_CONTENT'] }
+						</div>
 			        </c:if>
 				</div>		
 			</div>		
