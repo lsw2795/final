@@ -110,7 +110,7 @@
                         <input class="form-control" id="memLimit" name="memLimit" type="text"/>
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="form-label" for="title"><strong>동호희 이름</strong></label>
+                        <label class="form-label" for="title"><strong>동호회 이름</strong></label>
                         <input class="form-control" id="title" name="title" type="text" placeholder="Club Title" />
                       </div>
                       <div class="col-12 mb-3">

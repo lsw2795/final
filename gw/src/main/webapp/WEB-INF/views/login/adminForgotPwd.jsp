@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<!-- 관리자 비밀번호 찾기
+	-LoginController
+--> 
 <html data-bs-theme="light" lang="en-US" dir="ltr">
 <!-- ===============================================-->
     <!--    Document Title-->
@@ -67,7 +70,6 @@
           }
           
           /* 비번찾기 ajax */
-          
           $(function(){
         	  
         	  $('#btnSend').click(function() {
