@@ -1,0 +1,530 @@
+package com.ez.herb.common;
+
+
+/**
+ * 검색 정보를 담고있는 Bean
+ * 페이징 처리 관련 변수 포함
+*/
+
+public class SearchVO {
+	/** 검색조건 */
+	private String searchCondition = "";
+	
+	/** 검색키워드 */
+	private String searchKeyword = "";
+    
+	/** 검색 사용여부 */
+	private String searchUseYn = "";
+	
+	/** 현재 페이지 */
+	private int currentPage = 1;
+	
+    
+    /**블럭당 보여질 페이지 수,  페이지 사이즈 */
+    private int blockSize; // properties에서 설정
+    
+    /** 시작 인덱스 */
+    private int firstRecordIndex = 1;
+    
+    /** 끝 인덱스 */
+    private int lastRecordIndex = 1;
+    
+    /**페이지 별 레코드 갯수 (pageSize) */
+    private int recordCountPerPage; 
+    
+   /**
+     * 검색 조건을  설정한다.
+     * @param bean 검색조건
+     */
+    public void setSearchVO(SearchVO bean){
+    	this.currentPage = bean.currentPage;
+    	this.searchCondition = bean.getSearchCondition();
+    	this.searchKeyword = bean.getSearchKeyword();
+    	this.searchUseYn = bean.getSearchUseYn();
+    	this.blockSize = bean.blockSize;
+    	this.firstRecordIndex = bean.firstRecordIndex;
+    	this.lastRecordIndex = bean.lastRecordIndex;
+    	this.recordCountPerPage = bean.recordCountPerPage;
+    }
+
+    public String getSearchCondition() {
+    	return searchCondition;
+    }
+
+    public void setSearchCondition(String searchCondition) {
+    	this.searchCondition = searchCondition;
+    }
+
+    public String getSearchKeyword() {
+    	return searchKeyword;
+    }
+
+    public void setSearchKeyword(String searchKeyword) {
+    	this.searchKeyword = searchKeyword;
+    }
+
+    public String getSearchUseYn() {
+    	return searchUseYn;
+    }
+
+    public void setSearchUseYn(String searchUseYn) {
+    	this.searchUseYn = searchUseYn;
+    }
+
+    public int getCurrentPage() {
+    	return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+    	this.currentPage = currentPage;
+    }
+
+    public int getBlockSize() {
+    	return blockSize;
+    }
+
+    public void setBlockSize(int blockSize) {
+    	this.blockSize = blockSize;
+    }
+
+    public int getFirstRecordIndex() {
+    	return firstRecordIndex;
+    }
+
+    public void setFirstRecordIndex(int firstRecordIndex) {
+    	this.firstRecordIndex = firstRecordIndex;
+    }
+
+    public int getLastRecordIndex() {
+    	return lastRecordIndex;
+    }
+
+    public void setLastRecordIndex(int lastRecordIndex) {
+    	this.lastRecordIndex = lastRecordIndex;
+    }
+
+    
+	public int getRecordCountPerPage() {
+		return recordCountPerPage;
+	}
+
+	public void setRecordCountPerPage(int recordCountPerPage) {
+		this.recordCountPerPage = recordCountPerPage;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchVO [searchCondition=" + searchCondition
+				+ ", searchKeyword=" + searchKeyword + ", searchUseYn="
+				+ searchUseYn + ", currentPage=" + currentPage
+				+ ", blockSize=" + blockSize + ", firstRecordIndex="
+				+ firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
+				+ ", recordCountPerPage=" + recordCountPerPage + "]";
+	}
+
+	
+
+	
+}
+ 
+
+-----------------------------------------------------------
+
+package com.ez.herb.common;
+
+public class PaginationInfo {
+	/**
+	 * Required Fields
+	  	currentPage : 현재 페이지
+		recordCountPerPage : 페이지당 보여질 레코드수
+		blockSize : 블럭당 보여질 페이지 수
+		totalRecord : totalRecord 총 레코드 수
+	 * */
+	private int currentPage; //현재 페이지
+	private int recordCountPerPage;  //pageSize 페이지당 보여질 레코드수
+	private int blockSize; //블럭당 보여질 페이지 수
+	private int totalRecord; //총 레코드 수
+	
+	public int getRecordCountPerPage() {
+		return recordCountPerPage;
+	}
+	
+	public void setRecordCountPerPage(int recordCountPerPage) {
+		this.recordCountPerPage = recordCountPerPage;
+	}
+	
+	public int getBlockSize() {
+		return blockSize;
+	}
+	
+	public void setBlockSize(int blockSize) {
+		this.blockSize = blockSize;
+	}
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	
+	public void setTotalRecord(int totalRecord) {
+		this.totalRecord = totalRecord;
+	}
+	
+	public int getTotalRecord() {
+		return totalRecord;
+	}
+	
+	/**
+	 * Not Required Fields
+	 * 
+	 */	
+	private int totalPage;  //총 페이지수
+	private int firstPage;  //블럭당 시작 페이지, 1, 11, 21, 31, ...
+	private int lastPage; //블럭당 마지막 페이지 10, 20, 30, 40, ...
+	private int firstRecordIndex; //curPos, 페이지당 시작 인덱스 0, 5, 10, 15 ...
+	
+	private int lastRecordIndex;  //페이지당 마지막 인덱스	5,10,15,20....
+	  
+	public int getTotalPage() {
+		totalPage=(int)Math.ceil((float)totalRecord/recordCountPerPage);
+		//totalPage = ((getTotalRecord()-1)/getRecordCountPerPage()) + 1;
+		
+		return totalPage;
+	}
+		
+	
+	public int getFirstPage() {
+		firstPage= currentPage-((currentPage-1)%blockSize);
+		//firstPage = ((getCurrentPage()-1)/getBlockSize())*getBlockSize() + 1;
+		return firstPage;
+	}
+	
+	public int getLastPage() {		
+		lastPage = firstPage+(blockSize-1);
+		//lastPage = getFirstPage() + getBlockSize() - 1;		
+		if(lastPage > getTotalPage()){
+			lastPage = getTotalPage();
+		}
+		return lastPage;
+	}
+
+	public int getFirstRecordIndex() {
+		//curPos=(currentPage-1)*pageSize;
+		firstRecordIndex = (getCurrentPage() - 1) * getRecordCountPerPage();
+		return firstRecordIndex;
+	}
+
+	public int getLastRecordIndex() {
+		lastRecordIndex = getCurrentPage() * getRecordCountPerPage();
+		return lastRecordIndex;
+	}	
+}
+----------------------------------------
+
+package com.ez.herb.common;
+
+public interface ConstUtil {
+	//게시판 페이징 처리 관련 상수
+	public static final int RECODE_COUNT=5;
+	int BLOCK_SIZE=10; //public static final 생략됨
+	
+	
+}
+-------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ez.herb.board.model.BoardDAO">
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword!=null and searchKeyword!=''">
+       	 		${searchCondition} LIKE '%'|| #{searchKeyword} ||'%'
+        	</if>
+        </where>
+	</sql>
+
+	<insert id="insertBoard" parameterType="boardVo">
+		<selectKey keyProperty="no" order="BEFORE" resultType="int">
+			SELECT BOARD_SEQ.NEXTVAL FROM DUAL 		
+		</selectKey>
+		INSERT INTO BOARD(NO, NAME, PWD, TITLE, EMAIL, CONTENT)
+		VALUES(#{no}, #{name}, #{pwd}, #{title}, #{email}, #{content})
+	</insert>
+	<select id="selectAll" parameterType="searchVo" resultType="boardVo">
+		SELECT *
+		FROM
+		(
+		    SELECT ROWNUM AS RNUM, A.*
+		    FROM
+		    (
+		        SELECT * FROM BOARD 
+		        <include refid="searchWhere"></include>
+		        ORDER BY NO DESC
+		    )A
+		)
+		<![CDATA[
+		WHERE RNUM > #{firstRecordIndex} 
+		AND RNUM <= #{firstRecordIndex}+ #{recordCountPerPage}]]>
+
+		/// RNUM > 0 AND RNUM <= 0+5 /// RNUM > 5 AND RNUM <= 5+5
+		/// RNUM > 10 AND RNUM <= 10+5
+	</select>
+
+	<select id="getTotalRecord" parameterType="searchVo" resultType="int">
+		SELECT COUNT(*) FROM BOARD 
+        <include refid="searchWhere"></include>
+	</select>
+
+
+</mapper>
+
+-----------------------------------------------
+
+package com.ez.herb.board.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ez.herb.board.model.BoardService;
+import com.ez.herb.board.model.BoardVO;
+import com.ez.herb.common.ConstUtil;
+import com.ez.herb.common.PaginationInfo;
+import com.ez.herb.common.SearchVO;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequestMapping("/board")
+@RequiredArgsConstructor
+public class BoardController {
+	private static final Logger logger=LoggerFactory.getLogger(BoardController.class);
+	
+	private final BoardService boardService;
+
+	@GetMapping("/write")
+	public String write_get() {
+		logger.info("글쓰기 화면 보여주기");
+		
+		return "board/write";
+		
+		//http://localhost:9091/herb/board/write
+	}
+	
+	@PostMapping("/write")
+	public String write_post(@ModelAttribute BoardVO vo) {
+		//1
+		logger.info("글쓰기 처리, 파라미터 vo={}", vo);
+		//2
+		int cnt=boardService.insertBoard(vo);
+		logger.info("글쓰기 처리 결과, cnt={}", cnt);
+		
+		//3 결과저장
+		//4 뷰페이지 리턴
+		return "redirect:/board/list";
+	}
+	
+	@RequestMapping("/list")
+	public String list(@ModelAttribute SearchVO searchVo, Model model) {
+		//1
+		logger.info("글 목록 파라미터, searchVo={}",searchVo);
+		//2
+			//[1] PaginationInfo 객체 생성
+			PaginationInfo pagingInfo=new PaginationInfo();
+			pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+			pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+			pagingInfo.setRecordCountPerPage(ConstUtil.RECODE_COUNT);
+		
+			//[2] SearchVo에 입력되지 않은 두 개의 변수에 값 셋팅
+			searchVo.setRecordCountPerPage(ConstUtil.RECODE_COUNT);
+			searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+			List<BoardVO> list=boardService.selectAll(searchVo);
+			logger.info("글 목록 전체 조회결과, list.size={}",list.size());
+		
+			int totalRecord=boardService.getTotalRecord(searchVo);
+			logger.info("글 목록 전체 조회, totalRecord={}", totalRecord);
+			pagingInfo.setTotalRecord(totalRecord);
+			
+		//3
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		//4
+		return "/board/list";
+	}
+	
+}
+----------------------------------------------------
+
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<title>자유게시판 글 목록 - 허브몰</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/mainstyle.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/clear.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/formLayout.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/mystyle.css'/>" />
+<script type="text/javascript" src="<c:url value='/js/jquery-3.7.0.min.js'/>"></script>
+<script type="text/javascript">	
+	$(function(){
+		$('tr:gt(0)').each(function(index,item){
+			$(this).mouseenter(function(){
+				$(this).css('background','yellow');
+			}).mouseleave(function(){
+				$(this).css('background','');
+			});
+		});		
+	});
+	
+	function pageFunc(curPage){
+		$("input[name='currentPage']").val(curPage);
+		$("form[name='frmPage']").submit();
+	}
+	
+	
+</script>
+<style type="text/css">
+	body{
+		padding:5px;
+		margin:5px;
+	 }	
+</style>	
+</head>	
+<body>
+
+<!-- 페이징 처리 관련 form -->
+<!-- board/list.do?currentPage=5&searchKeyword=gil&searchCondition=name -->
+<form action="<c:url value='/board/list'/>" name="frmPage" method="post">
+	<input type="text" name="currentPage">
+	<input type="text" name="searchKeyword" value="${param.searchKeyword }">
+	<input type="text" name="searchCondition" value="${param.searchCondition }">
+</form>
+<h2>자유게시판</h2>
+<div>
+	<c:if test="${!empty param.searchKeyword }">
+		<p>검색어 :${param.searchKeyword }, ${pagingInfo.totalRecord }건 검색되었습니다.</p>
+	</c:if>
+</div>
+
+<div class="divList">
+<table class="box2"
+	 	summary="기본 게시판에 관한 표로써, 번호, 제목, 작성자, 작성일, 조회수에 대한 정보를 제공합니다.">
+	<caption>기본 게시판</caption>
+	<colgroup>
+		<col style="width:10%;" />
+		<col style="width:50%;" />
+		<col style="width:15%;" />
+		<col style="width:15%;" />
+		<col style="width:10%;" />		
+	</colgroup>
+	<thead>
+	  <tr>
+	    <th scope="col">번호</th>
+	    <th scope="col">제목</th>
+	    <th scope="col">작성자</th>
+	    <th scope="col">작성일</th>
+	    <th scope="col">조회수</th>
+	  </tr>
+	</thead> 
+	<tbody> 
+	<c:if test="${empty list }">
+		<tr>
+		<td colspan="5" class="align_center">글이 존재하지 않습니다.</td>
+		</tr>
+	</c:if>
+	<c:if test="${!empty list }">
+	    <!--게시판 내용 반복문 시작  -->		
+	    <c:forEach var="vo" items="${list }">
+			<tr  style="text-align:center">
+				<td>${vo.no }</td>
+				<td style="text-align:left">
+					<a href="<c:url value='/board/countUpdate?no=${vo.no }'/>">${vo.title }</a>
+				</td>
+				<td>${vo.name }</td>
+				<td><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd" /></td>
+				<td>${vo.readcount }</td>		
+			</tr>
+		</c:forEach>
+	    <!--반복처리 끝  -->
+	  </c:if>
+	  </tbody>
+</table>	   
+</div>
+<div class="divPage">
+	<!-- 페이지 번호 추가 -->
+	<!-- 이전 블럭으로 이동 -->		
+	<c:if test="${pagingInfo.firstPage>1 }">
+		<a href="<c:url value='/board/list?currentPage=${pagingInfo.firstPage-1}&searchKeyword=${param.searchKeyword }&searchCondition=${param.searchCondition }'/>">
+			<img src="<c:url value='/images/first.JPG'/>">
+		</a>
+	</c:if>				
+						
+	<!-- [1][2][3][4][5][6][7][8][9][10] -->
+	<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+		<c:if test="${i==pagingInfo.currentPage}" >
+		<span style="color: blue;
+		 			font-weight: bold;
+		 			font-size: 14px">${i }</span>
+		 </c:if>			
+		 <c:if test="${i !=pagingInfo.currentPage }">
+			<a href="#" onclick="pageFunc(${i})">[${i }]</a>
+		 </c:if>
+	 </c:forEach>
+
+	<!-- 다음 블럭으로 이동 -->		
+	<c:if test="${pagingInfo.lastPage< pagingInfo.totalPage}">
+		<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+			<img src="<c:url value='/images/last.JPG'/>">
+		</a>
+	</c:if>			
+	<!--  페이지 번호 끝 -->
+</div>
+<div class="divSearch">
+   	<form name="frmSearch" method="post" action="<c:url value='/board/list'/>">
+        <select name="searchCondition">
+        <option value="title"
+			<c:if test="${param.searchCondition=='title' }">
+				 selected="selected"
+			</c:if>
+				>제목</option>
+			<option value="content" 
+			<c:if test="${param.searchCondition=='content' }">
+				selected="selected"
+			</c:if>
+				>내용</option>
+			<option value="name" 	
+			<c:if test="${param.searchCondition=='name' }">
+				selected="selected"
+			</c:if>
+				>작성자</option>
+        </select>   
+        <input type="text" name="searchKeyword" title="검색어 입력" 
+        	value="${param.searchKeyword }">   
+		<input type="submit" value="검색">
+    </form>
+</div>
+
+<div class="divBtn">
+    <a href="<c:url value='/board/write'/>">글쓰기</a>
+</div>
+
+</body>
+</html>
+
